@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3fpv-54ff-wqfj",
+    "cve":  "CVE-2021-23592",
+    "cwe":  "CWE-502",
+    "repo":  "top-think/framework",
+    "sha":  "d3b5aeae94bc71bae97977d05cd12c3e0550905c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/think/cache/Driver.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/think/cache/Driver.php"
+                    ],
+    "sink_hit":  true
+}

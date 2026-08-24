@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-7q44-r25x-wm4q",
+    "cve":  "CVE-2021-34551",
+    "cwe":  "CWE-434",
+    "repo":  "PHPMailer/PHPMailer",
+    "sha":  "acd264bf17ff4ac5c915f0d4226dce8a9ea70bc3",
+    "status":  "ok",
+    "changed_php":  [
+                        "language/phpmailer.lang-ar.php",
+                        "src/PHPMailer.php",
+                        "src/POP3.php",
+                        "src/SMTP.php",
+                        "test/PHPMailerLangTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "test/PHPMailerLangTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "SECURITY.md",
+                        "VERSION",
+                        "changelog.md",
+                        "language/phpmailer.lang-ar.php",
+                        "src/PHPMailer.php",
+                        "src/POP3.php",
+                        "src/SMTP.php",
+                        "test/PHPMailerLangTest.php"
+                    ],
+    "sink_hit":  false
+}

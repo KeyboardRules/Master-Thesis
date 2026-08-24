@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-v45m-hxqp-fwf5",
+    "cve":  "CVE-2024-35191",
+    "cwe":  "CWE-1336",
+    "repo":  "verbb/formie",
+    "fix_commit":  "90296edf7e707f117e760aa57e70dbd43a854420",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/base/PluginTrait.php",
+                        "src/base/Webhook.php",
+                        "src/controllers/FormsController.php",
+                        "src/controllers/SubmissionsController.php",
+                        "src/elements/Submission.php",
+                        "src/fields/formfields/Hidden.php",
+                        "src/gql/resolvers/mutations/SubmissionResolver.php",
+                        "src/helpers/Variables.php",
+                        "src/services/Emails.php",
+                        "src/services/Rendering.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "src/base/Webhook.php class extends Integration",
+                     "src/controllers/FormsController.php class extends Controller",
+                     "src/controllers/SubmissionsController.php class extends Controller",
+                     "src/elements/Submission.php class extends Element",
+                     "src/fields/formfields/Hidden.php class extends FormField",
+                     "src/gql/resolvers/mutations/SubmissionResolver.php class extends ElementMutationResolver",
+                     "src/services/Emails.php class extends Component",
+                     "src/services/Rendering.php class extends Component"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

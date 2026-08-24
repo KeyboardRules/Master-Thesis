@@ -1,0 +1,86 @@
+﻿diff --git a/lang/en/repository.php b/lang/en/repository.php
+index a978f52bbf..3b67454929 100644
+--- a/lang/en/repository.php
++++ b/lang/en/repository.php
+@@ -166,6 +166,7 @@ $string['manage'] = 'Manage repositories';
+ $string['manageinstances'] = 'Manage instances';
+ $string['manageurl'] = 'Manage';
+ $string['manageuserrepository'] = 'Manage individual repository';
++$string['missingsourcekey'] = 'The source key is missing. This key must also be provided to retrieve the file.';
+ $string['moving'] = 'Moving';
+ $string['name'] = 'Name';
+ $string['newfolder'] = 'New folder';
+@@ -222,6 +223,7 @@ $string['setmainfile'] = 'Set main file';
+ $string['setmainfile_help'] = 'If there are multiple files in the folder, the main file is the one that appears on the view page. Other files such as images or videos may be embedded in it. In filemanager the main file is indicated with a title in bold.';
+ $string['siteinstances'] = 'Repositories instances of the site';
+ $string['size'] = 'Size';
++$string['sourcekeymismatch'] = 'The source url does not match the sourcekey.';
+ $string['submit'] = 'Submit';
+ $string['sync'] = 'Sync';
+ $string['syncfiletimeout'] = 'Sync file timeout';
+diff --git a/repository/lib.php b/repository/lib.php
+index 9597665735..eddb0c6a8b 100644
+--- a/repository/lib.php
++++ b/repository/lib.php
+@@ -2231,6 +2231,11 @@ abstract class repository implements cacheable_object {
+                 $file =& $list[$i];
+                 $converttoobject = false;
+             }
++
++            if (isset($file['source'])) {
++                $file['sourcekey'] = sha1($file['source'] . self::get_secret_key() . sesskey());
++            }
++
+             if (isset($file['size'])) {
+                 $file['size'] = (int)$file['size'];
+                 $file['size_f'] = display_size($file['size']);
+@@ -2837,6 +2842,20 @@ abstract class repository implements cacheable_object {
+         debugging('The method repository::uses_post_requests() is deprecated and must not be used anymore.', DEBUG_DEVELOPER);
+         return false;
+     }
++
++    /**
++     * Generate a secret key to be used for passing sensitive information around.
++     *
++     * @return string repository secret key.
++     */
++    final static public function get_secret_key() {
++        global $CFG;
++
++        if (!isset($CFG->reposecretkey)) {
++            set_config('reposecretkey', time() . random_string(32));
++        }
++        return $CFG->reposecretkey;
++    }
+ }
+ 
+ /**
+diff --git a/repository/repository_ajax.php b/repository/repository_ajax.php
+index 726486a8e4..285bc4f6fb 100644
+--- a/repository/repository_ajax.php
++++ b/repository/repository_ajax.php
+@@ -40,6 +40,7 @@ $env       = optional_param('env', 'filepicker', PARAM_ALPHA);  // Opened in edi
+ $license   = optional_param('license', $CFG->sitedefaultlicense, PARAM_TEXT);
+ $author    = optional_param('author', '', PARAM_TEXT);          // File author
+ $source    = optional_param('source', '', PARAM_RAW);           // File to download
++$sourcekey = optional_param('sourcekey', '', PARAM_RAW);        // Used to verify the source.
+ $itemid    = optional_param('itemid', 0, PARAM_INT);            // Itemid
+ $page      = optional_param('page', '', PARAM_RAW);             // Page
+ $maxbytes  = optional_param('maxbytes', 0, PARAM_INT);          // Maxbytes
+@@ -158,6 +159,16 @@ switch ($action) {
+         // allow external links in url element all the time
+         $allowexternallink = ($allowexternallink || ($env == 'url'));
+ 
++        // Validate the sourcekey.
++        if (empty($sourcekey)) {
++            throw new moodle_exception('missingsourcekey', 'repository');
++        }
++
++        // Check that the sourcekey matches.
++        if (sha1($source . repository::get_secret_key() . sesskey()) !== $sourcekey) {
++            throw new moodle_exception('sourcekeymismatch', 'repository');
++        }
++
+         $reference = $repo->get_file_reference($source);
+ 
+         // Use link of the files

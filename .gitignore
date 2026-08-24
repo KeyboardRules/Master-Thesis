@@ -1,0 +1,26 @@
+# heavy / regenerable artifacts (not needed to pull and redo Phase 2)
+build/pkg/
+build/repos/
+build/packagist/
+build/packagist_all.zip
+build/ft_dataset.jsonl
+build/phase2_state.json
+build/perturbed/
+
+# any zip archives
+*.zip
+
+# archives / junk
+*.rar
+*.tgz
+*.stackdump
+
+# python / venv
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# neo4j (installed per-machine, not committed)
+neo4j-community-*/
+example/

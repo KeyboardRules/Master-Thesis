@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-fr47-r224-c36m",
+    "cve":  "CVE-2019-16172",
+    "cwe":  "CWE-79",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "sha":  "32d6a5224327b246ee3a2a08500544e4f80f9a9a",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/controllers/admin/SurveysGroupsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/controllers/admin/SurveysGroupsController.php class extends Survey_Common_Action",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "application/controllers/admin/SurveysGroupsController.php"
+                    ],
+    "sink_hit":  true
+}

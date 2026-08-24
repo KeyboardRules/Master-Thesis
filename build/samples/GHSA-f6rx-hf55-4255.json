@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-f6rx-hf55-4255",
+    "cve":  "CVE-2025-47778",
+    "cwe":  "CWE-611",
+    "repo":  "sulu/sulu",
+    "sha":  "02f52fca04eb9495b9b4a0c5cc64cf23bc27f544",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgFileInspector.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/FileInspector/SvgFileInspectorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Sulu/Bundle/MediaBundle/Tests/Unit/FileInspector/SvgFileInspectorTest.php class extends TestCase",
+                     "src/Sulu/Bundle/MediaBundle/Tests/Unit/FileInspector/SvgFileInspectorTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgFileInspector.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/FileInspector/SvgFileInspectorTest.php"
+                    ],
+    "sink_hit":  true
+}

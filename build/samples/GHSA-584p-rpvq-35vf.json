@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-584p-rpvq-35vf",
+    "cve":  "CVE-2026-33770",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "sha":  "994cc2b3d802b819e07e6088338e8bf4e484aae4",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/category.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "objects/category.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "objects/category.php"
+                    ],
+    "sink_hit":  false
+}

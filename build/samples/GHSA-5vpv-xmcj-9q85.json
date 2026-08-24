@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5vpv-xmcj-9q85",
+    "cve":  "CVE-2021-41143",
+    "cwe":  "CWE-22",
+    "repo":  "OpenMage/magento-lts",
+    "sha":  "45330ff50439984e806992fa22c3f96c4d660f91",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php class extends Varien_Object"
+                 ],
+    "changed_all":  [
+                        "app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php"
+                    ],
+    "sink_hit":  true
+}

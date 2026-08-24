@@ -1,0 +1,48 @@
+﻿diff --git a/includes/html/api_functions.inc.php b/includes/html/api_functions.inc.php
+index 62cfe485..e0a15d57 100644
+--- a/includes/html/api_functions.inc.php
++++ b/includes/html/api_functions.inc.php
+@@ -1472,7 +1472,7 @@ function add_edit_rule(Illuminate\Http\Request $request)
+         return api_error(400, 'Missing the alert builder rule');
+     }
+ 
+-    $name = $data['name'];
++    $name = strip_tags((string) $data['name']);
+     if (empty($name)) {
+         return api_error(400, 'Missing the alert rule name');
+     }
+@@ -1498,7 +1498,7 @@ function add_edit_rule(Illuminate\Http\Request $request)
+     $interval = $data['interval'];
+     $override_query = $data['override_query'];
+     $adv_query = $data['adv_query'];
+-    $notes = $data['notes'];
++    $notes = strip_tags((string) $data['notes']);
+     $delay_sec = convert_delay($delay);
+     $interval_sec = convert_delay($interval);
+     if ($mute == 1) {
+diff --git a/includes/html/modal/alert_rule_list.inc.php b/includes/html/modal/alert_rule_list.inc.php
+index 0a04918c..d6bfa43c 100644
+--- a/includes/html/modal/alert_rule_list.inc.php
++++ b/includes/html/modal/alert_rule_list.inc.php
+@@ -59,7 +59,7 @@ if (! Auth::user()->hasGlobalAdmin()) {
+                             }
+                             echo "
+                                 <tr>
+-                                    <td>" . e($rule['name']) . "</td>
++                                    <td>" . e(strip_tags((string)$rule['name'])) . "</td>
+                                     <td><i>" . e($rule_display) . "</i></td>
+                                     <td>{$rule['severity']}</td>
+                                     <td>{$rule['id']}</td>
+diff --git a/includes/html/print-alert-rules.php b/includes/html/print-alert-rules.php
+index a0119a76..377feaf6 100644
+--- a/includes/html/print-alert-rules.php
++++ b/includes/html/print-alert-rules.php
+@@ -263,7 +263,7 @@ foreach ($rule_list as $rule) {
+ 
+     // Name
+ 
+-    echo '<td><a href="' . url('alerts/rule_id='.$rule['id']) .'" data-container="body" data-toggle="popover" data-placement="right" data-content="View active alerts for this rule" target="_blank">' . htmlentities((string) $rule['name']) . '</a></td>';
++    echo '<td><a href="' . url('alerts/rule_id='.$rule['id']) .'" data-container="body" data-toggle="popover" data-placement="right" data-content="View active alerts for this rule" target="_blank">' . e(strip_tags((string) $rule['name']), true) . '</a></td>';
+ 
+     // Devices (and Groups)
+ 

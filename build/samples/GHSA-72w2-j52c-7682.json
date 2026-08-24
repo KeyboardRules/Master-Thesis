@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-72w2-j52c-7682",
+    "cve":  "CVE-2023-28329",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "sha":  "81e74af17f419f7910f81279efecf5c7af09f38d",
+    "status":  "ok",
+    "changed_php":  [
+                        "availability/condition/profile/classes/condition.php",
+                        "availability/condition/profile/classes/frontend.php",
+                        "availability/condition/profile/lang/en/availability_profile.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "availability/condition/profile/classes/condition.php includes 2 project file(s)",
+                     "availability/condition/profile/classes/condition.php class extends \\core_availability\\condition",
+                     "availability/condition/profile/classes/frontend.php class extends \\core_availability\\frontend"
+                 ],
+    "changed_all":  [
+                        "availability/condition/profile/classes/condition.php",
+                        "availability/condition/profile/classes/frontend.php",
+                        "availability/condition/profile/lang/en/availability_profile.php"
+                    ],
+    "sink_hit":  false
+}

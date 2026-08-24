@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7hqr-j26m-gmwp",
+    "cve":  "CVE-2019-10867",
+    "cwe":  "CWE-502",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "38a29e2f4f5f060a73974626952501cee05fda73",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php class extends AdminController",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

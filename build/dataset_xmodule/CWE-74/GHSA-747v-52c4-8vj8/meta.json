@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-747v-52c4-8vj8",
+    "cve":  "CVE-2024-28191",
+    "cwe":  "CWE-74",
+    "repo":  "contao/contao",
+    "fix_commit":  "388859dcf110ca70e0fae68a2a5579ab6a702919",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/library/Contao/Input.php",
+                        "core-bundle/src/String/SimpleTokenParser.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core-bundle/src/String/SimpleTokenParser.php class uses trait",
+                     "core-bundle/tests/String/SimpleTokenParserTest.php class extends TestCase",
+                     "core-bundle/tests/String/SimpleTokenParserTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

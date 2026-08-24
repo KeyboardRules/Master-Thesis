@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xcq3-7pf3-5jvc",
+    "cve":  "CVE-2023-4195",
+    "cwe":  "CWE-98",
+    "repo":  "cockpit-hq/cockpit",
+    "sha":  "800c05f1984db291769ffa5fdfb1d3e50968e95b",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/Assets/bootstrap.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "modules/Assets/bootstrap.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "modules/Assets/bootstrap.php"
+                    ],
+    "sink_hit":  true
+}

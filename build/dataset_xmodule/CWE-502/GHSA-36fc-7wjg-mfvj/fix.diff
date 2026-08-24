@@ -1,0 +1,122 @@
+﻿diff --git a/lib/Tool/Serialize.php b/lib/Tool/Serialize.php
+index 1b46d303d5..21f57ad45a 100644
+--- a/lib/Tool/Serialize.php
++++ b/lib/Tool/Serialize.php
+@@ -26,13 +26,15 @@ final class Serialize
+         return serialize($data);
+     }
+ 
+-    public static function unserialize(?string $data = null): mixed
++    public static function unserialize(?string $data = null, array|bool $allowedClasses = true): mixed
+     {
+-        if ($data) {
+-            $data = unserialize($data);
++        if ($data === null || $data === '') {
++            return $data;
+         }
+ 
+-        return $data;
++        return unserialize($data, [
++            'allowed_classes' => $allowedClasses,
++        ]);
+     }
+ 
+     /**
+diff --git a/models/Asset/WebDAV/Service.php b/models/Asset/WebDAV/Service.php
+index a86bf520d1..c3c8e3c388 100644
+--- a/models/Asset/WebDAV/Service.php
++++ b/models/Asset/WebDAV/Service.php
+@@ -30,7 +30,11 @@ class Service
+     {
+         $log = [];
+         if (file_exists(self::getDeleteLogFile())) {
+-            $log = unserialize(file_get_contents(self::getDeleteLogFile()));
++            $raw = file_get_contents(self::getDeleteLogFile());
++            if (is_string($raw)) {
++                $log = unserialize($raw, ['allowed_classes' => [Asset::class]]);
++            }
++
+             if (!is_array($log)) {
+                 $log = [];
+             } else {
+diff --git a/models/Asset/WebDAV/Tree.php b/models/Asset/WebDAV/Tree.php
+index 43d98eb20a..eb708efe64 100644
+--- a/models/Asset/WebDAV/Tree.php
++++ b/models/Asset/WebDAV/Tree.php
+@@ -17,6 +17,7 @@ use Exception;
+ use Pimcore\Logger;
+ use Pimcore\Model\Asset;
+ use Pimcore\Model\Element;
++use Pimcore\Tool\Serialize;
+ use Sabre\DAV;
+ 
+ /**
+@@ -54,7 +55,7 @@ class Tree extends DAV\Tree
+                 // see: Asset\WebDAV\File::delete() why this is necessary
+                 $log = Asset\WebDAV\Service::getDeleteLog();
+                 if (!$asset && array_key_exists('/' .$destinationPath, $log)) {
+-                    $asset = \Pimcore\Tool\Serialize::unserialize($log['/' .$destinationPath]['data']);
++                    $asset = Serialize::unserialize($log['/' . $destinationPath]['data'], false);
+                     if ($asset) {
+                         $sourceAsset = Asset::getByPath('/' . $sourcePath);
+                         $asset->setData($sourceAsset->getData());
+diff --git a/models/DataObject/ClassDefinition/CustomLayout/Dao.php b/models/DataObject/ClassDefinition/CustomLayout/Dao.php
+index b47a3ccd42..0feddca62f 100644
+--- a/models/DataObject/ClassDefinition/CustomLayout/Dao.php
++++ b/models/DataObject/ClassDefinition/CustomLayout/Dao.php
+@@ -63,7 +63,13 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
+             }
+ 
+             if ($data && is_string($data['layoutDefinitions'] ?? null)) {
+-                $data['layoutDefinitions'] = unserialize($data['layoutDefinitions']);
++                //Legacy fallback, see save() nested json_decode json_encode
++                $layoutDefinitions = \Pimcore\Tool\Serialize::unserialize($data['layoutDefinitions'], false);
++                if (is_array($layoutDefinitions)) {
++                    $data['layoutDefinitions'] = Model\DataObject\ClassDefinition\Service::generateLayoutTreeFromArray($layoutDefinitions, true);
++                } else {
++                    $data['layoutDefinitions'] = $layoutDefinitions;
++                }
+             } elseif (is_array($data['layoutDefinitions'] ?? null)) {
+                 $data['layoutDefinitions'] = Model\DataObject\ClassDefinition\Service::generateLayoutTreeFromArray($data['layoutDefinitions'], true);
+             }
+diff --git a/models/DataObject/ClassDefinition/Data/Table.php b/models/DataObject/ClassDefinition/Data/Table.php
+index 9937d40942..4b16e8e270 100644
+--- a/models/DataObject/ClassDefinition/Data/Table.php
++++ b/models/DataObject/ClassDefinition/Data/Table.php
+@@ -217,7 +217,7 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
+      */
+     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
+     {
+-        $unserializedData = Serialize::unserialize((string) $data);
++        $unserializedData = Serialize::unserialize((string) $data, false);
+ 
+         if ($data === null || empty($unserializedData)) {
+             return [];
+diff --git a/models/DataObject/Service.php b/models/DataObject/Service.php
+index 16774588f4..7388320a63 100644
+--- a/models/DataObject/Service.php
++++ b/models/DataObject/Service.php
+@@ -985,7 +985,7 @@ class Service extends Model\Element\Service
+     public static function getSuperLayoutDefinition(Concrete $object): mixed
+     {
+         $mainLayout = $object->getClass()->getLayoutDefinitions();
+-        $superLayout = unserialize(serialize($mainLayout));
++        $superLayout = self::cloneDefinition($mainLayout);
+ 
+         self::createSuperLayout($superLayout);
+ 
+diff --git a/models/Site/Dao.php b/models/Site/Dao.php
+index eaa526f9bb..f4eeb02c45 100644
+--- a/models/Site/Dao.php
++++ b/models/Site/Dao.php
+@@ -61,8 +61,8 @@ class Dao extends Model\Dao\AbstractDao
+             $sitesRaw = $this->db->fetchAllAssociative('SELECT id,domains FROM sites');
+             $wildcardDomains = [];
+             foreach ($sitesRaw as $site) {
+-                if (!empty($site['domains']) && strpos($site['domains'], '*')) {
+-                    $siteDomains = unserialize($site['domains']);
++                if (!empty($site['domains']) && strpos($site['domains'], '*') !== false) {
++                    $siteDomains = unserialize($site['domains'], ['allowed_classes' => false]);
+                     if (is_array($siteDomains) && count($siteDomains) > 0) {
+                         foreach ($siteDomains as $siteDomain) {
+                             if (str_contains($siteDomain, '*')) {

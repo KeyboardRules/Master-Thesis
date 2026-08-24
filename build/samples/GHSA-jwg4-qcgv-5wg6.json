@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jwg4-qcgv-5wg6",
+    "cve":  "CVE-2023-30850",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "7e32cc28145274ddfc30fb791012d26c1278bd38",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php"
+                    ],
+    "sink_hit":  true
+}

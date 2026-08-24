@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fc38-2254-48g7",
+    "cve":  "CVE-2024-47524",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "d3b51560a8e2343e520d16e9adc72c6951aa91ee",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/devices.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/pages/devices.inc.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/devices.inc.php"
+                    ],
+    "sink_hit":  true
+}

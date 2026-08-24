@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-x8xm-c7p8-2pj2",
+    "cve":  "CVE-2025-25197",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-elemental",
+    "sha":  "34ff4ed498ccab94cc5f55ef9a56c37f491eda1d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Reports/ElementsInUseReport.php",
+                        "tests/Reports/ElementsInUseReportTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Reports/ElementsInUseReport.php class extends Report",
+                     "tests/Reports/ElementsInUseReportTest.php class extends FunctionalTest"
+                 ],
+    "changed_all":  [
+                        "src/Reports/ElementsInUseReport.php",
+                        "tests/Reports/ElementsInUseReportTest.php"
+                    ],
+    "sink_hit":  false
+}

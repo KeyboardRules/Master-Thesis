@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gmh3-x5w7-jg5m",
+    "cve":  "CVE-2022-2353",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "79c6914bab8c9da07ac950fda17648d08c68b130",
+    "status":  "ok",
+    "changed_php":  [
+                        "userfiles/modules/microweber/toolbar/editor_tools/module_settings/index.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "userfiles/modules/microweber/toolbar/editor_tools/module_settings/index.php"
+                    ],
+    "sink_hit":  true
+}

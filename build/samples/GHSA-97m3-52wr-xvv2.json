@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-97m3-52wr-xvv2",
+    "cve":  "",
+    "cwe":  "CWE-502",
+    "repo":  "dompdf/php-svg-lib",
+    "sha":  "732faa9fb4309221e2bd9b2fda5de44f947133aa",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Svg/Tag/Image.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Svg/Tag/Image.php class extends AbstractTag"
+                 ],
+    "changed_all":  [
+                        "src/Svg/Tag/Image.php"
+                    ],
+    "sink_hit":  false
+}

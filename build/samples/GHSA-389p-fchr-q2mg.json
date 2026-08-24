@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-389p-fchr-q2mg",
+    "cve":  "CVE-2022-24977",
+    "cwe":  "CWE-22",
+    "repo":  "ImpressCMS/impresscms",
+    "sha":  "a66d7bb499faafab803e24833606028fa0ba4261",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/libraries/icms/ipf/Controller.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "htdocs/libraries/icms/ipf/Controller.php"
+                    ],
+    "sink_hit":  true
+}

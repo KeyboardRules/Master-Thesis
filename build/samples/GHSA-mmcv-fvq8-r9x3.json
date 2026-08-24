@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-mmcv-fvq8-r9x3",
+    "cve":  "",
+    "cwe":  "CWE-502",
+    "repo":  "symfony/symfony",
+    "sha":  "3e64d36cbdc34acaa82e0e6318112cd2eacb6fec",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Component/Serializer/Encoder/XmlEncoder.php",
+                        "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Symfony/Component/Serializer/Encoder/XmlEncoder.php class extends SerializerAwareEncoder",
+                     "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php includes 2 project file(s)",
+                     "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Component/Serializer/Encoder/XmlEncoder.php",
+                        "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php"
+                    ],
+    "sink_hit":  false
+}

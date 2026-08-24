@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-r7mm-jx6h-hv7m",
+    "cve":  "CVE-2023-2332",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "a4491551967d879141a3fdf0986a9dd3d891abfe",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/EcommerceFrameworkBundle/PricingManager/Condition/DateRange.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "bundles/EcommerceFrameworkBundle/PricingManager/Condition/DateRange.php",
+                        "bundles/EcommerceFrameworkBundle/Resources/public/js/pricing/config/item.js"
+                    ],
+    "sink_hit":  false
+}

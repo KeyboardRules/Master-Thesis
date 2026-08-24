@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fhcx-f7jg-jx3f",
+    "cve":  "CVE-2022-25774",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "e6d58de241b8c34126042dcb314d60eb5fc7b151",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/bundles/DashboardBundle/Controller/DashboardController.php"
+                    ],
+    "evidence":  [
+                     "app/bundles/DashboardBundle/Controller/DashboardController.php class extends AbstractFormController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

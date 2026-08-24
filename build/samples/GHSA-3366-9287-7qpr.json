@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3366-9287-7qpr",
+    "cve":  "CVE-2024-26129",
+    "cwe":  "CWE-22",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "444bd0dea581659918fe2067541b9863cf099dd5",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/controller/FrontController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "classes/controller/FrontController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "classes/controller/FrontController.php"
+                    ],
+    "sink_hit":  true
+}

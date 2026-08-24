@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7pr4-wx9w-mqwr",
+    "cve":  "CVE-2026-25491",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "cfd6ba0e2ce1a59a02d75cae6558c4ace1ab8bd4",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/services/Entries.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/services/Entries.php class extends Component"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/services/Entries.php"
+                    ],
+    "sink_hit":  false
+}

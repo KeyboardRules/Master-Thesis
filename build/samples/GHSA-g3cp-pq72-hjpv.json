@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-g3cp-pq72-hjpv",
+    "cve":  "CVE-2025-49579",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-skins-Citizen",
+    "sha":  "54c8717d45ce1594918f11cb9ce5d0ccd8dfee65",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/Partials/Drawer.php",
+                        "includes/Partials/PageTools.php",
+                        "includes/SkinCitizen.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/Partials/Drawer.php class extends Partial",
+                     "includes/Partials/PageTools.php class extends Partial",
+                     "includes/SkinCitizen.php class extends SkinMustache",
+                     "includes/SkinCitizen.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "includes/Partials/Drawer.php",
+                        "includes/Partials/PageTools.php",
+                        "includes/SkinCitizen.php",
+                        "resources/skins.citizen.styles/components/Header.less",
+                        "resources/skins.citizen.styles/components/Menu.less",
+                        "resources/skins.citizen.styles/components/Pagetools.less",
+                        "templates/Menu.mustache"
+                    ],
+    "sink_hit":  false
+}

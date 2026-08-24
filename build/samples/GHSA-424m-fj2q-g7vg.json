@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-424m-fj2q-g7vg",
+    "cve":  "CVE-2025-66468",
+    "cwe":  "CWE-79",
+    "repo":  "aimeos/ai-cms-grapesjs",
+    "sha":  "2214f71ac27cdea25f11c8adf6bb5816db47a042",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Admin/JQAdm/Cms/Content/Standard.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Admin/JQAdm/Cms/Content/Standard.php class extends \\Aimeos\\Admin\\JQAdm\\Common\\Admin\\Factory\\Base"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Admin/JQAdm/Cms/Content/Standard.php"
+                    ],
+    "sink_hit":  true
+}

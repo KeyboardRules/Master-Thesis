@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q2x3-2f9g-h559",
+    "cve":  "CVE-2023-28333",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "128c0c21607a71f411611a0104b2a8c858dd6fca",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/classes/output/mustache_pix_helper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "lib/classes/output/mustache_pix_helper.php"
+                    ],
+    "sink_hit":  false
+}

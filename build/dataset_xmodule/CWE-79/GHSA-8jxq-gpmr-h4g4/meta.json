@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-8jxq-gpmr-h4g4",
+    "cve":  "CVE-2017-7204",
+    "cwe":  "CWE-79",
+    "repo":  "tboothman/imdbphp",
+    "fix_commit":  "5875c75c6ca6a53dc4faaaeca973150d380e88e2",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "demo/search.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "demo/search.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

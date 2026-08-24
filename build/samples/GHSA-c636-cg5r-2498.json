@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c636-cg5r-2498",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "symfony/dependency-injection",
+    "sha":  "5c5040c890a8e4085dcd6fa3827f574ab5f71f4c",
+    "status":  "ok",
+    "changed_php":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Loader/XmlFileLoader.php class extends FileLoader"
+                 ],
+    "changed_all":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-qvrv-2x7x-78x2",
+    "cve":  "CVE-2019-19325",
+    "cwe":  "CWE-78",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "49fda52b12ba59f0a04bcabf78425586a8779e89",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Convert.php",
+                        "src/Forms/Form.php",
+                        "src/Forms/FormField.php",
+                        "tests/php/Forms/FormFieldTest.php",
+                        "tests/php/Forms/FormTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Forms/Form.php class extends ViewableData",
+                     "src/Forms/Form.php class uses trait",
+                     "src/Forms/FormField.php class extends RequestHandler",
+                     "src/Forms/FormField.php class uses trait",
+                     "tests/php/Forms/FormFieldTest.php class extends SapphireTest",
+                     "tests/php/Forms/FormTest.php class extends FunctionalTest"
+                 ],
+    "changed_all":  [
+                        "docs/en/02_Developer_Guides/09_Security/04_Secure_Coding.md",
+                        "docs/en/04_Changelogs/4.4.5.md",
+                        "docs/en/04_Changelogs/4.5.1.md",
+                        "src/Core/Convert.php",
+                        "src/Forms/Form.php",
+                        "src/Forms/FormField.php",
+                        "tests/php/Forms/FormFieldTest.php",
+                        "tests/php/Forms/FormTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-m6q5-wv4x-fv6h",
+    "cve":  "CVE-2020-13668",
+    "cwe":  "CWE-79",
+    "repo":  "drupal/core",
+    "fix_commit":  "3184fa4b2f3b65b44884b5e858cdc7794d34b4c8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Drupal/Core/Form/FormBuilder.php",
+                        "modules/user/src/Plugin/Block/UserLoginBlock.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/user/src/Plugin/Block/UserLoginBlock.php class extends BlockBase",
+                     "modules/user/src/Plugin/Block/UserLoginBlock.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

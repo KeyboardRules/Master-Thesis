@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gv7f-w92j-383q",
+    "cve":  "CVE-2025-55988",
+    "cwe":  "CWE-22",
+    "repo":  "dreamfactorysoftware/df-core",
+    "sha":  "54354605b2ec9afe6ee96756a5a22f6f56828950",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Http/Controllers/RestController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Http/Controllers/RestController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "src/Http/Controllers/RestController.php"
+                    ],
+    "sink_hit":  false
+}

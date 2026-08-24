@@ -1,0 +1,32 @@
+﻿diff --git a/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php b/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php
+index 31633dc7dc..deee688cdf 100644
+--- a/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php
++++ b/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php
+@@ -64,7 +64,10 @@ class DatabaseLanguageRows implements FormDataProviderInterface
+                     && !empty($result['databaseRow'][$result['processedTca']['ctrl']['transOrigDiffSourceField']])
+                 ) {
+                     $defaultLanguageKey = $result['tableName'] . ':' . (int)$result['databaseRow']['uid'];
+-                    $result['defaultLanguageDiffRow'][$defaultLanguageKey] = unserialize($result['databaseRow'][$result['processedTca']['ctrl']['transOrigDiffSourceField']]);
++                    $result['defaultLanguageDiffRow'][$defaultLanguageKey] = unserialize(
++                        $result['databaseRow'][$result['processedTca']['ctrl']['transOrigDiffSourceField']],
++                        ['allowed_classes' => false]
++                    );
+                 }
+ 
+                 // Add language overlays from further localizations if requested
+diff --git a/typo3/sysext/core/Classes/DataHandling/DataHandler.php b/typo3/sysext/core/Classes/DataHandling/DataHandler.php
+index 5b7429c15b..bdfc64a627 100644
+--- a/typo3/sysext/core/Classes/DataHandling/DataHandler.php
++++ b/typo3/sysext/core/Classes/DataHandling/DataHandler.php
+@@ -1335,7 +1335,10 @@ class DataHandler implements LoggerAwareInterface
+         ) {
+             $originalLanguageRecord = $this->recordInfo($table, $currentRecord[$GLOBALS['TCA'][$table]['ctrl']['transOrigPointerField']], '*');
+             BackendUtility::workspaceOL($table, $originalLanguageRecord);
+-            $originalLanguage_diffStorage = unserialize($currentRecord[$GLOBALS['TCA'][$table]['ctrl']['transOrigDiffSourceField']]);
++            $originalLanguage_diffStorage = unserialize(
++                $currentRecord[$GLOBALS['TCA'][$table]['ctrl']['transOrigDiffSourceField']],
++                ['allowed_classes' => false]
++            );
+         }
+ 
+         $this->checkValue_currentRecord = $checkValueRecord;

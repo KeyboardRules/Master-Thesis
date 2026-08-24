@@ -1,0 +1,43 @@
+﻿{
+    "id":  "GHSA-59jf-3q9v-rh6g",
+    "cve":  "CVE-2023-38500",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "sha":  "e3026f589fef0be8c3574ee3f0a0bfbe33d7ebdb",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Behavior.php",
+                        "src/Behavior/CdataSection.php",
+                        "src/Behavior/Comment.php",
+                        "src/Builder/CommonBuilder.php",
+                        "src/Sanitizer.php",
+                        "src/Serializer/Rules.php",
+                        "src/Visitor/CommonVisitor.php",
+                        "tests/BehaviorTest.php",
+                        "tests/CommonBuilderTest.php",
+                        "tests/ScenarioTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "src/Serializer/Rules.php class extends OutputRules",
+                     "src/Visitor/CommonVisitor.php class extends AbstractVisitor",
+                     "src/Visitor/CommonVisitor.php class uses trait",
+                     "tests/BehaviorTest.php class extends TestCase",
+                     "tests/CommonBuilderTest.php class extends TestCase",
+                     "tests/ScenarioTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Behavior.php",
+                        "src/Behavior/CdataSection.php",
+                        "src/Behavior/Comment.php",
+                        "src/Builder/CommonBuilder.php",
+                        "src/Sanitizer.php",
+                        "src/Serializer/Rules.php",
+                        "src/Visitor/CommonVisitor.php",
+                        "tests/BehaviorTest.php",
+                        "tests/CommonBuilderTest.php",
+                        "tests/ScenarioTest.php"
+                    ],
+    "sink_hit":  false
+}

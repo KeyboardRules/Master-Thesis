@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6gfm-gpr3-8wh9",
+    "cve":  "CVE-2018-20962",
+    "cwe":  "CWE-79",
+    "repo":  "Laravel-Backpack/CRUD",
+    "sha":  "8b6bd0a2d489a4690f6b1d7ace67e2f07f5f0cc6",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/resources/views/columns/select.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/resources/views/columns/select.blade.php"
+                    ],
+    "sink_hit":  true
+}

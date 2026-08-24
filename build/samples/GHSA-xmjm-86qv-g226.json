@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xmjm-86qv-g226",
+    "cve":  "CVE-2026-33293",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "sha":  "941decd6d19e2e694acb75e86317d10fbb560284",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/CloneSite/cloneServer.json.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "plugin/CloneSite/cloneServer.json.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/CloneSite/cloneServer.json.php"
+                    ],
+    "sink_hit":  true
+}

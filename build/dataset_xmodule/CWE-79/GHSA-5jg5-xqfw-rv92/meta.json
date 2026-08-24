@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-5jg5-xqfw-rv92",
+    "cve":  "CVE-2025-70791",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "aa0791fc286d785ccd33ccc706f7bb3ed05b1d7f",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php",
+                        "src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php",
+                        "userfiles/modules/categories/edit_category.php",
+                        "userfiles/modules/content/controllers/Edit.php",
+                        "userfiles/modules/content/views/edit_default.php",
+                        "userfiles/modules/settings/admin.php",
+                        "userfiles/modules/settings/group/website_group/index.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php class extends AdminController",
+                     "userfiles/modules/categories/edit_category.php includes 1 project file(s)",
+                     "userfiles/modules/content/views/edit_default.php includes 7 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

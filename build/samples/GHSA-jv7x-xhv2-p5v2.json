@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jv7x-xhv2-p5v2",
+    "cve":  "CVE-2025-53833",
+    "cwe":  "CWE-1336",
+    "repo":  "saleem-hadad/larecipe",
+    "sha":  "c1d0d56889655ce5f2645db5acf0e78d5fc3b36b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Models/Documentation.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Models/Documentation.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Models/Documentation.php"
+                    ],
+    "sink_hit":  false
+}

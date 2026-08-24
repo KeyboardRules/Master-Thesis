@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qc2p-6qrf-25j2",
+    "cve":  "CVE-2019-15489",
+    "cwe":  "CWE-79",
+    "repo":  "jsdecena/laracom",
+    "sha":  "36ff6a5c4a7878c719304e9d9a5f1fc74a5af474",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/layouts/search.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/layouts/search.blade.php"
+                    ],
+    "sink_hit":  false
+}

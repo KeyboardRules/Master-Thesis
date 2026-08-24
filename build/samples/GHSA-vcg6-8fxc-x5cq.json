@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vcg6-8fxc-x5cq",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "0408048653fafc52e02b4dbc6288e14e634ac613",
+    "status":  "ok",
+    "changed_php":  [
+                        "filesystem/File.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "filesystem/File.php class extends DataObject"
+                 ],
+    "changed_all":  [
+                        "filesystem/File.php"
+                    ],
+    "sink_hit":  false
+}

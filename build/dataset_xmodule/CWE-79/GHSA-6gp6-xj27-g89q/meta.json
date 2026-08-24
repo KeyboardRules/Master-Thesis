@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6gp6-xj27-g89q",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "c36ef54ce33f7b5e74b7b0ab9eabfed47c018fc7",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Reports/CustomReportController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Reports/CustomReportController.php class extends ReportsControllerBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

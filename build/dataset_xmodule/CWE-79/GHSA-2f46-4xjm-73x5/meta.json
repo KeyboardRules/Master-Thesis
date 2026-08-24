@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2f46-4xjm-73x5",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "fix_commit":  "6135b483f72c6853e6085e329f5f8d7be60c9933",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "config/default.php",
+                        "src/Application.php",
+                        "src/Template/Setup/start.ctp"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Application.php class extends BaseApplication"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

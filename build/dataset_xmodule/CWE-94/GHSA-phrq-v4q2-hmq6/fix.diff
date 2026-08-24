@@ -1,0 +1,56 @@
+﻿diff --git a/lib/Sabberworm/CSS/CSSList/CSSBlockList.php b/lib/Sabberworm/CSS/CSSList/CSSBlockList.php
+index 55a594f..233eb54 100644
+--- a/lib/Sabberworm/CSS/CSSList/CSSBlockList.php
++++ b/lib/Sabberworm/CSS/CSSList/CSSBlockList.php
+@@ -65,9 +65,34 @@ abstract class CSSBlockList extends CSSList {
+ 				if ($sSpecificitySearch === null) {
+ 					$aResult[] = $oSelector;
+ 				} else {
+-					$sComparison = "\$bRes = {$oSelector->getSpecificity()} $sSpecificitySearch;";
+-					eval($sComparison);
+-					if ($bRes) {
++					$sComparator = '===';
++					$aSpecificitySearch = explode(' ', $sSpecificitySearch);
++					$iTargetSpecificity = $aSpecificitySearch[0];
++					if(count($aSpecificitySearch) > 1) {
++						$sComparator = $aSpecificitySearch[0];
++						$iTargetSpecificity = $aSpecificitySearch[1];
++					}
++					$iTargetSpecificity = (int)$iTargetSpecificity;
++					$iSelectorSpecificity = $oSelector->getSpecificity();
++					$bMatches = false;
++					switch($sComparator) {
++						case '<=':
++							$bMatches = $iSelectorSpecificity <= $iTargetSpecificity;
++						break;
++						case '<':
++							$bMatches = $iSelectorSpecificity < $iTargetSpecificity;
++						break;
++						case '>=':
++							$bMatches = $iSelectorSpecificity >= $iTargetSpecificity;
++						break;
++						case '>':
++							$bMatches = $iSelectorSpecificity > $iTargetSpecificity;
++						break;
++						default:
++							$bMatches = $iSelectorSpecificity === $iTargetSpecificity;
++						break;
++					}
++					if ($bMatches) {
+ 						$aResult[] = $oSelector;
+ 					}
+ 				}
+diff --git a/lib/Sabberworm/CSS/CSSList/Document.php b/lib/Sabberworm/CSS/CSSList/Document.php
+index 265c9ce..fee661c 100644
+--- a/lib/Sabberworm/CSS/CSSList/Document.php
++++ b/lib/Sabberworm/CSS/CSSList/Document.php
+@@ -57,9 +57,6 @@ class Document extends CSSBlockList {
+      * @example getSelectorsBySpecificity('>= 100')
+      */
+     public function getSelectorsBySpecificity($sSpecificitySearch = null) {
+-        if (is_numeric($sSpecificitySearch) || is_numeric($sSpecificitySearch[0])) {
+-            $sSpecificitySearch = "== $sSpecificitySearch";
+-        }
+         $aResult = array();
+         $this->allSelectors($aResult, $sSpecificitySearch);
+         return $aResult;

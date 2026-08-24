@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-mgp6-j658-vcw9",
+    "cve":  "CVE-2024-1245",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "59a07472ad6349a2c5fb455837a54ed1fe3f6953",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/controllers/backend/file.php",
+                        "concrete/elements/groups/roles_list.php",
+                        "concrete/views/dialogs/file/properties.php",
+                        "tests/tests/Controller/Backend/FileTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "concrete/controllers/backend/file.php class extends Controller",
+                     "tests/tests/Controller/Backend/FileTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "concrete/controllers/backend/file.php",
+                        "concrete/elements/groups/roles_list.php",
+                        "concrete/views/dialogs/file/properties.php",
+                        "tests/tests/Controller/Backend/FileTest.php"
+                    ],
+    "sink_hit":  true
+}

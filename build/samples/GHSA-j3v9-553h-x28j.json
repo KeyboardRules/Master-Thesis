@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-j3v9-553h-x28j",
+    "cve":  "CVE-2026-40596",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "9e8409cdd979eba86ef532756fc47c1d8112d22d",
+    "status":  "ok",
+    "changed_php":  [
+                        "account_prefs_update.php",
+                        "core/helper_api.php",
+                        "core/layout_api.php",
+                        "core/print_api.php",
+                        "login.php",
+                        "login_page.php",
+                        "login_password_page.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "account_prefs_update.php includes 1 project file(s)",
+                     "login.php includes 1 project file(s)",
+                     "login_page.php includes 2 project file(s)",
+                     "login_password_page.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "account_prefs_update.php",
+                        "core/helper_api.php",
+                        "core/layout_api.php",
+                        "core/print_api.php",
+                        "login.php",
+                        "login_page.php",
+                        "login_password_page.php"
+                    ],
+    "sink_hit":  true
+}

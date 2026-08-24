@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-c3pr-h96w-2jjg",
+    "cve":  "CVE-2018-14630",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "09cbca8566a388e8f0a1a0cfd86cd0667088ed2c",
+    "status":  "ok",
+    "changed_php":  [
+                        "question/type/ddwtos/questiontype.php",
+                        "question/type/ddwtos/tests/questiontype_test.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "question/type/ddwtos/questiontype.php includes 4 project file(s)",
+                     "question/type/ddwtos/questiontype.php class extends qtype_gapselect_base",
+                     "question/type/ddwtos/tests/questiontype_test.php includes 2 project file(s)",
+                     "question/type/ddwtos/tests/questiontype_test.php class extends question_testcase"
+                 ],
+    "changed_all":  [
+                        "question/type/ddwtos/questiontype.php",
+                        "question/type/ddwtos/tests/questiontype_test.php"
+                    ],
+    "sink_hit":  true
+}

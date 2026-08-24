@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-gc9w-cc93-rjv8",
+    "cve":  "CVE-2026-41229",
+    "cwe":  "CWE-94",
+    "repo":  "froxlor/froxlor",
+    "fix_commit":  "3589ddf93ab59eb2a8971f0f56cbf6266d03c4ae",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/MysqlServer.php",
+                        "lib/Froxlor/PhpHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/Froxlor/Api/Commands/MysqlServer.php includes 6 project file(s)",
+                     "lib/Froxlor/Api/Commands/MysqlServer.php class extends ApiCommand"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

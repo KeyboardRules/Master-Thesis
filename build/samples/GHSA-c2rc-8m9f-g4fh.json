@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c2rc-8m9f-g4fh",
+    "cve":  "CVE-2023-1081",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "29d418461d8407688f2720e7b4be915e03fc16c1",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Helper/XSSClean.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Helper/XSSClean.php"
+                    ],
+    "sink_hit":  false
+}

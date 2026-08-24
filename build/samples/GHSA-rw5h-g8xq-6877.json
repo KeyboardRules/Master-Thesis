@@ -1,0 +1,45 @@
+﻿{
+    "id":  "GHSA-rw5h-g8xq-6877",
+    "cve":  "CVE-2024-45803",
+    "cwe":  "CWE-79",
+    "repo":  "wireui/wireui",
+    "sha":  "784c4f110e58eb41d0f2bdecd4655ea417f16e7e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Http/Controllers/ButtonController.php",
+                        "src/Http/Requests/ButtonRequest.php",
+                        "src/Support/BladeCompiler.php",
+                        "src/Support/SafeEval.php",
+                        "tests/Unit/Controllers/ButtonControllerTest.php",
+                        "tests/Unit/Http/Controllers/ButtonControllerTest.php",
+                        "tests/Unit/Http/Datasets.php",
+                        "tests/Unit/SafeEvalTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "src/Http/Controllers/ButtonController.php class extends Controller",
+                     "src/Http/Requests/ButtonRequest.php class extends FormRequest",
+                     "tests/Unit/Controllers/ButtonControllerTest.php class extends UnitTestCase",
+                     "tests/Unit/SafeEvalTest.php class extends UnitTestCase"
+                 ],
+    "changed_all":  [
+                        ".github/workflows/tests.yml",
+                        "composer.lock",
+                        "dist/mix-manifest.json",
+                        "dist/wireui.css",
+                        "dist/wireui.js",
+                        "package.json",
+                        "src/Http/Controllers/ButtonController.php",
+                        "src/Http/Requests/ButtonRequest.php",
+                        "src/Support/BladeCompiler.php",
+                        "src/Support/SafeEval.php",
+                        "tests/Unit/Controllers/ButtonControllerTest.php",
+                        "tests/Unit/Http/Controllers/ButtonControllerTest.php",
+                        "tests/Unit/Http/Datasets.php",
+                        "tests/Unit/SafeEvalTest.php",
+                        "ts/alpine/magic/props.ts",
+                        "yarn.lock"
+                    ],
+    "sink_hit":  true
+}

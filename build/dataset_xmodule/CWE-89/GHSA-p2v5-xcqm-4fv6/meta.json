@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p2v5-xcqm-4fv6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-taxonomy",
+    "fix_commit":  "01a5d9e04b993df507058aa53e6e18efc5ca405b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "code/controllers/TaxonomyDirectoryController.php"
+                    ],
+    "evidence":  [
+                     "code/controllers/TaxonomyDirectoryController.php class extends Page_Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

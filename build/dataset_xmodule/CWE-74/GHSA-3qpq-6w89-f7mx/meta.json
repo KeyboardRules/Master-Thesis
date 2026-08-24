@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3qpq-6w89-f7mx",
+    "cve":  "CVE-2024-25625",
+    "cwe":  "CWE-74",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "fix_commit":  "b9fee9d383fc73dbd5e1d98dbb0ff3266d6b5a82",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Controller/Admin/UserController.php"
+                    ],
+    "evidence":  [
+                     "src/Controller/Admin/UserController.php class extends AdminAbstractController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

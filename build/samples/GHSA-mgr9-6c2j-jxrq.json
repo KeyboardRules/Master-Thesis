@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-mgr9-6c2j-jxrq",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pterodactyl/panel",
+    "sha":  "1570ff250939b75b3ba8cd03e5025d8293544ed4",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Models/DatabaseHost.php",
+                        "resources/views/layouts/admin.blade.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Models/DatabaseHost.php class extends Model",
+                     "app/Models/DatabaseHost.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Models/DatabaseHost.php",
+                        "resources/views/layouts/admin.blade.php"
+                    ],
+    "sink_hit":  false
+}

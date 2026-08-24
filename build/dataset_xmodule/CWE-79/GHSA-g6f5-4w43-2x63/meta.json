@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g6f5-4w43-2x63",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "SocalNick/ScnSocialAuth",
+    "fix_commit":  "4a00966c41bc37251586d007564c5c891eba3700",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/ScnSocialAuth/View/Helper/SocialSignInButton.php"
+                    ],
+    "evidence":  [
+                     "src/ScnSocialAuth/View/Helper/SocialSignInButton.php class extends AbstractHelper"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

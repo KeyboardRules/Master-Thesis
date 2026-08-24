@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fh7r-996q-gvcp",
+    "cve":  "CVE-2023-30838",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "46408ae4b02f3b8b1bb6e9dc63af5bcd858abd9c",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/Validate.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "classes/Validate.php"
+                    ],
+    "sink_hit":  false
+}

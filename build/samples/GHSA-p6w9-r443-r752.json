@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-p6w9-r443-r752",
+    "cve":  "CVE-2024-42357",
+    "cwe":  "CWE-89",
+    "repo":  "shopware/core",
+    "sha":  "63c05615694790f5790a04ef889f42b764fa53c9",
+    "status":  "ok",
+    "changed_php":  [
+                        "Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php",
+                        "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php class extends TestCase",
+                     "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php",
+                        "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php"
+                    ],
+    "sink_hit":  false
+}

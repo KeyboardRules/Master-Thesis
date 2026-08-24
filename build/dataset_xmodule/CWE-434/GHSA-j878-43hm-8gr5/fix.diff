@@ -1,0 +1,114 @@
+﻿diff --git a/src/MicroweberPackages/Backup/Loggers/DefaultLogger.php b/src/MicroweberPackages/Backup/Loggers/DefaultLogger.php
+index 1afc98b2eb..b152704261 100644
+--- a/src/MicroweberPackages/Backup/Loggers/DefaultLogger.php
++++ b/src/MicroweberPackages/Backup/Loggers/DefaultLogger.php
+@@ -22,6 +22,11 @@ abstract class DefaultLogger
+         file_put_contents($logFilePath, '');
+     }
+ 
++    public static function getLog()
++    {
++        return file_get_contents(static::getLogFilepath());
++    }
++
+     public static function setLogInfo($log)
+     {
+ 
+diff --git a/src/MicroweberPackages/Import/DatabaseWriter.php b/src/MicroweberPackages/Import/DatabaseWriter.php
+index 8fdffae271..674e1890e3 100644
+--- a/src/MicroweberPackages/Import/DatabaseWriter.php
++++ b/src/MicroweberPackages/Import/DatabaseWriter.php
+@@ -416,11 +416,9 @@ class DatabaseWriter
+ 
+ 		mw()->cache_manager->clear();
+ 
+-
+         $zipReader = new ZipReader();
+         $zipReader->clearCache();
+ 
+-
+         $this->logger->setLogInfo('Done!');
+ 	}
+ }
+diff --git a/src/MicroweberPackages/Import/Formats/ZipReader.php b/src/MicroweberPackages/Import/Formats/ZipReader.php
+index 65ab602685..70ebab15a0 100644
+--- a/src/MicroweberPackages/Import/Formats/ZipReader.php
++++ b/src/MicroweberPackages/Import/Formats/ZipReader.php
+@@ -43,8 +43,39 @@ class ZipReader extends DefaultReader
+ 
+             rmdir_recursive($backupLocation);
+ 
+-            $unzip = new Unzip();
+-            $unzip->extract($this->file, $backupLocation, true);
++
++           // $unzip = new Unzip();
++          //  $unzip->extract($this->file, $backupLocation, true);
++
++            $allowPhpFilesUpload = config('microweber.allow_php_files_upload');
++
++            $zipArchive = new \ZipArchive();
++            $zipArchive->open($this->file);
++            $selectedFilesForUnzip = [];
++            for ($i = 0; $i < $zipArchive->numFiles; $i++) {
++                $stat = $zipArchive->statIndex($i);
++                $zipFileBasename = basename($stat['name']);
++
++                if ($allowPhpFilesUpload) {
++                    $selectedFilesForUnzip[] = $zipFileBasename;
++                    ImportLogger::setLogInfo('Unzipping queue '.$zipFileBasename.'...');
++                } else {
++                    $filesUtils = new \MicroweberPackages\Utils\System\Files();
++                    $isDangerous = $filesUtils->is_dangerous_file($zipFileBasename);
++                    if (!$isDangerous) {
++                        $selectedFilesForUnzip[] = $zipFileBasename;
++                        ImportLogger::setLogInfo('Unzipping queue '.$zipFileBasename.'...');
++                    }
++                }
++            }
++
++            if (empty($selectedFilesForUnzip)) {
++                ImportLogger::setLogInfo('The zip file has no files.');
++                return;
++            }
++
++            $zipArchive->extractTo($backupLocation, $selectedFilesForUnzip);
++            $zipArchive->close();
+ 
+             ImportLogger::setLogInfo($backupLocation);
+         }
+@@ -67,7 +98,11 @@ class ZipReader extends DefaultReader
+         }
+ 
+ 		if ($backupLocation != false and is_dir($backupLocation)) {
+-			ImportLogger::setLogInfo('Media restored!');
++
++            if (is_dir($backupLocation . DS. 'userfiles' . DS.'media')) {
++                ImportLogger::setLogInfo('Media restored!');
++            }
++
+ 			$copy = $this->_cloneDirectory($backupLocation, userfiles_path());
+ 		}
+ 
+diff --git a/userfiles/modules/admin/backup/backup_modal.php b/userfiles/modules/admin/backup/backup_modal.php
+index 8c7cdbac86..87c12274a4 100644
+--- a/userfiles/modules/admin/backup/backup_modal.php
++++ b/userfiles/modules/admin/backup/backup_modal.php
+@@ -102,6 +102,7 @@
+                 </div>
+             </div>
+ 
++            <?php if (config('microweber.allow_php_files_upload')): ?>
+             <div class="card style-1 mb-3 card-collapse">
+                 <div class="card-header no-border cursor-pointer" data-toggle="collapse" data-target="#include-modules">
+                     <h6><i class="mdi mdi-view-grid-plus text-primary mr-2"></i> <strong><?php _e("Include Modules"); ?></strong></h6>
+@@ -153,8 +154,8 @@
+                     </div>
+                 </div>
+             </div>
+-
+-
++            <?php endif; ?>
++            
+             <label class="mw-ui-check">
+                 <input type="checkbox" class="js-include-media" name="include_media" value="1">
+                 <span></span><span>Include media files</span>

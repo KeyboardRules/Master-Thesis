@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-c6cw-g7fc-4gwc",
+    "cve":  "CVE-2024-47817",
+    "cwe":  "CWE-79",
+    "repo":  "lara-zeus/artemis",
+    "sha":  "3a3f9dd8a706af569c5581b20dcfeff91a43b9d9",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/themes/another-portfolio/rain/widgets/HeadingWidget.blade.php",
+                        "resources/views/themes/breeze/rain/widgets/HeadingWidget.blade.php",
+                        "resources/views/themes/daisy/rain/widgets/HeadingWidget.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "resources/views/themes/another-portfolio/rain/widgets/HeadingWidget.blade.php",
+                        "resources/views/themes/breeze/rain/widgets/HeadingWidget.blade.php",
+                        "resources/views/themes/daisy/rain/widgets/HeadingWidget.blade.php"
+                    ],
+    "sink_hit":  false
+}

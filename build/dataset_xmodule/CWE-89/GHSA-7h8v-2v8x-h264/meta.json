@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-7h8v-2v8x-h264",
+    "cve":  "CVE-2020-25700",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "8169aeff59d8ed910ca3545413561005282bbd32",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "mod/data/classes/external.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/data/classes/external.php includes 2 project file(s)",
+                     "mod/data/classes/external.php class extends external_api",
+                     "mod/data/tests/externallib_test.php includes 3 project file(s)",
+                     "mod/data/tests/externallib_test.php class extends externallib_advanced_testcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

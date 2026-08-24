@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6fvw-x6gw-4wv8",
+    "cve":  "CVE-2021-42325",
+    "cwe":  "CWE-89",
+    "repo":  "Froxlor/Froxlor",
+    "sha":  "eb592340b022298f62a0a3e8450dbfbe29585782",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Database/Manager/DbManagerMySQL.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Database/Manager/DbManagerMySQL.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,67 @@
+﻿diff --git a/admin/code/LeftAndMain.php b/admin/code/LeftAndMain.php
+index 31385675b..6ba428714 100644
+--- a/admin/code/LeftAndMain.php
++++ b/admin/code/LeftAndMain.php
+@@ -1005,8 +1005,7 @@ class LeftAndMain extends Controller implements PermissionProvider {
+ 			}
+ 
+ 			$link = Controller::join_links($recordController->Link("show"), $record->ID);
+-			$html = LeftAndMain_TreeNode::create($record, $link, $this->isCurrentPage($record))
+-				->forTemplate() . '</li>';
++			$html = LeftAndMain_TreeNode::create($record, $link, $this->isCurrentPage($record))->forTemplate();
+ 
+ 			$data[$id] = array(
+ 				'html' => $html,
+@@ -1982,16 +1981,21 @@ class LeftAndMain_TreeNode extends ViewableData {
+ 	 *
+ 	 * @todo Remove hardcoded assumptions around returning an <li>, by implementing recursive tree node rendering
+ 	 *
+-	 * @return String
++	 * @return string
+ 	 */
+ 	public function forTemplate() {
+ 		$obj = $this->obj;
+-		return "<li id=\"record-$obj->ID\" data-id=\"$obj->ID\" data-pagetype=\"$obj->ClassName\" class=\""
+-			. $this->getClasses() . "\">" . "<ins class=\"jstree-icon\">&nbsp;</ins>"
+-			. "<a href=\"" . $this->getLink() . "\" title=\"("
+-			. trim(_t('LeftAndMain.PAGETYPE','Page type'), " :") // account for inconsistencies in translations
+-			. ": " . $obj->i18n_singular_name() . ") $obj->Title\" ><ins class=\"jstree-icon\">&nbsp;</ins><span class=\"text\">" . ($obj->TreeTitle)
+-			. "</span></a>";
++
++		return (string)SSViewer::execute_template('LeftAndMain_TreeNode', $obj, array(
++			'Classes' => $this->getClasses(),
++			'Link' => $this->getLink(),
++			'Title' => sprintf(
++				'(%s: %s) %s',
++				trim(_t('LeftAndMain.PAGETYPE','Page type'), " :"),
++				$obj->i18n_singular_name(),
++				$obj->Title
++			),
++		));
+ 	}
+ 
+ 	/**
+diff --git a/model/Hierarchy.php b/model/Hierarchy.php
+index 51f510bcc..13dedd7f4 100644
+--- a/model/Hierarchy.php
++++ b/model/Hierarchy.php
+@@ -101,7 +101,7 @@ class Hierarchy extends DataExtension {
+ 	 *
+ 	 * @return string
+ 	 */
+-	public function getChildrenAsUL($attributes = "", $titleEval = '"<li>" . $child->Title', $extraArg = null,
++	public function getChildrenAsUL($attributes = "", $titleEval = '"<li>" . $child->Title . "</li>"', $extraArg = null,
+ 			$limitToMarked = false, $childrenMethod = "AllChildrenIncludingDeleted",
+ 			$numChildrenMethod = "numChildren", $rootCall = true,
+ 			$nodeCountThreshold = null, $nodeCountCallback = null) {
+@@ -144,6 +144,10 @@ class Hierarchy extends DataExtension {
+ 					} else {
+ 						$output .= eval("return $titleEval;");
+ 					}
++					$output = trim($output);
++					if (substr($output, -5) == '</li>') {
++						$output = trim(substr($output, 0, -5));
++					}
+ 					$output .= "\n";
+ 
+ 					$numChildren = $child->$numChildrenMethod();

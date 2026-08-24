@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6x3j-x9rp-whxp",
+    "cve":  "CVE-2022-0409",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "sha":  "7383d7a3c1b0807b6f397ba7df415a0ce7ccc436",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Controller/AttachmentController.class.php",
+                        "server/Application/Api/Model/AttachmentModel.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "server/Application/Api/Controller/AttachmentController.class.php class extends BaseController",
+                     "server/Application/Api/Model/AttachmentModel.class.php class extends BaseModel",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Controller/AttachmentController.class.php",
+                        "server/Application/Api/Model/AttachmentModel.class.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,284 @@
+﻿diff --git a/objects/video.php b/objects/video.php
+index b9123d515..cbc53e4ce 100644
+--- a/objects/video.php
++++ b/objects/video.php
+@@ -1604,6 +1604,7 @@ if (!class_exists('Video')) {
+             $timeLogName = TimeLogStart("video::getAllVideos");
+             $res = sqlDAL::readSql($sql);
+             $fullData = sqlDAL::fetchAllAssoc($res);
++            //var_dump($sql, $fullData);exit;
+             TimeLogEnd($timeLogName, __LINE__, 0.2);
+ 
+             // if there is a search, and there is no data and is inside a channel try again without a channel
+@@ -1659,6 +1660,11 @@ if (!class_exists('Video')) {
+                     self::startTransaction();
+                     $row = self::getInfo($row, $getStatistcs);
+                     TimeLogEnd($tlogName, __LINE__, $tolerance / 2);
++                    $row['externalOptions'] = _json_decode($row['externalOptions']);
++                    if(empty($row['externalOptions']->privacyInfo)){
++                        $row['externalOptions']->privacyInfo = self::updatePrivacyInfo($row['id']);
++                    }
++
+                     $videos[] = $row;
+                 }
+                 TimeLogEnd("video::getAllVideos foreach", __LINE__, $tolerance);
+@@ -1673,10 +1679,7 @@ if (!class_exists('Video')) {
+                 }
+                 TimeLogEnd("video::getAllVideos foreach", __LINE__, $tolerance);
+                 //$videos = $res->fetch_all(MYSQLI_ASSOC);
+-            } else {
+-                $videos = false;
+-                die($sql . '\nError : (' . $global['mysqli']->errno . ') ' . $global['mysqli']->error);
+-            }
++            } 
+             return $videos;
+         }
+ 
+@@ -1685,6 +1688,7 @@ if (!class_exists('Video')) {
+             if (empty($row)) {
+                 return array();
+             }
++            $rowOriginal = $row;
+             $TimeLogLimit = 0.2;
+             $timeLogName = TimeLogStart("video::getInfo getStatistcs");
+             $name = "_getVideoInfo_{$row['id']}";
+@@ -1712,6 +1716,15 @@ if (!class_exists('Video')) {
+                 }
+                 $obj = cleanUpRowFromDatabase($obj);
+ 
++                if (!self::canEdit($obj['id'])) {
++                    if (!empty($rowOriginal['video_password'])) {
++                        $obj['video_password'] = '1';
++                    } else {
++                        $obj['video_password'] = '0';
++                    }
++                }else{
++                    $obj['video_password'] = empty($rowOriginal['video_password'])?'':$rowOriginal['video_password'];
++                }
+                 if (self::forceAudio()) {
+                     $obj['type'] = 'audio';
+                 } else if (self::forceArticle()) {
+@@ -1722,12 +1735,15 @@ if (!class_exists('Video')) {
+             TimeLogEnd($timeLogName, __LINE__, $TimeLogLimit);
+             $row = cleanUpRowFromDatabase($row);
+             if (!self::canEdit($row['id'])) {
+-                if (!empty($row['video_password'])) {
+-                    $row['video_password'] = 1;
++                if (!empty($rowOriginal['video_password'])) {
++                    $row['video_password'] = '1';
+                 } else {
+-                    $row['video_password'] = 0;
++                    $row['video_password'] = '0';
+                 }
++            }else{
++                $row['video_password'] = empty($rowOriginal['video_password'])?'':$rowOriginal['video_password'];
+             }
++            $row['externalOptions'] = _json_decode($row['externalOptions']);
+             TimeLogEnd($timeLogName, __LINE__, $TimeLogLimit);
+             if ($getStatistcs) {
+                 $previewsMonth = date("Y-m-d 00:00:00", strtotime("-30 days"));
+@@ -2943,6 +2959,55 @@ if (!class_exists('Video')) {
+             }
+             return $_getTagsHTMLLabelArray[$video_id];
+         }
++        static function updatePrivacyInfo($videos_id){
++            $v = new Video('', '', $videos_id);
++            $privacyInfo = self::_getPrivacyInfo($videos_id);
++            return $v->setPrivacyInfo($privacyInfo);
++        }
++        static function _getPrivacyInfo($videos_id){
++            global $advancedCustomUser, $_getPrivacyInfo;
++            if(!isset($_getPrivacyInfo)){
++                $_getPrivacyInfo = array();
++            }else{
++                if(!empty($_getPrivacyInfo[$videos_id])){
++                    return $_getPrivacyInfo[$videos_id];
++                }
++            }
++            $responseFields = array(
++                'fans_only',
++                'password_protectd',
++                'only_for_paid',
++                'pay_per_view',
++                'user_groups',
++            );
++            $response = array('videos_id'=>$videos_id);
++            $video = new Video("", "", $videos_id);
++            $ppv = AVideoPlugin::getObjectDataIfEnabled("PayPerView");
++            $response['fans_only'] = $video->getStatus() === self::$statusFansOnly;
++            if($response['fans_only'] && AVideoPlugin::isEnabled("FansSubscriptions")){
++                $response['fans_only_info'] = FansSubscriptions::getPlansFromUsersID($video->getUsers_id());
++            }
++            $response['password_protectd'] = $advancedCustomUser->userCanProtectVideosWithPassword && !empty($video->getVideo_password());
++            $response['only_for_paid'] = !empty($video->getOnly_for_paid());
++            $response['pay_per_view'] = $ppv && PayPerView::isVideoPayPerView($videos_id);
++            if($response['pay_per_view'] && AVideoPlugin::isEnabled("PayPerView")){
++                $response['pay_per_view_info'] = PayPerView::getAllPlansFromVideo($videos_id);
++            }
++            $response['user_groups'] = !Video::isPublic($videos_id);
++            if($response['user_groups']){
++                $response['user_groups_info'] = Video::getUserGroups($videos_id);
++            }
++            $response['isPrivate'] = false;
++            foreach ($responseFields as $value) {
++                if($response[$value]){
++                    $response['isPrivate'] = true;
++                    break;
++                }
++            }
++
++            $_getPrivacyInfo[$videos_id] = $response;
++            return $response;
++        }
+ 
+         public static function getTags_($video_id, $type = "")
+         {
+@@ -5466,6 +5531,29 @@ if (!class_exists('Video')) {
+             $this->setExternalOptions(json_encode($externalOptions));
+         }
+ 
++        
++        public function setPrivacyInfo($object)
++        {
++            $externalOptions = _json_decode($this->getExternalOptions());
++            if(empty($externalOptions)){
++                $externalOptions = new stdClass();
++            }
++            $externalOptions->privacyInfo = $object;
++            $this->setExternalOptions(json_encode($externalOptions));
++            return $externalOptions->privacyInfo;
++        }
++
++        public function getPrivacyInfo()
++        {
++            $externalOptions = _json_decode($this->getExternalOptions());
++            if (empty($externalOptions->privacyInfo)) {
++                $externalOptions->privacyInfo = self::_getPrivacyInfo($this->id);
++                $this->setPrivacyInfo($externalOptions->privacyInfo);
++            }
++            return $externalOptions->privacyInfo;
++        }
++
++
+         public function setVideoEmbedWhitelist($embedWhitelist)
+         {
+             $externalOptions = _json_decode($this->getExternalOptions());
+diff --git a/objects/videos.json.php b/objects/videos.json.php
+index 5458b8670..d618ae8fa 100644
+--- a/objects/videos.json.php
++++ b/objects/videos.json.php
+@@ -38,6 +38,7 @@ if (!empty($_REQUEST['status'])) {
+ TimeLogEnd($timeLogName, __LINE__, $TimeLogLimit);
+ 
+ $videos = Video::getAllVideos($status, $showOnlyLoggedUserVideos, true, [], false, $showUnlisted, $activeUsersOnly);
++//var_dump($videos);exit;
+ $total = Video::getTotalVideos($status, $showOnlyLoggedUserVideos, true, $showUnlisted, $activeUsersOnly);
+ TimeLogEnd($timeLogName, __LINE__, $TimeLogLimit);
+ foreach ($videos as $key => $value) {
+diff --git a/plugin/API/API.php b/plugin/API/API.php
+index af73d046e..139f8be03 100644
+--- a/plugin/API/API.php
++++ b/plugin/API/API.php
+@@ -450,6 +450,68 @@ class API extends PluginAbstract {
+         return new ApiObject("", false, $obj);
+     }
+ 
++    /**
++     * @param string $parameters
++     * 'videos_id' the video id 
++     * 'users_id' the user id 
++     * Returns if the user can watch the video
++     * @example {webSiteRootURL}plugin/API/{getOrSet}.json.php?APIName={APIName}
++     * @return \ApiObject
++     */
++    public function get_api_user_can_watch_video($parameters) {
++
++        $obj = new stdClass();
++        $obj->users_id = intval($parameters['users_id']);
++        $obj->videos_id = intval($parameters['videos_id']);
++        $obj->userCanWatchVideo = false;
++        $obj->userCanWatchVideoWithAds = false;
++        $error = true;
++        $msg = '';
++
++        if (!empty($obj->videos_id)) {
++            $error = false;
++            $obj->userCanWatchVideo = AVideoPlugin::userCanWatchVideo($obj->users_id, $obj->videos_id);
++            $obj->userCanWatchVideoWithAds = AVideoPlugin::userCanWatchVideoWithAds($obj->users_id, $obj->videos_id);
++        }else{
++            $msg = 'Videos id is required';
++        }
++
++
++        return new ApiObject($msg, $error, $obj);
++    }
++
++    
++    /**
++     * @param string $parameters
++     * 'videos_id' the video id 
++     * 'password' a string with the user password
++     * Returns if the password is correct or not, if there is no password it will return true
++     * @example {webSiteRootURL}plugin/API/{getOrSet}.json.php?APIName={APIName}
++     * @return \ApiObject
++     */
++    public function get_api_video_password_is_correct($parameters) {
++
++        $obj = new stdClass();
++        $obj->videos_id = intval($parameters['videos_id']);
++        $obj->passwordIsCorrect = true;
++        $error = true;
++        $msg = '';
++
++        if (!empty($obj->videos_id)) {
++            $error = false;
++            $video = new Video('', '', $obj->videos_id);
++            $password = $video->getVideo_password();
++            if (!empty($password)) {
++                $obj->passwordIsCorrect = $password == $parameters['video_password'];
++            }
++        }else{
++            $msg = 'Videos id is required';
++        }
++
++
++        return new ApiObject($msg, $error, $obj);
++    }
++
+     /**
+      * @param string $parameters
+      * Obs: in the Trending sort also pass the current=1, otherwise it will return a random order
+diff --git a/plugin/CloneSite/cloneClient.json.php b/plugin/CloneSite/cloneClient.json.php
+index 1a2821c48..bbcfac96e 100644
+--- a/plugin/CloneSite/cloneClient.json.php
++++ b/plugin/CloneSite/cloneClient.json.php
+@@ -89,6 +89,12 @@ if (!empty($json->error)) {
+ 
+ $log->add("Clone: Good start! the server has answered");
+ 
++
++
++$json->sqlFile = escapeshellarg(preg_replace('/[^a-z0-9_.-]/i', '', $json->sqlFile));
++$json->videoFiles = escapeshellarg(preg_replace('/[^a-z0-9_.-]/i', '', $json->videoFiles));
++$json->photoFiles = escapeshellarg(preg_replace('/[^a-z0-9_.-]/i', '', $json->photoFiles));
++
+ // get dump file
+ $cmd = "wget -O {$clonesDir}{$json->sqlFile} {$objClone->cloneSiteURL}videos/cache/clones/{$json->sqlFile}";
+ $log->add("Clone (2 of {$totalSteps}): Geting MySQL Dump file");
+diff --git a/plugin/CloneSite/functions.php b/plugin/CloneSite/functions.php
+index c7249b55d..75dacc96e 100644
+--- a/plugin/CloneSite/functions.php
++++ b/plugin/CloneSite/functions.php
+@@ -27,9 +27,9 @@ function getCloneFilesInfo($dir, $subdir = "", $extensionsToCopy = ['mp4', 'webm
+ 
+ /**
+  *
+- * @param string $serverArray a Json with the server files retrieve from getCloneFilesInfo function
+- * @param string $clientArray a Json with the client files retrieve from getCloneFilesInfo function
+- * @return string a Json with the new files
++ * @param array $serverArray a Json with the server files retrieve from getCloneFilesInfo function
++ * @param array $clientArray a Json with the client files retrieve from getCloneFilesInfo function
++ * @return object a Json with the new files
+  */
+ function detectNewFiles($serverArray, $clientArray)
+ {

@@ -1,0 +1,195 @@
+﻿diff --git a/account_prefs_update.php b/account_prefs_update.php
+index dcf822a8..61e462f8 100644
+--- a/account_prefs_update.php
++++ b/account_prefs_update.php
+@@ -36,6 +36,8 @@
+  * @uses user_pref_api.php
+  */
+ 
++use Mantis\Exceptions\ClientException;
++
+ require_once( 'core.php' );
+ require_api( 'access_api.php' );
+ require_api( 'authentication_api.php' );
+@@ -79,14 +81,18 @@ $t_prefs->redirect_delay	= gpc_get_int( 'redirect_delay' );
+ $t_prefs->refresh_delay		= gpc_get_int( 'refresh_delay' );
+ $t_prefs->default_project	= gpc_get_int( 'default_project' );
+ 
+-$t_lang = gpc_get_string( 'language' );
+-if( lang_language_exists( $t_lang ) ) {
+-	$t_prefs->language = $t_lang;
++$f_lang = gpc_get_string( 'language' );
++if( lang_language_exists( $f_lang ) ) {
++	$t_prefs->language = $f_lang;
+ }
+ 
+-$t_font = gpc_get_string( 'font_family' );
+-if( config_get( 'font_family', null, $f_user_id, ALL_PROJECTS ) != $t_font ) {
+-	config_set( 'font_family', $t_font, $f_user_id, ALL_PROJECTS );
++$f_font = gpc_get_string( 'font_family' );
++if( !in_array( $f_font, helper_get_font_list())) {
++	# This should not happen unless the form submission was tempered with
++	throw new ClientException( "Invalid font", ERROR_INVALID_FIELD_VALUE, ['font_family'] );
++}
++if( config_get( 'font_family', null, $f_user_id, ALL_PROJECTS ) != $f_font ) {
++	config_set( 'font_family', $f_font, $f_user_id, ALL_PROJECTS );
+ }
+ 
+ $t_prefs->email_on_new		= gpc_get_bool( 'email_on_new' );
+@@ -112,10 +118,10 @@ $t_prefs->bugnote_order = gpc_get_string( 'bugnote_order' );
+ $t_prefs->email_bugnote_limit = gpc_get_int( 'email_bugnote_limit' );
+ 
+ # Save user preference with regards to getting full issue details in notifications or not.
+-$t_email_full_issue = gpc_get_bool( 'email_full_issue' ) ? 1 : 0;
++$f_email_full_issue = gpc_get_bool( 'email_full_issue' ) ? 1 : 0;
+ $t_email_full_config_option = 'email_notifications_verbose';
+-if( config_get( $t_email_full_config_option, /* default */ null, $f_user_id, ALL_PROJECTS ) != $t_email_full_issue ) {
+-	config_set( $t_email_full_config_option, $t_email_full_issue, $f_user_id, ALL_PROJECTS );
++if( config_get( $t_email_full_config_option, /* default */ null, $f_user_id, ALL_PROJECTS ) != $f_email_full_issue ) {
++	config_set( $t_email_full_config_option, $f_email_full_issue, $f_user_id, ALL_PROJECTS );
+ }
+ 
+ # make sure the delay isn't too low
+@@ -124,12 +130,12 @@ if( ( config_get( 'min_refresh_delay' ) > $t_prefs->refresh_delay )&&
+ 	$t_prefs->refresh_delay = config_get( 'min_refresh_delay' );
+ }
+ 
+-$t_timezone = gpc_get_string( 'timezone' );
+-if( in_array( $t_timezone, timezone_identifiers_list() ) ) {
+-	if( $t_timezone == config_get_global( 'default_timezone' ) ) {
++$f_timezone = gpc_get_string( 'timezone' );
++if( in_array( $f_timezone, timezone_identifiers_list() ) ) {
++	if( $f_timezone == config_get_global( 'default_timezone' ) ) {
+ 		$t_prefs->timezone = '';
+ 	} else {
+-		$t_prefs->timezone = $t_timezone;
++		$t_prefs->timezone = $f_timezone;
+ 	}
+ }
+ 
+diff --git a/core/helper_api.php b/core/helper_api.php
+index 7d7c16e5..da49c991 100644
+--- a/core/helper_api.php
++++ b/core/helper_api.php
+@@ -997,3 +997,21 @@ function helper_get_root_domain( $p_url ) {
+ 	}
+ 	return $t_host; // Return host if nothing matches
+ }
++
++/**
++ * Returns the list of available font families.
++ *
++ * The list depends on whether CDN is enabled.
++ * @see $g_font_family_choices
++ * @see $g_font_family_choices_local
++ *
++ * @return array Font list, 0-based index.
++ */
++function helper_get_font_list(): array {
++	$t_config = config_get_global( 'cdn_enabled' ) == ON
++		? 'font_family_choices'
++		: 'font_family_choices_local';
++	$t_font_list = config_get( $t_config );
++
++	return array_values( $t_font_list );
++}
+diff --git a/core/layout_api.php b/core/layout_api.php
+index 834f2022..3a022616 100644
+--- a/core/layout_api.php
++++ b/core/layout_api.php
+@@ -314,6 +314,7 @@ function layout_head_css() {
+  */
+ function layout_user_font_preference() {
+ 	$t_font_family = config_get( 'font_family', null, null, ALL_PROJECTS );
++	$t_font_family = string_html_specialchars( $t_font_family );
+ 	echo '<style>', "\n";
+ 	echo  '* { font-family: "' . $t_font_family . '"; } ', "\n";
+ 	echo  'h1, h2, h3, h4, h5 { font-family: "' . $t_font_family . '"; } ', "\n";
+diff --git a/core/print_api.php b/core/print_api.php
+index eed23ae0..7d59719d 100644
+--- a/core/print_api.php
++++ b/core/print_api.php
+@@ -1196,14 +1196,16 @@ function print_language_option_list( $p_language ) {
+  * @return void
+  */
+ function print_font_option_list( $p_font ) {
+-	if ( config_get_global( 'cdn_enabled' ) == ON ) {
+-		$t_arr = config_get( 'font_family_choices' );
+-	} else {
+-		$t_arr = config_get( 'font_family_choices_local' );
++	$t_font_list = helper_get_font_list();
++
++	# Append given font to the list if it is not part of it
++	if( !in_array( $p_font, $t_font_list ) ) {
++		$t_font_list[] = $p_font;
++		$p_font = string_html_specialchars( $p_font );
+ 	}
+-	$t_enum_count = count( $t_arr );
+-	for( $i = 0;$i < $t_enum_count;$i++ ) {
+-		$t_font = string_attribute( $t_arr[$i] );
++
++	foreach( $t_font_list as $t_key => $t_font ) {
++		$t_font = string_html_specialchars( $t_font );
+ 		echo '<option value="' . $t_font . '"';
+ 		check_selected( $t_font, $p_font );
+ 		echo '>' . $t_font . '</option>';
+diff --git a/login.php b/login.php
+index 4f43908b..9cd7b19e 100644
+--- a/login.php
++++ b/login.php
+@@ -43,6 +43,8 @@ require_api( 'print_api.php' );
+ require_api( 'session_api.php' );
+ require_api( 'string_api.php' );
+ 
++form_security_validate( 'login' );
++
+ $f_username		= gpc_get_string( 'username', '' );
+ $f_password		= gpc_get_string( 'password', '' );
+ $t_return		= string_sanitize_url( gpc_get_string( 'return', config_get_global( 'default_home_page' ) ) );
+@@ -51,6 +53,8 @@ $f_secure_session = gpc_get_bool( 'secure_session', false );
+ $f_reauthenticate = gpc_get_bool( 'reauthenticate', false );
+ $f_install = gpc_get_bool( 'install' );
+ 
++form_security_purge( 'login' );
++
+ # If upgrade required, always redirect to install page.
+ if( $f_install ) {
+ 	$t_return = 'admin/install.php';
+diff --git a/login_page.php b/login_page.php
+index 52399584..607857da 100644
+--- a/login_page.php
++++ b/login_page.php
+@@ -226,7 +226,8 @@ if( config_get_global( 'admin_checks' ) == ON ) {
+ 				echo '<input type="hidden" name="install" value="true" />';
+ 			}
+ 
+-			# CSRF protection not required here - form does not result in modifications
++			# Generating CSRF token to reduce risk of a vulnerability escalating its impact
++			echo form_security_field( 'login' );
+ 			?>
+ 
+ 			<label for="username" class="block clearfix">
+diff --git a/login_password_page.php b/login_password_page.php
+index 51024a96..1de6ac5a 100644
+--- a/login_password_page.php
++++ b/login_password_page.php
+@@ -57,6 +57,8 @@ require_api( 'user_api.php' );
+ require_api( 'utility_api.php' );
+ require_css( 'login.css' );
+ 
++form_security_validate( 'login' );
++
+ $f_error                 = gpc_get_bool( 'error' );
+ $f_cookie_error          = gpc_get_bool( 'cookie_error' );
+ $f_return                = string_sanitize_url( gpc_get_string( 'return', '' ) );
+@@ -219,7 +221,9 @@ if( config_get_global( 'admin_checks' ) == ON && file_exists( __DIR__ .'/admin/.
+ 
+ 			echo sprintf( lang_get( 'enter_password' ), string_html_specialchars( $t_username ) );
+ 
+-			# CSRF protection not required here - form does not result in modifications
++			# Generating CSRF token to reduce risk of a vulnerability escalating its impact
++			form_security_purge( 'login' );
++			echo form_security_field( 'login' );
+ 			?>
+ 			<input hidden readonly type="text" name="username" class="hidden" tabindex="-1" value="<?php echo string_html_specialchars( $t_username ) ?>" id="hidden_username" />
+ 			<label for="password" class="block clearfix">

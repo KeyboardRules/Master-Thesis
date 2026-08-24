@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-gg48-mpp8-cgqc",
+    "cve":  "CVE-2020-15517",
+    "cwe":  "CWE-79",
+    "repo":  "tpwd/ke_search",
+    "sha":  "1cde32c3ebfcb6cda5d364f099979be9741f6714",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Controller/BackendModuleController.php",
+                        "Classes/Indexer/IndexerRunner.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Controller/BackendModuleController.php class extends AbstractBackendModuleController"
+                 ],
+    "changed_all":  [
+                        "Classes/Controller/BackendModuleController.php",
+                        "Classes/Indexer/IndexerRunner.php"
+                    ],
+    "sink_hit":  true
+}

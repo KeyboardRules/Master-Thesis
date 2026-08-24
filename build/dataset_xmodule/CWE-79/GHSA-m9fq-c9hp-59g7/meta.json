@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m9fq-c9hp-59g7",
+    "cve":  "CVE-2021-3785",
+    "cwe":  "CWE-79",
+    "repo":  "yourls/yourls",
+    "fix_commit":  "1d8e224ebabb8a4c75b97f026950ed710faab0ff",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "includes/functions-shorturls.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/tests/shorturl/shorturl.php class extends PHPUnit\\Framework\\TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

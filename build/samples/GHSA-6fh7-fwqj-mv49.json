@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6fh7-fwqj-mv49",
+    "cve":  "CVE-2007-3498",
+    "cwe":  "CWE-79",
+    "repo":  "ezyang/htmlpurifier",
+    "sha":  "96b571d23639bd70768b8db626ecaf8bbb7ca5a3",
+    "status":  "ok",
+    "changed_php":  [
+                        "smoketests/configForm.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "smoketests/configForm.php includes 5 project file(s)"
+                 ],
+    "changed_all":  [
+                        "smoketests/configForm.php"
+                    ],
+    "sink_hit":  true
+}

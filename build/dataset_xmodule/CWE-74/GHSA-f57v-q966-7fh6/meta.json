@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-f57v-q966-7fh6",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "Seldaek/monolog",
+    "fix_commit":  "515a096c864b00b3967f7f601680f85d4a2e4001",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Monolog/Handler/NativeMailerHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Monolog/Handler/NativeMailerHandler.php class extends MailHandler",
+                     "tests/Monolog/Handler/NativeMailerHandlerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

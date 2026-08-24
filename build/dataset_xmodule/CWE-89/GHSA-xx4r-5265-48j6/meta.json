@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-xx4r-5265-48j6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "099a5a3c2d99ed39bdd8815e1e2790bb9351770b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/ORM/Connect/MySQLDatabase.php",
+                        "src/ORM/PaginatedList.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/ORM/Connect/MySQLDatabase.php class extends Database",
+                     "src/ORM/Connect/MySQLDatabase.php class uses trait",
+                     "src/ORM/PaginatedList.php class extends ListDecorator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gr6v-3pmp-996p",
+    "cve":  "CVE-2025-62671",
+    "cwe":  "CWE-79",
+    "repo":  "wikimedia/mediawiki-extensions-Cargo",
+    "sha":  "e50915626c0d9a7b222dabc94ddfcb516caf557d",
+    "status":  "ok",
+    "changed_php":  [
+                        "drilldown/CargoDrilldownPage.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "drilldown/CargoDrilldownPage.php class extends QueryPage"
+                 ],
+    "changed_all":  [
+                        "drilldown/CargoDrilldownPage.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,37 @@
+﻿diff --git a/backend/Services/Storage/Filesystem.php b/backend/Services/Storage/Filesystem.php
+index 26720ac..fe3807f 100644
+--- a/backend/Services/Storage/Filesystem.php
++++ b/backend/Services/Storage/Filesystem.php
+@@ -241,6 +241,7 @@ class Filesystem implements Service
+         ) {
+             $path = $this->separator;
+         }
++
+         return $this->joinPaths($this->getPathPrefix(), $path);
+     }
+ 
+@@ -266,6 +267,9 @@ class Filesystem implements Service
+ 
+     private function joinPaths(string $path1, string $path2): string
+     {
++        $path1 = $this->escapeDots($path1);
++        $path2 = $this->escapeDots($path2);
++
+         if (! $path2 || ! trim($path2, $this->separator)) {
+             return $this->addSeparators($path1);
+         }
+@@ -295,4 +299,14 @@ class Filesystem implements Service
+ 
+         return  (string) array_pop($tmp);
+     }
++
++    private function escapeDots(string $path): string
++    {
++        $path = preg_replace('/\\\+\.{2,}/', '', $path);
++        $path = preg_replace('/\.{2,}\\\+/', '', $path);
++        $path = preg_replace('/\/+\.{2,}/', '', $path);
++        $path = preg_replace('/\.{2,}\/+/', '', $path);
++
++        return $path;
++    }
+ }

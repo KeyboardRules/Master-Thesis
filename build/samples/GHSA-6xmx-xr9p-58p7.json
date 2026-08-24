@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6xmx-xr9p-58p7",
+    "cve":  "CVE-2026-26989",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "087608cf9f851189847cb8e8e5ad002e59170c58",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/modal/alert_rule_list.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/modal/alert_rule_list.inc.php"
+                    ],
+    "sink_hit":  true
+}

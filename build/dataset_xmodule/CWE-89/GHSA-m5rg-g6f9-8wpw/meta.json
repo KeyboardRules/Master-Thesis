@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-m5rg-g6f9-8wpw",
+    "cve":  "CVE-2018-13448",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "36402c22eef49d60edd73a2f312f8e28fe0bd1cb",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/core/class/html.form.class.php",
+                        "htdocs/main.inc.php",
+                        "htdocs/product/card.php",
+                        "htdocs/societe/ajax/company.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "htdocs/core/class/html.form.class.php includes 35 project file(s)",
+                     "htdocs/main.inc.php includes 16 project file(s)",
+                     "htdocs/product/card.php includes 28 project file(s)",
+                     "htdocs/societe/ajax/company.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-65j5-vpm7-6xp4",
+    "cve":  "CVE-2018-16831",
+    "cwe":  "CWE-22",
+    "repo":  "smarty-php/smarty",
+    "sha":  "f9ca3c63d1250bb56b2bda609dcc9dd81f0065f8",
+    "status":  "ok",
+    "changed_php":  [
+                        "libs/Smarty.class.php",
+                        "libs/sysplugins/smarty_security.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libs/Smarty.class.php includes 10 project file(s)",
+                     "libs/Smarty.class.php class extends Smarty_Internal_TemplateBase"
+                 ],
+    "changed_all":  [
+                        "change_log.txt",
+                        "libs/Smarty.class.php",
+                        "libs/sysplugins/smarty_security.php"
+                    ],
+    "sink_hit":  true
+}

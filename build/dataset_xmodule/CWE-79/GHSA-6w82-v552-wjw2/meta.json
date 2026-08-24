@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-6w82-v552-wjw2",
+    "cve":  "CVE-2025-67648",
+    "cwe":  "CWE-79",
+    "repo":  "shopware/shopware",
+    "fix_commit":  "c9242c02c84595d9fa3e2adf6a264bc90a657b58",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Storefront/Controller/AuthController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Storefront/Controller/AuthController.php class extends StorefrontController",
+                     "tests/integration/Storefront/Controller/AuthControllerTest.php class extends TestCase",
+                     "tests/integration/Storefront/Controller/AuthControllerTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

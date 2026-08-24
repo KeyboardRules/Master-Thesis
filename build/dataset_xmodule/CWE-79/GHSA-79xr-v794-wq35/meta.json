@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-79xr-v794-wq35",
+    "cve":  "CVE-2020-15883",
+    "cwe":  "CWE-79",
+    "repo":  "munkireport/managedinstalls",
+    "fix_commit":  "708f6a2abc4b80a3751bcc9cf896f80d84250c55",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "managedinstalls_controller.php"
+                    ],
+    "evidence":  [
+                     "managedinstalls_controller.php class extends Module_controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

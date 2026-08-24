@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xrpj-f9v6-2332",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "sha":  "c9cb2225f1b908fb1e8401d401219228634b26b2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/web/CsvResponseFormatter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/web/CsvResponseFormatter.php class extends Component"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/web/CsvResponseFormatter.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c9hw-557q-f8hq",
+    "cve":  "CVE-2023-3820",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "e641968979d4a2377bbea5e2a76bdede040d0b97",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Helper/GridHelperService.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Helper/GridHelperService.php"
+                    ],
+    "sink_hit":  false
+}

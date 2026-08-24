@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-pqr6-3j58-9w58",
+    "cve":  "CVE-2022-1411",
+    "cwe":  "CWE-434",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "bf69c427260011ffca42f7b6935bb54080c54124",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Fields/File.php",
+                        "app/Validator.php",
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "app/Fields/File.php includes 1 project file(s)",
+                     "modules/Vtiger/actions/Fields.php class extends \\App\\Controller\\Action"
+                 ],
+    "changed_all":  [
+                        "app/Fields/File.php",
+                        "app/Validator.php",
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php",
+                        "public_html/layouts/resources/libraries/ckeditor/base64image/dialogs/dialog.js",
+                        "public_html/layouts/resources/libraries/ckeditor/base64image/plugin.js"
+                    ],
+    "sink_hit":  true
+}

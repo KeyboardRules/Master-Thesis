@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-wxjw-phj6-g75w",
+    "cve":  "CVE-2026-33647",
+    "cwe":  "CWE-434",
+    "repo":  "WWBN/AVideo",
+    "sha":  "345a8d3ece0ad1e1b71a704c1579cbf885d8f3ae",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/ImageGallery/ImageGallery.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "plugin/ImageGallery/ImageGallery.php includes 1 project file(s)",
+                     "plugin/ImageGallery/ImageGallery.php class extends PluginAbstract"
+                 ],
+    "changed_all":  [
+                        "plugin/ImageGallery/ImageGallery.php"
+                    ],
+    "sink_hit":  true
+}

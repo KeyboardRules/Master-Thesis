@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-hwq7-5vv9-c6cf",
+    "cve":  "CVE-2018-25047",
+    "cwe":  "CWE-79",
+    "repo":  "smarty-php/smarty",
+    "sha":  "55ea25d1f50f0406fb1ccedd212c527977793fc9",
+    "status":  "ok",
+    "changed_php":  [
+                        "libs/plugins/function.mailto.php",
+                        "tests/UnitTests/TemplateSource/TagTests/PluginFunction/PluginFunctionMailtoTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/UnitTests/TemplateSource/TagTests/PluginFunction/PluginFunctionMailtoTest.php class extends PHPUnit_Smarty"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "libs/plugins/function.mailto.php",
+                        "tests/UnitTests/TemplateSource/TagTests/PluginFunction/PluginFunctionMailtoTest.php"
+                    ],
+    "sink_hit":  false
+}

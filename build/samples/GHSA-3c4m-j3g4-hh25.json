@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-3c4m-j3g4-hh25",
+    "cve":  "CVE-2026-30913",
+    "cwe":  "CWE-79",
+    "repo":  "flarum/nicknames",
+    "sha":  "4dde99729abdce8f6e2a7437c86e38735fdcca28",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/AddNicknameValidation.php",
+                        "src/NicknameDriver.php",
+                        "tests/integration/api/EditUserTest.php",
+                        "tests/unit/NicknameEmailSanitizerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/integration/api/EditUserTest.php class extends TestCase",
+                     "tests/integration/api/EditUserTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "js/src/admin/index.js",
+                        "locale/en.yml",
+                        "src/AddNicknameValidation.php",
+                        "src/NicknameDriver.php",
+                        "tests/integration/api/EditUserTest.php",
+                        "tests/unit/NicknameEmailSanitizerTest.php"
+                    ],
+    "sink_hit":  false
+}

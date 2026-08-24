@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-x8g9-h984-pc36",
+    "cve":  "CVE-2026-49359",
+    "cwe":  "CWE-918",
+    "repo":  "pontedilana/php-weasyprint",
+    "fix_commit":  "9582dcf119a405276cf55e9e10bc577a887792cb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Pdf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Pdf.php class extends AbstractGenerator",
+                     "tests/Unit/PdfTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

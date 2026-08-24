@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-jvf5-rxvv-3mcg",
+    "cve":  "CVE-2026-47344",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "sha":  "bd1a88d9b5a5f67f1120ec41084e9c1a0675641c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Parser/Html5.php",
+                        "src/Parser/Tokenizer.php",
+                        "src/Sanitizer.php",
+                        "src/Serializer/Rules.php",
+                        "tests/ScenarioTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Serializer/Rules.php class extends OutputRules",
+                     "tests/ScenarioTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Parser/Html5.php",
+                        "src/Parser/Tokenizer.php",
+                        "src/Sanitizer.php",
+                        "src/Serializer/Rules.php",
+                        "tests/ScenarioTest.php"
+                    ],
+    "sink_hit":  false
+}

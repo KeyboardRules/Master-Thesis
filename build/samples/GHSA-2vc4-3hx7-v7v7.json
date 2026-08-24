@@ -1,0 +1,52 @@
+﻿{
+    "id":  "GHSA-2vc4-3hx7-v7v7",
+    "cve":  "CVE-2025-49137",
+    "cwe":  "CWE-79",
+    "repo":  "haxtheweb/haxcms-php",
+    "sha":  "0dd3e98fe2fadd0793b667d4af2aac230980e0f8",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/backend/php/lib/HAXCMS.php",
+                        "system/backend/php/lib/HAXCMSSite.php",
+                        "system/backend/php/lib/JSONOutlineSchema.php",
+                        "system/backend/php/lib/JSONOutlineSchemaItem.php",
+                        "system/backend/php/lib/Operations.php",
+                        "system/backend/php/lib/RSS.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "system/backend/php/lib/HAXCMS.php includes 10 project file(s)",
+                     "system/backend/php/lib/HAXCMS.php class extends RecursiveFilterIterator",
+                     "system/backend/php/lib/HAXCMSSite.php includes 1 project file(s)",
+                     "system/backend/php/lib/JSONOutlineSchema.php includes 1 project file(s)",
+                     "system/backend/php/lib/Operations.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/glossy-portfolio-theme.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/components/data (1).json",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-breadcrumb.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-card.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-footer.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-grid.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-header.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-home.js",
+                        "build/es6/node_modules/@haxtheweb/glossy-portfolio-theme/lib/glossy-portfolio-page.js",
+                        "build/es6/node_modules/@haxtheweb/hax-body/lib/hax-store.js",
+                        "build/es6/node_modules/@haxtheweb/haxcms-elements/lib/core/haxcms-site-builder.js",
+                        "build/es6/node_modules/@haxtheweb/haxcms-elements/lib/core/haxcms-site-editor-ui.js",
+                        "build/es6/node_modules/@haxtheweb/haxcms-elements/lib/core/haxcms-site-store.js",
+                        "build/es6/node_modules/@haxtheweb/iframe-loader/iframe-loader.js",
+                        "build/es6/node_modules/@haxtheweb/iframe-loader/lib/iframe-loader.haxProperties.json",
+                        "build/es6/node_modules/@haxtheweb/la-tex/lib/latex2html5.js",
+                        "build/es6/node_modules/@haxtheweb/media-image/media-image.js",
+                        "system/backend/php/lib/HAXCMS.php",
+                        "system/backend/php/lib/HAXCMSSite.php",
+                        "system/backend/php/lib/JSONOutlineSchema.php",
+                        "system/backend/php/lib/JSONOutlineSchemaItem.php",
+                        "system/backend/php/lib/Operations.php",
+                        "system/backend/php/lib/RSS.php",
+                        "wc-registry.json"
+                    ],
+    "sink_hit":  true
+}

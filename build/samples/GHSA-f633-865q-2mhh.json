@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f633-865q-2mhh",
+    "cve":  "CVE-2026-40607",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "44f490bcf20fd491c1b8f3fc9dd041d8c2a30010",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_filter_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_filter_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_filter_page.php"
+                    ],
+    "sink_hit":  true
+}

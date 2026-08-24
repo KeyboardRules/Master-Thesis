@@ -1,0 +1,16 @@
+﻿diff --git a/lib/Twig/Template.php b/lib/Twig/Template.php
+index 6eb2c36..4a9fe9a 100644
+--- a/lib/Twig/Template.php
++++ b/lib/Twig/Template.php
+@@ -154,6 +154,11 @@ abstract class Twig_Template implements Twig_TemplateInterface
+         }
+ 
+         if (null !== $template) {
++            // avoid RCEs when sandbox is enabled
++            if (!$template instanceof Twig_Template) {
++                throw new \LogicException('A block must be a method on a Twig_Template instance.');
++            }
++
+             try {
+                 $template->$block($context, $blocks);
+             } catch (Twig_Error $e) {

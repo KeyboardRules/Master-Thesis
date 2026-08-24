@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-f7xw-46vh-5jw2",
+    "cve":  "CVE-2021-4132",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "fix_commit":  "55b1e3bf62c564db7c919f5293ec1e755c2958d6",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhuser/edit.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhuser/new.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhuser/parts/avatar_build.tpl.php",
+                        "lhc_web/lib/core/lhuser/lhuservalidator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhuser/edit.tpl.php includes 21 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhuser/new.tpl.php includes 15 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7c4c-749j-pfp2",
+    "cve":  "CVE-2024-47836",
+    "cwe":  "CWE-502",
+    "repo":  "Admidio/admidio",
+    "fix_commit":  "176f60de6a38dde2b8e848b97647194c12cf5a6c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "adm_program/modules/messages/messages_send.php"
+                    ],
+    "evidence":  [
+                     "adm_program/modules/messages/messages_send.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

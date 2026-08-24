@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c442-3278-rhrg",
+    "cve":  "CVE-2021-36440",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "sha":  "49b992d4c548c8c615a92b6efe8a50c8f1083abf",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Controller/AdminUpdateController.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "server/Application/Api/Controller/AdminUpdateController.class.php class extends BaseController"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Controller/AdminUpdateController.class.php"
+                    ],
+    "sink_hit":  false
+}

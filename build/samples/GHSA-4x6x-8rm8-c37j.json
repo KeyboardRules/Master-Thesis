@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-4x6x-8rm8-c37j",
+    "cve":  "CVE-2025-21612",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-extensions-TabberNeue",
+    "sha":  "d8c3db4e5935476e496d979fb01f775d3d3282e6",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/TabberNeueHooks.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "extension.json",
+                        "i18n/en.json",
+                        "i18n/es.json",
+                        "i18n/qqq.json",
+                        "includes/TabberNeueHooks.php",
+                        "modules/ext.tabberNeue.js"
+                    ],
+    "sink_hit":  false
+}

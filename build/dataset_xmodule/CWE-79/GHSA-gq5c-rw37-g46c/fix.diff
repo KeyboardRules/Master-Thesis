@@ -1,0 +1,106 @@
+﻿diff --git a/Core/Base/Controller.php b/Core/Base/Controller.php
+index b932975..8ef9952 100644
+--- a/Core/Base/Controller.php
++++ b/Core/Base/Controller.php
+@@ -358,7 +358,7 @@ class Controller implements ControllerInterface
+         $user = new DinUser();
+         if (false === $user->load($cookieNick)) {
+             // Si el usuario no se encuentra, registrar advertencia y fallar autenticación
+-            Tools::log()->warning('login-user-not-found', ['%nick%' => $cookieNick]);
++            Tools::log()->warning('login-user-not-found', ['%nick%' => htmlspecialchars($cookieNick)]);
+             return false;
+         }
+ 
+@@ -366,7 +366,7 @@ class Controller implements ControllerInterface
+         $cookiesExpire = time() + Tools::config('cookies_expire');
+         if (false === $user->enabled) {
+             // Si el usuario está desactivado, registrar advertencia, eliminar cookie y fallar autenticación
+-            Tools::log()->warning('login-user-disabled', ['%nick%' => $cookieNick]);
++            Tools::log()->warning('login-user-disabled', ['%nick%' => htmlspecialchars($cookieNick)]);
+             setcookie('fsNick', '', $cookiesExpire, Tools::config('route', '/'));
+             return false;
+         }
+diff --git a/Core/Controller/Login.php b/Core/Controller/Login.php
+index ca5f259..afa5087 100644
+--- a/Core/Controller/Login.php
++++ b/Core/Controller/Login.php
+@@ -176,7 +176,7 @@ class Login implements ControllerInterface
+         }
+ 
+         if ($password !== $password2) {
+-            Tools::log()->warning('different-passwords', ['%userNick%' => $username]);
++            Tools::log()->warning('different-passwords', ['%userNick%' => htmlspecialchars($username)]);
+             return;
+         }
+ 
+@@ -193,7 +193,7 @@ class Login implements ControllerInterface
+         }
+ 
+         if (false === $user->setPassword($password)) {
+-            Tools::log()->warning('weak-password', ['%userNick%' => $username]);
++            Tools::log()->warning('weak-password', ['%userNick%' => htmlspecialchars($username)]);
+             return;
+         }
+ 
+diff --git a/Core/Controller/SendMail.php b/Core/Controller/SendMail.php
+index 9723cd8..557063e 100644
+--- a/Core/Controller/SendMail.php
++++ b/Core/Controller/SendMail.php
+@@ -314,7 +314,7 @@ class SendMail extends Controller
+ 
+         $emailFrom = $this->request->input('email-from', '');
+         if (false === Validator::email($emailFrom)) {
+-            Tools::log()->error('invalid-email-from', ['%email%' => $emailFrom]);
++            Tools::log()->error('invalid-email-from', ['%email%' => htmlspecialchars($emailFrom)]);
+             return false;
+         }
+ 
+@@ -331,7 +331,7 @@ class SendMail extends Controller
+             }
+ 
+             if (false === Validator::email($email)) {
+-                Tools::log()->error('invalid-email-to', ['%email%' => $email]);
++                Tools::log()->error('invalid-email-to', ['%email%' => htmlspecialchars($email)]);
+                 return false;
+             }
+ 
+@@ -349,7 +349,7 @@ class SendMail extends Controller
+             }
+ 
+             if (false === Validator::email($email)) {
+-                Tools::log()->error('invalid-email-cc', ['%email%' => $email]);
++                Tools::log()->error('invalid-email-cc', ['%email%' => htmlspecialchars($email)]);
+                 return false;
+             }
+ 
+@@ -367,7 +367,7 @@ class SendMail extends Controller
+             }
+ 
+             if (false === Validator::email($email)) {
+-                Tools::log()->error('invalid-email-bcc', ['%email%' => $email]);
++                Tools::log()->error('invalid-email-bcc', ['%email%' => htmlspecialchars($email)]);
+                 return false;
+             }
+ 
+diff --git a/Core/Template/Controller.php b/Core/Template/Controller.php
+index ec05b4b..30919ae 100644
+--- a/Core/Template/Controller.php
++++ b/Core/Template/Controller.php
+@@ -171,7 +171,7 @@ abstract class Controller implements ControllerInterface
+         $user = new User();
+         if (false === $user->load($cookieNick)) {
+             // Si el usuario no se encuentra, registrar advertencia y fallar autenticación
+-            Tools::log()->warning('login-user-not-found', ['%nick%' => $cookieNick]);
++            Tools::log()->warning('login-user-not-found', ['%nick%' => htmlspecialchars($cookieNick)]);
+             return false;
+         }
+ 
+@@ -179,7 +179,7 @@ abstract class Controller implements ControllerInterface
+         $cookiesExpire = time() + Tools::config('cookies_expire');
+         if (false === $user->enabled) {
+             // Si el usuario está desactivado, registrar advertencia, eliminar cookie y fallar autenticación
+-            Tools::log()->warning('login-user-disabled', ['%nick%' => $cookieNick]);
++            Tools::log()->warning('login-user-disabled', ['%nick%' => htmlspecialchars($cookieNick)]);
+             $this->response()->cookie('fsNick', '', $cookiesExpire);
+             return false;
+         }

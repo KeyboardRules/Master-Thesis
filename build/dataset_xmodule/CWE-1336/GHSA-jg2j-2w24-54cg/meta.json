@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-jg2j-2w24-54cg",
+    "cve":  "CVE-2026-23626",
+    "cwe":  "CWE-1336",
+    "repo":  "kimai/kimai",
+    "fix_commit":  "6a86afb5fd79f6c1825060b87c09bd1909c2e86f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Constants.php",
+                        "src/Entity/ColorTrait.php",
+                        "src/Export/Base/HtmlRenderer.php",
+                        "src/Twig/SecurityPolicy/ChainPolicy.php",
+                        "src/Twig/SecurityPolicy/DefaultPolicy.php",
+                        "src/Twig/SecurityPolicy/ForbiddenPolicy.php",
+                        "src/Twig/SecurityPolicy/InvoicePolicy.php"
+                    ],
+    "evidence":  [
+                     "fix touches 21 php files",
+                     "src/Export/Base/HtmlRenderer.php class uses trait",
+                     "tests/API/APIControllerBaseTestCase.php class extends AbstractControllerBaseTestCase",
+                     "tests/API/ActivityControllerTest.php class extends APIControllerBaseTestCase",
+                     "tests/API/ActivityControllerTest.php class uses trait",
+                     "tests/API/CustomerControllerTest.php class extends APIControllerBaseTestCase",
+                     "tests/API/CustomerControllerTest.php class uses trait",
+                     "tests/API/ProjectControllerTest.php class extends APIControllerBaseTestCase",
+                     "tests/API/ProjectControllerTest.php class uses trait",
+                     "tests/Export/Renderer/AbstractRendererTestCase.php class extends KernelTestCase",
+                     "tests/Invoice/Renderer/DebugRendererTest.php class extends TestCase",
+                     "tests/Invoice/Renderer/DebugRendererTest.php class uses trait",
+                     "tests/Invoice/Renderer/PdfRendererTest.php class extends KernelTestCase",
+                     "tests/Invoice/Renderer/PdfRendererTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

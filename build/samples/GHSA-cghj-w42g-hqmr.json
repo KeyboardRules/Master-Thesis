@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cghj-w42g-hqmr",
+    "cve":  "CVE-2018-19785",
+    "cwe":  "CWE-79",
+    "repo":  "Athlon1600/php-proxy-app",
+    "sha":  "f74d9315ded7c05030023efcbedbcb24e8cc3a64",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/main.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/main.php"
+                    ],
+    "sink_hit":  true
+}

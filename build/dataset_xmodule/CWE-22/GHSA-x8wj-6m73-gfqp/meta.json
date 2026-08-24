@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-x8wj-6m73-gfqp",
+    "cve":  "CVE-2020-5237",
+    "cwe":  "CWE-22",
+    "repo":  "1up-lab/OneupUploaderBundle",
+    "fix_commit":  "a6011449b716f163fe1ae323053077e59212350c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Controller/DropzoneController.php",
+                        "Controller/FineUploaderController.php",
+                        "Controller/PluploadController.php",
+                        "Uploader/Chunk/Storage/FilesystemStorage.php",
+                        "Uploader/Chunk/Storage/FlysystemStorage.php",
+                        "Uploader/Chunk/Storage/GaufretteStorage.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "Controller/DropzoneController.php class extends AbstractChunkedController",
+                     "Controller/FineUploaderController.php class extends AbstractChunkedController",
+                     "Controller/PluploadController.php class extends AbstractChunkedController",
+                     "Uploader/Chunk/Storage/GaufretteStorage.php class extends StreamManager"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

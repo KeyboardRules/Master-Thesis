@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-px5m-h76g-p7p8",
+    "cve":  "CVE-2026-52778",
+    "cwe":  "CWE-94",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "dd2bd8fb099de0d21504bda8a810693b3fcb8e52",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/fields/CalcField.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "tools/bazar/fields/CalcField.php class extends BazarField"
+                 ],
+    "changed_all":  [
+                        "tools/bazar/fields/CalcField.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-q6v4-xjp2-8ggv",
+    "cve":  "CVE-2017-14077",
+    "cwe":  "CWE-94",
+    "repo":  "dapphp/securimage",
+    "sha":  "2c7ce3f6fa5ab86fd0ac8e3b4d5d72a21329d8ea",
+    "status":  "ok",
+    "changed_php":  [
+                        "example_form.ajax.php",
+                        "example_form.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "example_form.ajax.php includes 2 project file(s)",
+                     "example_form.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "example_form.ajax.php",
+                        "example_form.php"
+                    ],
+    "sink_hit":  false
+}

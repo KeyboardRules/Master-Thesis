@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-77j2-7whr-6vpx",
+    "cve":  "CVE-2018-16974",
+    "cwe":  "CWE-434",
+    "repo":  "jbroadway/elefant",
+    "sha":  "49ba8cc24e9f009ce30d2c2eb9eefeb9be4ce1d0",
+    "status":  "ok",
+    "changed_php":  [
+                        "apps/filemanager/handlers/embed.php",
+                        "apps/filemanager/handlers/redactor/upload.php",
+                        "apps/filemanager/handlers/upload.php",
+                        "apps/filemanager/handlers/upload/drop.php",
+                        "apps/filemanager/lib/API.php",
+                        "apps/filemanager/lib/FileManager.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "apps/filemanager/lib/API.php class extends Restful",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "apps/filemanager/handlers/embed.php",
+                        "apps/filemanager/handlers/redactor/upload.php",
+                        "apps/filemanager/handlers/upload.php",
+                        "apps/filemanager/handlers/upload/drop.php",
+                        "apps/filemanager/lib/API.php",
+                        "apps/filemanager/lib/FileManager.php"
+                    ],
+    "sink_hit":  true
+}

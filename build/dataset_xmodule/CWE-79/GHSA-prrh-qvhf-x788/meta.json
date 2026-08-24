@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-prrh-qvhf-x788",
+    "cve":  "CVE-2022-35933",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/productcomments",
+    "fix_commit":  "314456d739155aa71f0b235827e8e0f24b97c26b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "productcomments.php"
+                    ],
+    "evidence":  [
+                     "productcomments.php includes 5 project file(s)",
+                     "productcomments.php class extends Module"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

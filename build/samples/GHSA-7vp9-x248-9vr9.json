@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-7vp9-x248-9vr9",
+    "cve":  "CVE-2026-0859",
+    "cwe":  "CWE-502",
+    "repo":  "TYPO3/typo3",
+    "sha":  "3225d705080a1bde57a66689621c947da5a4782f",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Mail/FileSpool.php",
+                        "typo3/sysext/core/Classes/Serializer/Exception/PolymorphicDeserializerException.php",
+                        "typo3/sysext/core/Classes/Serializer/PolymorphicDeserializer.php",
+                        "typo3/sysext/core/Tests/Functional/Serializer/PolymorphicDeserializerTest.php",
+                        "typo3/sysext/core/Tests/Unit/Mail/FileSpoolTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "typo3/sysext/core/Classes/Mail/FileSpool.php class extends AbstractTransport",
+                     "typo3/sysext/core/Tests/Unit/Mail/FileSpoolTest.php class extends UnitTestCase"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Mail/FileSpool.php",
+                        "typo3/sysext/core/Classes/Serializer/Exception/PolymorphicDeserializerException.php",
+                        "typo3/sysext/core/Classes/Serializer/PolymorphicDeserializer.php",
+                        "typo3/sysext/core/Tests/Functional/Serializer/Fixtures/BoE4HIpmXv.message",
+                        "typo3/sysext/core/Tests/Functional/Serializer/PolymorphicDeserializerTest.php",
+                        "typo3/sysext/core/Tests/Unit/Mail/FileSpoolTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-6j68-gcc3-mq73",
+    "cve":  "CVE-2026-32812",
+    "cwe":  "CWE-918",
+    "repo":  "Admidio/admidio",
+    "sha":  "f6b7a966abe4d75e9f707d665d7b4b5570e3185a",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/sso/fetch_metadata.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "modules/sso/fetch_metadata.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "modules/sso/fetch_metadata.php"
+                    ],
+    "sink_hit":  true
+}

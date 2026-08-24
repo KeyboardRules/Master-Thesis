@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gv6c-59h4-9pmg",
+    "cve":  "CVE-2011-4962",
+    "cwe":  "CWE-502",
+    "repo":  "silverstripe/silverstripe-cms",
+    "fix_commit":  "d15e8509b01ff2dbbe3028a055021a29b1065b22",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "code/sitefeatures/PageCommentInterface.php"
+                    ],
+    "evidence":  [
+                     "code/sitefeatures/PageCommentInterface.php class extends RequestHandler"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-pgvh-p3g4-86jw",
+    "cve":  "CVE-2023-25313",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "236228f15a9a31be5a0e60f05dac043682e49a5e",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Meet/Objects/Meet_schedule.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "plugin/Meet/Objects/Meet_schedule.php includes 1 project file(s)",
+                     "plugin/Meet/Objects/Meet_schedule.php class extends ObjectYPT"
+                 ],
+    "changed_all":  [
+                        "plugin/Meet/Objects/Meet_schedule.php"
+                    ],
+    "sink_hit":  true
+}

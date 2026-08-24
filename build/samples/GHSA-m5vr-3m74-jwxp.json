@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-m5vr-3m74-jwxp",
+    "cve":  "CVE-2020-15098",
+    "cwe":  "CWE-502",
+    "repo":  "TYPO3/TYPO3.CMS",
+    "sha":  "85d3e70dff35a99ef53f4b561114acfa9e5c47e1",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/backend/Classes/Controller/LinkBrowserController.php",
+                        "typo3/sysext/backend/Classes/Form/FieldControl/EditPopup.php",
+                        "typo3/sysext/backend/Classes/Form/FieldControl/LinkPopup.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "typo3/sysext/backend/Classes/Controller/LinkBrowserController.php class extends AbstractLinkBrowserController",
+                     "typo3/sysext/backend/Classes/Form/FieldControl/EditPopup.php class extends AbstractNode",
+                     "typo3/sysext/backend/Classes/Form/FieldControl/LinkPopup.php class extends AbstractNode"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/backend/Classes/Controller/LinkBrowserController.php",
+                        "typo3/sysext/backend/Classes/Form/FieldControl/EditPopup.php",
+                        "typo3/sysext/backend/Classes/Form/FieldControl/LinkPopup.php"
+                    ],
+    "sink_hit":  false
+}

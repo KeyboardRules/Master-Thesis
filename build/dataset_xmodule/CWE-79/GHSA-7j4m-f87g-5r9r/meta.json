@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-7j4m-f87g-5r9r",
+    "cve":  "CVE-2023-1069",
+    "cwe":  "CWE-79",
+    "repo":  "Really-Simple-Plugins/complianz-gdpr",
+    "fix_commit":  "e6c2c386cadb78f8cdcded1b000cbd38bd9ff043",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "DNSMPD/class-DNSMPD.php",
+                        "class-document.php",
+                        "functions.php",
+                        "integrations/integrations.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "DNSMPD/class-DNSMPD.php includes 2 project file(s)",
+                     "class-document.php includes 1 project file(s)",
+                     "functions.php includes 1 project file(s)",
+                     "integrations/integrations.php includes 10 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

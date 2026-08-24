@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-qqjv-mc2v-p7mc",
+    "cve":  "CVE-2018-1042",
+    "cwe":  "CWE-918",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "f1d1a60e0ac8549c08e66062f3cd0110e4a92e24",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lang/en/repository.php",
+                        "repository/lib.php",
+                        "repository/repository_ajax.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "repository/lib.php includes 6 project file(s)",
+                     "repository/lib.php class extends moodle_exception",
+                     "repository/repository_ajax.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

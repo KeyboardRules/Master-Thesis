@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fqx6-693c-f55g",
+    "cve":  "CVE-2026-27016",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "3bea263e02441690c01dea7fa3fe6ffec94af335",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/forms/customoid.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/forms/customoid.inc.php"
+                    ],
+    "sink_hit":  false
+}

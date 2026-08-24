@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v858-922f-fj9v",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "simplesamlphp/simplesamlphp",
+    "fix_commit":  "b1af4e47c81bca2bee633b3f84f4fde624f359ba",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "www/logout.php"
+                    ],
+    "evidence":  [
+                     "www/logout.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

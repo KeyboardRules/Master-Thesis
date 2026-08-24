@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-j5hq-6frc-64v3",
+    "cve":  "CVE-2023-5564",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "fix_commit":  "e8ed43056c1665522a586e3485da67f2bdf073aa",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Froxlor/UI/Callbacks/Customer.php",
+                        "lib/Froxlor/UI/Callbacks/Text.php",
+                        "lib/Froxlor/UI/Panel/FroxlorTwig.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "lib/Froxlor/UI/Callbacks/Text.php includes 2 project file(s)",
+                     "lib/Froxlor/UI/Panel/FroxlorTwig.php class extends AbstractExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-g947-422m-hr7p",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "07a2c95be524c7e20105cef58c5767d4ebb06091",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "lib/Security/SecurityHelper.php",
+                        "models/Staticroute.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController",
+                     "models/Staticroute.php class extends AbstractModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m9xr-8cx7-53pj",
+    "cve":  "CVE-2023-0314",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "3872e7eac2ddeac182fc1335cc312d1392d56f98",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpmyfaq/admin/index.php"
+                    ],
+    "evidence":  [
+                     "phpmyfaq/admin/index.php includes 75 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

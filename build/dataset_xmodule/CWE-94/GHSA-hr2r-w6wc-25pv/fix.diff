@@ -1,0 +1,174 @@
+﻿diff --git a/zenario/admin/db_updates/latest_revision_no.inc.php b/zenario/admin/db_updates/latest_revision_no.inc.php
+index 255b6262..9edd6bd3 100644
+--- a/zenario/admin/db_updates/latest_revision_no.inc.php
++++ b/zenario/admin/db_updates/latest_revision_no.inc.php
+@@ -39,6 +39,6 @@ define('ZENARIO_MAJOR_VERSION', '9');
+ define('ZENARIO_MINOR_VERSION', '5');
+ define('ZENARIO_CHANGELOG_URL', 'https://zenar.io/zenario-95');
+ define('ZENARIO_IS_BUILD', true);
+-define('ZENARIO_REVISION', '60240');
++define('ZENARIO_REVISION', '60437');
+ 
+ define('TINYMCE_DIR', 'zenario/libs/manually_maintained/lgpl/tinymce_4_7_3.1/');
+diff --git a/zenario/autoload/fun/syncInlineFileContentLink.php b/zenario/autoload/fun/syncInlineFileContentLink.php
+index 67c977be..28a34a8f 100644
+--- a/zenario/autoload/fun/syncInlineFileContentLink.php
++++ b/zenario/autoload/fun/syncInlineFileContentLink.php
+@@ -129,7 +129,7 @@ if (!$featureImageId) {
+ }
+ 
+ //Update the Content in the cache table
+-$text = trim(strip_tags($content));
++$text = trim(html_entity_decode(strip_tags($content)));
+ \ze\row::set('content_cache', ['text' => $text, 'text_wordcount' => str_word_count($text)], ['content_id' => $cID, 'content_type' => $cType, 'content_version' => $cVersion]);
+ 
+ 
+diff --git a/zenario/autoload/phi.php b/zenario/autoload/phi.php
+index a7c911ef..f2db200e 100644
+--- a/zenario/autoload/phi.php
++++ b/zenario/autoload/phi.php
+@@ -42,7 +42,6 @@ require CMS_ROOT. 'zenario/libs/manually_maintained/mit/twig-breakandcontinue/mn
+ class phi {
+ 
+ 	private static $initRun = false;
+-	private static $twig;
+ 	private static $vars = [
+ 		'e' => M_E,
+ 		'pi' => M_PI,
+@@ -52,6 +51,19 @@ class phi {
+ 	];
+ 	
+ 	
++	private static $twig;
++	
++	//A dummy filter, just used as a work-around to block other filters from working
++	public static function dummyFilter() {
++		return '';
++	}
++	
++	protected static function blockFilter($name) {
++		$dummyFilter = new \Twig\TwigFilter($name, ['\\ze\\phi', 'dummyFilter']);
++		self::$twig->addFilter($dummyFilter);
++	}
++	
++	
+ 	private static $testing = false;
+ 	private static $output = null;
+ 	private static $outputs = [];
+@@ -134,6 +146,16 @@ class phi {
+ 		//Include a Twig extension that enables support for breaks and continues
+ 		self::$twig->addExtension(new \MNBreakAndContinueTwigExtension());
+ 		
++		//Remove the "filter", "map" and "reduce" filters, as these have a very bad security vulnerability
++		//involving executing arbitrary functions/making arbitrary CLI calls, and I don't think we
++		//use them anywhere anyway.
++		//I'm also removing the "sort" filter. I can't actually reproduce the vulnerability with this one
++		//but it also accepts functions as an input so I'm blocking it out of paranoia.
++		self::blockFilter('filter');
++		self::blockFilter('map');
++		self::blockFilter('reduce');
++		self::blockFilter('sort');
++		
+ 		
+ 		//Set up the whitelist of allowed functions
+ 		$whitelist = [
+diff --git a/zenario/autoload/twig.php b/zenario/autoload/twig.php
+index c94a1320..458efe17 100644
+--- a/zenario/autoload/twig.php
++++ b/zenario/autoload/twig.php
+@@ -45,6 +45,16 @@ require CMS_ROOT. 'zenario/libs/manually_maintained/mit/twig-extensions/lib/Twig
+ class twig {
+ 	private static $twig;
+ 	
++	//A dummy filter, just used as a work-around to block other filters from working
++	public static function dummyFilter() {
++		return '';
++	}
++	
++	protected static function blockFilter($name) {
++		$dummyFilter = new \Twig\TwigFilter($name, ['\\ze\\twig', 'dummyFilter']);
++		self::$twig->addFilter($dummyFilter);
++	}
++	
+ 	public static function init() {
+ 		//Initialise Twig
+ 		self::$twig = new \Twig\Environment(new \Zenario_Twig_Loader(), [
+@@ -55,6 +65,16 @@ class twig {
+ 
+ 		//Add the I18n extension to add support for translating text
+ 		self::$twig->addExtension(new \Twig_Extensions_Extension_I18n());
++		
++		//Remove the "filter", "map" and "reduce" filters, as these have a very bad security vulnerability
++		//involving executing arbitrary functions/making arbitrary CLI calls, and I don't think we
++		//use them anywhere anyway.
++		//I'm also removing the "sort" filter. I can't actually reproduce the vulnerability with this one
++		//but it also accepts functions as an input so I'm blocking it out of paranoia.
++		self::blockFilter('filter');
++		self::blockFilter('map');
++		self::blockFilter('reduce');
++		self::blockFilter('sort');
+ 
+ 
+ 		//Create instances of any modules that say they are usable in Twig Frameworks
+diff --git a/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php b/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
+index 7c4294be..d0122cd9 100644
+--- a/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
++++ b/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
+@@ -65,6 +65,57 @@ class zenario_common_features__organizer__menu_nodes extends ze\moduleBaseClass
+ 			$panel['custom__content_types_with_categories'] =
+ 				ze\ray::valuesToKeys(ze\row::getValues('content_types', 'content_type_id', ['enable_categories' => 1]));
+ 		}
++		
++		
++		//Some specific code to handle sorting items whilst searching in flat view.
++		//When not searching, items will be displayed in hierarchy view, and the JavaScript in the panel instance
++		//will need things sorted by the ordinal in each level.
++		//However when we are doing a search, hierarchy view will be switched off and items will be shown in flat view.
++		//We need to write some SQL to make sure they are sorted in the correct hierarchical order.
++		if (isset($_GET['_search'])) {
++			
++			//Work out what the largest possible depth is in the menu.
++			//(N.b. this field has an index so this query should be fast.)
++			$largestMenuDepth = (int) ze\sql::fetchValue("SELECT MAX(separation) FROM ". DB_PREFIX. "menu_hierarchy");
++			
++			//Special case:
++			//If there are no menu nodes that are children of other menu nodes, we can just leave the sort column
++			//as the ordinal and skip this step.
++			if ($largestMenuDepth > 0) {
++				
++				//Start writing the SQL needed to sort the matched menu nodes into order hierarchically.
++				$join = '';
++				$sortCol = 'mi.ordinal';
++				
++				//For every possible parent-child relationship, add a new table join,
++				//and then add that table join to the ordinal column.
++				//The logic I've written below will show all of the top level nodes first,
++				//then second level, and so on. After that they'll be sorted in hierarchical menu node order.
++				//You could use different logic than that, but only if you could work out a way to write the joins/SQL.
++				for ($i = 1; $i <= $largestMenuDepth; ++$i) {
++					$l = $i - 1;
++					
++					$join .= '
++						LEFT JOIN '. DB_PREFIX. 'menu_nodes AS p'. $i;
++					
++					if ($i == 1) {
++						$join .= '
++						   ON mi.parent_id != 0
++						  AND p'. $i. '.id = mi.parent_id';
++					} else {
++						$join .= '
++						   ON p'. $l. '.parent_id != 0
++						  AND p'. $i. '.id = p'. $l. '.parent_id';
++					}
++					
++					$sortCol = 'p'. $i. '.ordinal, '. $sortCol;
++				}
++				
++				
++				$panel['db_items']['table'] .= $join;
++				$panel['columns']['ordinal']['sort_column'] = $sortCol;
++			}
++		}
+ 	}
+ 	
+ 	public function fillOrganizerPanel($path, &$panel, $refinerName, $refinerId, $mode) {

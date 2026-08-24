@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rfq9-4wcm-64gh",
+    "cve":  "CVE-2026-2469",
+    "cwe":  "CWE-74",
+    "repo":  "DirectoryTree/ImapEngine",
+    "sha":  "87fca56affd9527e6907a705e6d600c5174d9a5a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Connection/ImapConnection.php",
+                        "tests/Unit/Connection/ImapConnectionTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/Connection/ImapConnection.php",
+                        "tests/Unit/Connection/ImapConnectionTest.php"
+                    ],
+    "sink_hit":  false
+}

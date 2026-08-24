@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gvmf-wcx6-p974",
+    "cve":  "CVE-2022-31092",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "21559c6bf0e4e828d33ff7af6e88caecb5ac6549",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Model/Listing/AbstractListing.php"
+                    ],
+    "evidence":  [
+                     "lib/Model/Listing/AbstractListing.php class extends AbstractModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

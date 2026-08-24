@@ -1,0 +1,47 @@
+﻿{
+    "id":  "GHSA-3cpp-fv95-mpr5",
+    "cve":  "",
+    "cwe":  "CWE-918",
+    "repo":  "shopware/shopware",
+    "sha":  "f32737b34798d4800b81c67efee17905380d2be4",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php class extends TestCase",
+                     "tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php class uses trait",
+                     "tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php class extends TestCase",
+                     "tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php class uses trait",
+                     "tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php class extends TestCase",
+                     "tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php class uses trait",
+                     "tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php class extends TestCase",
+                     "tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Core/Framework/Resources/views/documents/includes/comment.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/footer.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/letter_header.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/payment_shipping.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/position.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/position_header.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/shipping_costs.html.twig",
+                        "src/Core/Framework/Resources/views/documents/includes/summary.html.twig",
+                        "src/Core/Framework/Resources/views/documents/invoice.html.twig",
+                        "src/Core/Framework/Resources/views/documents/storno.html.twig",
+                        "tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php",
+                        "tests/integration/Core/Checkout/Document/Renderer/_snapshots/credit_note_renderer_default.html",
+                        "tests/integration/Core/Checkout/Document/Renderer/_snapshots/delivery_note_renderer_default.html",
+                        "tests/integration/Core/Checkout/Document/Renderer/_snapshots/invoice_renderer_default.html",
+                        "tests/integration/Core/Checkout/Document/Renderer/_snapshots/storno_renderer_default.html"
+                    ],
+    "sink_hit":  false
+}

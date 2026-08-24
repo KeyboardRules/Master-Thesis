@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2x65-fpch-2fcm",
+    "cve":  "CVE-2024-52596",
+    "cwe":  "CWE-611",
+    "repo":  "simplesamlphp/xml-common",
+    "fix_commit":  "fa4ade391c3194466acf5fbfd5d2ecdbf5e831f5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/DOMDocumentFactory.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/XML/DOMDocumentFactoryTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

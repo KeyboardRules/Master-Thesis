@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-3jxh-789f-p7m6",
+    "cve":  "CVE-2021-27902",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "8ee85a8f03c143fa2420e7d6f311d95cae3b19ce",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/config/GeneralConfig.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/config/GeneralConfig.php class extends BaseObject"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG-v3.6.md",
+                        "CHANGELOG.md",
+                        "src/config/GeneralConfig.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,214 @@
+﻿diff --git a/forms/TreeDropdownField.php b/forms/TreeDropdownField.php
+index 2f9f5d623..8cf46c78b 100644
+--- a/forms/TreeDropdownField.php
++++ b/forms/TreeDropdownField.php
+@@ -94,12 +94,32 @@ class TreeDropdownField extends FormField {
+ 		$this->keyField     = $keyField;
+ 		$this->labelField   = $labelField;
+ 		$this->showSearch	= $showSearch;
+-		
++
++		$this->addExtraClass('single');
++
+ 		parent::__construct($name, $title);
+ 	}
+-	
++
++	/**
++	 * Helper for the front end to know if we should escape the label value
++	 *
++	 * @return bool Whether the label field should be escaped
++	 */
++	public function getEscapeLabelField() {
++		// be defensive
++		$escape = true;
++		$sourceClass = $this->getSourceObject();
++		//if it's an array, then it's an explicit set of values and we have to assume they've escaped their values already
++		//if the field is cast as XML, then we don't need to escape
++		if (is_array($sourceClass) || (is_a($sourceClass, 'ViewableData', true) && singleton($sourceClass)->escapeTypeForField($this->getLabelField()) == 'xml')) {
++			$escape = false;
++		}
++
++		return $escape;
++	}
++
+ 	/**
+-	 * Set the ID of the root node of the tree. This defaults to 0 - i.e. 
++	 * Set the ID of the root node of the tree. This defaults to 0 - i.e.
+ 	 * displays the whole tree.
+ 	 *
+ 	 * @param int $ID
+diff --git a/forms/TreeMultiselectField.php b/forms/TreeMultiselectField.php
+index 029ac84ce..1757f7b55 100644
+--- a/forms/TreeMultiselectField.php
++++ b/forms/TreeMultiselectField.php
+@@ -46,6 +46,8 @@
+ class TreeMultiselectField extends TreeDropdownField {
+ 	public function __construct($name, $title=null, $sourceObject="Group", $keyField="ID", $labelField="Title") {
+ 		parent::__construct($name, $title, $sourceObject, $keyField, $labelField);
++		$this->removeExtraClass('single');
++		$this->addExtraClass('multiple');
+ 		$this->value = 'unchanged';
+ 	}
+ 
+@@ -103,7 +105,11 @@ class TreeMultiselectField extends TreeDropdownField {
+ 
+ 		if($items && count($items)) {
+ 			foreach($items as $id => $item) {
+-				$titleArray[] = $item->Title;
++				$title = $item->Title;
++				if ($item instanceof ViewableData && $item->escapeTypeForField('Title') != 'xml') {
++					$title = Convert::raw2xml($title);
++				}
++				$titleArray[] = $title;
+ 				$idArray[] = $item->ID;
+ 			}
+ 				
+@@ -118,30 +124,18 @@ class TreeMultiselectField extends TreeDropdownField {
+ 		$dataUrlTree = '';
+ 		if ($this->form){
+ 			$dataUrlTree = $this->Link('tree');
+-			if (isset($idArray) && count($idArray)){
++			if (!empty($idArray)){
+ 				$dataUrlTree = Controller::join_links($dataUrlTree, '?forceValue='.implode(',',$idArray));
+ 			}
+ 		}
+-		return FormField::create_tag(
+-			'div',
+-			array (
+-				'id'    => "TreeDropdownField_{$this->id()}",
+-				'class' => 'TreeDropdownField multiple' . ($this->extraClass() ? " {$this->extraClass()}" : '')
+-					. ($this->showSearch ? " searchable" : ''),
+-				'data-url-tree' => $dataUrlTree,
+-				'data-title' => $title,
+-				'title' => $this->getDescription()
+-			),
+-			FormField::create_tag(
+-				'input',
+-				array (
+-					'id'    => $this->id(),
+-					'type'  => 'hidden',
+-					'name'  => $this->name,
+-					'value' => $value
+-				)
++		$properties = array_merge(
++			$properties,
++			array(
++				'Title' => $title,
++				'Link' => $dataUrlTree,
+ 			)
+ 		);
++		return $this->customise($properties)->renderWith('TreeDropdownField');
+ 	}
+ 
+ 	/**
+diff --git a/forms/gridfield/GridFieldPrintButton.php b/forms/gridfield/GridFieldPrintButton.php
+index 217ea09cb..653620b11 100644
+--- a/forms/gridfield/GridFieldPrintButton.php
++++ b/forms/gridfield/GridFieldPrintButton.php
+@@ -192,6 +192,10 @@ class GridFieldPrintButton implements GridField_HTMLProvider, GridField_ActionPr
+ 			foreach($printColumns as $field => $label) {
+ 				$value = $gridField->getDataFieldValue($item, $field);
+ 
++				if ($item->escapeTypeForField('Title') != 'xml') {
++					$value = Convert::raw2xml($value);
++				}
++
+ 				$itemRow->push(new ArrayData(array(
+ 					"CellString" => $value,
+ 				)));
+diff --git a/model/DataDifferencer.php b/model/DataDifferencer.php
+index 36c0b4643..a69216c69 100644
+--- a/model/DataDifferencer.php
++++ b/model/DataDifferencer.php
+@@ -85,10 +85,15 @@ class DataDifferencer extends ViewableData {
+ 			if(in_array($field, $this->ignoredFields)) continue;
+ 			if(in_array($field, array_keys($hasOnes))) continue;
+ 
++			$escape = false;
++			if ($this->toRecord->escapeTypeForField($field) != 'xml') {
++				$escape = true;
++			}
+ 			if(!$this->fromRecord) {
+-				$diffed->setField($field, "<ins>" . $this->toRecord->$field . "</ins>");
++				$val = $escape ? Convert::raw2xml($this->toRecord->$field) : $this->toRecord->$field;
++				$diffed->setField($field, "<ins>" . $val . "</ins>");
+ 			} else if($this->fromRecord->$field != $this->toRecord->$field) {
+-				$diffed->setField($field, Diff::compareHTML($this->fromRecord->$field, $this->toRecord->$field));
++				$diffed->setField($field, Diff::compareHTML($this->fromRecord->$field, $this->toRecord->$field, $escape));
+ 			}
+ 		}
+ 
+diff --git a/model/DataObject.php b/model/DataObject.php
+index 4a666c91c..cea18d6ed 100644
+--- a/model/DataObject.php
++++ b/model/DataObject.php
+@@ -3435,6 +3435,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
+ 	 * @var array
+ 	 */
+ 	private static $casting = array(
++		"ID" => 'Int',
++		"ClassName" => 'Varchar',
+ 		"LastEdited" => "SS_Datetime",
+ 		"Created" => "SS_Datetime",
+ 		"Title" => 'Text',
+diff --git a/security/PermissionCheckboxSetField.php b/security/PermissionCheckboxSetField.php
+index d3b7ab151..c4ade0bb0 100644
+--- a/security/PermissionCheckboxSetField.php
++++ b/security/PermissionCheckboxSetField.php
+@@ -99,7 +99,7 @@ class PermissionCheckboxSetField extends FormField {
+ 				if(!isset($uninheritedCodes[$permission->Code])) $uninheritedCodes[$permission->Code] = array();
+ 				$uninheritedCodes[$permission->Code][] = _t(
+ 					'PermissionCheckboxSetField.AssignedTo', 'assigned to "{title}"',
+-					array('title' => $record->Title)
++					array('title' => $record->dbObject('Title')->forTemplate())
+ 				);
+ 			}
+ 
+@@ -115,7 +115,7 @@ class PermissionCheckboxSetField extends FormField {
+ 								'PermissionCheckboxSetField.FromRole',
+ 								'inherited from role "{title}"',
+ 								'A permission inherited from a certain permission role',
+-								array('title' => $role->Title)
++								array('title' => $role->dbObject('Title')->forTemplate())
+ 							);
+ 						}
+ 					}
+@@ -134,7 +134,7 @@ class PermissionCheckboxSetField extends FormField {
+ 										'PermissionCheckboxSetField.FromRoleOnGroup',
+ 										'inherited from role "%s" on group "%s"',
+ 										'A permission inherited from a role on a certain group',
+-										array('roletitle' => $role->Title, 'grouptitle' => $parent->Title)
++										array('roletitle' => $role->dbObject('Title')->forTemplate(), 'grouptitle' => $parent->dbObject('Title')->forTemplate())
+ 									);
+ 								}
+ 							}
+@@ -149,7 +149,7 @@ class PermissionCheckboxSetField extends FormField {
+ 									'PermissionCheckboxSetField.FromGroup',
+ 									'inherited from group "{title}"',
+ 									'A permission inherited from a certain group',
+-									array('title' => $parent->Title)
++									array('title' => $parent->dbObject('Title')->forTemplate())
+ 								);
+ 							}
+ 						}
+diff --git a/view/ViewableData.php b/view/ViewableData.php
+index 7a6cf5b4c..dda8c653d 100644
+--- a/view/ViewableData.php
++++ b/view/ViewableData.php
+@@ -274,12 +274,12 @@ class ViewableData extends Object implements IteratorAggregate {
+ 	 */
+ 	public function escapeTypeForField($field) {
+ 		if(!$class = $this->castingClass($field)) {
+-			$class = self::$default_cast;
++			$class = $this->config()->get('default_cast');
+ 		}
+-		
++
+ 		return Config::inst()->get($class, 'escape_type', Config::FIRST_SET);
+ 	}
+-	
++
+ 	/**
+ 	 * Save the casting cache for this object (including data from any failovers) into a variable
+ 	 *

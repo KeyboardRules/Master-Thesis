@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q9qc-pp5x-mc8c",
+    "cve":  "CVE-2022-0896",
+    "cwe":  "CWE-1336",
+    "repo":  "microweber/microweber",
+    "sha":  "e0224462b3dd6b1f7c6ec1197413afc6019bc3b5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Comment/Http/Controllers/Admin/AdminCommentController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/MicroweberPackages/Comment/Http/Controllers/Admin/AdminCommentController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Comment/Http/Controllers/Admin/AdminCommentController.php"
+                    ],
+    "sink_hit":  false
+}

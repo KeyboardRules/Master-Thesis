@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3w22-wrwx-2r75",
+    "cve":  "CVE-2018-6905",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "d2c0ea7db3b31a796a82f9d39f77f9983beb7c35",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/backend/Classes/Controller/PageLayoutController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/backend/Classes/Controller/PageLayoutController.php"
+                    ],
+    "sink_hit":  true
+}

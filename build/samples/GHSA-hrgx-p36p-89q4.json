@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hrgx-p36p-89q4",
+    "cve":  "CVE-2022-31181",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "b6d96e7c2a4e35a44e96ffbcdfd34439b56af804",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/Smarty/SmartyCacheResourceMysql.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "classes/Smarty/SmartyCacheResourceMysql.php class extends Smarty_CacheResource_Custom"
+                 ],
+    "changed_all":  [
+                        "classes/Smarty/SmartyCacheResourceMysql.php"
+                    ],
+    "sink_hit":  true
+}

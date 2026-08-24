@@ -1,0 +1,41 @@
+﻿{
+    "id":  "GHSA-7rpc-9m88-cf9w",
+    "cve":  "CVE-2021-41243",
+    "cwe":  "CWE-78",
+    "repo":  "baserproject/basercms",
+    "sha":  "9088b99c329d1faff3a2f1269f37b9a9d8d5f6ff",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Installations/admin/step2.php",
+                        "app/webroot/theme/admin-third/Tools/admin/log.php",
+                        "lib/Baser/Config/setting.php",
+                        "lib/Baser/Controller/Component/BcManagerComponent.php",
+                        "lib/Baser/Controller/PagesController.php",
+                        "lib/Baser/Controller/ThemesController.php",
+                        "lib/Baser/Controller/ToolsController.php",
+                        "lib/Baser/Lib/BcZip.php",
+                        "lib/Baser/Vendor/Simplezip.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "lib/Baser/Controller/Component/BcManagerComponent.php includes 2 project file(s)",
+                     "lib/Baser/Controller/Component/BcManagerComponent.php class extends Component",
+                     "lib/Baser/Controller/PagesController.php class extends AppController",
+                     "lib/Baser/Controller/ThemesController.php includes 1 project file(s)",
+                     "lib/Baser/Controller/ThemesController.php class extends AppController",
+                     "lib/Baser/Controller/ToolsController.php class extends AppController"
+                 ],
+    "changed_all":  [
+                        "app/webroot/theme/admin-third/Installations/admin/step2.php",
+                        "app/webroot/theme/admin-third/Tools/admin/log.php",
+                        "lib/Baser/Config/setting.php",
+                        "lib/Baser/Controller/Component/BcManagerComponent.php",
+                        "lib/Baser/Controller/PagesController.php",
+                        "lib/Baser/Controller/ThemesController.php",
+                        "lib/Baser/Controller/ToolsController.php",
+                        "lib/Baser/Lib/BcZip.php",
+                        "lib/Baser/Vendor/Simplezip.php"
+                    ],
+    "sink_hit":  true
+}

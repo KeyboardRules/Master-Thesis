@@ -1,0 +1,48 @@
+﻿diff --git a/objects/functions.php b/objects/functions.php
+index 97e403645..cc90ceb2e 100644
+--- a/objects/functions.php
++++ b/objects/functions.php
+@@ -6538,7 +6538,9 @@ function videosHashToID($hash_of_videos_id)
+     if (preg_match('/^\.([0-9a-z._-]+)/i', $hash_of_videos_id, $matches)) {
+         $hash_of_videos_id = hashToID($matches[1]);
+     }
+-    return $hash_of_videos_id;
++    // Always return an integer — prevents SQL injection on any caller that
++    // embeds this value directly without a prepared statement placeholder.
++    return intval($hash_of_videos_id);
+ }
+ 
+ /**
+diff --git a/objects/like.php b/objects/like.php
+index e7e2257a2..e791f594f 100644
+--- a/objects/like.php
++++ b/objects/like.php
+@@ -20,7 +20,7 @@ class Like
+             header('Content-Type: application/json');
+             die('{"error":"'.__("Permission denied").'"}');
+         }
+-        $this->videos_id = $videos_id;
++        $this->videos_id = intval($videos_id);
+         $this->users_id = User::getId();
+         $this->load();
+         // if click again in the same vote, remove the vote
+@@ -81,8 +81,8 @@ class Like
+             header('Content-Type: application/json');
+             die('{"error":"You must have user and videos set to get a like"}');
+         }
+-        $sql = "SELECT * FROM likes WHERE users_id = ? AND videos_id = ".$this->videos_id." LIMIT 1;";
+-        $res = sqlDAL::readSql($sql, "i", [$this->users_id]);
++        $sql = "SELECT * FROM likes WHERE users_id = ? AND videos_id = ? LIMIT 1;";
++        $res = sqlDAL::readSql($sql, "ii", [$this->users_id, $this->videos_id]);
+         $dbLike = sqlDAL::fetchAssoc($res);
+         sqlDAL::close($res);
+         return $dbLike;
+@@ -102,7 +102,7 @@ class Like
+             $sql = "INSERT INTO likes (`like`,users_id, videos_id, created, modified) VALUES (?, ?, ?, now(), now());";
+             $res = sqlDAL::writeSql($sql, "iii", [$this->like, $this->users_id, $this->videos_id]);
+         }
+-        
++
+         $cacheHandler = new VideoCacheHandler($this->videos_id);
+         $cacheHandler->deleteCache();
+         return $res;

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9qgq-93c7-9hm4",
+    "cve":  "CVE-2024-33997",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "25b1b643c873f6d83ae61903012896b2811fa3bb",
+    "status":  "ok",
+    "changed_php":  [
+                        "filter/mathjaxloader/filter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "filter/mathjaxloader/filter.php class extends moodle_text_filter"
+                 ],
+    "changed_all":  [
+                        "filter/mathjaxloader/filter.php"
+                    ],
+    "sink_hit":  false
+}

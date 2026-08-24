@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-23f2-vgr6-fwv7",
+    "cve":  "CVE-2022-29712",
+    "cwe":  "CWE-74",
+    "repo":  "librenms/librenms",
+    "sha":  "8b82341cb742e7bd4966964b399012f7ba017e0b",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/services.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/services.inc.php"
+                    ],
+    "sink_hit":  false
+}

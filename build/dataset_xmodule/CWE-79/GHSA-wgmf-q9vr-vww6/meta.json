@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-wgmf-q9vr-vww6",
+    "cve":  "CVE-2024-45046",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "f7cf378faed2e11cf4825bf8bafea4922ae44667",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php class extends Functional\\AbstractFunctional",
+                     "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php class extends Functional\\AbstractFunctional"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

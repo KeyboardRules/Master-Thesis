@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g7pj-3v97-3vxp",
+    "cve":  "CVE-2014-2921",
+    "cwe":  "CWE-94",
+    "repo":  "pimcore/pimcore",
+    "sha":  "3cb2683e669b5644f180d362cfa9614c09bef280",
+    "status":  "ok",
+    "changed_php":  [
+                        "pimcore/lib/Pimcore/Tool/Newsletter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "pimcore/lib/Pimcore/Tool/Newsletter.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "pimcore/lib/Pimcore/Tool/Newsletter.php"
+                    ],
+    "sink_hit":  false
+}

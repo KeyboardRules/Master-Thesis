@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-prrv-r843-4p75",
+    "cve":  "CVE-2023-5867",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "5310cb8c37dc3a5c5aead0898690b14705c433d3",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/record.edit.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/AttachmentHelper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/record.edit.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/AttachmentHelper.php"
+                    ],
+    "sink_hit":  true
+}

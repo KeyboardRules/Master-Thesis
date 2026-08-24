@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-xgx2-332h-9x6q",
+    "cve":  "CVE-2021-43091",
+    "cwe":  "CWE-89",
+    "repo":  "yeswiki/yeswiki",
+    "fix_commit":  "c9785f9a92744c3475f9676a0d8f95de24750094",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "actions/listpages.php",
+                        "actions/newtextsearch.php",
+                        "includes/User.class.php",
+                        "tools/bazar/services/FormManager.php",
+                        "tools/security/actions/despam.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "includes/User.class.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

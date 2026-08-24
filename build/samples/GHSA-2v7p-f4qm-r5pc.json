@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2v7p-f4qm-r5pc",
+    "cve":  "CVE-2022-1429",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "523a735ab94f004459b84ffdfd3db784586bbd82",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Helper/GridHelperService.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Helper/GridHelperService.php"
+                    ],
+    "sink_hit":  false
+}

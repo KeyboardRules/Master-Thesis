@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2fr7-cc4f-wh98",
+    "cve":  "CVE-2026-35168",
+    "cwe":  "CWE-89",
+    "repo":  "devcode-it/openstamanager",
+    "sha":  "43970676bcd6636ff8663652fd82579f737abb74",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/aggiornamenti/actions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "modules/aggiornamenti/actions.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "modules/aggiornamenti/actions.php"
+                    ],
+    "sink_hit":  true
+}

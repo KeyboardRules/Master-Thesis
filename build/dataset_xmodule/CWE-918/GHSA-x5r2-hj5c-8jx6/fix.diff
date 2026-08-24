@@ -1,0 +1,26 @@
+﻿diff --git a/adminer/drivers/clickhouse.inc.php b/adminer/drivers/clickhouse.inc.php
+index d72109d..99c77ab 100644
+--- a/adminer/drivers/clickhouse.inc.php
++++ b/adminer/drivers/clickhouse.inc.php
+@@ -22,7 +22,7 @@ if (isset($_GET["clickhouse"])) {
+ 				return $file;
+ 			}
+ 			if (!preg_match('~^HTTP/[0-9.]+ 2~i', $http_response_header[0])) {
+-				$this->error = $file;
++				$this->error = lang('Invalid credentials.') . " $http_response_header[0]";
+ 				return false;
+ 			}
+ 			$return = json_decode($file, true);
+diff --git a/adminer/drivers/elastic.inc.php b/adminer/drivers/elastic.inc.php
+index a29252f..f2abfad 100644
+--- a/adminer/drivers/elastic.inc.php
++++ b/adminer/drivers/elastic.inc.php
+@@ -28,7 +28,7 @@ if (isset($_GET["elastic"])) {
+ 					return $file;
+ 				}
+ 				if (!preg_match('~^HTTP/[0-9.]+ 2~i', $http_response_header[0])) {
+-					$this->error = $file;
++					$this->error = lang('Invalid credentials.') . " $http_response_header[0]";
+ 					return false;
+ 				}
+ 				$return = json_decode($file, true);

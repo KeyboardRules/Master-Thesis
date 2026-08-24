@@ -1,0 +1,13 @@
+﻿diff --git a/concrete/controllers/single_page/account/messages.php b/concrete/controllers/single_page/account/messages.php
+index f5064a215..109d71869 100644
+--- a/concrete/controllers/single_page/account/messages.php
++++ b/concrete/controllers/single_page/account/messages.php
+@@ -119,7 +119,7 @@ class Messages extends AccountPageController
+         $uID = $msg->getMessageRelevantUserID();
+         $this->validateUser($uID);
+         $this->set('backURL', View::url('/account/messages', 'view_message', $boxID, $msgID));
+-        $this->set('msgID', $msgID);
++        $this->set('msgID', $msg->getMessageID());
+         $this->set('box', $boxID);
+         $this->set('msg', $msg);
+ 

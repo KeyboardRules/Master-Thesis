@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vppq-6ff8-2m8w",
+    "cve":  "CVE-2023-2753",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "5401ab75d022932b8d5d7adaa771acf44fed18ba",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php class extends Helper",
+                     "tests/phpMyFAQ/Helper/FaqHelperTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

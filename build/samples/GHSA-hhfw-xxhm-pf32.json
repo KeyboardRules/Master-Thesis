@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hhfw-xxhm-pf32",
+    "cve":  "CVE-2016-4855",
+    "cwe":  "CWE-79",
+    "repo":  "ADOdb/ADOdb",
+    "sha":  "ecb93d8c1fd3bbde62aca9c3a13c32f077da2da8",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/test.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "tests/test.php includes 10 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tests/test.php"
+                    ],
+    "sink_hit":  true
+}

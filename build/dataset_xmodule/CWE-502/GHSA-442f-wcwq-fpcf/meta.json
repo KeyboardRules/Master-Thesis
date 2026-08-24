@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-442f-wcwq-fpcf",
+    "cve":  "CVE-2022-41922",
+    "cwe":  "CWE-502",
+    "repo":  "yiisoft/yii",
+    "fix_commit":  "ed67b7cc57216557c5c595c6650cdd2d3aa41c52",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "framework/db/schema/CDbCriteria.php"
+                    ],
+    "evidence":  [
+                     "framework/db/schema/CDbCriteria.php class extends CComponent"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

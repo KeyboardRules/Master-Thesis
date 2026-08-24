@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vxq6-8cwm-wj99",
+    "cve":  "CVE-2025-55296",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "8ade3d827d317f5ac4b336617aafff865f825958",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/html/forms/parse-alert-template.inc.php",
+                        "includes/html/print-alert-templates.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/print-alert-templates.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

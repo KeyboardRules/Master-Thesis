@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3x4w-mxpf-fhqq",
+    "cve":  "CVE-2026-33051",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "f634a9d21edcafd83a6716047d275f985aba6be1",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/ElementsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/ElementsController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/ElementsController.php"
+                    ],
+    "sink_hit":  false
+}

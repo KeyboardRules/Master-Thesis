@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-rxp5-qwrf-pfv3",
+    "cve":  "CVE-2023-3673",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "a06ce0abdba19ae0eefc38b035e677f8f0c2bce9",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/LogController.php",
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php",
+                        "bundles/AdminBundle/Helper/QueryParams.php",
+                        "models/Search/Backend/Data/Listing.php",
+                        "models/Translation/Listing.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "bundles/AdminBundle/Controller/Admin/LogController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController",
+                     "models/Search/Backend/Data/Listing.php class extends \\Pimcore\\Model\\Listing\\AbstractListing",
+                     "models/Translation/Listing.php class extends Model\\Listing\\AbstractListing"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/LogController.php",
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php",
+                        "bundles/AdminBundle/Helper/QueryParams.php",
+                        "models/Search/Backend/Data/Listing.php",
+                        "models/Translation/Listing.php"
+                    ],
+    "sink_hit":  true
+}

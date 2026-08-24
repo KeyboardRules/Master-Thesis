@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8xx9-rxrj-2m2w",
+    "cve":  "CVE-2021-4139",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "d5c3e876d910784000335061c3bd24d301351245",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

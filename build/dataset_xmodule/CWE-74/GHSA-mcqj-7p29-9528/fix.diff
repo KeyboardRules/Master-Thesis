@@ -1,0 +1,408 @@
+﻿diff --git a/admin/check/check_paths_inc.php b/admin/check/check_paths_inc.php
+index 394a25f4..8afef332 100644
+--- a/admin/check/check_paths_inc.php
++++ b/admin/check/check_paths_inc.php
+@@ -36,6 +36,18 @@ require_api( 'config_api.php' );
+ 
+ check_print_section_header_row( 'Paths' );
+ 
++global $g_defaulted_path;
++const HOST_HEADER_INJECTION_URL = 'https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection';
++check_print_test_warn_row(
++	'"path" is defined in config_inc.php.',
++	!$g_defaulted_path,
++	array( false =>
++		'Leaving it empty is a security risk, as the path will be set based on '
++		. 'headers from the HTTP request, exposing your system to '
++		. '<a href="' . HOST_HEADER_INJECTION_URL . '">Host Header Injection attacks</a>.'
++	)
++);
++
+ $t_path_config_names = array(
+ 	'absolute_path',
+ 	'core_path',
+diff --git a/admin/install.php b/admin/install.php
+index 96e7b35c..8f0b4fef 100644
+--- a/admin/install.php
++++ b/admin/install.php
+@@ -240,6 +240,7 @@ if( $t_config_exists && $t_install_state <= 1 ) {
+ 	$f_db_username            = config_get_global( 'db_username', '' );
+ 	$f_db_password            = config_get_global( 'db_password', '' );
+ 	$f_timezone               = config_get( 'default_timezone', '' );
++	$f_path                   = config_get_global( 'path', '' );
+ 
+ 	# Set default prefix/suffix form variables ($f_db_table_XXX)
+ 	$t_prefix_type = 'other';
+@@ -258,6 +259,7 @@ if( $t_config_exists && $t_install_state <= 1 ) {
+ 		$f_db_password = config_get_global( 'db_password' );
+ 	}
+ 	$f_timezone           = gpc_get( 'timezone', config_get( 'default_timezone' ) );
++	$f_path               = gpc_get( 'path', config_get_global( 'path', '' ) );
+ 
+ 	# Set default prefix/suffix form variables ($f_db_table_XXX)
+ 	$t_prefix_type = $f_db_type == 'oci8' ? $f_db_type : 'other';
+@@ -471,6 +473,40 @@ if( 2 == $t_install_state ) {
+ 	}
+ 	?>
+ </tr>
++<tr>
++	<td>
++		Checking URL to installation
++	</td>
++	<?php
++		$t_url_check = '';
++		if( !$f_path ) {
++			# Empty URL - warn admin about security risk
++			$t_url_check = "Using an empty path is a security risk, as MantisBT "
++				. "will dynamically set it based on headers from the HTTP request, "
++				. "exposing your system to Host Header Injection attacks.";
++			$t_hard_fail = false;
++		} else {
++			# Make sure we have a trailing '/'
++			$f_path = rtrim( $f_path, '/' ) . '/';
++
++			# Check that the URL is valid
++			if( !filter_var( $f_path, FILTER_VALIDATE_URL ) ) {
++				$t_url_check = "'$f_path' is not a valid URL.";
++			} else {
++				require_api( 'url_api.php' );
++				$t_page_contents = url_get( $f_path );
++				if( !$t_page_contents ) {
++					$t_url_check = "Can't retrieve web page at '$f_path'.";
++				} elseif( false === strpos( $t_page_contents, 'MantisBT') ) {
++					$t_url_check = "Web page at '$f_path' does not appear to be a MantisBT site.";
++				}
++			}
++			$t_hard_fail = true;
++		}
++
++		print_test_result( $t_url_check ? BAD : GOOD, $t_hard_fail, $t_url_check );
++	?>
++</tr>
+ <?php
+ 	if( $f_db_exists ) {
+ 		?>
+@@ -724,13 +760,13 @@ if( !$g_database_upgrade ) {
+ 		echo "\t</td>\n\t<td>\n\t\t";
+ 		$t_required = $t_key == 'db_table_plugin_prefix' ? 'required' : '';
+ 		/** @noinspection HtmlUnknownAttribute */
+-		printf( '<input id="%1$s" name="%1$s" type="text" class="table-prefix" %2$s value="%3$s">',
++		printf( '<input id="%1$s" name="%1$s" type="text" class="table-prefix reset" %2$s value="%3$s">',
+ 			$t_key,
+ 			$t_key == 'db_table_plugin_prefix' ? 'required' : '',
+ 			${'f_' . $t_key} // The actual value of the corresponding form variable
+ 		);
+ 		echo "\n&nbsp;";
+-		printf( '<button id="%s" type="button" class="btn btn-sm btn-primary btn-white btn-round reset-prefix">%s</button>',
++		printf( '<button id="%s" type="button" class="btn btn-sm btn-primary btn-white btn-round reset">%s</button>',
+ 			"btn_$t_key",
+ 			lang_get( 'reset' )
+ 		);
+@@ -765,6 +801,27 @@ if( !$g_database_upgrade ) {
+ 		</select>
+ 	</td>
+ </tr>
++
++<!-- URL to installation ($g_path) -->
++<tr>
++	<td>
++		<label for="path">URL to your installation (<em>$g_path</em>, see
++			<a href="https://mantisbt.org/docs/master/en-US/Admin_Guide/html-desktop/#admin.config.path"
++			   target="_blank">documentation</a>)
++		</label>
++	</td>
++	<td>
++		<input id="path" name="path" type="text" size="50" class="reset"
++			   value="<?php echo string_attribute( $f_path ) ?>"
++			   data-defval="<?php global $g_path; echo string_attribute( $g_path ); ?>"
++		/>
++
++		<button id="btn_path" type="button" class="btn btn-sm btn-primary btn-white btn-round reset">
++			<?php echo lang_get( 'reset' ); ?>
++		</button>
++	</td>
++</tr>
++
+ <?php
+ } # end install-only fields
+ ?>
+@@ -1324,6 +1381,11 @@ if( 5 == $t_install_state ) {
+ 		. (!$t_crypto_master_salt ? "# The installer could not generate the Master Salt; please set it manually.\n" : '')
+ 		. "\$g_crypto_master_salt     = '" . addslashes( $t_crypto_master_salt ) . "';" . PHP_EOL;
+ 
++	if( $f_path ) {
++		$t_config .= PHP_EOL
++			. "\$g_path                   = '" . addslashes( $f_path ) . "';" . PHP_EOL;
++	}
++
+ 	$t_write_failed = true;
+ 
+ 	if( !$t_config_exists ) {
+diff --git a/config_defaults_inc.php b/config_defaults_inc.php
+index d0c9f7cc..d02ce7de 100644
+--- a/config_defaults_inc.php
++++ b/config_defaults_inc.php
+@@ -194,83 +194,34 @@ unset( $t_local_config );
+ # MantisBT Path Settings #
+ ##########################
+ 
+-$t_protocol = 'http';
+-$t_host = 'localhost';
+-if( isset ( $_SERVER['SCRIPT_NAME'] ) ) {
+-	$t_protocol = http_is_protocol_https() ? 'https' : 'http';
+-
+-	# $_SERVER['SERVER_PORT'] is not defined in case of php-cgi.exe
+-	if( isset( $_SERVER['SERVER_PORT'] ) ) {
+-		$t_port = ':' . $_SERVER['SERVER_PORT'];
+-		if( ( ':80' == $t_port && 'http' == $t_protocol )
+-		  || ( ':443' == $t_port && 'https' == $t_protocol )) {
+-			$t_port = '';
+-		}
+-	} else {
+-		$t_port = '';
+-	}
+-
+-	if( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) { # Support ProxyPass
+-		$t_hosts = explode( ',', $_SERVER['HTTP_X_FORWARDED_HOST'] );
+-		$t_host = $t_hosts[0];
+-	} else if( isset( $_SERVER['HTTP_HOST'] ) ) {
+-		$t_host = $_SERVER['HTTP_HOST'];
+-	} else if( isset( $_SERVER['SERVER_NAME'] ) ) {
+-		$t_host = $_SERVER['SERVER_NAME'] . $t_port;
+-	} else if( isset( $_SERVER['SERVER_ADDR'] ) ) {
+-		$t_host = $_SERVER['SERVER_ADDR'] . $t_port;
+-	}
+-
+-	if( !isset( $_SERVER['SCRIPT_NAME'] )) {
+-		echo 'Invalid server configuration detected. Please set $g_path manually in ' . $g_config_path . 'config_inc.php.';
+-		if( isset( $_SERVER['SERVER_SOFTWARE'] ) && ( stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false ) )
+-			echo ' Please try to add "fastcgi_param SCRIPT_NAME $fastcgi_script_name;" to the nginx server configuration.';
+-		die;
+-	}
+-
+-	# Prevent XSS if the path is displayed later on. This is the equivalent of
+-	# FILTER_SANITIZE_STRING, which was deprecated in PHP 8.1:
+-	# strip tags and null bytes, then encode quotes into HTML entities
+-	$t_path = preg_replace( '/\x00|<[^>]*>?/', '', $_SERVER['SCRIPT_NAME'] );
+-	$t_path = str_replace( ["'", '"'], ['&#39;', '&#34;'], $t_path );
+-
+-	$t_path = dirname( $t_path );
+-	switch( basename( $t_path ) ) {
+-		case 'admin':
+-			$t_path = dirname( $t_path );
+-			break;
+-		case 'check':		# admin checks dir
+-		case 'soap':
+-		case 'rest':
+-			$t_path = dirname( $t_path, 2 );
+-			break;
+-		case 'swagger':
+-			$t_path = dirname( $t_path, 3 );
+-			break;
+-	}
+-	$t_path = rtrim( $t_path, '/\\' ) . '/';
+-
+-	if( strpos( $t_path, '&#' ) ) {
+-		echo 'Can not safely determine $g_path. Please set $g_path manually in ' . $g_config_path . 'config_inc.php';
+-		die;
+-	}
+-} else {
+-	$t_path = 'mantisbt/';
+-}
+-
+ /**
+- * Path to your installation as seen from the web browser
+- * requires trailing /
++ * Full URL to your installation as seen from the web browser.
++ *
++ * Requires trailing `/`.
++ *
++ * If not set, MantisBT will default this to a working URL valid for most
++ * installations.
++ *
++ * WARNING: The default is built based on headers from the HTTP request
++ * ({@see set_default_path()} in core.php). This is a potential security risk,
++ * as the system will be exposed to Host Header injection attacks, so it is
++ * strongly recommended to initialize this in config_inc.php.
++ *
+  * @global string $g_path
+  */
+-$g_path	= $t_protocol . '://' . $t_host . $t_path;
++$g_path	= '';
+ 
+ /**
+- * Short web path without the domain name
+- * requires trailing /
++ * Short web path without the domain name.
++ *
++ * requires trailing `/`.
++ *
++ * This is defined by MantisBT core based on the script being executed, and
++ * should not be set in config_inc.php.
++ *
+  * @global string $g_short_path
+  */
+-$g_short_path = $t_path;
++$g_short_path = '';
+ 
+ /**
+  * Used to link to manual for User Documentation.
+@@ -5052,10 +5003,6 @@ $g_public_config_names = array(
+ 	'wrap_in_preformatted_text'
+ );
+ 
+-# Temporary variables should not remain defined in global scope
+-unset( $t_protocol, $t_host, $t_hosts, $t_port, $t_self, $t_path );
+-
+-
+ ############################
+ # Webservice Configuration #
+ ############################
+diff --git a/core.php b/core.php
+index bce4c791..f3ef7a5a 100644
+--- a/core.php
++++ b/core.php
+@@ -99,11 +99,16 @@ if( file_exists( $g_config_path . 'custom_constants_inc.php' ) ) {
+ 
+ # config_inc may not be present if this is a new install
+ $t_config_inc_found = file_exists( $g_config_path . 'config_inc.php' );
+-
+ if( $t_config_inc_found ) {
+ 	require_once( $g_config_path . 'config_inc.php' );
+ }
+ 
++# Set global path variables
++# NOTE: We store whether $g_path was defaulted, so we can later warn the admin
++# about the exposure to host header injection attacks if they didn't set it.
++global $g_defaulted_path;
++$g_defaulted_path = set_default_path();
++
+ # Ensure PHP LDAP extension is available when Login Method is LDAP
+ global $g_login_method;
+ if ( $g_login_method == LDAP ) {
+@@ -306,6 +311,89 @@ function http_is_protocol_https() {
+ 	return false;
+ }
+ 
++/**
++ * Set Global Path variables.
++ *
++ * @see $g_path
++ * @see $g_short_path
++ *
++ * @return bool True if default $g_path was assigned, false if it was already set.
++ */
++function set_default_path() {
++	global $g_path, $g_short_path, $g_config_path;
++
++	# $g_path is set in config_inc.php
++	if( $g_path ) {
++		# Derive $g_short_path from $g_path if not set
++		if( !$g_short_path ) {
++			$g_short_path = parse_url( $g_path, PHP_URL_PATH );
++		}
++		return false;
++	}
++
++	$t_protocol = 'http';
++	$t_host = 'localhost';
++	if( isset( $_SERVER['SCRIPT_NAME'] ) ) {
++		$t_protocol = http_is_protocol_https() ? 'https' : 'http';
++
++		# $_SERVER['SERVER_PORT'] is not defined in case of php-cgi.exe
++		if( isset( $_SERVER['SERVER_PORT'] ) ) {
++			$t_port = ':' . $_SERVER['SERVER_PORT'];
++			if( ( ':80' == $t_port && 'http' == $t_protocol )
++				|| ( ':443' == $t_port && 'https' == $t_protocol )) {
++				$t_port = '';
++			}
++		} else {
++			$t_port = '';
++		}
++
++		if( isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) { # Support ProxyPass
++			$t_hosts = explode( ',', $_SERVER['HTTP_X_FORWARDED_HOST'] );
++			$t_host = $t_hosts[0];
++		} else if( isset( $_SERVER['HTTP_HOST'] ) ) {
++			$t_host = $_SERVER['HTTP_HOST'];
++		} else if( isset( $_SERVER['SERVER_NAME'] ) ) {
++			$t_host = $_SERVER['SERVER_NAME'] . $t_port;
++		} else if( isset( $_SERVER['SERVER_ADDR'] ) ) {
++			$t_host = $_SERVER['SERVER_ADDR'] . $t_port;
++		}
++
++		# Prevent XSS if the path is displayed later on. This is the equivalent of
++		# FILTER_SANITIZE_STRING, which was deprecated in PHP 8.1:
++		# strip tags and null bytes, then encode quotes into HTML entities
++		$t_path = preg_replace( '/\x00|<[^>]*>?/', '', $_SERVER['SCRIPT_NAME'] );
++		$t_path = str_replace( ["'", '"'], ['&#39;', '&#34;'], $t_path );
++
++		$t_path = dirname( $t_path );
++		switch( basename( $t_path ) ) {
++			case 'admin':
++				$t_path = dirname( $t_path );
++				break;
++			case 'check': # admin checks dir
++			case 'soap':
++			case 'rest':
++				$t_path = dirname( $t_path, 2 );
++				break;
++			case 'swagger':
++				$t_path = dirname( $t_path, 3 );
++				break;
++		}
++		$t_path = rtrim( $t_path, '/\\' ) . '/';
++
++		if( strpos( $t_path, '&#' ) ) {
++			echo 'Can not safely determine $g_path. Please set $g_path manually in ' . $g_config_path . 'config_inc.php';
++			die;
++		}
++	} else {
++		$t_path = 'mantisbt/';
++	}
++
++	$g_path	= $t_protocol . '://' . $t_host . $t_path;
++	$g_short_path = $t_path;
++
++	return true;
++}
++
+ /**
+  * Define an autoload function to automatically load classes when referenced
+  *
+diff --git a/login_page.php b/login_page.php
+index d3e7edc7..fb6d1cc7 100644
+--- a/login_page.php
++++ b/login_page.php
+@@ -152,6 +152,12 @@ if( config_get_global( 'admin_checks' ) == ON ) {
+ 		}
+ 	}
+ 
++	# $g_path was defaulted - risk of Host Header injection attack
++	global $g_defaulted_path;
++	if( $g_defaulted_path ) {
++		$t_warnings[] = lang_get( 'warning_host_header_injection_hazard' );
++	}
++
+ 	/**
+ 	 * Display Warnings for enabled debugging / developer settings
+ 	 * @param string $p_type    Message Type.
+@@ -161,8 +167,8 @@ if( config_get_global( 'admin_checks' ) == ON ) {
+ 	 */
+ 	function debug_setting_message ( $p_type, $p_setting, $p_value ) {
+ 		return sprintf( lang_get( 'warning_change_setting' ), $p_setting, $p_value )
+-			. sprintf( lang_get( 'word_separator' ) )
+-			. sprintf( lang_get( "warning_{$p_type}_hazard" ) );
++			. lang_get( 'word_separator' )
++			. lang_get( "warning_{$p_type}_hazard" );
+ 	}
+ 
+ 	$t_config = 'show_detailed_errors';
+@@ -180,6 +186,7 @@ if( config_get_global( 'admin_checks' ) == ON ) {
+ 	# Check for db upgrade for versions > 1.0.0 using new installer and schema
+ 	if( $t_admin_dir_is_accessible ) {
+ 		require_once( 'admin/schema.php' );
++		/** @var array $g_upgrade */
+ 		$t_upgrades_reqd = count( $g_upgrade ) - 1;
+ 
+ 		if( ( 0 < $t_db_version ) &&

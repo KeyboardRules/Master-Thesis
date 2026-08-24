@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x4jx-hjwf-gc99",
+    "cve":  "CVE-2021-43421",
+    "cwe":  "CWE-434",
+    "repo":  "Studio-42/elFinder",
+    "sha":  "c08bcbfa722d758d01975799b7036951eb5d33cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "php/elFinderVolumeLocalFileSystem.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "php/elFinderVolumeLocalFileSystem.class.php class extends RecursiveFilterIterator"
+                 ],
+    "changed_all":  [
+                        "php/elFinderVolumeLocalFileSystem.class.php"
+                    ],
+    "sink_hit":  false
+}

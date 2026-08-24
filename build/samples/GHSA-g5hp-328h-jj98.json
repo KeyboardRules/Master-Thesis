@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g5hp-328h-jj98",
+    "cve":  "CVE-2023-5864",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "b3e5a053b59dcc072d76a55d6ce0311ea30174fa",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Faq.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Faq.php"
+                    ],
+    "sink_hit":  true
+}

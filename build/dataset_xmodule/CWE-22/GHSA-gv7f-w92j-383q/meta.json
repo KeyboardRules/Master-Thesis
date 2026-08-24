@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gv7f-w92j-383q",
+    "cve":  "CVE-2025-55988",
+    "cwe":  "CWE-22",
+    "repo":  "dreamfactorysoftware/df-core",
+    "fix_commit":  "54354605b2ec9afe6ee96756a5a22f6f56828950",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Http/Controllers/RestController.php"
+                    ],
+    "evidence":  [
+                     "src/Http/Controllers/RestController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

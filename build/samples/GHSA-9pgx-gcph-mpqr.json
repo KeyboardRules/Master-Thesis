@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9pgx-gcph-mpqr",
+    "cve":  "CVE-2020-35572",
+    "cwe":  "CWE-79",
+    "repo":  "vrana/adminer",
+    "sha":  "5c395afc098e501be3417017c6421968aac477bd",
+    "status":  "ok",
+    "changed_php":  [
+                        "adminer/sql.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "adminer/sql.inc.php",
+                        "changes.txt"
+                    ],
+    "sink_hit":  true
+}

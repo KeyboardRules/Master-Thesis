@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-33mp-8p67-xj7c",
+    "cve":  "CVE-2026-26279",
+    "cwe":  "CWE-78",
+    "repo":  "froxlor/froxlor",
+    "sha":  "22249677107f8f39f8d4a238605641e87dab4343",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Cli/ConfigServices.php",
+                        "lib/Froxlor/Cron/Http/LetsEncrypt/AcmeSh.php",
+                        "lib/Froxlor/Validate/Form/Data.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lib/Froxlor/Cli/ConfigServices.php includes 1 project file(s)",
+                     "lib/Froxlor/Cli/ConfigServices.php class extends CliCommand",
+                     "lib/Froxlor/Cron/Http/LetsEncrypt/AcmeSh.php class extends FroxlorCron"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Cli/ConfigServices.php",
+                        "lib/Froxlor/Cron/Http/LetsEncrypt/AcmeSh.php",
+                        "lib/Froxlor/Validate/Form/Data.php"
+                    ],
+    "sink_hit":  true
+}

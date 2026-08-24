@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-55wf-5m3q-6jjf",
+    "cve":  "CVE-2026-42224",
+    "cwe":  "CWE-79",
+    "repo":  "Icinga/ipl-web",
+    "fix_commit":  "f387e92504d7a03bb857d1aee9b7410e06dd065d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Compat/CompatController.php"
+                    ],
+    "evidence":  [
+                     "src/Compat/CompatController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

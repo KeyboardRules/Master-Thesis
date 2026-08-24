@@ -1,0 +1,39 @@
+﻿diff --git a/mod/imscp/lib.php b/mod/imscp/lib.php
+index 17a2ad94b8..1314b4288e 100644
+--- a/mod/imscp/lib.php
++++ b/mod/imscp/lib.php
+@@ -392,7 +392,7 @@ function imscp_export_contents($cm, $baseurl) {
+     $structure['fileurl']      = null;
+     $structure['timecreated']  = $imscp->timemodified;
+     $structure['timemodified'] = $imscp->timemodified;
+-    $structure['content']      = json_encode(unserialize($imscp->structure));
++    $structure['content']      = json_encode(unserialize_array($imscp->structure));
+     $structure['sortorder']    = 0;
+     $structure['userid']       = null;
+     $structure['author']       = null;
+diff --git a/mod/imscp/locallib.php b/mod/imscp/locallib.php
+index 434eeb1d2e..503b7ce08e 100644
+--- a/mod/imscp/locallib.php
++++ b/mod/imscp/locallib.php
+@@ -38,12 +38,7 @@ require_once("$CFG->libdir/resourcelib.php");
+ function imscp_print_content($imscp, $cm, $course) {
+     global $PAGE, $CFG;
+ 
+-    $items = unserialize($imscp->structure);
+-    $first = reset($items);
+-    $context = context_module::instance($cm->id);
+-    $urlbase = "$CFG->wwwroot/pluginfile.php";
+-    $path = '/'.$context->id.'/mod_imscp/content/'.$imscp->revision.'/'.$first['href'];
+-    $firsturl = file_encode_url($urlbase, $path, false);
++    $items = array_filter((array) unserialize_array($imscp->structure));
+ 
+     echo '<div id="imscp_layout">';
+     echo '<div id="imscp_toc">';
+@@ -60,7 +55,6 @@ function imscp_print_content($imscp, $cm, $course) {
+     echo '</div>';
+ 
+     $PAGE->requires->js_init_call('M.mod_imscp.init');
+-    return;
+ }
+ 
+ /**

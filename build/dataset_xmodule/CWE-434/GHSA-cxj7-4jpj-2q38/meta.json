@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cxj7-4jpj-2q38",
+    "cve":  "CVE-2019-16318",
+    "cwe":  "CWE-434",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "732f1647cc6e0a29b5b1f5d904b4d726b5e9455f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "models/Asset.php"
+                    ],
+    "evidence":  [
+                     "models/Asset.php class extends Element\\AbstractElement"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

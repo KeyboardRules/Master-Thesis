@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pwgg-r6fq-mf94",
+    "cve":  "CVE-2020-27388",
+    "cwe":  "CWE-79",
+    "repo":  "YOURLS/YOURLS",
+    "sha":  "04495e8b17ffeedb695ef5a64389f6bee15d57fb",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/functions-plugins.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/functions-plugins.php"
+                    ],
+    "sink_hit":  false
+}

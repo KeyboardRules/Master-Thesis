@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mqxf-2998-c6cp",
+    "cve":  "CVE-2026-29173",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "sha":  "60cdc505c03b6fa2f59715e8c060114b66334afa",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/elements/actions/UpdateOrderStatus.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/elements/actions/UpdateOrderStatus.php class extends ElementAction"
+                 ],
+    "changed_all":  [
+                        "src/elements/actions/UpdateOrderStatus.php"
+                    ],
+    "sink_hit":  false
+}

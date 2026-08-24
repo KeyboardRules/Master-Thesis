@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xmg8-w465-mr56",
+    "cve":  "CVE-2023-30849",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "c6c80905e58c7724c776f980570a56df7016c6d1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

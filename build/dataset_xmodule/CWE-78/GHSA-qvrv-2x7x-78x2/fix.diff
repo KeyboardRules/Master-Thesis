@@ -1,0 +1,148 @@
+﻿diff --git a/src/Core/Convert.php b/src/Core/Convert.php
+index 1eefd057f..a3b5849b6 100644
+--- a/src/Core/Convert.php
++++ b/src/Core/Convert.php
+@@ -33,6 +33,8 @@ class Convert
+     /**
+      * Convert a value to be suitable for an XML attribute.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @param array|string $val String to escape, or array of strings
+      * @return array|string
+      */
+@@ -44,6 +46,8 @@ class Convert
+     /**
+      * Convert a value to be suitable for an HTML attribute.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @param string|array $val String to escape, or array of strings
+      * @return array|string
+      */
+@@ -56,6 +60,8 @@ class Convert
+      * Convert a value to be suitable for an HTML ID attribute. Replaces non
+      * supported characters with a space.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @see http://www.w3.org/TR/REC-html40/types.html#type-cdata
+      *
+      * @param array|string $val String to escape, or array of strings
+@@ -79,6 +85,8 @@ class Convert
+      * Convert a value to be suitable for an HTML ID attribute. Replaces non
+      * supported characters with an underscore.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @see http://www.w3.org/TR/REC-html40/types.html#type-cdata
+      *
+      * @param array|string $val String to escape, or array of strings
+@@ -108,6 +116,8 @@ class Convert
+     /**
+      * Ensure that text is properly escaped for XML.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @see http://www.w3.org/TR/REC-xml/#dt-escape
+      * @param array|string $val String to escape, or array of strings
+      * @return array|string
+@@ -127,6 +137,8 @@ class Convert
+     /**
+      * Ensure that text is properly escaped for Javascript.
+      *
++     * Warning: Does not escape array keys
++     *
+      * @param array|string $val String to escape, or array of strings
+      * @return array|string
+      */
+@@ -182,6 +194,8 @@ class Convert
+      * Safely encodes a value (or list of values) using the current database's
+      * safe string encoding method
+      *
++     * Warning: Does not encode array keys
++     *
+      * @param mixed|array $val Input value, or list of values as an array
+      * @param boolean $quoted Flag indicating whether the value should be safely
+      * quoted, instead of only being escaped. By default this function will
+@@ -221,6 +235,9 @@ class Convert
+ 
+     /**
+      * Convert XML to raw text.
++     *
++     * Warning: Does not decode array keys
++     *
+      * @uses html2raw()
+      * @todo Currently &#xxx; entries are stripped; they should be converted
+      * @param mixed $val
+diff --git a/src/Forms/Form.php b/src/Forms/Form.php
+index ca8b3a828..fdd54998f 100644
+--- a/src/Forms/Form.php
++++ b/src/Forms/Form.php
+@@ -897,7 +897,11 @@ class Form extends ViewableData implements HasRequestHandler
+         // Create markup
+         $parts = array();
+         foreach ($attrs as $name => $value) {
+-            $parts[] = ($value === true) ? "{$name}=\"{$name}\"" : "{$name}=\"" . Convert::raw2att($value) . "\"";
++            if ($value === true) {
++                $value = $name;
++            }
++
++            $parts[] = sprintf('%s="%s"', Convert::raw2att($name), Convert::raw2att($value));
+         }
+ 
+         return implode(' ', $parts);
+diff --git a/src/Forms/FormField.php b/src/Forms/FormField.php
+index 94721475e..b269066ab 100644
+--- a/src/Forms/FormField.php
++++ b/src/Forms/FormField.php
+@@ -12,6 +12,7 @@ use SilverStripe\ORM\DataObject;
+ use SilverStripe\ORM\DataObjectInterface;
+ use SilverStripe\ORM\FieldType\DBField;
+ use SilverStripe\ORM\FieldType\DBHTMLText;
++use SilverStripe\ORM\ValidationResult;
+ use SilverStripe\View\SSViewer;
+ 
+ /**
+@@ -740,14 +741,16 @@ class FormField extends RequestHandler
+ 
+         foreach ($attributes as $name => $value) {
+             if ($value === true) {
+-                $parts[] = sprintf('%s="%s"', $name, $name);
++                $value = $name;
+             } else {
+-                $strValue = Convert::raw2att($value);
+-                if (!is_string($strValue)) {
+-                    $strValue = json_encode($strValue);
++                if (is_scalar($value)) {
++                    $value = (string) $value;
++                } else {
++                    $value = json_encode($value);
+                 }
+-                $parts[] = sprintf('%s="%s"', $name, $strValue);
+             }
++
++            $parts[] = sprintf('%s="%s"', Convert::raw2att($name), Convert::raw2att($value));
+         }
+ 
+         return implode(' ', $parts);
+@@ -1343,13 +1346,14 @@ class FormField extends RequestHandler
+     public function debug()
+     {
+         $strValue = is_string($this->value) ? $this->value : print_r($this->value, true);
++
+         return sprintf(
+             '%s (%s: %s : <span style="color:red;">%s</span>) = %s',
+-            static::class,
+-            $this->name,
+-            $this->title,
+-            $this->message,
+-            $strValue
++            Convert::raw2att(static::class),
++            Convert::raw2att($this->name),
++            Convert::raw2att($this->title),
++            $this->getMessageCast() == ValidationResult::CAST_HTML ? Convert::raw2xml($this->message) : $this->message,
++            Convert::raw2att($strValue)
+         );
+     }
+ 

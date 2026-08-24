@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-q898-frwq-f3qp",
+    "cve":  "CVE-2024-47765",
+    "cwe":  "CWE-79",
+    "repo":  "jgniecki/MinecraftMotdParser",
+    "fix_commit":  "b0ab9d68a964cd3d74977f39a9e7af0a94509f7c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Generator/HtmlGenerator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Generator/HtmlGeneratorTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

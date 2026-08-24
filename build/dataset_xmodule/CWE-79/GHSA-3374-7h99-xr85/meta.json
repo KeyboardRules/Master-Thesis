@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3374-7h99-xr85",
+    "cve":  "CVE-2020-23049",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "fix_commit":  "6ec6171206a7507a39695edc8bbd1b97ef1041c6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Backend/Modules/Profiles/Actions/Index.php"
+                    ],
+    "evidence":  [
+                     "src/Backend/Modules/Profiles/Actions/Index.php class extends BackendBaseActionIndex"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

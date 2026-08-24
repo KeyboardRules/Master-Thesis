@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-w2fr-65vp-mxw3",
+    "cve":  "CVE-2019-10912",
+    "cwe":  "CWE-502",
+    "repo":  "symfony/symfony",
+    "sha":  "4fb975281634b8d49ebf013af9e502e67c28816b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Tests/Kernel/ConcreteMicroKernel.php",
+                        "src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Symfony/Bundle/FrameworkBundle/Tests/Kernel/ConcreteMicroKernel.php class extends Kernel",
+                     "src/Symfony/Bundle/FrameworkBundle/Tests/Kernel/ConcreteMicroKernel.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Tests/Kernel/ConcreteMicroKernel.php",
+                        "src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php"
+                    ],
+    "sink_hit":  true
+}

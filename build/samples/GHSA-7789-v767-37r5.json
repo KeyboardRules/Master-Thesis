@@ -1,0 +1,45 @@
+﻿{
+    "id":  "GHSA-7789-v767-37r5",
+    "cve":  "CVE-2017-17899",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "4a5988accbb770b74105baacd5a034689272128c",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/adherents/subscription/info.php",
+                        "htdocs/cashdesk/tpl/facturation1.tpl.php",
+                        "htdocs/cashdesk/tpl/liste_articles.tpl.php",
+                        "htdocs/cashdesk/tpl/menu.tpl.php",
+                        "htdocs/cashdesk/tpl/ticket.tpl.php",
+                        "htdocs/cashdesk/tpl/validation1.tpl.php",
+                        "htdocs/cashdesk/tpl/validation2.tpl.php",
+                        "htdocs/comm/multiprix.php",
+                        "htdocs/fourn/index.php",
+                        "htdocs/main.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "htdocs/adherents/subscription/info.php includes 5 project file(s)",
+                     "htdocs/cashdesk/tpl/liste_articles.tpl.php includes 2 project file(s)",
+                     "htdocs/cashdesk/tpl/menu.tpl.php includes 3 project file(s)",
+                     "htdocs/cashdesk/tpl/ticket.tpl.php includes 1 project file(s)",
+                     "htdocs/comm/multiprix.php includes 3 project file(s)",
+                     "htdocs/fourn/index.php includes 4 project file(s)",
+                     "htdocs/main.inc.php includes 15 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "htdocs/adherents/subscription/info.php",
+                        "htdocs/cashdesk/tpl/facturation1.tpl.php",
+                        "htdocs/cashdesk/tpl/liste_articles.tpl.php",
+                        "htdocs/cashdesk/tpl/menu.tpl.php",
+                        "htdocs/cashdesk/tpl/ticket.tpl.php",
+                        "htdocs/cashdesk/tpl/validation1.tpl.php",
+                        "htdocs/cashdesk/tpl/validation2.tpl.php",
+                        "htdocs/comm/multiprix.php",
+                        "htdocs/fourn/index.php",
+                        "htdocs/main.inc.php"
+                    ],
+    "sink_hit":  true
+}

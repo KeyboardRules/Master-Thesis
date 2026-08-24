@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w6rx-9g2x-mg5g",
+    "cve":  "CVE-2024-55637",
+    "cwe":  "CWE-502",
+    "repo":  "drupal/core",
+    "fix_commit":  "1664030d399c73b4144f410f2ccc68c66a947f8d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/views/src/ViewExecutable.php"
+                    ],
+    "evidence":  [
+                     "modules/views/src/ViewExecutable.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

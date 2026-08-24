@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7r2v-8wxr-3ch5",
+    "cve":  "CVE-2025-32027",
+    "cwe":  "CWE-79",
+    "repo":  "yiisoft/yii",
+    "fix_commit":  "d386d737861c9014269b7ed8c36c65eadb387368",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "framework/base/CApplication.php"
+                    ],
+    "evidence":  [
+                     "framework/base/CApplication.php class extends CModule"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

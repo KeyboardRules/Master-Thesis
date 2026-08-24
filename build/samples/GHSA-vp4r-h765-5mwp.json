@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-vp4r-h765-5mwp",
+    "cve":  "CVE-2023-0877",
+    "cwe":  "CWE-94",
+    "repo":  "froxlor/froxlor",
+    "sha":  "aa48ffca2bcaf7ae57be3b8147bb3138abdab984",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Froxlor.php",
+                        "lib/Froxlor/SImExporter.php",
+                        "lib/Froxlor/Settings.php",
+                        "lib/Froxlor/UI/Form.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 4 php files"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Froxlor.php",
+                        "lib/Froxlor/SImExporter.php",
+                        "lib/Froxlor/Settings.php",
+                        "lib/Froxlor/UI/Form.php"
+                    ],
+    "sink_hit":  false
+}

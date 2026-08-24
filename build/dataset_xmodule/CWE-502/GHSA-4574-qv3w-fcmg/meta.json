@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4574-qv3w-fcmg",
+    "cve":  "CVE-2021-23420",
+    "cwe":  "CWE-502",
+    "repo":  "Codeception/Codeception",
+    "fix_commit":  "802a108057d250ee563120eaa5365a519afc0a71",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "ext/RunProcess.php"
+                    ],
+    "evidence":  [
+                     "ext/RunProcess.php class extends Extension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

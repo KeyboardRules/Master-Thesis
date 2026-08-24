@@ -1,0 +1,178 @@
+﻿diff --git a/src/Controllers/BlogController.php b/src/Controllers/BlogController.php
+index 14c07d1..fa09a0a 100644
+--- a/src/Controllers/BlogController.php
++++ b/src/Controllers/BlogController.php
+@@ -128,11 +128,18 @@ class BlogController extends QuarxController
+             return redirect(route($this->quarxRouteBase.'.blog.index'));
+         }
+ 
+-        $blog = $this->blogRepository->update($blog, $request->all());
+-        Quarx::notification('Blog updated successfully.', 'success');
++        $validation = ValidationService::check(Blog::$rules);
+ 
+-        if (!$blog) {
+-            Quarx::notification('Blog could not be saved.', 'warning');
++        if (!$validation['errors']) {
++            $blog = $this->blogRepository->update($blog, $request->all());
++
++            Quarx::notification('Blog updated successfully.', 'success');
++
++            if (! $blog) {
++                Quarx::notification('Blog could not be saved.', 'warning');
++            }
++        } else {
++            return $validation['redirect'];
+         }
+ 
+         return redirect(URL::previous());
+diff --git a/src/Controllers/FAQController.php b/src/Controllers/FAQController.php
+index 558ba76..b0b068b 100644
+--- a/src/Controllers/FAQController.php
++++ b/src/Controllers/FAQController.php
+@@ -128,11 +128,17 @@ class FAQController extends QuarxController
+             return redirect(route($this->quarxRouteBase.'.faqs.index'));
+         }
+ 
+-        $faq = $this->faqRepository->update($faq, $request->all());
+-        Quarx::notification('FAQ updated successfully.', 'success');
++        $validation = ValidationService::check(FAQ::$rules);
+ 
+-        if (!$faq) {
+-            Quarx::notification('FAQ could not be saved.', 'warning');
++        if (!$validation['errors']) {
++            $faq = $this->faqRepository->update($faq, $request->all());
++            Quarx::notification('FAQ updated successfully.', 'success');
++
++            if (!$faq) {
++                Quarx::notification('FAQ could not be saved.', 'warning');
++            }
++        } else {
++            return $validation['redirect'];
+         }
+ 
+         return redirect(URL::previous());
+diff --git a/src/Repositories/BlogRepository.php b/src/Repositories/BlogRepository.php
+index 8253e33..fc567a7 100644
+--- a/src/Repositories/BlogRepository.php
++++ b/src/Repositories/BlogRepository.php
+@@ -116,6 +116,7 @@ class BlogRepository
+      */
+     public function store($payload)
+     {
++        $payload['title'] = htmlentities($payload['title']);
+         $payload['url'] = Quarx::convertToURL($payload['url']);
+         $payload['is_published'] = (isset($payload['is_published'])) ? (bool) $payload['is_published'] : 0;
+         $payload['published_at'] = (isset($payload['published_at']) && !empty($payload['published_at'])) ? Carbon::parse($payload['published_at'])->format('Y-m-d H:i:s') : Carbon::now(config('app.timezone'))->format('Y-m-d H:i:s');
+@@ -183,6 +184,8 @@ class BlogRepository
+      */
+     public function update($blog, $payload)
+     {
++        $payload['title'] = htmlentities($payload['title']);
++
+         if (isset($payload['hero_image'])) {
+             $file = request()->file('hero_image');
+             $path = FileService::saveFile($file, 'public/images', [], true);
+diff --git a/src/Repositories/EventRepository.php b/src/Repositories/EventRepository.php
+index a616ed5..8ff416a 100644
+--- a/src/Repositories/EventRepository.php
++++ b/src/Repositories/EventRepository.php
+@@ -94,6 +94,7 @@ class EventRepository
+      */
+     public function store($payload)
+     {
++        $payload['title'] = htmlentities($payload['title']);
+         $payload['is_published'] = (isset($payload['is_published'])) ? (bool) $payload['is_published'] : 0;
+         $payload['published_at'] = (isset($payload['published_at']) && !empty($payload['published_at'])) ? Carbon::parse($payload['published_at'])->format('Y-m-d H:i:s') : Carbon::now(config('app.timezone'))->format('Y-m-d H:i:s');
+ 
+@@ -122,6 +123,7 @@ class EventRepository
+      */
+     public function update($event, $payload)
+     {
++        $payload['title'] = htmlentities($payload['title']);
+         if (!empty($payload['lang']) && $payload['lang'] !== config('quarx.default-language', 'en')) {
+             return $this->translationRepo->createOrUpdate($event->id, 'Yab\Quarx\Models\Event', $payload['lang'], $payload);
+         } else {
+diff --git a/src/Repositories/FAQRepository.php b/src/Repositories/FAQRepository.php
+index ccbdab9..e926ae6 100644
+--- a/src/Repositories/FAQRepository.php
++++ b/src/Repositories/FAQRepository.php
+@@ -84,6 +84,7 @@ class FAQRepository
+      */
+     public function store($payload)
+     {
++        $payload['question'] = htmlentities($payload['question']);
+         $payload['is_published'] = (isset($payload['is_published'])) ? (bool) $payload['is_published'] : 0;
+         $payload['published_at'] = (isset($payload['published_at']) && !empty($payload['published_at'])) ? Carbon::parse($payload['published_at'])->format('Y-m-d H:i:s') : Carbon::now(config('app.timezone'))->format('Y-m-d H:i:s');
+ 
+@@ -112,6 +113,8 @@ class FAQRepository
+      */
+     public function update($FAQ, $payload)
+     {
++        $payload['question'] = htmlentities($payload['question']);
++
+         if (!empty($payload['lang']) && $payload['lang'] !== config('quarx.default-language', 'en')) {
+             return $this->translationRepo->createOrUpdate($FAQ->id, 'Yab\Quarx\Models\FAQ', $payload['lang'], $payload);
+         } else {
+diff --git a/src/Repositories/MenuRepository.php b/src/Repositories/MenuRepository.php
+index 89fef3e..ead68d4 100644
+--- a/src/Repositories/MenuRepository.php
++++ b/src/Repositories/MenuRepository.php
+@@ -65,6 +65,7 @@ class MenuRepository
+      */
+     public function store($input)
+     {
++        $input['name'] = htmlentities($input['name']);
+         return Menu::create($input);
+     }
+ 
+@@ -102,6 +103,7 @@ class MenuRepository
+      */
+     public function update($menu, $input)
+     {
++        $input['name'] = htmlentities($input['name']);
+         return $menu->update($input);
+     }
+ 
+diff --git a/src/Repositories/PageRepository.php b/src/Repositories/PageRepository.php
+index 57ae6fc..2d87ca9 100644
+--- a/src/Repositories/PageRepository.php
++++ b/src/Repositories/PageRepository.php
+@@ -85,6 +85,7 @@ class PageRepository
+             $payload['blocks'] = json_encode($blockCollection);
+         }
+ 
++        $input['title'] = htmlentities($input['title']);
+         $payload['url'] = Quarx::convertToURL($payload['url']);
+         $payload['is_published'] = (isset($payload['is_published'])) ? (bool) $payload['is_published'] : 0;
+         $payload['published_at'] = (isset($payload['published_at']) && !empty($payload['published_at'])) ? Carbon::parse($payload['published_at'])->format('Y-m-d H:i:s') : Carbon::now(config('app.timezone'))->format('Y-m-d H:i:s');
+@@ -168,6 +169,8 @@ class PageRepository
+             $payload['hero_image'] = $path['name'];
+         }
+ 
++        $input['title'] = htmlentities($input['title']);
++
+         if (!empty($payload['lang']) && $payload['lang'] !== config('quarx.default-language', 'en')) {
+             return $this->translationRepo->createOrUpdate($page->id, 'Yab\Quarx\Models\Page', $payload['lang'], $payload);
+         } else {
+diff --git a/src/Repositories/WidgetRepository.php b/src/Repositories/WidgetRepository.php
+index e55c7a3..2cfefea 100644
+--- a/src/Repositories/WidgetRepository.php
++++ b/src/Repositories/WidgetRepository.php
+@@ -65,6 +65,8 @@ class WidgetRepository
+      */
+     public function store($input)
+     {
++        $input['name'] = htmlentities($input['name']);
++
+         return Widget::create($input);
+     }
+ 
+@@ -102,6 +104,8 @@ class WidgetRepository
+      */
+     public function update($widgets, $payload)
+     {
++        $input['name'] = htmlentities($input['name']);
++
+         if (!empty($payload['lang']) && $payload['lang'] !== config('quarx.default-language', 'en')) {
+             return $this->translationRepo->createOrUpdate($widgets->id, 'Yab\Quarx\Models\Widget', $payload['lang'], $payload);
+         } else {

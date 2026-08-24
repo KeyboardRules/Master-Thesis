@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-fff9-m6f6-q3mh",
+    "cve":  "CVE-2018-9019",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "83b762b681c6dfdceb809d26ce95f3667b614739",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/accountancy/admin/accountmodel.php",
+                        "htdocs/accountancy/admin/categories.php",
+                        "htdocs/accountancy/admin/categories_list.php",
+                        "htdocs/accountancy/admin/journals_list.php",
+                        "htdocs/admin/dict.php",
+                        "htdocs/admin/mails_templates.php",
+                        "htdocs/admin/website.php",
+                        "htdocs/core/lib/functions.lib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "htdocs/accountancy/admin/accountmodel.php includes 8 project file(s)",
+                     "htdocs/accountancy/admin/categories.php includes 4 project file(s)",
+                     "htdocs/accountancy/admin/categories_list.php includes 8 project file(s)",
+                     "htdocs/accountancy/admin/journals_list.php includes 8 project file(s)",
+                     "htdocs/admin/dict.php includes 8 project file(s)",
+                     "htdocs/admin/mails_templates.php includes 9 project file(s)",
+                     "htdocs/admin/website.php includes 9 project file(s)",
+                     "htdocs/core/lib/functions.lib.php includes 17 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

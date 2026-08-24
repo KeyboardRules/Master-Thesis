@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-6hwr-6v2f-3m88",
+    "cve":  "CVE-2024-45293",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "3bcd51826b7f089d1641e756c83030c30c3bdb0c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php",
+                        "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php",
+                        "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php",
+                        "tests/data/Reader/XLSX/utf7white.dontuse",
+                        "tests/data/Reader/XLSX/utf8entity.dontuse",
+                        "tests/data/Reader/Xml/XEETestInvalidUTF-7-whitespace.xml",
+                        "tests/data/Reader/Xml/XEETestValidUTF-8-whitespace.xml"
+                    ],
+    "sink_hit":  true
+}

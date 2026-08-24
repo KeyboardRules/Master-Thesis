@@ -1,0 +1,80 @@
+﻿diff --git a/framework/base/ErrorHandler.php b/framework/base/ErrorHandler.php
+index 1ec9608..a625291 100644
+--- a/framework/base/ErrorHandler.php
++++ b/framework/base/ErrorHandler.php
+@@ -324,22 +324,36 @@ abstract class ErrorHandler extends Component
+      */
+     public static function convertExceptionToString($exception)
+     {
+-        if ($exception instanceof Exception && ($exception instanceof UserException || !YII_DEBUG)) {
+-            $message = "{$exception->getName()}: {$exception->getMessage()}";
+-        } elseif (YII_DEBUG) {
+-            if ($exception instanceof Exception) {
+-                $message = "Exception ({$exception->getName()})";
+-            } elseif ($exception instanceof ErrorException) {
+-                $message = "{$exception->getName()}";
+-            } else {
+-                $message = 'Exception';
+-            }
+-            $message .= " '" . get_class($exception) . "' with message '{$exception->getMessage()}' \n\nin "
+-                . $exception->getFile() . ':' . $exception->getLine() . "\n\n"
+-                . "Stack trace:\n" . $exception->getTraceAsString();
++        if ($exception instanceof UserException) {
++            return "{$exception->getName()}: {$exception->getMessage()}";
++        }
++
++        if (YII_DEBUG) {
++            return static::convertExceptionToVerboseString($exception);
++        }
++
++        return 'An internal server error occurred.';
++    }
++
++    /**
++     * Converts an exception into a string that has verbose information about the exception and its trace.
++     * @param \Exception|\Error $exception the exception being converted
++     * @return string the string representation of the exception.
++     *
++     * @since 2.0.14
++     */
++    public static function convertExceptionToVerboseString($exception)
++    {
++        if ($exception instanceof Exception) {
++            $message = "Exception ({$exception->getName()})";
++        } elseif ($exception instanceof ErrorException) {
++            $message = "{$exception->getName()}";
+         } else {
+-            $message = 'Error: ' . $exception->getMessage();
++            $message = 'Exception';
+         }
++        $message .= " '" . get_class($exception) . "' with message '{$exception->getMessage()}' \n\nin "
++            . $exception->getFile() . ':' . $exception->getLine() . "\n\n"
++            . "Stack trace:\n" . $exception->getTraceAsString();
+ 
+         return $message;
+     }
+diff --git a/framework/log/Dispatcher.php b/framework/log/Dispatcher.php
+index 80ad9b5..7e5c72a 100644
+--- a/framework/log/Dispatcher.php
++++ b/framework/log/Dispatcher.php
+@@ -190,7 +190,7 @@ class Dispatcher extends Component
+                 } catch (\Exception $e) {
+                     $target->enabled = false;
+                     $targetErrors[] = [
+-                        'Unable to send log via ' . get_class($target) . ': ' . ErrorHandler::convertExceptionToString($e),
++                        'Unable to send log via ' . get_class($target) . ': ' . ErrorHandler::convertExceptionToVerboseString($e),
+                         Logger::LEVEL_WARNING,
+                         __METHOD__,
+                         microtime(true),
+diff --git a/framework/views/errorHandler/exception.php b/framework/views/errorHandler/exception.php
+index 42916d5..0b5b26e 100644
+--- a/framework/views/errorHandler/exception.php
++++ b/framework/views/errorHandler/exception.php
+@@ -17,7 +17,6 @@
+         if ($exception instanceof \yii\web\HttpException) {
+             echo (int) $exception->statusCode . ' ' . $handler->htmlEncode($name);
+         } else {
+-            $name = $handler->getExceptionName($exception);
+             if ($name !== null) {
+                 echo $handler->htmlEncode($name . ' – ' . get_class($exception));
+             } else {

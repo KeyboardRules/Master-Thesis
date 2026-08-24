@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7f84-28qh-9486",
+    "cve":  "CVE-2024-47523",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "ee1afba003d33667981e098c83295f599d88439c",
+    "status":  "ok",
+    "changed_php":  [
+                        "LibreNMS/Alert/Transport.php",
+                        "includes/html/print-alert-transports.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/print-alert-transports.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "LibreNMS/Alert/Transport.php",
+                        "includes/html/print-alert-transports.php"
+                    ],
+    "sink_hit":  true
+}

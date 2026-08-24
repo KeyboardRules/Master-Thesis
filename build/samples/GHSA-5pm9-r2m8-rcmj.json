@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-5pm9-r2m8-rcmj",
+    "cve":  "CVE-2025-58048",
+    "cwe":  "CWE-434",
+    "repo":  "Paymenter/Paymenter",
+    "sha":  "87c3db42282ada1e3cda54b9a01f846926c0669b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Livewire/Tickets/Create.php",
+                        "app/Livewire/Tickets/Show.php",
+                        "themes/default/views/components/easymde-editor.blade.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Livewire/Tickets/Create.php class extends Component",
+                     "app/Livewire/Tickets/Create.php class uses trait",
+                     "app/Livewire/Tickets/Show.php class extends Component",
+                     "app/Livewire/Tickets/Show.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Livewire/Tickets/Create.php",
+                        "app/Livewire/Tickets/Show.php",
+                        "themes/default/views/components/easymde-editor.blade.php"
+                    ],
+    "sink_hit":  false
+}

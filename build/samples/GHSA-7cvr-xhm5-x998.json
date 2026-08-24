@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7cvr-xhm5-x998",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "fabpot/Twig",
+    "sha":  "3d19a2eed53570776af313593aaeb5ad62cf4980",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Twig/Loader/Filesystem.php",
+                        "test/Twig/Tests/Loader/FilesystemTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/Twig/Tests/Loader/FilesystemTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Twig/Loader/Filesystem.php",
+                        "test/Twig/Tests/Loader/FilesystemTest.php"
+                    ],
+    "sink_hit":  true
+}

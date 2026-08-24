@@ -1,0 +1,109 @@
+﻿diff --git a/htdocs/contact/list.php b/htdocs/contact/list.php
+index 605fafd9e0..d2c8690eb8 100644
+--- a/htdocs/contact/list.php
++++ b/htdocs/contact/list.php
+@@ -502,16 +502,17 @@ if (!empty($conf->socialnetworks->enabled)) {
+ 		if ($value['active'] && strlen($search_[$key])) {
+ 			$searchkeyinjsonformat = preg_replace('/"$/', '', preg_replace('/^"/', '', json_encode($search_[$key])));
+ 			if (in_array($db->type, array('mysql', 'mysqli'))) {
+-				$sql .= " AND p.socialnetworks REGEXP '\"".$db->escapeforlike($db->escape($key))."\":\"[^\"]*".$db->escapeforlike($db->escape($searchkeyinjsonformat))."'";
++				$sql .= " AND p.socialnetworks REGEXP '\"".$db->escape($db->escapeforlike($key))."\":\"[^\"]*".$db->escape($db->escapeforlike($searchkeyinjsonformat))."'";
+ 			} elseif ($db->type == 'pgsql') {
+-				$sql .= " AND p.socialnetworks ~ '\"".$db->escapeforlike($db->escape($key))."\":\"[^\"]*".$db->escapeforlike($db->escape($searchkeyinjsonformat))."'";
++				$sql .= " AND p.socialnetworks ~ '\"".$db->escape($db->escapeforlike($key))."\":\"[^\"]*".$db->escape($db->escapeforlike($searchkeyinjsonformat))."'";
+ 			} else {
+ 				// Works with all database but not reliable because search only for social network code starting with earched value
+-				$sql .= " AND p.socialnetworks LIKE '%\"".$db->escapeforlike($db->escape($key))."\":\"".$db->escapeforlike($db->escape($searchkeyinjsonformat))."%'";
++				$sql .= " AND p.socialnetworks LIKE '%\"".$db->escape($db->escapeforlike($key))."\":\"".$db->escape($db->escapeforlike($searchkeyinjsonformat))."%'";
+ 			}
+ 		}
+ 	}
+ }
++//print $sql;
+ if (strlen($search_email)) {
+ 	$sql .= natural_search('p.email', $search_email);
+ }
+diff --git a/htdocs/core/lib/website.lib.php b/htdocs/core/lib/website.lib.php
+index e9ea4dbcf0..af48ec6488 100644
+--- a/htdocs/core/lib/website.lib.php
++++ b/htdocs/core/lib/website.lib.php
+@@ -887,7 +887,7 @@ function getSocialNetworkSharingLinks()
+  * @param	string		$langcode			Language code ('' or 'en', 'fr', 'es', ...)
+  * @param	array		$otherfilters		Other filters
+  * @param	int			$status				0 or 1, or -1 for both
+- * @return  string							HTML content
++ * @return  array							Array with results of search
+  */
+ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $sortfield = 'date_creation', $sortorder = 'DESC', $langcode = '', $otherfilters = 'null', $status = 1)
+ {
+@@ -925,6 +925,8 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
+ 	$found = 0;
+ 
+ 	if (!$error && (empty($max) || ($found < $max)) && (preg_match('/meta/', $algo) || preg_match('/content/', $algo))) {
++		include_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
++
+ 		$sql = 'SELECT wp.rowid FROM '.MAIN_DB_PREFIX.'website_page as wp';
+ 		if (is_array($otherfilters) && !empty($otherfilters['category'])) {
+ 			$sql .= ', '.MAIN_DB_PREFIX.'categorie_website_page as cwp';
+@@ -934,7 +936,7 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
+ 			$sql .= " AND wp.status = ".((int) $status);
+ 		}
+ 		if ($langcode) {
+-			$sql .= " AND wp.lang ='".$db->escape($langcode)."'";
++			$sql .= " AND wp.lang = '".$db->escape($langcode)."'";
+ 		}
+ 		if ($type) {
+ 			$tmparrayoftype = explode(',', $type);
+@@ -947,11 +949,11 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
+ 		$sql .= " AND (";
+ 		$searchalgo = '';
+ 		if (preg_match('/meta/', $algo)) {
+-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.title LIKE '%".$db->escapeforlike($db->escape($searchstring))."%' OR wp.description LIKE '%".$db->escapeforlike($db->escape($searchstring))."%'";
+-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.keywords LIKE '".$db->escapeforlike($db->escape($searchstring)).",%' OR wp.keywords LIKE '% ".$db->escapeforlike($db->escape($searchstring))."%'"; // TODO Use a better way to scan keywords
++			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.title LIKE '%".$db->escape($db->escapeforlike($searchstring))."%' OR wp.description LIKE '%".$db->escape($db->escapeforlike($searchstring))."%'";
++			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.keywords LIKE '".$db->escape($db->escapeforlike($searchstring)).",%' OR wp.keywords LIKE '% ".$db->escape($db->escapeforlike($searchstring))."%'"; // TODO Use a better way to scan keywords
+ 		}
+ 		if (preg_match('/content/', $algo)) {
+-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.content LIKE '%".$db->escapeforlike($db->escape($searchstring))."%'";
++			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.content LIKE '%".$db->escape($db->escapeforlike($searchstring))."%'";
+ 		}
+ 		$sql .= $searchalgo;
+ 		if (is_array($otherfilters) && !empty($otherfilters['category'])) {
+@@ -963,6 +965,7 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
+ 		//print $sql;
+ 
+ 		$resql = $db->query($sql);
++
+ 		if ($resql) {
+ 			$i = 0;
+ 			while (($obj = $db->fetch_object($resql)) && ($i < $max || $max == 0)) {
+diff --git a/htdocs/core/modules/import/import_csv.modules.php b/htdocs/core/modules/import/import_csv.modules.php
+index b251d70ad8..ea1cb75722 100644
+--- a/htdocs/core/modules/import/import_csv.modules.php
++++ b/htdocs/core/modules/import/import_csv.modules.php
+@@ -862,8 +862,8 @@ class ImportCsv extends ModeleImports
+ 										$stringtosearch = json_encode($socialnetwork).':'.json_encode($json->$socialnetwork);
+ 										//var_dump($stringtosearch);
+ 										//var_dump($this->db->escape($stringtosearch));	// This provide a value for sql string (but not for a like)
+-										$where[] = $key." LIKE '%".$this->db->escapeforlike($this->db->escape($stringtosearch))."%'";
+-										$filters[] = $col." LIKE '%".$this->db->escapeforlike($this->db->escape($stringtosearch))."%'";
++										$where[] = $key." LIKE '%".$this->db->escape($this->db->escapeforlike($stringtosearch))."%'";
++										$filters[] = $col." LIKE '%".$this->db->escape($this->db->escapeforlike($stringtosearch))."%'";
+ 										//var_dump($where[1]); // This provide a value for sql string inside a like
+ 									} else {
+ 										$where[] = $key.' = '.$data[$key];
+diff --git a/htdocs/core/modules/import/import_xlsx.modules.php b/htdocs/core/modules/import/import_xlsx.modules.php
+index 4023c1ecc9..eb781b6658 100644
+--- a/htdocs/core/modules/import/import_xlsx.modules.php
++++ b/htdocs/core/modules/import/import_xlsx.modules.php
+@@ -908,8 +908,8 @@ class ImportXlsx extends ModeleImports
+ 										$stringtosearch = json_encode($socialnetwork).':'.json_encode($json->$socialnetwork);
+ 										//var_dump($stringtosearch);
+ 										//var_dump($this->db->escape($stringtosearch));	// This provide a value for sql string (but not for a like)
+-										$where[] = $key." LIKE '%".$this->db->escapeforlike($this->db->escape($stringtosearch))."%'";
+-										$filters[] = $col." LIKE '%".$this->db->escapeforlike($this->db->escape($stringtosearch))."%'";
++										$where[] = $key." LIKE '%".$this->db->escape($this->db->escapeforlike($stringtosearch))."%'";
++										$filters[] = $col." LIKE '%".$this->db->escape($this->db->escapeforlike($stringtosearch))."%'";
+ 										//var_dump($where[1]); // This provide a value for sql string inside a like
+ 									} else {
+ 										$where[] = $key.' = '.$data[$key];

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mpg7-2rx9-h5qp",
+    "cve":  "CVE-2018-5478",
+    "cwe":  "CWE-79",
+    "repo":  "contao/core",
+    "sha":  "3123d6527ae6c46087b0ad8061eb8651cb645b8d",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/modules/newsletter/modules/ModuleUnsubscribe.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "system/modules/newsletter/modules/ModuleUnsubscribe.php class extends \\Module"
+                 ],
+    "changed_all":  [
+                        "system/docs/CHANGELOG.md",
+                        "system/modules/newsletter/modules/ModuleUnsubscribe.php"
+                    ],
+    "sink_hit":  false
+}

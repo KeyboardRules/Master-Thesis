@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4pf7-cc4r-g63h",
+    "cve":  "CVE-2026-52775",
+    "cwe":  "CWE-89",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "90ca54fb518e1c43a1ead6e4f5bf9f0389789841",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/services/ReactionManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/services/ReactionManager.php"
+                    ],
+    "sink_hit":  false
+}

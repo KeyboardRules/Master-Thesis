@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-f359-r3pv-2phf",
+    "cve":  "CVE-2026-33766",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "8b7e9dad359d5fac69e0cbbb370250e0b284bc12",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/functions.php",
+                        "objects/functionsExec.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "objects/functions.php includes 26 project file(s)"
+                 ],
+    "changed_all":  [
+                        "objects/functions.php",
+                        "objects/functionsExec.php"
+                    ],
+    "sink_hit":  true
+}

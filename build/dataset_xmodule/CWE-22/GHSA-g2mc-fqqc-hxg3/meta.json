@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g2mc-fqqc-hxg3",
+    "cve":  "CVE-2023-30855",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "7f788fa44bc18bc1c9182c25e26b770a1d30b62f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Reports/CustomReportController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Reports/CustomReportController.php class extends ReportsControllerBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

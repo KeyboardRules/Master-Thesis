@@ -1,0 +1,13 @@
+﻿diff --git a/typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php b/typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php
+index 3de645353f..320ac8412d 100644
+--- a/typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php
++++ b/typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php
+@@ -51,7 +51,7 @@ final class CssViewHelper extends AbstractTagBasedViewHelper
+      *
+      * @var bool
+      */
+-    protected $escapeChildren = false;
++    protected $escapeChildren = true;
+ 
+     protected AssetCollector $assetCollector;
+ 

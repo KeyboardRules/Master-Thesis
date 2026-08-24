@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m367-445c-2xqr",
+    "cve":  "CVE-2025-3642",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "630fbf6230ee18d63ce69bea34173fb151b599da",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "repository/equella/lib.php"
+                    ],
+    "evidence":  [
+                     "repository/equella/lib.php includes 2 project file(s)",
+                     "repository/equella/lib.php class extends repository"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

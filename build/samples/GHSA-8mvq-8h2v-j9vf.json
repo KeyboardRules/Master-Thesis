@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8mvq-8h2v-j9vf",
+    "cve":  "CVE-2024-12393",
+    "cwe":  "CWE-79",
+    "repo":  "drupal/core",
+    "sha":  "276ac67ad891605052e0a24fb36ece9caaa511e8",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Drupal/Core/Ajax/MessageCommand.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "lib/Drupal/Core/Ajax/MessageCommand.php"
+                    ],
+    "sink_hit":  false
+}

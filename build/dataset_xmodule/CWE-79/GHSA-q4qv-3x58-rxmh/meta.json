@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q4qv-3x58-rxmh",
+    "cve":  "CVE-2022-35589",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "fix_commit":  "76bf739e01f697e10c1277b9726e39b9705be296",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Kernel.php"
+                    ],
+    "evidence":  [
+                     "app/Kernel.php class extends BaseKernel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

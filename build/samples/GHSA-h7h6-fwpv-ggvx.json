@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-h7h6-fwpv-ggvx",
+    "cve":  "CVE-2021-20279",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "a7e0ba1e71205ccb0a73dedee414f1a167ee2ed7",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/tool/uploaduser/user_form.php",
+                        "blocks/activity_results/block_activity_results.php",
+                        "grade/report/user/externallib.php",
+                        "lib/myprofilelib.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "admin/tool/uploaduser/user_form.php includes 2 project file(s)",
+                     "admin/tool/uploaduser/user_form.php class extends moodleform",
+                     "blocks/activity_results/block_activity_results.php includes 2 project file(s)",
+                     "blocks/activity_results/block_activity_results.php class extends block_base",
+                     "grade/report/user/externallib.php includes 7 project file(s)",
+                     "grade/report/user/externallib.php class extends external_api"
+                 ],
+    "changed_all":  [
+                        "admin/tool/uploaduser/user_form.php",
+                        "blocks/activity_results/block_activity_results.php",
+                        "grade/report/user/externallib.php",
+                        "lib/myprofilelib.php"
+                    ],
+    "sink_hit":  false
+}

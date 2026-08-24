@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ppxm-q2h4-v7mm",
+    "cve":  "CVE-2023-1545",
+    "cwe":  "CWE-89",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "4780252fdb600ef2ec2758f17a37d738570cbe66",
+    "status":  "ok",
+    "changed_php":  [
+                        "api/Model/AuthModel.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "api/Model/AuthModel.php includes 4 project file(s)",
+                     "api/Model/AuthModel.php class extends Database"
+                 ],
+    "changed_all":  [
+                        "api/Model/AuthModel.php"
+                    ],
+    "sink_hit":  false
+}

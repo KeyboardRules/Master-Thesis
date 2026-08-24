@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-qvr7-7g55-69xj",
+    "cve":  "CVE-2026-23492",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "25ad8674886f2b938243cbe13e33e204a2e35cc3",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Searchadmin/SearchController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Searchadmin/SearchController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Searchadmin/SearchController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Searchadmin/SearchController.php"
+                    ],
+    "sink_hit":  true
+}

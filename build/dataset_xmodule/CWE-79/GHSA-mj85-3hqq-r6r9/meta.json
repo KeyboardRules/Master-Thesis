@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-mj85-3hqq-r6r9",
+    "cve":  "CVE-2016-2153",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "87e60e529939c60ef5b07d70c37426d359b2e8a2",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "mod/data/field/file/field.class.php",
+                        "mod/data/field/number/field.class.php",
+                        "mod/data/field/picture/field.class.php",
+                        "mod/data/field/text/field.class.php",
+                        "mod/data/field/textarea/field.class.php",
+                        "mod/data/field/url/field.class.php",
+                        "mod/data/lib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "mod/data/field/file/field.class.php class extends data_field_base",
+                     "mod/data/field/number/field.class.php class extends data_field_base",
+                     "mod/data/field/picture/field.class.php class extends data_field_base",
+                     "mod/data/field/text/field.class.php class extends data_field_base",
+                     "mod/data/field/textarea/field.class.php includes 2 project file(s)",
+                     "mod/data/field/textarea/field.class.php class extends data_field_base",
+                     "mod/data/field/url/field.class.php includes 1 project file(s)",
+                     "mod/data/field/url/field.class.php class extends data_field_base",
+                     "mod/data/lib.php includes 21 project file(s)",
+                     "mod/data/lib.php class extends data_preset_importer"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

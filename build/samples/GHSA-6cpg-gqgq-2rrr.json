@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6cpg-gqgq-2rrr",
+    "cve":  "CVE-2023-1761",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "128ef85f8e3ab7869d3107aa4d0b6867b53391d7",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/src/phpMyFAQ/Comments.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/ajaxservice.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/src/phpMyFAQ/Comments.php"
+                    ],
+    "sink_hit":  false
+}

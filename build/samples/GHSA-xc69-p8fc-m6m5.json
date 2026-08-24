@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xc69-p8fc-m6m5",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-subsites",
+    "sha":  "bf2c81dce62ae9a7623d224fd31a39505260eb57",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Extensions/GroupSubsites.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Extensions/GroupSubsites.php class extends DataExtension"
+                 ],
+    "changed_all":  [
+                        "src/Extensions/GroupSubsites.php"
+                    ],
+    "sink_hit":  false
+}

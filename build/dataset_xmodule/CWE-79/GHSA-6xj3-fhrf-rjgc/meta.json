@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-6xj3-fhrf-rjgc",
+    "cve":  "CVE-2022-1504",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "1f6a4de416a85e626dc643bb5ceb916e4802223e",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php",
+                        "src/MicroweberPackages/App/Http/Controllers/FrontendController.php",
+                        "src/MicroweberPackages/Comment/Models/CommentsCrud.php",
+                        "src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php",
+                        "src/MicroweberPackages/Helper/HTMLClean.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/MicroweberPackages/App/Http/Controllers/ApiController.php class extends FrontendController",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php includes 3 project file(s)",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php class extends Controller",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php class uses trait",
+                     "src/MicroweberPackages/Comment/Models/CommentsCrud.php class extends Crud",
+                     "src/MicroweberPackages/Helper/tests/SecurityTest.php class extends BaseTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

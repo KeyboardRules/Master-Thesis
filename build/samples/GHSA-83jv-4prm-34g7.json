@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-83jv-4prm-34g7",
+    "cve":  "",
+    "cwe":  "CWE-1336",
+    "repo":  "shopware5/shopware",
+    "sha":  "8f6a7cefcba7547276892b82f64e4874c1a0dfed",
+    "status":  "ok",
+    "changed_php":  [
+                        "engine/Shopware/Components/StringCompiler.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "engine/Shopware/Components/StringCompiler.php"
+                    ],
+    "sink_hit":  false
+}

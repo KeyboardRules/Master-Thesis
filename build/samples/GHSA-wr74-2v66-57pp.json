@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-wr74-2v66-57pp",
+    "cve":  "CVE-2022-3765",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "372428d02a08e90b3a253ba5c506cda84581a5af",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.config.php",
+                        "phpmyfaq/admin/meta.edit.php",
+                        "phpmyfaq/admin/meta.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/ajax.config.php",
+                        "phpmyfaq/admin/meta.edit.php",
+                        "phpmyfaq/admin/meta.php"
+                    ],
+    "sink_hit":  true
+}

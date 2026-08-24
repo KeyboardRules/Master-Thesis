@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-f3cx-396f-7jqp",
+    "cve":  "CVE-2024-47823",
+    "cwe":  "CWE-434",
+    "repo":  "livewire/livewire",
+    "fix_commit":  "70503b79f5db75a1eac9bf55826038a6ee5a16d5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Features/SupportFileUploads/TemporaryUploadedFile.php",
+                        "src/Features/SupportFileUploads/UnitTest.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Features/SupportFileUploads/TemporaryUploadedFile.php class extends UploadedFile",
+                     "src/Features/SupportFileUploads/UnitTest.php class extends \\Tests\\TestCase",
+                     "src/Features/SupportFileUploads/UnitTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

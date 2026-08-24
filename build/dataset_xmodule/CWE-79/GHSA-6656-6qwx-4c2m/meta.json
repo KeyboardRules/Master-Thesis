@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6656-6qwx-4c2m",
+    "cve":  "CVE-2011-4278",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "34b93e39a64a68e4a676b93ccf2bd87a1d3b5ef8",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/moodlelib.php",
+                        "tag/edit.php",
+                        "tag/lib.php",
+                        "tag/tag_autocomplete.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lib/moodlelib.php includes 60 project file(s)",
+                     "tag/edit.php includes 3 project file(s)",
+                     "tag/tag_autocomplete.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

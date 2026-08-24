@@ -1,0 +1,85 @@
+﻿diff --git a/packages/Webkul/Core/src/Traits/Sanitizer.php b/packages/Webkul/Core/src/Traits/Sanitizer.php
+index 8a3fa41a..b71fb393 100644
+--- a/packages/Webkul/Core/src/Traits/Sanitizer.php
++++ b/packages/Webkul/Core/src/Traits/Sanitizer.php
+@@ -7,21 +7,42 @@ use enshrined\svgSanitize\Sanitizer as MainSanitizer;
+ 
+ trait Sanitizer
+ {
++    /**
++     * List of mime types which needs to check.
++     */
++    public $mimeTypes = [
++        'image/svg',
++        'image/svg+xml'
++    ];
++
+     /**
+      * Sanitize SVG file.
+      *
+      * @param  string  $path
+      * @return void
+      */
+-    public function sanitizeSVG($path)
++    public function sanitizeSVG($path, $mimeType)
+     {
+-        /* sanitizer instance */
+-        $sanitizer = new MainSanitizer();
++        if ($this->checkMimeType($mimeType)) {
++            /* sanitizer instance */
++            $sanitizer = new MainSanitizer();
+ 
+-        /* grab svg file */
+-        $dirtySVG = Storage::get($path);
++            /* grab svg file */
++            $dirtySVG = Storage::get($path);
+ 
+-        /* save sanitized svg */
+-        Storage::put($path, $sanitizer->sanitize($dirtySVG));
++            /* save sanitized svg */
++            Storage::put($path, $sanitizer->sanitize($dirtySVG));
++        }
++    }
++
++    /**
++     * Sanitize SVG file.
++     *
++     * @param  string  $path
++     * @return void
++     */
++    public function checkMimeType($mimeType)
++    {
++        return in_array($mimeType, $this->mimeTypes);
+     }
+ }
+\ No newline at end of file
+diff --git a/packages/Webkul/Product/src/Repositories/SearchRepository.php b/packages/Webkul/Product/src/Repositories/SearchRepository.php
+index b0954a7f..5dbd5f29 100755
+--- a/packages/Webkul/Product/src/Repositories/SearchRepository.php
++++ b/packages/Webkul/Product/src/Repositories/SearchRepository.php
+@@ -54,9 +54,7 @@ class SearchRepository extends Repository
+     {
+         $path = request()->file('image')->store('product-search');
+ 
+-        if ($data['image']->getMimeType() === 'image/svg') {
+-            $this->sanitizeSVG($path);
+-        }
++        $this->sanitizeSVG($path, $data['image']->getMimeType());
+ 
+         return Storage::url($path);
+     }
+diff --git a/packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php b/packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php
+index b69acb85..7a3711eb 100644
+--- a/packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php
++++ b/packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php
+@@ -158,9 +158,7 @@ class ConfigurationController extends Controller
+                             $saveImage[substr($imageId, 6, 1)] = $path = request()->file($file)->store($dir);
+                         }
+ 
+-                        if ($image->getMimeType() === 'image/svg') {
+-                            $this->sanitizeSVG($path);
+-                        }
++                        $this->sanitizeSVG($path, $image->getMimeType());
+                     }
+                 } else {
+                     if (isset($advertisement[$index][$imageId]) && $advertisement[$index][$imageId] && !request()->hasFile($file)) {

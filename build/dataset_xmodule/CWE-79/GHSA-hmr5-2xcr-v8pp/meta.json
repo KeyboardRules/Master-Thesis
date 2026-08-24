@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-hmr5-2xcr-v8pp",
+    "cve":  "CVE-2026-45072",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/symfony",
+    "fix_commit":  "863aa81c61166f1aa74b7732df316f76113acbdb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Symfony/Bridge/Twig/Extension/CodeExtension.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Symfony/Bridge/Twig/Extension/CodeExtension.php class extends AbstractExtension",
+                     "src/Symfony/Bridge/Twig/Tests/Extension/CodeExtensionTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

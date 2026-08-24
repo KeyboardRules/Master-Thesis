@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p66q-ppwr-q5j8",
+    "cve":  "CVE-2024-51495",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "4568188ce9097a2e3a3b563311077f2bb82455c0",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/dev-overview-data.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/dev-overview-data.inc.php"
+                    ],
+    "sink_hit":  true
+}

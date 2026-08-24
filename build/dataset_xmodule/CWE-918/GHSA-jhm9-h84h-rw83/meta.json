@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-jhm9-h84h-rw83",
+    "cve":  "CVE-2020-8226",
+    "cwe":  "CWE-918",
+    "repo":  "phpbb/phpbb-app",
+    "fix_commit":  "0cfaaafb386d58576d200d56f1acdbcc2f2376e8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/functions_upload.php",
+                        "includes/message_parser.php",
+                        "phpbb/avatar/driver/driver.php",
+                        "phpbb/textformatter/s9e/parser.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "includes/functions_upload.php class extends filespec",
+                     "includes/message_parser.php class extends bbcode"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

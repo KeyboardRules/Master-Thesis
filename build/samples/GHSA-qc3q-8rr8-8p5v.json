@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-qc3q-8rr8-8p5v",
+    "cve":  "CVE-2024-21517",
+    "cwe":  "CWE-79",
+    "repo":  "opencart/opencart",
+    "sha":  "0fd1ee4b6c94366bf3e5d3831a8336f3275d1860",
+    "status":  "ok",
+    "changed_php":  [
+                        "upload/catalog/controller/account/login.php",
+                        "upload/catalog/controller/cms/comment.php",
+                        "upload/catalog/controller/startup/seo_url.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "upload/catalog/controller/account/login.php class extends \\Opencart\\System\\Engine\\Controller",
+                     "upload/catalog/controller/cms/comment.php class extends \\Opencart\\System\\Engine\\Controller",
+                     "upload/catalog/controller/startup/seo_url.php class extends \\Opencart\\System\\Engine\\Controller"
+                 ],
+    "changed_all":  [
+                        "upload/catalog/controller/account/login.php",
+                        "upload/catalog/controller/cms/comment.php",
+                        "upload/catalog/controller/startup/seo_url.php",
+                        "upload/catalog/view/template/account/login.twig",
+                        "upload/catalog/view/template/cms/comment.twig",
+                        "upload/catalog/view/template/cms/comment_list.twig",
+                        "upload/catalog/view/template/cms/comment_reply.twig"
+                    ],
+    "sink_hit":  false
+}

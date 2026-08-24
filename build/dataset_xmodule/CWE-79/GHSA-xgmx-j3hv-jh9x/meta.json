@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-xgmx-j3hv-jh9x",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "25f796b94e23bac77e836bd38f53ce998c094901",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php",
+                        "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php",
+                        "typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php class uses trait",
+                     "typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Tests/Functional/SiteHandling/TypoLinkTest.php class extends AbstractTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

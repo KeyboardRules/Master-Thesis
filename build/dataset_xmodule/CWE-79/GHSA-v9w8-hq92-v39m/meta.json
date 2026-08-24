@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-v9w8-hq92-v39m",
+    "cve":  "CVE-2021-20683",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "fix_commit":  "88ccc61e5656b05dd13204d61de706efaa2cd0b1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/Baser/Controller/PluginsController.php",
+                        "lib/Baser/Model/BcAppModel.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/Baser/Controller/PluginsController.php class extends AppController",
+                     "lib/Baser/Model/BcAppModel.php class extends Model"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

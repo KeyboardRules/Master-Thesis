@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-394m-vxwj-363j",
+    "cve":  "CVE-2023-49508",
+    "cwe":  "CWE-22",
+    "repo":  "YetiForceCompany/YetiForceCRM",
+    "sha":  "ba3a348aa6ecdf0a1d8b289cbb679bebcda7a132",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/Settings/Dependencies/views/LibraryLicense.php",
+                        "modules/Settings/Dependencies/views/LibraryMoreInfo.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/Settings/Dependencies/views/LibraryLicense.php class extends Settings_Vtiger_BasicModal_View",
+                     "modules/Settings/Dependencies/views/LibraryMoreInfo.php class extends Settings_Vtiger_BasicModal_View"
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "layouts/basic/modules/Settings/Dependencies/LibraryMoreInfo.tpl",
+                        "modules/Settings/Dependencies/views/LibraryLicense.php",
+                        "modules/Settings/Dependencies/views/LibraryMoreInfo.php"
+                    ],
+    "sink_hit":  true
+}

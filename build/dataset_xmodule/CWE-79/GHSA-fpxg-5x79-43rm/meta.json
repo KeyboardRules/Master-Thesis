@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-fpxg-5x79-43rm",
+    "cve":  "CVE-2018-20756",
+    "cwe":  "CWE-79",
+    "repo":  "modxcms/revolution",
+    "fix_commit":  "71f894ee55dc4eed10538979761d6c94e8cd1078",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core/model/modx/moduser.class.php",
+                        "manager/controllers/default/security/user/update.class.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "core/model/modx/moduser.class.php class extends modPrincipal",
+                     "manager/controllers/default/security/user/update.class.php class extends modManagerController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4jw9-5hrc-m4j6",
+    "cve":  "CVE-2026-33354",
+    "cwe":  "CWE-73",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "59bbd601a3f65a5b18c1d9e4eb11471c0a59214f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "objects/aVideoEncoder.json.php"
+                    ],
+    "evidence":  [
+                     "objects/aVideoEncoder.json.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

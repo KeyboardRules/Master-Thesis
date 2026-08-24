@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-wp38-whx3-xffh",
+    "cve":  "CVE-2026-43879",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "aaacd48f29f1ff71d1eb5fc81d37605f593cefa9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/YPTWallet/YPTWallet.php"
+                    ],
+    "evidence":  [
+                     "plugin/YPTWallet/YPTWallet.php includes 7 project file(s)",
+                     "plugin/YPTWallet/YPTWallet.php class extends PluginAbstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

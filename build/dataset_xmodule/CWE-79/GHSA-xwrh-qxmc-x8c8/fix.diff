@@ -1,0 +1,144 @@
+﻿diff --git a/concrete/blocks/file/view.php b/concrete/blocks/file/view.php
+index ba943b0a8..908f46525 100644
+--- a/concrete/blocks/file/view.php
++++ b/concrete/blocks/file/view.php
+@@ -16,7 +16,7 @@ if ($f && $fp->canViewFile()) {
+     ?>
+     <div class="ccm-block-file">
+         <a href="<?php echo (!empty($forceDownload)) ? $f->getForceDownloadURL() : $f->getDownloadURL(); ?>">
+-            <?php echo stripslashes($controller->getLinkText()) ?>
++            <?php echo h(stripslashes($controller->getLinkText())) ?>
+         </a>
+     </div>
+     <?php
+diff --git a/concrete/controllers/dialog/express/preset/delete.php b/concrete/controllers/dialog/express/preset/delete.php
+index d067bc102..3a2a528bf 100644
+--- a/concrete/controllers/dialog/express/preset/delete.php
++++ b/concrete/controllers/dialog/express/preset/delete.php
+@@ -71,7 +71,7 @@ class Delete extends PresetDelete
+                     }
+                     if (!$this->error->has()) {
+                         $response = new EditResponse();
+-                        $response->setMessage(t('%s deleted successfully.', $searchPreset->getPresetName()));
++                        $response->setMessage(t('%s deleted successfully.', h($searchPreset->getPresetName())));
+                         $response->setAdditionalDataAttribute('presetID', $presetID);
+                         $em = $this->app->make(\Doctrine\ORM\EntityManager::class);
+                         $em->remove($searchPreset);
+diff --git a/concrete/controllers/dialog/file/preset/delete.php b/concrete/controllers/dialog/file/preset/delete.php
+index 6c30407cf..f2e731744 100644
+--- a/concrete/controllers/dialog/file/preset/delete.php
++++ b/concrete/controllers/dialog/file/preset/delete.php
+@@ -46,7 +46,7 @@ class Delete extends PresetDelete
+                     }
+                     if (!$this->error->has()) {
+                         $response = new EditResponse();
+-                        $response->setMessage(t('%s deleted successfully.', $searchPreset->getPresetName()));
++                        $response->setMessage(t('%s deleted successfully.', h($searchPreset->getPresetName())));
+                         $response->setAdditionalDataAttribute('presetID', $presetID);
+                         $node = TreeNodeSearchPreset::getNodeBySavedSearchID($presetID);
+                         if (is_object($node)) {
+diff --git a/concrete/controllers/dialog/search/preset/delete.php b/concrete/controllers/dialog/search/preset/delete.php
+index 2a7a091b0..0a49f9583 100644
+--- a/concrete/controllers/dialog/search/preset/delete.php
++++ b/concrete/controllers/dialog/search/preset/delete.php
+@@ -48,7 +48,7 @@ abstract class Delete extends UserInterface
+                     }
+                     if (!$this->error->has()) {
+                         $response = new EditResponse();
+-                        $response->setMessage(t('%s deleted successfully.', $searchPreset->getPresetName()));
++                        $response->setMessage(t('%s deleted successfully.', h($searchPreset->getPresetName())));
+                         $response->setAdditionalDataAttribute('presetID', $presetID);
+                         $em = $this->app->make(EntityManager::class);
+                         $em->remove($searchPreset);
+diff --git a/concrete/controllers/dialog/search/preset/edit.php b/concrete/controllers/dialog/search/preset/edit.php
+index 2df2da926..216c6ff0f 100644
+--- a/concrete/controllers/dialog/search/preset/edit.php
++++ b/concrete/controllers/dialog/search/preset/edit.php
+@@ -49,7 +49,7 @@ abstract class Edit extends UserInterface
+                     }
+                     if (!$this->error->has()) {
+                         $response = new EditResponse();
+-                        $response->setMessage(t('%s edited successfully.', $newPresetName));
++                        $response->setMessage(t('%s edited successfully.', h($newPresetName)));
+                         $response->setAdditionalDataAttribute('presetID', $presetID);
+                         $response->setAdditionalDataAttribute('actionURL', (string) $this->getSavedSearchBaseURL($searchPreset));
+                         $searchPreset->setPresetName($newPresetName);
+diff --git a/concrete/single_pages/dashboard/system/calendar/colors.php b/concrete/single_pages/dashboard/system/calendar/colors.php
+index 52ff99e79..aa9b3492e 100644
+--- a/concrete/single_pages/dashboard/system/calendar/colors.php
++++ b/concrete/single_pages/dashboard/system/calendar/colors.php
+@@ -8,11 +8,11 @@
+         <legend><?=t('Default Colors')?></legend>
+         <div class="form-group">
+             <?=$form->label('defaultBackgroundColor', t('Background'))?>
+-            <?=$color->output('defaultBackgroundColor', $defaultBackgroundColor)?>
++            <?=$color->output('defaultBackgroundColor', h($defaultBackgroundColor))?>
+         </div>
+         <div class="form-group">
+             <?=$form->label('defaultTextColor', t('Text'))?>
+-            <?=$color->output('defaultTextColor', $defaultTextColor)?>
++            <?=$color->output('defaultTextColor', h($defaultTextColor))?>
+         </div>
+     </fieldset>
+ 
+@@ -45,10 +45,10 @@
+                 <tr>
+                     <td style="text-align: center; width: 10px"><?=$form->checkbox('override[]', $topic->getTreeNodeID(), $checked)?></td>
+                     <td style="width: 50%"><?=$topic->getTreeNodeDisplayName()?></td>
+-                    <td><?=$color->output('backgroundColor[' . $topic->getTreeNodeID() . ']', $backgroundColor)?></td>
+-                    <td><?=$color->output('textColor[' . $topic->getTreeNodeID() . ']', $textColor)?></td>
++                    <td><?=$color->output('backgroundColor[' . $topic->getTreeNodeID() . ']', h($backgroundColor))?></td>
++                    <td><?=$color->output('textColor[' . $topic->getTreeNodeID() . ']', h($textColor))?></td>
+                 </tr>
+-            <?php 
++            <?php
+ }
+     ?>
+             </table>
+diff --git a/concrete/src/StyleCustomizer/Inline/StyleSet.php b/concrete/src/StyleCustomizer/Inline/StyleSet.php
+index 1d9b13551..f5156ba59 100644
+--- a/concrete/src/StyleCustomizer/Inline/StyleSet.php
++++ b/concrete/src/StyleCustomizer/Inline/StyleSet.php
+@@ -256,8 +256,14 @@ class StyleSet
+ 
+         $v = $post->get('customClass');
+         if (is_array($v)) {
+-            $set->setCustomClass(implode(' ', $v));
+-            $return = true;
++            $v = array_filter($v, function ($class) {
++                return preg_match('/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/', $class);
++            });
++
++            if (count($v) > 0) {
++                $set->setCustomClass(implode(' ', $v));
++                $return = true;
++            }
+         }
+ 
+         $v = trim($post->get('customID', ''));
+diff --git a/concrete/views/dialogs/search/preset/delete.php b/concrete/views/dialogs/search/preset/delete.php
+index e7b35bda8..ff25a3ca9 100644
+--- a/concrete/views/dialogs/search/preset/delete.php
++++ b/concrete/views/dialogs/search/preset/delete.php
+@@ -4,7 +4,7 @@
+     <form method="post" data-dialog-form="remove-search-preset" class="form-horizontal" action="<?= $controller->getDeleteSearchPresetAction(); ?>">
+         <?= $token->output('remove_search_preset'); ?>
+         <?= $form->hidden('presetID', $searchPreset->getId()); ?>
+-        <p><?= t('Are you sure you want to remove the "%s" search preset?', $searchPreset->getPresetName()); ?></p>
++        <p><?= t('Are you sure you want to remove the "%s" search preset?', h($searchPreset->getPresetName())); ?></p>
+ 
+         <div class="dialog-buttons clearfix">
+             <button class="btn btn-secondary" data-dialog-action="cancel"><?= t('Cancel'); ?></button>
+diff --git a/concrete/views/dialogs/search/preset/edit.php b/concrete/views/dialogs/search/preset/edit.php
+index 2a60468c3..fdfb31be8 100644
+--- a/concrete/views/dialogs/search/preset/edit.php
++++ b/concrete/views/dialogs/search/preset/edit.php
+@@ -6,7 +6,7 @@
+         <?= $form->hidden('presetID', $searchPreset->getId()); ?>
+         <div class="form-group">
+             <?= $form->label('presetName', t('Name')); ?>
+-            <?= $form->text('presetName', $searchPreset->getPresetName()); ?>
++            <?= $form->text('presetName', h($searchPreset->getPresetName())); ?>
+         </div>
+ 
+         <div class="dialog-buttons clearfix">

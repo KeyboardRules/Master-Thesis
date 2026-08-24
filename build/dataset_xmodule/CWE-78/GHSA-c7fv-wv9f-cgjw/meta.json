@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-c7fv-wv9f-cgjw",
+    "cve":  "CVE-2019-10774",
+    "cwe":  "CWE-78",
+    "repo":  "mikehaertl/php-shellcommand",
+    "fix_commit":  "8d98d8536e05abafe76a491da87296d824939076",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Command.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/BlockingCommandTest.php class extends \\PHPUnit\\Framework\\TestCase",
+                     "tests/CommandTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

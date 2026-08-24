@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-v24p-7p4j-qvvf",
+    "cve":  "CVE-2024-28190",
+    "cwe":  "CWE-79",
+    "repo":  "contao/contao",
+    "sha":  "878d28dbe0f408740555d6fc8b634bd3f8febfce",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/contao/drivers/DC_Folder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/contao/drivers/DC_Folder.php class extends DataContainer"
+                 ],
+    "changed_all":  [
+                        "core-bundle/assets/scripts/core.js",
+                        "core-bundle/assets/scripts/tips.js",
+                        "core-bundle/contao/drivers/DC_Folder.php",
+                        "core-bundle/public/backend.1d61970f.js.map",
+                        "core-bundle/public/backend.7d12ce36.js",
+                        "core-bundle/public/backend.7d12ce36.js.map",
+                        "core-bundle/public/entrypoints.json",
+                        "core-bundle/public/manifest.json"
+                    ],
+    "sink_hit":  false
+}

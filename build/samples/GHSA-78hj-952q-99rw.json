@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-78hj-952q-99rw",
+    "cve":  "CVE-2018-19994",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "850b939ffd2c7a4443649331b923d5e0da2d6446",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/product/class/product.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "htdocs/product/class/product.class.php includes 27 project file(s)",
+                     "htdocs/product/class/product.class.php class extends CommonObject"
+                 ],
+    "changed_all":  [
+                        "htdocs/product/class/product.class.php"
+                    ],
+    "sink_hit":  true
+}

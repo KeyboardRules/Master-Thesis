@@ -1,0 +1,107 @@
+﻿diff --git a/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_list.php b/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_list.php
+index 9d34abc9..1bb5ee86 100755
+--- a/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_list.php
++++ b/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_list.php
+@@ -36,7 +36,7 @@ $this->BcBaser->js([
+ 					<?php if ($uploaderCategories): ?>
+ 						<?php echo $this->BcForm->input('UploaderFile.uploader_category_id', ['type' => 'select', 'options' => $uploaderCategories, 'empty' => __d('baser', 'カテゴリ指定なし'), 'id' => 'UploaderFileUploaderCategoryId' . $listId, 'style' => 'width:100px']) ?>&nbsp;
+ 					<?php endif ?>
+-					<span id="SpanUploadFile<?php echo $listId ?>">
++					<span id="SpanUploadFile<?php echo h($listId) ?>">
+ 			<?php echo $this->BcForm->input('UploaderFile.file', ['type' => 'file', 'id' => 'UploaderFileFile' . $listId, 'class' => 'uploader-file-file', 'div' => false]) ?>
+ 		</span>
+ 				</div>
+@@ -58,7 +58,7 @@ $this->BcBaser->js([
+ 						<?php if ($uploaderCategories): ?>
+ 							<?php echo $this->BcForm->input('UploaderFile.uploader_category_id', ['type' => 'select', 'options' => $uploaderCategories, 'empty' => __d('baser', 'カテゴリ指定なし'), 'id' => 'UploaderFileUploaderCategoryId' . $listId]) ?>
+ 						<?php endif ?>
+-						<span id="SpanUploadFile<?php echo $listId ?>">
++						<span id="SpanUploadFile<?php echo h($listId) ?>">
+ 					<?php echo $this->BcForm->input('UploaderFile.file', ['type' => 'file', 'id' => 'UploaderFileFile' . $listId, 'class' => 'uploader-file-file', 'div' => false]) ?>
+ 				</span>
+ 					</div>
+diff --git a/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_panel.php b/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_panel.php
+index 7f6c1cf2..eaee51bf 100755
+--- a/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_panel.php
++++ b/app/webroot/theme/admin-third/Elements/admin/uploader_files/index_panel.php
+@@ -33,7 +33,7 @@ $this->BcBaser->js('admin/vendors/jquery.upload-1.0.0.min');
+ 					<?php if ($uploaderCategories): ?>
+ 						<?php echo $this->BcForm->input('UploaderFile.uploader_category_id', ['type' => 'select', 'options' => $uploaderCategories, 'empty' => __d('baser', 'カテゴリ指定なし'), 'id' => 'UploaderFileUploaderCategoryId' . $listId]) ?>&nbsp;
+ 					<?php endif ?>
+-					<span id="SpanUploadFile<?php echo $listId ?>">
++					<span id="SpanUploadFile<?php echo h($listId) ?>">
+ 				<?php echo $this->BcForm->input('UploaderFile.file', ['type' => 'file', 'id' => 'UploaderFileFile' . $listId, 'class' => 'uploader-file-file', 'div' => false]) ?>
+ 			</span>
+ 				</div>
+diff --git a/app/webroot/theme/admin-third/FeedConfigs/admin/preview.php b/app/webroot/theme/admin-third/FeedConfigs/admin/preview.php
+index 2b3ae5f9..06c5499d 100755
+--- a/app/webroot/theme/admin-third/FeedConfigs/admin/preview.php
++++ b/app/webroot/theme/admin-third/FeedConfigs/admin/preview.php
+@@ -15,4 +15,4 @@
+  */
+ ?>
+ <h2><?php echo h($feedConfig['FeedConfig']['name']); ?></h2>
+-<?php echo $this->BcBaser->js('/feed/ajax/' . $id) ?>
++<?php echo $this->BcBaser->js('/feed/ajax/' . h($id)) ?>
+diff --git a/lib/Baser/Plugin/Feed/View/FeedConfigs/admin/preview.php b/lib/Baser/Plugin/Feed/View/FeedConfigs/admin/preview.php
+index bb8ba2b0..b486c19d 100755
+--- a/lib/Baser/Plugin/Feed/View/FeedConfigs/admin/preview.php
++++ b/lib/Baser/Plugin/Feed/View/FeedConfigs/admin/preview.php
+@@ -15,4 +15,4 @@
+  */
+ ?>
+ <h2><?php $this->BcBaser->contentsTitle() ?></h2>
+-<?php echo $this->BcBaser->js('/feed/ajax/' . $id) ?>
++<?php echo $this->BcBaser->js('/feed/ajax/' . h($id)) ?>
+diff --git a/lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php b/lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php
+index a60dcb59..f6443b13 100755
+--- a/lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php
++++ b/lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php
+@@ -95,7 +95,7 @@ class MaildataHelper extends BcTextHelper
+ 						$this->BcBaser->getImg($link, ['width' => 400]), $link, ['target' => '_blank']
+ 					);
+ 				} else {
+-					$result = $this->BcBaser->getLink($file, $link);
++					$result = $this->BcBaser->getLink($file, $link, ['escape' => true]);
+ 				}
+ 				break;
+ 
+diff --git a/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_list.php b/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_list.php
+index 09dcf0c2..07d68232 100755
+--- a/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_list.php
++++ b/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_list.php
+@@ -33,7 +33,7 @@ $this->BcBaser->js([
+ 					<?php if ($uploaderCategories): ?>
+ 						<?php echo $this->BcForm->input('UploaderFile.uploader_category_id', ['type' => 'select', 'options' => $uploaderCategories, 'empty' => __d('baser', 'カテゴリ指定なし'), 'id' => 'UploaderFileUploaderCategoryId' . $listId, 'style' => 'width:100px']) ?>&nbsp;
+ 					<?php endif ?>
+-					<span id="SpanUploadFile<?php echo $listId ?>">
++					<span id="SpanUploadFile<?php echo h($listId) ?>">
+ 			<?php echo $this->BcForm->input('UploaderFile.file', ['type' => 'file', 'id' => 'UploaderFileFile' . $listId, 'class' => 'uploader-file-file', 'div' => false]) ?>
+ 		</span>
+ 				</div>
+diff --git a/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_panel.php b/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_panel.php
+index a5dd3ac4..d782388a 100755
+--- a/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_panel.php
++++ b/lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_panel.php
+@@ -33,7 +33,7 @@ $this->BcBaser->js('admin/vendors/jquery.upload-1.0.0.min');
+ 				<?php if ($uploaderCategories): ?>
+ 					<?php echo $this->BcForm->input('UploaderFile.uploader_category_id', ['type' => 'select', 'options' => $uploaderCategories, 'empty' => __d('baser', 'カテゴリ指定なし'), 'id' => 'UploaderFileUploaderCategoryId' . $listId]) ?>&nbsp;
+ 				<?php endif ?>
+-				<span id="SpanUploadFile<?php echo $listId ?>">
++				<span id="SpanUploadFile<?php echo h($listId) ?>">
+ 			<?php echo $this->BcForm->input('UploaderFile.file', ['type' => 'file', 'id' => 'UploaderFileFile' . $listId, 'class' => 'uploader-file-file', 'div' => false]) ?>
+ 		</span>
+ 			</div>
+diff --git a/lib/Baser/View/Helper/BcUploadHelper.php b/lib/Baser/View/Helper/BcUploadHelper.php
+index 35b9428e..21158994 100755
+--- a/lib/Baser/View/Helper/BcUploadHelper.php
++++ b/lib/Baser/View/Helper/BcUploadHelper.php
+@@ -141,7 +141,7 @@ class BcUploadHelper extends BcAppHelper
+ 					if (is_array($options['link'])) {
+ 						$linkOptions = array_merge($linkOptions, $options['link']);
+ 					}
+-					$out = $this->Html->tag('figure', $this->Html->link(__d('baser', 'ダウンロード') . ' ≫', $filePath, $linkOptions) . '<br>' . $this->Html->tag('figcaption', mb_basename($value), $figcaptionOptions), $figureOptions);
++					$out = $this->Html->tag('figure', $this->Html->link(__d('baser', 'ダウンロード') . ' ≫', $filePath, $linkOptions) . '<br>' . $this->Html->tag('figcaption', h(mb_basename($value)), $figcaptionOptions), $figureOptions);
+ 				}
+ 			} else {
+ 				$out = $value;

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m9r4-3fg7-pqm2",
+    "cve":  "CVE-2023-39525",
+    "cwe":  "CWE-22",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "c7c9a5110421bb2856f4d312ecce192d079b5ec7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Import/File/FileRemoval.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Core/Import/File/FileRemoval.php"
+                    ],
+    "sink_hit":  true
+}

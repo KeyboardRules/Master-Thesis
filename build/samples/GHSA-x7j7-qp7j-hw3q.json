@@ -1,0 +1,53 @@
+﻿{
+    "id":  "GHSA-x7j7-qp7j-hw3q",
+    "cve":  "CVE-2021-41252",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "sha":  "25fc5c6b330442e6433c99befc688f3698c5d1fc",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/blocks/image/image.php",
+                        "config/fields/writer.php",
+                        "src/Sane/DomHandler.php",
+                        "src/Sane/Html.php",
+                        "src/Toolkit/Dom.php",
+                        "tests/Form/Fields/WriterFieldTest.php",
+                        "tests/Sane/DomHandlerTest.php",
+                        "tests/Sane/HtmlTest.php",
+                        "tests/Sane/TestCase.php",
+                        "tests/Toolkit/DomTest.php",
+                        "vendor/composer/autoload_classmap.php",
+                        "vendor/composer/autoload_static.php",
+                        "vendor/composer/installed.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 13 php files",
+                     "tests/Sane/TestCase.php class extends BaseTestCase"
+                 ],
+    "changed_all":  [
+                        "cacert.pem",
+                        "composer.json",
+                        "composer.lock",
+                        "config/blocks/image/image.php",
+                        "config/fields/writer.php",
+                        "panel/dist/js/app.js",
+                        "panel/src/components/Writer/Writer.vue",
+                        "panel/vite.config.custom.js",
+                        "src/Sane/DomHandler.php",
+                        "src/Sane/Html.php",
+                        "src/Toolkit/Dom.php",
+                        "tests/Form/Fields/WriterFieldTest.php",
+                        "tests/Sane/DomHandlerTest.php",
+                        "tests/Sane/HtmlTest.php",
+                        "tests/Sane/TestCase.php",
+                        "tests/Sane/fixtures/html/allowed/full-document-1.html",
+                        "tests/Sane/fixtures/html/allowed/full-document-2.html",
+                        "tests/Sane/fixtures/html/allowed/sandbox-blocks.html",
+                        "tests/Toolkit/DomTest.php",
+                        "vendor/composer/autoload_classmap.php",
+                        "vendor/composer/autoload_static.php",
+                        "vendor/composer/installed.php"
+                    ],
+    "sink_hit":  false
+}

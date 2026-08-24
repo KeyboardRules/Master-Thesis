@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-875v-7m49-8x88",
+    "cve":  "CVE-2026-32271",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/commerce",
+    "sha":  "6d2d24b3a2b0c06593856d05446f82bd8af92d72",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/stats/TotalRevenue.php",
+                        "src/widgets/TotalRevenue.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/stats/TotalRevenue.php class extends Stat",
+                     "src/widgets/TotalRevenue.php class extends Widget",
+                     "src/widgets/TotalRevenue.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/stats/TotalRevenue.php",
+                        "src/widgets/TotalRevenue.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-2fmj-p74r-3wjm",
+    "cve":  "CVE-2026-49286",
+    "cwe":  "CWE-502",
+    "repo":  "pontedilana/php-weasyprint",
+    "sha":  "d1aa487722b5a3cab9b222b85fdb5608a5a550c3",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/AbstractGenerator.php",
+                        "tests/Unit/AbstractGeneratorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Unit/AbstractGeneratorTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/AbstractGenerator.php",
+                        "tests/Unit/AbstractGeneratorTest.php"
+                    ],
+    "sink_hit":  false
+}

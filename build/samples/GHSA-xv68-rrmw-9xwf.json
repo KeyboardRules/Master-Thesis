@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xv68-rrmw-9xwf",
+    "cve":  "CVE-2024-47058",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "344b908ef690283e7d8d3fc5cc1327396a1c3046",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/FormBundle/Twig/Extension/FormFieldExtension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/bundles/FormBundle/Twig/Extension/FormFieldExtension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "app/bundles/FormBundle/Resources/views/Field/freehtml.html.twig",
+                        "app/bundles/FormBundle/Twig/Extension/FormFieldExtension.php"
+                    ],
+    "sink_hit":  false
+}

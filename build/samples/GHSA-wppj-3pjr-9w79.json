@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-wppj-3pjr-9w79",
+    "cve":  "CVE-2021-4080",
+    "cwe":  "CWE-434",
+    "repo":  "crater-invoice/crater",
+    "sha":  "cdc913d16cf624aee852bc9163a7c6ffc8d1da9d",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/V1/Admin/Expense/ExpensesController.php",
+                        "app/Http/Controllers/V1/Admin/Expense/UploadReceiptController.php",
+                        "app/Http/Controllers/V1/Admin/Settings/CompanyController.php",
+                        "app/Http/Requests/AvatarRequest.php",
+                        "app/Http/Requests/CompanyLogoRequest.php",
+                        "app/Http/Requests/ExpenseRequest.php",
+                        "app/Rules/Base64Mime.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/Http/Controllers/V1/Admin/Expense/ExpensesController.php class extends Controller",
+                     "app/Http/Controllers/V1/Admin/Expense/UploadReceiptController.php class extends Controller",
+                     "app/Http/Controllers/V1/Admin/Settings/CompanyController.php class extends Controller",
+                     "app/Http/Requests/ExpenseRequest.php class extends FormRequest"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/V1/Admin/Expense/ExpensesController.php",
+                        "app/Http/Controllers/V1/Admin/Expense/UploadReceiptController.php",
+                        "app/Http/Controllers/V1/Admin/Settings/CompanyController.php",
+                        "app/Http/Requests/AvatarRequest.php",
+                        "app/Http/Requests/CompanyLogoRequest.php",
+                        "app/Http/Requests/ExpenseRequest.php",
+                        "app/Rules/Base64Mime.php"
+                    ],
+    "sink_hit":  false
+}

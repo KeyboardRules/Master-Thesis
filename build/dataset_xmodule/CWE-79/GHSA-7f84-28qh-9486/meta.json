@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-7f84-28qh-9486",
+    "cve":  "CVE-2024-47523",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "ee1afba003d33667981e098c83295f599d88439c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "LibreNMS/Alert/Transport.php",
+                        "includes/html/print-alert-transports.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/print-alert-transports.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

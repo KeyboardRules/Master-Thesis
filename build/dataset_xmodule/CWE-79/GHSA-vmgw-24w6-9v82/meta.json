@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-vmgw-24w6-9v82",
+    "cve":  "CVE-2025-30081",
+    "cwe":  "CWE-79",
+    "repo":  "clickstorm/cs_seo",
+    "fix_commit":  "46e15a22d52da227b110bf6e95c2bcbb2fe4f55f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Classes/Controller/AbstractModuleController.php",
+                        "Classes/Controller/ModuleFileController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Controller/AbstractModuleController.php class extends ActionController",
+                     "Classes/Controller/ModuleFileController.php class extends AbstractModuleController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

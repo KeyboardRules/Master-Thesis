@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-vwfx-hh3w-fj99",
+    "cve":  "CVE-2021-21418",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/ps_emailsubscription",
+    "sha":  "664ffb225e2afb4a32640bbedad667dc6e660b70",
+    "status":  "ok",
+    "changed_php":  [
+                        "ps_emailsubscription.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "ps_emailsubscription.php class extends Module"
+                 ],
+    "changed_all":  [
+                        "ps_emailsubscription.php",
+                        "views/templates/front/subscription_execution.tpl",
+                        "views/templates/hook/ps_emailsubscription-column.tpl",
+                        "views/templates/hook/ps_emailsubscription.tpl"
+                    ],
+    "sink_hit":  true
+}

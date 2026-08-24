@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-m3m3-6gww-7gj9",
+    "cve":  "CVE-2022-39297",
+    "cwe":  "CWE-502",
+    "repo":  "melisplatform/melis-cms",
+    "sha":  "d124b2474699a679a24ec52620cadceb3d4cec11",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/FrontPluginsController.php",
+                        "src/Controller/SitesConfigController.php",
+                        "src/Controller/SitesController.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Controller/FrontPluginsController.php includes 1 project file(s)",
+                     "src/Controller/FrontPluginsController.php class extends MelisAbstractActionController",
+                     "src/Controller/SitesConfigController.php class extends MelisAbstractActionController",
+                     "src/Controller/SitesController.php class extends MelisAbstractActionController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/FrontPluginsController.php",
+                        "src/Controller/SitesConfigController.php",
+                        "src/Controller/SitesController.php"
+                    ],
+    "sink_hit":  true
+}

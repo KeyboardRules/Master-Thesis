@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-65p8-9433-jpcp",
+    "cve":  "CVE-2026-52762",
+    "cwe":  "CWE-1336",
+    "repo":  "YesWiki/yeswiki",
+    "fix_commit":  "89462f1577a8a1fe7fcff75e77b5058a74d8047b",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "includes/services/TemplateEngine.php",
+                        "tools/bazar/services/SemanticTransformer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/services/TemplateEngine.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,49 @@
+﻿diff --git a/src/Model/Table/UserAgentsTable.php b/src/Model/Table/UserAgentsTable.php
+index 8871757..3a9300c 100644
+--- a/src/Model/Table/UserAgentsTable.php
++++ b/src/Model/Table/UserAgentsTable.php
+@@ -77,7 +77,7 @@ class UserAgentsTable extends Table
+     public function browserName(string $ua = null)
+     {
+         if ($ua == null) {
+-            $ua = Purifier::clean(env('HTTP_USER_AGENT'), 'nohtml');
++            $ua = Purifier::clean(env('HTTP_USER_AGENT'));
+         }
+         $browserName = 'undefined';
+         try {
+diff --git a/src/Utility/Purifier.php b/src/Utility/Purifier.php
+index f8403ab..dc38c1a 100644
+--- a/src/Utility/Purifier.php
++++ b/src/Utility/Purifier.php
+@@ -17,26 +17,15 @@ namespace App\Utility;
+ class Purifier
+ {
+     /**
+-     * Purify a html string using HTMLPurifier
++     * Purify a html string
+      * @param mixed $html html to clean
+      * @return mixed
+      */
+-    public static function clean($html)
++    public static function clean(string $html = null)
+     {
+-        $config = \HTMLPurifier_Config::createDefault();
+-        $cacheDir = CACHE . '/htmlpurifier/definition_cache';
+-        if (!is_dir($cacheDir)) {
+-            mkdir($cacheDir, 0770, true);
++        if (is_null($html)) {
++            return null;
+         }
+-        $config->set('Cache.SerializerPath', $cacheDir);
+-        $purifier = new \HTMLPurifier($config);
+-        if (is_string($html)) {
+-            return $purifier->purify($html);
+-        }
+-        if (is_array($html)) {
+-            return $purifier->purifyArray($html);
+-        }
+-
+-        return null;
++        return htmlspecialchars($html, ENT_QUOTES);
+     }
+ }

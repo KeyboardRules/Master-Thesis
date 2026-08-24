@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m7gw-rffq-rxjm",
+    "cve":  "CVE-2026-22254",
+    "cwe":  "CWE-79",
+    "repo":  "wintercms/winter",
+    "fix_commit":  "8a7f74b004fcd19721764fc63af0cdb339d9fb65",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "modules/cms/widgets/AssetList.php"
+                    ],
+    "evidence":  [
+                     "modules/cms/widgets/AssetList.php class extends WidgetBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

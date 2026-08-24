@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m27r-m6rx-mhm4",
+    "cve":  "CVE-2026-23524",
+    "cwe":  "CWE-502",
+    "repo":  "laravel/reverb",
+    "sha":  "9ec26f8ffbb701f84920dd0bb9781a1797591f1a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Protocols/Pusher/PusherPubSubIncomingMessageHandler.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Protocols/Pusher/PusherPubSubIncomingMessageHandler.php"
+                    ],
+    "sink_hit":  true
+}

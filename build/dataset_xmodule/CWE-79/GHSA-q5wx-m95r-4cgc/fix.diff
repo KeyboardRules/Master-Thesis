@@ -1,0 +1,153 @@
+﻿diff --git a/concrete/blocks/rss_displayer/controller.php b/concrete/blocks/rss_displayer/controller.php
+index 2e1e7589d..c5092813a 100644
+--- a/concrete/blocks/rss_displayer/controller.php
++++ b/concrete/blocks/rss_displayer/controller.php
+@@ -201,7 +201,7 @@ class Controller extends BlockController implements UsesFeatureInterface
+                 ++$i;
+             }
+         } catch (\Exception $e) {
+-            $this->set('errorMsg', $e->getMessage());
++            $this->set('errorMsg', t('Unable to load RSS posts.'));
+         }
+ 
+         if (empty($this->titleFormat)) {
+diff --git a/concrete/blocks/rss_displayer/view.php b/concrete/blocks/rss_displayer/view.php
+index 2489037a5..2825d6db2 100644
+--- a/concrete/blocks/rss_displayer/view.php
++++ b/concrete/blocks/rss_displayer/view.php
+@@ -7,7 +7,7 @@
+ <?php if (strlen($title) > 0) {
+     ?>
+     <div class="ccm-block-rss-displayer-header">
+-        <<?php echo $titleFormat; ?>><?=$title?></<?php echo $titleFormat; ?>>
++        <<?php echo $titleFormat; ?>><?=h($title)?></<?php echo $titleFormat; ?>>
+     </div>
+ <?php 
+ } ?>
+diff --git a/concrete/blocks/share_this_page/view.php b/concrete/blocks/share_this_page/view.php
+index b3cce4c29..c1f6a3e70 100644
+--- a/concrete/blocks/share_this_page/view.php
++++ b/concrete/blocks/share_this_page/view.php
+@@ -4,7 +4,7 @@
+     <ul class="list-inline">
+     <?php foreach ($selected as $service) { ?>
+         <li>
+-            <a href="<?php echo h($service->getServiceLink()) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo h($service->getDisplayName()) ?>"><?php echo $service->getServiceIconHTML()?></a>
++            <a href="<?php echo h($service->getServiceLink()) ?>" target="<?=$service->getServiceLinkTarget()?>" rel="noopener noreferrer" aria-label="<?php echo h($service->getDisplayName()) ?>"><?php echo $service->getServiceIconHTML()?></a>
+         </li>
+     <?php } ?>
+     </ul>
+diff --git a/concrete/config/concrete.php b/concrete/config/concrete.php
+index 1a36b6667..40e1d0da8 100644
+--- a/concrete/config/concrete.php
++++ b/concrete/config/concrete.php
+@@ -6,9 +6,9 @@ return [
+      *
+      * @var string
+      */
+-    'version' => '9.3.2',
+-    'version_installed' => '9.3.2',
+-    'version_db' => '20240618202000', // the key of the latest database migration
++    'version' => '9.3.3',
++    'version_installed' => '9.3.3',
++    'version_db' => '20240711000000', // the key of the latest database migration
+ 
+     /*
+      * Installation status
+diff --git a/concrete/elements/attribute/key/list.php b/concrete/elements/attribute/key/list.php
+index 0e26597d2..9cd540e78 100644
+--- a/concrete/elements/attribute/key/list.php
++++ b/concrete/elements/attribute/key/list.php
+@@ -3,7 +3,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
+ 
+ foreach ($sortable_sets as $set) {
+     ?>
+-    <h4><?=$set->getAttributeSetName()?></h4>
++    <h4><?=$set->getAttributeSetDisplayName()?></h4>
+     <ul class="item-select-list ccm-attribute-list-wrapper" data-sortable-attribute-set="<?=$set->getAttributeSetID()?>">
+         <?php
+         foreach ($set->getAttributeKeys() as $key) {
+diff --git a/concrete/single_pages/dashboard/system/attributes/sets.php b/concrete/single_pages/dashboard/system/attributes/sets.php
+index e2572d485..d1455662e 100644
+--- a/concrete/single_pages/dashboard/system/attributes/sets.php
++++ b/concrete/single_pages/dashboard/system/attributes/sets.php
+@@ -44,7 +44,7 @@ $txt = Loader::helper('text'); ?>
+ 
+                     <div class="form-group">
+                         <?php echo $form->label('asName', t('Name'))?>
+-                        <?php echo $form->text('asName', $set->getAttributeSetName())?>
++                        <?php echo $form->text('asName', $set->getAttributeSetDisplayName())?>
+                     </div>
+ 
+                     <div class="form-group">
+diff --git a/concrete/src/Entity/Board/Designer/CustomElement.php b/concrete/src/Entity/Board/Designer/CustomElement.php
+index 335408839..7f0d4095f 100644
+--- a/concrete/src/Entity/Board/Designer/CustomElement.php
++++ b/concrete/src/Entity/Board/Designer/CustomElement.php
+@@ -33,7 +33,7 @@ abstract class CustomElement implements \JsonSerializable
+ 
+     /**
+      * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\User\User")
+-     * @ORM\JoinColumn(name="uID", referencedColumnName="uID")
++     * @ORM\JoinColumn(name="uID", referencedColumnName="uID", onDelete="SET NULL")
+      */
+     protected $author;
+ 
+diff --git a/concrete/src/Entity/Board/InstanceSlotRule.php b/concrete/src/Entity/Board/InstanceSlotRule.php
+index bb418b243..05ce9213f 100644
+--- a/concrete/src/Entity/Board/InstanceSlotRule.php
++++ b/concrete/src/Entity/Board/InstanceSlotRule.php
+@@ -68,7 +68,7 @@ class InstanceSlotRule implements \JsonSerializable, ObjectInterface
+ 
+     /**
+      * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\User\User")
+-     * @ORM\JoinColumn(name="uID", referencedColumnName="uID")
++     * @ORM\JoinColumn(name="uID", referencedColumnName="uID", onDelete="SET NULL")
+      */
+     protected $user;
+ 
+diff --git a/concrete/src/Sharing/ShareThisPage/Service.php b/concrete/src/Sharing/ShareThisPage/Service.php
+index c6220cd01..ef977e6d9 100644
+--- a/concrete/src/Sharing/ShareThisPage/Service.php
++++ b/concrete/src/Sharing/ShareThisPage/Service.php
+@@ -18,15 +18,24 @@ class Service extends SocialNetworkService
+         }
+     }
+ 
++    public function getServiceLinkTarget(): string
++    {
++        // @TODO - perhaps make this more modular and defined within each service's config.
++        if (in_array($this->getHandle(), ['email', 'print'])) {
++            return '';
++        } else {
++            return '_blank';
++        }
++    }
++
+     public function getServiceLink(Page $c = null)
+     {
+         if (!is_object($c)) {
+             $req = Request::getInstance();
+             $c = $req->getCurrentPage();
+-            if($c){
++            if($c) {
+             	$url = urlencode(URL::to($c));
+-            }
+-            else{
++            } else {
+             	$url = urlencode($req->getUri());
+             }
+         } elseif (!$c->isError()) {
+diff --git a/concrete/themes/atomik/blocks/share_this_page/view.php b/concrete/themes/atomik/blocks/share_this_page/view.php
+index 9a1dc130d..f2a8125df 100644
+--- a/concrete/themes/atomik/blocks/share_this_page/view.php
++++ b/concrete/themes/atomik/blocks/share_this_page/view.php
+@@ -4,7 +4,7 @@
+     <h4><?=t('Share This Article')?></h4>
+ 
+     <?php foreach ($selected as $service) { ?>
+-        <a href="<?php echo h($service->getServiceLink()) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo h($service->getDisplayName()) ?>"><?php echo $service->getServiceIconHTML()?></a>
++        <a href="<?php echo h($service->getServiceLink()) ?>" target="<?=$service->getServiceLinkTarget()?>" rel="noopener noreferrer" aria-label="<?php echo h($service->getDisplayName()) ?>"><?php echo $service->getServiceIconHTML()?></a>
+     <?php } ?>
+ 
+ </div>

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9g3v-j3cr-6fc6",
+    "cve":  "CVE-2021-3879",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "bda23bb1e66fd7ce42c75c69cf5eea4e80865c1c",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/partials/bootstrap-table.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/partials/bootstrap-table.blade.php"
+                    ],
+    "sink_hit":  false
+}

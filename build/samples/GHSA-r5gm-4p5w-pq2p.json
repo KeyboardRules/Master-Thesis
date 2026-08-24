@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r5gm-4p5w-pq2p",
+    "cve":  "CVE-2019-19576",
+    "cwe":  "CWE-434",
+    "repo":  "getk2/k2",
+    "sha":  "d1344706c4b74c2ae7659b286b5a066117155124",
+    "status":  "ok",
+    "changed_php":  [
+                        "media/k2/assets/vendors/verot/class.upload.php/src/class.upload.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "media/k2/assets/vendors/verot/class.upload.php/src/class.upload.php"
+                    ],
+    "sink_hit":  true
+}

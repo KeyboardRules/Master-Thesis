@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-vv3x-j2x5-36jc",
+    "cve":  "CVE-2026-33080",
+    "cwe":  "CWE-79",
+    "repo":  "filamentphp/filament",
+    "sha":  "efa041aeeb4b1a99acd48aaa05584993c926d1ed",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/tables/src/Columns/Summarizers/Range.php",
+                        "packages/tables/src/Columns/Summarizers/Values.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "packages/tables/src/Columns/Summarizers/Range.php class extends Summarizer",
+                     "packages/tables/src/Columns/Summarizers/Values.php class extends Summarizer"
+                 ],
+    "changed_all":  [
+                        "packages/tables/src/Columns/Summarizers/Range.php",
+                        "packages/tables/src/Columns/Summarizers/Values.php"
+                    ],
+    "sink_hit":  false
+}

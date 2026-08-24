@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-j878-43hm-8gr5",
+    "cve":  "CVE-2022-0921",
+    "cwe":  "CWE-434",
+    "repo":  "microweber/microweber",
+    "sha":  "867bdda1b4660b0795ad7f87ab5abe9e44b2b318",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Backup/Loggers/DefaultLogger.php",
+                        "src/MicroweberPackages/Import/DatabaseWriter.php",
+                        "src/MicroweberPackages/Import/Formats/ZipReader.php",
+                        "src/MicroweberPackages/Import/tests/ReadersTest.php",
+                        "userfiles/modules/admin/backup/backup_modal.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/MicroweberPackages/Import/DatabaseWriter.php class uses trait",
+                     "src/MicroweberPackages/Import/Formats/ZipReader.php class extends DefaultReader"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "src/MicroweberPackages/Backup/Loggers/DefaultLogger.php",
+                        "src/MicroweberPackages/Import/DatabaseWriter.php",
+                        "src/MicroweberPackages/Import/Formats/ZipReader.php",
+                        "src/MicroweberPackages/Import/tests/ReadersTest.php",
+                        "src/MicroweberPackages/Import/tests/strange-file.zip",
+                        "userfiles/modules/admin/backup/backup_modal.php"
+                    ],
+    "sink_hit":  false
+}

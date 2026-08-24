@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6346-5r4h-ff5x",
+    "cve":  "CVE-2022-1555",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "724e2d186a33c0c27273107dc4f160a09384877f",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Order/resources/views/admin/orders/partials/order_filtering.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Order/resources/views/admin/orders/partials/order_filtering.blade.php"
+                    ],
+    "sink_hit":  true
+}

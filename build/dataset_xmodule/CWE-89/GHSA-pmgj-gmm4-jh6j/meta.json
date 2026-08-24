@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pmgj-gmm4-jh6j",
+    "cve":  "CVE-2026-29174",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "094d69df24b925544f337c38e2ec1effcd5395c7",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/controllers/InventoryController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/InventoryController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

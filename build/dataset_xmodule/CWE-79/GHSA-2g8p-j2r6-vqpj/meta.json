@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2g8p-j2r6-vqpj",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "octobercms/install",
+    "fix_commit":  "ef1225b5596b7c2eb5ca3aa700a23e9f8acf387b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "install_files/php/Installer.php",
+                        "install_files/php/InstallerHandlers.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "install_files/php/Installer.php class uses trait",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

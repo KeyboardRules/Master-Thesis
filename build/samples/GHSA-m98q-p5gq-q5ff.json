@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m98q-p5gq-q5ff",
+    "cve":  "CVE-2017-1000431",
+    "cwe":  "CWE-79",
+    "repo":  "ezsystems/ezpublish-legacy",
+    "sha":  "c7174295fa0b9bd81bd4af908082464b0b80f278",
+    "status":  "ok",
+    "changed_php":  [
+                        "kernel/content/search.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "kernel/content/search.php"
+                    ],
+    "sink_hit":  false
+}

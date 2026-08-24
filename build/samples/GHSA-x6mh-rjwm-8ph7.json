@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x6mh-rjwm-8ph7",
+    "cve":  "CVE-2024-55878",
+    "cwe":  "CWE-79",
+    "repo":  "shuchkin/simplexlsx",
+    "sha":  "cb4e716259e83d18e89292a4f1b721f4d34e28c2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/SimpleXLSXEx.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/SimpleXLSXEx.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j432-4w3j-3w8j",
+    "cve":  "CVE-2026-41060",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "a0156a6398362086390d949190f9d52a823000ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "objects/functions.php includes 26 project file(s)"
+                 ],
+    "changed_all":  [
+                        "objects/functions.php"
+                    ],
+    "sink_hit":  true
+}

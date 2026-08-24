@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-g9cm-rxp7-6gv5",
+    "cve":  "CVE-2026-43876",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "078c4342eb9969a70425a9cdca3eefa7f8a86d53",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/notifySubscribers.json.php"
+                    ],
+    "evidence":  [
+                     "objects/notifySubscribers.json.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,35 @@
+﻿diff --git a/lib/Drupal/Core/Form/FormBuilder.php b/lib/Drupal/Core/Form/FormBuilder.php
+index 5e8e22a60..444753465 100644
+--- a/lib/Drupal/Core/Form/FormBuilder.php
++++ b/lib/Drupal/Core/Form/FormBuilder.php
+@@ -861,7 +861,8 @@ class FormBuilder implements FormBuilderInterface, FormValidatorInterface, FormS
+     //   https://www.drupal.org/node/2504709.
+     $parsed = UrlHelper::parse($request_uri);
+     unset($parsed['query'][static::AJAX_FORM_REQUEST], $parsed['query'][MainContentViewSubscriber::WRAPPER_FORMAT]);
+-    return $parsed['path'] . ($parsed['query'] ? ('?' . UrlHelper::buildQuery($parsed['query'])) : '');
++    $action =  $parsed['path'] . ($parsed['query'] ? ('?' . UrlHelper::buildQuery($parsed['query'])) : '');
++    return UrlHelper::filterBadProtocol($action);
+   }
+ 
+   /**
+diff --git a/modules/user/src/Plugin/Block/UserLoginBlock.php b/modules/user/src/Plugin/Block/UserLoginBlock.php
+index d9971c564..f55a70d61 100644
+--- a/modules/user/src/Plugin/Block/UserLoginBlock.php
++++ b/modules/user/src/Plugin/Block/UserLoginBlock.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Drupal\user\Plugin\Block;
+ 
++use Drupal\Component\Utility\UrlHelper;
+ use Drupal\Core\Access\AccessResult;
+ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+ use Drupal\Core\Security\TrustedCallbackInterface;
+@@ -155,7 +156,7 @@ class UserLoginBlock extends BlockBase implements ContainerFactoryPluginInterfac
+   public static function renderPlaceholderFormAction() {
+     return [
+       '#type' => 'markup',
+-      '#markup' => Url::fromRoute('<current>', [], ['query' => \Drupal::destination()->getAsArray(), 'external' => FALSE])->toString(),
++      '#markup' => UrlHelper::filterBadProtocol(Url::fromRoute('<current>', [], ['query' => \Drupal::destination()->getAsArray(), 'external' => FALSE])->toString()),
+       '#cache' => ['contexts' => ['url.path', 'url.query_args']],
+     ];
+   }

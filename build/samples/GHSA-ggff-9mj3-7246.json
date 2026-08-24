@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-ggff-9mj3-7246",
+    "cve":  "CVE-2026-0895",
+    "cwe":  "CWE-502",
+    "repo":  "CPS-IT/mailqueue",
+    "sha":  "12a0a35027bb5609917790a94e43bbf117abf733",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Exception/SerializedMessageIsInvalid.php",
+                        "Classes/Mail/Transport/QueueableFileTransport.php",
+                        "ext_emconf.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "Classes/Exception/SerializedMessageIsInvalid.php class extends Exception",
+                     "Classes/Mail/Transport/QueueableFileTransport.php class extends Core\\Mail\\FileSpool"
+                 ],
+    "changed_all":  [
+                        "Classes/Exception/SerializedMessageIsInvalid.php",
+                        "Classes/Mail/Transport/QueueableFileTransport.php",
+                        "composer.json",
+                        "ext_emconf.php"
+                    ],
+    "sink_hit":  true
+}

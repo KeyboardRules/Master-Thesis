@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-3xpw-vhmv-cw7h",
+    "cve":  "CVE-2022-25866",
+    "cwe":  "CWE-74",
+    "repo":  "czproject/git-php",
+    "sha":  "5e82d5479da5f16d37a915de4ec55e1ac78de733",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Git.php",
+                        "src/GitRepository.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/Git.php",
+                        "src/GitRepository.php",
+                        "tests/GitPhp/GitRepository.branches.phpt",
+                        "tests/GitPhp/GitRepository.files.phpt",
+                        "tests/GitPhp/GitRepository.remotes.phpt",
+                        "tests/GitPhp/GitRepository.tags.phpt"
+                    ],
+    "sink_hit":  false
+}

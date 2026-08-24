@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-xw83-pwrm-9j74",
+    "cve":  "CVE-2015-7809",
+    "cwe":  "CWE-74",
+    "repo":  "twigphp/Twig",
+    "sha":  "30be07759a3de2558da5224f127d052ecf492e8f",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Twig/Template.php",
+                        "test/Twig/Tests/TemplateTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/Twig/Tests/TemplateTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Twig/Template.php",
+                        "test/Twig/Tests/TemplateTest.php"
+                    ],
+    "sink_hit":  false
+}

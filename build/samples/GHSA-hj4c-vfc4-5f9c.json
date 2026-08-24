@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hj4c-vfc4-5f9c",
+    "cve":  "CVE-2022-48614",
+    "cwe":  "CWE-79",
+    "repo":  "SemanticMediaWiki/SemanticMediaWiki",
+    "sha":  "604968d44fcdfcbb7f1e00c5d662ca5d5a3a5613",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MediaWiki/Specials/SpecialAsk.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/MediaWiki/Specials/SpecialAsk.php class extends SpecialPage"
+                 ],
+    "changed_all":  [
+                        "src/MediaWiki/Specials/SpecialAsk.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-6r5g-cq4q-327g",
+    "cve":  "CVE-2023-36828",
+    "cwe":  "CWE-79",
+    "repo":  "statamic/cms",
+    "fix_commit":  "c714893ad92de6e5ede17b501003441af505b30d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Tags/Svg.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Tags/Svg.php class extends Tags",
+                     "tests/Tags/SvgTagTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j2gw-r24m-j2qw",
+    "cve":  "CVE-2025-1022",
+    "cwe":  "CWE-22",
+    "repo":  "spatie/browsershot",
+    "sha":  "bcfd608b264fab654bf78e199bdfbb03e9323eb7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Browsershot.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Browsershot.php"
+                    ],
+    "sink_hit":  true
+}

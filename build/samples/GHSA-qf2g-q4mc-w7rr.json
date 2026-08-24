@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qf2g-q4mc-w7rr",
+    "cve":  "CVE-2022-0145",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "sha":  "981730f1a3d59b423ca903b1f4bf79b848a1766e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Backend/Modules/Extensions/Engine/Model.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Backend/Modules/Extensions/Engine/Model.php"
+                    ],
+    "sink_hit":  true
+}

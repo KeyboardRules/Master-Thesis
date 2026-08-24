@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3fhj-wpvj-x5w8",
+    "cve":  "CVE-2021-4262",
+    "cwe":  "CWE-89",
+    "repo":  "mgallegos/laravel-jqgrid",
+    "sha":  "fbc2d94f43d0dc772767a5bdb2681133036f935e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Mgallegos/LaravelJqgrid/Repositories/EloquentRepositoryAbstract.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Mgallegos/LaravelJqgrid/Repositories/EloquentRepositoryAbstract.php"
+                    ],
+    "sink_hit":  false
+}

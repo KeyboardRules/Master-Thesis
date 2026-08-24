@@ -1,0 +1,91 @@
+﻿diff --git a/Classes/Indexer/Types/File.php b/Classes/Indexer/Types/File.php
+index 8c8e9a9..226ddae 100644
+--- a/Classes/Indexer/Types/File.php
++++ b/Classes/Indexer/Types/File.php
+@@ -308,6 +308,7 @@ class File extends IndexerBase
+ 
+                 if ($fileObj instanceof FileIndexerInterface) {
+                     $fileContent = $fileObj->getContent($filePath);
++                    $fileContent = strip_tags($fileContent);
+                     $this->addError($fileObj->getErrors());
+ 
+                     // remove metadata separator if it appears in the content
+diff --git a/Classes/Indexer/Types/News.php b/Classes/Indexer/Types/News.php
+index feaa302..3ace69d 100644
+--- a/Classes/Indexer/Types/News.php
++++ b/Classes/Indexer/Types/News.php
+@@ -188,7 +188,7 @@ class News extends IndexerBase
+                     $content .= "\n" . strip_tags($newsRecord['author_email']);
+                 }
+                 if (!empty($newsRecord['keywords'])) {
+-                    $content .= "\n" . $newsRecord['keywords'];
++                    $content .= "\n" . strip_tags($newsRecord['keywords']);
+                 }
+ 
+                 // index attached content elements
+diff --git a/Classes/Indexer/Types/TtAddress.php b/Classes/Indexer/Types/TtAddress.php
+index 3035d51..3f50f72 100644
+--- a/Classes/Indexer/Types/TtAddress.php
++++ b/Classes/Indexer/Types/TtAddress.php
+@@ -107,10 +107,11 @@ class TtAddress extends IndexerBase
+                 ? $addressRow['company'] :
+                 (!empty($addressRow['name']) ? $addressRow['name']
+                     : ($addressRow['first_name'] . ' ' . $addressRow['last_name']));
++            $title = strip_tags($title);
+ 
+             // use description as abstract if set
+             if (!empty($addressRow['description'])) {
+-                $abstract = $addressRow['description'];
++                $abstract = strip_tags($addressRow['description']);
+             }
+ 
+             // build content
+@@ -168,6 +169,7 @@ class TtAddress extends IndexerBase
+             if (!empty($addressRow['www'])) {
+                 $content .= $addressRow['www'];
+             }
++            $content = strip_tags($content);
+ 
+             // put content together
+             $fullContent = $abstract . "\n" . $content;
+diff --git a/Classes/Indexer/Types/TtNews.php b/Classes/Indexer/Types/TtNews.php
+index 8b34c6d..fc30d6a 100644
+--- a/Classes/Indexer/Types/TtNews.php
++++ b/Classes/Indexer/Types/TtNews.php
+@@ -137,7 +137,7 @@ class TtNews extends IndexerBase
+                     $content .= "\n" . strip_tags($newsRecord['author_email']);
+                 }
+                 if (!empty($newsRecord['keywords'])) {
+-                    $content .= "\n" . $newsRecord['keywords'];
++                    $content .= "\n" . strip_tags($newsRecord['keywords']);
+                 }
+ 
+                 // get related files if fileext is configured
+diff --git a/Classes/Lib/Searchresult.php b/Classes/Lib/Searchresult.php
+index c4172fd..cc1d587 100644
+--- a/Classes/Lib/Searchresult.php
++++ b/Classes/Lib/Searchresult.php
+@@ -237,9 +237,9 @@ class Searchresult
+     public function buildTeaserContent(string $content): string
+     {
+         $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
++        $content = strip_tags($content);
+         if (count($this->swords)) {
+             $amountOfSearchWords = count($this->swords);
+-            $content = strip_tags($content);
+             // with each new searchword and all the croppings here the teaser for each word will become too small/short
+             // I decided to add 20 additional letters for each searchword. It looks much better and is more readable
+             $charsForEachSearchWord = ceil($this->conf['resultChars'] / $amountOfSearchWords) + 20;
+diff --git a/ext_emconf.php b/ext_emconf.php
+index 7dc4ab6..9de8b6b 100644
+--- a/ext_emconf.php
++++ b/ext_emconf.php
+@@ -5,7 +5,7 @@ $EM_CONF[$_EXTKEY] = [
+     'title' => 'Faceted Search',
+     'description' => 'Faceted fulltext search for TYPO3. Fast, flexible and easy to install and use. Indexes content directly from the databases. Features faceting / filtering, file indexing, images in result lists and respects access restrictions.',
+     'category' => 'plugin',
+-    'version' => '5.0.1',
++    'version' => '5.0.2',
+     'state' => 'stable',
+     'author' => 'ke_search Dev Team',
+     'author_email' => 'ke_search@tpwd.de',

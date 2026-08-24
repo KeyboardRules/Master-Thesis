@@ -1,0 +1,52 @@
+﻿{
+    "id":  "GHSA-rff2-vqm3-jpv5",
+    "cve":  "CVE-2022-3035",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "9cf5f30c77df6ab60baab1c0e6bb0b4e773f0eae",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Helpers/Helper.php",
+                        "app/Models/Accessory.php",
+                        "app/Models/Asset.php",
+                        "app/Models/Category.php",
+                        "app/Models/Consumable.php",
+                        "app/Models/License.php",
+                        "app/Models/Setting.php",
+                        "app/Presenters/AssetModelPresenter.php",
+                        "resources/views/auth/login.blade.php",
+                        "resources/views/dashboard.blade.php",
+                        "resources/views/layouts/default.blade.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "app/Models/Accessory.php class extends SnipeModel",
+                     "app/Models/Accessory.php class uses trait",
+                     "app/Models/Asset.php class extends Depreciable",
+                     "app/Models/Asset.php class uses trait",
+                     "app/Models/Category.php class extends SnipeModel",
+                     "app/Models/Category.php class uses trait",
+                     "app/Models/Consumable.php class extends SnipeModel",
+                     "app/Models/Consumable.php class uses trait",
+                     "app/Models/License.php class extends Depreciable",
+                     "app/Models/License.php class uses trait",
+                     "app/Models/Setting.php class extends Model",
+                     "app/Models/Setting.php class uses trait",
+                     "app/Presenters/AssetModelPresenter.php class extends Presenter"
+                 ],
+    "changed_all":  [
+                        "app/Helpers/Helper.php",
+                        "app/Models/Accessory.php",
+                        "app/Models/Asset.php",
+                        "app/Models/Category.php",
+                        "app/Models/Consumable.php",
+                        "app/Models/License.php",
+                        "app/Models/Setting.php",
+                        "app/Presenters/AssetModelPresenter.php",
+                        "resources/views/auth/login.blade.php",
+                        "resources/views/dashboard.blade.php",
+                        "resources/views/layouts/default.blade.php"
+                    ],
+    "sink_hit":  true
+}

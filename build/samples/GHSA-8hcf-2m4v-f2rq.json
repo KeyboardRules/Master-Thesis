@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8hcf-2m4v-f2rq",
+    "cve":  "CVE-2016-15020",
+    "cwe":  "CWE-89",
+    "repo":  "liftkit/database",
+    "sha":  "42ec8f2b22e0b0b98fb5b4444ed451c1b21d125a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Query/Query.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Query/Query.php"
+                    ],
+    "sink_hit":  true
+}

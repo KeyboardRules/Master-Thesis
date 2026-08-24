@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-9xmx-rj7j-fv9q",
+    "cve":  "CVE-2019-13644",
+    "cwe":  "CWE-79",
+    "repo":  "firefly-iii/firefly-iii",
+    "sha":  "def307010c388c4e92d7066671ad62e477cc087a",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Support/Twig/Extension/Transaction.php",
+                        "config/firefly.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Support/Twig/Extension/Transaction.php class extends Twig_Extension"
+                 ],
+    "changed_all":  [
+                        ".sandstorm/changelog.md",
+                        ".sandstorm/sandstorm-pkgdef.capnp",
+                        ".travis.yml",
+                        "app/Support/Twig/Extension/Transaction.php",
+                        "changelog.md",
+                        "config/firefly.php"
+                    ],
+    "sink_hit":  false
+}

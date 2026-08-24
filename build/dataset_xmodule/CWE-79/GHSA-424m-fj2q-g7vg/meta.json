@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-424m-fj2q-g7vg",
+    "cve":  "CVE-2025-66468",
+    "cwe":  "CWE-79",
+    "repo":  "aimeos/ai-cms-grapesjs",
+    "fix_commit":  "2214f71ac27cdea25f11c8adf6bb5816db47a042",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Admin/JQAdm/Cms/Content/Standard.php"
+                    ],
+    "evidence":  [
+                     "src/Admin/JQAdm/Cms/Content/Standard.php class extends \\Aimeos\\Admin\\JQAdm\\Common\\Admin\\Factory\\Base"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

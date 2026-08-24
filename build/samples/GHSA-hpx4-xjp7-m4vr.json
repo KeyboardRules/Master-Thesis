@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hpx4-xjp7-m4vr",
+    "cve":  "CVE-2022-1445",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "f623d05d0c3487ae24c4f13907e4709484e5bf41",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Transformers/DepreciationReportTransformer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Http/Transformers/DepreciationReportTransformer.php"
+                    ],
+    "sink_hit":  false
+}

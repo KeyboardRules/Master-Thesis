@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-qr97-v87p-x965",
+    "cve":  "CVE-2017-20157",
+    "cwe":  "CWE-918",
+    "repo":  "Ariadne-CMS/arc-web",
+    "fix_commit":  "1feb1cc11e6c9f218408f15f53f537ea0d788656",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/url/Url.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/url.Test.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

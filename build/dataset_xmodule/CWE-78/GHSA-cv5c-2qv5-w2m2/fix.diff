@@ -1,0 +1,692 @@
+﻿diff --git a/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php b/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php
+index 79c33f2..012392a 100644
+--- a/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php
++++ b/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php
+@@ -1,13 +1,13 @@
+ <?php
+ /**
+  * Passbolt ~ Open source password manager for teams
+- * Copyright (c) Passbolt SARL (https://www.passbolt.com)
++ * Copyright (c) Passbolt SA (https://www.passbolt.com)
+  *
+  * Licensed under GNU Affero General Public License version 3 of the or any later version.
+  * For full copyright and license information, please see the LICENSE.txt
+  * Redistributions of files must retain the above copyright notice.
+  *
+- * @copyright     Copyright (c) Passbolt SARL (https://www.passbolt.com)
++ * @copyright     Copyright (c) Passbolt SA (https://www.passbolt.com)
+  * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
+  * @link          https://www.passbolt.com Passbolt(tm)
+  * @since         2.0.0
+@@ -16,7 +16,8 @@ namespace Passbolt\WebInstaller\Controller;
+ 
+ use Cake\Core\Configure;
+ use Cake\Core\Exception\Exception;
+-use Passbolt\WebInstaller\Form\GpgKeyGenerateForm;
++use Cake\Utility\Hash;
++use Passbolt\WebInstaller\Form\GpgKeyForm;
+ 
+ class GpgKeyGenerateController extends WebInstallerController
+ {
+@@ -72,10 +73,12 @@ class GpgKeyGenerateController extends WebInstallerController
+      */
+     protected function validateData($data)
+     {
+-        $form = new GpgKeyGenerateForm();
++        $form = new GpgKeyForm();
+         if (!$form->execute($data)) {
+             $this->set('formExecuteResult', $form);
+-            throw new Exception(__('The data entered are not correct'));
++            $errors = Hash::flatten($form->errors());
++            $errorMessage = implode('; ', $errors);
++            throw new Exception(__('The data entered are not correct: {0}', $errorMessage));
+         }
+     }
+ }
+diff --git a/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php b/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php
+index 004953e..01411bd 100644
+--- a/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php
++++ b/plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php
+@@ -16,7 +16,8 @@ namespace Passbolt\WebInstaller\Controller;
+ 
+ use Cake\Core\Configure;
+ use Cake\Core\Exception\Exception;
+-use Passbolt\WebInstaller\Form\GpgKeyImportForm;
++use Cake\Utility\Hash;
++use Passbolt\WebInstaller\Form\GpgKeyForm;
+ 
+ class GpgKeyImportController extends WebInstallerController
+ {
+@@ -72,11 +73,13 @@ class GpgKeyImportController extends WebInstallerController
+      */
+     protected function validateData($data)
+     {
+-        $form = new GpgKeyImportForm();
++        $form = new GpgKeyForm();
+         $confIsValid = $form->execute($data);
+         $this->set('formExecuteResult', $form);
+         if (!$confIsValid) {
+-            throw new Exception(__('The key is not valid.'));
++            $errors = Hash::flatten($form->errors());
++            $errorMessage = implode('; ', $errors);
++            throw new Exception(__('The data entered are not correct: {0}', $errorMessage));
+         }
+     }
+ }
+diff --git a/plugins/Passbolt/WebInstaller/src/Form/GpgKeyGenerateForm.php b/plugins/Passbolt/WebInstaller/src/Form/GpgKeyGenerateForm.php
+deleted file mode 100644
+index f06164c..0000000
+--- a/plugins/Passbolt/WebInstaller/src/Form/GpgKeyGenerateForm.php
++++ /dev/null
+@@ -1,74 +0,0 @@
+-<?php
+-/**
+- * Passbolt ~ Open source password manager for teams
+- * Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- *
+- * Licensed under GNU Affero General Public License version 3 of the or any later version.
+- * For full copyright and license information, please see the LICENSE.txt
+- * Redistributions of files must retain the above copyright notice.
+- *
+- * @copyright     Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
+- * @link          https://www.passbolt.com Passbolt(tm)
+- * @since         2.0.0
+- */
+-namespace Passbolt\WebInstaller\Form;
+-
+-use Cake\Core\Configure;
+-use Cake\Core\Exception\Exception;
+-use Cake\Form\Form;
+-use Cake\Form\Schema;
+-use Cake\Utility\Hash;
+-
+-use Cake\Validation\Validator;
+-
+-class GpgKeyGenerateForm extends Form
+-{
+-    /**
+-     * GpgKey generate configuration schema.
+-     * @param Schema $schema schema
+-     * @return Schema
+-     */
+-    protected function _buildSchema(Schema $schema)
+-    {
+-        return $schema
+-            ->addField('name', 'string')
+-            ->addField('email', ['type' => 'string'])
+-            ->addField('comment', ['type' => 'string']);
+-    }
+-
+-    /**
+-     * Validation rules.
+-     * @param Validator $validator validator
+-     * @return Validator
+-     */
+-    protected function _buildValidator(Validator $validator)
+-    {
+-        $validator
+-            ->requirePresence('name', 'create', __('A key name is required.'))
+-            ->notEmpty('name', __('A key name is required.'))
+-            ->utf8('name', __('The key name is not a valid utf8 string.'));
+-
+-        $validator
+-            ->requirePresence('email', 'create', __('A key email is required.'))
+-            ->notEmpty('email', __('A key email is required.'))
+-            ->utf8('email', __('The key email is not a valid utf8 string.'))
+-            ->email('email', Configure::read('passbolt.email.validate.mx'), __('The key email is not a valid email address'));
+-
+-        $validator
+-            ->allowEmpty('comment')
+-            ->utf8('comment', __('The key comment is not a valid utf8 string.'));
+-
+-        return $validator;
+-    }
+-
+-    /**
+-     * Execute implementation.
+-     * @param array $data form data
+-     * @return bool
+-     */
+-    protected function _execute(array $data)
+-    {
+-        return true;
+-    }
+-}
+diff --git a/plugins/Passbolt/WebInstaller/src/Form/GpgKeyImportForm.php b/plugins/Passbolt/WebInstaller/src/Form/GpgKeyImportForm.php
+deleted file mode 100644
+index d8bd3b0..0000000
+--- a/plugins/Passbolt/WebInstaller/src/Form/GpgKeyImportForm.php
++++ /dev/null
+@@ -1,151 +0,0 @@
+-<?php
+-/**
+- * Passbolt ~ Open source password manager for teams
+- * Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- *
+- * Licensed under GNU Affero General Public License version 3 of the or any later version.
+- * For full copyright and license information, please see the LICENSE.txt
+- * Redistributions of files must retain the above copyright notice.
+- *
+- * @copyright     Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
+- * @link          https://www.passbolt.com Passbolt(tm)
+- * @since         2.0.0
+- */
+-namespace Passbolt\WebInstaller\Form;
+-
+-use App\Utility\Gpg;
+-use Cake\Core\Configure;
+-use Cake\Core\Exception\Exception;
+-use Cake\Form\Form;
+-use Cake\Form\Schema;
+-use Cake\Validation\Validator;
+-
+-class GpgKeyImportForm extends Form
+-{
+-    /**
+-     * GpgKey generate configuration schema.
+-     * @param Schema $schema schema
+-     * @return Schema
+-     */
+-    protected function _buildSchema(Schema $schema)
+-    {
+-        return $schema
+-            ->addField('armored_key', 'string');
+-    }
+-
+-    /**
+-     * Validation rules.
+-     * @param Validator $validator validator
+-     * @return Validator
+-     */
+-    protected function _buildValidator(Validator $validator)
+-    {
+-        $validator
+-            ->requirePresence('armored_key', 'create', __('An armored key is required.'))
+-            ->notEmpty('armored_key', __('An armored key is required.'))
+-            ->ascii('armored_key', __('The key is not a valid ascii string.'))
+-            ->add('armored_key', 'is_private_key', [
+-                'last' => true,
+-                'rule' => [$this, 'checkIsPrivateKey'],
+-                'message' => 'The key is not a valid private key'
+-            ])
+-            ->add('armored_key', 'has_no_expiry', [
+-                'last' => true,
+-                'rule' => [$this, 'checkHasNoExpiry'],
+-                'message' => 'The key cannot have an expiry date'
+-            ])
+-            ->add('armored_key', 'can_encrypt_decrypt', [
+-                'last' => true,
+-                'rule' => [$this, 'checkCanEncryptDecrypt'],
+-                'message' => 'The key cannot be used to encrypt/decrypt. Please note that passbolt does not support GPG key protected with a secret.'
+-            ]);
+-
+-        return $validator;
+-    }
+-
+-    /**
+-     * Check true if field is a valid private gpg key
+-     *
+-     * @param string $check Value to check
+-     * @param array $context A key value list of data containing the validation context.
+-     * @return bool Success
+-     */
+-    public function checkIsPrivateKey($check, array $context)
+-    {
+-        $gpg = new Gpg();
+-        if (!$gpg->isParsableArmoredPrivateKeyRule($check)) {
+-            return false;
+-        }
+-        try {
+-            $gpg->getKeyInfo($check);
+-        } catch (Exception $e) {
+-            return false;
+-        }
+-
+-        return true;
+-    }
+-
+-    /**
+-     * Check true if field is a valid private gpg key
+-     *
+-     * @param string $check Value to check
+-     * @param array $context A key value list of data containing the validation context.
+-     * @return bool Success
+-     */
+-    public function checkHasNoExpiry($check, array $context)
+-    {
+-        $gpg = new Gpg();
+-        try {
+-            $keyInfo = $gpg->getKeyInfo($check);
+-        } catch (Exception $e) {
+-            return false;
+-        }
+-
+-        if (!is_null($keyInfo['expires'])) {
+-            return false;
+-        }
+-
+-        return true;
+-    }
+-
+-    /**
+-     * Check that the key provided can be used to encrypt and decrypt.
+-     *
+-     * @param string $check Value to check
+-     * @param array $context A key value list of data containing the validation context.
+-     * @return bool Success
+-     */
+-    public function checkCanEncryptDecrypt($check, array $context)
+-    {
+-        $gpg = new Gpg();
+-        try {
+-            $messageToEncrypt = 'open source password manager for teams';
+-            $gpg->setEncryptKey($check);
+-            $gpg->setSignKey($check);
+-            $encryptedMessage = $gpg->encrypt($messageToEncrypt, true);
+-            $gpg->setDecryptKey($check);
+-            $decryptedMessage = $gpg->decrypt($encryptedMessage, '', true);
+-        } catch (Exception $e) {
+-            return false;
+-        } catch (\Exception $e) {
+-            return false;
+-        }
+-
+-        if ($messageToEncrypt !== $decryptedMessage) {
+-            return false;
+-        }
+-
+-        return true;
+-    }
+-
+-    /**
+-     * Execute implementation.
+-     * @param array $data form data
+-     * @return bool
+-     */
+-    protected function _execute(array $data)
+-    {
+-        return true;
+-    }
+-}
+diff --git a/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_generate.ctp b/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_generate.ctp
+index 6d72bb5..7f03e5a 100644
+--- a/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_generate.ctp
++++ b/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_generate.ctp
+@@ -1,5 +1,7 @@
+ <?php
+ use Cake\Routing\Router;
++$this->Html->script('vendors/openpgp.min.js', ['block' => 'scriptBottom']);
++$this->Html->script('web_installer/gpg_key_generate', ['block' => 'scriptBottom']);
+ ?>
+ <?= $this->element('header', [
+     'title' => __('Create a new server key or {0} an existing one.', [
+@@ -13,6 +15,8 @@ use Cake\Routing\Router;
+     </div>
+     <!-- main -->
+     <?= $this->Form->create($formExecuteResult); ?>
++<?
++$this->Form->setTemplates(['inputContainer' => '<div class="input {{type}}{{required}}">{{content}} <div class="message error hidden" aria-live="polite"></div></div>']); ?>
+     <div class="panel middle">
+         <div class="grid grid-responsive-12">
+             <div class="row">
+@@ -20,31 +24,29 @@ use Cake\Routing\Router;
+                     <h3><?= __('Create a new GPG key for your server'); ?></h3>
+                     <?= $this->Flash->render() ?>
+                     <?php
+-                    echo $this->Form->input('name',
+-                        [
+-                            'required' => 'required',
+-                            'placeholder' => __('My company server name'),
+-                            'label' => __('Server Name'),
+-                            'class' => 'required fluid'
+-                        ]
+-                    );
++                    echo $this->Form->input('public_key_armored', ['type' => 'hidden']);
++                    echo $this->Form->input('private_key_armored', ['type' => 'hidden']);
++                    echo $this->Form->input('fingerprint', ['type' => 'hidden']);
++                    echo $this->Form->input('name', [
++                        'required' => 'required',
++                        'placeholder' => __('My company server name'),
++                        'label' => __('Server Name'),
++                        'class' => 'required fluid'
++                    ]);
+ 
+-                    echo $this->Form->input('email',
+-                        [
+-                            'required' => 'required',
+-                            'placeholder' => __('admin@your-server.com'),
+-                            'label' => __('Server Email'),
+-                            'class' => 'required fluid',
+-                        ]
+-                    );
++                    echo $this->Form->input('email', [
++                        'required' => 'required',
++                        'type' => 'text',
++                        'placeholder' => __('admin@your-server.com'),
++                        'label' => __('Server Email'),
++                        'class' => 'required fluid'
++                    ]);
+ 
+-                    echo $this->Form->input('comment',
+-                        [
+-                            'placeholder' => __('add a comment (optional)'),
+-                            'label' => __('Comment'),
+-                            'class' => 'fluid'
+-                        ]
+-                    );
++                    echo $this->Form->input('comment', [
++                        'placeholder' => __('add a comment (optional)'),
++                        'label' => __('Comment'),
++                        'class' => 'fluid'
++                    ]);
+                     ?>
+                 </div>
+                 <div class="col4 last">
+@@ -59,9 +61,10 @@ use Cake\Routing\Router;
+                     <div class="input select required">
+                         <label for="KeyLength">Key Length</label>
+                         <select name="data[Key][length]" id="KeyLength" disabled="disabled" class="fluid">
+-                            <option value="1024" >1024</option>
++                            <option value="1024">1024</option>
+                             <option value="2048" selected="selected">2048</option>
+-                            <option value="3076" >3076</option>
++                            <option value="3072">3072</option>
++                            <option value="4096">4096</option>
+                         </select>
+                     </div>
+ 
+@@ -75,7 +78,7 @@ use Cake\Routing\Router;
+             <div class="row last">
+                 <div class="input-wrapper">
+                     <a href="<?= Router::url($stepInfo['previous'], true); ?>" class="button cancel big"><?= __('Cancel'); ?></a>
+-                    <input type="submit" class="button primary next big" value="<?= __('Next'); ?>">
++                    <button type="submit" id="next" class="button primary next big"><?= __('Next'); ?> </button>
+                 </div>
+             </div>
+         </div>
+diff --git a/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_import.ctp b/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_import.ctp
+index be76dff..ad7cd0b 100644
+--- a/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_import.ctp
++++ b/plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_import.ctp
+@@ -1,7 +1,7 @@
+ <?php
+ use Cake\Routing\Router;
+-$this->Html->script('jquery-3.3.1.min.js', ['block' => 'scriptBottom']);
+-$this->Html->script('web_installer/key_chooser', ['block' => 'scriptBottom']);
++$this->Html->script('vendors/openpgp.min.js', ['block' => 'scriptBottom']);
++$this->Html->script('web_installer/gpg_key_import', ['block' => 'scriptBottom']);
+ ?>
+ <?= $this->element(
+     'header', [
+@@ -15,18 +15,28 @@ $this->Html->script('web_installer/key_chooser', ['block' => 'scriptBottom']);
+         <?= $this->element('navigation', ['selectedSection' => 'server_keys']) ?>
+     </div>
+     <!-- main -->
+-    <?= $this->Form->create($formExecuteResult); ?>
++    <?
++    echo $this->Form->create($formExecuteResult);
++    echo $this->Form->input('public_key_armored', ['type' => 'hidden']);
++    echo $this->Form->input('private_key_armored', ['type' => 'hidden']);
++    echo $this->Form->input('fingerprint', ['type' => 'hidden']);
++    ?>
++
+     <div class="panel middle">
+         <div class="grid grid-responsive-12">
+             <div class="row">
+                 <div class="col6">
+                     <h3><?= __('Copy paste the private key below'); ?></h3>
+                     <?= $this->Flash->render() ?>
+-                    <div class="input textarea gpgkey">
+-                        <?= $this->Form->control('armored_key', ['type' => 'textarea', 'class' => ['key-content']]); ?>
+-                    </div>
++                    <?= $this->Form->control('armored_key', [
++                        'type' => 'textarea',
++                        'templates' => [
++                            'inputContainer' => '<div class="input {{type}}{{required}} gpgkey">{{content}} <div class="message error hidden" aria-live="polite"></div></div>'
++                        ]
++                    ]); ?>
+                     <div class="input file">
+-                        <a role="button" class="button" id="key-chooser"><?= __('Browse'); ?></a>
++                        <input type="file" accept="text/plain,.key" id="key-file" class="hidden">
++                        <a class="button" id="key-file-button" for="fileElem"><?= __('Browse'); ?></a>
+                         <span class="help-text"><?= __('Or select a file from your computer'); ?></span>
+                     </div>
+                 </div>
+@@ -34,7 +44,7 @@ $this->Html->script('web_installer/key_chooser', ['block' => 'scriptBottom']);
+             <div class="row last">
+                 <div class="input-wrapper">
+                     <a href="<?= Router::url($stepInfo['previous'], true); ?>" class="button cancel big"><?= __('Cancel'); ?></a>
+-                    <input type="submit" class="button primary next big disabled" disabled="disabled" value="<?= __('Next'); ?>">
++                    <button type="submit" id="next" class="button primary next big"><?= __('Next'); ?> </button>
+                 </div>
+             </div>
+         </div>
+diff --git a/plugins/Passbolt/WebInstaller/src/Utility/Gpg.php b/plugins/Passbolt/WebInstaller/src/Utility/Gpg.php
+deleted file mode 100644
+index 8dd1972..0000000
+--- a/plugins/Passbolt/WebInstaller/src/Utility/Gpg.php
++++ /dev/null
+@@ -1,148 +0,0 @@
+-<?php
+-/**
+- * Passbolt ~ Open source password manager for teams
+- * Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- *
+- * Licensed under GNU Affero General Public License version 3 of the or any later version.
+- * For full copyright and license information, please see the LICENSE.txt
+- * Redistributions of files must retain the above copyright notice.
+- *
+- * @copyright     Copyright (c) Passbolt SARL (https://www.passbolt.com)
+- * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
+- * @link          https://www.passbolt.com Passbolt(tm)
+- * @since         2.5.0
+- */
+-namespace Passbolt\WebInstaller\Utility;
+-
+-use Cake\Core\Configure;
+-use Cake\Core\Exception\Exception;
+-use Cake\Utility\Hash;
+-
+-class Gpg
+-{
+-    /**
+-     * Generate a key pair using system GPG binary V1.
+-     * @param array $keyData key data as provided by form
+-     * @throws Exception if the key cannot be generated
+-     * @return string key fingerprint
+-     */
+-    public static function generateKey($keyData)
+-    {
+-        $version = self::getGpgVersion();
+-        $isV2 = version_compare($version, '2.0.0', '>=');
+-        if ($isV2) {
+-            $generateKeyCmd = self::generateKeyCmdV2($keyData);
+-        } else {
+-            $generateKeyCmd = self::generateKeyCmdV1($keyData);
+-        }
+-
+-        $cmdOutput = "";
+-        exec($generateKeyCmd, $cmdOutput, $cmdRes);
+-
+-        if ($cmdRes !== 0) {
+-            throw new Exception("Could not generate GPG key");
+-        }
+-
+-        $res = gnupg_init();
+-        $info = gnupg_keyinfo($res, $keyData['email']);
+-
+-        if (empty($info) || !isset($info[0]['subkeys'][0]['fingerprint'])) {
+-            var_dump(__LINE__);
+-            throw new Exception("Could not retrieve the generated key");
+-        }
+-
+-        // There can be several keys that match the email id (already present in the keyring before).
+-        // We need to identify the last one.
+-        $correspondingFingerprints = Hash::combine($info, '{n}.subkeys.0.timestamp', '{n}.subkeys.0.fingerprint');
+-        krsort($correspondingFingerprints);
+-        $lastGeneratedFingerprint = reset($correspondingFingerprints);
+-
+-        return $lastGeneratedFingerprint;
+-    }
+-
+-    /**
+-     * Export the public armored key.
+-     * @param string $fingerprint key fingerprint
+-     * @param string $path path to export the key in
+-     * @throws Exception The key cannot be exported
+-     * @return void
+-     */
+-    public static function exportPublicArmoredKey($fingerprint, $path)
+-    {
+-        $cmd = "gpg --armor --export $fingerprint > $path";
+-        exec($cmd, $cmdOutput, $cmdRes);
+-        if ($cmdRes !== 0) {
+-            throw new Exception("Could not export public key");
+-        }
+-    }
+-
+-    /**
+-     * Export the private armored key.
+-     * @param string $fingerprint key fingerprint
+-     * @param string $path path to export the key in
+-     * @throws Exception when the key cannot be exported
+-     * @return void
+-     */
+-    public static function exportPrivateArmoredKey($fingerprint, $path)
+-    {
+-        $cmd = "gpg --armor --export-secret-keys $fingerprint > $path";
+-        exec($cmd, $cmdOutput, $cmdRes);
+-        if ($cmdRes !== 0) {
+-            throw new Exception("Could not export private key");
+-        }
+-    }
+-
+-    /**
+-     * Get server GPG version.
+-     * @return mixed
+-     */
+-    public static function getGpgVersion()
+-    {
+-        exec('gpg --version', $response, $res);
+-        preg_match("/((?:[0-9]+\.?)+)/i", $response[0], $matches);
+-
+-        return $matches[0];
+-    }
+-
+-    /**
+-     * Generate a key pair using system GPG binary V2.
+-     * @param array $keyData key data as provided by form
+-     * @return string command
+-     */
+-    protected static function generateKeyCmdV2($keyData)
+-    {
+-        $cmd = "gpg --batch --no-tty --gen-key <<EOF
+-Key-Type: default
+-Key-Length: 2048
+-Subkey-Type: default
+-Subkey-Length: 2048
+-Name-Real: {$keyData['name']}" . (isset($keyData['comment']) && !empty($keyData['comment']) ? "
+-Name-Comment: {$keyData['comment']}" : '') . "
+-Name-Email: {$keyData['email']}
+-Expire-Date: 0
+-%no-protection
+-%commit
+-EOF";
+-
+-        return $cmd;
+-    }
+-
+-    /**
+-     * Generate a key pair using system GPG binary V1.
+-     * @param array $keyData key data as provided by form
+-     * @return string command
+-     */
+-    protected static function generateKeyCmdV1($keyData)
+-    {
+-        $cmd = "gpg --batch --no-tty --gen-key <<EOF
+-Key-Type: 1
+-Key-Length: 2048
+-Name-Real: {$keyData['name']}" . (isset($keyData['comment']) && !empty($keyData['comment']) ? "
+-Name-Comment: {$keyData['comment']}" : '') . "
+-Name-Email: {$keyData['email']}
+-Expire-Date: 0
+-EOF";
+-
+-        return $cmd;
+-    }
+-}
+diff --git a/plugins/Passbolt/WebInstaller/src/Utility/WebInstaller.php b/plugins/Passbolt/WebInstaller/src/Utility/WebInstaller.php
+index 84e2a86..0e2b593 100644
+--- a/plugins/Passbolt/WebInstaller/src/Utility/WebInstaller.php
++++ b/plugins/Passbolt/WebInstaller/src/Utility/WebInstaller.php
+@@ -17,7 +17,7 @@ namespace Passbolt\WebInstaller\Utility;
+ use App\Error\Exception\CustomValidationException;
+ use App\Model\Entity\AuthenticationToken;
+ use App\Model\Entity\Role;
+-use App\Utility\Gpg as AppGpg;
++use App\Utility\Gpg;
+ use Cake\Core\Configure;
+ use Cake\Network\Session;
+ use Cake\ORM\TableRegistry;
+@@ -114,7 +114,6 @@ class WebInstaller
+     public function install()
+     {
+         $this->initDatabaseConnection();
+-        $this->generateGpgKey();
+         $this->importGpgKey();
+         $this->writePassboltConfigFile();
+         $this->installDatabase();
+@@ -136,45 +135,18 @@ class WebInstaller
+     }
+ 
+     /**
+-     * Generate the gpg key
+-     * @return void
+-     */
+-    public function generateGpgKey()
+-    {
+-        $gpgSettings = $this->getSettings('gpg');
+-        if (!isset($gpgSettings['name'])) {
+-            return;
+-        }
+-
+-        $fingerprint = Gpg::generateKey($gpgSettings);
+-        Gpg::exportPublicArmoredKey($fingerprint, Configure::read('passbolt.gpg.serverKey.public'));
+-        Gpg::exportPrivateArmoredKey($fingerprint, Configure::read('passbolt.gpg.serverKey.private'));
+-        $gpgSettings += [
+-            'fingerprint' => $fingerprint,
+-            'public' => Configure::read('passbolt.gpg.serverKey.public'),
+-            'private' => Configure::read('passbolt.gpg.serverKey.private')
+-        ];
+-        $this->setSettings('gpg', $gpgSettings);
+-    }
+-
+-    /**
+-     * Import the server gpg key into the gpg keyring.
+-     * Generate it if information provided.
++     * Import the server gpg key
+      * @return void
+      */
+     public function importGpgKey()
+     {
+         $gpgSettings = $this->getSettings('gpg');
+-        if (!isset($gpgSettings['armored_key'])) {
+-            return;
+-        }
+-
+-        $gpg = new AppGpg();
+-        $fingerprint = $gpg->importKeyIntoKeyring($gpgSettings['armored_key']);
+-        Gpg::exportPublicArmoredKey($fingerprint, Configure::read('passbolt.gpg.serverKey.public'));
+-        Gpg::exportPrivateArmoredKey($fingerprint, Configure::read('passbolt.gpg.serverKey.private'));
++        $gpg = new Gpg();
++        $gpg->importKeyIntoKeyring($gpgSettings['private_key_armored']);
++        file_put_contents(Configure::read('passbolt.gpg.serverKey.public'), $gpgSettings['public_key_armored']);
++        file_put_contents(Configure::read('passbolt.gpg.serverKey.private'), $gpgSettings['private_key_armored']);
+         $gpgSettings += [
+-            'fingerprint' => $fingerprint,
++            'fingerprint' => $gpgSettings['fingerprint'],
+             'public' => Configure::read('passbolt.gpg.serverKey.public'),
+             'private' => Configure::read('passbolt.gpg.serverKey.private')
+         ];

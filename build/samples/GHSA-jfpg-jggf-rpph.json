@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-jfpg-jggf-rpph",
+    "cve":  "CVE-2023-0786",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "ce676eb9e9d8cb7864f36ee124e838b1ad15415f",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/report.view.php",
+                        "phpmyfaq/src/phpMyFAQ/Report.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/report.view.php",
+                        "phpmyfaq/src/phpMyFAQ/Report.php"
+                    ],
+    "sink_hit":  true
+}

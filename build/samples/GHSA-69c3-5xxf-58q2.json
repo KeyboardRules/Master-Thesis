@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-69c3-5xxf-58q2",
+    "cve":  "CVE-2022-30599",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "sha":  "a0f47c8bc4d6f5971025de7d63f22475701d2f86",
+    "status":  "ok",
+    "changed_php":  [
+                        "badges/criteria/award_criteria_profile.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "badges/criteria/award_criteria_profile.php includes 3 project file(s)",
+                     "badges/criteria/award_criteria_profile.php class extends award_criteria"
+                 ],
+    "changed_all":  [
+                        "badges/criteria/award_criteria_profile.php"
+                    ],
+    "sink_hit":  false
+}

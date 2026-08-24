@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-mmcv-fvq8-r9x3",
+    "cve":  "",
+    "cwe":  "CWE-502",
+    "repo":  "symfony/symfony",
+    "fix_commit":  "3e64d36cbdc34acaa82e0e6318112cd2eacb6fec",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Symfony/Component/Serializer/Encoder/XmlEncoder.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Symfony/Component/Serializer/Encoder/XmlEncoder.php class extends SerializerAwareEncoder",
+                     "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php includes 2 project file(s)",
+                     "tests/Symfony/Tests/Component/Serializer/Encoder/XmlEncoderTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

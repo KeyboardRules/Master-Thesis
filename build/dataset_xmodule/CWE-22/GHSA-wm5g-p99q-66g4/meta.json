@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wm5g-p99q-66g4",
+    "cve":  "CVE-2023-35840",
+    "cwe":  "CWE-22",
+    "repo":  "Studio-42/elFinder",
+    "fix_commit":  "bb9aaa7b096a1b83f2f85657c43f12131ece2891",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "php/elFinderVolumeLocalFileSystem.class.php"
+                    ],
+    "evidence":  [
+                     "php/elFinderVolumeLocalFileSystem.class.php class extends RecursiveFilterIterator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

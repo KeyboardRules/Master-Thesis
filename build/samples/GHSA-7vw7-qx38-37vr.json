@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7vw7-qx38-37vr",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "propelorm/Propel2",
+    "sha":  "cd23d7384a15cfe203e23b3a835c8ab1d81d9246",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Propel/Runtime/Adapter/Pdo/MysqlAdapter.php",
+                        "tests/Propel/Tests/Issues/Issue1463Test.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Propel/Runtime/Adapter/Pdo/MysqlAdapter.php class extends PdoAdapter"
+                 ],
+    "changed_all":  [
+                        "src/Propel/Runtime/Adapter/Pdo/MysqlAdapter.php",
+                        "tests/Propel/Tests/Issues/Issue1463Test.php"
+                    ],
+    "sink_hit":  true
+}

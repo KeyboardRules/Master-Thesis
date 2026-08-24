@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-vqcm-r62w-w437",
+    "cve":  "CVE-2011-2505",
+    "cwe":  "CWE-94",
+    "repo":  "phpmyadmin/composer",
+    "fix_commit":  "7ebd958b2bf59f96fecd5b3322bdbd0b244a7967",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "libraries/auth/swekey/swekey.auth.lib.php"
+                    ],
+    "evidence":  [
+                     "libraries/auth/swekey/swekey.auth.lib.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

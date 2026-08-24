@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-x86x-qhf8-f37w",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "willdurand/BazingaJsTranslationBundle",
+    "sha":  "7accee93569c3f3d2379f035a41ece66522801fc",
+    "status":  "ok",
+    "changed_php":  [
+                        "Controller/Controller.php",
+                        "Tests/Controller/ControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Tests/Controller/ControllerTest.php class extends WebTestCase"
+                 ],
+    "changed_all":  [
+                        "Controller/Controller.php",
+                        "Tests/Controller/ControllerTest.php",
+                        "composer.json"
+                    ],
+    "sink_hit":  true
+}

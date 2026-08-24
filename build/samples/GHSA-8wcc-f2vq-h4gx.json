@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-8wcc-f2vq-h4gx",
+    "cve":  "CVE-2022-0370",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "9f5bc33c943349bd765b991db0b7f6b6ef05cfdb",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhkernel/validation_error.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/admin/form.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/personaltheme.tpl.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhtheme/admin/form.tpl.php includes 8 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhtheme/personaltheme.tpl.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lhc_web/design/defaulttheme/js/admintheme.form.angular.js",
+                        "lhc_web/design/defaulttheme/tpl/lhkernel/validation_error.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/admin/form.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/personaltheme.tpl.php"
+                    ],
+    "sink_hit":  true
+}

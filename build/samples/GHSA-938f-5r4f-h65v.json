@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-938f-5r4f-h65v",
+    "cve":  "CVE-2024-55636",
+    "cwe":  "CWE-502",
+    "repo":  "drupal/core",
+    "sha":  "17f362b988e6ad6bd5cc1e7e8a7a0804e1536fbc",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Drupal/Core/Config/StorageComparer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "lib/Drupal/Core/Config/StorageComparer.php"
+                    ],
+    "sink_hit":  false
+}

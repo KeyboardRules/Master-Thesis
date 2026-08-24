@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fvjf-68wh-rwp2",
+    "cve":  "CVE-2026-34463",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "df22697ae497ddd93f3d9132fdf4979db8d081cd",
+    "status":  "ok",
+    "changed_php":  [
+                        "bug_report_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "bug_report_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "bug_report_page.php"
+                    ],
+    "sink_hit":  true
+}

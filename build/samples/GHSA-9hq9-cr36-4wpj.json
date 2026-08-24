@@ -1,0 +1,44 @@
+﻿{
+    "id":  "GHSA-9hq9-cr36-4wpj",
+    "cve":  "CVE-2025-47939",
+    "cwe":  "CWE-434",
+    "repo":  "TYPO3-CMS/core",
+    "sha":  "c265beed6e2c01817c534a226e80e593400f8255",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Localization/LabelBag.php",
+                        "Classes/Resource/OnlineMedia/Helpers/AbstractOnlineMediaHelper.php",
+                        "Classes/Resource/ResourceInstructionTrait.php",
+                        "Classes/Resource/ResourceStorage.php",
+                        "Classes/Resource/Service/ResourceConsistencyService.php",
+                        "Classes/Utility/File/ExtendedFileUtility.php",
+                        "Classes/Validation/ResultException.php",
+                        "Classes/Validation/ResultMessage.php",
+                        "Configuration/DefaultConfiguration.php",
+                        "Configuration/FactoryConfiguration.php",
+                        "Tests/Functional/Resource/Service/ResourceConsistencyServiceTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "Classes/Utility/File/ExtendedFileUtility.php class extends BasicFileUtility"
+                 ],
+    "changed_all":  [
+                        "Classes/Localization/LabelBag.php",
+                        "Classes/Resource/OnlineMedia/Helpers/AbstractOnlineMediaHelper.php",
+                        "Classes/Resource/ResourceInstructionTrait.php",
+                        "Classes/Resource/ResourceStorage.php",
+                        "Classes/Resource/Service/ResourceConsistencyService.php",
+                        "Classes/Utility/File/ExtendedFileUtility.php",
+                        "Classes/Validation/ResultException.php",
+                        "Classes/Validation/ResultMessage.php",
+                        "Configuration/DefaultConfiguration.php",
+                        "Configuration/DefaultConfigurationDescription.yaml",
+                        "Configuration/FactoryConfiguration.php",
+                        "Configuration/Services.yaml",
+                        "Documentation/Changelog/12.4.x/Important-106240-EnforceFile-extensionsAndMime-typeConsistencyInFileAbstractionLayer.rst",
+                        "Resources/Private/Language/fileMessages.xlf",
+                        "Tests/Functional/Resource/Service/ResourceConsistencyServiceTest.php"
+                    ],
+    "sink_hit":  false
+}

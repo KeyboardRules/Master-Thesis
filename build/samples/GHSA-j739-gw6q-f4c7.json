@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-j739-gw6q-f4c7",
+    "cve":  "CVE-2020-29653",
+    "cwe":  "CWE-79",
+    "repo":  "Froxlor/Froxlor",
+    "sha":  "6bf5eccc2477257b6c1760a3c3784ae7e0554ce0",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/PhpHelper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "lib/Froxlor/PhpHelper.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q863-cchm-c6c6",
+    "cve":  "CVE-2022-0153",
+    "cwe":  "CWE-89",
+    "repo":  "forkcms/forkcms",
+    "sha":  "7a12046a67ae5d8cf04face3ee75e55f03a1a608",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Backend/Modules/FormBuilder/Engine/Model.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Backend/Modules/FormBuilder/Engine/Model.php"
+                    ],
+    "sink_hit":  false
+}

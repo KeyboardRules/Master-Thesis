@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cg75-qfg2-w9hj",
+    "cve":  "CVE-2026-47348",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "2e96dd0e9fab7ad877b741fb9f6fc645b4270a3e",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/indexed_search/Classes/Controller/SearchController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "typo3/sysext/indexed_search/Classes/Controller/SearchController.php class extends ActionController"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/indexed_search/Classes/Controller/SearchController.php"
+                    ],
+    "sink_hit":  true
+}

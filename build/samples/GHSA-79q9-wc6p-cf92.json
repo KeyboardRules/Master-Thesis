@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-79q9-wc6p-cf92",
+    "cve":  "CVE-2026-26990",
+    "cwe":  "CWE-89",
+    "repo":  "librenms/librenms",
+    "sha":  "15429580baba03ed1dd377bada1bde4b7a1175a1",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Table/AddressSearchController.php",
+                        "app/Http/Controllers/Table/Ipv4AddressSearchController.php",
+                        "app/Http/Controllers/Table/Ipv6AddressSearchController.php",
+                        "app/Http/Controllers/Table/MacSearchController.php",
+                        "app/Models/Ipv4Address.php",
+                        "app/Models/Ipv6Address.php",
+                        "includes/html/pages/search/ipv4.inc.php",
+                        "includes/html/pages/search/ipv6.inc.php",
+                        "includes/html/pages/search/mac.inc.php",
+                        "includes/html/table/address-search.inc.php",
+                        "routes/web.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "app/Models/Ipv4Address.php class extends PortRelatedModel",
+                     "app/Models/Ipv4Address.php class uses trait",
+                     "app/Models/Ipv6Address.php class extends PortRelatedModel"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Table/AddressSearchController.php",
+                        "app/Http/Controllers/Table/Ipv4AddressSearchController.php",
+                        "app/Http/Controllers/Table/Ipv6AddressSearchController.php",
+                        "app/Http/Controllers/Table/MacSearchController.php",
+                        "app/Models/Ipv4Address.php",
+                        "app/Models/Ipv6Address.php",
+                        "includes/html/pages/search/ipv4.inc.php",
+                        "includes/html/pages/search/ipv6.inc.php",
+                        "includes/html/pages/search/mac.inc.php",
+                        "includes/html/table/address-search.inc.php",
+                        "routes/web.php"
+                    ],
+    "sink_hit":  false
+}

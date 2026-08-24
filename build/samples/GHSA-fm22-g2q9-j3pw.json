@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-fm22-g2q9-j3pw",
+    "cve":  "CVE-2025-54476",
+    "cwe":  "CWE-79",
+    "repo":  "joomla-framework/filter",
+    "sha":  "188dd3fccd6fa0532d105a52736affdf6b166217",
+    "status":  "ok",
+    "changed_php":  [
+                        "Tests/InputFilterTest.php",
+                        "src/InputFilter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Tests/InputFilterTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "Tests/InputFilterTest.php",
+                        "src/InputFilter.php"
+                    ],
+    "sink_hit":  false
+}

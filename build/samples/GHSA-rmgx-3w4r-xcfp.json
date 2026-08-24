@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-rmgx-3w4r-xcfp",
+    "cve":  "CVE-2023-4432",
+    "cwe":  "CWE-79",
+    "repo":  "cockpit-hq/cockpit",
+    "sha":  "2a93d391fbd2dd9e730f65d43b29beb65903d195",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/System/views/api/graphql-viewer.php",
+                        "modules/System/views/api/rest-api-viewer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "modules/System/views/api/graphql-viewer.php",
+                        "modules/System/views/api/rest-api-viewer.php"
+                    ],
+    "sink_hit":  false
+}

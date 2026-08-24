@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-9cmm-52cv-6hvc",
+    "cve":  "CVE-2022-4647",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "20df56615e61624f5fff149849753869e4b3b936",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Utils/Parser.php",
+                        "src/MicroweberPackages/App/Utils/lib/phpQuery.php",
+                        "src/MicroweberPackages/Content/ContentManagerCrud.php",
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php",
+                        "src/MicroweberPackages/Database/DatabaseManager.php",
+                        "src/MicroweberPackages/Database/Utils.php",
+                        "src/MicroweberPackages/Helper/Format.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php"
+                    ],
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "src/MicroweberPackages/App/Utils/Parser.php includes 12 project file(s)",
+                     "src/MicroweberPackages/App/Utils/lib/phpQuery.php includes 4 project file(s)",
+                     "src/MicroweberPackages/App/Utils/lib/phpQuery.php class extends Callback",
+                     "src/MicroweberPackages/Content/ContentManagerCrud.php class extends Crud",
+                     "src/MicroweberPackages/Content/ContentManagerHelpers.php class extends ContentManagerCrud",
+                     "src/MicroweberPackages/Content/tests/ContentApiControllerLiveEditSaveTest.php class extends TestCase",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class extends DbUtils",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class uses trait",
+                     "src/MicroweberPackages/Helper/Format.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

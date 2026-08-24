@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pw4j-r69m-rrr5",
+    "cve":  "CVE-2022-35590",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "sha":  "76bf739e01f697e10c1277b9726e39b9705be296",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Kernel.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Kernel.php class extends BaseKernel"
+                 ],
+    "changed_all":  [
+                        "app/Kernel.php"
+                    ],
+    "sink_hit":  false
+}

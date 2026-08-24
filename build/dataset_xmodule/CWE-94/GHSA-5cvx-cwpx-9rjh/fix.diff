@@ -1,0 +1,37 @@
+﻿diff --git a/message/externallib.php b/message/externallib.php
+index 3083d0e84b..56c40012fd 100644
+--- a/message/externallib.php
++++ b/message/externallib.php
+@@ -2853,7 +2853,7 @@ class core_message_external extends external_api {
+         return new external_function_parameters(
+             array(
+                 'userid' => new external_value(PARAM_INT, 'id of the user, 0 for current user', VALUE_REQUIRED),
+-                'name' => new external_value(PARAM_TEXT, 'The name of the message processor'),
++                'name' => new external_value(PARAM_SAFEDIR, 'The name of the message processor'),
+                 'formvalues' => new external_multiple_structure(
+                     new external_single_structure(
+                         array(
+@@ -2929,7 +2929,7 @@ class core_message_external extends external_api {
+         return new external_function_parameters(
+             array(
+                 'userid' => new external_value(PARAM_INT, 'id of the user, 0 for current user'),
+-                'name' => new external_value(PARAM_TEXT, 'The name of the message processor', VALUE_REQUIRED),
++                'name' => new external_value(PARAM_SAFEDIR, 'The name of the message processor', VALUE_REQUIRED),
+             )
+         );
+     }
+diff --git a/message/lib.php b/message/lib.php
+index 913332face..d4e179289a 100644
+--- a/message/lib.php
++++ b/message/lib.php
+@@ -692,8 +692,8 @@ function message_output_fragment_processor_settings($args = []) {
+         throw new moodle_exception('Must provide a userid');
+     }
+ 
+-    $type = $args['type'];
+-    $userid = $args['userid'];
++    $type = clean_param($args['type'], PARAM_SAFEDIR);
++    $userid = clean_param($args['userid'], PARAM_INT);
+ 
+     $user = core_user::get_user($userid, '*', MUST_EXIST);
+     if (!core_message_can_edit_message_profile($user)) {

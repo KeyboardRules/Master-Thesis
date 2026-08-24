@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8fvr-7945-mg7w",
+    "cve":  "CVE-2022-2060",
+    "cwe":  "CWE-79",
+    "repo":  "dolibarr/dolibarr",
+    "sha":  "2b5b9957c3010a5db9d1988c2efe5b209b16b47f",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/user/bank.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/user/bank.php includes 10 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/user/bank.php"
+                    ],
+    "sink_hit":  true
+}

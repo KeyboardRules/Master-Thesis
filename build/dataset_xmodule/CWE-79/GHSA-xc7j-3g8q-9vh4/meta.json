@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-xc7j-3g8q-9vh4",
+    "cve":  "CVE-2026-52772",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "fix_commit":  "5d1a4d07fecb0706f33e5dfbbe6ff5ef1892b2a7",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "tools/bazar/fields/BazarField.php",
+                        "tools/bazar/fields/BookmarkletField.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tools/bazar/fields/BookmarkletField.php class extends BazarField"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

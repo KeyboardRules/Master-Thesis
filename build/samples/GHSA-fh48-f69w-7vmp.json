@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fh48-f69w-7vmp",
+    "cve":  "CVE-2026-33517",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "80990f43153167c73f11eb4b2bc7108d0c3d6b46",
+    "status":  "ok",
+    "changed_php":  [
+                        "tag_delete.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "tag_delete.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "tag_delete.php"
+                    ],
+    "sink_hit":  false
+}

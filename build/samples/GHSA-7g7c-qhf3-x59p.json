@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-7g7c-qhf3-x59p",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "propelorm/Propel",
+    "sha":  "b72093201f8e225410f62a246653ac039e31c90a",
+    "status":  "ok",
+    "changed_php":  [
+                        "generator/lib/behavior/sortable/SortableBehavior.php",
+                        "runtime/lib/adapter/DBMySQL.php",
+                        "runtime/lib/query/Criteria.php",
+                        "test/testsuite/runtime/adapter/DBMySQLTest.php",
+                        "test/testsuite/runtime/query/CriteriaTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "generator/lib/behavior/sortable/SortableBehavior.php includes 4 project file(s)",
+                     "generator/lib/behavior/sortable/SortableBehavior.php class extends Behavior",
+                     "runtime/lib/adapter/DBMySQL.php class extends DBAdapter",
+                     "test/testsuite/runtime/adapter/DBMySQLTest.php includes 1 project file(s)",
+                     "test/testsuite/runtime/adapter/DBMySQLTest.php class extends DBAdapterTestAbstract",
+                     "test/testsuite/runtime/query/CriteriaTest.php includes 1 project file(s)",
+                     "test/testsuite/runtime/query/CriteriaTest.php class extends BookstoreTestBase"
+                 ],
+    "changed_all":  [
+                        ".travis.yml",
+                        "composer.json",
+                        "generator/lib/behavior/sortable/SortableBehavior.php",
+                        "runtime/lib/adapter/DBMySQL.php",
+                        "runtime/lib/query/Criteria.php",
+                        "test/fixtures/reverse/mysql/build/sql/schema.sql",
+                        "test/testsuite/runtime/adapter/DBMySQLTest.php",
+                        "test/testsuite/runtime/query/CriteriaTest.php"
+                    ],
+    "sink_hit":  true
+}

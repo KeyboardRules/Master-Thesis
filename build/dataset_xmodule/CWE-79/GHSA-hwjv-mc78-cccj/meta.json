@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hwjv-mc78-cccj",
+    "cve":  "CVE-2014-3547",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "0174a0a57f6d84e240dd0bc0df0ffa63c3cc5a88",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "badges/renderer.php"
+                    ],
+    "evidence":  [
+                     "badges/renderer.php includes 3 project file(s)",
+                     "badges/renderer.php class extends plugin_renderer_base"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

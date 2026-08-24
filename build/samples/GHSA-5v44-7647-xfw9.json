@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-5v44-7647-xfw9",
+    "cve":  "CVE-2020-26248",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/productcomments",
+    "sha":  "7c2033dd811744e021da8897c80d6c301cd45ffa",
+    "status":  "ok",
+    "changed_php":  [
+                        "controllers/front/CommentGrade.php",
+                        "controllers/front/ListComments.php",
+                        "productcomments.php",
+                        "src/Repository/ProductCommentRepository.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "controllers/front/CommentGrade.php class extends ModuleFrontController",
+                     "controllers/front/ListComments.php class extends ModuleFrontController",
+                     "productcomments.php includes 5 project file(s)",
+                     "productcomments.php class extends Module"
+                 ],
+    "changed_all":  [
+                        "controllers/front/CommentGrade.php",
+                        "controllers/front/ListComments.php",
+                        "productcomments.php",
+                        "src/Repository/ProductCommentRepository.php"
+                    ],
+    "sink_hit":  true
+}

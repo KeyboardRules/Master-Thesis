@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6c5q-fg3g-qhhv",
+    "cve":  "CVE-2024-53457",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "afe92dbf4321f107012690d476685603d1ccb013",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "LibreNMS/Util/Url.php",
+                        "app/Http/Controllers/Table/PortsController.php",
+                        "includes/html/pages/apps.inc.php",
+                        "includes/html/pages/apps/overview.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "app/Http/Controllers/Table/PortsController.php class extends TableController",
+                     "includes/html/pages/apps.inc.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

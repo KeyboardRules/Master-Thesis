@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cp9c-phxx-55xm",
+    "cve":  "CVE-2022-4407",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "1d73af34bf42764f9f9491c7ba5e9495d70e3ca5",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/index.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "phpmyfaq/admin/index.php includes 75 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/index.php"
+                    ],
+    "sink_hit":  true
+}

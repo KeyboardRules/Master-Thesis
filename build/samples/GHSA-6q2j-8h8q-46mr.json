@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6q2j-8h8q-46mr",
+    "cve":  "CVE-2016-5705",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "03f73d48369703e0d3584699b08e24891c3295b8",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/server_privileges.lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "libraries/server_privileges.lib.php"
+                    ],
+    "sink_hit":  false
+}

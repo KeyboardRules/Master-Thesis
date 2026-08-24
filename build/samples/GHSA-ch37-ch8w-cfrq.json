@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-ch37-ch8w-cfrq",
+    "cve":  "CVE-2020-26211",
+    "cwe":  "CWE-79",
+    "repo":  "BookStackApp/BookStack",
+    "sha":  "bbd1384acbe7e52c21f89af69f2dc391c95dbf54",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Entities/Managers/PageContent.php",
+                        "tests/Entity/PageContentTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Entity/PageContentTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/Entities/Managers/PageContent.php",
+                        "tests/Entity/PageContentTest.php"
+                    ],
+    "sink_hit":  true
+}

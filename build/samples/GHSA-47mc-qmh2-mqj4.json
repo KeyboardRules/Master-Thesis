@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-47mc-qmh2-mqj4",
+    "cve":  "CVE-2024-40400",
+    "cwe":  "CWE-434",
+    "repo":  "marcantondahmen/automad",
+    "sha":  "112f070ccf423931c9bb2b36f9a26c345e1ef56e",
+    "status":  "ok",
+    "changed_php":  [
+                        "automad/src/server/Models/Image.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "automad/src/server/Models/Image.php"
+                    ],
+    "sink_hit":  false
+}

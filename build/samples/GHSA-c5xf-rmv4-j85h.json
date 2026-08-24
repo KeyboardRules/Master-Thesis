@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-c5xf-rmv4-j85h",
+    "cve":  "CVE-2025-8573",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "f7630b467d3a234d3d333ca117046a500e7ee2b6",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/controllers/single_page/dashboard/users/search.php",
+                        "concrete/src/User/Search/ColumnSet/DefaultSet.php",
+                        "concrete/src/Utility/Service/Url.php",
+                        "tests/tests/Utility/Service/UrlTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "concrete/controllers/single_page/dashboard/users/search.php class extends DashboardPageController",
+                     "concrete/src/User/Search/ColumnSet/DefaultSet.php class extends ColumnSet",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "concrete/controllers/single_page/dashboard/users/search.php",
+                        "concrete/src/User/Search/ColumnSet/DefaultSet.php",
+                        "concrete/src/Utility/Service/Url.php",
+                        "tests/tests/Utility/Service/UrlTest.php"
+                    ],
+    "sink_hit":  true
+}

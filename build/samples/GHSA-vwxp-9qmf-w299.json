@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-vwxp-9qmf-w299",
+    "cve":  "CVE-2022-0394",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "d7b85466c217b3750eaccc8703ce54ba8785c4d3",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhfaq/embedcode.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhfaq/htmlcode.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhquestionary/embedcode.tpl.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhfaq/embedcode.tpl.php includes 3 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhfaq/htmlcode.tpl.php includes 1 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhquestionary/embedcode.tpl.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lhc_web/design/defaulttheme/tpl/lhfaq/embedcode.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhfaq/htmlcode.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhquestionary/embedcode.tpl.php"
+                    ],
+    "sink_hit":  true
+}

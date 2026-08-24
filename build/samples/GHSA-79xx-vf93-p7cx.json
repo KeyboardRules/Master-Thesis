@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-79xx-vf93-p7cx",
+    "cve":  "CVE-2025-22131",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "4088381ccfaf241d7d42c333de0dc8c98e338743",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/NavigationBadTitleTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "changed_all":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/NavigationBadTitleTest.php"
+                    ],
+    "sink_hit":  true
+}

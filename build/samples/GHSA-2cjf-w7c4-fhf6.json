@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2cjf-w7c4-fhf6",
+    "cve":  "CVE-2022-0539",
+    "cwe":  "CWE-79",
+    "repo":  "ptrofimov/beanstalk_console",
+    "sha":  "5aea5f912f6e6d19dedb1fdfc25a29a2e1fc1694",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/tpl/main.php",
+                        "lib/tpl/serversList.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/tpl/main.php includes 10 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lib/tpl/main.php",
+                        "lib/tpl/serversList.php"
+                    ],
+    "sink_hit":  true
+}

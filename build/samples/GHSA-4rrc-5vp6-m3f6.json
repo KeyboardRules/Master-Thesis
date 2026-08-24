@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4rrc-5vp6-m3f6",
+    "cve":  "CVE-2020-16266",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "9ef8f23a8119221d010251112b1255630a46d903",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/filter_form_api.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core/filter_form_api.php class extends TableGridLayout"
+                 ],
+    "changed_all":  [
+                        "core/filter_form_api.php"
+                    ],
+    "sink_hit":  true
+}

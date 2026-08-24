@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7j98-h7fp-4vwj",
+    "cve":  "CVE-2023-28447",
+    "cwe":  "CWE-79",
+    "repo":  "smarty-php/smarty",
+    "fix_commit":  "685662466f653597428966d75a661073104d713d",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "libs/plugins/modifier.escape.php",
+                        "libs/plugins/modifiercompiler.escape.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "libs/plugins/modifier.escape.php includes 4 project file(s)",
+                     "tests/UnitTests/TemplateSource/TagTests/PluginModifier/PluginModifierEscapeTest.php class extends PHPUnit_Smarty"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-x88g-h956-m5xg",
+    "cve":  "CVE-2024-56408",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "700a80346be269af668914172bc6f4521982d0b4",
+    "status":  "ok",
+    "changed_php":  [
+                        "samples/Engineering/Convert-Online.php",
+                        "samples/Wizards/NumberFormat/Accounting.php",
+                        "samples/Wizards/NumberFormat/Currency.php",
+                        "src/PhpSpreadsheet/Helper/Downloader.php",
+                        "src/PhpSpreadsheet/Style/NumberFormat/Formatter.php",
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "samples/Engineering/Convert-Online.php includes 1 project file(s)",
+                     "samples/Wizards/NumberFormat/Accounting.php includes 1 project file(s)",
+                     "samples/Wizards/NumberFormat/Currency.php includes 1 project file(s)",
+                     "src/PhpSpreadsheet/Style/NumberFormat/Formatter.php class extends BaseFormatter",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "samples/Engineering/Convert-Online.php",
+                        "samples/Wizards/NumberFormat/Accounting.php",
+                        "samples/Wizards/NumberFormat/Currency.php",
+                        "src/PhpSpreadsheet/Helper/Downloader.php",
+                        "src/PhpSpreadsheet/Style/NumberFormat/Formatter.php",
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6p96-vfrc-fv32",
+    "cve":  "CVE-2022-27115",
+    "cwe":  "CWE-434",
+    "repo":  "Studio-42/elFinder",
+    "fix_commit":  "69be51eea5b484822a29ddd40f1b72845954ba60",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "php/elFinder.class.php",
+                        "php/elFinderVolumeLocalFileSystem.class.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "php/elFinder.class.php includes 2 project file(s)",
+                     "php/elFinder.class.php class extends Exception",
+                     "php/elFinderVolumeLocalFileSystem.class.php class extends RecursiveFilterIterator",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

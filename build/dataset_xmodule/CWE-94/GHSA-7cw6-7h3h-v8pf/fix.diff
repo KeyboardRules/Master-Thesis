@@ -1,0 +1,16 @@
+﻿diff --git a/src/Core/Framework/Adapter/Twig/SecurityExtension.php b/src/Core/Framework/Adapter/Twig/SecurityExtension.php
+index 6f0e968c0..2a746b6c6 100644
+--- a/src/Core/Framework/Adapter/Twig/SecurityExtension.php
++++ b/src/Core/Framework/Adapter/Twig/SecurityExtension.php
+@@ -45,6 +45,11 @@ class SecurityExtension extends AbstractExtension
+             return null;
+         }
+ 
++        if (\is_array($function)) {
++            $function = implode('::', $function);
++            \assert(\is_callable($function));
++        }
++
+         if (\is_string($function) && !\in_array($function, $this->allowedPHPFunctions, true)) {
+             throw AdapterException::securityFunctionNotAllowed($function);
+         }

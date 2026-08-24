@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-hxqw-6qv7-cqfv",
+    "cve":  "CVE-2026-32276",
+    "cwe":  "CWE-94",
+    "repo":  "opensource-workshop/connect-cms",
+    "sha":  "c0bcd07fc1e9375941aa1295d044328ecd44ed85",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Models/User/Codestudies/Codestudies.php",
+                        "app/Plugins/User/Codestudies/CodestudiesPlugin.php",
+                        "config/connect.php",
+                        "database/migrations/2026_02_17_000000_drop_codestudies_table.php",
+                        "database/migrations/2026_02_17_000000_replace_codestudies_frames_with_contents.php",
+                        "database/migrations/2026_02_18_000000_remove_codestudies_from_plugins.php",
+                        "resources/views/plugins/user/codestudies/codestudies_frame_edit_tab.blade.php",
+                        "resources/views/plugins/user/codestudies/default/codestudies.blade.php",
+                        "resources/views/plugins/user/codestudies/default/codestudies_forbidden.blade.php",
+                        "resources/views/plugins/user/codestudies/default/download.blade.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "app/Models/User/Codestudies/Codestudies.php class extends Model",
+                     "app/Models/User/Codestudies/Codestudies.php class uses trait",
+                     "app/Plugins/User/Codestudies/CodestudiesPlugin.php class extends UserPluginBase"
+                 ],
+    "changed_all":  [
+                        "app/Models/User/Codestudies/Codestudies.php",
+                        "app/Plugins/User/Codestudies/CodestudiesPlugin.php",
+                        "app/Plugins/User/Codestudies/plugin.ini",
+                        "config/connect.php",
+                        "database/migrations/2026_02_17_000000_drop_codestudies_table.php",
+                        "database/migrations/2026_02_17_000000_replace_codestudies_frames_with_contents.php",
+                        "database/migrations/2026_02_18_000000_remove_codestudies_from_plugins.php",
+                        "resources/views/plugins/user/codestudies/codestudies_frame_edit_tab.blade.php",
+                        "resources/views/plugins/user/codestudies/default/codestudies.blade.php",
+                        "resources/views/plugins/user/codestudies/default/codestudies_forbidden.blade.php",
+                        "resources/views/plugins/user/codestudies/default/download.blade.php",
+                        "tests/bin/connect-cms-test.bat"
+                    ],
+    "sink_hit":  true
+}

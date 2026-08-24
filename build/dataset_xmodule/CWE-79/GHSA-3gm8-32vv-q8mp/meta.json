@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3gm8-32vv-q8mp",
+    "cve":  "CVE-2010-2230",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "704c5dfed4f4531b6d74d19cfad573984e74885e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/weblib.php"
+                    ],
+    "evidence":  [
+                     "lib/weblib.php includes 7 project file(s)",
+                     "lib/weblib.php class extends progress_trace"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

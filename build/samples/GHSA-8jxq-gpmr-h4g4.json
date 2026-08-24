@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-8jxq-gpmr-h4g4",
+    "cve":  "CVE-2017-7204",
+    "cwe":  "CWE-79",
+    "repo":  "tboothman/imdbphp",
+    "sha":  "5875c75c6ca6a53dc4faaaeca973150d380e88e2",
+    "status":  "ok",
+    "changed_php":  [
+                        "demo/inc.php",
+                        "demo/search.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "demo/search.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "demo/inc.php",
+                        "demo/search.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-jjqq-m998-53jf",
+    "cve":  "CVE-2018-13447",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "36402c22eef49d60edd73a2f312f8e28fe0bd1cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/class/html.form.class.php",
+                        "htdocs/main.inc.php",
+                        "htdocs/product/card.php",
+                        "htdocs/societe/ajax/company.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "htdocs/core/class/html.form.class.php includes 35 project file(s)",
+                     "htdocs/main.inc.php includes 16 project file(s)",
+                     "htdocs/product/card.php includes 28 project file(s)",
+                     "htdocs/societe/ajax/company.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/class/html.form.class.php",
+                        "htdocs/main.inc.php",
+                        "htdocs/product/card.php",
+                        "htdocs/societe/ajax/company.php"
+                    ],
+    "sink_hit":  true
+}

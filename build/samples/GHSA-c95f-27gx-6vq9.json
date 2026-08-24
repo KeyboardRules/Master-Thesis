@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c95f-27gx-6vq9",
+    "cve":  "CVE-2015-5243",
+    "cwe":  "CWE-94",
+    "repo":  "Gemorroj/phpwhois",
+    "sha":  "91c937e03c876ba1290b6de2a3ad953d2105fdd0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/whois.parser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/whois.parser.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-hg77-vx9v-f49x",
+    "cve":  "CVE-2023-2336",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "sha":  "498cadec2292f7842fb10612068ac78496e884b4",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php class extends ElementControllerBase",
+                     "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/asset/tree.js",
+                        "doc/Development_Documentation/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md"
+                    ],
+    "sink_hit":  true
+}

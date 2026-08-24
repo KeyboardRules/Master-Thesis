@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-c5wx-6c2c-f7rm",
+    "cve":  "CVE-2022-23503",
+    "cwe":  "CWE-94",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "1302e88565821f2159e08b5d818d28de17ecc830",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php",
+                        "typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php class extends ExtbaseConfigurationManager",
+                     "typo3/sysext/form/Tests/Unit/Mvc/Persistence/FormPersistenceManagerTest.php class extends UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

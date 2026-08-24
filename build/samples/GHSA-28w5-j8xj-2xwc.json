@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-28w5-j8xj-2xwc",
+    "cve":  "CVE-2021-36788",
+    "cwe":  "CWE-79",
+    "repo":  "Yoast/Yoast-SEO-for-TYPO3",
+    "sha":  "a8278dae97dce8cd0722d38f7f5a30b563668590",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Service/PreviewService.php",
+                        "Classes/StructuredData/StructuredDataProviderManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "Classes/Service/PreviewService.php",
+                        "Classes/StructuredData/StructuredDataProviderManager.php",
+                        "Resources/Public/JavaScript/dist/linkingSuggestions.js",
+                        "Resources/Public/JavaScript/dist/plugin.js",
+                        "Resources/Public/JavaScript/redux/actions/content.js"
+                    ],
+    "sink_hit":  false
+}

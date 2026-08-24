@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-hcpv-xh8q-f3vq",
+    "cve":  "CVE-2019-16682",
+    "cwe":  "CWE-89",
+    "repo":  "froemken/url_redirect",
+    "sha":  "91cc8da2cf122eff0ecca14e9919ece7fca0a053",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Hooks/PreProcess.php",
+                        "ext_emconf.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "Classes/Hooks/PreProcess.php",
+                        "ext_emconf.php"
+                    ],
+    "sink_hit":  false
+}

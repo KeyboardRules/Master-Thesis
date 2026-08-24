@@ -1,0 +1,44 @@
+﻿diff --git a/install_files/php/Installer.php b/install_files/php/Installer.php
+index 5740869..8c6178b 100644
+--- a/install_files/php/Installer.php
++++ b/install_files/php/Installer.php
+@@ -55,7 +55,7 @@ class Installer
+                 header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+                 $this->log('Handler error (%s): %s', $handler, $ex->getMessage());
+                 $this->log(array('Trace log:', '%s'), $ex->getTraceAsString());
+-                die($ex->getMessage());
++                die($this->e($ex->getMessage()));
+             }
+ 
+             exit;
+diff --git a/install_files/php/InstallerHandlers.php b/install_files/php/InstallerHandlers.php
+index b553aed..9071346 100644
+--- a/install_files/php/InstallerHandlers.php
++++ b/install_files/php/InstallerHandlers.php
+@@ -73,7 +73,7 @@ trait InstallerHandlers
+         );
+ 
+         // Check the database is empty
+-        $exptectedTablesAndViewsCount = 0;
++        $expectedTablesAndViewsCount = 0;
+         if ($type == 'sqlite') {
+             $fetch = $db->query("select name from sqlite_master where type='table'", PDO::FETCH_NUM);
+         }
+@@ -82,7 +82,7 @@ trait InstallerHandlers
+         }
+         elseif ($type === 'sqlsrv') {
+             $fetch = $db->query("select [table_name] from information_schema.tables", PDO::FETCH_NUM);
+-            $exptectedTablesAndViewsCount = 1;
++            $expectedTablesAndViewsCount = 1;
+         }
+         else {
+             $fetch = $db->query('show tables', PDO::FETCH_NUM);
+@@ -93,7 +93,7 @@ trait InstallerHandlers
+             $tables++;
+         }
+ 
+-        if ($tables > $exptectedTablesAndViewsCount) {
++        if ($tables > $expectedTablesAndViewsCount) {
+             throw new Exception(sprintf('Database "%s" is not empty. Please empty the database or specify another database.', $this->e($name)));
+         }
+     }

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4vp2-mj4m-69m4",
+    "cve":  "CVE-2020-23653",
+    "cwe":  "CWE-502",
+    "repo":  "zoujingli/ThinkAdmin",
+    "sha":  "640a61ae0772dcd5209d74dff8ad373e61e8ad8c",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/admin/controller/api/Update.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/admin/controller/api/Update.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/admin/controller/api/Update.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,18 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/EmailController.php b/bundles/AdminBundle/Controller/Admin/EmailController.php
+index e9c5f6d112..5d97c4454d 100644
+--- a/bundles/AdminBundle/Controller/Admin/EmailController.php
++++ b/bundles/AdminBundle/Controller/Admin/EmailController.php
+@@ -458,8 +458,12 @@ class EmailController extends AdminController
+             $data = $this->decodeJson($request->get('data'));
+ 
+             if (is_array($data)) {
+-                foreach ($data as &$value) {
++                foreach ($data as $key => &$value) {
+                     if (is_string($value)) {
++                        if($key === 'address'){
++                            $value = filter_var($value, FILTER_SANITIZE_EMAIL);
++                        }
++
+                         $value = trim($value);
+                     }
+                 }

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x752-qjv4-c4hc",
+    "cve":  "CVE-2022-28368",
+    "cwe":  "CWE-79",
+    "repo":  "dompdf/dompdf",
+    "sha":  "4c70e1025bcd9b7694b95dd552499bd83cd6141d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/FontMetrics.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/FontMetrics.php"
+                    ],
+    "sink_hit":  false
+}

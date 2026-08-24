@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-5qxq-vgmm-q39m",
+    "cve":  "CVE-2022-39365",
+    "cwe":  "CWE-94",
+    "repo":  "pimcore/pimcore",
+    "sha":  "43aa34e018f5cd447bceb864358285ba92f68372",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/CoreBundle/DependencyInjection/Configuration.php",
+                        "bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php",
+                        "lib/Mail.php",
+                        "lib/Templating/TwigDefaultDelegatingEngine.php",
+                        "lib/Twig/Sandbox/SecurityPolicy.php",
+                        "models/DataObject/ClassDefinition/Layout/Text.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php class extends ConfigurableExtension",
+                     "lib/Mail.php class extends Email",
+                     "lib/Templating/TwigDefaultDelegatingEngine.php class extends BaseDelegatingEngine",
+                     "models/DataObject/ClassDefinition/Layout/Text.php class extends Model\\DataObject\\ClassDefinition\\Layout"
+                 ],
+    "changed_all":  [
+                        "bundles/CoreBundle/DependencyInjection/Configuration.php",
+                        "bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php",
+                        "bundles/CoreBundle/Resources/config/pimcore/default.yaml",
+                        "bundles/CoreBundle/Resources/config/templating_twig.yaml",
+                        "doc/Development_Documentation/05_Objects/01_Object_Classes/03_Layout_Elements/01_Dynamic_Text_Labels.md",
+                        "doc/Development_Documentation/19_Development_Tools_and_Details/25_Email_Framework/README.md",
+                        "doc/Development_Documentation/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md",
+                        "lib/Mail.php",
+                        "lib/Templating/TwigDefaultDelegatingEngine.php",
+                        "lib/Twig/Sandbox/SecurityPolicy.php",
+                        "models/DataObject/ClassDefinition/Layout/Text.php"
+                    ],
+    "sink_hit":  false
+}

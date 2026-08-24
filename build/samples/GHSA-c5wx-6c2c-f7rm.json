@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-c5wx-6c2c-f7rm",
+    "cve":  "CVE-2022-23503",
+    "cwe":  "CWE-94",
+    "repo":  "TYPO3/typo3",
+    "sha":  "1302e88565821f2159e08b5d818d28de17ecc830",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php",
+                        "typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php",
+                        "typo3/sysext/form/Tests/Unit/Mvc/Configuration/ConfigurationManagerTest.php",
+                        "typo3/sysext/form/Tests/Unit/Mvc/Persistence/FormPersistenceManagerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php class extends ExtbaseConfigurationManager",
+                     "typo3/sysext/form/Tests/Unit/Mvc/Persistence/FormPersistenceManagerTest.php class extends UnitTestCase"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php",
+                        "typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php",
+                        "typo3/sysext/form/Tests/Unit/Mvc/Configuration/ConfigurationManagerTest.php",
+                        "typo3/sysext/form/Tests/Unit/Mvc/Persistence/FormPersistenceManagerTest.php"
+                    ],
+    "sink_hit":  false
+}

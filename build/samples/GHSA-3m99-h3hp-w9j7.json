@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-3m99-h3hp-w9j7",
+    "cve":  "CVE-2014-3545",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "155bc7547227dc2047cfc8630cbfe121888b359b",
+    "status":  "ok",
+    "changed_php":  [
+                        "question/type/calculated/question.php",
+                        "question/type/calculated/questiontype.php",
+                        "question/type/calculated/tests/formula_validation_test.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "question/type/calculated/question.php includes 1 project file(s)",
+                     "question/type/calculated/question.php class extends qtype_numerical_question",
+                     "question/type/calculated/questiontype.php includes 6 project file(s)",
+                     "question/type/calculated/questiontype.php class extends question_type",
+                     "question/type/calculated/tests/formula_validation_test.php includes 1 project file(s)",
+                     "question/type/calculated/tests/formula_validation_test.php class extends basic_testcase"
+                 ],
+    "changed_all":  [
+                        "question/type/calculated/question.php",
+                        "question/type/calculated/questiontype.php",
+                        "question/type/calculated/tests/formula_validation_test.php"
+                    ],
+    "sink_hit":  true
+}

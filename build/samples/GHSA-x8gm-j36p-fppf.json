@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-x8gm-j36p-fppf",
+    "cve":  "CVE-2024-47528",
+    "cwe":  "CWE-434",
+    "repo":  "librenms/librenms",
+    "sha":  "d959bf1b366319eda16e3cd6dfda8a22beb203be",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Maps/CustomMapBackgroundController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/Maps/CustomMapBackgroundController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Maps/CustomMapBackgroundController.php",
+                        "composer.json",
+                        "composer.lock"
+                    ],
+    "sink_hit":  false
+}

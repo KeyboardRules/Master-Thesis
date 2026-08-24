@@ -1,0 +1,12 @@
+﻿diff --git a/src/Twig/MarkdownExtension.php b/src/Twig/MarkdownExtension.php
+index 47e72fc..db49c71 100644
+--- a/src/Twig/MarkdownExtension.php
++++ b/src/Twig/MarkdownExtension.php
+@@ -77,6 +77,6 @@ class MarkdownExtension extends AbstractExtension
+      */
+     public function markdownToHtml(string $content): string
+     {
+-        return $this->markdown->toHtml($content, true);
++        return $this->markdown->toHtml($content, false);
+     }
+ }

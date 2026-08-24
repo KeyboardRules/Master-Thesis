@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-p2v5-xcqm-4fv6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-taxonomy",
+    "sha":  "01a5d9e04b993df507058aa53e6e18efc5ca405b",
+    "status":  "ok",
+    "changed_php":  [
+                        "code/controllers/TaxonomyDirectoryController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "code/controllers/TaxonomyDirectoryController.php class extends Page_Controller"
+                 ],
+    "changed_all":  [
+                        "code/controllers/TaxonomyDirectoryController.php",
+                        "docs/en/developer.md"
+                    ],
+    "sink_hit":  false
+}

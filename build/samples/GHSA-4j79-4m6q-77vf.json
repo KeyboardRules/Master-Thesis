@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-4j79-4m6q-77vf",
+    "cve":  "CVE-2017-5543",
+    "cwe":  "CWE-94",
+    "repo":  "intelliants/subrion",
+    "sha":  "019dee20a38f39a5827aae2eb92f09b1f6afb7bb",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/classes/ia.core.users.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "includes/classes/ia.core.users.php includes 3 project file(s)",
+                     "includes/classes/ia.core.users.php class extends abstractCore",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/classes/ia.core.users.php"
+                    ],
+    "sink_hit":  true
+}

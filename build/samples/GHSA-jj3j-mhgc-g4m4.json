@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jj3j-mhgc-g4m4",
+    "cve":  "CVE-2015-0212",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "38ca8793b6faa6c35176537c8015cc4e76ce73f5",
+    "status":  "ok",
+    "changed_php":  [
+                        "course/pending.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "course/pending.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "course/pending.php"
+                    ],
+    "sink_hit":  true
+}

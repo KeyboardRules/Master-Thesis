@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3j93-7rf7-p7m6",
+    "cve":  "CVE-2023-1758",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "f3380f46c464d1bc6f3ded29213c79be0de8fc57",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/record.comments.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/record.comments.php"
+                    ],
+    "sink_hit":  true
+}

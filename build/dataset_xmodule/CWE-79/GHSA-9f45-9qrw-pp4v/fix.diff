@@ -1,0 +1,13 @@
+﻿diff --git a/filter/algebra/filter.php b/filter/algebra/filter.php
+index a0a3a4cf27..e128f90b87 100644
+--- a/filter/algebra/filter.php
++++ b/filter/algebra/filter.php
+@@ -238,7 +238,7 @@ class filter_algebra extends moodle_text_filter {
+                   $DB->insert_record("cache_filters", $texcache, false);
+                   $text = str_replace( $matches[0][$i], filter_algebra_image($filename, $texexp, '', '', $align), $text);
+                } else {
+-                  $text = str_replace( $matches[0][$i],"<b>Undetermined error:</b> ",$text);
++                  $text = str_replace( $matches[0][$i],"<b>Undetermined error:</b> " . $matches[0][$i], $text);
+                }
+             } else {
+                $text = str_replace( $matches[0][$i], filter_algebra_image($filename, $texcache->rawtext), $text);

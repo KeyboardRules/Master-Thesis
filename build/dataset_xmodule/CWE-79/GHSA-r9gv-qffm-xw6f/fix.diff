@@ -1,0 +1,15 @@
+﻿diff --git a/tools/bazar/actions/BazarListeAction.php b/tools/bazar/actions/BazarListeAction.php
+index fe776ba7..bdc76153 100755
+--- a/tools/bazar/actions/BazarListeAction.php
++++ b/tools/bazar/actions/BazarListeAction.php
+@@ -76,7 +76,9 @@ class BazarListeAction extends YesWikiAction
+         }
+ 
+         $template = $_GET['template'] ?? $arg['template'] ?? null;
+-
++        if ($template) {
++            $template = htmlspecialchars($template);
++        }
+         // Dynamic templates
+         $dynamic = $this->formatBoolean($arg, false, 'dynamic');
+ 

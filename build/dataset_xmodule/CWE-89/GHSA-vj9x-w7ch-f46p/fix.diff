@@ -1,0 +1,13 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php b/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
+index 1f536f3a9d..c160553373 100644
+--- a/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
++++ b/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
+@@ -1242,7 +1242,7 @@ class ClassificationstoreController extends AdminController implements KernelCon
+         }
+ 
+         if ($storeId) {
+-            $conditionParts[] = '(storeId = ' . $storeId . ')';
++            $conditionParts[] = '(storeId = '. $db->quote($storeId) . ')';
+         }
+ 
+         if ($request->get('filter')) {

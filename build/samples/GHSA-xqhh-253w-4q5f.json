@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-xqhh-253w-4q5f",
+    "cve":  "CVE-2024-33998",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "66da9394993d97861f6c80bc4ec4ee9b513d2f33",
+    "status":  "ok",
+    "changed_php":  [
+                        "group/classes/output/user_groups_editable.php",
+                        "user/classes/output/user_roles_editable.php",
+                        "user/classes/table/participants.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "group/classes/output/user_groups_editable.php includes 1 project file(s)",
+                     "group/classes/output/user_groups_editable.php class extends \\core\\output\\inplace_editable",
+                     "user/classes/output/user_roles_editable.php class extends \\core\\output\\inplace_editable",
+                     "user/classes/table/participants.php includes 3 project file(s)",
+                     "user/classes/table/participants.php class extends \\table_sql"
+                 ],
+    "changed_all":  [
+                        "group/classes/output/user_groups_editable.php",
+                        "user/classes/output/user_roles_editable.php",
+                        "user/classes/table/participants.php"
+                    ],
+    "sink_hit":  true
+}

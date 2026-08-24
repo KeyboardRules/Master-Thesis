@@ -1,0 +1,95 @@
+﻿diff --git a/app/Access/Controllers/ForgotPasswordController.php b/app/Access/Controllers/ForgotPasswordController.php
+index 86fbe8f..36dd977 100644
+--- a/app/Access/Controllers/ForgotPasswordController.php
++++ b/app/Access/Controllers/ForgotPasswordController.php
+@@ -6,6 +6,7 @@ use BookStack\Activity\ActivityType;
+ use BookStack\Http\Controller;
+ use Illuminate\Http\Request;
+ use Illuminate\Support\Facades\Password;
++use Illuminate\Support\Sleep;
+ 
+ class ForgotPasswordController extends Controller
+ {
+@@ -32,6 +33,10 @@ class ForgotPasswordController extends Controller
+             'email' => ['required', 'email'],
+         ]);
+ 
++        // Add random pause to the response to help avoid time-base sniffing
++        // of valid resets via slower email send handling.
++        Sleep::for(random_int(1000, 3000))->milliseconds();
++
+         // We will send the password reset link to this user. Once we have attempted
+         // to send the link, we will examine the response then see the message we
+         // need to show to the user. Finally, we'll send out a proper response.
+diff --git a/app/Access/Controllers/ResetPasswordController.php b/app/Access/Controllers/ResetPasswordController.php
+index a8a45dd..3af65d1 100644
+--- a/app/Access/Controllers/ResetPasswordController.php
++++ b/app/Access/Controllers/ResetPasswordController.php
+@@ -15,14 +15,11 @@ use Illuminate\Validation\Rules\Password as PasswordRule;
+ 
+ class ResetPasswordController extends Controller
+ {
+-    protected LoginService $loginService;
+-
+-    public function __construct(LoginService $loginService)
+-    {
++    public function __construct(
++        protected LoginService $loginService
++    ) {
+         $this->middleware('guest');
+         $this->middleware('guard:standard');
+-
+-        $this->loginService = $loginService;
+     }
+ 
+     /**
+diff --git a/app/App/Providers/RouteServiceProvider.php b/app/App/Providers/RouteServiceProvider.php
+index 3a15592..d7c1cb7 100644
+--- a/app/App/Providers/RouteServiceProvider.php
++++ b/app/App/Providers/RouteServiceProvider.php
+@@ -81,5 +81,9 @@ class RouteServiceProvider extends ServiceProvider
+         RateLimiter::for('api', function (Request $request) {
+             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+         });
++
++        RateLimiter::for('public', function (Request $request) {
++            return Limit::perMinute(10)->by($request->ip());
++        });
+     }
+ }
+diff --git a/routes/web.php b/routes/web.php
+index 0359528..58b8f4e 100644
+--- a/routes/web.php
++++ b/routes/web.php
+@@ -317,8 +317,8 @@ Route::get('/register/confirm', [AccessControllers\ConfirmEmailController::class
+ Route::get('/register/confirm/awaiting', [AccessControllers\ConfirmEmailController::class, 'showAwaiting']);
+ Route::post('/register/confirm/resend', [AccessControllers\ConfirmEmailController::class, 'resend']);
+ Route::get('/register/confirm/{token}', [AccessControllers\ConfirmEmailController::class, 'showAcceptForm']);
+-Route::post('/register/confirm/accept', [AccessControllers\ConfirmEmailController::class, 'confirm']);
+-Route::post('/register', [AccessControllers\RegisterController::class, 'postRegister']);
++Route::post('/register/confirm/accept', [AccessControllers\ConfirmEmailController::class, 'confirm'])->middleware('throttle:public');
++Route::post('/register', [AccessControllers\RegisterController::class, 'postRegister'])->middleware('throttle:public');
+ 
+ // SAML routes
+ Route::post('/saml2/login', [AccessControllers\Saml2Controller::class, 'login']);
+@@ -338,16 +338,16 @@ Route::get('/oidc/callback', [AccessControllers\OidcController::class, 'callback
+ Route::post('/oidc/logout', [AccessControllers\OidcController::class, 'logout']);
+ 
+ // User invitation routes
+-Route::get('/register/invite/{token}', [AccessControllers\UserInviteController::class, 'showSetPassword']);
+-Route::post('/register/invite/{token}', [AccessControllers\UserInviteController::class, 'setPassword']);
++Route::get('/register/invite/{token}', [AccessControllers\UserInviteController::class, 'showSetPassword'])->middleware('throttle:public');
++Route::post('/register/invite/{token}', [AccessControllers\UserInviteController::class, 'setPassword'])->middleware('throttle:public');
+ 
+ // Password reset link request routes
+ Route::get('/password/email', [AccessControllers\ForgotPasswordController::class, 'showLinkRequestForm']);
+-Route::post('/password/email', [AccessControllers\ForgotPasswordController::class, 'sendResetLinkEmail']);
++Route::post('/password/email', [AccessControllers\ForgotPasswordController::class, 'sendResetLinkEmail'])->middleware('throttle:public');
+ 
+ // Password reset routes
+ Route::get('/password/reset/{token}', [AccessControllers\ResetPasswordController::class, 'showResetForm']);
+-Route::post('/password/reset', [AccessControllers\ResetPasswordController::class, 'reset']);
++Route::post('/password/reset', [AccessControllers\ResetPasswordController::class, 'reset'])->middleware('throttle:public');
+ 
+ // Metadata routes
+ Route::view('/help/wysiwyg', 'help.wysiwyg');

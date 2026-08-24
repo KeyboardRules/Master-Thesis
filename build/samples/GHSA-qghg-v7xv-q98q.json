@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-qghg-v7xv-q98q",
+    "cve":  "CVE-2022-33910",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "266762193fc6c09ffc6b14f5a34c86eae3ebee20",
+    "status":  "ok",
+    "changed_php":  [
+                        "config_defaults_inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "config_defaults_inc.php",
+                        "docbook/Admin_Guide/en-US/config/uploads.xml"
+                    ],
+    "sink_hit":  true
+}

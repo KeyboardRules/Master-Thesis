@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3432-fmrf-7vmh",
+    "cve":  "CVE-2025-48883",
+    "cwe":  "CWE-79",
+    "repo":  "chrome-php/chrome",
+    "fix_commit":  "34b2b8d1691f4e3940b1e1e95d388fffe81169c8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Dom/Selector/CssSelector.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/PageTest.php class extends BaseTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

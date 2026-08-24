@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-9m5v-vq4f-mrvf",
+    "cve":  "CVE-2012-5657",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zf1",
+    "fix_commit":  "15c84914f063efea49ea1c4425459a792cc185ea",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "library/Zend/Feed.php",
+                        "library/Zend/Feed/Abstract.php",
+                        "library/Zend/Feed/Writer/Deleted.php",
+                        "library/Zend/Feed/Writer/Entry.php",
+                        "library/Zend/Feed/Writer/Feed/FeedAbstract.php"
+                    ],
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "library/Zend/Feed.php includes 13 project file(s)",
+                     "library/Zend/Feed/Abstract.php includes 3 project file(s)",
+                     "library/Zend/Feed/Abstract.php class extends Zend_Feed_Element",
+                     "library/Zend/Feed/Writer/Deleted.php includes 7 project file(s)",
+                     "library/Zend/Feed/Writer/Entry.php includes 27 project file(s)",
+                     "library/Zend/Feed/Writer/Feed/FeedAbstract.php includes 38 project file(s)",
+                     "tests/Zend/Feed/AllTests.php includes 31 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

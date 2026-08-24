@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-97jm-g33h-f46g",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "8336cb96b9600dacafa8a525c92662345b52cfae",
+    "status":  "ok",
+    "changed_php":  [
+                        "forms/Form.php",
+                        "forms/FormField.php",
+                        "forms/HtmlEditorField.php",
+                        "forms/ReadonlyField.php",
+                        "forms/TextareaField.php",
+                        "tests/forms/FormTest.php",
+                        "tests/forms/TextareaFieldTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "forms/Form.php class extends RequestHandler",
+                     "forms/FormField.php class extends RequestHandler",
+                     "forms/HtmlEditorField.php includes 1 project file(s)",
+                     "forms/HtmlEditorField.php class extends TextareaField",
+                     "forms/ReadonlyField.php class extends FormField",
+                     "forms/TextareaField.php class extends FormField",
+                     "tests/forms/FormTest.php class extends FunctionalTest",
+                     "tests/forms/TextareaFieldTest.php class extends SapphireTest"
+                 ],
+    "changed_all":  [
+                        "forms/Form.php",
+                        "forms/FormField.php",
+                        "forms/HtmlEditorField.php",
+                        "forms/ReadonlyField.php",
+                        "forms/TextareaField.php",
+                        "tests/forms/FormTest.php",
+                        "tests/forms/TextareaFieldTest.php"
+                    ],
+    "sink_hit":  false
+}

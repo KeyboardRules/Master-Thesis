@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-f98p-2hc5-fm7v",
+    "cve":  "CVE-2024-34899",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "345711562621d879e63a817d01a229bf0aae7a1d",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/functionsBrowser.php",
+                        "plugin/LoginControl/Objects/logincontrol_history.php",
+                        "view/about.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "objects/functionsBrowser.php includes 1 project file(s)",
+                     "plugin/LoginControl/Objects/logincontrol_history.php includes 1 project file(s)",
+                     "plugin/LoginControl/Objects/logincontrol_history.php class extends ObjectYPT",
+                     "view/about.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

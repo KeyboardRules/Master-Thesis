@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-89v6-j5x6-cmj3",
+    "cve":  "CVE-2026-52763",
+    "cwe":  "CWE-89",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "5da27474c3ee62270c8a6b9d7055d494cdbd38e5",
+    "status":  "ok",
+    "changed_php":  [
+                        "actions/recentchanges.php",
+                        "includes/services/PageManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "actions/recentchanges.php",
+                        "includes/services/PageManager.php"
+                    ],
+    "sink_hit":  true
+}

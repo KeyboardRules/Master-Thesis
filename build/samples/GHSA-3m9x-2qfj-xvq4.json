@@ -1,0 +1,40 @@
+﻿{
+    "id":  "GHSA-3m9x-2qfj-xvq4",
+    "cve":  "CVE-2015-3542",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PHPExcel",
+    "sha":  "0ab614fd952f82f9b7a9280731daa2300e6b000c",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/PHPExcel/Reader/Abstract.php",
+                        "Classes/PHPExcel/Reader/Excel2003XML.php",
+                        "Classes/PHPExcel/Reader/Excel2007.php",
+                        "Classes/PHPExcel/Reader/Gnumeric.php",
+                        "Classes/PHPExcel/Reader/HTML.php",
+                        "Classes/PHPExcel/Reader/OOCalc.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "Classes/PHPExcel/Reader/Excel2003XML.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Excel2003XML.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/Excel2007.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Excel2007.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/Gnumeric.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Gnumeric.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/HTML.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/HTML.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/OOCalc.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/OOCalc.php class extends PHPExcel_Reader_Abstract"
+                 ],
+    "changed_all":  [
+                        "Classes/PHPExcel/Reader/Abstract.php",
+                        "Classes/PHPExcel/Reader/Excel2003XML.php",
+                        "Classes/PHPExcel/Reader/Excel2007.php",
+                        "Classes/PHPExcel/Reader/Gnumeric.php",
+                        "Classes/PHPExcel/Reader/HTML.php",
+                        "Classes/PHPExcel/Reader/OOCalc.php",
+                        "changelog.txt"
+                    ],
+    "sink_hit":  true
+}

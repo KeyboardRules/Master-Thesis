@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vc5r-xfc4-4x22",
+    "cve":  "CVE-2022-0955",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/data-hub",
+    "fix_commit":  "15d5b57af2466eebd3bbc531ead5dafa35d0a36e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Controller/ConfigController.php"
+                    ],
+    "evidence":  [
+                     "src/Controller/ConfigController.php class extends \\Pimcore\\Bundle\\AdminBundle\\Controller\\AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

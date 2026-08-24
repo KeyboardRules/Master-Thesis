@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-v9m8-9xxp-q492",
+    "cve":  "CVE-2025-48951",
+    "cwe":  "CWE-502",
+    "repo":  "auth0/auth0-PHP",
+    "sha":  "04b1f5daa8bdfebc5e740ec5ca0fb2df1648a715",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Store/CookieStore.php",
+                        "tests/Unit/Store/CookieStoreTest.php",
+                        "tests/Utilities/MockCrypto.php",
+                        "tests/Utilities/MockDataset.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Store/CookieStore.php",
+                        "tests/Unit/Store/CookieStoreTest.php",
+                        "tests/Utilities/MockCrypto.php",
+                        "tests/Utilities/MockDataset.php"
+                    ],
+    "sink_hit":  true
+}

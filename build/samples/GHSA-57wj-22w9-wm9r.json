@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-57wj-22w9-wm9r",
+    "cve":  "CVE-2018-10094",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "7ade4e37f24d6859987bb9f6232f604325633fdd",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/adherents/list.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/adherents/list.php includes 14 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/adherents/list.php"
+                    ],
+    "sink_hit":  true
+}

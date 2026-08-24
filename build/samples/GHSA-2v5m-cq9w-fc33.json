@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2v5m-cq9w-fc33",
+    "cve":  "CVE-2025-62617",
+    "cwe":  "CWE-89",
+    "repo":  "Admidio/admidio",
+    "sha":  "fde81ae869e88a3cf42201f2548d57df785a37cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "adm_program/modules/groups-roles/members_assignment_data.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "adm_program/modules/groups-roles/members_assignment_data.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "adm_program/modules/groups-roles/members_assignment_data.php"
+                    ],
+    "sink_hit":  true
+}

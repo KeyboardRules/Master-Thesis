@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-wp68-xrfg-xvq4",
+    "cve":  "CVE-2025-1025",
+    "cwe":  "CWE-434",
+    "repo":  "Cockpit-HQ/Cockpit",
+    "sha":  "984ef9ad270357b843af63c81db95178eae42cae",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/Assets/bootstrap.php",
+                        "modules/Finder/Controller/Finder.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/Assets/bootstrap.php includes 4 project file(s)",
+                     "modules/Finder/Controller/Finder.php class extends App"
+                 ],
+    "changed_all":  [
+                        "modules/Assets/bootstrap.php",
+                        "modules/Finder/Controller/Finder.php"
+                    ],
+    "sink_hit":  true
+}

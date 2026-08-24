@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-ggxq-2mg9-8966",
+    "cve":  "CVE-2026-26045",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "566054ba11f609a6d48d09b32e85d435d49927da",
+    "status":  "ok",
+    "changed_php":  [
+                        "public/repository/coursefiles/lib.php",
+                        "public/repository/lib.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "public/repository/coursefiles/lib.php includes 1 project file(s)",
+                     "public/repository/coursefiles/lib.php class extends repository",
+                     "public/repository/lib.php includes 6 project file(s)",
+                     "public/repository/lib.php class extends moodle_exception"
+                 ],
+    "changed_all":  [
+                        "public/repository/coursefiles/lib.php",
+                        "public/repository/lib.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,84 @@
+﻿diff --git a/lib/moodlelib.php b/lib/moodlelib.php
+index 30eb4212b6..d59b5f3872 100644
+--- a/lib/moodlelib.php
++++ b/lib/moodlelib.php
+@@ -792,10 +792,9 @@ function clean_param($param, $type) {
+             }
+ 
+         case PARAM_TAG:
+-            //as long as magic_quotes_gpc is used, a backslash will be a
+-            //problem, so remove *all* backslash.
+-            //$param = str_replace('\\', '', $param);
+-            //remove some nasties
++            // Please note it is not safe to use the tag name directly anywhere,
++            // it must be processed with s(), urlencode() before embedding anywhere.
++            // remove some nasties
+             $param = preg_replace('~[[:cntrl:]]|[<>`]~u', '', $param);
+             //convert many whitespace chars into one
+             $param = preg_replace('/\s+/', ' ', $param);
+@@ -803,7 +802,6 @@ function clean_param($param, $type) {
+             $param = $textlib->substr(trim($param), 0, TAG_MAX_LENGTH);
+             return $param;
+ 
+-
+         case PARAM_TAGLIST:
+             $tags = explode(',', $param);
+             $result = array();
+diff --git a/tag/edit.php b/tag/edit.php
+index 3b41373d45..306d5576a5 100644
+--- a/tag/edit.php
++++ b/tag/edit.php
+@@ -55,7 +55,9 @@ $PAGE->set_context($systemcontext);
+ $PAGE->set_blocks_editing_capability('moodle/tag:editblocks');
+ $PAGE->set_pagelayout('base');
+ 
++$PAGE->requires->yui2_lib('connection');
+ $PAGE->requires->yui2_lib('animation');
++$PAGE->requires->yui2_lib('datasource');
+ $PAGE->requires->yui2_lib('autocomplete');
+ 
+ $tagname = tag_display_name($tag);
+diff --git a/tag/lib.php b/tag/lib.php
+index 00533d7134..ae9e4c0c64 100644
+--- a/tag/lib.php
++++ b/tag/lib.php
+@@ -599,7 +599,7 @@ function tag_display_name($tagobject, $html=TAG_RETURN_HTML) {
+ 
+     global $CFG;
+ 
+-    if(!isset($tagobject->name)) {
++    if (!isset($tagobject->name)) {
+         return '';
+     }
+ 
+@@ -612,6 +612,9 @@ function tag_display_name($tagobject, $html=TAG_RETURN_HTML) {
+         $tagname = $tagobject->rawname;
+     }
+ 
++    // clean up a bit just in case the rules change again
++    $tagname = clean_param($tagname, PARAM_TAG);
++
+     if ($html == TAG_RETURN_TEXT) {
+         return $tagname;
+     } else { // TAG_RETURN_HTML
+diff --git a/tag/tag_autocomplete.php b/tag/tag_autocomplete.php
+index ce8d23c300..f55c2c3e78 100644
+--- a/tag/tag_autocomplete.php
++++ b/tag/tag_autocomplete.php
+@@ -22,6 +22,8 @@
+  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+  */
+ 
++define('AJAX_SCRIPT', true);
++
+ require_once('../config.php');
+ require_once('lib.php');
+ 
+@@ -35,6 +37,6 @@ $query = optional_param('query', '', PARAM_RAW);
+ 
+ if ($similar_tags = tag_autocomplete($query)) {
+     foreach ($similar_tags as $tag) {
+-        echo $tag->name . "\t" . tag_display_name($tag) . "\n";
++        echo clean_param($tag->name, PARAM_TAG) . "\t" . tag_display_name($tag) . "\n";
+     }
+ }

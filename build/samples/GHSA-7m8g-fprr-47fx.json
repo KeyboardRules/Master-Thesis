@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7m8g-fprr-47fx",
+    "cve":  "CVE-2024-24574",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "5479b4a4603cce71aa7eb4437f1c201153a1f1f5",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/attachments.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/attachments.php"
+                    ],
+    "sink_hit":  true
+}

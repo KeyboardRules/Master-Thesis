@@ -1,0 +1,12 @@
+﻿diff --git a/admin/code/LeftAndMain.php b/admin/code/LeftAndMain.php
+index 226fa5853..9b23f2821 100644
+--- a/admin/code/LeftAndMain.php
++++ b/admin/code/LeftAndMain.php
+@@ -1469,6 +1469,7 @@ class LeftAndMain extends Controller implements PermissionProvider {
+ 	 * @param int $id
+ 	 */
+ 	public function setCurrentPageID($id) {
++		$id = (int)$id;
+ 		Session::set($this->sessionNamespace() . ".currentPage", $id);
+ 	}
+ 

@@ -1,0 +1,43 @@
+﻿{
+    "id":  "GHSA-xg53-mhh9-3cq7",
+    "cve":  "CVE-2025-48206",
+    "cwe":  "CWE-79",
+    "repo":  "nitsan-technologies/ns_backup",
+    "sha":  "67b8102a19e8e516dc4228f5c42f9e4fba5046cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Controller/BackupBaseController.php",
+                        "Classes/Controller/BackupglobalController.php",
+                        "Classes/Controller/BackupsController.php",
+                        "Classes/Domain/Model/Backupglobal.php",
+                        "Configuration/Backend/Modules.php",
+                        "Configuration/TCA/tx_nsbackup_domain_model_backupglobal.php",
+                        "ext_emconf.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "Classes/Controller/BackupBaseController.php class extends ActionController",
+                     "Classes/Controller/BackupglobalController.php class extends ActionController",
+                     "Classes/Controller/BackupsController.php class extends ActionController",
+                     "Classes/Domain/Model/Backupglobal.php class extends AbstractEntity"
+                 ],
+    "changed_all":  [
+                        "Classes/Controller/BackupBaseController.php",
+                        "Classes/Controller/BackupglobalController.php",
+                        "Classes/Controller/BackupsController.php",
+                        "Classes/Domain/Model/Backupglobal.php",
+                        "Configuration/Backend/Modules.php",
+                        "Configuration/TCA/tx_nsbackup_domain_model_backupglobal.php",
+                        "Resources/Private/Language/locallang.xlf",
+                        "Resources/Private/Language/locallang_db.xlf",
+                        "Resources/Private/Layouts/Default.html",
+                        "Resources/Private/Partials/GlobalSetting/Globalform.html",
+                        "Resources/Private/Templates/Backups/Backuprestore.html",
+                        "Resources/Public/Css/main.css",
+                        "Resources/Public/JavaScript/Main.js",
+                        "ext_emconf.php",
+                        "ext_tables.sql"
+                    ],
+    "sink_hit":  true
+}

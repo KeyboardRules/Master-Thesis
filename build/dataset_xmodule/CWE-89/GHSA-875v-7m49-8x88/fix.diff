@@ -1,0 +1,38 @@
+﻿diff --git a/src/stats/TotalRevenue.php b/src/stats/TotalRevenue.php
+index 794a515..dbdcf36 100644
+--- a/src/stats/TotalRevenue.php
++++ b/src/stats/TotalRevenue.php
+@@ -44,6 +44,11 @@ class TotalRevenue extends Stat
+      */
+     public function getData(): ?array
+     {
++        $allowedTypes = [self::TYPE_TOTAL, self::TYPE_TOTAL_PAID];
++        if (!in_array($this->type, $allowedTypes, true)) {
++            $this->type = self::TYPE_TOTAL;
++        }
++
+         return $this->_createChartQuery(
+             [
+                 new Expression(sprintf('SUM([[%s]]) as revenue', $this->type)),
+diff --git a/src/widgets/TotalRevenue.php b/src/widgets/TotalRevenue.php
+index b57bc0a..34f0190 100644
+--- a/src/widgets/TotalRevenue.php
++++ b/src/widgets/TotalRevenue.php
+@@ -52,6 +52,17 @@ class TotalRevenue extends Widget
+      */
+     private TotalRevenueStat $_stat;
+ 
++    /**
++     * @inheritdoc
++     */
++    protected function defineRules(): array
++    {
++        $rules = parent::defineRules();
++        $rules[] = [['type'], 'in', 'range' => [TotalRevenueStat::TYPE_TOTAL, TotalRevenueStat::TYPE_TOTAL_PAID]];
++
++        return $rules;
++    }
++
+     /**
+      * @inheritDoc
+      */

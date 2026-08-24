@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x2w2-qgv6-8xrm",
+    "cve":  "CVE-2018-16975",
+    "cwe":  "CWE-94",
+    "repo":  "jbroadway/elefant",
+    "sha":  "0795ab57c7ffa53ff4af57e229f6d9680fa54a21",
+    "status":  "ok",
+    "changed_php":  [
+                        "apps/designer/handlers/csspreview.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "apps/designer/handlers/csspreview.php"
+                    ],
+    "sink_hit":  false
+}

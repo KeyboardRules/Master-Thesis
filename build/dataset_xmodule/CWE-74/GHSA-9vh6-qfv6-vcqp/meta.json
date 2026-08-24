@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9vh6-qfv6-vcqp",
+    "cve":  "CVE-2022-23064",
+    "cwe":  "CWE-74",
+    "repo":  "snipe/snipe-it",
+    "fix_commit":  "0c4768fd2a11ac26a61814cef23a71061bfd8bcc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Providers/AppServiceProvider.php"
+                    ],
+    "evidence":  [
+                     "app/Providers/AppServiceProvider.php class extends ServiceProvider"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

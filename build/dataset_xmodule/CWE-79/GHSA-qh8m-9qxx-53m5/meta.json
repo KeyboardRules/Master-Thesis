@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qh8m-9qxx-53m5",
+    "cve":  "CVE-2026-23643",
+    "cwe":  "CWE-79",
+    "repo":  "cakephp/cakephp",
+    "fix_commit":  "c842e7f45d85696e6527d8991dd72f525ced955f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/View/Helper/PaginatorHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/View/Helper/PaginatorHelper.php class extends Helper",
+                     "src/View/Helper/PaginatorHelper.php class uses trait",
+                     "tests/TestCase/View/Helper/PaginatorHelperTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

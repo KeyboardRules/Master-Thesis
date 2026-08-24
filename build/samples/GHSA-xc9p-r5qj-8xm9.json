@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xc9p-r5qj-8xm9",
+    "cve":  "CVE-2023-28108",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "08e7ba56ae983c3c67ec563b6989b16ef8f35275",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/Tool/UUID/Dao.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/Tool/UUID/Dao.php class extends Model\\Dao\\AbstractDao"
+                 ],
+    "changed_all":  [
+                        "models/Tool/UUID/Dao.php"
+                    ],
+    "sink_hit":  false
+}

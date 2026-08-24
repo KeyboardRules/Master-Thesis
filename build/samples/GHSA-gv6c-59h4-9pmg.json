@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gv6c-59h4-9pmg",
+    "cve":  "CVE-2011-4962",
+    "cwe":  "CWE-502",
+    "repo":  "silverstripe/silverstripe-cms",
+    "sha":  "d15e8509b01ff2dbbe3028a055021a29b1065b22",
+    "status":  "ok",
+    "changed_php":  [
+                        "code/sitefeatures/PageCommentInterface.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "code/sitefeatures/PageCommentInterface.php class extends RequestHandler"
+                 ],
+    "changed_all":  [
+                        "code/sitefeatures/PageCommentInterface.php"
+                    ],
+    "sink_hit":  true
+}

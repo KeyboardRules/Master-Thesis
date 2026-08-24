@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-68q3-7wjp-7q3j",
+    "cve":  "CVE-2020-4041",
+    "cwe":  "CWE-79",
+    "repo":  "bolt/bolt",
+    "fix_commit":  "b42cbfcf3e3108c46a80581216ba03ef449e419f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Config.php",
+                        "src/Controller/Async/FilesystemManager.php",
+                        "src/Controller/Frontend.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Controller/Async/FilesystemManager.php class extends AsyncBase",
+                     "src/Controller/Frontend.php class extends ConfigurableBase",
+                     "tests/phpunit/unit/Controller/Async/FilesystemManagerTest.php class extends ControllerUnitTest",
+                     "tests/phpunit/unit/Controller/FrontendTest.php class extends ControllerUnitTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vwfx-hh3w-fj99",
+    "cve":  "CVE-2021-21418",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/ps_emailsubscription",
+    "fix_commit":  "664ffb225e2afb4a32640bbedad667dc6e660b70",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "ps_emailsubscription.php"
+                    ],
+    "evidence":  [
+                     "ps_emailsubscription.php class extends Module"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

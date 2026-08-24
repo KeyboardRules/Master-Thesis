@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j2j9-7pr6-xqwv",
+    "cve":  "CVE-2024-47525",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "7620d220e48563938d869da7689b8ac3f7721490",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/print-alert-rules.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "sink_hit":  true
+}

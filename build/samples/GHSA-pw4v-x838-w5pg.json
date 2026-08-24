@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-pw4v-x838-w5pg",
+    "cve":  "CVE-2026-33292",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "sha":  "bc034066281085af00e64b0d7b81d8a025a928c4",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/video.php",
+                        "view/hls.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "objects/video.php includes 23 project file(s)",
+                     "objects/video.php class extends ObjectYPT",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "objects/video.php",
+                        "view/hls.php"
+                    ],
+    "sink_hit":  true
+}

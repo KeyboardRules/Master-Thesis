@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-35pq-7pv2-2rfw",
+    "cve":  "CVE-2025-24027",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/ps_contactinfo",
+    "fix_commit":  "d60f9a5634b4fc2d3a8831fb08fe2e1f23cbfa39",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "ps_contactinfo.php"
+                    ],
+    "evidence":  [
+                     "ps_contactinfo.php class extends Module"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

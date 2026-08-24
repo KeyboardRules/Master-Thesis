@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vc4f-2g7f-pmqr",
+    "cve":  "CVE-2020-15885",
+    "cwe":  "CWE-79",
+    "repo":  "munkireport/comment",
+    "sha":  "ee4c1cd28fdcb42eb24c0cfea24ddf02478f9869",
+    "status":  "ok",
+    "changed_php":  [
+                        "comment_controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "comment_controller.php class extends Module_controller"
+                 ],
+    "changed_all":  [
+                        ".gitignore",
+                        "comment_controller.php",
+                        "composer.json"
+                    ],
+    "sink_hit":  false
+}

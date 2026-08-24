@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-952p-fqcp-g8pc",
+    "cve":  "CVE-2022-24746",
+    "cwe":  "CWE-79",
+    "repo":  "shopware/platform",
+    "sha":  "651598a61073cbe59368e311817bdc6e7fb349c6",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Checkout/Cart/LineItemFactoryHandler/PromotionLineItemFactory.php",
+                        "src/Core/Checkout/Promotion/Cart/PromotionCollector.php",
+                        "src/Storefront/Controller/CartLineItemController.php",
+                        "src/Storefront/Test/Controller/CartLineItemControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Core/Checkout/Promotion/Cart/PromotionCollector.php class uses trait",
+                     "src/Storefront/Controller/CartLineItemController.php class extends StorefrontController",
+                     "src/Storefront/Test/Controller/CartLineItemControllerTest.php class extends TestCase",
+                     "src/Storefront/Test/Controller/CartLineItemControllerTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "changelog/_unreleased/2022-02-03-add-filtering-to-product-and-promotion-codes.md",
+                        "src/Core/Checkout/Cart/LineItemFactoryHandler/PromotionLineItemFactory.php",
+                        "src/Core/Checkout/DependencyInjection/promotion.xml",
+                        "src/Core/Checkout/Promotion/Cart/PromotionCollector.php",
+                        "src/Storefront/Controller/CartLineItemController.php",
+                        "src/Storefront/DependencyInjection/controller.xml",
+                        "src/Storefront/Test/Controller/CartLineItemControllerTest.php"
+                    ],
+    "sink_hit":  false
+}

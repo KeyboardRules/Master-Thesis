@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-jwg3-v9xm-v6q9",
+    "cve":  "CVE-2019-11201",
+    "cwe":  "CWE-94",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "63c0ab93fb21f86c1b736061af9fa1eee90148fd",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/lib/website.lib.php",
+                        "htdocs/website/index.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/core/lib/website.lib.php includes 10 project file(s)",
+                     "htdocs/website/index.php includes 30 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/lib/website.lib.php",
+                        "htdocs/langs/en_US/website.lang",
+                        "htdocs/website/index.php"
+                    ],
+    "sink_hit":  true
+}

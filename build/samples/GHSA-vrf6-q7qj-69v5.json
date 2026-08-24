@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vrf6-q7qj-69v5",
+    "cve":  "CVE-2014-7835",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "2f87351d5480f562d6811cdf3bea032612e0325e",
+    "status":  "ok",
+    "changed_php":  [
+                        "webservice/upload.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "webservice/upload.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "webservice/upload.php"
+                    ],
+    "sink_hit":  true
+}

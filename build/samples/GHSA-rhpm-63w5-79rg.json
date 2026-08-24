@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rhpm-63w5-79rg",
+    "cve":  "CVE-2024-23173",
+    "cwe":  "CWE-79",
+    "repo":  "wikimedia/mediawiki-extensions-Cargo",
+    "sha":  "e4f0b7fb11da0e4b18f2c416101965e417ba3bd2",
+    "status":  "ok",
+    "changed_php":  [
+                        "drilldown/CargoAppliedFilter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "drilldown/CargoAppliedFilter.php"
+                    ],
+    "sink_hit":  false
+}

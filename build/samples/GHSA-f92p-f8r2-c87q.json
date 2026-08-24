@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-f92p-f8r2-c87q",
+    "cve":  "CVE-2020-36608",
+    "cwe":  "CWE-79",
+    "repo":  "TribalSystems/Zenario",
+    "sha":  "dfd0afacb26c3682a847bea7b49ea440b63f3baa",
+    "status":  "ok",
+    "changed_php":  [
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/welcome.php",
+                        "zenario/modules/zenario_forum/module_code.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "zenario/autoload/welcome.php includes 3 project file(s)",
+                     "zenario/modules/zenario_forum/module_code.php class extends zenario_comments",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/welcome.php",
+                        "zenario/js/admin_organizer.js",
+                        "zenario/js/admin_organizer.min.js",
+                        "zenario/modules/zenario_forum/module_code.php",
+                        "zenario/styles/admin_organizer.css",
+                        "zenario/styles/admin_organizer.min.css"
+                    ],
+    "sink_hit":  true
+}

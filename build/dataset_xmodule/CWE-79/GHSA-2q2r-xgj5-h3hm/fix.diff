@@ -1,0 +1,26 @@
+﻿diff --git a/pi_results/class.tx_solr_pi_results_formcommand.php b/pi_results/class.tx_solr_pi_results_formcommand.php
+index 5325c77..cf11ffc 100644
+--- a/pi_results/class.tx_solr_pi_results_formcommand.php
++++ b/pi_results/class.tx_solr_pi_results_formcommand.php
+@@ -50,7 +50,7 @@ class tx_solr_pi_results_FormCommand implements tx_solr_Command {
+ 
+ 		$testSearchWord = t3lib_div::GParrayMerged('tx_solr');
+ 		if (trim($testSearchWord['q'])) {
+-			$searchWord = trim($testSearchWord['q']);
++			$searchWord = t3lib_div::removeXSS(trim($testSearchWord['q']));
+ 		}
+ 
+ 		$marker = array(
+diff --git a/pi_results/class.tx_solr_pi_results_noresultscommand.php b/pi_results/class.tx_solr_pi_results_noresultscommand.php
+index e368d3b..6696c7c 100644
+--- a/pi_results/class.tx_solr_pi_results_noresultscommand.php
++++ b/pi_results/class.tx_solr_pi_results_noresultscommand.php
+@@ -42,7 +42,7 @@ class tx_solr_pi_results_NoResultsCommand implements tx_solr_Command {
+ 	}
+ 
+ 	public function execute() {
+-		$searchWord = trim($this->parentPlugin->piVars['q']);
++		$searchWord = t3lib_div::removeXSS(trim($this->parentPlugin->piVars['q']));
+ 
+ 		$nothingFound = strtr(
+ 			$this->parentPlugin->pi_getLL('no_results_nothing_found'),

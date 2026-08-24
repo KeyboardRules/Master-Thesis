@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jvc5-6g7q-c843",
+    "cve":  "CVE-2026-48030",
+    "cwe":  "CWE-78",
+    "repo":  "pheditor/pheditor",
+    "sha":  "62b43df7cb8956a9b0deb9bec278ca8676c890c5",
+    "status":  "ok",
+    "changed_php":  [
+                        "pheditor.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "pheditor.php"
+                    ],
+    "sink_hit":  true
+}

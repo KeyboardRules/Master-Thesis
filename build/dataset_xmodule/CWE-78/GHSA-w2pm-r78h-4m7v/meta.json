@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w2pm-r78h-4m7v",
+    "cve":  "CVE-2020-19316",
+    "cwe":  "CWE-78",
+    "repo":  "laravel/framework",
+    "fix_commit":  "44c3feb604944599ad1c782a9942981c3991fa31",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Illuminate/Filesystem/Filesystem.php"
+                    ],
+    "evidence":  [
+                     "src/Illuminate/Filesystem/Filesystem.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

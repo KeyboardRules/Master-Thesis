@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-g9cm-rxp7-6gv5",
+    "cve":  "CVE-2026-43876",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "078c4342eb9969a70425a9cdca3eefa7f8a86d53",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/notifySubscribers.json.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "objects/notifySubscribers.json.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "objects/notifySubscribers.json.php"
+                    ],
+    "sink_hit":  true
+}

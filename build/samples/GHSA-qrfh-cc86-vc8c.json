@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qrfh-cc86-vc8c",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "Leantime/leantime",
+    "sha":  "3f8b2c6346111694bb18cec558b27c22d3a2b9d1",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Domain/Users/Templates/editUser.tpl.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Domain/Users/Templates/editUser.tpl.php"
+                    ],
+    "sink_hit":  true
+}

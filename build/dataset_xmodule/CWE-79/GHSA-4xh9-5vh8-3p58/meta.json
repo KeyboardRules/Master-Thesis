@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4xh9-5vh8-3p58",
+    "cve":  "CVE-2017-7271",
+    "cwe":  "CWE-79",
+    "repo":  "yiisoft/yii2",
+    "fix_commit":  "97171a0db7cda0a49931ee0c3b998ef50bd06756",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "framework/web/ErrorHandler.php"
+                    ],
+    "evidence":  [
+                     "framework/web/ErrorHandler.php class extends \\yii\\base\\ErrorHandler"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

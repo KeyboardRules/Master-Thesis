@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mwqm-4fw3-cjvr",
+    "cve":  "CVE-2026-49216",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/ux",
+    "fix_commit":  "842ae54bc74de389299f975f01aafae272cb0019",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Autocomplete/src/Form/AutocompleteChoiceTypeExtension.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Autocomplete/src/Form/AutocompleteChoiceTypeExtension.php class extends AbstractTypeExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

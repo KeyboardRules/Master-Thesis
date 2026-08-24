@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-7crj-24g3-g7h7",
+    "cve":  "CVE-2024-21514",
+    "cwe":  "CWE-89",
+    "repo":  "opencart/opencart",
+    "fix_commit":  "46bd5f5a8056ff9aad0aa7d71729c4cf593d67e2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "upload/admin/controller/extension/module/divido_calculator.php",
+                        "upload/admin/controller/extension/payment/divido.php",
+                        "upload/admin/language/en-gb/extension/module/divido_calculator.php",
+                        "upload/admin/language/en-gb/extension/payment/divido.php",
+                        "upload/admin/model/extension/payment/divido.php",
+                        "upload/catalog/controller/extension/module/divido_calculator.php",
+                        "upload/catalog/controller/extension/payment/divido.php",
+                        "upload/catalog/language/en-gb/extension/module/divido_calculator.php",
+                        "upload/catalog/language/en-gb/extension/payment/divido.php",
+                        "upload/catalog/model/extension/payment/divido.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "upload/admin/controller/extension/module/divido_calculator.php class extends Controller",
+                     "upload/admin/controller/extension/payment/divido.php class extends Controller",
+                     "upload/admin/model/extension/payment/divido.php class extends Model",
+                     "upload/catalog/controller/extension/module/divido_calculator.php class extends Controller",
+                     "upload/catalog/controller/extension/payment/divido.php class extends Controller",
+                     "upload/catalog/model/extension/payment/divido.php class extends Model"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

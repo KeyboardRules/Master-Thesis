@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-44p8-c3wv-f28r",
+    "cve":  "CVE-2018-9110",
+    "cwe":  "CWE-22",
+    "repo":  "Studio-42/elFinder",
+    "sha":  "e6351557b86cc10a7651253d2d2aff7f6b918f8e",
+    "status":  "ok",
+    "changed_php":  [
+                        "php/elFinder.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "php/elFinder.class.php includes 2 project file(s)",
+                     "php/elFinder.class.php class extends Exception"
+                 ],
+    "changed_all":  [
+                        "php/elFinder.class.php"
+                    ],
+    "sink_hit":  true
+}

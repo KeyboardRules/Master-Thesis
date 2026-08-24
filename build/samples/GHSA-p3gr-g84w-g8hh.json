@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p3gr-g84w-g8hh",
+    "cve":  "CVE-2026-33480",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "75ce8a579a58c9d4c7aafe453fbced002cb8f373",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "objects/functions.php includes 26 project file(s)"
+                 ],
+    "changed_all":  [
+                        "objects/functions.php"
+                    ],
+    "sink_hit":  true
+}

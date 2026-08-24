@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-8j8w-wwqc-x596",
+    "cve":  "CVE-2025-49113",
+    "cwe":  "CWE-502",
+    "repo":  "roundcube/roundcubemail",
+    "fix_commit":  "0376f69e958a8fef7f6f09e352c541b4e7729c4d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "program/actions/settings/upload.php",
+                        "program/lib/Roundcube/rcube_utils.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "program/actions/settings/upload.php class extends rcmail_action",
+                     "tests/Framework/Utils.php class extends PHPUnit\\Framework\\TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vqcm-r62w-w437",
+    "cve":  "CVE-2011-2505",
+    "cwe":  "CWE-94",
+    "repo":  "phpmyadmin/composer",
+    "sha":  "7ebd958b2bf59f96fecd5b3322bdbd0b244a7967",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/auth/swekey/swekey.auth.lib.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "libraries/auth/swekey/swekey.auth.lib.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "libraries/auth/swekey/swekey.auth.lib.php"
+                    ],
+    "sink_hit":  false
+}

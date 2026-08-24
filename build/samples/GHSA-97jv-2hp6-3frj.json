@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-97jv-2hp6-3frj",
+    "cve":  "CVE-2018-19998",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "2b088a73c121a52e006c0d76ea4da7ffeb7b4f4a",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/user/card.php",
+                        "htdocs/user/class/user.class.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/user/card.php includes 25 project file(s)",
+                     "htdocs/user/class/user.class.php includes 8 project file(s)",
+                     "htdocs/user/class/user.class.php class extends CommonObject"
+                 ],
+    "changed_all":  [
+                        "htdocs/user/card.php",
+                        "htdocs/user/class/user.class.php"
+                    ],
+    "sink_hit":  true
+}

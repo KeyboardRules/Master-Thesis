@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-76c2-3q6g-xvpm",
+    "cve":  "CVE-2026-4175",
+    "cwe":  "CWE-79",
+    "repo":  "aureuserp/aureuserp",
+    "sha":  "2135ee7efff4090e70050b63015ab5e268760ec8",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugins/webkul/accounts/resources/views/mail/invoice/actions/invoice.blade.php",
+                        "plugins/webkul/blogs/resources/views/filament/customer/resources/post/pages/view-record.blade.php",
+                        "plugins/webkul/chatter/resources/views/filament/infolists/components/activities/content-text-entry.blade.php",
+                        "plugins/webkul/chatter/resources/views/filament/infolists/components/messages/content-text-entry.blade.php",
+                        "plugins/webkul/chatter/resources/views/mail/follower-mail.blade.php",
+                        "plugins/webkul/chatter/resources/views/mail/message-mail.blade.php",
+                        "plugins/webkul/sales/resources/views/mails/sale-order-cancel-quotation.blade.php",
+                        "plugins/webkul/sales/resources/views/mails/sale-order-quotation.blade.php",
+                        "plugins/webkul/website/resources/views/filament/customer/resources/page/pages/view-record.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 9 php files"
+                 ],
+    "changed_all":  [
+                        "plugins/webkul/accounts/resources/views/mail/invoice/actions/invoice.blade.php",
+                        "plugins/webkul/blogs/resources/views/filament/customer/resources/post/pages/view-record.blade.php",
+                        "plugins/webkul/chatter/resources/views/filament/infolists/components/activities/content-text-entry.blade.php",
+                        "plugins/webkul/chatter/resources/views/filament/infolists/components/messages/content-text-entry.blade.php",
+                        "plugins/webkul/chatter/resources/views/mail/follower-mail.blade.php",
+                        "plugins/webkul/chatter/resources/views/mail/message-mail.blade.php",
+                        "plugins/webkul/sales/resources/views/mails/sale-order-cancel-quotation.blade.php",
+                        "plugins/webkul/sales/resources/views/mails/sale-order-quotation.blade.php",
+                        "plugins/webkul/website/resources/views/filament/customer/resources/page/pages/view-record.blade.php"
+                    ],
+    "sink_hit":  false
+}

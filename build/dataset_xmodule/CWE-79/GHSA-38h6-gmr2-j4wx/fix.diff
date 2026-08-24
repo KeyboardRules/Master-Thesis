@@ -1,0 +1,13 @@
+﻿diff --git a/code/CapturedFormSubmission.php b/code/CapturedFormSubmission.php
+index fe44dab..9636a4d 100644
+--- a/code/CapturedFormSubmission.php
++++ b/code/CapturedFormSubmission.php
+@@ -88,7 +88,7 @@ class CapturedFormSubmission extends DataObject implements PermissionProvider
+ 
+ 			if(!$field->Value) continue;
+ 
+-			$htmlEnt = '<strong>'. $field->Title .'</strong>: '. $field->Value;
++			$htmlEnt = '<strong>'. $field->Title .'</strong>: '. $field->dbObject('Value')->XML();
+ 			array_push($toAdd, $htmlEnt);
+ 
+ 		}

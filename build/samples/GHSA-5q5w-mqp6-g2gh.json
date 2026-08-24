@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5q5w-mqp6-g2gh",
+    "cve":  "CVE-2022-0472",
+    "cwe":  "CWE-434",
+    "repo":  "jsdecena/laracom",
+    "sha":  "256026193ce994dc4c1365e02f414d8a0cd77ae8",
+    "status":  "ok",
+    "changed_php":  [
+                        "project/app/Shop/Products/Requests/UpdateProductRequest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "project/app/Shop/Products/Requests/UpdateProductRequest.php class extends BaseFormRequest"
+                 ],
+    "changed_all":  [
+                        "project/app/Shop/Products/Requests/UpdateProductRequest.php"
+                    ],
+    "sink_hit":  false
+}

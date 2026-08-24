@@ -1,0 +1,22 @@
+﻿diff --git a/app/admin/controller/api/Update.php b/app/admin/controller/api/Update.php
+index 74ca70e..add99a6 100644
+--- a/app/admin/controller/api/Update.php
++++ b/app/admin/controller/api/Update.php
+@@ -38,13 +38,13 @@ class Update extends Controller
+     }
+ 
+     /**
+-     * 获取文件列表
++     * 读取文件列表
+      */
+-    public function tree()
++    public function node()
+     {
+         $this->success('获取文件列表成功！', InstallService::instance()->getList(
+-            unserialize($this->request->post('rules', 'a:0:{}', ''), ['allowed_classes' => false]),
+-            unserialize($this->request->post('ignore', 'a:0:{}', ''), ['allowed_classes' => false])
++            json_decode($this->request->post('rules', '[]', ''), true),
++            json_decode($this->request->post('ignore', '[]', ''), true)
+         ));
+     }
+ 

@@ -1,0 +1,82 @@
+﻿diff --git a/common/config/main.php b/common/config/main.php
+index 3656f5e..d9c6d13 100644
+--- a/common/config/main.php
++++ b/common/config/main.php
+@@ -31,6 +31,9 @@ return [
+             'password' => '',
+             'charset' => '',
+         ],
++        'response' => [
++            'class' => common\components\Response::className(),
++        ],
+         'cdn' => [//support Qiniu(七牛) TencentCloud(腾讯云) Aliyun(阿里云) Netease(网易云) more detail for visit http://doc.feehi.com/cdn.html
+             'class' => feehi\cdn\DummyTarget::className(),//DummyTarget will not use and cdn
+         ],
+diff --git a/common/mail/backend/passwordResetToken-html.php b/common/mail/backend/passwordResetToken-html.php
+index 233d2c2..67701dd 100644
+--- a/common/mail/backend/passwordResetToken-html.php
++++ b/common/mail/backend/passwordResetToken-html.php
+@@ -1,10 +1,11 @@
+ <?php
+ use yii\helpers\Html;
++use common\helpers\Util;
+ 
+ /* @var $this yii\web\View */
+-/* @var $user backend\models\AdminUser */
++/* @var $user common\models\AdminUser */
+ 
+-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['admin-user/reset-password', 'token' => $user->password_reset_token]);
++$resetLink = Util::assembleAbsoluteURL(['admin-user/reset-password', 'token' => $user->password_reset_token]);
+ ?>
+ <div class="password-reset">
+     <p>Hello <?= Html::encode($user->username) ?>,</p>
+diff --git a/common/mail/backend/passwordResetToken-text.php b/common/mail/backend/passwordResetToken-text.php
+index c65db1e..9924ae7 100644
+--- a/common/mail/backend/passwordResetToken-text.php
++++ b/common/mail/backend/passwordResetToken-text.php
+@@ -1,9 +1,10 @@
+ <?php
++use common\helpers\Util;
+ 
+ /* @var $this yii\web\View */
+-/* @var $user backend\models\AdminUser */
++/* @var $user common\models\AdminUser */
+ 
+-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['admin-user/reset-password', 'token' => $user->password_reset_token]);
++$resetLink = Util::assembleAbsoluteURL(['admin-user/reset-password', 'token' => $user->password_reset_token]);
+ ?>
+ Hello <?= $user->username ?>,
+ 
+diff --git a/common/mail/passwordResetToken-html.php b/common/mail/passwordResetToken-html.php
+index 40d2ad9..8a6219d 100644
+--- a/common/mail/passwordResetToken-html.php
++++ b/common/mail/passwordResetToken-html.php
+@@ -1,10 +1,11 @@
+ <?php
+ use yii\helpers\Html;
++use common\helpers\Util;
+ 
+ /* @var $this yii\web\View */
+ /* @var $user common\models\User */
+ 
+-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
++$resetLink = Util::assembleAbsoluteURL(['site/reset-password', 'token' => $user->password_reset_token]);
+ ?>
+ <div class="password-reset">
+     <p>Hello <?= Html::encode($user->username) ?>,</p>
+diff --git a/common/mail/passwordResetToken-text.php b/common/mail/passwordResetToken-text.php
+index 29c09f0..33fea6d 100644
+--- a/common/mail/passwordResetToken-text.php
++++ b/common/mail/passwordResetToken-text.php
+@@ -1,9 +1,10 @@
+ <?php
++use common\helpers\Util;
+ 
+ /* @var $this yii\web\View */
+ /* @var $user common\models\User */
+ 
+-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
++$resetLink = Util::assembleAbsoluteURL(['site/reset-password', 'token' => $user->password_reset_token]);
+ ?>
+ Hello <?= $user->username ?>,
+ 

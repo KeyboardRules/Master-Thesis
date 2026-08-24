@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m3xv-x3ph-mq22",
+    "cve":  "CVE-2021-44618",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "sha":  "0c5c0c0e0cb61000d12ec55ebf174745a5bf6469",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/UrlHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/helpers/UrlHelper.php class extends CraftUrlHelper"
+                 ],
+    "changed_all":  [
+                        "src/helpers/UrlHelper.php"
+                    ],
+    "sink_hit":  false
+}

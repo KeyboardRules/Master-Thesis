@@ -1,0 +1,13 @@
+﻿diff --git a/src/Carbon/AbstractTranslator.php b/src/Carbon/AbstractTranslator.php
+index d56ec79..8dd47ae 100644
+--- a/src/Carbon/AbstractTranslator.php
++++ b/src/Carbon/AbstractTranslator.php
+@@ -157,6 +157,8 @@ abstract class AbstractTranslator extends Translation\Translator
+             return true;
+         }
+ 
++        $this->assertValidLocale($locale);
++
+         foreach ($this->getDirectories() as $directory) {
+             $data = @include \sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+ 

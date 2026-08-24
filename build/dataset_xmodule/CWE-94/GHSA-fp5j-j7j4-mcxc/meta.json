@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fp5j-j7j4-mcxc",
+    "cve":  "CVE-2026-31857",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "8d4903647dcfd31b8d40ed027e27082013347a80",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/base/conditions/BaseElementSelectConditionRule.php"
+                    ],
+    "evidence":  [
+                     "src/base/conditions/BaseElementSelectConditionRule.php class extends BaseConditionRule"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

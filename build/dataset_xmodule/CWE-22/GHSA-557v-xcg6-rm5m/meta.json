@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-557v-xcg6-rm5m",
+    "cve":  "CVE-2023-51651,CVE-2025-69820",
+    "cwe":  "CWE-22",
+    "repo":  "aws/aws-sdk-php",
+    "fix_commit":  "aebc9f801438746ac4ade327551576cb75f635f2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Api/Serializer/RestSerializer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Api/Serializer/RestSerializer.php class uses trait",
+                     "tests/S3/S3ClientTest.php class extends TestCase",
+                     "tests/S3/S3ClientTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

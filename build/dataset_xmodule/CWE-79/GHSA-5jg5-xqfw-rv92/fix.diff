@@ -1,0 +1,147 @@
+﻿diff --git a/src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php b/src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php
+index 3b3bea7ac7..f8b1e77f0b 100644
+--- a/src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php
++++ b/src/MicroweberPackages/Order/Http/Controllers/Admin/AbandonedOrderController.php
+@@ -19,11 +19,20 @@ class AbandonedOrderController extends AdminController
+         $orderDirection = $request->get('orderDirection', 'desc');
+         $priceBetween = $request->get('priceBetween', false);
+ 
++
++
++
++
+         $keyword = $request->get('keyword', '');
+         if (!empty($keyword)) {
+             $filteringResults = true;
+         }
+ 
++        $orderBy = xss_clean($orderBy);
++        $orderDirection = xss_clean($orderDirection);
++        $priceBetween = xss_clean($priceBetween);
++        $keyword = xss_clean($keyword);
++
+         $orders = Cart::filter($request->all())
+             ->where('order_completed', '=', '0')
+             ->groupBy('session_id')
+diff --git a/src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php b/src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php
+index 7917edee42..58a8bf92e6 100644
+--- a/src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php
++++ b/src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php
+@@ -618,6 +618,7 @@ class MwHtmlSanitizerReference
+         'onwebkitanimationiteration',
+         'onwebkitanimationstart',
+         'onwebkittransitionend',
++        'oncontentvisibilityautostatechange',
+         'onwheel',
+     ];
+ 
+diff --git a/userfiles/modules/categories/edit_category.php b/userfiles/modules/categories/edit_category.php
+index cb89f22fc1..c24d095690 100644
+--- a/userfiles/modules/categories/edit_category.php
++++ b/userfiles/modules/categories/edit_category.php
+@@ -51,7 +51,7 @@ if (route_is('admin.shop.category.edit')) {
+ }
+ 
+ if (isset($_GET['rel_id'])) {
+-    $data['rel_id'] = $_GET['rel_id'];
++    $data['rel_id'] = xss_clean($_GET['rel_id']);
+ }
+ 
+ if (isset($params['parent_page_id'])) {
+@@ -99,8 +99,6 @@ if ($creteCategoryIn == 'shop') {
+     }
+ }
+ 
+-
+-
+ ?>
+ <style>
+ 
+diff --git a/userfiles/modules/content/controllers/Edit.php b/userfiles/modules/content/controllers/Edit.php
+index 8201180636..4bec8a6513 100644
+--- a/userfiles/modules/content/controllers/Edit.php
++++ b/userfiles/modules/content/controllers/Edit.php
+@@ -71,6 +71,7 @@ class Edit
+         }
+ 
+ 
++
+         //	if (isset($params['is_shop'])) {
+ //            if (trim($params['is_shop']) == 'y') {
+ //				$params['is_shop'] = 1;
+@@ -118,7 +119,7 @@ class Edit
+ 
+         $recommended_parent = false;
+ 
+-        if (isset($params['recommended_parent']) and $params['recommended_parent'] != false) {
++        if (isset($params['recommended_parent']) and $params['recommended_parent']) {
+             $recommended_parent = $params['recommended_parent'];
+         } elseif (isset($params['parent']) and $params['parent'] != false) {
+             $recommended_parent = $params['parent'];
+diff --git a/userfiles/modules/content/views/edit_default.php b/userfiles/modules/content/views/edit_default.php
+index dc97812c1d..2736140807 100644
+--- a/userfiles/modules/content/views/edit_default.php
++++ b/userfiles/modules/content/views/edit_default.php
+@@ -34,8 +34,8 @@ if (isset($params['quick_edit']) and $params['quick_edit']) {
+ //dump($data);
+ if (isset($data['content_type']) and ($data['content_type'] == 'page') and $data['id'] == 0) {
+     if (isset($_GET['layout'])) {
+-        $data['layout_file'] = (string)$_GET['layout'];
+-        $data['preview_layout_file'] = (string)$_GET['layout'];
++        $data['layout_file'] =  xss_clean($_GET['layout']);
++        $data['preview_layout_file'] =  xss_clean($_GET['layout']);
+ 
+ 
+         $layout_details_for_new_page = app()->layouts_manager->get_layout_details([
+diff --git a/userfiles/modules/settings/admin.php b/userfiles/modules/settings/admin.php
+index 8fd3aae3f1..70d6823fd5 100644
+--- a/userfiles/modules/settings/admin.php
++++ b/userfiles/modules/settings/admin.php
+@@ -18,6 +18,7 @@ if (isset($_GET['group'])) {
+ } else if (isset($_GET['option_group'])) {
+     $show_group = $_GET['option_group'];
+ }
++$show_group = xss_clean($show_group);
+ ?>
+ 
+ <script type="text/javascript">
+diff --git a/userfiles/modules/settings/group/website_group/index.php b/userfiles/modules/settings/group/website_group/index.php
+index 1950118b48..604e7ef4a4 100644
+--- a/userfiles/modules/settings/group/website_group/index.php
++++ b/userfiles/modules/settings/group/website_group/index.php
+@@ -11,7 +11,6 @@ $show_inner = false;
+ 
+ if (isset($_GET['group']) and $_GET['group']) {
+     $group = $_GET['group'];
+-
+     if ($group == 'general') {
+         $show_inner = 'settings/group/website';
+     } elseif ($group == 'updates') {
+@@ -38,10 +37,27 @@ if (isset($_GET['group']) and $_GET['group']) {
+         $show_inner = false;
+         $show_inner = $group;
+     }
++
++
+ }
++
++
++
++
++
++
++
+ ?>
+ 
+ <?php if ($show_inner): ?>
++<?php
++
++    $show_inner = xss_clean($show_inner);
++
++    ?>
++
++
++
+ 
+        <module type="admin/modules/info" back_button_url="settings" />
+ 

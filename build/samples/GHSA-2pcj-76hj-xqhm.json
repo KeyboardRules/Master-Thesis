@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2pcj-76hj-xqhm",
+    "cve":  "CVE-2016-10131",
+    "cwe":  "CWE-74",
+    "repo":  "bcit-ci/CodeIgniter",
+    "sha":  "8db01f13809a92bac7bc95b02893175d7654d627",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/libraries/Email.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "system/libraries/Email.php",
+                        "user_guide_src/source/changelog.rst"
+                    ],
+    "sink_hit":  false
+}

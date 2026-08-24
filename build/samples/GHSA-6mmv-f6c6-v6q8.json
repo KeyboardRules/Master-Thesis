@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6mmv-f6c6-v6q8",
+    "cve":  "CVE-2025-67850",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "c85f153068a717a3b28bc122e75154bac99e67e1",
+    "status":  "ok",
+    "changed_php":  [
+                        "public/lib/editor/tiny/plugins/equation/classes/external/filter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "public/lib/editor/tiny/plugins/equation/classes/external/filter.php class extends external_api"
+                 ],
+    "changed_all":  [
+                        "public/lib/editor/tiny/plugins/equation/amd/build/repository.min.js",
+                        "public/lib/editor/tiny/plugins/equation/amd/build/repository.min.js.map",
+                        "public/lib/editor/tiny/plugins/equation/amd/build/ui.min.js",
+                        "public/lib/editor/tiny/plugins/equation/amd/build/ui.min.js.map",
+                        "public/lib/editor/tiny/plugins/equation/amd/src/repository.js",
+                        "public/lib/editor/tiny/plugins/equation/amd/src/ui.js",
+                        "public/lib/editor/tiny/plugins/equation/classes/external/filter.php"
+                    ],
+    "sink_hit":  false
+}

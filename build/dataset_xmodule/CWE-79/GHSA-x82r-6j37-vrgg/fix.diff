@@ -1,0 +1,13 @@
+﻿diff --git a/src/Controller/Admin/EmailController.php b/src/Controller/Admin/EmailController.php
+index 1d67bb606..dd0e6aaa1 100644
+--- a/src/Controller/Admin/EmailController.php
++++ b/src/Controller/Admin/EmailController.php
+@@ -370,7 +370,7 @@ class EmailController extends AdminAbstractController
+         $mail = new Mail();
+ 
+         if ($request->get('emailType') == 'text') {
+-            $mail->text($request->get('content'));
++            $mail->text(strip_tags($request->get('content')));
+         } elseif ($request->get('emailType') == 'html') {
+             $mail->html($request->get('content'));
+         } elseif ($request->get('emailType') == 'document') {

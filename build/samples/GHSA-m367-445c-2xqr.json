@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m367-445c-2xqr",
+    "cve":  "CVE-2025-3642",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "630fbf6230ee18d63ce69bea34173fb151b599da",
+    "status":  "ok",
+    "changed_php":  [
+                        "repository/equella/lib.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "repository/equella/lib.php includes 2 project file(s)",
+                     "repository/equella/lib.php class extends repository"
+                 ],
+    "changed_all":  [
+                        "repository/equella/lib.php"
+                    ],
+    "sink_hit":  false
+}

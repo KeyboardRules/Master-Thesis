@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2xw8-j43j-5vxp",
+    "cve":  "CVE-2021-4072",
+    "cwe":  "CWE-79",
+    "repo":  "elgg/elgg",
+    "sha":  "c30b17bf75256ed3fcc84e2083147cc3951423d0",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/reportedcontent/actions/reportedcontent/add.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "mod/reportedcontent/actions/reportedcontent/add.php"
+                    ],
+    "sink_hit":  false
+}

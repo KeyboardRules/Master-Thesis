@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gg4j-279j-22ph",
+    "cve":  "CVE-2019-15074",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "9cee1971c498bbe0a72bca1c773fae50171d8c27",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/classes/IssueAttachmentTimelineEvent.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core/classes/IssueAttachmentTimelineEvent.class.php class extends TimelineEvent"
+                 ],
+    "changed_all":  [
+                        "core/classes/IssueAttachmentTimelineEvent.class.php"
+                    ],
+    "sink_hit":  false
+}

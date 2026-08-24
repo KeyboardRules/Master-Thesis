@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-m4q3-832v-44j6",
+    "cve":  "CVE-2025-14675",
+    "cwe":  "CWE-22",
+    "repo":  "wpmetabox/meta-box",
+    "fix_commit":  "08c6511607b9cc9fe8d0de7a7e91c9d5d415f831",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "inc/fields/file.php",
+                        "inc/sanitizer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "inc/fields/file.php class extends RWMB_Field"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

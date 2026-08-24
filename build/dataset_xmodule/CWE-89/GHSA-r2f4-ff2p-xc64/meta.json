@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-r2f4-ff2p-xc64",
+    "cve":  "CVE-2026-5394",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "6df625ff74015dc11f4bbe76170ce45bbd5dd61d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition.php",
+                        "models/DataObject/Traits/CompositeIndexTrait.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "models/DataObject/ClassDefinition.php class extends Model\\AbstractModel",
+                     "models/DataObject/ClassDefinition.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

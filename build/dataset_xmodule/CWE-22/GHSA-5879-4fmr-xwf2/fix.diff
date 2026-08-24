@@ -1,0 +1,14 @@
+﻿diff --git a/plugin/CloneSite/cloneServer.json.php b/plugin/CloneSite/cloneServer.json.php
+index 827bd0000..52acb2853 100644
+--- a/plugin/CloneSite/cloneServer.json.php
++++ b/plugin/CloneSite/cloneServer.json.php
+@@ -47,7 +47,8 @@ if (!empty($_GET['deleteDump'])) {
+     $filePath = "{$clonesDir}{$deleteDump}";
+     $realFilePath = realpath($filePath);
+     $realClonesDir = realpath($clonesDir);
+-    if ($realFilePath === false || $realClonesDir === false || strpos($realFilePath, $realClonesDir) !== 0) {
++    $realClonesDirPrefix = rtrim($realClonesDir, '/\\') . DIRECTORY_SEPARATOR;
++    if ($realFilePath === false || $realClonesDir === false || strpos($realFilePath, $realClonesDirPrefix) !== 0) {
+         $resp->msg = "Invalid file path";
+         die(json_encode($resp));
+     }

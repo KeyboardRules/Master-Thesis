@@ -1,0 +1,15 @@
+﻿diff --git a/src/services/Helper.php b/src/services/Helper.php
+index 8cac242..c1aded8 100644
+--- a/src/services/Helper.php
++++ b/src/services/Helper.php
+@@ -148,9 +148,8 @@ class Helper extends Component
+         } catch (InvalidConfigException $e) {
+             Craft::error($e->getMessage(), __METHOD__);
+         }
+-        $url = DynamicMetaHelper::sanitizeUrl($url);
+ 
+-        return UrlHelper::absoluteUrlWithProtocol($url);
++        return DynamicMetaHelper::sanitizeUrl(UrlHelper::absoluteUrlWithProtocol($url));
+     }
+ 
+     /**

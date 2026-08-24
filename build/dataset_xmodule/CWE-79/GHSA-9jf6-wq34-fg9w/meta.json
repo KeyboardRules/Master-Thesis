@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-9jf6-wq34-fg9w",
+    "cve":  "CVE-2019-14881",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "7455b741c954af3c3e7dfda2972edc1146ea1562",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "admin/roles/admins.php",
+                        "admin/tool/dataprivacy/classes/external.php",
+                        "admin/user.php",
+                        "admin/user/user_bulk_cohortadd.php",
+                        "admin/user/user_bulk_display.php",
+                        "enrol/locallib.php",
+                        "grade/report/grader/lib.php",
+                        "login/index.php",
+                        "report/security/locallib.php",
+                        "user/selector/lib.php",
+                        "webservice/renderer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "admin/roles/admins.php includes 2 project file(s)",
+                     "admin/tool/dataprivacy/classes/external.php includes 2 project file(s)",
+                     "admin/tool/dataprivacy/classes/external.php class extends external_api",
+                     "admin/user.php includes 5 project file(s)",
+                     "admin/user/user_bulk_cohortadd.php includes 4 project file(s)",
+                     "admin/user/user_bulk_display.php includes 2 project file(s)",
+                     "enrol/locallib.php class extends single_button",
+                     "grade/report/grader/lib.php includes 2 project file(s)",
+                     "grade/report/grader/lib.php class extends grade_report",
+                     "login/index.php includes 4 project file(s)",
+                     "user/selector/lib.php includes 1 project file(s)",
+                     "user/selector/lib.php class extends user_selector_base",
+                     "webservice/renderer.php class extends plugin_renderer_base"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

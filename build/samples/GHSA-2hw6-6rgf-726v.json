@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-2hw6-6rgf-726v",
+    "cve":  "CVE-2015-5337",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "c73f6d03e5037729097bb9f5f5a55be15f3cab18",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/flowplayer/flowplayer-3.2.18.swf.php",
+                        "lib/flowplayer/flowplayer.audio-3.2.11.swf.php",
+                        "lib/flowplayer/flowplayer.controls-3.2.16.swf.php",
+                        "lib/flowplayer/lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/flowplayer/flowplayer-3.2.18.swf",
+                        "lib/flowplayer/flowplayer-3.2.18.swf.bin",
+                        "lib/flowplayer/flowplayer-3.2.18.swf.php",
+                        "lib/flowplayer/flowplayer.audio-3.2.11.swf",
+                        "lib/flowplayer/flowplayer.audio-3.2.11.swf.bin",
+                        "lib/flowplayer/flowplayer.audio-3.2.11.swf.php",
+                        "lib/flowplayer/flowplayer.controls-3.2.16.swf",
+                        "lib/flowplayer/flowplayer.controls-3.2.16.swf.bin",
+                        "lib/flowplayer/flowplayer.controls-3.2.16.swf.php",
+                        "lib/flowplayer/lib.php",
+                        "lib/flowplayer/readme_moodle.txt",
+                        "lib/javascript-static.js"
+                    ],
+    "sink_hit":  false
+}

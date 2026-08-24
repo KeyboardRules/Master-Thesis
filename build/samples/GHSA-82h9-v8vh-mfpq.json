@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-82h9-v8vh-mfpq",
+    "cve":  "CVE-2022-43983",
+    "cwe":  "CWE-79",
+    "repo":  "spatie/browsershot",
+    "sha":  "92cf16fc098211731f80d21687abeafbe2c457ad",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Browsershot.php",
+                        "src/Exceptions/FileUrlNotAllowed.php",
+                        "src/Helpers.php",
+                        "tests/BrowsershotTest.php",
+                        "tests/HelpersTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 5 php files"
+                 ],
+    "changed_all":  [
+                        "src/Browsershot.php",
+                        "src/Exceptions/FileUrlNotAllowed.php",
+                        "src/Helpers.php",
+                        "tests/BrowsershotTest.php",
+                        "tests/HelpersTest.php"
+                    ],
+    "sink_hit":  false
+}

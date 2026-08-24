@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-x4q5-8j5g-hpjc",
+    "cve":  "CVE-2026-35539",
+    "cwe":  "CWE-79",
+    "repo":  "roundcube/roundcubemail",
+    "sha":  "10a6d1fa8acac85c727b0a6ae4a6642bfa27bea1",
+    "status":  "ok",
+    "changed_php":  [
+                        "program/include/rcmail_action.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "program/include/rcmail_action.php"
+                    ],
+    "sink_hit":  true
+}

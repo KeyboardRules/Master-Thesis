@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-7g7c-qhf3-x59p",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "propelorm/Propel",
+    "fix_commit":  "b72093201f8e225410f62a246653ac039e31c90a",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "generator/lib/behavior/sortable/SortableBehavior.php",
+                        "runtime/lib/adapter/DBMySQL.php",
+                        "runtime/lib/query/Criteria.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "generator/lib/behavior/sortable/SortableBehavior.php includes 4 project file(s)",
+                     "generator/lib/behavior/sortable/SortableBehavior.php class extends Behavior",
+                     "runtime/lib/adapter/DBMySQL.php class extends DBAdapter",
+                     "test/testsuite/runtime/adapter/DBMySQLTest.php includes 1 project file(s)",
+                     "test/testsuite/runtime/adapter/DBMySQLTest.php class extends DBAdapterTestAbstract",
+                     "test/testsuite/runtime/query/CriteriaTest.php includes 1 project file(s)",
+                     "test/testsuite/runtime/query/CriteriaTest.php class extends BookstoreTestBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

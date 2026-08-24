@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-gphj-63h8-r9vq",
+    "cve":  "CVE-2015-1493",
+    "cwe":  "CWE-22",
+    "repo":  "moodle/moodle",
+    "sha":  "0289be1321babfa588fb5b18ebb08a296eed9eee",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/configonlylib.php",
+                        "lib/tests/configonlylib_test.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/tests/configonlylib_test.php includes 1 project file(s)",
+                     "lib/tests/configonlylib_test.php class extends advanced_testcase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/configonlylib.php",
+                        "lib/tests/configonlylib_test.php"
+                    ],
+    "sink_hit":  true
+}

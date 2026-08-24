@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-86hp-xrhj-fhpq",
+    "cve":  "CVE-2019-12747",
+    "cwe":  "CWE-502",
+    "repo":  "TYPO3/typo3",
+    "sha":  "647aa7afa582983cddc547fa106d31e2b1ef34fe",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php",
+                        "typo3/sysext/core/Classes/DataHandling/DataHandler.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "typo3/sysext/core/Classes/DataHandling/DataHandler.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php",
+                        "typo3/sysext/core/Classes/DataHandling/DataHandler.php"
+                    ],
+    "sink_hit":  true
+}

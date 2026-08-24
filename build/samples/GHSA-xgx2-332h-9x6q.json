@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-xgx2-332h-9x6q",
+    "cve":  "CVE-2021-43091",
+    "cwe":  "CWE-89",
+    "repo":  "yeswiki/yeswiki",
+    "sha":  "c9785f9a92744c3475f9676a0d8f95de24750094",
+    "status":  "ok",
+    "changed_php":  [
+                        "actions/listpages.php",
+                        "actions/newtextsearch.php",
+                        "includes/User.class.php",
+                        "tools/bazar/services/FormManager.php",
+                        "tools/security/actions/despam.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "includes/User.class.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "actions/listpages.php",
+                        "actions/newtextsearch.php",
+                        "includes/User.class.php",
+                        "tools/bazar/services/FormManager.php",
+                        "tools/security/actions/despam.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-grvw-qq2j-r898",
+    "cve":  "CVE-2015-5336",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "12c232df76885effa5ebac08e3094d6db5aa9223",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/survey/lib.php",
+                        "mod/survey/report.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/survey/report.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "mod/survey/lib.php",
+                        "mod/survey/report.php"
+                    ],
+    "sink_hit":  true
+}

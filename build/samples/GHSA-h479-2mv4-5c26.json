@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-h479-2mv4-5c26",
+    "cve":  "CVE-2022-39298",
+    "cwe":  "CWE-502",
+    "repo":  "melisplatform/melis-front",
+    "sha":  "89ae612d5f1f7aa2fb621ee8de27dffe1feb851e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/MelisPluginRendererController.php",
+                        "src/Navigation/MelisFrontNavigation.php",
+                        "src/Service/MelisSiteConfigService.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Controller/MelisPluginRendererController.php class extends MelisAbstractActionController",
+                     "src/Navigation/MelisFrontNavigation.php class extends DefaultNavigationFactory",
+                     "src/Service/MelisSiteConfigService.php includes 1 project file(s)",
+                     "src/Service/MelisSiteConfigService.php class extends MelisGeneralService"
+                 ],
+    "changed_all":  [
+                        "src/Controller/MelisPluginRendererController.php",
+                        "src/Navigation/MelisFrontNavigation.php",
+                        "src/Service/MelisSiteConfigService.php"
+                    ],
+    "sink_hit":  true
+}

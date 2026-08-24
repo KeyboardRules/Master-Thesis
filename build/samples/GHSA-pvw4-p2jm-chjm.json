@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-pvw4-p2jm-chjm",
+    "cve":  "CVE-2026-33651",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "sha":  "75d45780728294ededa1e3f842f95295d3e7d144",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/remindMe.json.php",
+                        "plugin/Scheduler/Objects/Scheduler_commands.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/Live/remindMe.json.php includes 1 project file(s)",
+                     "plugin/Scheduler/Objects/Scheduler_commands.php includes 1 project file(s)",
+                     "plugin/Scheduler/Objects/Scheduler_commands.php class extends ObjectYPT",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/remindMe.json.php",
+                        "plugin/Scheduler/Objects/Scheduler_commands.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,13 @@
+﻿diff --git a/app/bundles/DashboardBundle/Controller/DashboardController.php b/app/bundles/DashboardBundle/Controller/DashboardController.php
+index 8c13f6b14..28ca34310 100644
+--- a/app/bundles/DashboardBundle/Controller/DashboardController.php
++++ b/app/bundles/DashboardBundle/Controller/DashboardController.php
+@@ -572,6 +572,7 @@ class DashboardController extends AbstractFormController
+      */
+     private function getNameFromRequest()
+     {
+-        return $this->request->get('name', (new \DateTime())->format('Y-m-dTH:i:s'));
++        $name = $this->request->get('name', (new \DateTime())->format('Y-m-dTH:i:s'));
++        return InputHelper::clean($name);
+     }
+ }

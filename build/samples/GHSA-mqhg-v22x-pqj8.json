@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mqhg-v22x-pqj8",
+    "cve":  "CVE-2026-21449",
+    "cwe":  "CWE-1336",
+    "repo":  "bagisto/bagisto",
+    "sha":  "4144931da0014c696f9126132ce44d7cfbdb2761",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/Webkul/Shop/src/Resources/views/customers/account/profile/index.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "packages/Webkul/Shop/src/Resources/views/customers/account/profile/index.blade.php"
+                    ],
+    "sink_hit":  false
+}

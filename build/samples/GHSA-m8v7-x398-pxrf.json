@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8v7-x398-pxrf",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "a24c8260b1d048dc6a0836eb1be9a1ca2056e770",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/code/LeftAndMain.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "admin/code/LeftAndMain.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "admin/code/LeftAndMain.php"
+                    ],
+    "sink_hit":  false
+}

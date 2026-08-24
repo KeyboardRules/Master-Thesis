@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gg4j-279j-22ph",
+    "cve":  "CVE-2019-15074",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "9cee1971c498bbe0a72bca1c773fae50171d8c27",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core/classes/IssueAttachmentTimelineEvent.class.php"
+                    ],
+    "evidence":  [
+                     "core/classes/IssueAttachmentTimelineEvent.class.php class extends TimelineEvent"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

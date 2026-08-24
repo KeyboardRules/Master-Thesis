@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-59pp-r3rg-353g",
+    "cve":  "CVE-2025-67746",
+    "cwe":  "CWE-74",
+    "repo":  "composer/composer",
+    "sha":  "1d40a95c9d39a6b7f80d404ab30336c586da9917",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Composer/IO/ConsoleIO.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Composer/IO/ConsoleIO.php class extends BaseIO"
+                 ],
+    "changed_all":  [
+                        "src/Composer/IO/ConsoleIO.php"
+                    ],
+    "sink_hit":  false
+}

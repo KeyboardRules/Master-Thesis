@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-534c-hcr7-67jg",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "kimai/kimai",
+    "sha":  "3204dcb03e1003dba90178667a4667ce3edb87b5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Invoice/Renderer/AdvancedValueBinder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Invoice/Renderer/AdvancedValueBinder.php class extends DefaultValueBinder"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "src/Invoice/Renderer/AdvancedValueBinder.php",
+                        "symfony.lock"
+                    ],
+    "sink_hit":  false
+}

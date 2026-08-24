@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-6w8r-xgqq-qg6g",
+    "cve":  "CVE-2025-59397",
+    "cwe":  "CWE-89",
+    "repo":  "Open-Web-Analytics/Open-Web-Analytics",
+    "sha":  "1e5531522acb8f145627c9feb0175cf8a66561ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/base/classes/sanitize.php",
+                        "owa_db.php",
+                        "plugins/db/owa_db_mysql.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "owa_db.php includes 1 project file(s)",
+                     "owa_db.php class extends owa_base",
+                     "plugins/db/owa_db_mysql.php class extends owa_db"
+                 ],
+    "changed_all":  [
+                        "modules/base/classes/sanitize.php",
+                        "owa_db.php",
+                        "plugins/db/owa_db_mysql.php"
+                    ],
+    "sink_hit":  true
+}

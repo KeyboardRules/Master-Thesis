@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-wv23-996v-q229",
+    "cve":  "CVE-2024-56410",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "45052f88e04c735d56457a8ffcdc40b2635a028e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadCustomPropertyTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadHyperlinkBaseTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadHyperlinkTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "changed_all":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadCustomPropertyTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadHyperlinkBaseTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/BadHyperlinkTest.php",
+                        "tests/data/Reader/XLSX/sec-j47r.dontuse",
+                        "tests/data/Reader/XLSX/sec-p66w.dontuse",
+                        "tests/data/Reader/XLSX/sec-q229.dontuse"
+                    ],
+    "sink_hit":  true
+}

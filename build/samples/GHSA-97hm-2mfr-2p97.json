@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-97hm-2mfr-2p97",
+    "cve":  "CVE-2023-3551",
+    "cwe":  "CWE-94",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "cc6abc76aa46ed4a27736c1d2f21e432a5d54e6f",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/libraries/anti-xss-master/src/voku/helper/AntiXSS.php",
+                        "pages/2fa.js.php",
+                        "pages/2fa.php",
+                        "pages/admin.js.php",
+                        "pages/users.js.php",
+                        "sources/logs.datatables.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "pages/2fa.js.php includes 4 project file(s)",
+                     "pages/2fa.php includes 5 project file(s)",
+                     "pages/users.js.php includes 4 project file(s)",
+                     "sources/logs.datatables.php includes 10 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/js/functions.js",
+                        "includes/libraries/anti-xss-master/src/voku/helper/AntiXSS.php",
+                        "pages/2fa.js.php",
+                        "pages/2fa.php",
+                        "pages/admin.js.php",
+                        "pages/users.js.php",
+                        "sources/logs.datatables.php"
+                    ],
+    "sink_hit":  true
+}

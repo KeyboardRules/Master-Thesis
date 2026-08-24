@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h63c-xvpf-264j",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "dregad/ADOdb",
+    "fix_commit":  "34788ce8c1d08500631f55764cc2247b9c7cfd2b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "drivers/adodb-pdo_mysql.inc.php"
+                    ],
+    "evidence":  [
+                     "drivers/adodb-pdo_mysql.inc.php class extends ADODB_pdo"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

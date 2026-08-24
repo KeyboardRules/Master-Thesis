@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5gq7-826w-8282",
+    "cve":  "CVE-2021-3846",
+    "cwe":  "CWE-434",
+    "repo":  "firefly-iii/firefly-iii",
+    "sha":  "a85b6420c19ace35134f896e094e1971d8c7954b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Helpers/Attachments/AttachmentHelper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Helpers/Attachments/AttachmentHelper.php"
+                    ],
+    "sink_hit":  false
+}

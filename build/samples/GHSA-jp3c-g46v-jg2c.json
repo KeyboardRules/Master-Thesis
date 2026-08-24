@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jp3c-g46v-jg2c",
+    "cve":  "CVE-2023-4979",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "49d66fa31b43acef02eaa09ee9af15fe7e16cd03",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/common/outages.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/common/outages.inc.php"
+                    ],
+    "sink_hit":  false
+}

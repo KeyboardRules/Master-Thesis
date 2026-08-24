@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-8p58-35c3-ccxx",
+    "cve":  "CVE-2026-33485",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "af59eade82de645b20183cc3d74467a7eac76549",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugin/Live/Objects/LiveTransmition.php",
+                        "plugin/Live/Objects/LiveTransmitionHistory.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/Live/Objects/LiveTransmition.php includes 5 project file(s)",
+                     "plugin/Live/Objects/LiveTransmition.php class extends ObjectYPT",
+                     "plugin/Live/Objects/LiveTransmitionHistory.php includes 3 project file(s)",
+                     "plugin/Live/Objects/LiveTransmitionHistory.php class extends ObjectYPT"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

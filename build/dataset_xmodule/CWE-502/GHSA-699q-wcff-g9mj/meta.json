@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-699q-wcff-g9mj",
+    "cve":  "CVE-2020-15148",
+    "cwe":  "CWE-502",
+    "repo":  "yiisoft/yii2",
+    "fix_commit":  "9abccb96d7c5ddb569f92d1a748f50ee9b3e2b99",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "framework/db/BatchQueryResult.php"
+                    ],
+    "evidence":  [
+                     "framework/db/BatchQueryResult.php class extends BaseObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

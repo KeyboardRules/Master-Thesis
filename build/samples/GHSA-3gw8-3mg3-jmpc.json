@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-3gw8-3mg3-jmpc",
+    "cve":  "CVE-2026-28805",
+    "cwe":  "CWE-89",
+    "repo":  "devcode-it/openstamanager",
+    "sha":  "50b9089c506ba2ca249afb1dfead2af5d42c10e7",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/contratti/ajax/select.php",
+                        "modules/ordini/ajax/select.php",
+                        "modules/preventivi/ajax/select.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/contratti/ajax/select.php includes 1 project file(s)",
+                     "modules/ordini/ajax/select.php includes 1 project file(s)",
+                     "modules/preventivi/ajax/select.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "modules/contratti/ajax/select.php",
+                        "modules/ordini/ajax/select.php",
+                        "modules/preventivi/ajax/select.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-qjhr-c23f-w76q",
+    "cve":  "CVE-2017-1000488",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "bda60c0eefbd19c759589e975e63ab1d201c1b8e",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/FormBundle/Helper/FormFieldHelper.php",
+                        "app/bundles/FormBundle/Tests/Helper/FormFieldHelperTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/FormBundle/Helper/FormFieldHelper.php class extends AbstractFormFieldHelper",
+                     "app/bundles/FormBundle/Tests/Helper/FormFieldHelperTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "app/bundles/FormBundle/Helper/FormFieldHelper.php",
+                        "app/bundles/FormBundle/Tests/Helper/FormFieldHelperTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-9fqc-9cpr-w73q",
+    "cve":  "CVE-2023-0671",
+    "cwe":  "CWE-94",
+    "repo":  "froxlor/froxlor",
+    "sha":  "0034681412057fef2dfe9cce9f8a6e3321f52edc",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/DirOptions.php",
+                        "lib/Froxlor/FileDir.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php",
+                        "tests/Extras/DirOptionsTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "lib/Froxlor/Api/Commands/DirOptions.php class extends ApiCommand",
+                     "tests/Extras/DirOptionsTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Api/Commands/DirOptions.php",
+                        "lib/Froxlor/FileDir.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php",
+                        "tests/Extras/DirOptionsTest.php"
+                    ],
+    "sink_hit":  true
+}

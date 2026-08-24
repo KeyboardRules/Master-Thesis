@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-rccq-2fxq-7x3h",
+    "cve":  "CVE-2025-56421",
+    "cwe":  "CWE-89",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "fix_commit":  "d6c3c780cdd17d5eef1c8c69ad0105beffa2374f",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "application/controllers/admin/Statistics.php",
+                        "application/helpers/admin/statistics_helper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "application/controllers/admin/Statistics.php includes 3 project file(s)",
+                     "application/controllers/admin/Statistics.php class extends SurveyCommonAction",
+                     "application/helpers/admin/statistics_helper.php includes 4 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

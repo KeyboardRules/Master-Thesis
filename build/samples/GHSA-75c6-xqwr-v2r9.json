@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-75c6-xqwr-v2r9",
+    "cve":  "CVE-2014-2571",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "217d839ded7026ed1b1280e1c296bc80a4036023",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/quiz/editlib.php",
+                        "mod/quiz/tests/editlib_test.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/quiz/editlib.php includes 1 project file(s)",
+                     "mod/quiz/editlib.php class extends question_bank_action_column_base",
+                     "mod/quiz/tests/editlib_test.php includes 1 project file(s)",
+                     "mod/quiz/tests/editlib_test.php class extends basic_testcase"
+                 ],
+    "changed_all":  [
+                        "mod/quiz/editlib.php",
+                        "mod/quiz/tests/editlib_test.php"
+                    ],
+    "sink_hit":  true
+}

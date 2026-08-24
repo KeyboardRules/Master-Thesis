@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-2295-vh28-pphc",
+    "cve":  "CVE-2023-2328",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "e3562bfe249c557d15474c9a0acd5e06628521fe",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/QuantityValue/Unit.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/DataObject/QuantityValue/Unit.php class extends Model\\AbstractModel",
+                     "models/DataObject/QuantityValue/Unit.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/quantityvalue/unitsettings.js",
+                        "models/DataObject/QuantityValue/Unit.php"
+                    ],
+    "sink_hit":  false
+}

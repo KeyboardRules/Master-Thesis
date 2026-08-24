@@ -1,0 +1,305 @@
+﻿diff --git a/src/PhpSpreadsheet/Reader/Xlsx.php b/src/PhpSpreadsheet/Reader/Xlsx.php
+index ef7b66c7..1e95779a 100644
+--- a/src/PhpSpreadsheet/Reader/Xlsx.php
++++ b/src/PhpSpreadsheet/Reader/Xlsx.php
+@@ -1310,7 +1310,7 @@ class Xlsx extends BaseReader
+                                                         $hfImages[$shapeId]->setName((string) $imageData['title']);
+                                                     }
+ 
+-                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
++                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false, $zip);
+                                                     $hfImages[$shapeId]->setResizeProportional(false);
+                                                     $hfImages[$shapeId]->setWidth($style['width']);
+                                                     $hfImages[$shapeId]->setHeight($style['height']);
+@@ -1422,7 +1422,8 @@ class Xlsx extends BaseReader
+                                                         $objDrawing->setPath(
+                                                             'zip://' . File::realpath($filename) . '#'
+                                                             . $images[$embedImageKey],
+-                                                            false
++                                                            false,
++                                                            $zip
+                                                         );
+                                                     } else {
+                                                         $linkImageKey = (string) self::getArrayItem(
+@@ -1433,6 +1434,9 @@ class Xlsx extends BaseReader
+                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                             $objDrawing->setPath($url);
+                                                         }
++                                                        if ($objDrawing->getPath() === '') {
++                                                            continue;
++                                                        }
+                                                     }
+                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
+ 
+@@ -1511,7 +1515,8 @@ class Xlsx extends BaseReader
+                                                         $objDrawing->setPath(
+                                                             'zip://' . File::realpath($filename) . '#'
+                                                             . $images[$embedImageKey],
+-                                                            false
++                                                            false,
++                                                            $zip
+                                                         );
+                                                     } else {
+                                                         $linkImageKey = (string) self::getArrayItem(
+@@ -1522,6 +1527,9 @@ class Xlsx extends BaseReader
+                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                             $objDrawing->setPath($url);
+                                                         }
++                                                        if ($objDrawing->getPath() === '') {
++                                                            continue;
++                                                        }
+                                                     }
+                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
+ 
+diff --git a/src/PhpSpreadsheet/Worksheet/BaseDrawing.php b/src/PhpSpreadsheet/Worksheet/BaseDrawing.php
+index 4c354382..50323dbc 100644
+--- a/src/PhpSpreadsheet/Worksheet/BaseDrawing.php
++++ b/src/PhpSpreadsheet/Worksheet/BaseDrawing.php
+@@ -192,7 +192,7 @@ class BaseDrawing implements IComparable
+     {
+         if ($this->worksheet === null) {
+             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+-            if ($worksheet !== null) {
++            if ($worksheet !== null && !($this instanceof Drawing && $this->getPath() === '')) {
+                 $this->worksheet = $worksheet;
+                 $this->worksheet->getCell($this->coordinates);
+                 $this->worksheet->getDrawingCollection()->append($this);
+diff --git a/src/PhpSpreadsheet/Worksheet/Drawing.php b/src/PhpSpreadsheet/Worksheet/Drawing.php
+index be02779d..71a80881 100644
+--- a/src/PhpSpreadsheet/Worksheet/Drawing.php
++++ b/src/PhpSpreadsheet/Worksheet/Drawing.php
+@@ -94,40 +94,72 @@ class Drawing extends BaseDrawing
+      */
+     public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
+     {
+-        if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
+-            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+-            if (filter_var($path, FILTER_VALIDATE_URL)) {
+-                $this->path = $path;
+-                // Implicit that it is a URL, rather store info than running check above on value in other places.
+-                $this->isUrl = true;
+-                $imageContents = file_get_contents($path);
++        $this->isUrl = false;
++        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
++            $this->path = $path;
++
++            return $this;
++        }
++
++        $this->path = '';
++        // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
++        if (filter_var($path, FILTER_VALIDATE_URL)) {
++            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
++                throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
++            }
++            // Implicit that it is a URL, rather store info than running check above on value in other places.
++            $this->isUrl = true;
++            $imageContents = @file_get_contents($path);
++            if ($imageContents !== false) {
+                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                 if ($filePath) {
+-                    file_put_contents($filePath, $imageContents);
+-                    if (file_exists($filePath)) {
+-                        $this->setSizesAndType($filePath);
++                    $put = @file_put_contents($filePath, $imageContents);
++                    if ($put !== false) {
++                        if ($this->isImage($filePath)) {
++                            $this->path = $path;
++                            $this->setSizesAndType($filePath);
++                        }
+                         unlink($filePath);
+                     }
+                 }
+-            } elseif (file_exists($path)) {
+-                $this->path = $path;
+-                $this->setSizesAndType($path);
+-            } elseif ($zip instanceof ZipArchive) {
+-                $zipPath = explode('#', $path)[1];
+-                if ($zip->locateName($zipPath) !== false) {
++            }
++        } elseif ($zip instanceof ZipArchive) {
++            $zipPath = explode('#', $path)[1];
++            $locate = @$zip->locateName($zipPath);
++            if ($locate !== false) {
++                if ($this->isImage($path)) {
+                     $this->path = $path;
+                     $this->setSizesAndType($path);
+                 }
+-            } else {
+-                throw new PhpSpreadsheetException("File $path not found!");
+             }
+         } else {
+-            $this->path = $path;
++            $exists = @file_exists($path);
++            if ($exists !== false && $this->isImage($path)) {
++                $this->path = $path;
++                $this->setSizesAndType($path);
++            }
++        }
++        if ($this->path === '' && $verifyFile) {
++            throw new PhpSpreadsheetException("File $path not found!");
+         }
+ 
+         return $this;
+     }
+ 
++    private function isImage(string $path): bool
++    {
++        $mime = (string) @mime_content_type($path);
++        $retVal = false;
++        if (str_starts_with($mime, 'image/')) {
++            $retVal = true;
++        } elseif ($mime === 'application/octet-stream') {
++            $extension = pathinfo($path, PATHINFO_EXTENSION);
++            $retVal = in_array($extension, ['bin', 'emf'], true);
++        }
++
++        return $retVal;
++    }
++
+     /**
+      * Get isURL.
+      */
+diff --git a/src/PhpSpreadsheet/Writer/Html.php b/src/PhpSpreadsheet/Writer/Html.php
+index 3f5a23f5..98dc6f12 100644
+--- a/src/PhpSpreadsheet/Writer/Html.php
++++ b/src/PhpSpreadsheet/Writer/Html.php
+@@ -578,6 +578,9 @@ class Html extends BaseWriter
+             }
+         }
+         foreach ($worksheet->getDrawingCollection() as $drawing) {
++            if ($drawing instanceof Drawing && $drawing->getPath() === '') {
++                continue;
++            }
+             $imageTL = Coordinate::indexesFromString($drawing->getCoordinates());
+             $this->sheetDrawings[$drawing->getCoordinates()] = $drawing;
+             if ($imageTL[1] > $rowMax) {
+@@ -620,7 +623,7 @@ class Html extends BaseWriter
+         if ($drawing !== null) {
+             $filedesc = $drawing->getDescription();
+             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
+-            if ($drawing instanceof Drawing) {
++            if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
+                 $filename = $drawing->getPath();
+ 
+                 // Strip off eventual '.'
+@@ -639,12 +642,15 @@ class Html extends BaseWriter
+                 $imageData = self::winFileToUrl($filename, $this instanceof Pdf\Mpdf);
+ 
+                 if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
++                    $imageData = 'data:,';
+                     $picture = @file_get_contents($filename);
+                     if ($picture !== false) {
+-                        $imageDetails = getimagesize($filename) ?: ['mime' => ''];
+-                        // base64 encode the binary data
+-                        $base64 = base64_encode($picture);
+-                        $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
++                        $mimeContentType = (string) @mime_content_type($filename);
++                        if (str_starts_with($mimeContentType, 'image/')) {
++                            // base64 encode the binary data
++                            $base64 = base64_encode($picture);
++                            $imageData = 'data:' . $mimeContentType . ';base64,' . $base64;
++                        }
+                     }
+                 }
+ 
+diff --git a/src/PhpSpreadsheet/Writer/Xls.php b/src/PhpSpreadsheet/Writer/Xls.php
+index 401fad18..48dc9e08 100644
+--- a/src/PhpSpreadsheet/Writer/Xls.php
++++ b/src/PhpSpreadsheet/Writer/Xls.php
+@@ -467,7 +467,7 @@ class Xls extends BaseWriter
+ 
+     private function processBaseDrawing(BstoreContainer &$bstoreContainer, BaseDrawing $drawing): void
+     {
+-        if ($drawing instanceof Drawing) {
++        if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
+             $this->processDrawing($bstoreContainer, $drawing);
+         } elseif ($drawing instanceof MemoryDrawing) {
+             $this->processMemoryDrawing($bstoreContainer, $drawing, $drawing->getRenderingFunction());
+diff --git a/src/PhpSpreadsheet/Writer/Xlsx.php b/src/PhpSpreadsheet/Writer/Xlsx.php
+index f38eaff3..22f0b599 100644
+--- a/src/PhpSpreadsheet/Writer/Xlsx.php
++++ b/src/PhpSpreadsheet/Writer/Xlsx.php
+@@ -445,7 +445,9 @@ class Xlsx extends BaseWriter
+ 
+                 // Media
+                 foreach ($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
+-                    $zipContent['xl/media/' . $image->getIndexedFilename()] = file_get_contents($image->getPath());
++                    if ($image->getPath() !== '') {
++                        $zipContent['xl/media/' . $image->getIndexedFilename()] = file_get_contents($image->getPath());
++                    }
+                 }
+             }
+ 
+@@ -461,6 +463,9 @@ class Xlsx extends BaseWriter
+             if ($this->getDrawingHashTable()->getByIndex($i) instanceof WorksheetDrawing) {
+                 $imageContents = null;
+                 $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
++                if ($imagePath === '') {
++                    continue;
++                }
+                 if (str_contains($imagePath, 'zip://')) {
+                     $imagePath = substr($imagePath, 6);
+                     $imagePathSplitted = explode('#', $imagePath);
+@@ -654,6 +659,9 @@ class Xlsx extends BaseWriter
+     {
+         $data = null;
+         $filename = $drawing->getPath();
++        if ($filename === '') {
++            return null;
++        }
+         $imageData = getimagesize($filename);
+ 
+         if (!empty($imageData)) {
+diff --git a/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php b/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
+index e3b9ba5e..7cff7fd3 100644
+--- a/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
++++ b/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
+@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
+ use PhpOffice\PhpSpreadsheet\Shared\File;
+ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+ use PhpOffice\PhpSpreadsheet\Spreadsheet;
++use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
+ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+ 
+@@ -132,18 +133,23 @@ class ContentTypes extends WriterPart
+             $extension = '';
+             $mimeType = '';
+ 
+-            if ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
+-                $extension = strtolower($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getExtension());
+-                $mimeType = $this->getImageMimeType($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getPath());
+-            } elseif ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
+-                $extension = strtolower($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getMimeType());
++            $drawing = $this->getParentWriter()->getDrawingHashTable()->getByIndex($i);
++            if ($drawing instanceof WorksheetDrawing && $drawing->getPath() !== '') {
++                $extension = strtolower($drawing->getExtension());
++                if ($drawing->getIsUrl()) {
++                    $mimeType = image_type_to_mime_type($drawing->getType());
++                } else {
++                    $mimeType = $this->getImageMimeType($drawing->getPath());
++                }
++            } elseif ($drawing instanceof MemoryDrawing) {
++                $extension = strtolower($drawing->getMimeType());
+                 $extension = explode('/', $extension);
+                 $extension = $extension[1];
+ 
+-                $mimeType = $this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getMimeType();
++                $mimeType = $drawing->getMimeType();
+             }
+ 
+-            if (!isset($aMediaContentTypes[$extension])) {
++            if ($mimeType !== '' && !isset($aMediaContentTypes[$extension])) {
+                 $aMediaContentTypes[$extension] = $mimeType;
+ 
+                 $this->writeDefaultContentType($objWriter, $extension, $mimeType);
+@@ -162,7 +168,7 @@ class ContentTypes extends WriterPart
+         for ($i = 0; $i < $sheetCount; ++$i) {
+             if (count($spreadsheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
+                 foreach ($spreadsheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
+-                    if (!isset($aMediaContentTypes[strtolower($image->getExtension())])) {
++                    if ($image->getPath() !== '' && !isset($aMediaContentTypes[strtolower($image->getExtension())])) {
+                         $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
+ 
+                         $this->writeDefaultContentType($objWriter, strtolower($image->getExtension()), $aMediaContentTypes[strtolower($image->getExtension())]);

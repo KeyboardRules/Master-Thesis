@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-3hwv-x8g3-9qpr",
+    "cve":  "CVE-2026-33681",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "81b591c509835505cb9f298aa1162ac64c4152cb",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/plugin.php",
+                        "objects/pluginRunDatabaseScript.json.php",
+                        "view/managerPlugins_body.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "objects/plugin.php includes 4 project file(s)",
+                     "objects/plugin.php class extends ObjectYPT",
+                     "objects/pluginRunDatabaseScript.json.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

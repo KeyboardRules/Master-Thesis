@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vhm6-gw82-6f8j",
+    "cve":  "CVE-2022-0772",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "703745d0ed3948623153117d761ce48514e2f281",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/modal/alert_rule_list.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/modal/alert_rule_list.inc.php"
+                    ],
+    "sink_hit":  true
+}

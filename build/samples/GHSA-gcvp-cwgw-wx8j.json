@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gcvp-cwgw-wx8j",
+    "cve":  "CVE-2016-5704",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "72213573182896bd6a6e5af5ba1881dd87c4a20b",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/table/structure/display_table_stats.phtml"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/table/structure/display_table_stats.phtml"
+                    ],
+    "sink_hit":  false
+}

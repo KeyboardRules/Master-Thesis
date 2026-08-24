@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vcpr-hm2m-gjjj",
+    "cve":  "CVE-2023-28475",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "861ba66d248165c9ee9d6d11a0457908b97d68f0",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/controllers/single_page/account/messages.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "concrete/controllers/single_page/account/messages.php class extends AccountPageController"
+                 ],
+    "changed_all":  [
+                        "concrete/controllers/single_page/account/messages.php"
+                    ],
+    "sink_hit":  true
+}

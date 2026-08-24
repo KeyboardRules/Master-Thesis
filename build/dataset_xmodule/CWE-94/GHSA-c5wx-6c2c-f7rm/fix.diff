@@ -1,0 +1,51 @@
+﻿diff --git a/typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php b/typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php
+index b3c8c05952..2e27b6da4f 100644
+--- a/typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php
++++ b/typo3/sysext/form/Classes/Mvc/Configuration/ConfigurationManager.php
+@@ -122,17 +122,18 @@ class ConfigurationManager extends ExtbaseConfigurationManager implements Config
+     {
+         $typoScript = parent::getConfiguration(self::CONFIGURATION_TYPE_SETTINGS, $extensionName);
+         if (is_array($typoScript['yamlSettingsOverrides'] ?? null) && !empty($typoScript['yamlSettingsOverrides'])) {
+-            ArrayUtility::mergeRecursiveWithOverrule(
+-                $yamlSettings,
+-                $typoScript['yamlSettingsOverrides']
+-            );
+-
++            $yamlSettingsOverrides = $typoScript['yamlSettingsOverrides'];
+             if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface
+                 && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()
+             ) {
+-                $yamlSettings = GeneralUtility::makeInstance(TypoScriptService::class)
+-                    ->resolvePossibleTypoScriptConfiguration($yamlSettings);
++                $yamlSettingsOverrides = GeneralUtility::makeInstance(TypoScriptService::class)
++                    ->resolvePossibleTypoScriptConfiguration($yamlSettingsOverrides);
+             }
++
++            ArrayUtility::mergeRecursiveWithOverrule(
++                $yamlSettings,
++                $yamlSettingsOverrides
++            );
+         }
+         return $yamlSettings;
+     }
+diff --git a/typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php b/typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php
+index 7ce7a79b78..93cabfba37 100644
+--- a/typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php
++++ b/typo3/sysext/form/Classes/Mvc/Persistence/FormPersistenceManager.php
+@@ -626,12 +626,13 @@ class FormPersistenceManager implements FormPersistenceManagerInterface
+     protected function overrideByTypoScriptSettings(array $formDefinition): array
+     {
+         if (!empty($this->typoScriptSettings['formDefinitionOverrides'][$formDefinition['identifier']] ?? null)) {
++            $formDefinitionOverrides = GeneralUtility::makeInstance(TypoScriptService::class)
++                ->resolvePossibleTypoScriptConfiguration($this->typoScriptSettings['formDefinitionOverrides'][$formDefinition['identifier']]);
++
+             ArrayUtility::mergeRecursiveWithOverrule(
+                 $formDefinition,
+-                $this->typoScriptSettings['formDefinitionOverrides'][$formDefinition['identifier']]
++                $formDefinitionOverrides
+             );
+-            $formDefinition = GeneralUtility::makeInstance(TypoScriptService::class)
+-                ->resolvePossibleTypoScriptConfiguration($formDefinition);
+         }
+ 
+         return $formDefinition;

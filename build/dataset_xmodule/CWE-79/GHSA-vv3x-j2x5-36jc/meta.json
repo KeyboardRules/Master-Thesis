@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-vv3x-j2x5-36jc",
+    "cve":  "CVE-2026-33080",
+    "cwe":  "CWE-79",
+    "repo":  "filamentphp/filament",
+    "fix_commit":  "efa041aeeb4b1a99acd48aaa05584993c926d1ed",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/tables/src/Columns/Summarizers/Range.php",
+                        "packages/tables/src/Columns/Summarizers/Values.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "packages/tables/src/Columns/Summarizers/Range.php class extends Summarizer",
+                     "packages/tables/src/Columns/Summarizers/Values.php class extends Summarizer"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

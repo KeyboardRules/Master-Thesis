@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xc7q-q62f-wcvr",
+    "cve":  "CVE-2013-6289",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3-Solr/ext-solr",
+    "sha":  "57e3b06b498668e093b9b86f32f7509d12d6ae4e",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/facet/class.tx_solr_facet_facetoption.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "classes/facet/class.tx_solr_facet_facetoption.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "classes/facet/class.tx_solr_facet_facetoption.php"
+                    ],
+    "sink_hit":  false
+}

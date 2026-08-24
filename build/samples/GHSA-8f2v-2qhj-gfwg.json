@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-8f2v-2qhj-gfwg",
+    "cve":  "CVE-2026-52771",
+    "cwe":  "CWE-89",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "23d3cc124613b9428ab963b31807c08879a9c631",
+    "status":  "ok",
+    "changed_php":  [
+                        "handlers/page/deletepage.php",
+                        "includes/controllers/ApiController.php",
+                        "tools/tags/handlers/page/__deletepage.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/controllers/ApiController.php includes 1 project file(s)",
+                     "includes/controllers/ApiController.php class extends YesWikiController",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "handlers/page/deletepage.php",
+                        "includes/controllers/ApiController.php",
+                        "tools/tags/handlers/page/__deletepage.php"
+                    ],
+    "sink_hit":  true
+}

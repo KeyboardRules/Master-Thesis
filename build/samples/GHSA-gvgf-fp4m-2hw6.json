@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gvgf-fp4m-2hw6",
+    "cve":  "CVE-2017-15284",
+    "cwe":  "CWE-79",
+    "repo":  "octobercms/library",
+    "sha":  "3bbbbf3da469f457881b5af902eb0b89b95189a2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Filesystem/Definitions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Filesystem/Definitions.php"
+                    ],
+    "sink_hit":  false
+}

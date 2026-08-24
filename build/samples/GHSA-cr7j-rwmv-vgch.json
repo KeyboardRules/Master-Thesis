@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cr7j-rwmv-vgch",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "aimeos/aimeos-core",
+    "sha":  "13e163126adff48f987b3b6faca28551effe0205",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MShop/Media/Manager/Standard.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/MShop/Media/Manager/Standard.php class extends Base",
+                     "src/MShop/Media/Manager/Standard.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/MShop/Media/Manager/Standard.php"
+                    ],
+    "sink_hit":  false
+}

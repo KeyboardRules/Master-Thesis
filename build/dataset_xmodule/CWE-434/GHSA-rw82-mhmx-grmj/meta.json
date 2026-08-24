@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-rw82-mhmx-grmj",
+    "cve":  "CVE-2023-47621",
+    "cwe":  "CWE-434",
+    "repo":  "duncanmcclean/guest-entries",
+    "fix_commit":  "a8e17b4413bfbbc337a887761a6c858ef1ddb4da",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Http/Controllers/GuestEntryController.php",
+                        "src/Http/Requests/DestroyRequest.php",
+                        "src/Http/Requests/StoreRequest.php",
+                        "src/Http/Requests/UpdateRequest.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Http/Controllers/GuestEntryController.php class extends Controller",
+                     "src/Http/Requests/DestroyRequest.php class extends FormRequest",
+                     "src/Http/Requests/StoreRequest.php class extends FormRequest",
+                     "src/Http/Requests/UpdateRequest.php class extends FormRequest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

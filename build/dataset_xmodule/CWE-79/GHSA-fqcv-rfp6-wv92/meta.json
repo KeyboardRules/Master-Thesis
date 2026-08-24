@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-fqcv-rfp6-wv92",
+    "cve":  "CVE-2023-3142",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "42efa981a2239d042d910069952d6276497bdcf1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php",
+                        "src/MicroweberPackages/Database/DatabaseManager.php",
+                        "src/MicroweberPackages/Module/Models/Module.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MicroweberPackages/Content/ContentManagerHelpers.php class extends ContentManagerCrud",
+                     "src/MicroweberPackages/Content/tests/ContentApiControllerLiveEditSaveTest.php class extends TestCase",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class extends DbUtils",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class uses trait",
+                     "src/MicroweberPackages/Module/Models/Module.php class extends Model",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

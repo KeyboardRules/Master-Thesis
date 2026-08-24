@@ -1,0 +1,22 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php b/bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php
+index ac818bca62..a041274b7b 100644
+--- a/bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php
++++ b/bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php
+@@ -861,7 +861,7 @@ class ClassController extends AdminController implements KernelControllerEventIn
+                 if (!isset($groups[$item->getGroup()])) {
+                     $groups[$item->getGroup()] = [
+                         'id' => 'group_' . $item->getKey(),
+-                        'text' => $item->getGroup(),
++                        'text' => htmlspecialchars($item->getGroup()),
+                         'expandable' => true,
+                         'leaf' => false,
+                         'allowChildren' => true,
+@@ -1266,7 +1266,7 @@ class ClassController extends AdminController implements KernelControllerEventIn
+                 if (!isset($groups[$item->getGroup()])) {
+                     $groups[$item->getGroup()] = [
+                         'id' => 'group_' . $item->getKey(),
+-                        'text' => $item->getGroup(),
++                        'text' => htmlspecialchars($item->getGroup()),
+                         'expandable' => true,
+                         'leaf' => false,
+                         'allowChildren' => true,

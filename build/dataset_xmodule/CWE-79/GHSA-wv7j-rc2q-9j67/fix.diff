@@ -1,0 +1,13 @@
+﻿diff --git a/src/elements/Asset.php b/src/elements/Asset.php
+index 59526ef..6336fca 100644
+--- a/src/elements/Asset.php
++++ b/src/elements/Asset.php
+@@ -1856,7 +1856,7 @@ class Asset extends Element
+ 
+         return [
+             Craft::t('app', 'Location') => function() use ($volume) {
+-                $loc = [Craft::t('site', $volume->name)];
++                $loc = [Html::encode(Craft::t('site', $volume->name))];
+                 if ($this->folderPath) {
+                     array_push($loc, ...ArrayHelper::filterEmptyStringsFromArray(explode('/', $this->folderPath)));
+                 }

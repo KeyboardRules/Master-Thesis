@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-px8v-hxxx-2rgh",
+    "cve":  "CVE-2020-11056",
+    "cwe":  "CWE-74",
+    "repo":  "barrelstrength/craft-sprout-base-email",
+    "fix_commit":  "5ef759f4713ede6dbf77c9d9df9f992876e43a49",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/base/EmailElement.php",
+                        "src/base/EmailTemplates.php",
+                        "src/emailtemplates/BasicTemplates.php",
+                        "src/emailtemplates/CustomTemplates.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/base/EmailElement.php class extends Element",
+                     "src/emailtemplates/BasicTemplates.php class extends EmailTemplates",
+                     "src/emailtemplates/CustomTemplates.php class extends EmailTemplates"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

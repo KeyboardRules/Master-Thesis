@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-9v82-vcjx-m76j",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "shopware/shopware",
+    "sha":  "12fb537c5ebe009f2a0f58b9c24dbd2d6b4c508f",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/integration/Storefront/Controller/StorefrontControllerTest.php",
+                        "tests/unit/Storefront/Theme/Command/ThemeCreateCommandTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/unit/Storefront/Theme/Command/ThemeCreateCommandTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "changelog/_unreleased/2025-09-04-properly-escape-active-route-params.md",
+                        "src/Storefront/Resources/app/storefront/src/helper/form-validation.helper.js",
+                        "src/Storefront/Resources/views/storefront/component/feature.html.twig",
+                        "src/Storefront/Resources/views/storefront/element/cms-element-image-gallery.html.twig",
+                        "src/Storefront/Resources/views/storefront/layout/meta.html.twig",
+                        "src/Storefront/Resources/views/storefront/page/content/single-cms-page.html.twig",
+                        "src/Storefront/Resources/views/storefront/page/error/error-maintenance.html.twig",
+                        "src/Storefront/Resources/views/storefront/utilities/form-validation-config.html.twig",
+                        "tests/integration/Storefront/Controller/StorefrontControllerTest.php",
+                        "tests/unit/Storefront/Theme/Command/ThemeCreateCommandTest.php"
+                    ],
+    "sink_hit":  false
+}

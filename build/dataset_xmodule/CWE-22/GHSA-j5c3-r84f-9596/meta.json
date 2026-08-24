@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-j5c3-r84f-9596",
+    "cve":  "CVE-2023-30852",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "498cadec2292f7842fb10612068ac78496e884b4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php class extends ElementControllerBase",
+                     "bundles/AdminBundle/Controller/Admin/Asset/AssetController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

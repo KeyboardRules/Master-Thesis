@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hc67-v29c-7g78",
+    "cve":  "CVE-2017-20175",
+    "cwe":  "CWE-79",
+    "repo":  "DaSchTour/matomo-mediawiki-extension",
+    "sha":  "681324e4f518a8af4bd1f93867074c728eb9923d",
+    "status":  "ok",
+    "changed_php":  [
+                        "Piwik.hooks.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Piwik.hooks.php"
+                    ],
+    "sink_hit":  false
+}

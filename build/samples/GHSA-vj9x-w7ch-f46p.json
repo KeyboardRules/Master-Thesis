@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vj9x-w7ch-f46p",
+    "cve":  "CVE-2022-0258",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "66281c12479dc01a06258d8533eaddfb1770d5bd",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php"
+                    ],
+    "sink_hit":  true
+}

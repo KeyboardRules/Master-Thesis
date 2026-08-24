@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-vm6r-j788-hjh5",
+    "cve":  "CVE-2024-45398",
+    "cwe":  "CWE-434",
+    "repo":  "contao/contao",
+    "fix_commit":  "9445d509f12a7f1b68a4794dcc5e3e459b363ebb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core-bundle/contao/classes/FileUpload.php",
+                        "core-bundle/contao/dca/tl_files.php",
+                        "core-bundle/contao/drivers/DC_Folder.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core-bundle/contao/classes/FileUpload.php class extends Backend",
+                     "core-bundle/contao/dca/tl_files.php class extends Backend",
+                     "core-bundle/contao/drivers/DC_Folder.php class extends DataContainer"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

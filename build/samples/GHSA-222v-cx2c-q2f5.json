@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-222v-cx2c-q2f5",
+    "cve":  "CVE-2025-24530",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "23c13a81709728089ff031e5b1c29b5e91baa6a7",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/classes/Table/Maintenance.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "libraries/classes/Table/Maintenance.php"
+                    ],
+    "sink_hit":  false
+}

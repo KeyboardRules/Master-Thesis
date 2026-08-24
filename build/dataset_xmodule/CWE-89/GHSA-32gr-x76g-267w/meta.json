@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-32gr-x76g-267w",
+    "cve":  "CVE-2015-10077",
+    "cwe":  "CWE-89",
+    "repo":  "webbuilders-group/silverstripe-kapost-bridge",
+    "fix_commit":  "2e14b0fd0ea35034f90890f364b130fb4645ff35",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "code/control/KapostService.php"
+                    ],
+    "evidence":  [
+                     "code/control/KapostService.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

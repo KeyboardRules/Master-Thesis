@@ -1,0 +1,24 @@
+﻿diff --git a/framework/db/schema/CDbCriteria.php b/framework/db/schema/CDbCriteria.php
+index febc199..6b90f04 100644
+--- a/framework/db/schema/CDbCriteria.php
++++ b/framework/db/schema/CDbCriteria.php
+@@ -197,10 +197,17 @@ class CDbCriteria extends CComponent
+ 			foreach($sqlContentFieldNames as $field)
+ 			{
+ 				if(is_array($this->$field))
++				{
+ 					foreach($this->$field as $k=>$v)
+-						$this->{$field}[$k]=strtr($v,$map);
+-				else
++					{
++						if (is_scalar($v))
++							$this->{$field}[$k]=strtr($v,$map);
++					}
++				}
++				elseif(is_scalar($this->$field))
++				{
+ 					$this->$field=strtr($this->$field,$map);
++				}
+ 			}
+ 		}
+ 		$this->params=$params;

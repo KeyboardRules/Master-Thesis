@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6jh4-47v2-4g37",
+    "cve":  "CVE-2026-40598",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "b1ebc57763f104eb5f541b7b4d1ce6948168abd9",
+    "status":  "ok",
+    "changed_php":  [
+                        "tag_update_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "tag_update_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "tag_update_page.php"
+                    ],
+    "sink_hit":  true
+}

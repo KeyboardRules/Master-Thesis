@@ -1,0 +1,34 @@
+﻿diff --git a/app/bundles/AssetBundle/Form/Type/AssetType.php b/app/bundles/AssetBundle/Form/Type/AssetType.php
+index 995aff06e..f285498e1 100644
+--- a/app/bundles/AssetBundle/Form/Type/AssetType.php
++++ b/app/bundles/AssetBundle/Form/Type/AssetType.php
+@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
+ use Symfony\Component\OptionsResolver\OptionsResolver;
+ use Symfony\Component\Translation\TranslatorInterface;
+ use Symfony\Component\Validator\Constraints\NotBlank;
++use Symfony\Component\Validator\Constraints\Url;
+ 
+ class AssetType extends AbstractType
+ {
+@@ -90,10 +91,17 @@ class AssetType extends AbstractType
+             'remotePath',
+             TextType::class,
+             [
+-                'label'      => 'mautic.asset.asset.form.remotePath',
+-                'label_attr' => ['class' => 'control-label'],
+-                'attr'       => ['class' => 'form-control'],
+-                'required'   => false,
++                'label'       => 'mautic.asset.asset.form.remotePath',
++                'label_attr'  => ['class' => 'control-label'],
++                'attr'        => ['class' => 'form-control'],
++                'required'    => false,
++                'constraints' => [
++                    new Url(
++                        [
++                            'message' => 'mautic.asset.validation.error.url',
++                        ]
++                    ),
++                ],
+             ]
+         );
+ 

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6h86-9r5g-f2h5",
+    "cve":  "CVE-2014-2853",
+    "cwe":  "CWE-79",
+    "repo":  "wikimedia/mediawiki-core",
+    "sha":  "0b695ae09aada343ab59be4a3c9963995a1143b6",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/actions/InfoAction.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "includes/actions/InfoAction.php class extends FormlessAction"
+                 ],
+    "changed_all":  [
+                        "includes/actions/InfoAction.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-q9j3-4ghj-6h57",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "bcit-ci/CodeIgniter",
+    "fix_commit":  "71b1b3f5b2dcc0f4b652e9494e9853b82541ac8c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "system/core/Security.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/codeigniter/core/Security_test.php class extends CI_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

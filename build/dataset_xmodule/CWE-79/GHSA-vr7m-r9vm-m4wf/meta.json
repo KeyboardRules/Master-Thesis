@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vr7m-r9vm-m4wf",
+    "cve":  "CVE-2024-21628",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "afc45b93b3cc33be0e571559d2838c6960d98856",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "classes/CustomerMessage.php"
+                    ],
+    "evidence":  [
+                     "classes/CustomerMessage.php class extends ObjectModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

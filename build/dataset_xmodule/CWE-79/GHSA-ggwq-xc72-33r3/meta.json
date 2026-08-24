@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ggwq-xc72-33r3",
+    "cve":  "CVE-2024-56517",
+    "cwe":  "CWE-79",
+    "repo":  "tltneon/lgsl",
+    "fix_commit":  "7ecb839df9358d21f64cdbff5b2536af25a77de1",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lgsl_files/lgsl_list.php"
+                    ],
+    "evidence":  [
+                     "lgsl_files/lgsl_list.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

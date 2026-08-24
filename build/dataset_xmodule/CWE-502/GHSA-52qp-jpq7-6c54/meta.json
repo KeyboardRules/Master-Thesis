@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-52qp-jpq7-6c54",
+    "cve":  "CVE-2021-29476",
+    "cwe":  "CWE-502",
+    "repo":  "WordPress/wordpress-develop",
+    "fix_commit":  "add6bedf3a53b647d0ebda2970057912d3cd79d3",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/wp-includes/Requests/Utility/FilteredIterator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/wp-includes/Requests/Utility/FilteredIterator.php class extends ArrayIterator",
+                     "tests/phpunit/tests/functions.php class extends WP_UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

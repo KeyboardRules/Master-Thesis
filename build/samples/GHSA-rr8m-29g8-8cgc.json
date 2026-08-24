@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rr8m-29g8-8cgc",
+    "cve":  "CVE-2022-1064",
+    "cwe":  "CWE-89",
+    "repo":  "forkcms/forkcms",
+    "sha":  "6aca30e10b4181534f73f96d6e2ebeb45ec15069",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Backend/Modules/Blog/Engine/Model.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Backend/Modules/Blog/Engine/Model.php"
+                    ],
+    "sink_hit":  true
+}

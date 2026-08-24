@@ -1,0 +1,15 @@
+﻿diff --git a/managedinstalls_controller.php b/managedinstalls_controller.php
+index c652846..b9a46dd 100644
+--- a/managedinstalls_controller.php
++++ b/managedinstalls_controller.php
+@@ -193,8 +193,8 @@ class managedinstalls_controller extends Module_controller
+         if (! $this->authorized()) {
+             redirect('auth/login');
+         }
+-        $data['name'] = rawurldecode($name);
+-        $data['version'] = rawurldecode($version);
++        $data['name'] = addslashes($name);
++        $data['version'] = addslashes($version);
+         $data['page'] = 'clients';
+         $data['scripts'] = array("clients/client_list.js");
+         $obj = new View();

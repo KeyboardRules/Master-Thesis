@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gf8j-v8x5-h9qp",
+    "cve":  "CVE-2019-18857",
+    "cwe":  "CWE-79",
+    "repo":  "darylldoyle/svg-sanitizer",
+    "sha":  "51ca4b713f3706d6b27769c6296bbc0c28a5bbd0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sanitizer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Sanitizer.php",
+                        "tests/data/hrefCleanOne.svg",
+                        "tests/data/hrefTestOne.svg"
+                    ],
+    "sink_hit":  false
+}

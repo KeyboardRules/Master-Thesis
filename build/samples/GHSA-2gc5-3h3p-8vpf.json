@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2gc5-3h3p-8vpf",
+    "cve":  "CVE-2018-19993",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "fc3fcc5455d9a610b85723e89e8be43a41ad1378",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/public/notice.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/public/notice.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/public/notice.php"
+                    ],
+    "sink_hit":  true
+}

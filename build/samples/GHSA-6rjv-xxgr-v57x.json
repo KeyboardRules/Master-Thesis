@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6rjv-xxgr-v57x",
+    "cve":  "CVE-2022-3869",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "sha":  "3f10a4adede9df83408d60ded78b51b812a763a8",
+    "status":  "ok",
+    "changed_php":  [
+                        "index.php",
+                        "lng/english.lng.php",
+                        "lng/german.lng.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "index.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "index.php",
+                        "lng/english.lng.php",
+                        "lng/german.lng.php"
+                    ],
+    "sink_hit":  true
+}

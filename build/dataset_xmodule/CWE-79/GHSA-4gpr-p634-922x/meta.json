@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-4gpr-p634-922x",
+    "cve":  "CVE-2023-36806",
+    "cwe":  "CWE-79",
+    "repo":  "contao/contao",
+    "fix_commit":  "5c9aff32cfc1f7dc452a045862ac2f86a6b9b4b4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/widgets/InputUnit.php",
+                        "core-bundle/src/Resources/contao/widgets/TimePeriod.php",
+                        "core-bundle/src/Resources/contao/widgets/TrblField.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core-bundle/src/Resources/contao/widgets/InputUnit.php class extends Widget",
+                     "core-bundle/src/Resources/contao/widgets/TimePeriod.php class extends Widget",
+                     "core-bundle/src/Resources/contao/widgets/TrblField.php class extends Widget"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

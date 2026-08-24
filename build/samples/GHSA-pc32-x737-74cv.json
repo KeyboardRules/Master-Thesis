@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-pc32-x737-74cv",
+    "cve":  "CVE-2022-0704",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "6e0922c5b2959ac1b48500ac508d8fc5a97286f9",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/DependencyInjection/Compiler/ContentSecurityPolicyUrlsPass.php",
+                        "bundles/AdminBundle/DependencyInjection/Configuration.php",
+                        "bundles/AdminBundle/EventListener/AdminSecurityListener.php",
+                        "bundles/AdminBundle/PimcoreAdminBundle.php",
+                        "bundles/AdminBundle/Security/ContentSecurityPolicyHandler.php",
+                        "lib/Twig/Extension/Templating/HeadScript.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "bundles/AdminBundle/PimcoreAdminBundle.php class extends Bundle",
+                     "lib/Twig/Extension/Templating/HeadScript.php class extends CacheBusterAware",
+                     "lib/Twig/Extension/Templating/HeadScript.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/DependencyInjection/Compiler/ContentSecurityPolicyUrlsPass.php",
+                        "bundles/AdminBundle/DependencyInjection/Configuration.php",
+                        "bundles/AdminBundle/EventListener/AdminSecurityListener.php",
+                        "bundles/AdminBundle/PimcoreAdminBundle.php",
+                        "bundles/AdminBundle/Resources/config/event_listeners.yaml",
+                        "bundles/AdminBundle/Resources/config/security_services.yaml",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/document/pages/preview.js",
+                        "bundles/AdminBundle/Resources/views/Admin/Index/index.html.twig",
+                        "bundles/AdminBundle/Security/ContentSecurityPolicyHandler.php",
+                        "bundles/CoreBundle/Resources/config/pimcore/default.yaml",
+                        "bundles/EcommerceFrameworkBundle/Resources/views/back-office.html.twig",
+                        "doc/Development_Documentation/26_Best_Practice/75_Security_Concept.md",
+                        "lib/Twig/Extension/Templating/HeadScript.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8qwh-4vwv-7c5m",
+    "cve":  "CVE-2024-34000",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "4c966677de06bff56d46d55c419049f78e70f017",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "mod/lesson/locallib.php"
+                    ],
+    "evidence":  [
+                     "mod/lesson/locallib.php includes 10 project file(s)",
+                     "mod/lesson/locallib.php class extends moodleform"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

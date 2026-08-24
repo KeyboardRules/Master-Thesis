@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-g9wg-98c2-qv3v",
+    "cve":  "CVE-2024-32489",
+    "cwe":  "CWE-79",
+    "repo":  "tecnickcom/TCPDF",
+    "sha":  "51cd1b39de5643836e62661d162c472d63167df7",
+    "status":  "ok",
+    "changed_php":  [
+                        "examples/config/tcpdf_config_alt.php",
+                        "examples/example_049.php",
+                        "include/tcpdf_static.php",
+                        "tcpdf.php",
+                        "tcpdf_autoconfig.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "examples/example_049.php includes 2 project file(s)",
+                     "tcpdf.php includes 8 project file(s)"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.TXT",
+                        "LICENSE.TXT",
+                        "README.md",
+                        "VERSION",
+                        "composer.json",
+                        "examples/config/tcpdf_config_alt.php",
+                        "examples/example_049.php",
+                        "include/tcpdf_static.php",
+                        "tcpdf.php",
+                        "tcpdf_autoconfig.php"
+                    ],
+    "sink_hit":  true
+}

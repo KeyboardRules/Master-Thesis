@@ -1,0 +1,124 @@
+﻿diff --git a/src/MicroweberPackages/App/Http/Controllers/ApiController.php b/src/MicroweberPackages/App/Http/Controllers/ApiController.php
+index 9e72121a9e..de2fffb630 100644
+--- a/src/MicroweberPackages/App/Http/Controllers/ApiController.php
++++ b/src/MicroweberPackages/App/Http/Controllers/ApiController.php
+@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Request;
+ use MicroweberPackages\App\Http\Middleware\ApiAuth;
+ use MicroweberPackages\App\Http\Middleware\SameSiteRefererMiddleware;
+ use MicroweberPackages\App\Managers\Helpers\VerifyCsrfTokenHelper;
++use MicroweberPackages\Helper\XSSClean;
+ use MicroweberPackages\View\View;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Response;
+-use voku\helper\AntiXSS;
+ 
+ 
+ class ApiController  extends FrontendController
+@@ -609,18 +609,25 @@ class ApiController  extends FrontendController
+         // sanitize attributes
+         if($request_data){
+             $request_data_new = [];
+-            $antixss = new AntiXSS();
++
++            $xssClean = new XSSClean();
++
+             foreach ($request_data as $k=>$v){
+                 if(is_string($v)) {
+                     $v = str_replace('<', '-', $v);
+                     $v = str_replace('>', '-', $v);
+                 }
+-                $v = $antixss->xss_clean($v);
++                if(is_array($v)) {
++                    $v = $xssClean->cleanArray($v);
++                } else {
++                    $v = $xssClean->clean($v);
++                }
+ 
+                 if(is_string($k)){
+                     $k = str_replace('<', '-', $k);
+                     $k = str_replace('>', '-', $k);
+-                    $k = $antixss->xss_clean($k);
++
++                    $k = $xssClean->clean($k);
+                     if($k){
+                         $request_data_new[$k] = $v;
+                     }
+@@ -630,6 +637,8 @@ class ApiController  extends FrontendController
+ 
+             }
+             $request_data = $request_data_new;
++            var_dump($request_data);
++            exit;
+         }
+ 
+         $page = false;
+diff --git a/src/MicroweberPackages/App/Http/Controllers/FrontendController.php b/src/MicroweberPackages/App/Http/Controllers/FrontendController.php
+index 154f89d676..e1d2859bc8 100644
+--- a/src/MicroweberPackages/App/Http/Controllers/FrontendController.php
++++ b/src/MicroweberPackages/App/Http/Controllers/FrontendController.php
+@@ -23,7 +23,6 @@ use MicroweberPackages\View\View;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+ use Symfony\Component\HttpFoundation\Response;
+-use voku\helper\AntiXSS;
+ 
+ 
+ class FrontendController extends Controller
+diff --git a/src/MicroweberPackages/Comment/Models/CommentsCrud.php b/src/MicroweberPackages/Comment/Models/CommentsCrud.php
+index 3ddd358b0e..30d7a77347 100644
+--- a/src/MicroweberPackages/Comment/Models/CommentsCrud.php
++++ b/src/MicroweberPackages/Comment/Models/CommentsCrud.php
+@@ -4,7 +4,6 @@ namespace MicroweberPackages\Comment\Models;
+ 
+ use MicroweberPackages\Database\Crud;
+ use MicroweberPackages\Helper\HTMLClean;
+-use voku\helper\AntiXSS;
+ 
+ 
+ class CommentsCrud extends Crud
+diff --git a/src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php b/src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php
+index e4f36ac235..059d8f7060 100644
+--- a/src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php
++++ b/src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php
+@@ -10,9 +10,9 @@ namespace MicroweberPackages\Content\Models\ModelFilters\Traits;
+ 
+ use Illuminate\Database\Eloquent\Builder;
+ use Illuminate\Support\Facades\Config;
++use MicroweberPackages\Helper\XSSClean;
+ use MicroweberPackages\Multilanguage\Models\MultilanguageTranslations;
+ use MicroweberPackages\Multilanguage\MultilanguageHelpers;
+-use voku\helper\AntiXSS;
+ 
+ trait FilterByKeywordTrait
+ {
+@@ -22,9 +22,11 @@ trait FilterByKeywordTrait
+         $table = $model->getTable();
+         $searchInFields = $model->getSearchable();
+         $keywordToSearch = false;
+-        $antixss = new AntiXSS();
++
++        $xssClean = new XSSClean();
++
+         if (is_string($keyword)) {
+-            $keyword = $antixss->xss_clean($keyword);
++            $keyword = $xssClean->clean($keyword);
+             if ($keyword) {
+                 $keywordToSearch = $keyword;
+             }
+diff --git a/src/MicroweberPackages/Helper/HTMLClean.php b/src/MicroweberPackages/Helper/HTMLClean.php
+index 57a10ea891..fc74e7f42c 100644
+--- a/src/MicroweberPackages/Helper/HTMLClean.php
++++ b/src/MicroweberPackages/Helper/HTMLClean.php
+@@ -33,8 +33,10 @@ class HTMLClean
+ 
+     public function clean($html) {
+ 
+-        $antiXss = new \voku\helper\AntiXSS();
+-        $html = $antiXss->xss_clean($html);
++
++
++        $xssClean = new XSSClean();
++        $html = $xssClean->clean($html);
+ 
+         $config = \HTMLPurifier_Config::createDefault();
+ 

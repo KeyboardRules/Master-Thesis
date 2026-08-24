@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6569-3785-r3v6",
+    "cve":  "CVE-2024-21546",
+    "cwe":  "CWE-94",
+    "repo":  "UniSharp/laravel-filemanager",
+    "fix_commit":  "8170760c0ae316d77b9363cd4c76ab68d3f63f0b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/LfmUploadValidator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/LfmUploadValidatorTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

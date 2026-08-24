@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-74gc-hf33-5353",
+    "cve":  "CVE-2020-13633",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "sha":  "b88f8a2033a4b9b4cbfce96c85691aafb021819d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Backend/Modules/Pages/Actions/Edit.php",
+                        "src/Backend/Modules/Pages/Engine/Model.php",
+                        "src/Frontend/Core/Header/MetaData.php",
+                        "src/Frontend/Core/Header/MetaLink.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Backend/Modules/Pages/Actions/Edit.php class extends BackendBaseActionEdit"
+                 ],
+    "changed_all":  [
+                        "src/Backend/Modules/Pages/Actions/Edit.php",
+                        "src/Backend/Modules/Pages/Engine/Model.php",
+                        "src/Backend/Modules/Pages/Layout/Templates/Edit.html.twig",
+                        "src/Frontend/Core/Header/MetaData.php",
+                        "src/Frontend/Core/Header/MetaLink.php",
+                        "src/Frontend/Core/Layout/Templates/Navigation.html.twig"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gm2g-65wj-43g8",
+    "cve":  "CVE-2018-20757",
+    "cwe":  "CWE-79",
+    "repo":  "modxcms/revolution",
+    "sha":  "489b13c61673ea0b19124e18cf1f3e7673f8aa64",
+    "status":  "ok",
+    "changed_php":  [
+                        "manager/controllers/default/security/user/update.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "manager/controllers/default/security/user/update.class.php class extends modManagerController"
+                 ],
+    "changed_all":  [
+                        "manager/controllers/default/security/user/update.class.php"
+                    ],
+    "sink_hit":  false
+}

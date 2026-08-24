@@ -1,0 +1,77 @@
+﻿diff --git a/objects/functionsBrowser.php b/objects/functionsBrowser.php
+index a396755c8..7a07856c4 100644
+--- a/objects/functionsBrowser.php
++++ b/objects/functionsBrowser.php
+@@ -136,6 +136,10 @@ function fakeBrowser($url)
+     return $output;
+ }
+ 
++function getUserAgentInfo(){
++    return get_browser_name() . '/' . getOS(). ' ('.(isMobile() ? "Mobile" : "PC").')';
++}
++
+ function get_browser_name($user_agent = "")
+ {
+     if (empty($user_agent)) {
+diff --git a/plugin/LoginControl/Objects/logincontrol_history.php b/plugin/LoginControl/Objects/logincontrol_history.php
+index 8b5b84c5a..66a142228 100644
+--- a/plugin/LoginControl/Objects/logincontrol_history.php
++++ b/plugin/LoginControl/Objects/logincontrol_history.php
+@@ -37,8 +37,6 @@ class logincontrol_history extends ObjectYPT
+             foreach ($fullData as $row) {
+                 $rows[] = $row;
+             }
+-        } else {
+-            _error_log($sql . ' Error : (' . $global['mysqli']->errno . ') ' . $global['mysqli']->error);
+         }
+         return $rows;
+     }
+@@ -134,16 +132,13 @@ class logincontrol_history extends ObjectYPT
+                 $row['type'] = ($row['status']!==logincontrol_history_status::$CONFIRMED) ? __("Failed login attempt") : __("Successfully logged in");
+                 $rows[] = $row;
+             }
+-        } else {
+-            _error_log($sql . ' Error : (' . $global['mysqli']->errno . ') ' . $global['mysqli']->error);
+-        }
++        } 
+         return $rows;
+     }
+ 
+     public static function getDeviceName($user_agent)
+     {
+-        $device = get_browser_name($user_agent);
+-        $device .= " - " . getOS($user_agent);
++        $device = getUserAgentInfo();
+         return $device;
+     }
+ 
+diff --git a/view/about.php b/view/about.php
+index 69ff834de..08d4af54f 100644
+--- a/view/about.php
++++ b/view/about.php
+@@ -18,7 +18,7 @@ $page = new Page('About', 'about');
+                 $custom = $ec->getAbout();
+             }
+             if (empty($custom)) {
+-                ?>
++            ?>
+                 <h1><?php echo __("I would humbly like to thank God for giving me the necessary knowledge, motivation, resources and idea to be able to execute this project. Without God's permission this would never be possible."); ?></h1>
+                 <blockquote class="blockquote">
+                     <h1><?php echo __("For of Him, and through Him, and to Him, are all things: to whom be glory for ever. Amen."); ?></h1>
+@@ -35,14 +35,9 @@ $page = new Page('About', 'about');
+                 </span>
+                 <div class="clearfix"></div>
+                 <span class="label label-info">
+-                    <?php echo __("You are using"); ?>: <?php echo get_browser_name() . " " . __("on") . " " . getOS(); ?> (<?php echo isMobile() ? __("Mobile") : __("PC"); ?>)
+-                </span>
+-                <span class="label label-default">
+-                    <?php echo $_SERVER['HTTP_USER_AGENT']; ?>
++                    <?php echo __("You are using"); ?>: <?php echo getUserAgentInfo(); ?> (<?php echo isMobile() ? __("Mobile") : __("PC"); ?>)
+                 </span>
+-
+-
+-                <?php
++            <?php
+             } else {
+                 echo $custom;
+             }

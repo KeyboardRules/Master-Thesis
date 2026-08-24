@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3fj4-q72x-x2g9",
+    "cve":  "CVE-2016-7405",
+    "cwe":  "CWE-89",
+    "repo":  "ADOdb/ADOdb",
+    "sha":  "bd9eca9f40220f9918ec3cc7ae9ef422b3e448b8",
+    "status":  "ok",
+    "changed_php":  [
+                        "drivers/adodb-pdo.inc.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "drivers/adodb-pdo.inc.php includes 1 project file(s)",
+                     "drivers/adodb-pdo.inc.php class extends ADOConnection"
+                 ],
+    "changed_all":  [
+                        "drivers/adodb-pdo.inc.php"
+                    ],
+    "sink_hit":  true
+}

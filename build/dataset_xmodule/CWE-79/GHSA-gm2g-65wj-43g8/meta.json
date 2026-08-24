@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gm2g-65wj-43g8",
+    "cve":  "CVE-2018-20757",
+    "cwe":  "CWE-79",
+    "repo":  "modxcms/revolution",
+    "fix_commit":  "489b13c61673ea0b19124e18cf1f3e7673f8aa64",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "manager/controllers/default/security/user/update.class.php"
+                    ],
+    "evidence":  [
+                     "manager/controllers/default/security/user/update.class.php class extends modManagerController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-8pv3-29pp-pf8f",
+    "cve":  "CVE-2026-41061",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "bcba324644df8b4ed1f891462455f1cd26822a45",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/video.php",
+                        "view/include/playlist.php",
+                        "view/trending.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "objects/video.php includes 23 project file(s)",
+                     "objects/video.php class extends ObjectYPT",
+                     "view/include/playlist.php includes 2 project file(s)",
+                     "view/trending.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "objects/video.php",
+                        "view/include/playlist.php",
+                        "view/trending.php"
+                    ],
+    "sink_hit":  true
+}

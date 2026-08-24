@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vpr3-cw3h-prw8",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "simplesamlphp/simplesamlphp",
+    "sha":  "ce2294e092b3be7db2fc4e18e774b791d4564ff3",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/SimpleSAML/Utils/HTTP.php",
+                        "modules/core/www/postredirect.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "lib/SimpleSAML/Utils/HTTP.php",
+                        "modules/core/www/postredirect.php"
+                    ],
+    "sink_hit":  true
+}

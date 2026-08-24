@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-h9vc-2p9g-63gp",
+    "cve":  "CVE-2022-0565",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "7697f709a501860144352696e583a2533a6e1245",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/SettingsController.php",
+                        "bundles/CoreBundle/EventListener/AssetSanitizationListener.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class uses trait",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/SettingsController.php",
+                        "bundles/CoreBundle/EventListener/AssetSanitizationListener.php",
+                        "bundles/CoreBundle/Resources/config/event_listeners.yaml",
+                        "composer.json"
+                    ],
+    "sink_hit":  true
+}

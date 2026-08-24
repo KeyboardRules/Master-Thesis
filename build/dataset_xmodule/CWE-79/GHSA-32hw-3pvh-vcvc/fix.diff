@@ -1,0 +1,22 @@
+﻿diff --git a/app/bundles/CoreBundle/Controller/CommonController.php b/app/bundles/CoreBundle/Controller/CommonController.php
+index b271f4776..c8bc1d6a4 100644
+--- a/app/bundles/CoreBundle/Controller/CommonController.php
++++ b/app/bundles/CoreBundle/Controller/CommonController.php
+@@ -184,7 +184,7 @@ class CommonController extends Controller implements MauticController
+             $args = [
+                 'contentTemplate' => $args,
+                 'passthroughVars' => [
+-                    'mauticContent' => strtolower($this->request->get('bundle')),
++                    'mauticContent' => strtolower(InputHelper::alphanum($this->request->query->get('bundle'))),
+                 ],
+             ];
+         }
+@@ -201,7 +201,7 @@ class CommonController extends Controller implements MauticController
+             if (isset($args['passthroughVars']['mauticContent'])) {
+                 $mauticContent = $args['passthroughVars']['mauticContent'];
+             } else {
+-                $mauticContent = strtolower($this->request->get('bundle'));
++                $mauticContent = strtolower(InputHelper::alphanum($this->request->query->get('bundle')));
+             }
+             $args['viewParameters']['mauticContent'] = $mauticContent;
+         }

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8vwh-pr89-4mw2",
+    "cve":  "CVE-2024-55661",
+    "cwe":  "CWE-94",
+    "repo":  "laravel/pulse",
+    "sha":  "d1a5bf2eca36c6e3bedb4ceecd45df7d002a1ebc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Livewire/Concerns/RemembersQueries.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Livewire/Concerns/RemembersQueries.php"
+                    ],
+    "sink_hit":  false
+}

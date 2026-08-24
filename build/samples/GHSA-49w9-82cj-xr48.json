@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-49w9-82cj-xr48",
+    "cve":  "CVE-2020-28413",
+    "cwe":  "CWE-89",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "3e37b4041bf76422541836a424ca71bc4a660247",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/project_api.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "core/project_api.php"
+                    ],
+    "sink_hit":  true
+}

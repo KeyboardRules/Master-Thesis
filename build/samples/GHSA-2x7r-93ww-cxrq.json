@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-2x7r-93ww-cxrq",
+    "cve":  "CVE-2023-52085",
+    "cwe":  "CWE-22",
+    "repo":  "wintercms/winter",
+    "sha":  "5bc9257fe2bc47d8b786a1b1bf96bafad23d8ddd",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/backend/formwidgets/ColorPicker.php",
+                        "modules/backend/lang/en/lang.php",
+                        "modules/backend/tests/formwidgets/ColorPickerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/backend/formwidgets/ColorPicker.php class extends FormWidgetBase"
+                 ],
+    "changed_all":  [
+                        "modules/backend/formwidgets/ColorPicker.php",
+                        "modules/backend/lang/en/lang.php",
+                        "modules/backend/tests/formwidgets/ColorPickerTest.php"
+                    ],
+    "sink_hit":  true
+}

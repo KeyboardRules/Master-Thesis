@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x45f-j34v-75xm",
+    "cve":  "CVE-2022-3975",
+    "cwe":  "CWE-79",
+    "repo":  "nukeviet/nukeviet",
+    "sha":  "0b3197fad950bb3383e83039a8ee4c9509b3ce02",
+    "status":  "ok",
+    "changed_php":  [
+                        "vendor/vinades/nukeviet/Core/Request.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "vendor/vinades/nukeviet/Core/Request.php"
+                    ],
+    "sink_hit":  false
+}

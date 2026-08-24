@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-42gv-77f4-r3j9",
+    "cve":  "CVE-2018-20713",
+    "cwe":  "CWE-89",
+    "repo":  "shopware5/shopware",
+    "sha":  "73cb46727050e28a0d7c2cf8471baaa3eaf2e5e8",
+    "status":  "ok",
+    "changed_php":  [
+                        "engine/Shopware/Bundle/AttributeBundle/Service/SchemaOperator.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "engine/Shopware/Bundle/AttributeBundle/Service/SchemaOperator.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "UPGRADE-5.4.md",
+                        "engine/Shopware/Bundle/AttributeBundle/Service/SchemaOperator.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-pwh2-fpfr-x5gf",
+    "cve":  "CVE-2024-28105",
+    "cwe":  "CWE-434",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "9136883776af67dfdb0e8cf14f5e0ca22bf4f2e7",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/api/attachment.php",
+                        "phpmyfaq/src/phpMyFAQ/Attachment/File.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Attachment/File.php class extends AttachmentAbstract"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/api/attachment.php",
+                        "phpmyfaq/src/phpMyFAQ/Attachment/File.php"
+                    ],
+    "sink_hit":  false
+}

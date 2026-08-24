@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-w2f4-hxpm-mq98",
+    "cve":  "CVE-2021-3915",
+    "cwe":  "CWE-434",
+    "repo":  "bookstackapp/bookstack",
+    "sha":  "ae155d67454d6b9f6c93b2bb457aaa4b2eb1a9ed",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Controller.php",
+                        "app/Util/WebSafeMimeSniffer.php",
+                        "tests/Uploads/AttachmentTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Http/Controllers/Controller.php class extends BaseController",
+                     "app/Http/Controllers/Controller.php class uses trait",
+                     "tests/Uploads/AttachmentTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Controller.php",
+                        "app/Util/WebSafeMimeSniffer.php",
+                        "tests/Uploads/AttachmentTest.php"
+                    ],
+    "sink_hit":  false
+}

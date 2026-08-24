@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-5mv2-rx3q-4w2v",
+    "cve":  "CVE-2022-23614",
+    "cwe":  "CWE-74",
+    "repo":  "twigphp/Twig",
+    "fix_commit":  "22b9dc3c03ee66d7e21d9ed2ca76052b134cb9e9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Extension/CoreExtension.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Extension/CoreExtension.php class extends AbstractExtension",
+                     "tests/Extension/SandboxTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

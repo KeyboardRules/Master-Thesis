@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jh5x-hfhg-78jq",
+    "cve":  "CVE-2020-28948,CVE-2020-28949",
+    "cwe":  "CWE-502",
+    "repo":  "pear/Archive_Tar",
+    "fix_commit":  "0670a05fdab997036a3fc3ef113b8f5922e574da",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Archive/Tar.php"
+                    ],
+    "evidence":  [
+                     "Archive/Tar.php includes 1 project file(s)",
+                     "Archive/Tar.php class extends PEAR"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

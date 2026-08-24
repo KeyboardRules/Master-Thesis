@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c8f2-5h29-8j2h",
+    "cve":  "CVE-2022-33157",
+    "cwe":  "CWE-79",
+    "repo":  "subhh/libconnect",
+    "sha":  "8c582f3f6575f8744bf29f99bc1697ab8b7bd3af",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Controller/EzbController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Classes/Controller/EzbController.php class extends \\TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController"
+                 ],
+    "changed_all":  [
+                        "Classes/Controller/EzbController.php",
+                        "Resources/Private/Templates/Ezb/DisplayError.html"
+                    ],
+    "sink_hit":  true
+}

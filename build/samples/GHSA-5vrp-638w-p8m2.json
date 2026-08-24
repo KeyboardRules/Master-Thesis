@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-5vrp-638w-p8m2",
+    "cve":  "CVE-2024-41676",
+    "cwe":  "CWE-79",
+    "repo":  "OpenMage/magento-lts",
+    "sha":  "484cf8afc550e98bbf2c03fbb29a8450a32e7948",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/code/core/Mage/Core/Model/Security/HtmlEscapedString.php",
+                        "app/code/core/Mage/Page/Block/Html/Header.php",
+                        "app/code/core/Mage/Page/Block/Html/Welcome.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/code/core/Mage/Page/Block/Html/Header.php class extends Mage_Core_Block_Template",
+                     "app/code/core/Mage/Page/Block/Html/Welcome.php class extends Mage_Core_Block_Template"
+                 ],
+    "changed_all":  [
+                        "app/code/core/Mage/Core/Model/Security/HtmlEscapedString.php",
+                        "app/code/core/Mage/Page/Block/Html/Header.php",
+                        "app/code/core/Mage/Page/Block/Html/Welcome.php"
+                    ],
+    "sink_hit":  false
+}

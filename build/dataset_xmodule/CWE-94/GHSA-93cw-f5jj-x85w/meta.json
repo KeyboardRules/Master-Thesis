@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-93cw-f5jj-x85w",
+    "cve":  "CVE-2023-22731",
+    "cwe":  "CWE-94",
+    "repo":  "shopware/platform",
+    "fix_commit":  "89d1ea154689cb6202e0d3a0ceeae0febb0c09e1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Core/Content/Seo/SeoUrlTwigFactory.php",
+                        "src/Core/Framework/DependencyInjection/Configuration.php",
+                        "src/Core/Framework/Rule/ScriptRule.php",
+                        "src/Core/Framework/Script/Execution/ScriptExecutor.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Core/Framework/Rule/ScriptRule.php class extends Rule"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

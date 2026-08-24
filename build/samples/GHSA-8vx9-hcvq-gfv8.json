@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-8vx9-hcvq-gfv8",
+    "cve":  "CVE-2016-7111",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "b3511d2feb47eaee41feb5f69cf3c8a2c9acd229",
+    "status":  "ok",
+    "changed_php":  [
+                        "core.php",
+                        "core/events_inc.php",
+                        "core/http_api.php",
+                        "plugins/Gravatar/Gravatar.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "core.php includes 6 project file(s)",
+                     "plugins/Gravatar/Gravatar.php class extends MantisPlugin",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "core.php",
+                        "core/events_inc.php",
+                        "core/http_api.php",
+                        "docbook/Developers_Guide/en-US/Events_Reference.xml",
+                        "plugins/Gravatar/Gravatar.php"
+                    ],
+    "sink_hit":  true
+}

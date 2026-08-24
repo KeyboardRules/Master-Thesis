@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6m26-25q2-cq46",
+    "cve":  "CVE-2022-0763",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "c897d0dc159849763a813184d9b75b966c6360bf",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Media/MediaManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Media/MediaManager.php"
+                    ],
+    "sink_hit":  false
+}

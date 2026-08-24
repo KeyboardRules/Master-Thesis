@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-h95w-p3x6-wwj6",
+    "cve":  "CVE-2022-3721",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "sha":  "1182453c18a83309a3470b2775c148ede740806c",
+    "status":  "ok",
+    "changed_php":  [
+                        "index.php",
+                        "lib/Froxlor/Api/Commands/Admins.php",
+                        "lib/Froxlor/Api/Commands/Customers.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "index.php includes 1 project file(s)",
+                     "lib/Froxlor/Api/Commands/Admins.php class extends \\Froxlor\\Api\\ApiCommand",
+                     "lib/Froxlor/Api/Commands/Customers.php class extends \\Froxlor\\Api\\ApiCommand",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "index.php",
+                        "lib/Froxlor/Api/Commands/Admins.php",
+                        "lib/Froxlor/Api/Commands/Customers.php"
+                    ],
+    "sink_hit":  true
+}

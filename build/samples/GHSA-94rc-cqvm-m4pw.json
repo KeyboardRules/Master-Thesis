@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-94rc-cqvm-m4pw",
+    "cve":  "CVE-2026-28695",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/cms",
+    "sha":  "e31e50849ad71638e11ea55fbd1ed90ae8f8f6e0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Craft.php",
+                        "src/web/twig/Extension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Craft.php class extends Yii",
+                     "src/web/twig/Extension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG-WIP.md",
+                        "src/Craft.php",
+                        "src/web/twig/Extension.php"
+                    ],
+    "sink_hit":  false
+}

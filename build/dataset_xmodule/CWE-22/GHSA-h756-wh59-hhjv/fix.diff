@@ -1,0 +1,148 @@
+﻿diff --git a/system/src/Grav/Common/Flex/Types/Users/UserObject.php b/system/src/Grav/Common/Flex/Types/Users/UserObject.php
+index 06cdc31b..982e7905 100644
+--- a/system/src/Grav/Common/Flex/Types/Users/UserObject.php
++++ b/system/src/Grav/Common/Flex/Types/Users/UserObject.php
+@@ -583,10 +583,19 @@ class UserObject extends FlexObject implements UserInterface, Countable
+     {
+         // TODO: We may want to handle this in the storage layer in the future.
+         $key = $this->getStorageKey();
+-        if (!$key || strpos($key, '@@')) {
++        $isNewUser = !$key || strpos($key, '@@');
++
++        if ($isNewUser) {
+             $storage = $this->getFlexDirectory()->getStorage();
+             if ($storage instanceof FileStorage) {
+-                $this->setStorageKey($this->getKey());
++                $newKey = $this->getKey();
++
++                // Check if a user with this username already exists (prevent overwriting)
++                if ($storage->hasKey($newKey)) {
++                    throw new RuntimeException('User account with this username already exists');
++                }
++
++                $this->setStorageKey($newKey);
+             }
+         }
+ 
+diff --git a/system/src/Grav/Common/User/DataUser/User.php b/system/src/Grav/Common/User/DataUser/User.php
+index 1a91d257..3fee6bdd 100644
+--- a/system/src/Grav/Common/User/DataUser/User.php
++++ b/system/src/Grav/Common/User/DataUser/User.php
+@@ -128,8 +128,20 @@ class User extends Data implements UserInterface
+         if ($file) {
+             $username = $this->filterUsername((string)$this->get('username'));
+ 
++            // Validate username to prevent path traversal attacks
++            if (!self::isValidUsername($username)) {
++                throw new \RuntimeException('Invalid username: contains invalid characters or sequences');
++            }
++
+             if (!$file->filename()) {
+                 $locator = Grav::instance()['locator'];
++
++                // Check if a user with this username already exists (prevent overwriting)
++                $existingFile = $locator->findResource('account://' . $username . YAML_EXT);
++                if ($existingFile) {
++                    throw new \RuntimeException('User account with this username already exists');
++                }
++
+                 $file->filename($locator->findResource('account://' . $username . YAML_EXT, true, true));
+             }
+ 
+@@ -313,6 +325,37 @@ class User extends Data implements UserInterface
+         return mb_strtolower($username);
+     }
+ 
++    /**
++     * Validates a username to prevent path traversal and other attacks.
++     *
++     * @param string $username
++     * @return bool
++     */
++    public static function isValidUsername(string $username): bool
++    {
++        // Username must not be empty
++        if (!$username) {
++            return false;
++        }
++
++        // Username must not contain filesystem-dangerous characters: \ / ? * : ; { } or newlines
++        if (!preg_match('/^[^\\/?*:;{}\\\\\\n]+$/u', $username)) {
++            return false;
++        }
++
++        // Username must not contain path traversal sequences (..)
++        if (str_contains($username, '..')) {
++            return false;
++        }
++
++        // Username must not start with a dot (hidden files)
++        if (str_starts_with($username, '.')) {
++            return false;
++        }
++
++        return true;
++    }
++
+     /**
+      * @return string|null
+      */
+diff --git a/system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php b/system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php
+index 1502a415..1c84f081 100644
+--- a/system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php
++++ b/system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php
+@@ -220,6 +220,39 @@ abstract class AbstractFilesystemStorage implements FlexStorageInterface
+      */
+     protected function validateKey(string $key): bool
+     {
+-        return $key && (bool) preg_match('/^[^\\/?*:;{}\\\\\\n]+$/u', $key);
++        // Key must not be empty
++        if (!$key) {
++            return false;
++        }
++
++        // Key must not contain filesystem-dangerous characters: \ / ? * : ; { } or newlines
++        if (!preg_match('/^[^\\/?*:;{}\\\\\\n]+$/u', $key)) {
++            return false;
++        }
++
++        // Key must not contain path traversal sequences (..)
++        if (str_contains($key, '..')) {
++            return false;
++        }
++
++        // Key must not start with a dot (hidden files)
++        if (str_starts_with($key, '.')) {
++            return false;
++        }
++
++        return true;
++    }
++
++    /**
++     * Validates a key and throws an exception if invalid.
++     *
++     * @param string $key
++     * @throws \InvalidArgumentException
++     */
++    public function assertValidKey(string $key): void
++    {
++        if (!$this->validateKey($key)) {
++            throw new \InvalidArgumentException(sprintf('Invalid storage key: "%s"', $key));
++        }
+     }
+ }
+diff --git a/system/src/Grav/Framework/Flex/Storage/FolderStorage.php b/system/src/Grav/Framework/Flex/Storage/FolderStorage.php
+index 8fedfbc8..0bb47397 100644
+--- a/system/src/Grav/Framework/Flex/Storage/FolderStorage.php
++++ b/system/src/Grav/Framework/Flex/Storage/FolderStorage.php
+@@ -419,6 +419,9 @@ class FolderStorage extends AbstractFilesystemStorage
+ 
+             $key = $this->normalizeKey($key);
+ 
++            // Validate the key to prevent path traversal and other attacks
++            $this->assertValidKey($key);
++
+             // Check if the row already exists and if the key has been changed.
+             $oldKey = $row['__META']['storage_key'] ?? null;
+             if (is_string($oldKey) && $oldKey !== $key) {

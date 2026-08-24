@@ -1,0 +1,32 @@
+﻿diff --git a/kernel/private/classes/ezcontentobjectstate.php b/kernel/private/classes/ezcontentobjectstate.php
+index 27f320aa..1d1f115d 100644
+--- a/kernel/private/classes/ezcontentobjectstate.php
++++ b/kernel/private/classes/ezcontentobjectstate.php
+@@ -67,6 +67,7 @@ class eZContentObjectState extends eZPersistentObject
+      */
+     public static function fetchById( $id )
+     {
++        $id = (int)$id;
+         $states = self::fetchByConditions( array( "ezcobj_state.id=$id" ), 1, 0 );
+         $state = count( $states ) > 0 ? $states[0] : false;
+         return $state;
+@@ -145,6 +146,7 @@ class eZContentObjectState extends eZPersistentObject
+      */
+     public static function fetchByGroup( $groupID, $limit = false, $offset = false )
+     {
++        $groupID = (int)$groupID;
+         return self::fetchByConditions( array( "ezcobj_state_group.id=$groupID" ), $limit, $offset );
+     }
+ 
+diff --git a/kernel/private/classes/ezcontentobjectstategroup.php b/kernel/private/classes/ezcontentobjectstategroup.php
+index 8ef56dc7..008ab006 100644
+--- a/kernel/private/classes/ezcontentobjectstategroup.php
++++ b/kernel/private/classes/ezcontentobjectstategroup.php
+@@ -65,6 +65,7 @@ class eZContentObjectStateGroup extends eZPersistentObject
+      */
+     public static function fetchById( $id )
+     {
++        $id = (int)$id;
+         $stateGroups = self::fetchByConditions( array( "ezcobj_state_group.id=$id" ), 1, 0 );
+         $stateGroup = count( $stateGroups ) > 0 ? $stateGroups[0] : false;
+         return $stateGroup;

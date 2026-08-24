@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-472v-j2g4-g9h2",
+    "cve":  "CVE-2026-32262",
+    "cwe":  "CWE-22",
+    "repo":  "craftcms/cms",
+    "sha":  "c997efbe4c66c14092714233aeebff15cdbfcf11",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/AssetsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/AssetsController.php class extends Controller",
+                     "src/controllers/AssetsController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/AssetsController.php"
+                    ],
+    "sink_hit":  true
+}

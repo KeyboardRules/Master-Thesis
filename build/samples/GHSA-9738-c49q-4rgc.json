@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9738-c49q-4rgc",
+    "cve":  "CVE-2018-16327",
+    "cwe":  "CWE-79",
+    "repo":  "intelliants/subrion",
+    "sha":  "ec8e6e8984eeebfaf0d8022f4c07aa508624ee18",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/configuration.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "admin/configuration.php class extends iaAbstractControllerBackend"
+                 ],
+    "changed_all":  [
+                        "admin/configuration.php",
+                        "install/dump/install.sql"
+                    ],
+    "sink_hit":  true
+}

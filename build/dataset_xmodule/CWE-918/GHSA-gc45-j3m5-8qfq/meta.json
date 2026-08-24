@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-gc45-j3m5-8qfq",
+    "cve":  "CVE-2021-30108",
+    "cwe":  "CWE-918",
+    "repo":  "liufee/cms",
+    "fix_commit":  "d45cb9cb26d6f5ef491fa2c7d87ac7f26091bd7c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "common/config/main.php",
+                        "common/mail/backend/passwordResetToken-html.php",
+                        "common/mail/backend/passwordResetToken-text.php",
+                        "common/mail/passwordResetToken-html.php",
+                        "common/mail/passwordResetToken-text.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "common/config/main.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

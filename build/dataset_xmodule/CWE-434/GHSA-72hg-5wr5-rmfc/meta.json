@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-72hg-5wr5-rmfc",
+    "cve":  "CVE-2023-47129",
+    "cwe":  "CWE-434",
+    "repo":  "statamic/cms",
+    "fix_commit":  "098ef8024d97286ca501273c18ae75b646262d75",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Http/Controllers/FormController.php"
+                    ],
+    "evidence":  [
+                     "src/Http/Controllers/FormController.php class extends Controller",
+                     "src/Http/Controllers/FormController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

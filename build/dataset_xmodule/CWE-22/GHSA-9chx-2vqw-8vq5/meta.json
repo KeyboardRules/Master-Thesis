@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9chx-2vqw-8vq5",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "ethercreative/logs",
+    "fix_commit":  "eb225cc78b1123a10ce2784790f232d71c2066c4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Controller.php"
+                    ],
+    "evidence":  [
+                     "src/Controller.php class extends \\craft\\web\\Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

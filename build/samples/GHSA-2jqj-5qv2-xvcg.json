@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-2jqj-5qv2-xvcg",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "ezsystems/ezplatform-richtext",
+    "sha":  "5ba2a82cc3aa6235ecfe87278e20c1451d9df913",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/lib/RichText/XMLSanitizer.php",
+                        "src/lib/eZ/RichText/DOMDocumentFactory.php",
+                        "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php",
+                        "tests/lib/Form/DataTransformer/RichTextTransformerTest.php",
+                        "tests/lib/eZ/FieldType/RichTextTest.php",
+                        "tests/lib/eZ/RichText/DOMDocumentFactoryTest.php",
+                        "tests/lib/eZ/RichText/InputHandlerTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php includes 1 project file(s)",
+                     "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php class extends BaseIntegrationTest",
+                     "tests/lib/Form/DataTransformer/RichTextTransformerTest.php class extends TestCase",
+                     "tests/lib/eZ/FieldType/RichTextTest.php class extends TestCase",
+                     "tests/lib/eZ/RichText/DOMDocumentFactoryTest.php class extends TestCase",
+                     "tests/lib/eZ/RichText/InputHandlerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/lib/RichText/XMLSanitizer.php",
+                        "src/lib/eZ/RichText/DOMDocumentFactory.php",
+                        "src/lib/eZ/settings/fieldtype_services.yaml",
+                        "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php",
+                        "tests/lib/Form/DataTransformer/RichTextTransformerTest.php",
+                        "tests/lib/eZ/FieldType/RichTextTest.php",
+                        "tests/lib/eZ/RichText/DOMDocumentFactoryTest.php",
+                        "tests/lib/eZ/RichText/InputHandlerTest.php"
+                    ],
+    "sink_hit":  true
+}

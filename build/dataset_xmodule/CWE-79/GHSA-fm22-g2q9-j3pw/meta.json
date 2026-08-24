@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-fm22-g2q9-j3pw",
+    "cve":  "CVE-2025-54476",
+    "cwe":  "CWE-79",
+    "repo":  "joomla-framework/filter",
+    "fix_commit":  "188dd3fccd6fa0532d105a52736affdf6b166217",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/InputFilter.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Tests/InputFilterTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

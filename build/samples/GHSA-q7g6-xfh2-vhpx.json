@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-q7g6-xfh2-vhpx",
+    "cve":  "CVE-2024-27300",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "09336b0ff0e0a04aa0c97c5975651af4769d2459",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/user.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/admin/user.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/user.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "sink_hit":  true
+}

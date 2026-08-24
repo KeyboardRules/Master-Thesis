@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7x4w-j98p-854x",
+    "cve":  "CVE-2022-41938",
+    "cwe":  "CWE-79",
+    "repo":  "flarum/framework",
+    "sha":  "690de9ce0ffe7ac4d45b73e303f44340c3433138",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/core/views/frontend/app.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "framework/core/js/src/common/Application.tsx",
+                        "framework/core/views/frontend/app.blade.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p379-cxqh-q822",
+    "cve":  "CVE-2023-30839",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "0f2a9b7fdd42d1dd3b21d4fad586a849642f3c30",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/db/Db.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "classes/db/Db.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "classes/db/Db.php"
+                    ],
+    "sink_hit":  true
+}

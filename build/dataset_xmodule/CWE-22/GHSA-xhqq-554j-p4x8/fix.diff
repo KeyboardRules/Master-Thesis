@@ -1,0 +1,35 @@
+﻿diff --git a/libraries/schema/User_Schema.class.php b/libraries/schema/User_Schema.class.php
+index fbec138d..cb42dde2 100644
+--- a/libraries/schema/User_Schema.class.php
++++ b/libraries/schema/User_Schema.class.php
+@@ -567,10 +567,13 @@ class PMA_User_Schema
+         require_once './libraries/transformations.lib.php';
+         require_once './libraries/Index.class.php';
+         /**
+-         * default is PDF
++         * default is PDF, otherwise validate it's only letters a-z
+          */
+         global  $db,$export_type;
+-        $export_type            = isset($export_type) ? $export_type : 'pdf';
++        if (!isset($export_type) || !preg_match('/^[a-zA-Z]+$/', $export_type)) {
++            $export_type = 'pdf';
++        }
++
+         PMA_DBI_select_db($db);
+ 
+         include("./libraries/schema/".ucfirst($export_type)."_Relation_Schema.class.php");
+diff --git a/schema_export.php b/schema_export.php
+index 0a21d329..3e1067d5 100644
+--- a/schema_export.php
++++ b/schema_export.php
+@@ -37,7 +37,9 @@ include_once("./libraries/schema/Export_Relation_Schema.class.php");
+  * default is PDF
+  */
+ global  $db,$export_type;
+-$export_type = isset($export_type) ? $export_type : 'pdf';
++if (!isset($export_type) || !preg_match('/^[a-zA-Z]+$/', $export_type)) {
++    $export_type = 'pdf';
++}
+ PMA_DBI_select_db($db);
+ 
+ $path = PMA_securePath(ucfirst($export_type));

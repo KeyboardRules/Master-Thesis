@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-wfv7-5x33-v22h",
+    "cve":  "CVE-2014-4931",
+    "cwe":  "CWE-94",
+    "repo":  "symfony/symfony",
+    "sha":  "06a80fbdbe744ad6f3010479ba64ef5cf35dd9af",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Bundle/FrameworkBundle/Tests/Translation/TranslatorTest.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/Tests/TranslatorTest.php",
+                        "src/Symfony/Component/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/TranslatorInterface.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Symfony/Bundle/FrameworkBundle/Tests/Translation/TranslatorTest.php class extends \\PHPUnit_Framework_TestCase",
+                     "src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php class extends BaseTranslator",
+                     "src/Symfony/Component/Translation/Tests/TranslatorTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Bundle/FrameworkBundle/Tests/Translation/TranslatorTest.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/Tests/TranslatorTest.php",
+                        "src/Symfony/Component/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/TranslatorInterface.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7mmc-22g7-3xq2",
+    "cve":  "CVE-2023-30944",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "5521d1d6e8bb8bebb76ad8154095f6b18ea26e7f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "mod/wiki/classes/external.php"
+                    ],
+    "evidence":  [
+                     "mod/wiki/classes/external.php includes 2 project file(s)",
+                     "mod/wiki/classes/external.php class extends external_api"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

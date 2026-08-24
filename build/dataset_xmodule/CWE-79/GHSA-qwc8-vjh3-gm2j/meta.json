@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-qwc8-vjh3-gm2j",
+    "cve":  "CVE-2022-3004",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "fix_commit":  "cd82ecce44d83f1f6c10c7766bf36f3026de024a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/Settings/Workflows/actions/TaskAjax.php",
+                        "modules/Settings/Workflows/views/EditTask.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/Settings/Workflows/actions/TaskAjax.php class extends Settings_Vtiger_Basic_Action",
+                     "modules/Settings/Workflows/views/EditTask.php class extends Settings_Vtiger_Index_View"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

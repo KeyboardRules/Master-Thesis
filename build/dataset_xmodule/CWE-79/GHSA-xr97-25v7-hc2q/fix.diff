@@ -1,0 +1,91 @@
+﻿diff --git a/packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php b/packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php
+index 0caecaf..6833683 100755
+--- a/packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php
++++ b/packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php
+@@ -166,6 +166,7 @@ class ImportController extends Controller
+                 'allowed_errors',
+                 'field_separator',
+                 'images_directory_path',
++                'file',
+                 'filters',
+             ]),
+             [
+diff --git a/packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php b/packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php
+index 6bd9f6e..80b7e20 100755
+--- a/packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php
++++ b/packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php
+@@ -283,6 +283,8 @@ class UserController extends Controller
+             return $this->cannotChangeRedirectResponse('role');
+         }
+ 
++        unset($data['image']);
++
+         return $data;
+     }
+ 
+diff --git a/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php b/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php
+index e3ef582..4fde7dd 100644
+--- a/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php
++++ b/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Webkul\DataTransfer\Validators\JobInstances\Import;
+ 
++use Webkul\Core\Rules\FileMimeExtensionMatch;
+ use Webkul\DataTransfer\Rules\SeparatorTypes;
+ use Webkul\DataTransfer\Validators\JobInstances\Default\JobValidator;
+ 
+@@ -12,9 +13,13 @@ class CategoryJobValidator extends JobValidator
+      */
+     public function getRules(array $options): array
+     {
+-        if (isset($options['id'])) {
+-            $this->rules['file'] = 'mimes:csv,xls,xlsx,txt';
+-        }
++        $this->rules['file'] = [
++            empty($options['id']) ? 'required' : 'nullable',
++            'mimes:csv,txt,xlsx,xls',
++            'extensions:csv,xlsx,xls',
++            new FileMimeExtensionMatch,
++        ];
++
+         $this->rules['field_separator'] = ['required', new SeparatorTypes];
+ 
+         return $this->rules;
+diff --git a/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php b/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php
+index 2325264..4c8d968 100644
+--- a/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php
++++ b/packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Webkul\DataTransfer\Validators\JobInstances\Import;
+ 
++use Webkul\Core\Rules\FileMimeExtensionMatch;
+ use Webkul\DataTransfer\Rules\SeparatorTypes;
+ use Webkul\DataTransfer\Validators\JobInstances\Default\JobValidator;
+ 
+@@ -12,9 +13,13 @@ class ProductJobValidator extends JobValidator
+      */
+     public function getRules(array $options): array
+     {
+-        if (isset($options['id'])) {
+-            $this->rules['file'] = 'mimes:csv,xls,xlsx,txt';
+-        }
++        $this->rules['file'] = [
++            empty($options['id']) ? 'required' : 'nullable',
++            'mimes:csv,txt,xlsx,xls',
++            'extensions:csv,xlsx,xls',
++            new FileMimeExtensionMatch,
++        ];
++
+         $this->rules['field_separator'] = ['required', new SeparatorTypes];
+ 
+         return $this->rules;
+@@ -27,7 +32,6 @@ class ProductJobValidator extends JobValidator
+         'action'              => 'required:in:append,delete',
+         'validation_strategy' => 'required:in:stop-on-errors,skip-errors',
+         'allowed_errors'      => 'required|integer|min:0',
+-        'file'                => 'required|mimes:csv,xls,xlsx,txt',
+     ];
+ 
+     /**

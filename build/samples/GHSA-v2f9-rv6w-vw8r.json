@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-v2f9-rv6w-vw8r",
+    "cve":  "CVE-2024-34349",
+    "cwe":  "CWE-79",
+    "repo":  "Sylius/Sylius",
+    "sha":  "ba4b66da5af88cdb1bba6174de8bdf42f4853e12",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "features/product/managing_products/preventing_xss_attack_while_adding_a_new_product.feature",
+                        "features/product/managing_products/preventing_xss_attack_while_editing_product.feature",
+                        "features/taxonomy/managing_taxons/preventing_xss_attack_while_adding_a_new_taxon.feature",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php",
+                        "src/Sylius/Bundle/AdminBundle/Resources/private/js/sylius-lazy-choice-tree.js",
+                        "src/Sylius/Bundle/UiBundle/Resources/private/js/sylius-auto-complete.js",
+                        "src/Sylius/Bundle/UiBundle/Resources/private/js/sylius-product-auto-complete.js"
+                    ],
+    "sink_hit":  false
+}

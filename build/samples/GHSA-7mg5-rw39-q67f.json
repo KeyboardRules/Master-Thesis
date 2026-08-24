@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7mg5-rw39-q67f",
+    "cve":  "CVE-2014-125051",
+    "cwe":  "CWE-89",
+    "repo":  "himiklab/yii2-jqgrid-widget",
+    "sha":  "a117e0f2df729e3ff726968794d9a5ac40e660b9",
+    "status":  "ok",
+    "changed_php":  [
+                        "JqGridAction.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "JqGridAction.php class extends Action"
+                 ],
+    "changed_all":  [
+                        "JqGridAction.php"
+                    ],
+    "sink_hit":  false
+}

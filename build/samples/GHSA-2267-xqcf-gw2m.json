@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2267-xqcf-gw2m",
+    "cve":  "CVE-2025-69210",
+    "cwe":  "CWE-79",
+    "repo":  "NeoRazorX/facturascripts",
+    "sha":  "e908ade21c84bdc9d51190057482316730c66146",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/Controller/Myfiles.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Core/Controller/Myfiles.php"
+                    ],
+    "sink_hit":  false
+}

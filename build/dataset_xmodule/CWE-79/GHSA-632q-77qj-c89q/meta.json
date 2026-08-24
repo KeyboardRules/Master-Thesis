@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-632q-77qj-c89q",
+    "cve":  "CVE-2024-28710",
+    "cwe":  "CWE-79",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "fix_commit":  "c2fd60f94bc1db275f20cbb27a3135a9bdfb7f10",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "application/controllers/AjaxAlertController.php"
+                    ],
+    "evidence":  [
+                     "application/controllers/AjaxAlertController.php class extends LSBaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

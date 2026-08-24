@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6hwr-6v2f-3m88",
+    "cve":  "CVE-2024-45293",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "3bcd51826b7f089d1641e756c83030c30c3bdb0c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

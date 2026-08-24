@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-5jxc-hmqf-3f73",
+    "cve":  "CVE-2021-3904",
+    "cwe":  "CWE-79",
+    "repo":  "getgrav/grav",
+    "sha":  "afc69a3229bb6fe120b2c1ea27bc6f196ed7284d",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "sink_hit":  false
+}

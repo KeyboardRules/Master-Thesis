@@ -1,0 +1,86 @@
+﻿diff --git a/app/Http/Controllers/AttachmentController.php b/app/Http/Controllers/AttachmentController.php
+index 7b58dba..b0c88f9 100644
+--- a/app/Http/Controllers/AttachmentController.php
++++ b/app/Http/Controllers/AttachmentController.php
+@@ -78,7 +78,7 @@ class AttachmentController extends Controller
+     /**
+      * Destroy attachment.
+      *
+-     * @param Request    $request
++     * @param Request $request
+      * @param Attachment $attachment
+      *
+      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+@@ -131,7 +131,7 @@ class AttachmentController extends Controller
+     /**
+      * Edit an attachment.
+      *
+-     * @param Request    $request
++     * @param Request $request
+      * @param Attachment $attachment
+      *
+      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+@@ -178,7 +178,7 @@ class AttachmentController extends Controller
+      * Update attachment.
+      *
+      * @param AttachmentFormRequest $request
+-     * @param Attachment            $attachment
++     * @param Attachment $attachment
+      *
+      * @return RedirectResponse
+      */
+@@ -211,13 +211,27 @@ class AttachmentController extends Controller
+      * @return LaravelResponse
+      * @throws FireflyException
+      */
+-    public function view(Attachment $attachment): LaravelResponse
++    public function view(Request $request, Attachment $attachment): LaravelResponse
+     {
+         if ($this->repository->exists($attachment)) {
+             $content = $this->repository->getContent($attachment);
+ 
++            // prevent XSS by adding a new secure header.
++            $csp = [
++                "default-src 'none'",
++                "object-src 'none'",
++                "script-src 'none'",
++                "style-src 'none'",
++                "base-uri 'none'",
++                "font-src 'none'",
++                "connect-src 'none'",
++                "img-src 'none'",
++                "manifest-src 'none'",
++            ];
++
+             return response()->make(
+                 $content, 200, [
++                            'Content-Security-Policy' => implode('; ', $csp),
+                             'Content-Type'        => $attachment->mime,
+                             'Content-Disposition' => 'inline; filename="' . $attachment->filename . '"',
+                         ]
+diff --git a/app/Http/Middleware/SecureHeaders.php b/app/Http/Middleware/SecureHeaders.php
+index e7e9bfc..6859e73 100644
+--- a/app/Http/Middleware/SecureHeaders.php
++++ b/app/Http/Middleware/SecureHeaders.php
+@@ -36,7 +36,7 @@ class SecureHeaders
+      * Handle an incoming request. May not be a limited user (ie. Sandstorm env. or demo user).
+      *
+      * @param \Illuminate\Http\Request $request
+-     * @param \Closure                 $next
++     * @param \Closure $next
+      *
+      * @return mixed
+      */
+@@ -85,7 +85,11 @@ class SecureHeaders
+         if (false === $disableFrameHeader || null === $disableFrameHeader) {
+             $response->header('X-Frame-Options', 'deny');
+         }
+-        $response->header('Content-Security-Policy', implode('; ', $csp));
++
++        // content security policy may be set elsewhere.
++        if (!$response->headers->has('Content-Security-Policy')) {
++            $response->header('Content-Security-Policy', implode('; ', $csp));
++        }
+         $response->header('X-XSS-Protection', '1; mode=block');
+         $response->header('X-Content-Type-Options', 'nosniff');
+         $response->header('Referrer-Policy', 'no-referrer');

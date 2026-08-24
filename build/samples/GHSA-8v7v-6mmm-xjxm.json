@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-8v7v-6mmm-xjxm",
+    "cve":  "CVE-2020-14443",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "40e16672e3aa4e9208ea7a4829f30507dcdfc4ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/accountancy/customer/card.php",
+                        "htdocs/accountancy/expensereport/card.php",
+                        "htdocs/accountancy/supplier/card.php",
+                        "htdocs/comm/mailing/info.php",
+                        "htdocs/compta/paiement/info.php",
+                        "htdocs/variants/ajax/get_attribute_values.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "htdocs/accountancy/customer/card.php includes 3 project file(s)",
+                     "htdocs/accountancy/expensereport/card.php includes 3 project file(s)",
+                     "htdocs/accountancy/supplier/card.php includes 3 project file(s)",
+                     "htdocs/comm/mailing/info.php includes 4 project file(s)",
+                     "htdocs/compta/paiement/info.php includes 4 project file(s)",
+                     "htdocs/variants/ajax/get_attribute_values.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/accountancy/customer/card.php",
+                        "htdocs/accountancy/expensereport/card.php",
+                        "htdocs/accountancy/supplier/card.php",
+                        "htdocs/comm/mailing/info.php",
+                        "htdocs/compta/paiement/info.php",
+                        "htdocs/variants/ajax/get_attribute_values.php"
+                    ],
+    "sink_hit":  true
+}

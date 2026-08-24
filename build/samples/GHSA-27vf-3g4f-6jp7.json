@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-27vf-3g4f-6jp7",
+    "cve":  "CVE-2025-23199",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "9d07d166b87634091dcf21c62b28f9b42a3118c4",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/functions.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/functions.inc.php"
+                    ],
+    "sink_hit":  true
+}

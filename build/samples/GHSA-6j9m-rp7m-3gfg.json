@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-6j9m-rp7m-3gfg",
+    "cve":  "CVE-2018-14716",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "sha":  "1e7d1d084ac3a89e7ec70620f2749110508d1ce1",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/DynamicMeta.php",
+                        "src/models/MetaGlobalVars.php",
+                        "src/seomatic-config/globalmeta/GlobalVars.php",
+                        "src/services/Helper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/models/MetaGlobalVars.php class extends VarsModel",
+                     "src/services/Helper.php class extends Component"
+                 ],
+    "changed_all":  [
+                        "src/helpers/DynamicMeta.php",
+                        "src/models/MetaGlobalVars.php",
+                        "src/seomatic-config/globalmeta/GlobalVars.php",
+                        "src/services/Helper.php"
+                    ],
+    "sink_hit":  false
+}

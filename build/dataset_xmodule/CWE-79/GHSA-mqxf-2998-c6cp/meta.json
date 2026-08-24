@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mqxf-2998-c6cp",
+    "cve":  "CVE-2026-29173",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "60cdc505c03b6fa2f59715e8c060114b66334afa",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/elements/actions/UpdateOrderStatus.php"
+                    ],
+    "evidence":  [
+                     "src/elements/actions/UpdateOrderStatus.php class extends ElementAction"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

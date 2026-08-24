@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-mhf6-pp52-8wqj",
+    "cve":  "CVE-2025-67849",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "a3063dcaa44dbe66e60a37cadb33bfadfe4feb03",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "public/ai/placement/courseassist/classes/external/explain_text.php",
+                        "public/ai/placement/courseassist/classes/external/summarise_text.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "public/ai/placement/courseassist/classes/external/explain_text.php class extends external_api",
+                     "public/ai/placement/courseassist/classes/external/summarise_text.php class extends external_api"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

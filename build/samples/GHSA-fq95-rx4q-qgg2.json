@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fq95-rx4q-qgg2",
+    "cve":  "CVE-2023-2341",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "66f1089fb1b9bcd575bfce9b1d4abb0f0499df11",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/LoginController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/LoginController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/LoginController.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9h9q-qhxg-89xr",
+    "cve":  "CVE-2024-47186",
+    "cwe":  "CWE-79",
+    "repo":  "filamentphp/filament",
+    "sha":  "df7989352464d08eda5837ef50f9997fad902316",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/infolists/resources/views/components/color-entry.blade.php",
+                        "packages/tables/resources/views/columns/color-column.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "packages/infolists/resources/views/components/color-entry.blade.php",
+                        "packages/tables/resources/views/columns/color-column.blade.php"
+                    ],
+    "sink_hit":  false
+}

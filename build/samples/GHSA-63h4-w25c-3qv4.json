@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-63h4-w25c-3qv4",
+    "cve":  "CVE-2024-27087",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "sha":  "cda3dd9a15228d35e62ff86cfa87a67e7c687437",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/fields/link.php",
+                        "tests/Form/Fields/LinkFieldTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Form/Fields/LinkFieldTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "config/fields/link.php",
+                        "tests/Form/Fields/LinkFieldTest.php"
+                    ],
+    "sink_hit":  false
+}

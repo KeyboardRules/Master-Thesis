@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-jmwm-w2rm-prv9",
+    "cve":  "CVE-2023-47379",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "a481f079d74e82f6094abf15d67e814349d1038a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/User/Http/Livewire/Admin/CreateProfileInformationForm.php",
+                        "src/MicroweberPackages/User/Http/Livewire/Admin/UpdateProfileInformationForm.php",
+                        "src/MicroweberPackages/User/resources/views/admin/livewire/edit-user/update-profile-information-form.blade.php",
+                        "src/MicroweberPackages/User/resources/views/livewire/profile/update-profile-information-form.blade.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MicroweberPackages/User/Http/Livewire/Admin/CreateProfileInformationForm.php class extends AdminComponent",
+                     "src/MicroweberPackages/User/Http/Livewire/Admin/CreateProfileInformationForm.php class uses trait",
+                     "src/MicroweberPackages/User/Http/Livewire/Admin/UpdateProfileInformationForm.php class extends AdminComponent",
+                     "src/MicroweberPackages/User/Http/Livewire/Admin/UpdateProfileInformationForm.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wp8j-c736-c5r3",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "7695d91fca1a96a3a3e7466097ae92c32b1130d8",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php class extends \\TYPO3\\CMS\\Core\\Utility\\File\\BasicFileUtility"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php"
+                    ],
+    "sink_hit":  false
+}

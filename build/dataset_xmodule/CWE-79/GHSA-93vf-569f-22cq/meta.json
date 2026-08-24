@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-93vf-569f-22cq",
+    "cve":  "CVE-2026-40301",
+    "cwe":  "CWE-79",
+    "repo":  "rhukster/dom-sanitizer",
+    "fix_commit":  "49a98046b708a4c92f754f5b0ef1720bb85142e2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/DOMSanitizer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/DomSanitizerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

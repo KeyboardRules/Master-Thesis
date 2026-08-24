@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6q49-35h6-rq2p",
+    "cve":  "CVE-2022-43984",
+    "cwe":  "CWE-79",
+    "repo":  "spatie/browsershot",
+    "sha":  "554c3e566fde8c47ad1ac9be47eaeb9a84c4dfe2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Browsershot.php",
+                        "src/Exceptions/FileDoesNotExistException.php",
+                        "tests/BrowsershotTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/Browsershot.php",
+                        "src/Exceptions/FileDoesNotExistException.php",
+                        "tests/BrowsershotTest.php"
+                    ],
+    "sink_hit":  false
+}

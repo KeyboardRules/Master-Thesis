@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mcfm-j5g6-w26f",
+    "cve":  "CVE-2011-2935",
+    "cwe":  "CWE-79",
+    "repo":  "Elgg/Elgg",
+    "sha":  "2843b4f846874d434a2403ac1f27e41035b45e04",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/embed/embed.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "mod/embed/embed.php"
+                    ],
+    "sink_hit":  true
+}

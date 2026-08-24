@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-5f5v-5c3v-gw5v",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "604c32871202064a4aa12c3b3fd58140231685e5",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/view/SSViewerTest.php",
+                        "view/SSTemplateParser.php",
+                        "view/SSTemplateParser.php.inc",
+                        "view/SSViewer.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/view/SSViewerTest.php includes 1 project file(s)",
+                     "tests/view/SSViewerTest.php class extends SapphireTest",
+                     "view/SSTemplateParser.php includes 2 project file(s)",
+                     "view/SSTemplateParser.php class extends Exception",
+                     "view/SSTemplateParser.php.inc includes 2 project file(s)",
+                     "view/SSTemplateParser.php.inc class extends Exception",
+                     "view/SSViewer.php class extends SSViewer_Scope",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tests/view/SSViewerTest.php",
+                        "view/SSTemplateParser.php",
+                        "view/SSTemplateParser.php.inc",
+                        "view/SSViewer.php"
+                    ],
+    "sink_hit":  true
+}

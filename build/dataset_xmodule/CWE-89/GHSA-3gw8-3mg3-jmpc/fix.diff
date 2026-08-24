@@ -1,0 +1,38 @@
+﻿diff --git a/modules/contratti/ajax/select.php b/modules/contratti/ajax/select.php
+index 011657e..7786c40 100755
+--- a/modules/contratti/ajax/select.php
++++ b/modules/contratti/ajax/select.php
+@@ -57,7 +57,7 @@ switch ($resource) {
+             $stato = !empty($superselect['stato']) && in_array($superselect['stato'], $allowed_stati)
+                 ? $superselect['stato']
+                 : 'is_pianificabile';
+-            $where[] = '`idstato` IN (SELECT `id` FROM `co_staticontratti` WHERE '.$stato.' = 1)';
++            $where[] = '`idstato` IN (SELECT `id` FROM `co_staticontratti` WHERE `'.str_replace('`', '', $stato).'` = 1)';
+         }
+ 
+         if (!empty($search)) {
+diff --git a/modules/ordini/ajax/select.php b/modules/ordini/ajax/select.php
+index 123c34e..d93165c 100644
+--- a/modules/ordini/ajax/select.php
++++ b/modules/ordini/ajax/select.php
+@@ -53,6 +53,7 @@ switch ($resource) {
+                     ? $superselect['stato']
+                     : 'is_fatturabile';
+                 $where[] = '`or_statiordine`.'.$stato.' = 1';
++                $where[] = '`or_statiordine`.`'.str_replace('`', '', $stato).'` = 1';
+             }
+         }
+ 
+diff --git a/modules/preventivi/ajax/select.php b/modules/preventivi/ajax/select.php
+index 6dead2e..6cce6bd 100755
+--- a/modules/preventivi/ajax/select.php
++++ b/modules/preventivi/ajax/select.php
+@@ -60,7 +60,7 @@ switch ($resource) {
+                 $stato = !empty($superselect['stato']) && in_array($superselect['stato'], $allowed_stati)
+                     ? $superselect['stato']
+                     : 'is_pianificabile';
+-                $where[] = '('.$stato.' = 1)';
++                $where[] = '(`'.str_replace('`', '', $stato).'` = 1)';
+             }
+ 
+             if (!empty($search)) {

@@ -1,0 +1,23 @@
+﻿diff --git a/src/Http/Response.php b/src/Http/Response.php
+index 984aed4a..91468327 100644
+--- a/src/Http/Response.php
++++ b/src/Http/Response.php
+@@ -176,6 +176,18 @@ class Response
+ 			'type' => F::extensionToMime(F::extension($file))
+ 		], $props);
+ 
++		// if we couldn't serve a correct MIME type, force
++		// the browser to display the file as plain text to
++		// harden against attacks from malicious file uploads
++		if ($props['type'] === null) {
++			if (isset($props['headers']) !== true) {
++				$props['headers'] = [];
++			}
++
++			$props['type'] = 'text/plain';
++			$props['headers']['X-Content-Type-Options'] = 'nosniff';
++		}
++
+ 		return new static($props);
+ 	}
+ 

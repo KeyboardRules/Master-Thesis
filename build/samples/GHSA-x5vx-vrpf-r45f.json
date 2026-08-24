@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x5vx-vrpf-r45f",
+    "cve":  "CVE-2026-34740",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "677d1a314d46abce457c7b662afbb58b0d9f17a2",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/EpgParser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "objects/EpgParser.php"
+                    ],
+    "sink_hit":  true
+}

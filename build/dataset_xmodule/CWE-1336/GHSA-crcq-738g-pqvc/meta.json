@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-crcq-738g-pqvc",
+    "cve":  "CVE-2025-57811",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "e77f8a287dcdda41f1724f525d03542f18566cbc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/web/twig/Extension.php"
+                    ],
+    "evidence":  [
+                     "src/web/twig/Extension.php class extends AbstractExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

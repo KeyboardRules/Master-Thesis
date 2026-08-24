@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-8p58-35c3-ccxx",
+    "cve":  "CVE-2026-33485",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "sha":  "af59eade82de645b20183cc3d74467a7eac76549",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/Objects/LiveTransmition.php",
+                        "plugin/Live/Objects/LiveTransmitionHistory.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/Live/Objects/LiveTransmition.php includes 5 project file(s)",
+                     "plugin/Live/Objects/LiveTransmition.php class extends ObjectYPT",
+                     "plugin/Live/Objects/LiveTransmitionHistory.php includes 3 project file(s)",
+                     "plugin/Live/Objects/LiveTransmitionHistory.php class extends ObjectYPT"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/Objects/LiveTransmition.php",
+                        "plugin/Live/Objects/LiveTransmitionHistory.php"
+                    ],
+    "sink_hit":  false
+}

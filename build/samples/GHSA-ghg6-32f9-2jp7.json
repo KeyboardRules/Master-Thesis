@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-ghg6-32f9-2jp7",
+    "cve":  "CVE-2024-45048",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "bea2d4b30f24bcc8a7712e208d1359e603b45dda",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php",
+                        "tests/data/Reader/Xml/XEETestInvalidUTF-7-single-quote.xml",
+                        "tests/data/Reader/Xml/XEETestValidUTF-8-single-quote.xml"
+                    ],
+    "sink_hit":  true
+}

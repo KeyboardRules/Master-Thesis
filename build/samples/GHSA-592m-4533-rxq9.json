@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-592m-4533-rxq9",
+    "cve":  "CVE-2020-9280",
+    "cwe":  "CWE-434",
+    "repo":  "silverstripe/silverstripe-assets",
+    "sha":  "6779fd3c8c1c05a3db5035bf6e541c9483d161fc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Dev/Tasks/FolderMigrationHelper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Dev/Tasks/FolderMigrationHelper.php"
+                    ],
+    "sink_hit":  false
+}

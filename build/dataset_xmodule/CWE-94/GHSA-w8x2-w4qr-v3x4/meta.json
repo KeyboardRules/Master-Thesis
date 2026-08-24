@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-w8x2-w4qr-v3x4",
+    "cve":  "CVE-2023-5540",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "3400ae6510b11202aa9d86f7e75b3dff10d81522",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "mod/imscp/lib.php",
+                        "mod/imscp/locallib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/imscp/lib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php class extends file_info"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

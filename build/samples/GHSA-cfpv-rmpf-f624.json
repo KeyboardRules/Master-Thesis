@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cfpv-rmpf-f624",
+    "cve":  "CVE-2026-29175",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "sha":  "9f0638a4fb29ed8295a463385a7cc49ec986e33a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/InventoryController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/InventoryController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "src/controllers/InventoryController.php"
+                    ],
+    "sink_hit":  false
+}

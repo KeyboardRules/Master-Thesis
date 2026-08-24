@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qr97-v87p-x965",
+    "cve":  "CVE-2017-20157",
+    "cwe":  "CWE-918",
+    "repo":  "Ariadne-CMS/arc-web",
+    "sha":  "1feb1cc11e6c9f218408f15f53f537ea0d788656",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/url/Url.php",
+                        "tests/url.Test.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/url.Test.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "src/url/Url.php",
+                        "tests/url.Test.php"
+                    ],
+    "sink_hit":  false
+}

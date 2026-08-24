@@ -1,0 +1,23 @@
+﻿diff --git a/plugins/User/src/Model/Entity/User.php b/plugins/User/src/Model/Entity/User.php
+index 0c91150..7f08f73 100644
+--- a/plugins/User/src/Model/Entity/User.php
++++ b/plugins/User/src/Model/Entity/User.php
+@@ -92,6 +92,18 @@ class User extends Entity
+         return $this->avatar();
+     }
+ 
++    /**
++     * Gets user's real name.
++     *
++     * @return string Name
++     */
++    protected function _getName()
++    {
++        $name = isset($this->_properties['name']) ? $this->_properties['name'] : '';
++
++        return h($name);
++    }
++
+     /**
+      * Gets user avatar image's URL.
+      *

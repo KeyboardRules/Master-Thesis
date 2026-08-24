@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m4x3-xmjv-r778",
+    "cve":  "CVE-2019-18982",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "e0b48faf7d29ce43a98825a0b230e88350ebcf78",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/EmailController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/EmailController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/EmailController.php"
+                    ],
+    "sink_hit":  false
+}

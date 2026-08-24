@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-pqqg-5f4f-8952",
+    "cve":  "CVE-2026-25514",
+    "cwe":  "CWE-89",
+    "repo":  "NeoRazorX/facturascripts",
+    "fix_commit":  "5c070f82665b98efd2f914a4769c6dc9415f5b0f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Core/Controller/CopyModel.php",
+                        "Core/Model/CodeModel.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Core/Controller/CopyModel.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

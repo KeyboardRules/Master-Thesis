@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-7m8r-gmc3-3p4v",
+    "cve":  "CVE-2023-2103",
+    "cwe":  "CWE-79",
+    "repo":  "alextselegidis/easyappointments",
+    "sha":  "46a865300e94c7031cc0e315d95d3e3e56768498",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/views/components/booking_type_step.php",
+                        "application/views/components/cookie_notice_modal.php",
+                        "application/views/components/privacy_policy_modal.php",
+                        "application/views/components/terms_and_conditions_modal.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 4 php files"
+                 ],
+    "changed_all":  [
+                        "application/views/components/booking_type_step.php",
+                        "application/views/components/cookie_notice_modal.php",
+                        "application/views/components/privacy_policy_modal.php",
+                        "application/views/components/terms_and_conditions_modal.php",
+                        "assets/js/pages/booking.js"
+                    ],
+    "sink_hit":  true
+}

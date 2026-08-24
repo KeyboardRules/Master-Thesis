@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-p632-58pp-c9xg",
+    "cve":  "CVE-2025-51487",
+    "cwe":  "CWE-79",
+    "repo":  "moonshine-software/moonshine",
+    "fix_commit":  "f108f4ea5c0d66e8172c2dc397c1d9a6f466d9c6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Laravel/src/Fields/Relationships/BelongsTo.php",
+                        "src/Laravel/src/Fields/Relationships/MorphTo.php",
+                        "src/Support/src/DTOs/Select/Option.php",
+                        "src/UI/src/Components/Link.php",
+                        "src/UI/src/Fields/Url.php",
+                        "src/UI/src/Traits/Fields/WithLink.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Laravel/src/Fields/Relationships/MorphTo.php class extends BelongsTo",
+                     "src/UI/src/Components/Link.php class extends MoonShineComponent",
+                     "src/UI/src/Components/Link.php class uses trait",
+                     "src/UI/src/Fields/Url.php class extends Text"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

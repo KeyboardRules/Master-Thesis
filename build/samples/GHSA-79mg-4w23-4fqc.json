@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-79mg-4w23-4fqc",
+    "cve":  "CVE-2021-39165",
+    "cwe":  "CWE-89",
+    "repo":  "fiveai/Cachet",
+    "sha":  "27bca8280419966ba80c6fa283d985ddffa84bb6",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Models/Traits/SearchableTrait.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Models/Traits/SearchableTrait.php"
+                    ],
+    "sink_hit":  false
+}

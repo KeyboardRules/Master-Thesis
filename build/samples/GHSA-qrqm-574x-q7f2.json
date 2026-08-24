@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qrqm-574x-q7f2",
+    "cve":  "CVE-2022-38073",
+    "cwe":  "CWE-79",
+    "repo":  "Awesome-Support/Awesome-Support",
+    "sha":  "85f460be88b81fbdd9a990f474a1252297902faf",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/admin/functions-post.php",
+                        "includes/custom-fields/class-custom-field.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/admin/functions-post.php",
+                        "includes/custom-fields/class-custom-field.php"
+                    ],
+    "sink_hit":  true
+}

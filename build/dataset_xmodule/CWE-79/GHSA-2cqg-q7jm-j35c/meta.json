@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2cqg-q7jm-j35c",
+    "cve":  "CVE-2021-3938",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "fix_commit":  "9ed1442bd124710f4178992cc4eca5236c7396b9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/Api/AssetsController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/Api/AssetsController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-28gc-4qq5-8q26",
+    "cve":  "CVE-2023-5541",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "f5f6ce375e37da902afb043c6b506129fc433233",
+    "status":  "ok",
+    "changed_php":  [
+                        "grade/import/csv/classes/output/renderer.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "grade/import/csv/classes/output/renderer.php class extends plugin_renderer_base"
+                 ],
+    "changed_all":  [
+                        "grade/import/csv/classes/output/renderer.php"
+                    ],
+    "sink_hit":  false
+}

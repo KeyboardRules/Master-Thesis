@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-52cx-vphc-jmjm",
+    "cve":  "CVE-2021-33557",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "03dd37221e636f8959b8cb9fbad84f38f9582356",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_custom_field_edit_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_custom_field_edit_page.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_custom_field_edit_page.php"
+                    ],
+    "sink_hit":  true
+}

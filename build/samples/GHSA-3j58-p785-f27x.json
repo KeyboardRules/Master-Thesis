@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3j58-p785-f27x",
+    "cve":  "CVE-2022-0378",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "fc7e1a026735b93f0e0047700d08c44954fce9ce",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/MicroweberPackages/App/Http/Controllers/ApiController.php class extends FrontendController",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php"
+                    ],
+    "sink_hit":  true
+}

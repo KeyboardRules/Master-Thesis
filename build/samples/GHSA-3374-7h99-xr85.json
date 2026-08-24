@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3374-7h99-xr85",
+    "cve":  "CVE-2020-23049",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "sha":  "6ec6171206a7507a39695edc8bbd1b97ef1041c6",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Backend/Modules/Profiles/Actions/Index.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Backend/Modules/Profiles/Actions/Index.php class extends BackendBaseActionIndex"
+                 ],
+    "changed_all":  [
+                        "src/Backend/Modules/Profiles/Actions/Index.php"
+                    ],
+    "sink_hit":  true
+}

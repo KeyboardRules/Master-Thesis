@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9cq5-xgg4-x477",
+    "cve":  "CVE-2022-0362",
+    "cwe":  "CWE-89",
+    "repo":  "star7th/showdoc",
+    "sha":  "2b34e267e4186125f99bfa420140634ad45801fb",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Controller/AdminUserController.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "server/Application/Api/Controller/AdminUserController.class.php class extends BaseController"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Controller/AdminUserController.class.php"
+                    ],
+    "sink_hit":  false
+}

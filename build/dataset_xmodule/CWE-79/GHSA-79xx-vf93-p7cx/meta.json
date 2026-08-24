@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-79xx-vf93-p7cx",
+    "cve":  "CVE-2025-22131",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "4088381ccfaf241d7d42c333de0dc8c98e338743",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

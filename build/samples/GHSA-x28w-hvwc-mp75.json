@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x28w-hvwc-mp75",
+    "cve":  "CVE-2022-0895",
+    "cwe":  "CWE-94",
+    "repo":  "microweber/microweber",
+    "sha":  "b2baab6e582b2efe63788d367a2bb61a2fa26470",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Checkout/Http/Controllers/Traits/ContactInformationTrait.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Checkout/Http/Controllers/Traits/ContactInformationTrait.php"
+                    ],
+    "sink_hit":  false
+}

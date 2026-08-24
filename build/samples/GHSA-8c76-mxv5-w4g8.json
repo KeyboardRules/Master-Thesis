@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8c76-mxv5-w4g8",
+    "cve":  "CVE-2022-0954",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "955471c27e671c49e4b012e3b120b004082ac3f7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Option/Http/Controllers/Api/SaveOptionApiController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Option/Http/Controllers/Api/SaveOptionApiController.php"
+                    ],
+    "sink_hit":  false
+}

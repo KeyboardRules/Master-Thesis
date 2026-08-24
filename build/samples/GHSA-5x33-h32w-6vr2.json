@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5x33-h32w-6vr2",
+    "cve":  "CVE-2020-25628",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "e8632a4ad0b4da3763cbbe5949594aa449b483bb",
+    "status":  "ok",
+    "changed_php":  [
+                        "tag/manage.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "tag/manage.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "tag/manage.php"
+                    ],
+    "sink_hit":  true
+}

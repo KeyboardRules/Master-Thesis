@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-h676-pjr4-hgqx",
+    "cve":  "CVE-2021-44111",
+    "cwe":  "CWE-22",
+    "repo":  "s-cart/core",
+    "fix_commit":  "328dd312866b86144b43941dee2ad942708f70da",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Admin/Controllers/AdminBackupController.php",
+                        "src/Config/s-cart.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Admin/Controllers/AdminBackupController.php class extends RootAdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

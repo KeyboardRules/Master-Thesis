@@ -1,0 +1,205 @@
+﻿diff --git a/src/Sylius/Behat/Context/Ui/Admin/DashboardContext.php b/src/Sylius/Behat/Context/Ui/Admin/DashboardContext.php
+index 0a76bdda..52b281e7 100644
+--- a/src/Sylius/Behat/Context/Ui/Admin/DashboardContext.php
++++ b/src/Sylius/Behat/Context/Ui/Admin/DashboardContext.php
+@@ -30,9 +30,10 @@ final class DashboardContext implements Context
+     }
+ 
+     /**
++     * @Given I am on the administration dashboard
+      * @When I (try to )open administration dashboard
+      */
+-    public function iOpenAdministrationDashboard()
++    public function iOpenAdministrationDashboard(): void
+     {
+         try {
+             $this->dashboardPage->open();
+@@ -56,6 +57,14 @@ final class DashboardContext implements Context
+         $this->dashboardPage->chooseChannel($channelName);
+     }
+ 
++    /**
++     * @When I log out
++     */
++    public function iLogOut(): void
++    {
++        $this->dashboardPage->logOut();
++    }
++
+     /**
+      * @Then I should see :number new orders
+      */
+@@ -103,4 +112,12 @@ final class DashboardContext implements Context
+     {
+         Assert::same($this->dashboardPage->getNumberOfNewOrdersInTheList(), (int) $number);
+     }
++
++    /**
++     * @Then I should not see the administration dashboard
++     */
++    public function iShouldNotSeeTheAdministrationDashboard(): void
++    {
++        Assert::false($this->dashboardPage->isOpen());
++    }
+ }
+diff --git a/src/Sylius/Behat/Context/Ui/Admin/LoginContext.php b/src/Sylius/Behat/Context/Ui/Admin/LoginContext.php
+index a8434c56..3064c2e1 100644
+--- a/src/Sylius/Behat/Context/Ui/Admin/LoginContext.php
++++ b/src/Sylius/Behat/Context/Ui/Admin/LoginContext.php
+@@ -141,4 +141,12 @@ final class LoginContext implements Context
+         $this->loginPage->specifyPassword($password);
+         $this->loginPage->logIn();
+     }
++
++    /**
++     * @Then I should be on the login page
++     */
++    public function iShouldBeOnTheLoginPage(): void
++    {
++        Assert::true($this->loginPage->isOpen());
++    }
+ }
+diff --git a/src/Sylius/Behat/Context/Ui/Shop/AccountContext.php b/src/Sylius/Behat/Context/Ui/Shop/AccountContext.php
+index ecb99ee8..79e4e515 100644
+--- a/src/Sylius/Behat/Context/Ui/Shop/AccountContext.php
++++ b/src/Sylius/Behat/Context/Ui/Shop/AccountContext.php
+@@ -263,9 +263,10 @@ final class AccountContext implements Context
+     }
+ 
+     /**
++     * @Given I am browsing my orders
+      * @When I browse my orders
+      */
+-    public function iBrowseMyOrders()
++    public function iBrowseMyOrders(): void
+     {
+         $this->orderIndexPage->open();
+     }
+@@ -531,4 +532,20 @@ final class AccountContext implements Context
+ 
+         throw new \InvalidArgumentException('Dashboard has been openned, but it shouldn\'t as customer should not be logged in');
+     }
++
++    /**
++     * @Then I should not see my orders
++     */
++    public function iShouldNotSeeMyOrders(): void
++    {
++        Assert::false($this->orderIndexPage->isOpen());
++    }
++
++    /**
++     * @Then I should be on the login page
++     */
++    public function iShouldBeOnTheLoginPage(): void
++    {
++        Assert::true($this->loginPage->isOpen());
++    }
+ }
+diff --git a/src/Sylius/Bundle/ShopBundle/SectionResolver/ShopUriBasedSectionResolver.php b/src/Sylius/Bundle/ShopBundle/SectionResolver/ShopUriBasedSectionResolver.php
+index be9e1ea6..ddba21af 100644
+--- a/src/Sylius/Bundle/ShopBundle/SectionResolver/ShopUriBasedSectionResolver.php
++++ b/src/Sylius/Bundle/ShopBundle/SectionResolver/ShopUriBasedSectionResolver.php
+@@ -18,8 +18,20 @@ use Sylius\Bundle\CoreBundle\SectionResolver\UriBasedSectionResolverInterface;
+ 
+ final class ShopUriBasedSectionResolver implements UriBasedSectionResolverInterface
+ {
++    /** @var string */
++    private $shopCustomerAccountUri;
++
++    public function __construct(string $shopCustomerAccountUri = 'account')
++    {
++        $this->shopCustomerAccountUri = $shopCustomerAccountUri;
++    }
++
+     public function getSection(string $uri): SectionInterface
+     {
++        if (strpos($uri, $this->shopCustomerAccountUri) !== false) {
++            return new ShopCustomerAccountSubSection();
++        }
++
+         return new ShopSection();
+     }
+ }
+diff --git a/src/Sylius/Component/Core/Uploader/ImageUploader.php b/src/Sylius/Component/Core/Uploader/ImageUploader.php
+index 495caf06..21d5302c 100644
+--- a/src/Sylius/Component/Core/Uploader/ImageUploader.php
++++ b/src/Sylius/Component/Core/Uploader/ImageUploader.php
+@@ -13,6 +13,7 @@ declare(strict_types=1);
+ 
+ namespace Sylius\Component\Core\Uploader;
+ 
++use enshrined\svgSanitize\Sanitizer;
+ use Gaufrette\Filesystem;
+ use Sylius\Component\Core\Generator\ImagePathGeneratorInterface;
+ use Sylius\Component\Core\Generator\UploadedImagePathGenerator;
+@@ -22,12 +23,18 @@ use Webmozart\Assert\Assert;
+ 
+ class ImageUploader implements ImageUploaderInterface
+ {
++    private const MIME_SVG_XML = 'image/svg+xml';
++    private const MIME_SVG = 'image/svg';
++
+     /** @var Filesystem */
+     protected $filesystem;
+ 
+     /** @var ImagePathGeneratorInterface */
+     protected $imagePathGenerator;
+ 
++    /** @var Sanitizer */
++    protected $sanitizer;
++
+     public function __construct(
+         Filesystem $filesystem,
+         ?ImagePathGeneratorInterface $imagePathGenerator = null
+@@ -41,6 +48,7 @@ class ImageUploader implements ImageUploaderInterface
+         }
+ 
+         $this->imagePathGenerator = $imagePathGenerator ?? new UploadedImagePathGenerator();
++        $this->sanitizer = new Sanitizer();
+     }
+ 
+     public function upload(ImageInterface $image): void
+@@ -49,11 +57,13 @@ class ImageUploader implements ImageUploaderInterface
+             return;
+         }
+ 
++        /** @var File $file */
+         $file = $image->getFile();
+ 
+-        /** @var File $file */
+         Assert::isInstanceOf($file, File::class);
+ 
++        $fileContent = $this->sanitizeContent(file_get_contents($file->getPathname()), $file->getMimeType());
++
+         if (null !== $image->getPath() && $this->has($image->getPath())) {
+             $this->remove($image->getPath());
+         }
+@@ -64,10 +74,7 @@ class ImageUploader implements ImageUploaderInterface
+ 
+         $image->setPath($path);
+ 
+-        $this->filesystem->write(
+-            $image->getPath(),
+-            file_get_contents($image->getFile()->getPathname())
+-        );
++        $this->filesystem->write($image->getPath(), $fileContent);
+     }
+ 
+     public function remove(string $path): bool
+@@ -79,6 +86,15 @@ class ImageUploader implements ImageUploaderInterface
+         return false;
+     }
+ 
++    protected function sanitizeContent(string $fileContent, string $mimeType): string
++    {
++        if (self::MIME_SVG_XML === $mimeType || self::MIME_SVG === $mimeType) {
++            $fileContent = $this->sanitizer->sanitize($fileContent);
++        }
++
++        return $fileContent;
++    }
++
+     private function has(string $path): bool
+     {
+         return $this->filesystem->has($path);

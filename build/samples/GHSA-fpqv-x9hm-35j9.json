@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-fpqv-x9hm-35j9",
+    "cve":  "CVE-2020-16095",
+    "cwe":  "CWE-79",
+    "repo":  "kitodo/kitodo-presentation",
+    "sha":  "6a67256388350cc69efa7f36bbaee50c919ca23c",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Plugin/ListView.php",
+                        "Classes/Plugin/Navigation.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Plugin/ListView.php class extends \\Kitodo\\Dlf\\Common\\AbstractPlugin",
+                     "Classes/Plugin/Navigation.php class extends \\Kitodo\\Dlf\\Common\\AbstractPlugin"
+                 ],
+    "changed_all":  [
+                        "Classes/Plugin/ListView.php",
+                        "Classes/Plugin/Navigation.php"
+                    ],
+    "sink_hit":  false
+}

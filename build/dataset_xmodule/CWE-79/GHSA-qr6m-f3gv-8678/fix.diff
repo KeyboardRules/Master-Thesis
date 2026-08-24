@@ -1,0 +1,59 @@
+﻿diff --git a/adm_program/modules/photos/photo_album_new.php b/adm_program/modules/photos/photo_album_new.php
+index c706ee28..2f93f0f4 100644
+--- a/adm_program/modules/photos/photo_album_new.php
++++ b/adm_program/modules/photos/photo_album_new.php
+@@ -115,7 +115,7 @@ $form = new HtmlForm('photo_album_edit_form', SecurityUtils::encodeUrl(ADMIDIO_U
+ $form->addInput(
+     'pho_name',
+     $gL10n->get('PHO_ALBUM'),
+-    $photoAlbum->getValue('pho_name'),
++    $photoAlbum->getValue('pho_name', 'database'),
+     array('property' => HtmlForm::FIELD_REQUIRED, 'maxLength' => 50)
+ );
+ subfolder(0, '', $photoAlbum, $photoAlbum->getValue('pho_id'));
+@@ -145,13 +145,13 @@ $form->addInput(
+ $form->addInput(
+     'pho_photographers',
+     $gL10n->get('PHO_PHOTOGRAPHER'),
+-    $photoAlbum->getValue('pho_photographers'),
++    $photoAlbum->getValue('pho_photographers', 'database'),
+     array('maxLength' => 100)
+ );
+ $form->addMultilineTextInput(
+     'pho_description',
+     $gL10n->get('SYS_DESCRIPTION'),
+-    $photoAlbum->getValue('pho_description'),
++    $photoAlbum->getValue('pho_description', 'database'),
+     6,
+     array('maxLength' => 4000)
+ );
+diff --git a/adm_program/system/classes/TableAccess.php b/adm_program/system/classes/TableAccess.php
+index a4347368..f5777388 100644
+--- a/adm_program/system/classes/TableAccess.php
++++ b/adm_program/system/classes/TableAccess.php
+@@ -627,7 +627,11 @@ class TableAccess
+                     }
+                 }
+                 $this->columnsInfos[$columnName]['changed'] = false;
+-                $this->columnsInfos[$columnName]['type'] = $property['type'];
++                if(strpos($property['type'], '(') > 0) {
++                    $this->columnsInfos[$columnName]['type'] = substr($property['type'], 0, strpos($property['type'], '('));
++                } else {
++                    $this->columnsInfos[$columnName]['type'] = $property['type'];
++                }
+                 $this->columnsInfos[$columnName]['null'] = $property['null'];
+                 $this->columnsInfos[$columnName]['key'] = $property['key'];
+                 $this->columnsInfos[$columnName]['serial'] = $property['serial'];
+diff --git a/adm_program/system/classes/TablePhotos.php b/adm_program/system/classes/TablePhotos.php
+index 284c7254..d77c6c38 100644
+--- a/adm_program/system/classes/TablePhotos.php
++++ b/adm_program/system/classes/TablePhotos.php
+@@ -179,8 +179,6 @@ class TablePhotos extends TableAccess
+      */
+     public function getValue($columnName, $format = '')
+     {
+-        global $gL10n;
+-
+         if ($columnName === 'pho_description' && $format === 'html') {
+             $value = nl2br(parent::getValue($columnName));
+         } else {

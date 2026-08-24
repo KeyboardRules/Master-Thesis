@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hq25-vp56-qr86",
+    "cve":  "CVE-2025-45346",
+    "cwe":  "CWE-89",
+    "repo":  "bacula-web/bacula-web",
+    "sha":  "ad5d94809f17994a61496ecfec9cd3a16ac14a5f",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/Table/JobFileTable.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/Table/JobFileTable.php class extends Table"
+                 ],
+    "changed_all":  [
+                        "application/Table/JobFileTable.php"
+                    ],
+    "sink_hit":  false
+}

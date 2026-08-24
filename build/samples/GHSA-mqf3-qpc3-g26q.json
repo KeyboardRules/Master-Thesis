@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mqf3-qpc3-g26q",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "a555dad4ec73c929f6316bcb4019eb325a5b77d8",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Dev/Debug.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/Dev/Debug.php"
+                    ],
+    "sink_hit":  true
+}

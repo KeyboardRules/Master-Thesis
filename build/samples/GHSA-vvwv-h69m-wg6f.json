@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-vvwv-h69m-wg6f",
+    "cve":  "CVE-2019-12331",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "0e6238c69e863b58aeece61e48ea032696c6dccd",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/BaseReader.php",
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php",
+                        "src/PhpSpreadsheet/Settings.php",
+                        "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/PhpSpreadsheet/Reader/BaseReader.php",
+                        "src/PhpSpreadsheet/Reader/Security/XmlScanner.php",
+                        "src/PhpSpreadsheet/Settings.php",
+                        "tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php",
+                        "tests/data/Reader/Xml/XEETestInvalidUTF-7_DoubleEncoded.xml"
+                    ],
+    "sink_hit":  true
+}

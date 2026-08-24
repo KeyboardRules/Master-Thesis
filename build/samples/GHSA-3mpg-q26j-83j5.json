@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3mpg-q26j-83j5",
+    "cve":  "CVE-2020-36655",
+    "cwe":  "CWE-94",
+    "repo":  "yiisoft/yii2-gii",
+    "sha":  "ed61e0d85f43e23f79d7c9d1b4e5e5c09a32ce4b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Generator.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Generator.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/Generator.php"
+                    ],
+    "sink_hit":  true
+}

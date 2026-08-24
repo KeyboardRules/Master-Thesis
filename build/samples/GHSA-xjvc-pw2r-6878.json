@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-xjvc-pw2r-6878",
+    "cve":  "CVE-2026-41887",
+    "cwe":  "CWE-22",
+    "repo":  "flarum/framework",
+    "sha":  "2d90a1f19f0e46f8c7e1b07c48ba74b5e38f8410",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/core/src/Forum/ValidateCustomLess.php",
+                        "framework/core/tests/integration/api/settings/SetTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "framework/core/tests/integration/api/settings/SetTest.php class extends TestCase",
+                     "framework/core/tests/integration/api/settings/SetTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "framework/core/src/Forum/ValidateCustomLess.php",
+                        "framework/core/tests/integration/api/settings/SetTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,14 @@
+﻿diff --git a/drivers/adodb-postgres64.inc.php b/drivers/adodb-postgres64.inc.php
+index b1d161d..5cbe77e 100644
+--- a/drivers/adodb-postgres64.inc.php
++++ b/drivers/adodb-postgres64.inc.php
+@@ -138,7 +138,8 @@ class ADODB_postgres64 extends ADOConnection{
+ 	// get the last id - never tested
+ 	function pg_insert_id($tablename,$fieldname)
+ 	{
+-		$result=pg_query($this->_connectionID, 'SELECT last_value FROM '. $tablename .'_'. $fieldname .'_seq');
++		$sequence = pg_escape_identifier($this->_connectionID, $tablename .'_'. $fieldname .'_seq');
++		$result = pg_query($this->_connectionID, 'SELECT last_value FROM '. $sequence);
+ 		if ($result) {
+ 			$arr = @pg_fetch_row($result,0);
+ 			pg_free_result($result);

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4g25-wj72-chxg",
+    "cve":  "CVE-2025-65622",
+    "cwe":  "CWE-79",
+    "repo":  "grokability/snipe-it",
+    "sha":  "23feb64b5ab3d92eb8755da41049ac43a3d0e05b",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/macros/macros.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/macros/macros.php"
+                    ],
+    "sink_hit":  false
+}

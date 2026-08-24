@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hw6c-6gwq-3m3m",
+    "cve":  "CVE-2024-34357",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "376474904f6b9a54dc1b785a2e45277cbd13b0d7",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/frontend/Classes/Controller/ShowImageController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/frontend/Classes/Controller/ShowImageController.php"
+                    ],
+    "sink_hit":  false
+}

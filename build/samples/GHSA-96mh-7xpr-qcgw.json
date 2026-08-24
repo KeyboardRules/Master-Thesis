@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-96mh-7xpr-qcgw",
+    "cve":  "CVE-2018-7198",
+    "cwe":  "CWE-79",
+    "repo":  "rainlab/blog-plugin",
+    "sha":  "6ae19a6e16ef3ba730692bc899851342c858bb94",
+    "status":  "ok",
+    "changed_php":  [
+                        "formwidgets/BlogMarkdown.php",
+                        "models/Post.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "formwidgets/BlogMarkdown.php class extends MarkdownEditor",
+                     "models/Post.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "formwidgets/BlogMarkdown.php",
+                        "models/Post.php"
+                    ],
+    "sink_hit":  false
+}

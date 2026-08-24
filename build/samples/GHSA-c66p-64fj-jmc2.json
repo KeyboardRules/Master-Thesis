@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c66p-64fj-jmc2",
+    "cve":  "CVE-2025-23200",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "26258a2518dbfa55b213ec4b90ec16ed97efb597",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/functions.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/functions.inc.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-79jw-2f46-wv22",
+    "cve":  "CVE-2022-21705",
+    "cwe":  "CWE-74",
+    "repo":  "octobercms/library",
+    "sha":  "c393c5ce9ca2c5acc3ed6c9bb0dab5ffd61965fe",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Halcyon/Processors/SectionParser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Halcyon/Processors/SectionParser.php"
+                    ],
+    "sink_hit":  false
+}

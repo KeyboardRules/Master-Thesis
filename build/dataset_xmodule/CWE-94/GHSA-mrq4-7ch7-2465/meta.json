@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mrq4-7ch7-2465",
+    "cve":  "CVE-2022-21686",
+    "cwe":  "CWE-94",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "d02b469ec365822e6a9f017e57f588966248bf21",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/PrestaShopBundle/Twig/LayoutExtension.php"
+                    ],
+    "evidence":  [
+                     "src/PrestaShopBundle/Twig/LayoutExtension.php class extends \\Twig_Extension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

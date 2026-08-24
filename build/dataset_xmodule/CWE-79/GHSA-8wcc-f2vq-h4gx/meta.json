@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-8wcc-f2vq-h4gx",
+    "cve":  "CVE-2022-0370",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "fix_commit":  "9f5bc33c943349bd765b991db0b7f6b6ef05cfdb",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhkernel/validation_error.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/admin/form.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/personaltheme.tpl.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhtheme/admin/form.tpl.php includes 8 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhtheme/personaltheme.tpl.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

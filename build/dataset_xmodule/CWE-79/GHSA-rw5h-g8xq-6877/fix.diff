@@ -1,0 +1,189 @@
+﻿diff --git a/src/Http/Controllers/ButtonController.php b/src/Http/Controllers/ButtonController.php
+index 6952023..d831400 100644
+--- a/src/Http/Controllers/ButtonController.php
++++ b/src/Http/Controllers/ButtonController.php
+@@ -3,40 +3,29 @@
+ namespace WireUi\Http\Controllers;
+ 
+ use Illuminate\Http\Response;
++use Illuminate\Support\Facades\Blade;
+ use Illuminate\View\ComponentAttributeBag;
+ use WireUi\Http\Requests\ButtonRequest;
+-use WireUi\Support\BladeCompiler;
+ 
+ class ButtonController extends Controller
+ {
+-    private BladeCompiler $compiler;
+-
+-    public function __construct(BladeCompiler $compiler)
+-    {
+-        $this->compiler = $compiler;
+-    }
+-
+     public function __invoke(ButtonRequest $request): Response
+     {
+-        $blade = <<<EOT
++        $blade = <<<'BLADE'
+             <x-dynamic-component
+                 :component="WireUi::component('button')"
+-                {$this->attributes($request->all())->toHtml()}
++                :attributes="$attributes"
+             />
+-        EOT;
++        BLADE;
++
++        $attributes = new ComponentAttributeBag($request->validated());
+ 
+-        $html = $this->compiler->compile($blade);
++        $html = Blade::render($blade, ['attributes' => $attributes]);
+ 
+         return response($html)->withHeaders([
+             'Content-Type'  => 'text/html; charset=utf-8',
+             'Cache-Control' => 'public, only-if-cached, max-age=31536000',
++            'Content-Security-Policy' => "default-src 'self'; script-src 'none';",
+         ]);
+     }
+-
+-    protected function attributes(array $attributes): ComponentAttributeBag
+-    {
+-        $attributes = new ComponentAttributeBag($attributes);
+-
+-        return $attributes->whereDoesntStartWith(':');
+-    }
+ }
+diff --git a/src/Http/Requests/ButtonRequest.php b/src/Http/Requests/ButtonRequest.php
+index 95e42c1..37182b3 100644
+--- a/src/Http/Requests/ButtonRequest.php
++++ b/src/Http/Requests/ButtonRequest.php
+@@ -3,30 +3,26 @@
+ namespace WireUi\Http\Requests;
+ 
+ use Illuminate\Foundation\Http\FormRequest;
+-use Illuminate\Validation\Rule;
+-use WireUi\Facades\WireUi;
+-use WireUi\View\Components\BaseButton;
+ 
+ class ButtonRequest extends FormRequest
+ {
+     public function rules(): array
+     {
+-        $buttonClass = WireUi::components()->resolveClass('button');
+-
+-        /** @var BaseButton $button */
+-        $button = new $buttonClass();
+-
+         return [
+-            'color'     => ['sometimes', Rule::in(array_keys($button->defaultColors()))],
+-            'size'      => ['sometimes', Rule::in(array_keys($button->sizes()))],
+-            'iconSize'  => ['sometimes', Rule::in(array_keys($button->iconSizes()))],
+-            'label'     => 'sometimes|string',
++            'label' => 'sometimes|string',
++            'variant' => 'sometimes|string',
++            'color' => 'sometimes|string',
++            'size' => 'sometimes|string',
++            'icon' => 'sometimes|string',
+             'rightIcon' => 'sometimes|string',
+-            'icon'      => 'sometimes|string',
+-            'rounded'   => 'sometimes|boolean',
+-            'squared'   => 'sometimes|boolean',
+-            'bordered'  => 'sometimes|boolean',
+-            'flat'      => 'sometimes|boolean',
++            'iconSize' => 'sometimes|string',
++            'rounded' => 'sometimes|boolean',
++            'squared' => 'sometimes|boolean',
++            'bordered' => 'sometimes|boolean',
++            'solid' => 'sometimes|boolean',
++            'outline' => 'sometimes|boolean',
++            'flat' => 'sometimes|boolean',
++            'light' => 'sometimes|boolean',
+         ];
+     }
+ }
+diff --git a/src/Support/BladeCompiler.php b/src/Support/BladeCompiler.php
+deleted file mode 100644
+index dbbf6d7..0000000
+--- a/src/Support/BladeCompiler.php
++++ /dev/null
+@@ -1,46 +0,0 @@
+-<?php
+-
+-namespace WireUi\Support;
+-
+-use Exception;
+-use Illuminate\Support\Facades\Blade;
+-use Illuminate\View\Factory;
+-use Throwable;
+-
+-class BladeCompiler
+-{
+-    public function compile(string $html, array $data = []): string
+-    {
+-        $safeHtml = (new SafeEval())->evaluate($html);
+-
+-        $blade = Blade::compileString($safeHtml);
+-
+-        return $this->compileString($blade, $data);
+-    }
+-
+-    private function compileString(string $blade, array $data): string
+-    {
+-        $data['__env'] = app(Factory::class);
+-        $obLevel       = ob_get_level();
+-        ob_start();
+-        extract($data, EXTR_SKIP);
+-
+-        try {
+-            eval("?> {$blade}");
+-        } catch (Exception $e) {
+-            while (ob_get_level() > $obLevel) {
+-                ob_end_clean();
+-            }
+-
+-            throw $e;
+-        } catch (Throwable $e) {
+-            while (ob_get_level() > $obLevel) {
+-                ob_end_clean();
+-            }
+-
+-            throw new Exception($e);
+-        }
+-
+-        return ob_get_clean();
+-    }
+-}
+diff --git a/src/Support/SafeEval.php b/src/Support/SafeEval.php
+deleted file mode 100644
+index 69b4131..0000000
+--- a/src/Support/SafeEval.php
++++ /dev/null
+@@ -1,30 +0,0 @@
+-<?php
+-
+-namespace WireUi\Support;
+-
+-use Illuminate\Support\Str;
+-
+-class SafeEval
+-{
+-    private const SECURITY_REPLACES = [
+-        '{{{',
+-        '}}}',
+-        '{{',
+-        '}}',
+-        '{!!',
+-        '!!}',
+-        '<?php',
+-        '<?=',
+-        '<?',
+-        '?>',
+-    ];
+-
+-    public const DIRECTIVES_REGEX = '/\B@(@?\w+(?:::\w+)?)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x';
+-
+-    public function evaluate(string $code): string
+-    {
+-        return Str::of($code)
+-            ->replace(self::SECURITY_REPLACES, '')
+-            ->replaceMatches(self::DIRECTIVES_REGEX, '');
+-    }
+-}

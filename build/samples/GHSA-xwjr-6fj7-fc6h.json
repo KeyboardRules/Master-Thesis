@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-xwjr-6fj7-fc6h",
+    "cve":  "CVE-2020-15246",
+    "cwe":  "CWE-22",
+    "repo":  "octobercms/library",
+    "sha":  "80aab47f044a2660aa352450f55137598f362aa4",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Exception/SystemException.php",
+                        "src/Filesystem/Definitions.php",
+                        "src/Halcyon/Builder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Exception/SystemException.php class extends ExceptionBase"
+                 ],
+    "changed_all":  [
+                        "src/Exception/SystemException.php",
+                        "src/Filesystem/Definitions.php",
+                        "src/Halcyon/Builder.php"
+                    ],
+    "sink_hit":  false
+}

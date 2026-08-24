@@ -1,0 +1,44 @@
+﻿diff --git a/inc/fields/file.php b/inc/fields/file.php
+index 8ff843a..af7e0aa 100644
+--- a/inc/fields/file.php
++++ b/inc/fields/file.php
+@@ -51,8 +51,17 @@ class RWMB_File_Field extends RWMB_Field {
+ 		if ( is_numeric( $attachment ) ) {
+ 			$result = wp_delete_attachment( $attachment );
+ 		} else {
+-			$path   = str_replace( home_url( '/' ), trailingslashit( ABSPATH ), $attachment );
+-			$result = unlink( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
++			$path = str_replace( home_url( '/' ), trailingslashit( ABSPATH ), $attachment );
++
++			// Security: validate resolved path is within $field['upload_dir'] directory.
++			$real_path    = realpath( $path );
++			$real_path    = wp_normalize_path( $real_path );
++			$allowed_base = ! empty( $field['upload_dir'] ) ? wp_normalize_path( $field['upload_dir'] ) : '';
++			if ( ! $real_path || ! $allowed_base || ! str_starts_with( $real_path, $allowed_base ) ) {
++				wp_send_json_error( __( 'Error: The file is outside the allowed upload directory', 'meta-box' ) );
++			}
++
++			$result = unlink( $real_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+ 		}
+ 
+ 		if ( $result ) {
+diff --git a/inc/sanitizer.php b/inc/sanitizer.php
+index ae7a0a8..80f00ea 100644
+--- a/inc/sanitizer.php
++++ b/inc/sanitizer.php
+@@ -205,7 +205,14 @@ class RWMB_Sanitizer {
+ 	 * @return array
+ 	 */
+ 	private function sanitize_file( $value, $field ) {
+-		return $field['upload_dir'] ? array_map( 'esc_url_raw', $value ) : $this->sanitize_object( $value );
++		if ( ! $field['upload_dir'] ) {
++			return $this->sanitize_object( $value );
++		}
++
++		// Security: sanitize URLs and reject path traversal sequences.
++		return array_filter( array_map( function ( $url ) {
++			return str_contains( $url, '..' ) ? '' : esc_url_raw( $url );
++		}, $value ) );
+ 	}
+ 
+ 	/**

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vw42-752g-5mrp",
+    "cve":  "CVE-2026-52769",
+    "cwe":  "CWE-918",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "87e627f33e79879827a3669fee2aa1244612c487",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/services/HttpSignatureService.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "tools/bazar/services/HttpSignatureService.php"
+                    ],
+    "sink_hit":  false
+}

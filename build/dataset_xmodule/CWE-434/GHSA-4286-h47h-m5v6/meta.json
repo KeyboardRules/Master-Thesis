@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-4286-h47h-m5v6",
+    "cve":  "CVE-2021-41745",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "fix_commit":  "aec3df841958059c1db9ab1af25acc2af81e4e0e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "server/Application/Api/Controller/CommonController.class.php",
+                        "server/Application/Api/Controller/PageController.class.php",
+                        "server/Application/Api/Controller/UpdateController.class.php",
+                        "server/Application/Api/Model/PageModel.class.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "server/Application/Api/Controller/CommonController.class.php class extends BaseController",
+                     "server/Application/Api/Controller/PageController.class.php class extends BaseController",
+                     "server/Application/Api/Controller/UpdateController.class.php class extends BaseController",
+                     "server/Application/Api/Model/PageModel.class.php class extends BaseModel",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

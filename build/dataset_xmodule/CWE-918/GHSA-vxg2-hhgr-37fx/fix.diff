@@ -1,0 +1,102 @@
+﻿diff --git a/program/actions/mail/index.php b/program/actions/mail/index.php
+index f72c3f5..6bb5c83 100644
+--- a/program/actions/mail/index.php
++++ b/program/actions/mail/index.php
+@@ -1274,7 +1274,7 @@ class rcmail_action_mail_index extends rcmail_action
+         if (isset($attrib['href'])) {
+             $attrib['href'] = preg_replace('/[\x00-\x1F]/', '', $attrib['href']);
+ 
+-            if ($tag == 'link' && preg_match('/^https?:\/\//i', $attrib['href'])) {
++            if ($tag == 'link' && preg_match('/^https?:\/\//i', $attrib['href']) && !rcube_utils::is_local_url($attrib['href'])) {
+                 $tempurl = 'tmp-' . md5($attrib['href']) . '.css';
+                 $_SESSION['modcssurls'][$tempurl] = $attrib['href'];
+                 $attrib['href'] = $rcmail->url([
+diff --git a/program/actions/utils/modcss.php b/program/actions/utils/modcss.php
+index 2863158..53d54a7 100644
+--- a/program/actions/utils/modcss.php
++++ b/program/actions/utils/modcss.php
+@@ -47,7 +47,7 @@ class rcmail_action_utils_modcss extends rcmail_action
+         $ctype  = null;
+ 
+         try {
+-            $client   = rcube::get_instance()->get_http_client();
++            $client = rcube::get_instance()->get_http_client(['allow_redirects' => false]);
+             $response = $client->get($realurl);
+ 
+             if (!empty($response)) {
+diff --git a/program/lib/Roundcube/rcube_utils.php b/program/lib/Roundcube/rcube_utils.php
+index 5e0ef7d..5e8ac84 100644
+--- a/program/lib/Roundcube/rcube_utils.php
++++ b/program/lib/Roundcube/rcube_utils.php
+@@ -1,6 +1,8 @@
+ <?php
+ 
+-/**
++use IPLib\Factory;
++
++/*
+  +-----------------------------------------------------------------------+
+  | This file is part of the Roundcube Webmail client                     |
+  |                                                                       |
+@@ -419,6 +421,48 @@ class rcube_utils
+         return asciiwords($str, true, '_');
+     }
+ 
++    /**
++     * Check if an URL point to a local network location.
++     *
++     * @param string $url
++     *
++     * @return bool
++     */
++    public static function is_local_url($url)
++    {
++        $host = parse_url($url, \PHP_URL_HOST);
++
++        if (is_string($host)) {
++            // TODO: This is pretty fast, but a single message can contain multiple links
++            // to the same target, maybe we should do some in-memory caching.
++            if ($address = Factory::parseAddressString($host = trim($host, '[]'))) {
++                $nets = [
++                    '127.0.0.0/8',    // loopback
++                    '10.0.0.0/8',     // RFC1918
++                    '172.16.0.0/12',  // RFC1918
++                    '192.168.0.0/16', // RFC1918
++                    '169.254.0.0/16', // link-local / cloud metadata
++                    '::1/128',
++                    'fc00::/7',
++                ];
++
++                foreach ($nets as $net) {
++                    $range = Factory::parseRangeString($net);
++                    if ($range->contains($address)) {
++                        return true;
++                    }
++                }
++
++                return false;
++            }
++
++            // FIXME: Should we accept any non-fqdn hostnames?
++            return (bool) preg_match('/^localhost(\.localdomain)?$/i', $host);
++        }
++
++        return false;
++    }
++
+     /**
+      * Replace all css definitions with #container [def]
+      * and remove css-inlined scripting, make position style safe
+diff --git a/program/lib/Roundcube/rcube_washtml.php b/program/lib/Roundcube/rcube_washtml.php
+index 052472e..f9ee8d5 100644
+--- a/program/lib/Roundcube/rcube_washtml.php
++++ b/program/lib/Roundcube/rcube_washtml.php
+@@ -393,7 +393,7 @@ class rcube_washtml
+         }
+ 
+         if (preg_match('/^(http|https|ftp):.+/i', $uri)) {
+-            if (!empty($this->config['allow_remote'])) {
++            if (!empty($this->config['allow_remote']) || rcube_utils::is_local_url($uri)) {
+                 return $uri;
+             }
+ 

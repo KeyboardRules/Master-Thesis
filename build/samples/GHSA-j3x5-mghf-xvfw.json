@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-j3x5-mghf-xvfw",
+    "cve":  "CVE-2026-29172",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/commerce",
+    "sha":  "b231b920b73db023e81e5b261b894d73e865c276",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/OrdersController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/OrdersController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/OrdersController.php",
+                        "src/templates/_includes/users/_ordersTable.twig"
+                    ],
+    "sink_hit":  true
+}

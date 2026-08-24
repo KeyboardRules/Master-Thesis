@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-2gr4-ppc7-7mhx",
+    "cve":  "CVE-2026-48062",
+    "cwe":  "CWE-434",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "sha":  "29299349e7d232e9532767c7cefaed30957309be",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/Validation/StrictRules/FileRules.php",
+                        "tests/system/Validation/StrictRules/FileRulesTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/system/Validation/StrictRules/FileRulesTest.php class extends CIUnitTestCase"
+                 ],
+    "changed_all":  [
+                        "system/Validation/StrictRules/FileRules.php",
+                        "tests/system/Validation/StrictRules/FileRulesTest.php",
+                        "user_guide_src/source/changelogs/v4.7.3.rst",
+                        "user_guide_src/source/installation/upgrade_473.rst",
+                        "user_guide_src/source/libraries/validation.rst"
+                    ],
+    "sink_hit":  false
+}

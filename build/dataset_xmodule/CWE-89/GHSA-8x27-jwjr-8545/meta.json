@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8x27-jwjr-8545",
+    "cve":  "CVE-2025-46337",
+    "cwe":  "CWE-89",
+    "repo":  "ADOdb/ADOdb",
+    "fix_commit":  "11107d6d6e5160b62e05dff8a3a2678cf0e3a426",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "drivers/adodb-postgres64.inc.php"
+                    ],
+    "evidence":  [
+                     "drivers/adodb-postgres64.inc.php class extends ADOConnection"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

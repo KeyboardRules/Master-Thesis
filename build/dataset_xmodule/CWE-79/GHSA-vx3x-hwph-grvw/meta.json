@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vx3x-hwph-grvw",
+    "cve":  "CVE-2022-3005",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "fix_commit":  "e55886781509fe39951fc7528347696474a17884",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/ServiceContracts/actions/PolicyTemplatesAjax.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/ServiceContracts/actions/PolicyTemplatesAjax.php class extends \\App\\Controller\\Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

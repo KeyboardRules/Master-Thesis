@@ -1,0 +1,13 @@
+﻿diff --git a/src/config/GeneralConfig.php b/src/config/GeneralConfig.php
+index e64252e..65e65f6 100644
+--- a/src/config/GeneralConfig.php
++++ b/src/config/GeneralConfig.php
+@@ -133,8 +133,6 @@ class GeneralConfig extends BaseObject
+         'gif',
+         'gz',
+         'gzip',
+-        'htm',
+-        'html',
+         'itt',
+         'jp2',
+         'jpeg',

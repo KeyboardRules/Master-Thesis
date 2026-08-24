@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-gfwr-xqmj-j27v",
+    "cve":  "CVE-2024-49754",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "25988a937cbaebd2ba4c0517510206c404dfb359",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/forms/token-item-create.inc.php",
+                        "includes/html/pages/api-access.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/pages/api-access.inc.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/forms/token-item-create.inc.php",
+                        "includes/html/pages/api-access.inc.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8x44-pwr2-rgc6",
+    "cve":  "CVE-2022-0348",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "832c34aeb9f21f213295a0c28377132df996352a",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-22gj-8qj2-fj46",
+    "cve":  "CVE-2023-30943",
+    "cwe":  "CWE-73",
+    "repo":  "moodle/moodle",
+    "sha":  "59d42e1ed23f916dcb47d53c745bef18a116d800",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/editor/tiny/lang.php",
+                        "lib/editor/tiny/loader.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/editor/tiny/lang.php includes 2 project file(s)",
+                     "lib/editor/tiny/loader.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lib/editor/tiny/lang.php",
+                        "lib/editor/tiny/loader.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-v3m8-7h3p-6j5m",
+    "cve":  "CVE-2017-9435",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "70636cc59ffa1ffbc0ce3dba315d7d9b837aad04",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/user/index.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/core/lib/functions.lib.php includes 15 project file(s)",
+                     "htdocs/user/index.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/user/index.php"
+                    ],
+    "sink_hit":  true
+}

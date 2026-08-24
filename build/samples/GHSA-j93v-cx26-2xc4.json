@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-j93v-cx26-2xc4",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "7a799399e6843cd049e85da27ceb75b78505317f",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/Property/Predefined.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/Property/Predefined.php class extends Model\\AbstractModel"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/properties/predefined.js",
+                        "models/Property/Predefined.php"
+                    ],
+    "sink_hit":  false
+}

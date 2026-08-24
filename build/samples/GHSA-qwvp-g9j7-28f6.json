@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-qwvp-g9j7-28f6",
+    "cve":  "CVE-2023-2034",
+    "cwe":  "CWE-434",
+    "repo":  "froxlor/froxlor",
+    "sha":  "f36bc61fc74c85a21c8d31448198b11f96eb3bc6",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/SImExporter.php",
+                        "lib/Froxlor/Settings/Store.php",
+                        "lib/Froxlor/Validate/Validate.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/SImExporter.php",
+                        "lib/Froxlor/Settings/Store.php",
+                        "lib/Froxlor/Validate/Validate.php"
+                    ],
+    "sink_hit":  true
+}

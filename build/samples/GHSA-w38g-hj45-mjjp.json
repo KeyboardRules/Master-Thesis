@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-w38g-hj45-mjjp",
+    "cve":  "CVE-2017-16558",
+    "cwe":  "CWE-89",
+    "repo":  "contao/contao",
+    "sha":  "501cb3cd34d61089b94e7ed78da53977bc71fc3e",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/drivers/DC_Table.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/drivers/DC_Table.php class extends \\DataContainer"
+                 ],
+    "changed_all":  [
+                        "core-bundle/CHANGELOG.md",
+                        "core-bundle/src/Resources/contao/drivers/DC_Table.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-f5gc-qxf8-mh9g",
+    "cve":  "CVE-2026-49260",
+    "cwe":  "CWE-78",
+    "repo":  "pontedilana/php-weasyprint",
+    "fix_commit":  "9e86a2b317237fc5728f712f5037164530117f7e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/AbstractGenerator.php",
+                        "src/Pdf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Pdf.php class extends AbstractGenerator",
+                     "tests/PdfSpy.php class extends Pdf",
+                     "tests/Unit/AbstractGeneratorTest.php class extends TestCase",
+                     "tests/Unit/PdfTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

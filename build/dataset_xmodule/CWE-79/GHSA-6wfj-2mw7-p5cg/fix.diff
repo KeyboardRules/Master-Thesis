@@ -1,0 +1,90 @@
+﻿diff --git a/libraries/Header.class.php b/libraries/Header.class.php
+index bc1e4a6f..c54f8a03 100644
+--- a/libraries/Header.class.php
++++ b/libraries/Header.class.php
+@@ -144,7 +144,15 @@ class PMA_Header
+      */
+     private function _addDefaultScripts()
+     {
++        // Localised strings
++        $params = array('lang' => $GLOBALS['lang']);
++        if (isset($GLOBALS['db'])) {
++            $params['db'] = $GLOBALS['db'];
++        }
+         $this->_scripts->addFile('jquery/jquery-1.8.3.min.js');
++        $this->_scripts->addFile(
++            'whitelist.php' . PMA_URL_getCommon($params), false, true
++        );
+         $this->_scripts->addFile('ajax.js');
+         $this->_scripts->addFile('keyhandler.js');
+         $this->_scripts->addFile('jquery/jquery-ui-1.9.2.custom.min.js');
+@@ -171,11 +179,6 @@ class PMA_Header
+         // Here would not be a good place to add CodeMirror because
+         // the user preferences have not been merged at this point
+ 
+-        // Localised strings
+-        $params = array('lang' => $GLOBALS['lang']);
+-        if (isset($GLOBALS['db'])) {
+-            $params['db'] = $GLOBALS['db'];
+-        }
+         $this->_scripts->addFile('messages.php' . PMA_URL_getCommon($params));
+         // Append the theme id to this url to invalidate
+         // the cache on a theme change. Though this might be
+diff --git a/libraries/Scripts.class.php b/libraries/Scripts.class.php
+index 7df38587..7c5e1d1d 100644
+--- a/libraries/Scripts.class.php
++++ b/libraries/Scripts.class.php
+@@ -50,12 +50,18 @@ class PMA_Scripts
+      */
+     private function _includeFiles($files)
+     {
++        $first_dynamic_scripts = "";
+         $dynamic_scripts = "";
+         $scripts = array();
+         foreach ($files as $value) {
+             if (strpos($value['filename'], "?") !== false) {
+-                $dynamic_scripts .= "<script type='text/javascript' src='js/"
+-                    . $value['filename'] . "'></script>";
++                if ($value['before_statics'] === true) {
++                    $first_dynamic_scripts .= "<script type='text/javascript' src='js/"
++                        . $value['filename'] . "'></script>";
++                } else {
++                    $dynamic_scripts .= "<script type='text/javascript' src='js/"
++                        . $value['filename'] . "'></script>";
++                }
+                 continue;
+             }
+             $include = true;
+@@ -83,7 +89,7 @@ class PMA_Scripts
+             '<script type="text/javascript" src="%s"></script>',
+             htmlspecialchars($url)
+         );
+-        return $static_scripts . $dynamic_scripts;
++        return $first_dynamic_scripts . $static_scripts . $dynamic_scripts;
+     }
+ 
+     /**
+@@ -105,10 +111,12 @@ class PMA_Scripts
+      * @param string $filename       The name of the file to include
+      * @param bool   $conditional_ie Whether to wrap the script tag in
+      *                               conditional comments for IE
++     * @param bool   $before_statics Whether this dynamic script should be
++     *                               included before the static ones
+      *
+      * @return void
+      */
+-    public function addFile($filename, $conditional_ie = false)
++    public function addFile($filename, $conditional_ie = false, $before_statics = false)
+     {
+         $hash = md5($filename);
+         if (!empty($this->_files[$hash])) {
+@@ -119,7 +127,8 @@ class PMA_Scripts
+         $this->_files[$hash] = array(
+             'has_onload' => $has_onload,
+             'filename' => $filename,
+-            'conditional_ie' => $conditional_ie
++            'conditional_ie' => $conditional_ie,
++            'before_statics' => $before_statics
+         );
+     }
+ 

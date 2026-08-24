@@ -1,0 +1,43 @@
+﻿diff --git a/zenario/admin/db_updates/latest_revision_no.inc.php b/zenario/admin/db_updates/latest_revision_no.inc.php
+index ebdd5578..fbc6a607 100644
+--- a/zenario/admin/db_updates/latest_revision_no.inc.php
++++ b/zenario/admin/db_updates/latest_revision_no.inc.php
+@@ -37,6 +37,6 @@ define('ZENARIO_VERSION', '8.5');
+ define('ZENARIO_MAJOR_VERSION', '8');
+ define('ZENARIO_MINOR_VERSION', '5');
+ define('ZENARIO_IS_BUILD', true);
+-define('ZENARIO_REVISION', '50977');
++define('ZENARIO_REVISION', '51340');
+ 
+ define('TINYMCE_DIR', 'zenario/libs/manually_maintained/lgpl/tinymce_4_7_3/');
+\ No newline at end of file
+diff --git a/zenario/autoload/welcome.php b/zenario/autoload/welcome.php
+index 9b1a4bbd..411d0b0e 100644
+--- a/zenario/autoload/welcome.php
++++ b/zenario/autoload/welcome.php
+@@ -2620,7 +2620,9 @@ class welcome {
+ 				}
+ 			} else {
+ 				$fields['0/htaccess_unavailable']['row_class'] = 'warning';
+-				$fields['0/htaccess_unavailable']['snippet']['html'] = \ze\admin::phrase('The .htaccess file cannot be read or is missing. (This message needs revising.)');
++				$fields['0/htaccess_unavailable']['snippet']['html'] = \ze\admin::phrase('The .htaccess file cannot be read or is missing.');
++				
++				$fields['0/friendly_urls_disabled']['hidden'] = true;
+ 			}
+ 		
+ 			//Check to see if there are spare domains without a primary domain
+diff --git a/zenario/modules/zenario_forum/module_code.php b/zenario/modules/zenario_forum/module_code.php
+index c499b1de..f600a01c 100644
+--- a/zenario/modules/zenario_forum/module_code.php
++++ b/zenario/modules/zenario_forum/module_code.php
+@@ -466,7 +466,9 @@ class zenario_forum extends zenario_comments {
+ 				$filesToUpload = &$_FILES['filesToUpload'];
+ 				$files_count = count($filesToUpload['name']);
+ 				for($i=0; $i < $files_count; ++$i){
+-					$this->manageOneUpload($postId, $filesToUpload['tmp_name'][$i], $filesToUpload['name'][$i]);
++					if (empty($filesToUpload['error'][$i])) {
++						$this->manageOneUpload($postId, $filesToUpload['tmp_name'][$i], $filesToUpload['name'][$i]);
++					}
+ 				}
+ 			}
+ 			

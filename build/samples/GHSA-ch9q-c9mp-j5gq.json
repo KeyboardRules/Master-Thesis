@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-ch9q-c9mp-j5gq",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "b9f25109fddb38eee19987183798638d07943f92",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Setup/EnvironmentConfigurator.php",
+                        "phpmyfaq/src/phpMyFAQ/Setup/InMemoryHtaccessFile.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Setup/EnvironmentConfigurator.php",
+                        "phpmyfaq/src/phpMyFAQ/Setup/InMemoryHtaccessFile.php"
+                    ],
+    "sink_hit":  false
+}

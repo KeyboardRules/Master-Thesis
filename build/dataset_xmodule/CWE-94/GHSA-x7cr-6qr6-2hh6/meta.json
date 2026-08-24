@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-x7cr-6qr6-2hh6",
+    "cve":  "CVE-2022-24828",
+    "cwe":  "CWE-94",
+    "repo":  "composer/composer",
+    "fix_commit":  "2c40c53637c5c7e43fff7c09d3d324d632734709",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Composer/Repository/Vcs/GitDriver.php",
+                        "src/Composer/Repository/Vcs/HgDriver.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Composer/Repository/Vcs/GitDriver.php class extends VcsDriver",
+                     "src/Composer/Repository/Vcs/HgDriver.php class extends VcsDriver",
+                     "tests/Composer/Test/Repository/Vcs/HgDriverTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6j9m-rp7m-3gfg",
+    "cve":  "CVE-2018-14716",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "fix_commit":  "1e7d1d084ac3a89e7ec70620f2749110508d1ce1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/helpers/DynamicMeta.php",
+                        "src/models/MetaGlobalVars.php",
+                        "src/seomatic-config/globalmeta/GlobalVars.php",
+                        "src/services/Helper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/models/MetaGlobalVars.php class extends VarsModel",
+                     "src/services/Helper.php class extends Component"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

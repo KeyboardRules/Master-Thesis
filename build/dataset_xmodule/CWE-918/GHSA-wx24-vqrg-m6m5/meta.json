@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-wx24-vqrg-m6m5",
+    "cve":  "CVE-2024-25738",
+    "cwe":  "CWE-918",
+    "repo":  "vufind-org/vufind",
+    "fix_commit":  "a19577d3d87d68e5c3f8ade63added44882a193c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "module/VuFind/src/VuFind/Config/Upgrade.php",
+                        "module/VuFind/src/VuFind/Controller/UpgradeController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "module/VuFind/src/VuFind/Controller/UpgradeController.php class extends AbstractBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

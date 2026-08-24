@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jh5p-wpg2-8rgv",
+    "cve":  "CVE-2016-1912",
+    "cwe":  "CWE-79",
+    "repo":  "GPCsolutions/dolibarr",
+    "sha":  "0d3181324c816bdf664ca5e1548dfe8eb05c54f8",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/lib/functions.lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/core/lib/functions.lib.php includes 13 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/lib/functions.lib.php"
+                    ],
+    "sink_hit":  true
+}

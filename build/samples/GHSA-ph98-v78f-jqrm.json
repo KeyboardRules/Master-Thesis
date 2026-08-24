@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-ph98-v78f-jqrm",
+    "cve":  "CVE-2021-43822",
+    "cwe":  "CWE-89",
+    "repo":  "jackalope/jackalope-doctrine-dbal",
+    "sha":  "9d179a36d320330ddb303ea3a7c98d3a33d231db",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Jackalope/Transport/DoctrineDBAL/Query/QOMWalker.php",
+                        "tests/Jackalope/Transport/DoctrineDBAL/ClientTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Jackalope/Transport/DoctrineDBAL/ClientTest.php class extends FunctionalTestCase"
+                 ],
+    "changed_all":  [
+                        "src/Jackalope/Transport/DoctrineDBAL/Query/QOMWalker.php",
+                        "tests/Jackalope/Transport/DoctrineDBAL/ClientTest.php"
+                    ],
+    "sink_hit":  true
+}

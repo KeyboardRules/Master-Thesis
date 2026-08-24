@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-3fgr-xjr6-xqm8",
+    "cve":  "",
+    "cwe":  "CWE-95",
+    "repo":  "gggeek/phpxmlrpc",
+    "sha":  "cf6e605e09d001ce520bfa8e7b168cfa514e663b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Client.php",
+                        "src/PhpXmlRpc.php",
+                        "src/Wrapper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "NEWS.md",
+                        "README.md",
+                        "src/Client.php",
+                        "src/PhpXmlRpc.php",
+                        "src/Wrapper.php"
+                    ],
+    "sink_hit":  false
+}

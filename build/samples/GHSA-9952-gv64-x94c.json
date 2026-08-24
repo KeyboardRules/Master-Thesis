@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-9952-gv64-x94c",
+    "cve":  "CVE-2025-54418",
+    "cwe":  "CWE-78",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "sha":  "e18120bff1da691e1d15ffc1bf553ae7411762c0",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/Images/Handlers/ImageMagickHandler.php",
+                        "tests/system/Images/ImageMagickHandlerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "system/Images/Handlers/ImageMagickHandler.php class extends BaseHandler",
+                     "tests/system/Images/ImageMagickHandlerTest.php class extends CIUnitTestCase"
+                 ],
+    "changed_all":  [
+                        "system/Images/Handlers/ImageMagickHandler.php",
+                        "tests/system/Images/ImageMagickHandlerTest.php",
+                        "user_guide_src/source/changelogs/v4.6.2.rst"
+                    ],
+    "sink_hit":  true
+}

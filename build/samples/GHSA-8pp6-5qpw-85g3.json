@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8pp6-5qpw-85g3",
+    "cve":  "CVE-2017-20187",
+    "cwe":  "CWE-74",
+    "repo":  "floriangaerber/Magnesium-PHP",
+    "sha":  "500d340e1f6421007413cc08a8383475221c2604",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Magnesium/Message/Base.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Magnesium/Message/Base.php"
+                    ],
+    "sink_hit":  false
+}

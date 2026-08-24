@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9fcc-7g44-mxrj",
+    "cve":  "CVE-2022-0942",
+    "cwe":  "CWE-79",
+    "repo":  "star7th/showdoc",
+    "sha":  "3caa32334db0c277b84e993eaca2036f5d1dbef8",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Model/AttachmentModel.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "server/Application/Api/Model/AttachmentModel.class.php class extends BaseModel"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Model/AttachmentModel.class.php"
+                    ],
+    "sink_hit":  false
+}

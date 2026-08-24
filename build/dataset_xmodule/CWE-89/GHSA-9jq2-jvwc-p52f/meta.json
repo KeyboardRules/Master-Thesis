@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9jq2-jvwc-p52f",
+    "cve":  "CVE-2012-4383",
+    "cwe":  "CWE-89",
+    "repo":  "contao/core",
+    "fix_commit":  "2bf4fc380e19895127cbeaba62bff951a3b8e5cb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/modules/backend/Ajax.php"
+                    ],
+    "evidence":  [
+                     "system/modules/backend/Ajax.php class extends Backend"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,134 @@
+﻿diff --git a/objects/plugin.php b/objects/plugin.php
+index 837d9e9ab..0b26bfdb9 100644
+--- a/objects/plugin.php
++++ b/objects/plugin.php
+@@ -345,6 +345,10 @@ class Plugin extends ObjectYPT
+         global $global;
+ 
+         $pluginName = AVideoPlugin::fixName($pluginName);
++        $pluginName = trim(preg_replace('/[^0-9a-z_]/i', '', $pluginName));
++        if (empty($pluginName)) {
++            return false;
++        }
+         $dir = $global['systemRootPath'] . "plugin";
+         $filename = $dir . DIRECTORY_SEPARATOR . $pluginName . DIRECTORY_SEPARATOR . "install" . DIRECTORY_SEPARATOR . "install.sql";
+         if (!file_exists($filename)) {
+diff --git a/objects/pluginRunDatabaseScript.json.php b/objects/pluginRunDatabaseScript.json.php
+index 1746f726f..7ca6fde1f 100644
+--- a/objects/pluginRunDatabaseScript.json.php
++++ b/objects/pluginRunDatabaseScript.json.php
+@@ -1,44 +1,56 @@
+-<?php
+-header('Content-Type: application/json');
+-global $global, $config;
+-if (!isset($global['systemRootPath'])) {
+-    require_once '../videos/configuration.php';
+-}
+-require_once $global['systemRootPath'] . 'objects/user.php';
+-require_once $global['systemRootPath'] . 'objects/plugin.php';
+-if (!User::isAdmin()) {
+-    die('{"error":"' . __("Permission denied") . '"}');
+-}
+-if (empty($_POST['name'])) {
+-    die('{"error":"' . __("Name can't be blank") . '"}');
+-}
+-ini_set('max_execution_time', 300);
+-$obj = new stdClass();
+-$obj->error = true;
+-$obj->msg = '';
+-$obj->name = $_POST['name'];
+-$templine = '';
+-$fileName = Plugin::getDatabaseFileName($_POST['name']);
+-$obj->fileName = $fileName;
+-if ($fileName) {
+-    $lines = file($fileName);
+-    foreach ($lines as $line) {
+-        if (substr($line, 0, 2) == '--' || $line == '') {
+-            continue;
+-        }
+-        $templine .= $line;
+-        if (substr(trim($line), -1, 1) == ';') {
+-            if (!$global['mysqli']->query($templine)) {
+-                $obj->msg = ('Error performing query \'<strong>' . $templine . '\': ' . $global['mysqli']->error . '<br /><br />');
+-                die($templine.' '.json_encode($obj));
+-            }
+-            $templine = '';
+-        }
+-    }
+-    $obj->error = false;
+-    $obj->msg = "All queries executed";
+-} else {
+-    $obj->msg = "File not found";
+-}
+-
+-die(json_encode($obj));
++<?php
++header('Content-Type: application/json');
++global $global, $config;
++if (!isset($global['systemRootPath'])) {
++    require_once '../videos/configuration.php';
++}
++require_once $global['systemRootPath'] . 'objects/user.php';
++require_once $global['systemRootPath'] . 'objects/plugin.php';
++if (!User::isAdmin()) {
++    die('{"error":"' . __("Permission denied") . '"}');
++}
++if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
++    http_response_code(405);
++    die('{"error":"' . __("POST method required") . '"}');
++}
++if (!isGlobalTokenValid()) {
++    http_response_code(403);
++    die('{"error":"' . __("Invalid token") . '"}');
++}
++
++$pluginName = trim(preg_replace('/[^0-9a-z_]/i', '', $_POST['name']));
++
++if (empty($pluginName)) {
++    die('{"error":"' . __("Name can't be blank") . '"}');
++}
++ini_set('max_execution_time', 300);
++$obj = new stdClass();
++$obj->error = true;
++$obj->msg = '';
++$obj->name = $pluginName;
++$templine = '';
++$fileName = Plugin::getDatabaseFileName($pluginName);
++$obj->fileName = $fileName;
++if ($fileName) {
++    $lines = file($fileName);
++    foreach ($lines as $line) {
++        if (substr($line, 0, 2) == '--' || $line == '') {
++            continue;
++        }
++        $templine .= $line;
++        if (substr(trim($line), -1, 1) == ';') {
++            if (!$global['mysqli']->query($templine)) {
++                _error_log('pluginRunDatabaseScript query failed for plugin ' . $pluginName . ': ' . $global['mysqli']->error);
++                $obj->msg = __('Error performing query');
++                die(json_encode($obj));
++            }
++            $templine = '';
++        }
++    }
++    $obj->error = false;
++    $obj->msg = "All queries executed";
++} else {
++    $obj->msg = "File not found";
++}
++
++die(json_encode($obj));
+diff --git a/view/managerPlugins_body.php b/view/managerPlugins_body.php
+index a7186a85d..df9cee59f 100644
+--- a/view/managerPlugins_body.php
++++ b/view/managerPlugins_body.php
+@@ -649,7 +649,8 @@ $wwbnIndexPlugin = AVideoPlugin::isEnabledByName('WWBNIndex');
+                 $.ajax({
+                     url: webSiteRootURL + 'objects/pluginRunDatabaseScript.json.php',
+                     data: {
+-                        "name": row.name
++                        "name": row.name,
++                        "globalToken": '<?php echo getToken(300); ?>'
+                     },
+                     type: 'post',
+                     success: function(response) {

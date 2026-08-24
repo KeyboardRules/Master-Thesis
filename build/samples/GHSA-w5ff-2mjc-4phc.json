@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w5ff-2mjc-4phc",
+    "cve":  "CVE-2026-33319",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "sha":  "67d932eb05e1bc9b36796f73ff4f9fb47590598b",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/SocialMediaPublisher/Objects/SocialUploader.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "plugin/SocialMediaPublisher/Objects/SocialUploader.php"
+                    ],
+    "sink_hit":  true
+}

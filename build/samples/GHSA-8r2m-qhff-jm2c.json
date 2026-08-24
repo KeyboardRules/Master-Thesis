@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8r2m-qhff-jm2c",
+    "cve":  "CVE-2017-7897",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "a1c719313d61b07bbe8700005807b8195fdc32f1",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/timeline_inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "core/timeline_inc.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "core/timeline_inc.php"
+                    ],
+    "sink_hit":  true
+}

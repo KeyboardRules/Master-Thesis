@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-72x2-5c85-6wmr",
+    "cve":  "CVE-2023-46735",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/symfony",
+    "sha":  "8128c302430394f639e818a7103b3f6815d8d962",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Component/Webhook/Controller/WebhookController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Component/Webhook/Controller/WebhookController.php"
+                    ],
+    "sink_hit":  false
+}

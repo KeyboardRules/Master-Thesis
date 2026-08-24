@@ -1,0 +1,147 @@
+﻿diff --git a/classes/Validate.php b/classes/Validate.php
+index 49d009b16..827a83e4a 100644
+--- a/classes/Validate.php
++++ b/classes/Validate.php
+@@ -35,6 +35,8 @@ use Symfony\Component\Validator\Validation;
+ 
+ class ValidateCore
+ {
++    public const ORDER_BY_REGEXP = '/^(?:(`?)[\w!_-]+\1\.)?(?:(`?)[\w!_-]+\2)$/';
++
+     const ADMIN_PASSWORD_LENGTH = 8;
+     const PASSWORD_LENGTH = 5;
+ 
+@@ -774,7 +776,7 @@ class ValidateCore
+      */
+     public static function isOrderBy($order)
+     {
+-        return preg_match('/^[a-zA-Z0-9.!_-]+$/', $order);
++        return preg_match(static::ORDER_BY_REGEXP, $order);
+     }
+ 
+     /**
+diff --git a/src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php b/src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php
+index 2c400621b..bc99d69be 100644
+--- a/src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php
++++ b/src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php
+@@ -76,15 +76,17 @@ final class CmsPageCategoryQueryBuilder extends AbstractDoctrineQueryBuilder
+     public function getSearchQueryBuilder(SearchCriteriaInterface $searchCriteria)
+     {
+         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
+-
+         $qb
+             ->select('cc.`id_cms_category`, cc.`id_parent`, cc.`active`, cc.`position`, ccl.`name`, ccl.`description`')
+-            ->groupBy('cc.`id_cms_category`')
+-            ->orderBy(
+-                $this->getModifiedOrderBy($searchCriteria->getOrderBy()),
++            ->groupBy('cc.`id_cms_category`');
++
++        $orderBy = $this->getModifiedOrderBy($searchCriteria->getOrderBy());
++        if (!empty($orderBy)) {
++            $qb->orderBy(
++                $orderBy,
+                 $searchCriteria->getOrderWay()
+-            )
+-        ;
++            );
++        }
+ 
+         $this->searchCriteriaApplicator->applyPagination($searchCriteria, $qb);
+ 
+@@ -189,7 +191,7 @@ final class CmsPageCategoryQueryBuilder extends AbstractDoctrineQueryBuilder
+     private function getModifiedOrderBy($orderBy)
+     {
+         if ('id_cms_category' === $orderBy) {
+-            $orderBy = 'cc.`id_cms_category`';
++            $orderBy = 'cc.id_cms_category';
+         }
+ 
+         return $orderBy;
+diff --git a/src/Core/Grid/Query/WebserviceKeyQueryBuilder.php b/src/Core/Grid/Query/WebserviceKeyQueryBuilder.php
+index 0c3ee8a72..a82b8fc16 100644
+--- a/src/Core/Grid/Query/WebserviceKeyQueryBuilder.php
++++ b/src/Core/Grid/Query/WebserviceKeyQueryBuilder.php
+@@ -81,12 +81,17 @@ final class WebserviceKeyQueryBuilder extends AbstractDoctrineQueryBuilder
+     public function getSearchQueryBuilder(SearchCriteriaInterface $searchCriteria)
+     {
+         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
+-        $qb->select('wa.`id_webservice_account`, wa.`key`, wa.`description`, wa.`active`')
+-            ->orderBy(
+-                $this->getModifiedOrderBy($searchCriteria->getOrderBy()),
++        $qb->select('wa.`id_webservice_account`, wa.`key`, wa.`description`, wa.`active`');
++
++        $orderBy = $searchCriteria->getOrderBy();
++        if (!empty($orderBy)) {
++            $qb->orderBy(
++                $this->getModifiedOrderBy($orderBy),
+                 $searchCriteria->getOrderWay()
+-            )
+-            ->groupBy('wa.`id_webservice_account`');
++            );
++        }
++
++        $qb->groupBy('wa.`id_webservice_account`');
+ 
+         $this->searchCriteriaApplicator->applyPagination($searchCriteria, $qb);
+ 
+@@ -146,6 +151,6 @@ final class WebserviceKeyQueryBuilder extends AbstractDoctrineQueryBuilder
+      */
+     private function getModifiedOrderBy($orderBy)
+     {
+-        return 'wa.`' . $orderBy . '`';
++        return 'wa.' . $orderBy;
+     }
+ }
+diff --git a/src/Core/Search/Filters.php b/src/Core/Search/Filters.php
+index 63ac25a0d..c7cef67ea 100644
+--- a/src/Core/Search/Filters.php
++++ b/src/Core/Search/Filters.php
+@@ -28,9 +28,10 @@ namespace PrestaShop\PrestaShop\Core\Search;
+ 
+ use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
+ use Symfony\Component\HttpFoundation\ParameterBag;
++use Validate;
+ 
+ /**
+- * This class is responsible of managing filters of Listing pages.
++ * This class is responsible for managing filters of Listing pages.
+  */
+ class Filters extends ParameterBag implements SearchCriteriaInterface
+ {
+@@ -66,7 +67,7 @@ class Filters extends ParameterBag implements SearchCriteriaInterface
+     public static function getDefaults()
+     {
+         return [
+-            'limit' => self::LIST_LIMIT,
++            'limit' => static::LIST_LIMIT,
+             'offset' => 0,
+             'orderBy' => null,
+             'sortOrder' => null,
+@@ -79,7 +80,12 @@ class Filters extends ParameterBag implements SearchCriteriaInterface
+      */
+     public function getOrderBy()
+     {
+-        return $this->get('orderBy');
++        $orderBy = $this->get('orderBy');
++        if (!Validate::isOrderBy($orderBy)) {
++            return null;
++        }
++
++        return $orderBy;
+     }
+ 
+     /**
+@@ -87,7 +93,12 @@ class Filters extends ParameterBag implements SearchCriteriaInterface
+      */
+     public function getOrderWay()
+     {
+-        return $this->get('sortOrder');
++        $orderWay = $this->get('sortOrder');
++        if (!Validate::isOrderWay(strtoupper($orderWay))) {
++            return null;
++        }
++
++        return $orderWay;
+     }
+ 
+     /**

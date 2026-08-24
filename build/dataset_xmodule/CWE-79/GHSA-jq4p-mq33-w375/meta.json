@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jq4p-mq33-w375",
+    "cve":  "CVE-2022-23598",
+    "cwe":  "CWE-79",
+    "repo":  "laminas/laminas-form",
+    "fix_commit":  "43005a3ec4c2292d4f825273768d9b884acbca37",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/View/Helper/FormElementErrors.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/View/Helper/FormElementErrors.php class extends AbstractHelper",
+                     "test/View/Helper/FormElementErrorsTest.php class extends AbstractCommonTestCase",
+                     "test/View/Helper/FormElementErrorsTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

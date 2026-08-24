@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3fpm-8rjr-v5mc",
+    "cve":  "CVE-2026-33502",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "1e6cf03e93b5a5318204b010ea28440b0d9a5ab3",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/test.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/test.php"
+                    ],
+    "sink_hit":  true
+}

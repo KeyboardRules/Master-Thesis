@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-7gm7-8q8v-9gf2",
+    "cve":  "CVE-2022-24871",
+    "cwe":  "CWE-918",
+    "repo":  "shopware/platform",
+    "sha":  "083765e2d64a00315050c4891800c9e98ba0c77c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Framework/Api/Controller/SalesChannelProxyController.php",
+                        "src/Core/System/SalesChannel/Context/CartRestorer.php",
+                        "src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php",
+                        "src/Core/System/Test/SalesChannel/Context/CartRestorerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Core/Framework/Api/Controller/SalesChannelProxyController.php class extends AbstractController",
+                     "src/Core/System/Test/SalesChannel/Context/CartRestorerTest.php class extends TestCase",
+                     "src/Core/System/Test/SalesChannel/Context/CartRestorerTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Core/Framework/Api/Controller/SalesChannelProxyController.php",
+                        "src/Core/System/SalesChannel/Context/CartRestorer.php",
+                        "src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php",
+                        "src/Core/System/Test/SalesChannel/Context/CartRestorerTest.php"
+                    ],
+    "sink_hit":  false
+}

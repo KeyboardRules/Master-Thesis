@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-395x-wv32-44v5",
+    "cve":  "CVE-2022-39325",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "sha":  "b6f8a54e90dee51317eddf517b776fe8b4cd3ef6",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Elements/admin/dblogs/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/favorite_menu_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/permissions/index_row.php",
+                        "app/webroot/theme/admin-third/Permissions/admin/form.php",
+                        "app/webroot/theme/admin-third/Users/admin/form.php",
+                        "lib/Baser/View/Elements/admin/dblogs/index_row.php",
+                        "lib/Baser/View/Elements/admin/favorite_menu_row.php",
+                        "lib/Baser/View/Elements/admin/permissions/index_row.php",
+                        "lib/Baser/View/Permissions/admin/form.php",
+                        "lib/Baser/View/Users/admin/form.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 10 php files"
+                 ],
+    "changed_all":  [
+                        "app/webroot/theme/admin-third/Elements/admin/dblogs/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/favorite_menu_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/permissions/index_row.php",
+                        "app/webroot/theme/admin-third/Permissions/admin/form.php",
+                        "app/webroot/theme/admin-third/Users/admin/form.php",
+                        "lib/Baser/View/Elements/admin/dblogs/index_row.php",
+                        "lib/Baser/View/Elements/admin/favorite_menu_row.php",
+                        "lib/Baser/View/Elements/admin/permissions/index_row.php",
+                        "lib/Baser/View/Permissions/admin/form.php",
+                        "lib/Baser/View/Users/admin/form.php"
+                    ],
+    "sink_hit":  true
+}

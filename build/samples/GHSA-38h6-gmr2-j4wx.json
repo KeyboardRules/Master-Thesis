@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-38h6-gmr2-j4wx",
+    "cve":  "CVE-2023-28851",
+    "cwe":  "CWE-79",
+    "repo":  "bigfork/silverstripe-form-capture",
+    "sha":  "3a7a3c480e3fccddce9c5f359796d45a8302a622",
+    "status":  "ok",
+    "changed_php":  [
+                        "code/CapturedFormSubmission.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "code/CapturedFormSubmission.php class extends DataObject"
+                 ],
+    "changed_all":  [
+                        "code/CapturedFormSubmission.php"
+                    ],
+    "sink_hit":  false
+}

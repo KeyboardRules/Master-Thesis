@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-39m3-cj8c-886r",
+    "cve":  "CVE-2023-5323",
+    "cwe":  "CWE-79",
+    "repo":  "dolibarr/dolibarr",
+    "sha":  "695ca086847b3b6a185afa93e897972c93c43d15",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/main.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/main.inc.php includes 18 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/main.inc.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,127 @@
+﻿diff --git a/config/livewire-markdown-editor.php b/config/livewire-markdown-editor.php
+index f782555..b4a5fed 100644
+--- a/config/livewire-markdown-editor.php
++++ b/config/livewire-markdown-editor.php
+@@ -28,4 +28,21 @@ return [
+     */
+ 
+     'theme' => env('MARKDOWN_EDITOR_THEME', 'github-light'),
++
++    /*
++    |--------------------------------------------------------------------------
++    | File Upload
++    |--------------------------------------------------------------------------
++    |
++    | Controls the file upload behavior of the editor. By default, only images
++    | are allowed to prevent arbitrary file upload vulnerabilities (stored XSS,
++    | phishing page hosting, malware distribution on your storage domain).
++    |
++    */
++
++    'upload' => [
++        'max_size' => 4096,
++        'allowed_extensions' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'],
++        'images_only' => true,
++    ],
+ ];
+diff --git a/resources/views/livewire/markdown-editor.blade.php b/resources/views/livewire/markdown-editor.blade.php
+index 85ffd1d..0b03245 100644
+--- a/resources/views/livewire/markdown-editor.blade.php
++++ b/resources/views/livewire/markdown-editor.blade.php
+@@ -96,8 +96,15 @@
+                         </md-mention>
+ 
+                         @if ($showUpload)
++                            @php
++                                $uploadConfig = config('livewire-markdown-editor.upload');
++                                $acceptAttribute = $uploadConfig['images_only']
++                                    ? 'image/*'
++                                    : collect($uploadConfig['allowed_extensions'])->map(fn ($ext) => '.'.$ext)->implode(',');
++                            @endphp
++
+                             <label class="p-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-700 cursor-pointer text-zinc-700 dark:text-zinc-300" title="{{ __('livewire-markdown-editor::editor.toolbars.attach_files') }}">
+-                                <input type="file" wire:model="attachments" multiple accept="image/*,.pdf,.doc,.docx" class="hidden">
++                                <input type="file" wire:model="attachments" multiple accept="{{ $acceptAttribute }}" class="hidden">
+                                 <x-phosphor-images-duotone class="size-5" aria-hidden="true" />
+                             </label>
+                         @endif
+diff --git a/src/Livewire/MarkdownEditor.php b/src/Livewire/MarkdownEditor.php
+index 8960c8d..8749f5e 100644
+--- a/src/Livewire/MarkdownEditor.php
++++ b/src/Livewire/MarkdownEditor.php
+@@ -7,6 +7,7 @@ namespace Mckenziearts\LivewireMarkdownEditor\Livewire;
+ use Illuminate\Contracts\Filesystem\Cloud;
+ use Illuminate\Contracts\View\View;
+ use Illuminate\Support\Facades\Storage;
++use Illuminate\Support\Str;
+ use League\CommonMark\Environment\Environment;
+ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+ use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+@@ -63,21 +64,49 @@ final class MarkdownEditor extends Component
+         return $converter->convert($this->content)->getContent();
+     }
+ 
++    /**
++     * @return array<string, array<int, string|null>>
++     */
++    public function rules(): array
++    {
++        /** @var array{max_size: int, allowed_extensions: array<int, string>, images_only: bool} $config */
++        $config = config('livewire-markdown-editor.upload');
++
++        $extensions = implode(',', $config['allowed_extensions']);
++
++        return [
++            'attachments.*' => array_values(array_filter([
++                'required',
++                'file',
++                $config['images_only'] ? 'image' : null,
++                'mimes:'.$extensions,
++                'extensions:'.$extensions,
++                'max:'.$config['max_size'],
++            ])),
++        ];
++    }
++
+     public function updatedAttachments(): void
+     {
++        $this->validate();
++
+         /** @var string $disk */
+         $disk = config('livewire-markdown-editor.disk');
+ 
+         foreach ($this->attachments as $attachment) {
+-            /** @var string $path */
+-            $path = $attachment->store('', $disk);
+-            $filesystem = Storage::disk($disk);
++            $extension = $attachment->extension();
++            $path = $attachment->storeAs('', Str::random(40).'.'.$extension, $disk);
++
++            if ($path === false) {
++                continue;
++            }
+ 
++            $filesystem = Storage::disk($disk);
+             /** @var Cloud $filesystem */
+             $url = $filesystem->url($path);
+-            $filename = $attachment->getClientOriginalName();
++            $filename = $this->sanitizeFilename($attachment->getClientOriginalName());
+ 
+-            if (str_starts_with($attachment->getMimeType(), 'image/')) {
++            if (str_starts_with((string) $attachment->getMimeType(), 'image/')) {
+                 $this->content .= "\n![{$filename}]({$url})\n";
+             } else {
+                 $this->content .= "\n[{$filename}]({$url})\n";
+@@ -91,4 +120,12 @@ final class MarkdownEditor extends Component
+     {
+         return view('livewire-markdown-editor::livewire.markdown-editor');
+     }
++
++    private function sanitizeFilename(string $filename): string
++    {
++        $filename = preg_replace('/[\x00-\x1F\x7F]/u', '', $filename) ?? '';
++        $filename = preg_replace('/[\[\]\(\)<>"\'\\\\`]/', '', $filename) ?? '';
++
++        return Str::limit(trim($filename), 100, '');
++    }
+ }

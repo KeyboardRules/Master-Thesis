@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-4h5c-5g25-v7fh",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "79528f75e23c2832db321f36d777c1427553f764",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/form/Classes/Domain/Finishers/ConfirmationFinisher.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "typo3/sysext/form/Classes/Domain/Finishers/ConfirmationFinisher.php class extends AbstractFinisher"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Documentation/Changelog/8.7.x/Feature-83405-AddConfirmationFinisherTemplate.rst",
+                        "typo3/sysext/form/Classes/Domain/Finishers/ConfirmationFinisher.php",
+                        "typo3/sysext/form/Configuration/Yaml/BaseSetup.yaml",
+                        "typo3/sysext/form/Documentation/Config/configuration/Index.rst",
+                        "typo3/sysext/form/Documentation/Config/proto/finishersDefinition/finishers/Confirmation.rst",
+                        "typo3/sysext/form/Resources/Private/Frontend/Templates/Finishers/Confirmation/Confirmation.html"
+                    ],
+    "sink_hit":  false
+}

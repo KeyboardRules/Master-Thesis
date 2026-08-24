@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-wxxx-2x6v-979f",
+    "cve":  "CVE-2020-6578",
+    "cwe":  "CWE-79",
+    "repo":  "zencart/zencart",
+    "sha":  "aa11e1e06c11b8a2940299a4bec0ac3dd95a7895",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/templates/responsive_classic/common/html_header.php",
+                        "includes/templates/responsive_classic/common/main_template_vars.php",
+                        "includes/templates/responsive_classic/common/tpl_main_page.php",
+                        "includes/templates/template_default/common/html_header.php",
+                        "includes/templates/template_default/common/main_template_vars.php",
+                        "includes/templates/template_default/common/tpl_main_page.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "includes/templates/responsive_classic/common/html_header.php includes 2 project file(s)",
+                     "includes/templates/responsive_classic/common/main_template_vars.php includes 1 project file(s)",
+                     "includes/templates/responsive_classic/common/tpl_main_page.php includes 6 project file(s)",
+                     "includes/templates/template_default/common/html_header.php includes 1 project file(s)",
+                     "includes/templates/template_default/common/tpl_main_page.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/templates/responsive_classic/common/html_header.php",
+                        "includes/templates/responsive_classic/common/main_template_vars.php",
+                        "includes/templates/responsive_classic/common/tpl_main_page.php",
+                        "includes/templates/template_default/common/html_header.php",
+                        "includes/templates/template_default/common/main_template_vars.php",
+                        "includes/templates/template_default/common/tpl_main_page.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-7cw6-7h3h-v8pf",
+    "cve":  "CVE-2026-23498",
+    "cwe":  "CWE-94",
+    "repo":  "shopware/shopware",
+    "fix_commit":  "3966b05590e29432b8485ba47b4fcd14dd0b8475",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Core/Framework/Adapter/Twig/SecurityExtension.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Core/Framework/Adapter/Twig/SecurityExtension.php class extends AbstractExtension",
+                     "tests/unit/Core/Framework/Adapter/Twig/SecurityExtensionTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

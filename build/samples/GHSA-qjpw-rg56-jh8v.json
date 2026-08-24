@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qjpw-rg56-jh8v",
+    "cve":  "CVE-2023-4978",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "e4c46a45364cb944b94abf9b83f0558b2c4c2fb7",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/search/ipv4.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/search/ipv4.inc.php"
+                    ],
+    "sink_hit":  true
+}

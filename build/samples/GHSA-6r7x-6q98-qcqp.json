@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6r7x-6q98-qcqp",
+    "cve":  "CVE-2015-3174",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "10c2b92448873a8479942098a090e7c16b44438d",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/quiz/db/access.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "mod/quiz/db/access.php"
+                    ],
+    "sink_hit":  false
+}

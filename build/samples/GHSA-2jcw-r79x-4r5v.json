@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-2jcw-r79x-4r5v",
+    "cve":  "CVE-2015-0216",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "b9c86823c70a1cba20bca1c4b5b032ee1559e22d",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/lesson/db/access.php",
+                        "mod/lesson/version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "mod/lesson/db/access.php",
+                        "mod/lesson/version.php"
+                    ],
+    "sink_hit":  false
+}

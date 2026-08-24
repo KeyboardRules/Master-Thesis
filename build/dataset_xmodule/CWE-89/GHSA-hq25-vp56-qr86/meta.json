@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hq25-vp56-qr86",
+    "cve":  "CVE-2025-45346",
+    "cwe":  "CWE-89",
+    "repo":  "bacula-web/bacula-web",
+    "fix_commit":  "ad5d94809f17994a61496ecfec9cd3a16ac14a5f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "application/Table/JobFileTable.php"
+                    ],
+    "evidence":  [
+                     "application/Table/JobFileTable.php class extends Table"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

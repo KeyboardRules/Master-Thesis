@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-472v-j2g4-g9h2",
+    "cve":  "CVE-2026-32262",
+    "cwe":  "CWE-22",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "c997efbe4c66c14092714233aeebff15cdbfcf11",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/controllers/AssetsController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/AssetsController.php class extends Controller",
+                     "src/controllers/AssetsController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

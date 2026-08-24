@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vj9x-w7ch-f46p",
+    "cve":  "CVE-2022-0258",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "66281c12479dc01a06258d8533eaddfb1770d5bd",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

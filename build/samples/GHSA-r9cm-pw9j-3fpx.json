@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-r9cm-pw9j-3fpx",
+    "cve":  "CVE-2023-4197",
+    "cwe":  "CWE-74",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "0ed6a63fb06be88be5a4f8bcdee83185eee4087e",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/lib/website.lib.php",
+                        "test/phpunit/WebsiteTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/core/lib/website.lib.php includes 5 project file(s)",
+                     "test/phpunit/WebsiteTest.php includes 5 project file(s)",
+                     "test/phpunit/WebsiteTest.php class extends PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/lib/website.lib.php",
+                        "test/phpunit/WebsiteTest.php"
+                    ],
+    "sink_hit":  false
+}

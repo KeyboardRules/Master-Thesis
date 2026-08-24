@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-chgc-rqjr-46gg",
+    "cve":  "CVE-2010-10008",
+    "cwe":  "CWE-79",
+    "repo":  "simplesamlphp/simplesamlphp-module-openidprovider",
+    "sha":  "8365d48c863cf06ccf1465cc0a161cefae29d69d",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/trust.tpl.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/trust.tpl.php"
+                    ],
+    "sink_hit":  true
+}

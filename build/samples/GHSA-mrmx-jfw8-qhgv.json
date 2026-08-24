@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mrmx-jfw8-qhgv",
+    "cve":  "CVE-2025-10351",
+    "cwe":  "CWE-89",
+    "repo":  "melisplatform/melis-cms",
+    "sha":  "42d36326d9f6400b91db574483add2747af1db21",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/PageEditionController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/PageEditionController.php class extends MelisAbstractActionController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/PageEditionController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3jxh-789f-p7m6",
+    "cve":  "CVE-2021-27902",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "8ee85a8f03c143fa2420e7d6f311d95cae3b19ce",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/config/GeneralConfig.php"
+                    ],
+    "evidence":  [
+                     "src/config/GeneralConfig.php class extends BaseObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

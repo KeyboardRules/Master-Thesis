@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-q3r2-23r8-wqr9",
+    "cve":  "CVE-2023-26091",
+    "cwe":  "CWE-79",
+    "repo":  "frappant/frp_form_answers",
+    "fix_commit":  "39fa16c8c792abdfc33e38bae17847364ff6a71d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php",
+                        "Classes/Form/FormAnswersJsonElement.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php class extends AbstractFinisher",
+                     "Classes/Form/FormAnswersJsonElement.php class extends AbstractFormElement"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

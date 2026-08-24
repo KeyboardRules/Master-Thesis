@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-mw37-wx8p-gp45",
+    "cve":  "CVE-2022-37251",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "7139213dbd9e177a3528aac8e2db8de91830f118",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/base/Element.php",
+                        "src/config/app.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/base/Element.php class extends Component",
+                     "src/base/Element.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

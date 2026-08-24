@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-825g-f3g2-6vxf",
+    "cve":  "CVE-2017-1000495",
+    "cwe":  "CWE-79",
+    "repo":  "quickapps/cms",
+    "fix_commit":  "7d648f21bd87af8263dcd6449f0946a2dd31348a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugins/User/src/Model/Entity/User.php"
+                    ],
+    "evidence":  [
+                     "plugins/User/src/Model/Entity/User.php class extends Entity",
+                     "plugins/User/src/Model/Entity/User.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

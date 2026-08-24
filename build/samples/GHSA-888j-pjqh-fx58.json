@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-888j-pjqh-fx58",
+    "cve":  "CVE-2024-49759",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "237f4d2e818170171dfad6efad36a275cd2ba8d0",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/edituser.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/pages/edituser.inc.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/edituser.inc.php"
+                    ],
+    "sink_hit":  true
+}

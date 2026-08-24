@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-6qjf-7g3j-qx25",
+    "cve":  "CVE-2023-37611",
+    "cwe":  "CWE-79",
+    "repo":  "neos/neos-development-collection",
+    "sha":  "4ac0df04d2e44e164e95887b466075dde3f04045",
+    "status":  "ok",
+    "changed_php":  [
+                        "Neos.Media.Browser/Classes/Controller/AssetController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Neos.Media.Browser/Classes/Controller/AssetController.php class extends ActionController",
+                     "Neos.Media.Browser/Classes/Controller/AssetController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Neos.Media.Browser/Classes/Controller/AssetController.php",
+                        "Neos.Media.Browser/Resources/Private/Partials/ContentDefaultPreview.html",
+                        "Neos.Media.Browser/Resources/Private/Templates/Asset/Edit.html",
+                        "Neos.Media.Browser/Resources/Private/Templates/Asset/Show.html",
+                        "Neos.Media.Browser/Resources/Private/Translations/en/Main.xlf",
+                        "Neos.Media.Browser/composer.json",
+                        "composer.json"
+                    ],
+    "sink_hit":  true
+}

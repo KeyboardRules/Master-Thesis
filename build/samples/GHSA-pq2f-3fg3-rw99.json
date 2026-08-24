@@ -1,0 +1,40 @@
+﻿{
+    "id":  "GHSA-pq2f-3fg3-rw99",
+    "cve":  "CVE-2022-0254",
+    "cwe":  "CWE-89",
+    "repo":  "Highfivery/zero-spam-for-wordpress",
+    "sha":  "49723f696f1e2f2a76ac89375910bb036a4895f3",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/admin/tables/class-blockedlocations.php",
+                        "core/admin/tables/class-blockedtable.php",
+                        "core/admin/tables/class-logtable.php",
+                        "core/class-settings.php",
+                        "includes/class-db.php",
+                        "modules/class-zerospam.php",
+                        "wordpress-zero-spam.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "core/admin/tables/class-blockedlocations.php class extends WP_List_Table",
+                     "core/admin/tables/class-blockedtable.php class extends WP_List_Table",
+                     "core/admin/tables/class-logtable.php includes 1 project file(s)",
+                     "core/admin/tables/class-logtable.php class extends WP_List_Table",
+                     "core/class-settings.php includes 1 project file(s)",
+                     "includes/class-db.php includes 1 project file(s)",
+                     "wordpress-zero-spam.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "core/admin/tables/class-blockedlocations.php",
+                        "core/admin/tables/class-blockedtable.php",
+                        "core/admin/tables/class-logtable.php",
+                        "core/class-settings.php",
+                        "includes/class-db.php",
+                        "modules/class-zerospam.php",
+                        "readme.txt",
+                        "wordpress-zero-spam.php"
+                    ],
+    "sink_hit":  true
+}

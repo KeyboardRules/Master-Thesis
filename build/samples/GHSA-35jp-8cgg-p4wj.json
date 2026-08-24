@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-35jp-8cgg-p4wj",
+    "cve":  "CVE-2024-42356",
+    "cwe":  "CWE-1336",
+    "repo":  "shopware/core",
+    "sha":  "04183e0c02af3b404eb7d52c683734bfe0595038",
+    "status":  "ok",
+    "changed_php":  [
+                        "Framework/Context.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Framework/Context.php class extends Struct",
+                     "Framework/Context.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Framework/Context.php"
+                    ],
+    "sink_hit":  false
+}

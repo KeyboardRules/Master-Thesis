@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-gjq4-69wj-p6pr",
+    "cve":  "CVE-2022-0665",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "28945649a6234ccaa8c94c6cd83d1954603baf3e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

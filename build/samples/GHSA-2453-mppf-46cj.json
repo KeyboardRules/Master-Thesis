@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2453-mppf-46cj",
+    "cve":  "CVE-2026-25495",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/cms",
+    "sha":  "96c60d775c644ff0a0276da52fe29e11d4cd38d2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/ElementIndexesController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/ElementIndexesController.php class extends BaseElementsController"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/ElementIndexesController.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,361 @@
+﻿<?php
+
+namespace Tpwd\KeSearch\Indexer\Types;
+
+use Tpwd\KeSearch\Domain\Repository\IndexRepository;
+use Tpwd\KeSearch\Domain\Repository\PageRepository;
+use Tpwd\KeSearch\Domain\Repository\TtNewsRepository;
+use Tpwd\KeSearch\Indexer\IndexerBase;
+use Tpwd\KeSearch\Indexer\IndexerRunner;
+use Tpwd\KeSearch\Lib\Db;
+use Tpwd\KeSearch\Lib\SearchHelper;
+use TYPO3\CMS\Core\Resource\FileRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+/***************************************************************
+ *  Copyright notice
+ *  (c) 2021 Christian Bülter
+ *  All rights reserved
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+class TtNews extends IndexerBase
+{
+    /** @var FileRepository $fileRepository  */
+    protected $fileRepository;
+
+    /** @var int $fileCounter */
+    protected $fileCounter = 0;
+
+    /**
+     * Initializes indexer for tt_news
+     *
+     * @param IndexerRunner $pObj
+     */
+    public function __construct($pObj)
+    {
+        parent::__construct($pObj);
+        $this->pObj = $pObj;
+        $this->fileRepository = GeneralUtility::makeInstance(FileRepository::class);
+    }
+
+    /**
+     * Index tt_news records
+     *
+     * @return string content which will be displayed in backend
+     */
+    public function startIndexing()
+    {
+        $table = 'tt_news';
+
+        // get the pages from where to index the news
+        $indexPids = $this->getPidList(
+            $this->indexerConfig['startingpoints_recursive'],
+            $this->indexerConfig['sysfolder'],
+            $table
+        );
+
+        // add the tags of each page to the global page array
+        if ($this->indexerConfig['index_use_page_tags']) {
+            $this->pageRecords = $this->getPageRecords($indexPids);
+            $this->addTagsToRecords($indexPids);
+        }
+
+        // get all the news entries to index, don't index hidden or
+        // deleted news, BUT  get the news with frontend user group
+        // access restrictions or time (start / stop) restrictions.
+        // Copy those restrictions to the index.
+        $queryBuilder = Db::getQueryBuilder($table);
+        $where = [];
+        $where[] = $queryBuilder->expr()->in('pid', implode(',', $indexPids));
+
+        // in incremental mode get only news which have been modified since last indexing time
+        if ($this->indexingMode == self::INDEXING_MODE_INCREMENTAL) {
+            $where[] = $queryBuilder->expr()->gte('tstamp', $this->lastRunStartTime);
+        }
+
+        $res = $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where(...$where)
+            ->executeQuery();
+
+        $indexedNewsCounter = 0;
+        $resCount = $res->rowCount();
+
+        if ($resCount) {
+            while (($newsRecord = $res->fetchAssociative())) {
+                $shouldBeIndexed = true;
+
+                if (!$this->recordIsLive($newsRecord)) {
+                    $shouldBeIndexed = false;
+                }
+
+                if ($shouldBeIndexed) {
+                    $this->pObj->logger->debug('Indexing tt_news record "' . $newsRecord['title'] . '"', [
+                        'uid' => $newsRecord['uid'],
+                        'pid' => $newsRecord['pid'],
+                        'sys_language_uid' => $newsRecord['sys_language_uid'],
+                    ]);
+                } else {
+                    $this->pObj->logger->debug('Skipping tt_news record "' . $newsRecord['title'] . '"', [
+                        'uid' => $newsRecord['uid'],
+                        'pid' => $newsRecord['pid'],
+                        'sys_language_uid' => $newsRecord['sys_language_uid'],
+                    ]);
+                    continue;
+                }
+
+                // get category data for this news record (list of
+                // assigned categories and single view from category, if it exists)
+                $categoryData = $this->getCategoryData($newsRecord);
+
+                // compile the information which should go into the index:
+                // title, teaser, bodytext
+                $type = 'tt_news';
+                $title = strip_tags($newsRecord['title']);
+                $abstract = strip_tags($newsRecord['short']);
+                $content = strip_tags($newsRecord['bodytext']);
+
+                // add additional fields to the content:
+                // alternative_title, author, author_email, keywords
+                if (isset($newsRecord['author'])) {
+                    $content .= "\n" . strip_tags($newsRecord['author']);
+                }
+                if (isset($newsRecord['author_email'])) {
+                    $content .= "\n" . strip_tags($newsRecord['author_email']);
+                }
+                if (!empty($newsRecord['keywords'])) {
+                    $content .= "\n" . strip_tags($newsRecord['keywords']);
+                }
+
+                // get related files if fileext is configured
+                if (!empty($this->indexerConfig['fileext'])) {
+                    $filesToIndex = $this->getFilesToIndex(
+                        'tt_news',
+                        'news_files',
+                        $newsRecord['uid'],
+                        $newsRecord['sys_language_uid']
+                    );
+                    if (!empty($filesToIndex)) {
+                        if ($this->indexerConfig['index_news_files_mode'] === 1) {
+                            // add file content to news index record
+                            $content .= $this->getContentFromFiles($filesToIndex);
+                        } else {
+                            // index file as separate index record
+                            $this->indexFilesAsSeparateResults($filesToIndex, $newsRecord);
+                        }
+                    }
+                }
+
+                // create content
+                $fullContent = '';
+                if (!empty($abstract)) {
+                    $fullContent .= $abstract . "\n";
+                }
+                $fullContent .= $content;
+
+                // make it possible to modify the indexerConfig via hook
+                $indexerConfig = $this->indexerConfig;
+
+                // overwrite the targetpid if there is a category assigned
+                // which has its own single view page
+                if ($categoryData['single_pid']) {
+                    $indexerConfig['targetpid'] = $categoryData['single_pid'];
+                }
+
+                // create params for news single view, example:
+                // /tt-news-detail?tx_ttnews[tt_news]=1
+                $paramsSingleView['tx_ttnews']['tt_news'] =
+                    $newsRecord['l18n_parent'] ? $newsRecord['l18n_parent'] : $newsRecord['uid'];
+                $params = '&' . http_build_query($paramsSingleView);
+                $params = rawurldecode($params);
+
+                // add tags from pages
+                if ($indexerConfig['index_use_page_tags']) {
+                    $tags = $this->pageRecords[(int)($newsRecord['pid'])]['tags'];
+                } else {
+                    $tags = '';
+                }
+
+                // add keywords from ext:tt_news as tags
+                if (!empty($newsRecord['keywords'])) {
+                    $keywordsList = GeneralUtility::trimExplode(',', $newsRecord['keywords']);
+                    foreach ($keywordsList as $keyword) {
+                        SearchHelper::makeTags($tags, [$keyword]);
+                    }
+                }
+
+                // add categories from from ext:news as tags
+                SearchHelper::makeTags($tags, $categoryData['title_list']);
+
+                // set additional fields
+                $additionalFields = [];
+                $additionalFields['orig_uid'] = $newsRecord['uid'];
+                $additionalFields['orig_pid'] = $newsRecord['pid'];
+                $additionalFields['sortdate'] = $newsRecord['crdate'];
+                if (isset($newsRecord['datetime']) && $newsRecord['datetime'] > 0) {
+                    $additionalFields['sortdate'] = $newsRecord['datetime'];
+                }
+
+                // hook for custom modifications of the indexed data, e.g. the tags
+                if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyExtTtNewsIndexEntry'] ?? null)) {
+                    foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['modifyExtTtNewsIndexEntry'] as
+                             $_classRef) {
+                        $_procObj = GeneralUtility::makeInstance($_classRef);
+                        $_procObj->modifyExtNewsIndexEntry(
+                            $title,
+                            $abstract,
+                            $fullContent,
+                            $params,
+                            $tags,
+                            $newsRecord,
+                            $additionalFields,
+                            $indexerConfig,
+                            $categoryData,
+                            $this
+                        );
+                    }
+                }
+
+                // store this record to the index
+                $this->pObj->storeInIndex(
+                    $indexerConfig['storagepid'],    // storage PID
+                    $title,                          // page title
+                    $type,                           // content type
+                    $indexerConfig['targetpid'],     // target PID: where is the single view?
+                    $fullContent,                    // indexed content, includes the title (linebreak after title)
+                    $tags,                           // tags
+                    $params,                         // typolink params for singleview
+                    $abstract,                       // abstract
+                    $newsRecord['sys_language_uid'], // language uid
+                    $newsRecord['starttime'],        // starttime
+                    $newsRecord['endtime'],          // endtime
+                    $newsRecord['fe_group'],         // fe_group
+                    false,                           // debug only?
+                    $additionalFields                // additional fields added by hooks
+                );
+                $indexedNewsCounter++;
+            }
+
+            $logMessage = 'Indexer "' . $this->indexerConfig['title'] . '" finished'
+                . ' (' . $indexedNewsCounter . ' records processed)';
+            $this->pObj->logger->info($logMessage);
+        }
+        return $indexedNewsCounter . ' tt_news records and ' . $this->fileCounter . ' related files have been indexed.';
+    }
+
+    /**
+     * checks if there is a news category assigned to the $newsRecord which has
+     * its own single view page and if yes, returns the uid of the page
+     * in $catagoryData['single_pid'].
+     * It also compiles a list of all assigned categories and returns
+     * it as an array in $categoryData['uid_list']. The titles of the
+     * categories are returned in $categoryData['title_list'] (array)
+     *
+     * @param array $newsRecord
+     * @return array
+     */
+    private function getCategoryData($newsRecord)
+    {
+        /** @var PageRepository $pageRepository */
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+
+        $categoryData = [
+            'single_pid' => 0,
+            'uid_list' => [],
+            'title_list' => [],
+        ];
+
+        $queryBuilder = Db::getQueryBuilder('tt_news_cat');
+
+        $where = [];
+        $where[] = $queryBuilder->expr()->eq(
+            'tt_news.uid',
+            $queryBuilder->quoteIdentifier('tt_news_cat_mm.uid_local')
+        );
+        $where[] = $queryBuilder->expr()->eq(
+            'tt_news_cat.uid',
+            $queryBuilder->quoteIdentifier('tt_news_cat_mm.uid_foreign')
+        );
+        $where[] = $queryBuilder->expr()->eq(
+            'tt_news.uid',
+            $queryBuilder->createNamedParameter($newsRecord['uid'], \PDO::PARAM_INT)
+        );
+
+        $catRes = $queryBuilder
+            ->select(
+                'tt_news_cat.uid',
+                'tt_news_cat.single_pid',
+                'tt_news_cat.title'
+            )
+            ->from('tt_news_cat')
+            ->from('tt_news_cat_mm')
+            ->from('tt_news')
+            ->orderBy('tt_news_cat_mm.sorting')
+            ->where(...$where)
+            ->executeQuery();
+
+        while (($newsCat = $catRes->fetchAssociative())) {
+            $categoryData['uid_list'][] = $newsCat['uid'];
+            $categoryData['title_list'][] = $newsCat['title'];
+            // check if this category has a single_pid and if this page really is reachable (not deleted, hidden or time restricted)
+            if ($newsCat['single_pid'] && !$categoryData['single_pid'] && $pageRepository->findByUid($newsCat['single_pid'])) {
+                $categoryData['single_pid'] = $newsCat['single_pid'];
+            }
+        }
+
+        return $categoryData;
+    }
+
+    /**
+     * @return string
+     */
+    public function startIncrementalIndexing(): string
+    {
+        $this->indexingMode = self::INDEXING_MODE_INCREMENTAL;
+        $content = $this->startIndexing();
+        $content .= $this->removeDeleted();
+        return $content;
+    }
+
+    /**
+     * Removes index records for the records which have been deleted since the last indexing.
+     * Only needed in incremental indexing mode since there is a dedicated "cleanup" step in full indexing mode.
+     *
+     * @return string
+     */
+    public function removeDeleted(): string
+    {
+        /** @var IndexRepository $indexRepository */
+        $indexRepository = GeneralUtility::makeInstance(IndexRepository::class);
+
+        /** @var TtNewsRepository $ttNewsRepository */
+        $ttNewsRepository = GeneralUtility::makeInstance(TtNewsRepository::class);
+
+        // get the pages from where to index the news
+        $folders = $this->getPagelist(
+            $this->indexerConfig['startingpoints_recursive'],
+            $this->indexerConfig['sysfolder']
+        );
+
+        // Fetch all records which have been deleted since the last indexing
+        $records = $ttNewsRepository->findAllDeletedAndHiddenByPidListAndTimestampInAllLanguages($folders, $this->lastRunStartTime);
+
+        // and remove the corresponding index entries
+        $count = $indexRepository->deleteCorrespondingIndexRecords('tt_news', $records, $this->indexerConfig);
+        $message = chr(10) . 'Found ' . $count . ' deleted and hidden record(s).';
+        return $message;
+    }
+}

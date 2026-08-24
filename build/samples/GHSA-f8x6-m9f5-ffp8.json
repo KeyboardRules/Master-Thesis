@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-f8x6-m9f5-ffp8",
+    "cve":  "CVE-2021-23814",
+    "cwe":  "CWE-434",
+    "repo":  "UniSharp/laravel-filemanager",
+    "sha":  "bd84899ce65a7f193e676dd8444e424fa50f64fa",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/LfmPath.php",
+                        "src/LfmUploadValidator.php",
+                        "src/config/lfm.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "src/LfmPath.php",
+                        "src/LfmUploadValidator.php",
+                        "src/config/lfm.php"
+                    ],
+    "sink_hit":  false
+}

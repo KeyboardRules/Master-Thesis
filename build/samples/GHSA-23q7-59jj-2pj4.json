@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-23q7-59jj-2pj4",
+    "cve":  "CVE-2020-12790",
+    "cwe":  "CWE-74",
+    "repo":  "nystudio107/craft-seomatic",
+    "sha":  "82f4a25b28fd622393da6592dc9e5ccee7fc5be3",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/DynamicMeta.php",
+                        "src/helpers/Text.php",
+                        "src/helpers/UrlHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/helpers/UrlHelper.php class extends CraftUrlHelper"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json",
+                        "src/helpers/DynamicMeta.php",
+                        "src/helpers/Text.php",
+                        "src/helpers/UrlHelper.php",
+                        "src/templates/settings/plugin/_includes/general.twig"
+                    ],
+    "sink_hit":  false
+}

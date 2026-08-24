@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3vjh-xrhf-v9xh",
+    "cve":  "CVE-2021-3902",
+    "cwe":  "CWE-611",
+    "repo":  "dompdf/dompdf",
+    "sha":  "f56bc8e40be6c0ae0825e6c7396f4db80620b799",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Image/Cache.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Image/Cache.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cxj7-4jpj-2q38",
+    "cve":  "CVE-2019-16318",
+    "cwe":  "CWE-434",
+    "repo":  "pimcore/pimcore",
+    "sha":  "732f1647cc6e0a29b5b1f5d904b4d726b5e9455f",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/Asset.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/Asset.php class extends Element\\AbstractElement"
+                 ],
+    "changed_all":  [
+                        "models/Asset.php"
+                    ],
+    "sink_hit":  false
+}

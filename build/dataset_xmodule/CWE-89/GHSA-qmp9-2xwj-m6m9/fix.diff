@@ -1,0 +1,182 @@
+﻿diff --git a/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php b/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
+index 6e61e217..ca679e54 100644
+--- a/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
++++ b/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
+@@ -293,11 +293,11 @@ class EntityAggregator implements EntityAggregatorInterface
+         $query->addGroupBy($groupBy);
+ 
+         $key = $aggregation->getName() . '.key';
+-        $query->addSelect(sprintf('MIN(%s) as `%s`', $accessor, $key));
++        $query->addSelect(sprintf('MIN(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($key)));
+ 
+         $key = $aggregation->getName() . '.count';
+         $countAccessor = $this->queryHelper->getFieldAccessor('id', $definition, $definition->getEntityName(), $context);
+-        $query->addSelect(sprintf('COUNT(%s) as `%s`', $countAccessor, $key));
++        $query->addSelect(sprintf('COUNT(%s) as %s', $countAccessor, EntityDefinitionQueryHelper::escape($key)));
+ 
+         if ($aggregation->getSorting()) {
+             $this->addSorting($aggregation->getSorting(), $definition, $query, $context);
+@@ -326,12 +326,12 @@ class EntityAggregator implements EntityAggregatorInterface
+             $keyAccessor = 'LOWER(HEX(' . $keyAccessor . '))';
+         }
+ 
+-        $query->addSelect(sprintf('%s as `%s`', $keyAccessor, $key));
++        $query->addSelect(sprintf('%s as %s', $keyAccessor, EntityDefinitionQueryHelper::escape($key)));
+ 
+         $key = $aggregation->getName() . '.count';
+ 
+         $countAccessor = $this->queryHelper->getFieldAccessor('id', $definition, $definition->getEntityName(), $context);
+-        $query->addSelect(sprintf('COUNT(%s) as `%s`', $countAccessor, $key));
++        $query->addSelect(sprintf('COUNT(%s) as %s', $countAccessor, EntityDefinitionQueryHelper::escape($key)));
+ 
+         if ($aggregation->getLimit()) {
+             $query->setMaxResults($aggregation->getLimit());
+@@ -354,7 +354,7 @@ class EntityAggregator implements EntityAggregatorInterface
+     ): void {
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+-        $query->addSelect(sprintf('AVG(%s) as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('AVG(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     private function parseSumAggregation(
+@@ -365,7 +365,7 @@ class EntityAggregator implements EntityAggregatorInterface
+     ): void {
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+-        $query->addSelect(sprintf('SUM(%s) as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('SUM(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     private function parseMaxAggregation(
+@@ -376,7 +376,7 @@ class EntityAggregator implements EntityAggregatorInterface
+     ): void {
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+-        $query->addSelect(sprintf('MAX(%s) as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('MAX(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     private function parseMinAggregation(
+@@ -387,7 +387,7 @@ class EntityAggregator implements EntityAggregatorInterface
+     ): void {
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+-        $query->addSelect(sprintf('MIN(%s) as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('MIN(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     private function parseCountAggregation(
+@@ -398,7 +398,7 @@ class EntityAggregator implements EntityAggregatorInterface
+     ): void {
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+-        $query->addSelect(sprintf('COUNT(DISTINCT %s) as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('COUNT(DISTINCT %s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     private function parseStatsAggregation(
+@@ -410,16 +410,16 @@ class EntityAggregator implements EntityAggregatorInterface
+         $accessor = $this->queryHelper->getFieldAccessor($aggregation->getField(), $definition, $definition->getEntityName(), $context);
+ 
+         if ($aggregation->fetchAvg()) {
+-            $query->addSelect(sprintf('AVG(%s) as `%s.avg`', $accessor, $aggregation->getName()));
++            $query->addSelect(sprintf('AVG(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName() . '.avg')));
+         }
+         if ($aggregation->fetchMin()) {
+-            $query->addSelect(sprintf('MIN(%s) as `%s.min`', $accessor, $aggregation->getName()));
++            $query->addSelect(sprintf('MIN(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName() . '.min')));
+         }
+         if ($aggregation->fetchMax()) {
+-            $query->addSelect(sprintf('MAX(%s) as `%s.max`', $accessor, $aggregation->getName()));
++            $query->addSelect(sprintf('MAX(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName() . '.max')));
+         }
+         if ($aggregation->fetchSum()) {
+-            $query->addSelect(sprintf('SUM(%s) as `%s.sum`', $accessor, $aggregation->getName()));
++            $query->addSelect(sprintf('SUM(%s) as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName() . '.sum')));
+         }
+     }
+ 
+@@ -445,7 +445,7 @@ class EntityAggregator implements EntityAggregatorInterface
+                 $sum .= sprintf(' AND %s < %f', $accessor, $range['to']);
+             }
+ 
+-            $query->addSelect(sprintf('SUM(%s) as `%s.%s`', $sum, $aggregation->getName(), $id));
++            $query->addSelect(sprintf('SUM(%s) as %s', $sum, EntityDefinitionQueryHelper::escape($aggregation->getName() . '.' . $id)));
+         }
+     }
+ 
+@@ -459,7 +459,7 @@ class EntityAggregator implements EntityAggregatorInterface
+         $query->addGroupBy($accessor);
+ 
+         $accessor = 'LOWER(HEX(' . $accessor . '))';
+-        $query->addSelect(sprintf('%s as `%s`', $accessor, $aggregation->getName()));
++        $query->addSelect(sprintf('%s as %s', $accessor, EntityDefinitionQueryHelper::escape($aggregation->getName())));
+     }
+ 
+     /**
+diff --git a/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php b/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php
+index 9a0b8347..6e7a02b0 100644
+--- a/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php
++++ b/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php
+@@ -58,9 +58,9 @@ class JsonFieldAccessorBuilder implements FieldAccessorBuilderInterface
+         }
+ 
+         $jsonValueExpr = sprintf(
+-            'JSON_EXTRACT(`%s`.`%s`, %s)',
+-            $root,
+-            $field->getStorageName(),
++            'JSON_EXTRACT(%s.%s, %s)',
++            EntityDefinitionQueryHelper::escape($root),
++            EntityDefinitionQueryHelper::escape($field->getStorageName()),
+             (string) $this->connection->quote('$' . $jsonPath)
+         );
+ 
+@@ -76,6 +76,9 @@ class JsonFieldAccessorBuilder implements FieldAccessorBuilderInterface
+         return sprintf('IF(JSON_TYPE(%s) != "NULL", %s, NULL)', $jsonValueExpr, $accessor);
+     }
+ 
++    /**
++     * @param Field[] $fields
++     */
+     private function getField(string $path, array $fields): ?Field
+     {
+         /** @var string $fieldName */
+diff --git a/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php b/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php
+index ee1f1cb0..a368e4b9 100644
+--- a/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php
++++ b/Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php
+@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
+ use Shopware\Core\Checkout\Cart\Price\Struct\CartPrice;
+ use Shopware\Core\Defaults;
+ use Shopware\Core\Framework\Context;
++use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+ use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
+ use Shopware\Core\Framework\DataAbstractionLayer\Field\PriceField;
+ use Shopware\Core\Framework\Log\Package;
+@@ -74,11 +75,11 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
+          * We can indirectly cast to float by adding 0.0
+          */
+ 
+-        $template = '(JSON_UNQUOTE(JSON_EXTRACT(`#root#`.`#field#`, "$.c#currencyId#.#property#")) #factor#)';
++        $template = '(JSON_UNQUOTE(JSON_EXTRACT(#root#.#field#, "$.c#currencyId#.#property#")) #factor#)';
+ 
+         $variables = [
+-            '#root#' => $root,
+-            '#field#' => $field->getStorageName(),
++            '#root#' => EntityDefinitionQueryHelper::escape($root),
++            '#field#' => EntityDefinitionQueryHelper::escape($field->getStorageName()),
+             '#currencyId#' => $currencyId,
+             '#property#' => $jsonAccessor,
+             '#factor#' => '+ 0.0',
+@@ -88,8 +89,8 @@ class PriceFieldAccessorBuilder implements FieldAccessorBuilderInterface
+ 
+         if ($currencyId !== Defaults::CURRENCY) {
+             $variables = [
+-                '#root#' => $root,
+-                '#field#' => $field->getStorageName(),
++                '#root#' => EntityDefinitionQueryHelper::escape($root),
++                '#field#' => EntityDefinitionQueryHelper::escape($field->getStorageName()),
+                 '#currencyId#' => Defaults::CURRENCY,
+                 '#property#' => $jsonAccessor,
+                 '#factor#' => $currencyFactor,

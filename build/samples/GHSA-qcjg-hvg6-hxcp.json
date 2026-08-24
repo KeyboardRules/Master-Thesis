@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qcjg-hvg6-hxcp",
+    "cve":  "CVE-2023-5227",
+    "cwe":  "CWE-434",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "abf52487422ce47195c8a80bd904a7af39f60297",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Category/CategoryImage.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Category/CategoryImage.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vcg6-8fxc-x5cq",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "0408048653fafc52e02b4dbc6288e14e634ac613",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "filesystem/File.php"
+                    ],
+    "evidence":  [
+                     "filesystem/File.php class extends DataObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

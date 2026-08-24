@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r8vh-cm9f-rc29",
+    "cve":  "CVE-2017-7391",
+    "cwe":  "CWE-79",
+    "repo":  "dweeves/magmi-git",
+    "sha":  "a9566b141b58bf40a9dd904a74e6efcc225a28a3",
+    "status":  "ok",
+    "changed_php":  [
+                        "magmi/web/ajax_gettime.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "magmi/web/ajax_gettime.php"
+                    ],
+    "sink_hit":  true
+}

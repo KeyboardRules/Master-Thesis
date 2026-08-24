@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4wvw-75qh-fqjp",
+    "cve":  "CVE-2023-52083",
+    "cwe":  "CWE-79",
+    "repo":  "wintercms/winter",
+    "sha":  "2969daeea8dee64d292dbaa3778ea251e2a7e491",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/system/classes/MediaLibrary.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "modules/system/classes/MediaLibrary.php"
+                    ],
+    "sink_hit":  false
+}

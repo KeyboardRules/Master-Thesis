@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q9p4-qfc8-fvpp",
+    "cve":  "CVE-2019-10762",
+    "cwe":  "CWE-89",
+    "repo":  "catfan/Medoo",
+    "sha":  "659864b393961bf224bba1efc03b7dcbed7de533",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Medoo.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Medoo.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-w8x2-w4qr-v3x4",
+    "cve":  "CVE-2023-5540",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "3400ae6510b11202aa9d86f7e75b3dff10d81522",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/imscp/lib.php",
+                        "mod/imscp/locallib.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/imscp/lib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php class extends file_info"
+                 ],
+    "changed_all":  [
+                        "mod/imscp/lib.php",
+                        "mod/imscp/locallib.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8r2m-qhff-jm2c",
+    "cve":  "CVE-2017-7897",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "a1c719313d61b07bbe8700005807b8195fdc32f1",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core/timeline_inc.php"
+                    ],
+    "evidence":  [
+                     "core/timeline_inc.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

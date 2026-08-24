@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-3w4h-r27h-4r2w",
+    "cve":  "CVE-2019-11832",
+    "cwe":  "CWE-94",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "2c04eeac44733fda491f92c697f88c1337d19c79",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php",
+                        "typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php",
+                        "typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php",
+                        "typo3/sysext/core/Classes/Type/File/FileInfo.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "typo3/sysext/core/Classes/Type/File/FileInfo.php class extends \\SplFileInfo"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

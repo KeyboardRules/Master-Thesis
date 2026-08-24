@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-pwpj-p52h-q484",
+    "cve":  "CVE-2026-54329",
+    "cwe":  "CWE-74",
+    "repo":  "grokability/snipe-it",
+    "sha":  "dc8cbf4786bb38b260b4ae1723ec9e7f81d82fe5",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Api/AccessoriesController.php",
+                        "app/Http/Controllers/Api/ComponentsController.php",
+                        "app/Http/Controllers/Api/ConsumablesController.php",
+                        "app/Http/Controllers/Api/DepartmentsController.php",
+                        "app/Http/Controllers/Api/LicensesController.php",
+                        "tests/Feature/Accessories/Api/StoreAccessoryTest.php",
+                        "tests/Feature/Accessories/Api/UpdateAccessoryTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/Http/Controllers/Api/AccessoriesController.php class extends Controller",
+                     "app/Http/Controllers/Api/AccessoriesController.php class uses trait",
+                     "app/Http/Controllers/Api/ComponentsController.php class extends Controller",
+                     "app/Http/Controllers/Api/ConsumablesController.php class extends Controller",
+                     "app/Http/Controllers/Api/DepartmentsController.php class extends Controller",
+                     "app/Http/Controllers/Api/LicensesController.php class extends Controller",
+                     "tests/Feature/Accessories/Api/StoreAccessoryTest.php class extends TestCase",
+                     "tests/Feature/Accessories/Api/UpdateAccessoryTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Api/AccessoriesController.php",
+                        "app/Http/Controllers/Api/ComponentsController.php",
+                        "app/Http/Controllers/Api/ConsumablesController.php",
+                        "app/Http/Controllers/Api/DepartmentsController.php",
+                        "app/Http/Controllers/Api/LicensesController.php",
+                        "tests/Feature/Accessories/Api/StoreAccessoryTest.php",
+                        "tests/Feature/Accessories/Api/UpdateAccessoryTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-phg7-8mm9-gj88",
+    "cve":  "CVE-2024-40614",
+    "cwe":  "CWE-89",
+    "repo":  "EGroupware/egroupware",
+    "fix_commit":  "553829d30cc2ccdc0e5a8c5a0e16fa03a3399a3f",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "api/src/Db.php",
+                        "api/src/Etemplate/Widget/Nextmatch.php",
+                        "api/src/Link.php",
+                        "api/src/Storage/Base.php",
+                        "infolog/inc/class.infolog_so.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "api/src/Db.php includes 1 project file(s)",
+                     "api/src/Etemplate/Widget/Nextmatch.php class extends Etemplate\\Widget",
+                     "api/src/Link.php includes 1 project file(s)",
+                     "api/src/Link.php class extends Link\\Storage"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

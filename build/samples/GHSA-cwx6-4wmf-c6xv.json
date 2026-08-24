@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cwx6-4wmf-c6xv",
+    "cve":  "CVE-2024-23646",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "sha":  "363afef29496cc40a8b863c2ca2338979fcf50a8",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/Admin/Asset/AssetController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/Admin/Asset/AssetController.php class extends ElementControllerBase",
+                     "src/Controller/Admin/Asset/AssetController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Controller/Admin/Asset/AssetController.php"
+                    ],
+    "sink_hit":  true
+}

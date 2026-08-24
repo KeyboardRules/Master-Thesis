@@ -1,0 +1,115 @@
+﻿diff --git a/htdocs/core/lib/website.lib.php b/htdocs/core/lib/website.lib.php
+index 6f1057936d..090a0f908d 100644
+--- a/htdocs/core/lib/website.lib.php
++++ b/htdocs/core/lib/website.lib.php
+@@ -31,7 +31,7 @@
+  * @param	string		$content			Content to replace
+  * @param	int			$removephppart		0=Replace PHP sections with a PHP badge. 1=Remove completely PHP sections.
+  * @return	boolean							True if OK
+- * @see dolWebsiteOutput for function used to replace content in a web server context
++ * @see dolWebsiteOutput() for function used to replace content in a web server context
+  */
+ function dolWebsiteReplacementOfLinks($website, $content, $removephppart=0)
+ {
+@@ -101,6 +101,7 @@ function dolWebsiteReplacementOfLinks($website, $content, $removephppart=0)
+  * @param 	string	$str			String to clean
+  * @param	string	$replacewith	String to use as replacement
+  * @return 	string					Result string without php code
++ * @see dolKeepOnlyPhpCode()
+  */
+ function dolStripPhpCode($str, $replacewith='')
+ {
+@@ -133,6 +134,44 @@ function dolStripPhpCode($str, $replacewith='')
+ 	return $newstr;
+ }
+ 
++/**
++ * Keep only PHP code part from a HTML string page.
++ *
++ * @param 	string	$str			String to clean
++ * @return 	string					Result string with php code only
++ * @see dolStripPhpCode()
++ */
++function dolKeepOnlyPhpCode($str)
++{
++    $newstr = '';
++
++    //split on each opening tag
++    $parts = explode('<?php',$str);
++    if (!empty($parts))
++    {
++        $i=0;
++        foreach($parts as $part)
++        {
++            if ($i == 0) 	// The first part is never php code
++            {
++                $i++;
++                continue;
++            }
++            $newstr.='<?php';
++            //split on closing tag
++            $partlings = explode('?>', $part, 2);
++            if (!empty($partlings))
++            {
++                $newstr .= $partlings[0].'?>';
++            }
++            else
++            {
++                $newstr .= $part.'?>';
++            }
++        }
++    }
++    return $newstr;
++}
+ 
+ /**
+  * Render a string of an HTML content and output it.
+@@ -140,7 +179,7 @@ function dolStripPhpCode($str, $replacewith='')
+  *
+  * @param   string  $content    Content string
+  * @return  void
+- * @see	dolWebsiteReplacementOfLinks  for function used to replace content in the backoffice context when USEDOLIBARREDITOR is not on
++ * @see	dolWebsiteReplacementOfLinks()  for function used to replace content in the backoffice context when USEDOLIBARREDITOR is not on
+  */
+ function dolWebsiteOutput($content)
+ {
+diff --git a/htdocs/website/index.php b/htdocs/website/index.php
+index 1ec9c2c65c..592c3cd423 100644
+--- a/htdocs/website/index.php
++++ b/htdocs/website/index.php
+@@ -1453,6 +1453,26 @@ if (($action == 'updatesource' || $action == 'updatecontent' || $action == 'conf
+ 
+ 			$objectpage->content = GETPOST('PAGE_CONTENT','none');
+ 
++            // Security analysis
++			$phpfullcodestring = dolKeepOnlyPhpCode($objectpage->content);
++			//print dol_escape_htmltag($phpfullcodestring);exit;
++            $forbiddenphpcommands=array("exec", "passthru", "system", "shell_exec", "proc_open");
++            if (empty($conf->global->WEBSITE_PHP_ALLOW_WRITE))    // If option is not on, we disallow functions to write files
++            {
++                $forbiddenphpcommands=array_merge($forbiddenphpcommands, array("fopen", "file_put_contents", "fputs", "fputscsv", "fwrite", "fpassthru", "unlink", "mkdir", "rmdir", "symlink", "touch", "umask"));
++            }
++            foreach($forbiddenphpcommands as $forbiddenphpcommand)
++            {
++                if (preg_match('/'.$forbiddenphpcommand.'\s*\(/ms', $phpfullcodestring))
++                {
++                    $error++;
++                    setEventMessages($langs->trans("DynamicPHPCodeContainsAForbiddenInstruction", $forbiddenphpcommand), null, 'errors');
++                    if ($action == 'updatesource') $action = 'editsource';
++                    if ($action == 'updatecontent') $action = 'editcontent';
++                }
++            }
++
++
+ 			// Clean data. We remove all the head section.
+ 			$objectpage->content = preg_replace('/<head>.*<\/head>/ims', '', $objectpage->content);
+ 			/* $objectpage->content = preg_replace('/<base\s+href=[\'"][^\'"]+[\'"]\s/?>/s', '', $objectpage->content); */
+@@ -1463,6 +1483,8 @@ if (($action == 'updatesource' || $action == 'updatecontent' || $action == 'conf
+ 			{
+ 				$error++;
+ 				setEventMessages($objectpage->error, $objectpage->errors, 'errors');
++				if ($action == 'updatesource') $action = 'editsource';
++				if ($action == 'updatecontent') $action = 'editcontent';
+ 			}
+ 
+ 			if (! $error)

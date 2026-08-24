@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-9xg6-75mh-7x3f",
+    "cve":  "CVE-2023-2361",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "6970649f5d3790a1db9ef4324bece0d4cb95366a",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Security/SecurityHelper.php",
+                        "models/Document/Editable/Link.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "models/Document/Editable/Link.php class extends Model\\Document\\Editable"
+                 ],
+    "changed_all":  [
+                        "doc/Development_Documentation/03_Documents/01_Editables/18_Link.md",
+                        "doc/Development_Documentation/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md",
+                        "lib/Security/SecurityHelper.php",
+                        "models/Document/Editable/Link.php"
+                    ],
+    "sink_hit":  false
+}

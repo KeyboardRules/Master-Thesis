@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-jj6w-2cqg-7p94",
+    "cve":  "CVE-2022-25775",
+    "cwe":  "CWE-89",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "cab65e0acc4f23c4f07c117dee1b69dac5abed3f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/bundles/ReportBundle/Model/ReportModel.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/ReportBundle/Model/ReportModel.php class extends FormModel",
+                     "app/bundles/ReportBundle/Tests/Controller/ReportControllerFunctionalTest.php class extends MauticMysqlTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

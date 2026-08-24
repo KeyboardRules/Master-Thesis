@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8c5p-4362-9333",
+    "cve":  "CVE-2021-3924",
+    "cwe":  "CWE-22",
+    "repo":  "getgrav/grav",
+    "sha":  "8f9c417c04b89dc8d2de60b95e7696821b2826ce",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/router.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/router.php"
+                    ],
+    "sink_hit":  true
+}

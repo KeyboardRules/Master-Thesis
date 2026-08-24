@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qgrr-f26j-87vf",
+    "cve":  "CVE-2020-25288",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "221cf323f16a9738a5b27aaba94758f11281d85c",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/cfdefs/cfdef_standard.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "core/cfdefs/cfdef_standard.php"
+                    ],
+    "sink_hit":  true
+}

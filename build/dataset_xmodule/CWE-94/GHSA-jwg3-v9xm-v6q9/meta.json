@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jwg3-v9xm-v6q9",
+    "cve":  "CVE-2019-11201",
+    "cwe":  "CWE-94",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "63c0ab93fb21f86c1b736061af9fa1eee90148fd",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/core/lib/website.lib.php",
+                        "htdocs/website/index.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/core/lib/website.lib.php includes 10 project file(s)",
+                     "htdocs/website/index.php includes 30 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

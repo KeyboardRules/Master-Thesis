@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qx44-885h-7p56",
+    "cve":  "CVE-2024-21515",
+    "cwe":  "CWE-79",
+    "repo":  "opencart/opencart",
+    "fix_commit":  "c546199e8f100c1f3797a7a9d3cf4db1887399a2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "upload/admin/controller/common/login.php"
+                    ],
+    "evidence":  [
+                     "upload/admin/controller/common/login.php class extends \\Opencart\\System\\Engine\\Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

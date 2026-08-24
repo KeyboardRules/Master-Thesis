@@ -1,0 +1,68 @@
+﻿diff --git a/modules/backend/formwidgets/ColorPicker.php b/modules/backend/formwidgets/ColorPicker.php
+index 60fd414..247271f 100644
+--- a/modules/backend/formwidgets/ColorPicker.php
++++ b/modules/backend/formwidgets/ColorPicker.php
+@@ -59,6 +59,16 @@ class ColorPicker extends FormWidgetBase
+      */
+     public $formats = 'hex';
+ 
++    /**
++     * @var array|string[] Patterns to validate colour string on save
++     */
++    protected array $validationPatterns = [
++        'cmyk' => '/^cmyk\((\d{1,2}\.?\d{0,2}%,? ?){4}\)$/',
++        'hex' => '/^#[\w\d]{6}$/',
++        'hsl' => '/^hsla\((\d{1,3}\.?\d{0,2}%?, ?){3}\d\.?\d{0,2}?\)$/',
++        'rgb' => '/^rgba\((\d{1,3}\.?\d{0,2}, ?){3}\d\.?\d{0,2}?\)$/',
++    ];
++
+     //
+     // Object properties
+     //
+@@ -244,6 +254,33 @@ class ColorPicker extends FormWidgetBase
+      */
+     public function getSaveValue($value)
+     {
+-        return strlen($value) ? $value : null;
++        if (!strlen($value)) {
++            return null;
++        }
++
++        switch (is_array($this->formats) ? 'all' : $this->formats) {
++            case 'cmyk':
++            case 'hex':
++            case 'hsl':
++            case 'rgb':
++                if (!preg_match($this->validationPatterns[$this->formats], $value)) {
++                    throw new ApplicationException(Lang::get('backend::lang.field.colors_invalid_input'));
++                }
++                break;
++            case 'all':
++                $valid = false;
++                foreach ($this->validationPatterns as $pattern) {
++                    if (preg_match($pattern, $value)) {
++                        $valid = true;
++                        break;
++                    }
++                }
++                if (!$valid) {
++                    throw new ApplicationException(Lang::get('backend::lang.field.colors_invalid_input'));
++                }
++                break;
++        }
++
++        return $value;
+     }
+ }
+diff --git a/modules/backend/lang/en/lang.php b/modules/backend/lang/en/lang.php
+index c184298..6479035 100644
+--- a/modules/backend/lang/en/lang.php
++++ b/modules/backend/lang/en/lang.php
+@@ -11,6 +11,7 @@ return [
+         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+         'options_static_method_invalid_value' => "The static method ':method()' on :class did not return a valid options array.",
+         'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field.",
++        'colors_invalid_input' => 'The color value supplied is invalid, please try again.',
+     ],
+     'widget' => [
+         'not_registered' => "A widget class name ':name' has not been registered",

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-4m5r-w2rq-q54q",
+    "cve":  "CVE-2024-50355",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "bb4731419b592867bf974dde525e536606a52976",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "LibreNMS/Util/Url.php",
+                        "includes/html/common/availability-map.inc.php",
+                        "includes/html/pages/edituser.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/html/common/availability-map.inc.php includes 1 project file(s)",
+                     "includes/html/pages/edituser.inc.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

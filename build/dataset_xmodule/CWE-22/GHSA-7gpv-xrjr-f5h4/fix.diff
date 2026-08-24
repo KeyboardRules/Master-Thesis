@@ -1,0 +1,638 @@
+﻿diff --git a/app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php b/app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php
+index d43b313c43..3a5b3104a8 100644
+--- a/app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php
++++ b/app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php
+@@ -11,7 +11,7 @@ use Magento\Framework\App\ObjectManager;
+ use Magento\Framework\Exception\LocalizedException;
+ 
+ /**
+- * Class Upload
++ * Class Upload image(s)
+  */
+ class Upload extends \Magento\Backend\App\Action implements HttpPostActionInterface
+ {
+@@ -108,8 +108,10 @@ class Upload extends \Magento\Backend\App\Action implements HttpPostActionInterf
+ 
+             $result['url'] = $this->productMediaConfig->getTmpMediaUrl($result['file']);
+             $result['file'] = $result['file'] . '.tmp';
+-        } catch (\Exception $e) {
++        } catch (LocalizedException $e) {
+             $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
++        } catch (\Throwable $e) {
++            $result = ['error' => 'Something went wrong while saving the file(s).', 'errorcode' => 0];
+         }
+ 
+         /** @var \Magento\Framework\Controller\Result\Raw $response */
+diff --git a/app/code/Magento/Customer/Model/AccountManagement.php b/app/code/Magento/Customer/Model/AccountManagement.php
+index 67017562e1..4df3808452 100644
+--- a/app/code/Magento/Customer/Model/AccountManagement.php
++++ b/app/code/Magento/Customer/Model/AccountManagement.php
+@@ -55,6 +55,7 @@ use Magento\Framework\Stdlib\StringUtils as StringHelper;
+ use Magento\Store\Model\ScopeInterface;
+ use Magento\Store\Model\StoreManagerInterface;
+ use Psr\Log\LoggerInterface as PsrLogger;
++use Magento\Framework\AuthorizationInterface;
+ 
+ /**
+  * Handle various customer account actions
+@@ -69,55 +70,55 @@ class AccountManagement implements AccountManagementInterface
+     /**
+      * Configuration paths for create account email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
+ 
+     /**
+      * Configuration paths for register no password email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_REGISTER_NO_PASSWORD_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_REGISTER_NO_PASSWORD_EMAIL_TEMPLATE = 'customer/create_account/email_no_password_template';
+ 
+     /**
+      * Configuration paths for remind email identity
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_REGISTER_EMAIL_IDENTITY
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
+ 
+     /**
+      * Configuration paths for remind email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_REMIND_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_REMIND_EMAIL_TEMPLATE = 'customer/password/remind_email_template';
+ 
+     /**
+      * Configuration paths for forgot email email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_FORGOT_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'customer/password/forgot_email_template';
+ 
+     /**
+      * Configuration paths for forgot email identity
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_FORGOT_EMAIL_IDENTITY
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_FORGOT_EMAIL_IDENTITY = 'customer/password/forgot_email_identity';
+ 
+     /**
+      * Configuration paths for account confirmation required
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
++     * @deprecated Get rid of Helpers in Password Security Management
+      * @see AccountConfirmation::XML_PATH_IS_CONFIRM
+      */
+     const XML_PATH_IS_CONFIRM = 'customer/create_account/confirm';
+@@ -125,48 +126,48 @@ class AccountManagement implements AccountManagementInterface
+     /**
+      * Configuration paths for account confirmation email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_CONFIRM_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_CONFIRM_EMAIL_TEMPLATE = 'customer/create_account/email_confirmation_template';
+ 
+     /**
+      * Configuration paths for confirmation confirmed email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_CONFIRMED_EMAIL_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_CONFIRMED_EMAIL_TEMPLATE = 'customer/create_account/email_confirmed_template';
+ 
+     /**
+      * Constants for the type of new account email to be sent
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED
+      */
+     const NEW_ACCOUNT_EMAIL_REGISTERED = 'registered';
+ 
+     /**
+      * Welcome email, when password setting is required
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED_NO_PASSWORD
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED
+      */
+     const NEW_ACCOUNT_EMAIL_REGISTERED_NO_PASSWORD = 'registered_no_password';
+ 
+     /**
+      * Welcome email, when confirmation is enabled
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotificationInterface::NEW_ACCOUNT_EMAIL_CONFIRMATION
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED
+      */
+     const NEW_ACCOUNT_EMAIL_CONFIRMATION = 'confirmation';
+ 
+     /**
+      * Confirmation email, when account is confirmed
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotificationInterface::NEW_ACCOUNT_EMAIL_CONFIRMED
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see EmailNotificationInterface::NEW_ACCOUNT_EMAIL_REGISTERED
+      */
+     const NEW_ACCOUNT_EMAIL_CONFIRMED = 'confirmed';
+ 
+@@ -192,19 +193,26 @@ class AccountManagement implements AccountManagementInterface
+     /**
+      * Configuration path to customer reset password email template
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
+-     * @see \Magento\Customer\Model\EmailNotification::XML_PATH_RESET_PASSWORD_TEMPLATE
++     * @deprecated Get rid of Helpers in Password Security Management
++     * @see Magento/Customer/Model/EmailNotification::XML_PATH_REGISTER_EMAIL_TEMPLATE
+      */
+     const XML_PATH_RESET_PASSWORD_TEMPLATE = 'customer/password/reset_password_template';
+ 
+     /**
+      * Minimum password length
+      *
+-     * @deprecated get rid of Helpers in Password Security Management.
++     * @deprecated Get rid of Helpers in Password Security Management
+      * @see \Magento\Customer\Model\AccountManagement::XML_PATH_MINIMUM_PASSWORD_LENGTH
+      */
+     const MIN_PASSWORD_LENGTH = 6;
+ 
++    /**
++     * Authorization level of a basic admin session
++     *
++     * @see _isAllowed()
++     */
++    const ADMIN_RESOURCE = 'Magento_Customer::manage';
++
+     /**
+      * @var CustomerFactory
+      */
+@@ -375,6 +383,11 @@ class AccountManagement implements AccountManagementInterface
+      */
+     private $sessionCleaner;
+ 
++    /**
++     * @var AuthorizationInterface
++     */
++    private $authorization;
++
+     /**
+      * @param CustomerFactory $customerFactory
+      * @param ManagerInterface $eventManager
+@@ -410,6 +423,7 @@ class AccountManagement implements AccountManagementInterface
+      * @param GetCustomerByToken|null $getByToken
+      * @param AllowedCountries|null $allowedCountriesReader
+      * @param SessionCleanerInterface|null $sessionCleaner
++     * @param AuthorizationInterface|null $authorization
+      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+      * @SuppressWarnings(PHPMD.NPathComplexity)
+@@ -450,7 +464,8 @@ class AccountManagement implements AccountManagementInterface
+         AddressRegistry $addressRegistry = null,
+         GetCustomerByToken $getByToken = null,
+         AllowedCountries $allowedCountriesReader = null,
+-        SessionCleanerInterface $sessionCleaner = null
++        SessionCleanerInterface $sessionCleaner = null,
++        AuthorizationInterface $authorization = null
+     ) {
+         $this->customerFactory = $customerFactory;
+         $this->eventManager = $eventManager;
+@@ -490,6 +505,7 @@ class AccountManagement implements AccountManagementInterface
+         $this->allowedCountriesReader = $allowedCountriesReader
+             ?: $objectManager->get(AllowedCountries::class);
+         $this->sessionCleaner = $sessionCleaner ?? $objectManager->get(SessionCleanerInterface::class);
++        $this->authorization = $authorization ?? $objectManager->get(AuthorizationInterface::class);
+     }
+ 
+     /**
+@@ -836,6 +852,11 @@ class AccountManagement implements AccountManagementInterface
+      */
+     public function createAccount(CustomerInterface $customer, $password = null, $redirectUrl = '')
+     {
++        $groupId = $customer->getGroupId();
++        if (isset($groupId) && !$this->authorization->isAllowed(self::ADMIN_RESOURCE)) {
++            $customer->setGroupId(null);
++        }
++
+         if ($password !== null) {
+             $this->checkPasswordStrength($password);
+             $customerEmail = $customer->getEmail();
+diff --git a/app/code/Magento/LoginAsCustomerAssistance/Plugin/CustomerPlugin.php b/app/code/Magento/LoginAsCustomerAssistance/Plugin/CustomerPlugin.php
+index 0bc22bf5d8..c9137eba6a 100644
+--- a/app/code/Magento/LoginAsCustomerAssistance/Plugin/CustomerPlugin.php
++++ b/app/code/Magento/LoginAsCustomerAssistance/Plugin/CustomerPlugin.php
+@@ -7,8 +7,11 @@ declare(strict_types=1);
+ 
+ namespace Magento\LoginAsCustomerAssistance\Plugin;
+ 
++use Magento\Authorization\Model\UserContextInterface;
+ use Magento\Customer\Api\CustomerRepositoryInterface;
+ use Magento\Customer\Api\Data\CustomerInterface;
++use Magento\Framework\App\ObjectManager;
++use Magento\Framework\AuthorizationInterface;
+ use Magento\LoginAsCustomerAssistance\Api\SetAssistanceInterface;
+ use Magento\LoginAsCustomerAssistance\Model\IsAssistanceEnabled;
+ 
+@@ -22,13 +25,29 @@ class CustomerPlugin
+      */
+     private $setAssistance;
+ 
++    /**
++     * @var AuthorizationInterface
++     */
++    private $authorization;
++
++    /**
++     * @var UserContextInterface
++     */
++    private $userContext;
++
+     /**
+      * @param SetAssistanceInterface $setAssistance
++     * @param AuthorizationInterface|null $authorization
++     * @param UserContextInterface|null $userContext
+      */
+     public function __construct(
+-        SetAssistanceInterface $setAssistance
++        SetAssistanceInterface $setAssistance,
++        ?AuthorizationInterface $authorization = null,
++        ?UserContextInterface $userContext = null
+     ) {
+         $this->setAssistance = $setAssistance;
++        $this->authorization = $authorization ?? ObjectManager::getInstance()->get(AuthorizationInterface::class);
++        $this->userContext = $userContext ?? ObjectManager::getInstance()->get(UserContextInterface::class);
+     }
+ 
+     /**
+@@ -45,9 +64,16 @@ class CustomerPlugin
+         CustomerInterface $result,
+         CustomerInterface $customer
+     ): CustomerInterface {
++        $enoughPermission = true;
++        if ($this->userContext->getUserType() === UserContextInterface::USER_TYPE_ADMIN
++            || $this->userContext->getUserType() === UserContextInterface::USER_TYPE_INTEGRATION
++        ) {
++            $enoughPermission = $this->authorization->isAllowed('Magento_LoginAsCustomer::allow_shopping_assistance');
++        }
+         $customerId = (int)$result->getId();
+         $customerExtensionAttributes = $customer->getExtensionAttributes();
+-        if ($customerExtensionAttributes && $customerExtensionAttributes->getAssistanceAllowed()) {
++
++        if ($enoughPermission && $customerExtensionAttributes && $customerExtensionAttributes->getAssistanceAllowed()) {
+             $isEnabled = (int)$customerExtensionAttributes->getAssistanceAllowed() === IsAssistanceEnabled::ALLOWED;
+             $this->setAssistance->execute($customerId, $isEnabled);
+         }
+diff --git a/app/code/Magento/Payment/view/adminhtml/templates/form/cc.phtml b/app/code/Magento/Payment/view/adminhtml/templates/form/cc.phtml
+index 2ff4df6e48..c888aaa6eb 100644
+--- a/app/code/Magento/Payment/view/adminhtml/templates/form/cc.phtml
++++ b/app/code/Magento/Payment/view/adminhtml/templates/form/cc.phtml
+@@ -40,6 +40,21 @@ $ccExpYear = $block->getInfoData('cc_exp_year');
+                    title="<?= $block->escapeHtml(__('Credit Card Number')) ?>"
+                    class="admin__control-text validate-cc-number"
+                    value="<?= /* @noEscape */ $block->getInfoData('cc_number') ?>"/>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncopy',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncut',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'onpaste',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
+         </div>
+     </div>
+     <div class="field-date admin__field _required">
+@@ -78,6 +93,21 @@ $ccExpYear = $block->getInfoData('cc_exp_year');
+                        class="required-entry validate-cc-cvn admin__control-cvn admin__control-text"
+                        id="<?= /* @noEscape */ $code ?>_cc_cid"
+                        name="payment[cc_cid]" value="<?= /* @noEscape */ $block->getInfoData('cc_cid') ?>"/>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncopy',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncut',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'onpaste',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
+             </div>
+         </div>
+     <?php endif; ?>
+diff --git a/app/code/Magento/Payment/view/adminhtml/templates/transparent/form.phtml b/app/code/Magento/Payment/view/adminhtml/templates/transparent/form.phtml
+index 60fbeed2c5..393b53b5af 100644
+--- a/app/code/Magento/Payment/view/adminhtml/templates/transparent/form.phtml
++++ b/app/code/Magento/Payment/view/adminhtml/templates/transparent/form.phtml
+@@ -80,6 +80,21 @@ $ccExpMonth = $block->getInfoData('cc_exp_month');
+                        "validate-cc-type":"#<?= /* @noEscape */ $code ?>_cc_type"
+                    }'
+                    autocomplete="off"/>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncopy',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncut',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'onpaste',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
+         </div>
+     </div>
+ 
+@@ -129,6 +144,21 @@ $ccExpMonth = $block->getInfoData('cc_exp_month');
+                        value=""
+                        data-validate='{"required-number":true, "validate-cc-cvn":"#<?=/* @noEscape */ $code?>_cc_type"}'
+                        autocomplete="off"/>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncopy',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncut',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'onpaste',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
+             </div>
+         </div>
+     <?php endif; ?>
+diff --git a/app/code/Magento/Payment/view/frontend/templates/form/cc.phtml b/app/code/Magento/Payment/view/frontend/templates/form/cc.phtml
+index 7ddc89aac4..86c3099db7 100644
+--- a/app/code/Magento/Payment/view/frontend/templates/form/cc.phtml
++++ b/app/code/Magento/Payment/view/frontend/templates/form/cc.phtml
+@@ -51,6 +51,21 @@ $ccExpYear = $block->getInfoData('cc_exp_year');
+                        "validate-cc-number":"#<?= /* @noEscape */ $code ?>_cc_type",
+                        "validate-cc-type":"#<?= /* @noEscape */ $code ?>_cc_type"
+                    }'/>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncopy',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncut',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'onpaste',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
+         </div>
+     </div>
+     <div class="field date required" id="<?= /* @noEscape */ $code ?>_cc_type_exp_div">
+@@ -100,6 +115,21 @@ $ccExpYear = $block->getInfoData('cc_exp_year');
+             <input type="number" title="<?= $block->escapeHtml(__('Card Verification Number')) ?>"
+                    class="input-text cvv" id="<?= /* @noEscape */ $code ?>_cc_cid" name="payment[cc_cid]" value=""
+                    data-validate='{"required-number":true, "validate-cc-cvn":"#<?= /* @noEscape */ $code ?>_cc_type"}'/>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncopy',
++                "event.preventDefault();",
++                '#' . $code . '_cc_cid'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncut',
++                "event.preventDefault();",
++                '#' . $code . '_cc_cid'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'onpaste',
++                "event.preventDefault();",
++                '#' . $code . '_cc_cid'
++            ) ?>
+             <?php $content = '<img src=\"' . $block->getViewFileUrl('Magento_Checkout::cvv.png') . '\" alt=\"' .
+                 $block->escapeHtml(__('Card Verification Number Visual Reference')) .
+                 '\" title=\"' . $block->escapeHtml(__('Card Verification Number Visual Reference')) . '\" />'; ?>
+diff --git a/app/code/Magento/Payment/view/frontend/templates/transparent/form.phtml b/app/code/Magento/Payment/view/frontend/templates/transparent/form.phtml
+index b8c2c083a7..b1b8024d2e 100644
+--- a/app/code/Magento/Payment/view/frontend/templates/transparent/form.phtml
++++ b/app/code/Magento/Payment/view/frontend/templates/transparent/form.phtml
+@@ -75,6 +75,21 @@ $content = '<img src=\"' . $block->escapeUrl($block->getViewFileUrl('Magento_Che
+                            "validate-cc-type":"#<?= /* @noEscape */ $code ?>_cc_type"
+                        }'
+                        autocomplete="off"/>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncopy',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_number'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncut',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_number'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'onpaste',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_number'
++                ) ?>
+             </div>
+         </div>
+         <div class="field required date" id="<?= /* @noEscape */ $code ?>_cc_type_exp_div">
+@@ -130,6 +145,21 @@ $content = '<img src=\"' . $block->escapeUrl($block->getViewFileUrl('Magento_Che
+                            "required-number":true,
+                            "validate-cc-cvn":"#<?= /* @noEscape */ $code ?>_cc_type"
+                        }' autocomplete="off"/>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncopy',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncut',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'onpaste',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
+                 <div class="note">
+                     <a href="#" id="<?= /* @noEscape */ $code ?>-cvv-what-is-this" class="action cvv"
+                        title="<?= $block->escapeHtml(__('What is this?')) ?>" data-mage-init='{
+diff --git a/app/code/Magento/Paypal/view/adminhtml/templates/transparent/form.phtml b/app/code/Magento/Paypal/view/adminhtml/templates/transparent/form.phtml
+index 98e59f3a06..3e50e22a54 100644
+--- a/app/code/Magento/Paypal/view/adminhtml/templates/transparent/form.phtml
++++ b/app/code/Magento/Paypal/view/adminhtml/templates/transparent/form.phtml
+@@ -81,6 +81,21 @@ $ccExpMonth = $block->getInfoData('cc_exp_month');
+                        "validate-cc-type":"#<?= /* @noEscape */ $code ?>_cc_type"
+                    }'
+                    autocomplete="off"/>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncopy',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'oncut',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
++            <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                'onpaste',
++                "event.preventDefault();",
++                '#' . $code . '_cc_number'
++            ) ?>
+         </div>
+     </div>
+ 
+@@ -130,6 +145,21 @@ $ccExpMonth = $block->getInfoData('cc_exp_month');
+                        value=""
+                        data-validate='{"required-number":true, "validate-cc-cvn":"#<?=/* @noEscape */ $code?>_cc_type"}'
+                        autocomplete="off"/>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncopy',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'oncut',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
++                <?= /* @noEscape */ $secureRenderer->renderEventListenerAsTag(
++                    'onpaste',
++                    "event.preventDefault();",
++                    '#' . $code . '_cc_cid'
++                ) ?>
+             </div>
+         </div>
+     <?php endif; ?>
+diff --git a/lib/internal/Magento/Framework/App/StaticResource.php b/lib/internal/Magento/Framework/App/StaticResource.php
+index 45eebe3ecb..29001b1b45 100644
+--- a/lib/internal/Magento/Framework/App/StaticResource.php
++++ b/lib/internal/Magento/Framework/App/StaticResource.php
+@@ -9,6 +9,8 @@ use Magento\Framework\App\Filesystem\DirectoryList;
+ use Magento\Framework\ObjectManager\ConfigLoaderInterface;
+ use Magento\Framework\Filesystem;
+ use Magento\Framework\Config\ConfigOptionsListConstants;
++use Magento\Framework\Validator\Locale;
++use Magento\Framework\View\Design\Theme\ThemePackageList;
+ use Psr\Log\LoggerInterface;
+ use Magento\Framework\Debug;
+ use Magento\Framework\Filesystem\Driver\File;
+@@ -80,6 +82,16 @@ class StaticResource implements \Magento\Framework\AppInterface
+      */
+     private $driver;
+ 
++    /**
++     * @var ThemePackageList
++     */
++    private $themePackageList;
++
++    /**
++     * @var Locale
++     */
++    private $localeValidator;
++
+     /**
+      * @param State $state
+      * @param Response\FileInterface $response
+@@ -91,6 +103,8 @@ class StaticResource implements \Magento\Framework\AppInterface
+      * @param ConfigLoaderInterface $configLoader
+      * @param DeploymentConfig|null $deploymentConfig
+      * @param File|null $driver
++     * @param ThemePackageList|null $themePackageList
++     * @param Locale|null $localeValidator
+      *
+      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+      */
+@@ -104,7 +118,9 @@ class StaticResource implements \Magento\Framework\AppInterface
+         \Magento\Framework\ObjectManagerInterface $objectManager,
+         ConfigLoaderInterface $configLoader,
+         DeploymentConfig $deploymentConfig = null,
+-        File $driver = null
++        File $driver = null,
++        ThemePackageList $themePackageList = null,
++        Locale $localeValidator = null
+     ) {
+         $this->state = $state;
+         $this->response = $response;
+@@ -116,6 +132,8 @@ class StaticResource implements \Magento\Framework\AppInterface
+         $this->configLoader = $configLoader;
+         $this->deploymentConfig = $deploymentConfig ?: ObjectManager::getInstance()->get(DeploymentConfig::class);
+         $this->driver = $driver ?: ObjectManager::getInstance()->get(File::class);
++        $this->themePackageList = $themePackageList ?? ObjectManager::getInstance()->get(ThemePackageList::class);
++        $this->localeValidator = $localeValidator ?? ObjectManager::getInstance()->get(Locale::class);
+     }
+ 
+     /**
+@@ -149,6 +167,16 @@ class StaticResource implements \Magento\Framework\AppInterface
+             throw $e;
+         }
+ 
++        if (!($this->isThemeAllowed($params['area'] . DIRECTORY_SEPARATOR . $params['theme'])
++            && $this->localeValidator->isValid($params['locale']))
++        ) {
++            if ($appMode == \Magento\Framework\App\State::MODE_PRODUCTION) {
++                $this->response->setHttpResponseCode(404);
++                return $this->response;
++            }
++            throw new \InvalidArgumentException('Requested path ' . $path . ' is wrong.');
++        }
++
+         $this->state->setAreaCode($params['area']);
+         $this->objectManager->configure($this->configLoader->load($params['area']));
+         $file = $params['file'];
+@@ -247,4 +275,9 @@ class StaticResource implements \Magento\Framework\AppInterface
+ 
+         return $this->logger;
+     }
++
++    private function isThemeAllowed(string $theme): bool
++    {
++        return in_array($theme, array_keys($this->themePackageList->getThemes()));
++    }
+ }

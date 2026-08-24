@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-p5hj-xxfr-pwc3",
+    "cve":  "CVE-2022-0282",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "51b5a4e3ef01e587797c0109159a8ad9d2bac77a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Comment/Models/Comment.php",
+                        "src/MicroweberPackages/Comment/Models/CommentsCrud.php",
+                        "src/MicroweberPackages/Comment/resources/views/admin/comments/comment_item.blade.php",
+                        "userfiles/modules/comments/src/Controllers/Admin.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MicroweberPackages/Comment/Models/Comment.php class extends Model",
+                     "src/MicroweberPackages/Comment/Models/Comment.php class uses trait",
+                     "src/MicroweberPackages/Comment/Models/CommentsCrud.php class extends Crud"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Comment/Models/Comment.php",
+                        "src/MicroweberPackages/Comment/Models/CommentsCrud.php",
+                        "src/MicroweberPackages/Comment/resources/views/admin/comments/comment_item.blade.php",
+                        "userfiles/modules/comments/src/Controllers/Admin.php"
+                    ],
+    "sink_hit":  true
+}

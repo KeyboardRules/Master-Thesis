@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-gph2-j4c9-vhhr",
+    "cve":  "CVE-2026-40911",
+    "cwe":  "CWE-94",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "c08694bf6264eb4decceb78c711baee2609b4efd",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugin/YPTSocket/Message.php",
+                        "plugin/YPTSocket/MessageSQLite.php",
+                        "plugin/YPTSocket/MessageSQLiteV2.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "plugin/YPTSocket/Message.php includes 2 project file(s)",
+                     "plugin/YPTSocket/MessageSQLite.php includes 3 project file(s)",
+                     "plugin/YPTSocket/MessageSQLiteV2.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-j822-46r5-h4qx",
+    "cve":  "CVE-2026-36341",
+    "cwe":  "CWE-79",
+    "repo":  "krayin/laravel-crm",
+    "sha":  "fc467040de21803cb2b67c2229d2dfcf731d2d3e",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/Webkul/Admin/src/Resources/views/components/layouts/index.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/configuration/edit.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/contacts/persons/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/leads/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/mail/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/products/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/warehouses/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/workflows/create.blade.php",
+                        "packages/Webkul/WebForm/src/Resources/views/settings/web-forms/preview.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 9 php files"
+                 ],
+    "changed_all":  [
+                        "packages/Webkul/Admin/src/Resources/views/components/layouts/index.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/configuration/edit.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/contacts/persons/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/leads/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/mail/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/products/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/warehouses/view.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/workflows/create.blade.php",
+                        "packages/Webkul/WebForm/src/Resources/views/settings/web-forms/preview.blade.php"
+                    ],
+    "sink_hit":  false
+}

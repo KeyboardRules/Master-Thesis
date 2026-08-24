@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hj4c-vfc4-5f9c",
+    "cve":  "CVE-2022-48614",
+    "cwe":  "CWE-79",
+    "repo":  "SemanticMediaWiki/SemanticMediaWiki",
+    "fix_commit":  "604968d44fcdfcbb7f1e00c5d662ca5d5a3a5613",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MediaWiki/Specials/SpecialAsk.php"
+                    ],
+    "evidence":  [
+                     "src/MediaWiki/Specials/SpecialAsk.php class extends SpecialPage"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

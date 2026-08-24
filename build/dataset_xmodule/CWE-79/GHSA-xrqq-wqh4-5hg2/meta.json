@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-xrqq-wqh4-5hg2",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "darylldoyle/svg-sanitizer",
+    "fix_commit":  "cce18bc237c05c6e093e9672db7926788da9b322",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Sanitizer.php",
+                        "src/data/AllowedTags.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/SanitizerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

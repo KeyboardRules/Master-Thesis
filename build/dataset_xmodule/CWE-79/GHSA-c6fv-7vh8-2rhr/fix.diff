@@ -1,0 +1,233 @@
+﻿diff --git a/samples/Engineering/Convert-Online.php b/samples/Engineering/Convert-Online.php
+index a923956b..bae13f77 100644
+--- a/samples/Engineering/Convert-Online.php
++++ b/samples/Engineering/Convert-Online.php
+@@ -78,14 +78,16 @@ if (isset($_POST['quantity'], $_POST['fromUnit'], $_POST['toUnit'])) {
+     $quantity = $_POST['quantity'];
+     $fromUnit = $_POST['fromUnit'];
+     $toUnit = $_POST['toUnit'];
+-    if (isset($units[$_POST['category']][$fromUnit], $units[$_POST['category']][$toUnit])) {
++    if (!is_numeric($quantity)) {
++        $helper->log('Quantity is not numeric');
++    } elseif (isset($units[$_POST['category']][$fromUnit], $units[$_POST['category']][$toUnit])) {
+         /** @var float|string */
+         $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
+ 
+-        echo "{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}", PHP_EOL;
++        $helper->log("{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}");
+     } else {
+-        echo 'Please enter quantity and select From Unit and To Unit', PHP_EOL;
++        $helper->log('Please enter quantity and select From Unit and To Unit');
+     }
+ } else {
+-    echo 'Please enter quantity and select From Unit and To Unit', PHP_EOL;
++    $helper->log('Please enter quantity and select From Unit and To Unit');
+ }
+diff --git a/samples/Wizards/NumberFormat/Accounting.php b/samples/Wizards/NumberFormat/Accounting.php
+index 0b87dd48..e453a5fd 100644
+--- a/samples/Wizards/NumberFormat/Accounting.php
++++ b/samples/Wizards/NumberFormat/Accounting.php
+@@ -64,13 +64,6 @@ $currencies = [
+                 <input name="position" type="radio" value="0" <?php echo (isset($_POST['position']) && $_POST['position'] === '0') ? 'checked' : ''; ?>>Trailing
+             </div>
+         </div>
+-        <div class="mb-3 row">
+-            <label for="spacing" class="col-sm-2 col-form-label">Currency Spacing</label>
+-            <div class="col-sm-10">
+-                <input name="spacing" type="radio" value="1" <?php echo (isset($_POST['spacing']) && $_POST['spacing'] === '1') ? 'checked' : ''; ?>>Yes
+-                <input name="spacing" type="radio" value="0" <?php echo ((isset($_POST['spacing']) === false) || (isset($_POST['spacing']) && $_POST['spacing'] === '0')) ? 'checked' : ''; ?>>No
+-            </div>
+-        </div>
+         <div class="mb-3 row">
+             <div class="col-sm-10">
+                 <input  class="btn btn-primary" name="submit" type="submit" value="Display Mask"><br />
+@@ -85,21 +78,23 @@ if (isset($_POST['submit'])) {
+         $helper->log('The Sample Number Value must be numeric');
+     } elseif (!is_numeric($_POST['decimals']) || str_contains((string) $_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
+         $helper->log('The Decimal Places value must be positive integer');
++    } elseif (!in_array($_POST['currency'], array_keys($currencies), true)) {
++        $helper->log('Unrecognized currency symbol');
+     } else {
+         try {
+-            $wizard = new Wizard\Accounting($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position'], (bool) $_POST['spacing']);
++            $wizard = new Wizard\Accounting($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
+             $mask = $wizard->format();
+             $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
+             $helper->log('<hr /><b>Code:</b><br />');
+             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
+             $helper->log(
+-                "\$mask = Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
++                "\$wizard = new Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
+                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
+-                . ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING')
+-                . ');<br />'
++                . ');'
+             );
+-            $helper->log('echo (string) $mask;');
++            $helper->log('$mask = $wizard->format();');
++            $helper->log('<br />echo (string) $mask;');
+             $helper->log('<hr /><b>Mask:</b><br />');
+             $helper->log($mask . '<br />');
+             $helper->log('<br /><b>Example:</b><br />');
+diff --git a/samples/Wizards/NumberFormat/Currency.php b/samples/Wizards/NumberFormat/Currency.php
+index 2c2b2485..c2a66093 100644
+--- a/samples/Wizards/NumberFormat/Currency.php
++++ b/samples/Wizards/NumberFormat/Currency.php
+@@ -5,6 +5,8 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
+ use PhpOffice\PhpSpreadsheet\Settings;
+ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+ use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
++use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
++use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
+ 
+ require __DIR__ . '/../Header.php';
+ 
+@@ -15,6 +17,19 @@ if ($helper->isCli()) {
+     return;
+ }
+ 
++$negatives = [
++    CurrencyNegative::minus,
++    CurrencyNegative::redMinus,
++    CurrencyNegative::parentheses,
++    CurrencyNegative::redParentheses,
++];
++$negativesString = [
++    'CurrencyNegative::minus',
++    'CurrencyNegative::redMinus',
++    'CurrencyNegative::parentheses',
++    'CurrencyNegative::redParentheses',
++];
++
+ $currencies = [
+     '$' => 'US Dollars ($)',
+     '€' => 'Euro (€)',
+@@ -65,10 +80,12 @@ $currencies = [
+             </div>
+         </div>
+         <div class="mb-3 row">
+-            <label for="spacing" class="col-sm-2 col-form-label">Currency Spacing</label>
++            <label for="negative" class="col-sm-2 col-form-label">Negative Numbers</label>
+             <div class="col-sm-10">
+-                <input name="spacing" type="radio" value="1" <?php echo (isset($_POST['spacing']) && $_POST['spacing'] === '1') ? 'checked' : ''; ?>>Yes
+-                <input name="spacing" type="radio" value="0" <?php echo ((isset($_POST['spacing']) === false) || (isset($_POST['spacing']) && $_POST['spacing'] === '0')) ? 'checked' : ''; ?>>No
++                <input name="negative" type="radio" value="0"  <?php echo (!isset($_POST['negative']) || $_POST['negative'] === '0') ? 'checked' : ''; ?>>Minus Sign
++                <input name="negative" type="radio" value="1"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '1') ? 'checked' : ''; ?>>Red Minus Sign
++                <input name="negative" type="radio" value="2"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '2') ? 'checked' : ''; ?>>Parentheses
++                <input name="negative" type="radio" value="3"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '3') ? 'checked' : ''; ?>>Red Parentheses
+             </div>
+         </div>
+         <div class="mb-3 row">
+@@ -85,21 +102,27 @@ if (isset($_POST['submit'])) {
+         $helper->log('The Sample Number Value must be numeric');
+     } elseif (!is_numeric($_POST['decimals']) || str_contains((string) $_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
+         $helper->log('The Decimal Places value must be positive integer');
++    } elseif (!in_array($_POST['currency'], array_keys($currencies), true)) {
++        $helper->log('Unrecognized currency symbol');
+     } else {
+         try {
+-            $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position'], (bool) $_POST['spacing']);
++            $negative = $negatives[$_POST['negative']] ?? CurrencyNegative::minus;
++            $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
++            $wizard->setNegative($negative);
+             $mask = $wizard->format();
+-            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
++            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask, [HtmlWriter::class, 'formatColorStatic']);
+             $helper->log('<hr /><b>Code:</b><br />');
+             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
++            $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\CurrencyNegative;');
+             $helper->log(
+-                "\$mask = Wizard\\Currency('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
++                "\$wizard = new  Wizard\\Currency('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
+                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
+-                . ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING')
+-                . ');<br />'
++                . ');'
+             );
+-            $helper->log('echo (string) $mask;');
++            $helper->log('$wizard->setNegative(' . $negativesString[$_POST['negative']] . ');');
++            $helper->log('$mask = $wizard->format();');
++            $helper->log('<br />echo (string) $mask;');
+             $helper->log('<hr /><b>Mask:</b><br />');
+             $helper->log($mask . '<br />');
+             $helper->log('<br /><b>Example:</b><br />');
+diff --git a/src/PhpSpreadsheet/Helper/Downloader.php b/src/PhpSpreadsheet/Helper/Downloader.php
+index 4e98c792..85131dc1 100644
+--- a/src/PhpSpreadsheet/Helper/Downloader.php
++++ b/src/PhpSpreadsheet/Helper/Downloader.php
+@@ -30,18 +30,18 @@ class Downloader
+     public function __construct(string $folder, string $filename, ?string $filetype = null)
+     {
+         if ((is_dir($folder) === false) || (is_readable($folder) === false)) {
+-            throw new Exception("Folder {$folder} is not accessable");
++            throw new Exception('Folder is not accessible');
+         }
+         $filepath = "{$folder}/{$filename}";
+         $this->filepath = (string) realpath($filepath);
+         $this->filename = basename($filepath);
+         if ((file_exists($this->filepath) === false) || (is_readable($this->filepath) === false)) {
+-            throw new Exception("{$this->filename} not found, or cannot be read");
++            throw new Exception('File not found, or cannot be read');
+         }
+ 
+         $filetype ??= pathinfo($filename, PATHINFO_EXTENSION);
+         if (array_key_exists(strtolower($filetype), self::CONTENT_TYPES) === false) {
+-            throw new Exception("Invalid filetype: {$filetype} cannot be downloaded");
++            throw new Exception('Invalid filetype: file cannot be downloaded');
+         }
+         $this->filetype = strtolower($filetype);
+     }
+diff --git a/src/PhpSpreadsheet/Style/NumberFormat/Formatter.php b/src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+index cb15e8f3..c9032a44 100644
+--- a/src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
++++ b/src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+@@ -112,11 +112,11 @@ class Formatter extends BaseFormatter
+      * @param null|array|bool|float|int|RichText|string $value Value to format
+      * @param string $format Format code: see = self::FORMAT_* for predefined values;
+      *                          or can be any valid MS Excel custom format string
+-     * @param ?array $callBack Callback function for additional formatting of string
++     * @param null|array|callable $callBack Callback function for additional formatting of string
+      *
+      * @return string Formatted string
+      */
+-    public static function toFormattedString($value, string $format, ?array $callBack = null): string
++    public static function toFormattedString($value, string $format, null|array|callable $callBack = null): string
+     {
+         while (is_array($value)) {
+             $value = array_shift($value);
+@@ -200,9 +200,8 @@ class Formatter extends BaseFormatter
+         }
+ 
+         // Additional formatting provided by callback function
+-        if ($callBack !== null) {
+-            [$writerInstance, $function] = $callBack;
+-            $value = $writerInstance->$function($value, $colors);
++        if (is_callable($callBack)) {
++            $value = $callBack($value, $colors);
+         }
+ 
+         return str_replace(chr(0x00), '.', $value);
+diff --git a/src/PhpSpreadsheet/Writer/Html.php b/src/PhpSpreadsheet/Writer/Html.php
+index df1353ea..f73bf53a 100644
+--- a/src/PhpSpreadsheet/Writer/Html.php
++++ b/src/PhpSpreadsheet/Writer/Html.php
+@@ -1720,6 +1720,17 @@ class Html extends BaseWriter
+      * @param string $format Format code
+      */
+     public function formatColor(string $value, string $format): string
++    {
++        return self::formatColorStatic($value, $format);
++    }
++
++    /**
++     * Add color to formatted string as inline style.
++     *
++     * @param string $value Plain formatted value without color
++     * @param string $format Format code
++     */
++    public static function formatColorStatic(string $value, string $format): string
+     {
+         // Color information, e.g. [Red] is always at the beginning
+         $color = null; // initialize

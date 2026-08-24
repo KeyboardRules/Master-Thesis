@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9j2p-8qqf-h55c",
+    "cve":  "CVE-2022-4905",
+    "cwe":  "CWE-79",
+    "repo":  "udx/wp-stateless",
+    "sha":  "6aee7ae0b0beeb2232ce6e1c82aa7e2041ae151a",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/classes/class-settings.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "lib/classes/class-settings.php includes 3 project file(s)",
+                     "lib/classes/class-settings.php class extends \\UsabilityDynamics\\Settings",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/classes/class-settings.php"
+                    ],
+    "sink_hit":  false
+}

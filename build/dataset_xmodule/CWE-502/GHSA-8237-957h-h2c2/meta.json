@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8237-957h-h2c2",
+    "cve":  "CVE-2024-52306",
+    "cwe":  "CWE-502",
+    "repo":  "Laravel-Backpack/FileManager",
+    "fix_commit":  "2830498b85e05fb3c92179053b4d7c4a0fdb880b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/FileManagerServiceProvider.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/FileManagerServiceProvider.php class extends ServiceProvider"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

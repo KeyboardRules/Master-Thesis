@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4p75-5p53-65m9",
+    "cve":  "CVE-2024-45604",
+    "cwe":  "CWE-22",
+    "repo":  "contao/contao",
+    "sha":  "63409c6bdfd95197d9906e229d765b630d45742e",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/widgets/FileSelector.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/widgets/FileSelector.php class extends Widget"
+                 ],
+    "changed_all":  [
+                        "core-bundle/src/Resources/contao/widgets/FileSelector.php"
+                    ],
+    "sink_hit":  false
+}

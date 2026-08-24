@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-mv5w-wr5c-575p",
+    "cve":  "CVE-2024-31819",
+    "cwe":  "CWE-94",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "fcb1f79278684f02ee59130dc0304bd063d9d6d7",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "install/checkConfiguration.php",
+                        "plugin/WWBNIndex/submitIndex.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "install/checkConfiguration.php includes 3 project file(s)",
+                     "plugin/WWBNIndex/submitIndex.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

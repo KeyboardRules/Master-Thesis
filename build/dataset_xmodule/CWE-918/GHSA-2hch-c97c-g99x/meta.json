@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2hch-c97c-g99x",
+    "cve":  "CVE-2026-43884",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "603e7bf77a835584387327e35560262feb075db3",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/EpgParser.php",
+                        "plugin/AI/receiveAsync.json.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/AI/receiveAsync.json.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

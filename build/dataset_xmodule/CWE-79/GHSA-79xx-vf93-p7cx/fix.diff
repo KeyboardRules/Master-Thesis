@@ -1,0 +1,13 @@
+﻿diff --git a/src/PhpSpreadsheet/Writer/Html.php b/src/PhpSpreadsheet/Writer/Html.php
+index d70a067f..48e84503 100644
+--- a/src/PhpSpreadsheet/Writer/Html.php
++++ b/src/PhpSpreadsheet/Writer/Html.php
+@@ -561,7 +561,7 @@ class Html extends BaseWriter
+             $html .= '<ul class="navigation">' . PHP_EOL;
+ 
+             foreach ($sheets as $sheet) {
+-                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . $sheet->getTitle() . '</a></li>' . PHP_EOL;
++                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . htmlspecialchars($sheet->getTitle()) . '</a></li>' . PHP_EOL;
+                 ++$sheetId;
+             }
+ 

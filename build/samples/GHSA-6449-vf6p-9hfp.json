@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6449-vf6p-9hfp",
+    "cve":  "CVE-2023-0312",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "65d419ca04111ee2612ae81cdd59753654cfe18a",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/add.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/add.php"
+                    ],
+    "sink_hit":  false
+}

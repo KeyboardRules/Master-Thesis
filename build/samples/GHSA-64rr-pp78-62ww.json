@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-64rr-pp78-62ww",
+    "cve":  "CVE-2026-41147",
+    "cwe":  "CWE-79",
+    "repo":  "nukeviet/nukeviet",
+    "sha":  "2a0860fbe22e2f6a3b90f802bf80b25e18699611",
+    "status":  "ok",
+    "changed_php":  [
+                        "vendor/vinades/nukeviet/Core/Request.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.txt",
+                        "vendor/vinades/nukeviet/Core/Request.php"
+                    ],
+    "sink_hit":  false
+}

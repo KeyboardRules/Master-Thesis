@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8wp2-vxpg-xcvp",
+    "cve":  "CVE-2022-1457",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "fix_commit":  "b3e7527d1e100898c15fec067825b6bc738613df",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Core/Controller/EditPageOption.php"
+                    ],
+    "evidence":  [
+                     "Core/Controller/EditPageOption.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

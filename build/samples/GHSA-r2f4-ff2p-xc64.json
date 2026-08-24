@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-r2f4-ff2p-xc64",
+    "cve":  "CVE-2026-5394",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "6df625ff74015dc11f4bbe76170ce45bbd5dd61d",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition.php",
+                        "models/DataObject/Traits/CompositeIndexTrait.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "models/DataObject/ClassDefinition.php class extends Model\\AbstractModel",
+                     "models/DataObject/ClassDefinition.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "models/DataObject/ClassDefinition.php",
+                        "models/DataObject/Traits/CompositeIndexTrait.php"
+                    ],
+    "sink_hit":  true
+}

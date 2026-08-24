@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-27j2-c838-c3qg",
+    "cve":  "CVE-2014-3543",
+    "cwe":  "CWE-611",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "595ef4772d330a20c757635ab090acdcc9b2a2fa",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "mod/imscp/locallib.php"
+                    ],
+    "evidence":  [
+                     "mod/imscp/locallib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php class extends file_info"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

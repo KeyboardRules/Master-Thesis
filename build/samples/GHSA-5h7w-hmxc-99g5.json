@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5h7w-hmxc-99g5",
+    "cve":  "CVE-2022-1091",
+    "cwe":  "CWE-79",
+    "repo":  "10up/safe-svg",
+    "sha":  "00cb9a86d1bff2214714557d1901ec3896564e50",
+    "status":  "ok",
+    "changed_php":  [
+                        "safe-svg.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "safe-svg.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "safe-svg.php"
+                    ],
+    "sink_hit":  false
+}

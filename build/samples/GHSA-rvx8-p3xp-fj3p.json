@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rvx8-p3xp-fj3p",
+    "cve":  "CVE-2023-44383",
+    "cwe":  "CWE-79",
+    "repo":  "octobercms/october",
+    "sha":  "b7eed0bbf54d07ff310fcdc7037a8e8bf1f5043b",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/media.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "config/media.php"
+                    ],
+    "sink_hit":  false
+}

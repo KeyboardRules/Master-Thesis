@@ -1,0 +1,13 @@
+﻿diff --git a/plugin/Meet/Objects/Meet_schedule.php b/plugin/Meet/Objects/Meet_schedule.php
+index e20673ab4..271ec3b3e 100644
+--- a/plugin/Meet/Objects/Meet_schedule.php
++++ b/plugin/Meet/Objects/Meet_schedule.php
+@@ -76,7 +76,7 @@ class Meet_schedule extends ObjectYPT {
+     }
+ 
+     public function setTopic($topic) {
+-        $this->topic = $topic;
++        $this->topic = xss_esc($topic);
+     }
+ 
+     public function setStarts($starts) {

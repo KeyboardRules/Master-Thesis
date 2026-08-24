@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-2g98-f9jv-w8c5",
+    "cve":  "",
+    "cwe":  "CWE-91",
+    "repo":  "robrichards/xmlseclibs",
+    "sha":  "649032643f7aac493e91ca318da0339aec72aa4a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Utils/XPath.php",
+                        "src/XMLSecEnc.php",
+                        "src/XMLSecurityDSig.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "src/Utils/XPath.php",
+                        "src/XMLSecEnc.php",
+                        "src/XMLSecurityDSig.php"
+                    ],
+    "sink_hit":  false
+}

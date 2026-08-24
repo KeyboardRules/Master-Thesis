@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-w4pj-7p68-3vgv",
+    "cve":  "CVE-2020-11083",
+    "cwe":  "CWE-79",
+    "repo":  "octobercms/october",
+    "fix_commit":  "9ecfb4867baae14a0d3f99f5b5c1e8a979ae8746",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/backend/ServiceProvider.php",
+                        "modules/backend/formwidgets/MarkdownEditor.php",
+                        "modules/backend/lang/en/lang.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/backend/ServiceProvider.php class extends ModuleServiceProvider",
+                     "modules/backend/formwidgets/MarkdownEditor.php class extends FormWidgetBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

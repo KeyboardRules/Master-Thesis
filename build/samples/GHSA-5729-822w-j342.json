@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5729-822w-j342",
+    "cve":  "CVE-2015-5269",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "45f3b5302d645ba13ca8b68b0106a638ebd21980",
+    "status":  "ok",
+    "changed_php":  [
+                        "group/overview.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "group/overview.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "group/overview.php"
+                    ],
+    "sink_hit":  true
+}

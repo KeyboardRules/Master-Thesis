@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-w5mx-334j-6fwv",
+    "cve":  "CVE-2024-27499",
+    "cwe":  "CWE-79",
+    "repo":  "bagisto/bagisto",
+    "fix_commit":  "b01bfc5fab3933a132380f36cb2e9670d2310baf",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/Webkul/Admin/src/Http/Controllers/Settings/ThemeController.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit/static-content.blade.php",
+                        "packages/Webkul/Theme/src/Repositories/ThemeCustomizationRepository.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "packages/Webkul/Admin/src/Http/Controllers/Settings/ThemeController.php class extends Controller",
+                     "packages/Webkul/Theme/src/Repositories/ThemeCustomizationRepository.php class extends Repository"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

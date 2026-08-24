@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j82x-fh8h-326g",
+    "cve":  "CVE-2017-20158",
+    "cwe":  "CWE-79",
+    "repo":  "vova07/yii2-fileapi-widget",
+    "fix_commit":  "c00d1e4fc912257fca1fce66d7a163bdbb4c8222",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "actions/UploadAction.php"
+                    ],
+    "evidence":  [
+                     "actions/UploadAction.php class extends Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

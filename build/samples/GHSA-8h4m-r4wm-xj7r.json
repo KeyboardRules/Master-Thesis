@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8h4m-r4wm-xj7r",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "TYPO3/typo3",
+    "sha":  "095ae4ab6869d0f7dc7befedb851cdd7ad0c7ebf",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Core/SystemEnvironmentBuilder.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "typo3/sysext/core/Classes/Core/SystemEnvironmentBuilder.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Core/SystemEnvironmentBuilder.php"
+                    ],
+    "sink_hit":  false
+}

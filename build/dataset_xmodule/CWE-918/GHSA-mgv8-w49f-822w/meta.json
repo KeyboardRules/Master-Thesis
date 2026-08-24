@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-mgv8-w49f-822w",
+    "cve":  "CVE-2022-25777",
+    "cwe":  "CWE-918",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "b4b4ab5f0613854152ceb7b5e5228acf50648fd0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/bundles/AssetBundle/Form/Type/AssetType.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/AssetBundle/Form/Type/AssetType.php class extends AbstractType",
+                     "app/bundles/AssetBundle/Tests/Controller/Api/AssetApiControllerFunctionalTest.php class extends MauticMysqlTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

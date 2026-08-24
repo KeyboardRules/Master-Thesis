@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-j5hq-6frc-64v3",
+    "cve":  "CVE-2023-5564",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "sha":  "e8ed43056c1665522a586e3485da67f2bdf073aa",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/System/Markdown.php",
+                        "lib/Froxlor/UI/Callbacks/Customer.php",
+                        "lib/Froxlor/UI/Callbacks/Text.php",
+                        "lib/Froxlor/UI/Panel/FroxlorTwig.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "lib/Froxlor/UI/Callbacks/Text.php includes 2 project file(s)",
+                     "lib/Froxlor/UI/Panel/FroxlorTwig.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "lib/Froxlor/System/Markdown.php",
+                        "lib/Froxlor/UI/Callbacks/Customer.php",
+                        "lib/Froxlor/UI/Callbacks/Text.php",
+                        "lib/Froxlor/UI/Panel/FroxlorTwig.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php",
+                        "templates/Froxlor/user/index.html.twig"
+                    ],
+    "sink_hit":  false
+}

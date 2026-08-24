@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hxgg-4qww-85ph",
+    "cve":  "CVE-2025-3643",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "ff9bbd6d9e7d6267ce85e6c9afbeb19581f2a85f",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/classes/param.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "lib/classes/param.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lib/classes/param.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x8gm-j36p-fppf",
+    "cve":  "CVE-2024-47528",
+    "cwe":  "CWE-434",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "d959bf1b366319eda16e3cd6dfda8a22beb203be",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/Maps/CustomMapBackgroundController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/Maps/CustomMapBackgroundController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-7h5p-637f-jfr7",
+    "cve":  "CVE-2026-55691",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenWiki/mediawiki-extensions-EmbedVideo",
+    "sha":  "370156335b325bb81d14d89edf0a1f2643d50a84",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/EmbedService/EmbedHtmlFormatter.php",
+                        "includes/EmbedVideo.php",
+                        "tests/phpunit/EmbedService/EmbedHtmlFormatterTest.php",
+                        "tests/phpunit/EmbedService/VkTest.php",
+                        "tests/phpunit/EmbedVideoTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/phpunit/EmbedService/EmbedHtmlFormatterTest.php class extends MediaWikiIntegrationTestCase",
+                     "tests/phpunit/EmbedService/VkTest.php class extends MediaWikiIntegrationTestCase",
+                     "tests/phpunit/EmbedVideoTest.php class extends MediaWikiIntegrationTestCase"
+                 ],
+    "changed_all":  [
+                        "includes/EmbedService/EmbedHtmlFormatter.php",
+                        "includes/EmbedService/templates/consent-container.mustache",
+                        "includes/EmbedService/templates/wrapper.mustache",
+                        "includes/EmbedVideo.php",
+                        "tests/phpunit/EmbedService/EmbedHtmlFormatterTest.php",
+                        "tests/phpunit/EmbedService/VkTest.php",
+                        "tests/phpunit/EmbedVideoTest.php"
+                    ],
+    "sink_hit":  false
+}

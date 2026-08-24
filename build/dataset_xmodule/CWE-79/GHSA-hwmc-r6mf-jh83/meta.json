@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-hwmc-r6mf-jh83",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "spatie/schema-org",
+    "fix_commit":  "be389b4759214c11cc1364a16e34a929c5af5a88",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "generator/templates/static/BaseType.php",
+                        "src/BaseType.php",
+                        "src/Graph.php",
+                        "src/MultiTypedEntity.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/BaseTypeTest.php class extends BaseType"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

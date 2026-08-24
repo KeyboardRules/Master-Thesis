@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-97hm-2mfr-2p97",
+    "cve":  "CVE-2023-3551",
+    "cwe":  "CWE-94",
+    "repo":  "nilsteampassnet/teampass",
+    "fix_commit":  "cc6abc76aa46ed4a27736c1d2f21e432a5d54e6f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/libraries/anti-xss-master/src/voku/helper/AntiXSS.php",
+                        "pages/2fa.js.php",
+                        "pages/2fa.php",
+                        "pages/admin.js.php",
+                        "pages/users.js.php",
+                        "sources/logs.datatables.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "pages/2fa.js.php includes 4 project file(s)",
+                     "pages/2fa.php includes 5 project file(s)",
+                     "pages/users.js.php includes 4 project file(s)",
+                     "sources/logs.datatables.php includes 10 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

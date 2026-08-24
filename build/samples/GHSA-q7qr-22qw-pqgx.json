@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-q7qr-22qw-pqgx",
+    "cve":  "CVE-2024-8291",
+    "cwe":  "CWE-22",
+    "repo":  "concretecms/concretecms",
+    "sha":  "d97b43b8dd0b5578b41d2ffb5b2186a44c2c772c",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/config/concrete.php",
+                        "concrete/single_pages/dashboard/system/files/thumbnails.php",
+                        "concrete/views/dialogs/event/view_version.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "concrete/config/concrete.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "concrete/config/concrete.php",
+                        "concrete/single_pages/dashboard/system/files/thumbnails.php",
+                        "concrete/views/dialogs/event/view_version.php"
+                    ],
+    "sink_hit":  true
+}

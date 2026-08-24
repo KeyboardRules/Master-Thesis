@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-g93x-fm2w-5pxw",
+    "cve":  "CVE-2023-2340",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "aa38319e353cc3cdfac12e03e21ed7a8f3628d3e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

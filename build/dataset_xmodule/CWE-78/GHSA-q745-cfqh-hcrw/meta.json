@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-q745-cfqh-hcrw",
+    "cve":  "CVE-2025-52994",
+    "cwe":  "CWE-78",
+    "repo":  "JamesHeinrich/phpThumb",
+    "fix_commit":  "cdcbc206ae601b15fd17e7aadf59df51149a0e82",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpthumb.class.php",
+                        "phpthumb.gif.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpthumb.class.php includes 14 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

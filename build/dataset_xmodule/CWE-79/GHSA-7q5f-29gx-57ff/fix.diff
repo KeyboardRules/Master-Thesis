@@ -1,0 +1,55 @@
+﻿diff --git a/src/MicroweberPackages/Cart/CartManager.php b/src/MicroweberPackages/Cart/CartManager.php
+index 197a0631de..5e912b7a70 100644
+--- a/src/MicroweberPackages/Cart/CartManager.php
++++ b/src/MicroweberPackages/Cart/CartManager.php
+@@ -616,7 +616,7 @@ class CartManager extends Crud
+             if ($cont == false) {
+                 return array('error' => 'Invalid product?');
+             } else {
+-                if (is_array($cont) and isset($cont['title'])) {
++                if (is_array($cont) and isset($cont['title']) and $cont['title']) {
+                     $data['title'] = $cont['title'];
+                 }
+             }
+@@ -779,6 +779,10 @@ class CartManager extends Crud
+             $cart['allow_html'] = 1;
+             $cart['price'] = doubleval($found_price);
+             $cart['limit'] = 1;
++            if(!isset($data['title']) or $data['title'] == false){
++                $data['title'] = 'Product '.$cart['rel_id'];
++            }
++
+             $cart['title'] = mw()->format->clean_html($data['title']);
+ 
+             $cart_return['custom_fields_data'] = $add;
+diff --git a/src/MicroweberPackages/Order/OrderManager.php b/src/MicroweberPackages/Order/OrderManager.php
+index fa11ca465d..74c6c75b65 100644
+--- a/src/MicroweberPackages/Order/OrderManager.php
++++ b/src/MicroweberPackages/Order/OrderManager.php
+@@ -127,13 +127,24 @@ class OrderManager
+         }
+     }
+ 
+-    public function place_order($place_order)
++    public function place_order($place_order = array())
+     {
+         $sid = mw()->user_manager->session_id();
+         if ($sid == false) {
+             return $sid;
+         }
+-
++        if (empty($place_order)) {
++            return;
++        }
++        array_walk_recursive(
++            $place_order,
++            function(&$string) {
++                if (is_string($string)) {
++                    $string = trim(strip_tags($string));
++                }
++            }
++        );
++        $place_order = xss_clean($place_order);
+         event($event = new OrderIsCreating($place_order));
+         $should_mark_as_paid = false;
+         $place_order = array_filter($place_order);

@@ -1,0 +1,13 @@
+﻿diff --git a/mod/lesson/locallib.php b/mod/lesson/locallib.php
+index 238e2ddddb..40cefdf9bc 100644
+--- a/mod/lesson/locallib.php
++++ b/mod/lesson/locallib.php
+@@ -1032,7 +1032,7 @@ function lesson_get_overview_report_table_and_data(lesson $lesson, $currentgroup
+             $row = [$studentname];
+ 
+             foreach ($extrafields as $field) {
+-                $row[] = $student->$field;
++                $row[] = s($student->$field);
+             }
+ 
+             $row[] = $attempts;

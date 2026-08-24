@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-46rx-6jg9-4fh8",
+    "cve":  "CVE-2021-43324",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "99d2462b80435b91a35236639b909eebee432126",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/OverviewController.php",
+                        "app/Http/Controllers/Widgets/WidgetController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Http/Controllers/OverviewController.php class extends Controller",
+                     "app/Http/Controllers/Widgets/WidgetController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/OverviewController.php",
+                        "app/Http/Controllers/Widgets/WidgetController.php"
+                    ],
+    "sink_hit":  false
+}

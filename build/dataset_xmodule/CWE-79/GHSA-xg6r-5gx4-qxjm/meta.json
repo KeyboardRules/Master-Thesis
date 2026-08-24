@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xg6r-5gx4-qxjm",
+    "cve":  "CVE-2021-3977",
+    "cwe":  "CWE-79",
+    "repo":  "invoiceninja/invoiceninja",
+    "fix_commit":  "1186eaa82375692d01d5ef3369c5b7bc7315b55f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/Http/Controllers/Auth/ContactForgotPasswordController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/Auth/ContactForgotPasswordController.php class extends Controller",
+                     "app/Http/Controllers/Auth/ContactForgotPasswordController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

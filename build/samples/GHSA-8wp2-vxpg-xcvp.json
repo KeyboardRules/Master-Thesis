@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8wp2-vxpg-xcvp",
+    "cve":  "CVE-2022-1457",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "sha":  "b3e7527d1e100898c15fec067825b6bc738613df",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/Controller/EditPageOption.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Core/Controller/EditPageOption.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "Core/Controller/EditPageOption.php",
+                        "Core/Translation/gl_ES.json"
+                    ],
+    "sink_hit":  false
+}

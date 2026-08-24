@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-wxjw-phj6-g75w",
+    "cve":  "CVE-2026-33647",
+    "cwe":  "CWE-434",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "345a8d3ece0ad1e1b71a704c1579cbf885d8f3ae",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/ImageGallery/ImageGallery.php"
+                    ],
+    "evidence":  [
+                     "plugin/ImageGallery/ImageGallery.php includes 1 project file(s)",
+                     "plugin/ImageGallery/ImageGallery.php class extends PluginAbstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

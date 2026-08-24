@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-9gv2-2m38-j6cx",
+    "cve":  "CVE-2019-15570",
+    "cwe":  "CWE-89",
+    "repo":  "bedita/bedita",
+    "fix_commit":  "0ddcd46d645c773e69369f3ed82c865a4d098454",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bedita-app/models/object_relation.php",
+                        "bedita-app/models/objects/b_e_object.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "bedita-app/models/object_relation.php class extends BEAppModel",
+                     "bedita-app/models/objects/b_e_object.php class extends BEAppModel",
+                     "bedita-app/tests/cases/models/object_relation.test.php includes 1 project file(s)",
+                     "bedita-app/tests/cases/models/object_relation.test.php class extends BeditaTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

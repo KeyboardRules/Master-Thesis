@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-2ffp-w665-9mgx",
+    "cve":  "CVE-2023-2516",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "39b774cba118ca5383b0a51a71b1e7dea2761927",
+    "status":  "ok",
+    "changed_php":  [
+                        "index.php",
+                        "pages/items.js.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "index.php includes 48 project file(s)",
+                     "pages/items.js.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "index.php",
+                        "pages/items.js.php",
+                        "plugins/DOMPurify/purify.cjs.js",
+                        "plugins/DOMPurify/purify.cjs.js.map",
+                        "plugins/DOMPurify/purify.es.js",
+                        "plugins/DOMPurify/purify.es.js.map",
+                        "plugins/DOMPurify/purify.js",
+                        "plugins/DOMPurify/purify.js.map",
+                        "plugins/DOMPurify/purify.min.js",
+                        "plugins/DOMPurify/purify.min.js.map"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-59jf-3q9v-rh6g",
+    "cve":  "CVE-2023-38500",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "fix_commit":  "e3026f589fef0be8c3574ee3f0a0bfbe33d7ebdb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Behavior.php",
+                        "src/Behavior/CdataSection.php",
+                        "src/Behavior/Comment.php",
+                        "src/Builder/CommonBuilder.php",
+                        "src/Sanitizer.php",
+                        "src/Serializer/Rules.php",
+                        "src/Visitor/CommonVisitor.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "src/Serializer/Rules.php class extends OutputRules",
+                     "src/Visitor/CommonVisitor.php class extends AbstractVisitor",
+                     "src/Visitor/CommonVisitor.php class uses trait",
+                     "tests/BehaviorTest.php class extends TestCase",
+                     "tests/CommonBuilderTest.php class extends TestCase",
+                     "tests/ScenarioTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-m553-9wmx-533h",
+    "cve":  "CVE-2019-16197",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "c53be23122fc6e7c3c8d65ee8ba979c566380964",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/core/class/translate.class.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/core/class/translate.class.php includes 3 project file(s)",
+                     "test/phpunit/SecurityTest.php includes 4 project file(s)",
+                     "test/phpunit/SecurityTest.php class extends PHPUnit\\Framework\\TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

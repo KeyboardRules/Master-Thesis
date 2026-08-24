@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-5r9v-8w62-r26j",
+    "cve":  "CVE-2022-0253",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "fix_commit":  "407d0b1a1fa56fa6f824a19092774f10f4880437",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhviews/loadview.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhviews/save_chat_view.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhwebhooks/edit.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhwebhooks/editincoming.tpl.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhviews/loadview.tpl.php includes 4 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhviews/save_chat_view.tpl.php includes 4 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhwebhooks/edit.tpl.php includes 4 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhwebhooks/editincoming.tpl.php includes 4 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

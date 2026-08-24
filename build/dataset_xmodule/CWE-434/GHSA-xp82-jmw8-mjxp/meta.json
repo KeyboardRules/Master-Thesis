@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xp82-jmw8-mjxp",
+    "cve":  "CVE-2022-1034",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "fix_commit":  "bd792a89c0325836fbd64784f4c4117c0171416b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "server/Application/Api/Controller/AdminUpdateController.class.php"
+                    ],
+    "evidence":  [
+                     "server/Application/Api/Controller/AdminUpdateController.class.php class extends BaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

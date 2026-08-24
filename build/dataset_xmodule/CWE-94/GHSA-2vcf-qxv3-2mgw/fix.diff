@@ -1,0 +1,160 @@
+﻿diff --git a/src/controllers/BaseUpdaterController.php b/src/controllers/BaseUpdaterController.php
+index f64909f..27ecd19 100644
+--- a/src/controllers/BaseUpdaterController.php
++++ b/src/controllers/BaseUpdaterController.php
+@@ -484,10 +484,9 @@ abstract class BaseUpdaterController extends Controller
+      * Runs the migrations for a given list of handles.
+      *
+      * @param string[] $handles
+-     * @param string|null $restoreAction
+      * @return Response|null
+      */
+-    protected function runMigrations(array $handles, ?string $restoreAction = null): ?Response
++    protected function runMigrations(array $handles): ?Response
+     {
+         try {
+             Craft::$app->getUpdates()->runMigrations($handles);
+@@ -512,21 +511,11 @@ abstract class BaseUpdaterController extends Controller
+             Craft::error($error, __METHOD__);
+             Craft::$app->getErrorHandler()->logException($e);
+ 
+-            $options = [];
+-
+-            // Do we have a database backup to restore?
+-            if ($restoreAction !== null && !empty($this->data['dbBackupPath'])) {
+-                if (!empty($this->data['install'])) {
+-                    $restoreLabel = Craft::t('app', 'Revert update');
+-                } else {
+-                    $restoreLabel = Craft::t('app', 'Restore database');
+-                }
+-                $options[] = $this->actionOption($restoreLabel, $restoreAction);
+-            }
+-
+-            $options[] = [
+-                'label' => Craft::t('app', 'Troubleshoot'),
+-                'url' => 'https://craftcms.com/knowledge-base/failed-updates',
++            $options = [
++                [
++                    'label' => Craft::t('app', 'Troubleshoot'),
++                    'url' => 'https://craftcms.com/knowledge-base/failed-updates',
++                ],
+             ];
+ 
+             if ($ownerHandle !== 'craft' && ($plugin = Craft::$app->getPlugins()->getPlugin($ownerHandle)) !== null) {
+diff --git a/src/controllers/UpdaterController.php b/src/controllers/UpdaterController.php
+index 140ddcc..8a20223 100644
+--- a/src/controllers/UpdaterController.php
++++ b/src/controllers/UpdaterController.php
+@@ -12,9 +12,9 @@ use Composer\Semver\Comparator;
+ use Composer\Semver\VersionParser;
+ use Craft;
+ use craft\errors\InvalidPluginException;
+-use craft\helpers\FileHelper;
+ use RequirementsChecker;
+ use Throwable;
++use yii\base\NotSupportedException;
+ use yii\web\BadRequestHttpException;
+ use yii\web\Response;
+ 
+@@ -31,6 +31,7 @@ class UpdaterController extends BaseUpdaterController
+     public const ACTION_BACKUP = 'backup';
+     public const ACTION_SERVER_CHECK = 'server-check';
+     public const ACTION_REVERT = 'revert';
++    /** @deprecated in 4.16.3 */
+     public const ACTION_RESTORE_DB = 'restore-db';
+     public const ACTION_MIGRATE = 'migrate';
+ 
+@@ -69,7 +70,7 @@ class UpdaterController extends BaseUpdaterController
+     public function actionBackup(): Response
+     {
+         try {
+-            $this->data['dbBackupPath'] = Craft::$app->getDb()->backup();
++            Craft::$app->getDb()->backup();
+         } catch (Throwable $e) {
+             Craft::error('Error backing up the database: ' . $e->getMessage(), __METHOD__);
+             if (!empty($this->data['install'])) {
+@@ -97,35 +98,11 @@ class UpdaterController extends BaseUpdaterController
+      * Restores the database.
+      *
+      * @return Response
++     * @deprecated in 4.16.3
+      */
+     public function actionRestoreDb(): Response
+     {
+-        $backupPath = $this->data['dbBackupPath'];
+-        if (!file_exists($backupPath) || !FileHelper::isWithin($backupPath, Craft::$app->getPath()->getDbBackupPath())) {
+-            throw new BadRequestHttpException("Invalid backup path: $backupPath");
+-        }
+-
+-        try {
+-            Craft::$app->getDb()->restore($backupPath);
+-        } catch (Throwable $e) {
+-            Craft::error('Error restoring up the database: ' . $e->getMessage(), __METHOD__);
+-            return $this->send([
+-                'error' => Craft::t('app', 'Couldn’t restore the database. How would you like to proceed?'),
+-                'options' => [
+-                    $this->actionOption(Craft::t('app', 'Try again'), self::ACTION_RESTORE_DB),
+-                    $this->actionOption(Craft::t('app', 'Continue anyway'), self::ACTION_MIGRATE),
+-                ],
+-            ]);
+-        }
+-
+-        // Did we install new versions of things?
+-        if (!empty($this->data['install'])) {
+-            return $this->sendNextAction(self::ACTION_REVERT);
+-        }
+-
+-        return $this->sendFinished([
+-            'status' => Craft::t('app', 'The database was restored successfully.'),
+-        ]);
++        throw new NotSupportedException('Restoring the database is no longer supported.');
+     }
+ 
+     /**
+@@ -206,7 +183,7 @@ class UpdaterController extends BaseUpdaterController
+             $handles = array_merge($this->data['migrate']);
+         }
+ 
+-        return $this->runMigrations($handles, self::ACTION_RESTORE_DB) ?? $this->sendFinished();
++        return $this->runMigrations($handles) ?? $this->sendFinished();
+     }
+ 
+     /**
+@@ -343,7 +320,6 @@ class UpdaterController extends BaseUpdaterController
+         return match ($action) {
+             self::ACTION_FORCE_UPDATE => Craft::t('app', 'Updating…'),
+             self::ACTION_BACKUP => Craft::t('app', 'Backing-up database…'),
+-            self::ACTION_RESTORE_DB => Craft::t('app', 'Restoring database…'),
+             self::ACTION_MIGRATE => Craft::t('app', 'Updating database…'),
+             self::ACTION_REVERT => Craft::t('app', 'Reverting update (this may take a minute)…'),
+             self::ACTION_SERVER_CHECK => Craft::t('app', 'Checking server requirements…'),
+diff --git a/src/translations/en/app.php b/src/translations/en/app.php
+index 3577795..eef31a7 100644
+--- a/src/translations/en/app.php
++++ b/src/translations/en/app.php
+@@ -366,7 +366,6 @@ return [
+     'Couldn’t load CMS editions.' => 'Couldn’t load CMS editions.',
+     'Couldn’t load active trials.' => 'Couldn’t load active trials.',
+     'Couldn’t reorder items.' => 'Couldn’t reorder items.',
+-    'Couldn’t restore the database. How would you like to proceed?' => 'Couldn’t restore the database. How would you like to proceed?',
+     'Couldn’t save address fields.' => 'Couldn’t save address fields.',
+     'Couldn’t save email settings.' => 'Couldn’t save email settings.',
+     'Couldn’t save entry type.' => 'Couldn’t save entry type.',
+@@ -1229,9 +1228,7 @@ return [
+     'Response:' => 'Response:',
+     'Restart job' => 'Restart job',
+     'Restart' => 'Restart',
+-    'Restore database' => 'Restore database',
+     'Restore' => 'Restore',
+-    'Restoring database…' => 'Restoring database…',
+     'Restrict allowed file types' => 'Restrict allowed file types',
+     'Restrict assets to a single location' => 'Restrict assets to a single location',
+     'Retry Duration' => 'Retry Duration',
+@@ -1474,7 +1471,6 @@ return [
+     'The base URL to the files in this filesystem.' => 'The base URL to the files in this filesystem.',
+     'The base folder path that should be used as the root of the filesystem.' => 'The base folder path that should be used as the root of the filesystem.',
+     'The command to run Sendmail with.' => 'The command to run Sendmail with.',
+-    'The database was restored successfully.' => 'The database was restored successfully.',
+     'The developer recommends using <a href="{url}">{name}</a> instead.' => 'The developer recommends using <a href="{url}">{name}</a> instead.',
+     'The draft could not be saved.' => 'The draft could not be saved.',
+     'The draft has been saved.' => 'The draft has been saved.',

@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-6rgh-r6j3-3223",
+    "cve":  "CVE-2024-47049",
+    "cwe":  "CWE-22",
+    "repo":  "czim/file-handling",
+    "sha":  "95dfda850536bf35e684619598b9d02f4c97680d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Contracts/Support/UriValidatorInterface.php",
+                        "src/Exceptions/UriNotAllowedOnRetrieveRemoteFileException.php",
+                        "src/Storage/File/StorableFileFactory.php",
+                        "src/Support/Content/UploadedContentInterpreter.php",
+                        "src/Support/Download/UriValidator.php",
+                        "tests/Unit/Storage/File/StorableFileFactoryTest.php",
+                        "tests/Unit/Support/Download/UriValidatorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "tests/Unit/Storage/File/StorableFileFactoryTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/Contracts/Support/UriValidatorInterface.php",
+                        "src/Exceptions/UriNotAllowedOnRetrieveRemoteFileException.php",
+                        "src/Storage/File/StorableFileFactory.php",
+                        "src/Support/Content/UploadedContentInterpreter.php",
+                        "src/Support/Download/UriValidator.php",
+                        "tests/Unit/Storage/File/StorableFileFactoryTest.php",
+                        "tests/Unit/Support/Download/UriValidatorTest.php"
+                    ],
+    "sink_hit":  true
+}

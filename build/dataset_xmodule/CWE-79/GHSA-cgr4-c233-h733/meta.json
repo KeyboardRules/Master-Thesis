@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cgr4-c233-h733",
+    "cve":  "CVE-2024-52305",
+    "cwe":  "CWE-79",
+    "repo":  "unopim/unopim",
+    "fix_commit":  "9a0da7a0892c60f58df2351b5a9498dcb4cb8b7a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/Webkul/Installer/src/Console/Commands/DefaultUser.php"
+                    ],
+    "evidence":  [
+                     "packages/Webkul/Installer/src/Console/Commands/DefaultUser.php class extends Command"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

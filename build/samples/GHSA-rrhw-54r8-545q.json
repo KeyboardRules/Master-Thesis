@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-rrhw-54r8-545q",
+    "cve":  "CVE-2022-1850",
+    "cwe":  "CWE-22",
+    "repo":  "filegator/filegator",
+    "sha":  "6e2b68f17f48cdc1d6a4a93a2369d2069fe64989",
+    "status":  "ok",
+    "changed_php":  [
+                        "backend/Services/Storage/Filesystem.php",
+                        "tests/backend/Unit/FilesystemTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/backend/Unit/FilesystemTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "backend/Services/Storage/Filesystem.php",
+                        "tests/backend/Unit/FilesystemTest.php"
+                    ],
+    "sink_hit":  true
+}

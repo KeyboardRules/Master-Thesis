@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-4ccx-wjqp-5fww",
+    "cve":  "CVE-2017-16759",
+    "cwe":  "CWE-22",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "7887b2e1c7158204ac69ca43beafce66e4d3a3b4",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "html/install.php",
+                        "includes/dbFacile.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "html/install.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

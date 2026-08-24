@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-rw5h-g8xq-6877",
+    "cve":  "CVE-2024-45803",
+    "cwe":  "CWE-79",
+    "repo":  "wireui/wireui",
+    "fix_commit":  "784c4f110e58eb41d0f2bdecd4655ea417f16e7e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Http/Controllers/ButtonController.php",
+                        "src/Http/Requests/ButtonRequest.php",
+                        "src/Support/BladeCompiler.php",
+                        "src/Support/SafeEval.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "src/Http/Controllers/ButtonController.php class extends Controller",
+                     "src/Http/Requests/ButtonRequest.php class extends FormRequest",
+                     "tests/Unit/Controllers/ButtonControllerTest.php class extends UnitTestCase",
+                     "tests/Unit/SafeEvalTest.php class extends UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

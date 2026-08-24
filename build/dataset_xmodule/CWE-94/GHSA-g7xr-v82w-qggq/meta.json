@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g7xr-v82w-qggq",
+    "cve":  "CVE-2021-41749",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "fix_commit":  "3fee7d50147cdf3f999cfc1e04cbc3fb3d9f2f7d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/services/Helper.php"
+                    ],
+    "evidence":  [
+                     "src/services/Helper.php class extends Component"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

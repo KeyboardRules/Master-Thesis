@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-r4f8-f93x-5qh3",
+    "cve":  "CVE-2023-24814",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "0005a6fd86ab97eff8bf2e3a5828bf0e7cb6263a",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Core/SystemEnvironmentBuilder.php",
+                        "typo3/sysext/core/Classes/Http/NormalizedParams.php",
+                        "typo3/sysext/core/Classes/Utility/GeneralUtility.php",
+                        "typo3/sysext/frontend/Classes/Controller/TypoScriptFrontendController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "typo3/sysext/core/Classes/Core/SystemEnvironmentBuilder.php includes 1 project file(s)",
+                     "typo3/sysext/core/Tests/Acceptance/Support/Extension/ApplicationEnvironment.php class extends BackendEnvironment",
+                     "typo3/sysext/core/Tests/Unit/Http/NormalizedParamsTest.php class extends UnitTestCase",
+                     "typo3/sysext/core/Tests/Unit/Log/Processor/WebProcessorTest.php class extends UnitTestCase",
+                     "typo3/sysext/felogin/Tests/Unit/Validation/RedirectUrlValidatorTest.php class extends UnitTestCase",
+                     "typo3/sysext/frontend/Classes/Controller/TypoScriptFrontendController.php class uses trait",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

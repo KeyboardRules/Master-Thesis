@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h6wm-mr85-4h9g",
+    "cve":  "CVE-2022-2066",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "sha":  "73a6595ca85984d65f656c6356fabb23d1936c54",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/App/AppController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Core/App/AppController.php class extends App"
+                 ],
+    "changed_all":  [
+                        "Core/App/AppController.php"
+                    ],
+    "sink_hit":  true
+}

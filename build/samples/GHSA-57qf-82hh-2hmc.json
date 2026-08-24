@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-57qf-82hh-2hmc",
+    "cve":  "CVE-2022-0502",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "d3b107aaa8ec10816acc762d60e7321079c21706",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhchat/cannedmsgform.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhuser/parts/canned_messages.tpl.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhchat/cannedmsgform.tpl.php includes 11 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhuser/parts/canned_messages.tpl.php includes 17 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lhc_web/design/defaulttheme/tpl/lhchat/cannedmsgform.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhuser/parts/canned_messages.tpl.php"
+                    ],
+    "sink_hit":  true
+}

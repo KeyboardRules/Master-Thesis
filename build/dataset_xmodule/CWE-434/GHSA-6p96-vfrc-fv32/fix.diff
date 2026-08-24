@@ -1,0 +1,49 @@
+﻿diff --git a/php/elFinder.class.php b/php/elFinder.class.php
+index 56f10da..7c959df 100644
+--- a/php/elFinder.class.php
++++ b/php/elFinder.class.php
+@@ -766,6 +766,25 @@ class elFinder
+             $this->utf8Encoder = $opts['utf8Encoder'];
+         }
+ 
++        // for LocalFileSystem driver on Windows server
++        if (DIRECTORY_SEPARATOR !== '/') {
++            if (empty($opts['bind'])) {
++                $opts['bind'] = array();
++            }
++
++            $_key = 'upload.pre mkdir.pre mkfile.pre rename.pre archive.pre ls.pre';
++            if (!isset($opts['bind'][$_key])) {
++                $opts['bind'][$_key] = array();
++            }
++            array_push($opts['bind'][$_key], 'Plugin.WinRemoveTailDots.cmdPreprocess');
++
++            $_key = 'upload.presave paste.copyfrom';
++            if (!isset($opts['bind'][$_key])) {
++                $opts['bind'][$_key] = array();
++            }
++            array_push($opts['bind'][$_key], 'Plugin.WinRemoveTailDots.onUpLoadPreSave');
++        }
++
+         // bind events listeners
+         if (!empty($opts['bind']) && is_array($opts['bind'])) {
+             $_req = $_SERVER["REQUEST_METHOD"] == 'POST' ? $_POST : $_GET;
+diff --git a/php/elFinderVolumeLocalFileSystem.class.php b/php/elFinderVolumeLocalFileSystem.class.php
+index c1a022f..12db2dc 100644
+--- a/php/elFinderVolumeLocalFileSystem.class.php
++++ b/php/elFinderVolumeLocalFileSystem.class.php
+@@ -265,6 +265,14 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver
+         }
+ 
+         $this->statOwner = (!empty($this->options['statOwner']));
++
++        // enable WinRemoveTailDots plugin on Windows server
++        if (DIRECTORY_SEPARATOR !== '/') {
++            if (!isset($this->options['plugin'])) {
++                $this->options['plugin'] = array();
++            }
++            $this->options['plugin']['WinRemoveTailDots'] = array('enable' => true);
++        }
+     }
+ 
+     /**

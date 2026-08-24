@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-8274-h5jp-97vr",
+    "cve":  "CVE-2022-31109",
+    "cwe":  "CWE-79",
+    "repo":  "laminas/laminas-diactoros",
+    "fix_commit":  "25b11d422c2e5dad868f68619888763b30f91e2d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/ConfigProvider.php",
+                        "src/ServerRequestFactory.php",
+                        "src/functions/marshal_uri_from_sapi.php"
+                    ],
+    "evidence":  [
+                     "fix touches 13 php files",
+                     "test/ServerRequestFactoryTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

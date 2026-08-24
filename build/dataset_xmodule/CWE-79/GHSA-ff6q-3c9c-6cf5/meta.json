@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-ff6q-3c9c-6cf5",
+    "cve":  "CVE-2024-53277",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "74904f539347b7d1f8c5b5fb9e28d62ff251ee00",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Forms/FormMessage.php",
+                        "src/Forms/HTMLEditor/HTMLEditorSanitiser.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Forms/HTMLEditor/HTMLEditorSanitiser.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

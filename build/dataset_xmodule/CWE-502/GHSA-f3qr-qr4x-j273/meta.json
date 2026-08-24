@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f3qr-qr4x-j273",
+    "cve":  "CVE-2024-25117",
+    "cwe":  "CWE-502",
+    "repo":  "dompdf/php-svg-lib",
+    "fix_commit":  "732faa9fb4309221e2bd9b2fda5de44f947133aa",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Svg/Tag/Image.php"
+                    ],
+    "evidence":  [
+                     "src/Svg/Tag/Image.php class extends AbstractTag"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

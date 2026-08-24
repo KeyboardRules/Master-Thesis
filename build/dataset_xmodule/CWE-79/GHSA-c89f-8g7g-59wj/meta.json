@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-c89f-8g7g-59wj",
+    "cve":  "CVE-2025-68614",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "ebe6c79bf4ce0afeb575c1285afe3934e44001f1",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/html/api_functions.inc.php",
+                        "includes/html/modal/alert_rule_list.inc.php",
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/html/print-alert-rules.php includes 6 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

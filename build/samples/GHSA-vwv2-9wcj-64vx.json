@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-vwv2-9wcj-64vx",
+    "cve":  "CVE-2024-22075",
+    "cwe":  "CWE-79",
+    "repo":  "firefly-iii/firefly-iii",
+    "sha":  "28021aa711500bbada649de8fab9e72b4084ab21",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Services/Internal/Update/JournalUpdateService.php",
+                        "app/Support/Binder/Date.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Services/Internal/Update/JournalUpdateService.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Services/Internal/Update/JournalUpdateService.php",
+                        "app/Support/Binder/Date.php",
+                        "public/v1/js/webhooks/edit.js",
+                        "resources/assets/js/components/webhooks/Edit.vue"
+                    ],
+    "sink_hit":  false
+}

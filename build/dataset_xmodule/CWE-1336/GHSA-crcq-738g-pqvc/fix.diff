@@ -1,0 +1,12 @@
+﻿diff --git a/src/web/twig/Extension.php b/src/web/twig/Extension.php
+index cba414c..5efdd4a 100644
+--- a/src/web/twig/Extension.php
++++ b/src/web/twig/Extension.php
+@@ -122,6 +122,7 @@ class Extension extends AbstractExtension implements GlobalsInterface
+                 'file_get_contents',
+                 'file_put_contents',
+                 'popen',
++                'call_user_func',
+             ])
+         ) {
+             throw new RuntimeError(sprintf('The "%s" %s does not support passing "%s".', $thing, $type, $arrow));

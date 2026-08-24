@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j5v7-9xr5-m7gx",
+    "cve":  "CVE-2015-8759",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "25a1473907f0f4b2bb0147c661981940c57a4555",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php"
+                    ],
+    "sink_hit":  true
+}

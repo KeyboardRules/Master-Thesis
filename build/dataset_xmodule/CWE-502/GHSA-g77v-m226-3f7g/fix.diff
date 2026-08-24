@@ -1,0 +1,372 @@
+﻿diff --git a/admin_domains.php b/admin_domains.php
+index f731d59..c2804a1 100644
+--- a/admin_domains.php
++++ b/admin_domains.php
+@@ -528,7 +528,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 
+ 				$ipandports = array();
+ 				if (isset($_POST['ipandport']) && ! is_array($_POST['ipandport'])) {
+-					$_POST['ipandport'] = unserialize($_POST['ipandport']);
++					$_POST['ipandport'] = json_decode($_POST['ipandport'], true);
+ 				}
+ 
+ 				if (isset($_POST['ipandport']) && is_array($_POST['ipandport'])) {
+@@ -564,7 +564,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 
+ 					$ssl_ipandports = array();
+ 					if (isset($_POST['ssl_ipandport']) && ! is_array($_POST['ssl_ipandport'])) {
+-						$_POST['ssl_ipandport'] = unserialize($_POST['ssl_ipandport']);
++						$_POST['ssl_ipandport'] = json_decode($_POST['ssl_ipandport'], true);
+ 					}
+ 
+ 					// Verify SSL-Ports
+@@ -606,7 +606,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 						$ssl_redirect = 0;
+ 						$letsencrypt = 0;
+ 						$http2 = 0;
+-						// we need this for the serialize
++						// we need this for the json-encode
+ 						// if ssl is disabled or no ssl-ip/port exists
+ 						$ssl_ipandports[] = - 1;
+ 
+@@ -622,7 +622,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 					$ssl_redirect = 0;
+ 					$letsencrypt = 0;
+ 					$http2 = 0;
+-					// we need this for the serialize
++					// we need this for the json-encode
+ 					// if ssl is disabled or no ssl-ip/port exists
+ 					$ssl_ipandports[] = - 1;
+ 
+@@ -692,7 +692,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 					}
+ 
+ 					if (count($ssl_ipandports) == 0) {
+-						// we need this for the serialize
++						// we need this for the json-encode
+ 						// if ssl is disabled or no ssl-ip/port exists
+ 						$ssl_ipandports[] = - 1;
+ 					}
+@@ -794,9 +794,9 @@ if ($page == 'domains' || $page == 'overview') {
+ 						'dkim' => $dkim,
+ 						'speciallogfile' => $speciallogfile,
+ 						'selectserveralias' => $serveraliasoption,
+-						'ipandport' => serialize($ipandports),
++						'ipandport' => json_encode($ipandports),
+ 						'ssl_redirect' => $ssl_redirect,
+-						'ssl_ipandport' => serialize($ssl_ipandports),
++						'ssl_ipandport' => json_encode($ssl_ipandports),
+ 						'phpenabled' => $phpenabled,
+ 						'openbasedir' => $openbasedir,
+ 						'phpsettingid' => $phpsettingid,
+@@ -1420,7 +1420,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 
+ 				$ipandports = array();
+ 				if (isset($_POST['ipandport']) && ! is_array($_POST['ipandport'])) {
+-					$_POST['ipandport'] = unserialize($_POST['ipandport']);
++					$_POST['ipandport'] = json_decode($_POST['ipandport'], true);
+ 				}
+ 				if (isset($_POST['ipandport']) && is_array($_POST['ipandport'])) {
+ 
+@@ -1466,7 +1466,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 
+ 					$ssl_ipandports = array();
+ 					if (isset($_POST['ssl_ipandport']) && ! is_array($_POST['ssl_ipandport'])) {
+-						$_POST['ssl_ipandport'] = unserialize($_POST['ssl_ipandport']);
++						$_POST['ssl_ipandport'] = json_decode($_POST['ssl_ipandport'], true);
+ 					}
+ 					if (isset($_POST['ssl_ipandport']) && is_array($_POST['ssl_ipandport'])) {
+ 
+@@ -1494,7 +1494,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 						$ssl_redirect = 0;
+ 						$letsencrypt = 0;
+ 						$http2 = 0;
+-						// we need this for the serialize
++						// we need this for the json-encode
+ 						// if ssl is disabled or no ssl-ip/port exists
+ 						$ssl_ipandports[] = - 1;
+ 
+@@ -1510,7 +1510,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 					$ssl_redirect = 0;
+ 					$letsencrypt = 0;
+ 					$http2 = 0;
+-					// we need this for the serialize
++					// we need this for the json-encode
+ 					// if ssl is disabled or no ssl-ip/port exists
+ 					$ssl_ipandports[] = - 1;
+ 
+@@ -1603,7 +1603,7 @@ if ($page == 'domains' || $page == 'overview') {
+ 					}
+ 
+ 					if (count($ssl_ipandports) == 0) {
+-						// we need this for the serialize
++						// we need this for the json-encode
+ 						// if ssl is disabled or no ssl-ip/port exists
+ 						$ssl_ipandports[] = - 1;
+ 					}
+@@ -1668,8 +1668,8 @@ if ($page == 'domains' || $page == 'overview') {
+ 					'issubof' => $issubof,
+ 					'speciallogfile' => $speciallogfile,
+ 					'speciallogverified' => $speciallogverified,
+-					'ipandport' => serialize($ipandports),
+-					'ssl_ipandport' => serialize($ssl_ipandports),
++					'ipandport' => json_encode($ipandports),
++					'ssl_ipandport' => json_encode($ssl_ipandports),
+ 					'letsencrypt' => $letsencrypt,
+ 					'http2' => $http2,
+ 					'hsts_maxage' => $hsts_maxage,
+diff --git a/customer_extras.php b/customer_extras.php
+index 5800805..5ef3cb6 100644
+--- a/customer_extras.php
++++ b/customer_extras.php
+@@ -563,7 +563,7 @@ if ($page == 'overview') {
+ 			$existing_backupJob = null;
+ 			while ($entry = $sel_stmt->fetch())
+ 			{
+-				$data = unserialize($entry['data']);
++				$data = json_decode($entry['data'], true);
+ 				if ($data['customerid'] == $userinfo['customerid']) {
+ 					$existing_backupJob = $entry;
+ 					break;
+@@ -613,7 +613,7 @@ if ($page == 'overview') {
+ 
+ 				if (!empty($existing_backupJob)) {
+ 					$action = "abort";
+-					$row = unserialize($entry['data']);
++					$row = json_decode($entry['data'], true);
+ 					$row['path'] = makeCorrectDir(str_replace($userinfo['documentroot'], "/", $row['destdir']));
+ 					$row['backup_web'] = ($row['backup_web'] == '1') ? $lng['panel']['yes'] : $lng['panel']['no'];
+ 					$row['backup_mail'] = ($row['backup_mail'] == '1') ? $lng['panel']['yes'] : $lng['panel']['no'];
+diff --git a/dns_editor.php b/dns_editor.php
+index 98a4d68..75b5978 100644
+--- a/dns_editor.php
++++ b/dns_editor.php
+@@ -208,7 +208,7 @@ if ($action == 'add_record' && ! empty($_POST)) {
+ 
+ 	// check for duplicate
+ 	foreach ($dom_entries as $existing_entry) {
+-		// compare serialized string of array
++		// compare json-encoded string of array
+ 		$check_entry = $existing_entry;
+ 		// new entry has no ID yet
+ 		unset($check_entry['id']);
+@@ -218,9 +218,9 @@ if ($action == 'add_record' && ! empty($_POST)) {
+ 		$check_entry['prio'] = (int) $check_entry['prio'];
+ 		$check_entry['ttl'] = (int) $check_entry['ttl'];
+ 		$check_entry['domain_id'] = (int) $check_entry['domain_id'];
+-		// serialize both
+-		$check_entry = serialize($check_entry);
+-		$new = serialize($new_entry);
++		// encode both
++		$check_entry = json_encode($check_entry);
++		$new = json_encode($new_entry);
+ 		// compare
+ 		if ($check_entry === $new) {
+ 			$errors[] = $lng['error']['dns_duplicate_entry'];
+diff --git a/install/lib/class.FroxlorInstall.php b/install/lib/class.FroxlorInstall.php
+index 1cbbd7c..598bf66 100644
+--- a/install/lib/class.FroxlorInstall.php
++++ b/install/lib/class.FroxlorInstall.php
+@@ -1015,6 +1015,16 @@ class FroxlorInstall
+ 			$content .= $this->_status_message('green', $this->_lng['requirements']['installed']);
+ 		}
+ 		
++		// check for json extension
++		$content .= $this->_status_message('begin', $this->_lng['requirements']['phpjson']);
++
++		if (! extension_loaded('json')) {
++			$content .= $this->_status_message('red', $this->_lng['requirements']['notinstalled']);
++			$_die = true;
++		} else {
++			$content .= $this->_status_message('green', $this->_lng['requirements']['installed']);
++		}
++
+ 		// check for bcmath extension
+ 		$content .= $this->_status_message('begin', $this->_lng['requirements']['phpbcmath']);
+ 		
+@@ -1033,15 +1043,6 @@ class FroxlorInstall
+ 			$content .= $this->_status_message('green', $this->_lng['requirements']['installed']);
+ 		}
+ 
+-		// check for json extension
+-		$content .= $this->_status_message('begin', $this->_lng['requirements']['phpjson']);
+-		
+-		if (! extension_loaded('json')) {
+-			$content .= $this->_status_message('orange', $this->_lng['requirements']['notinstalled'] . "<br />" . $this->_lng['requirements']['jsondescription']);
+-		} else {
+-			$content .= $this->_status_message('green', $this->_lng['requirements']['installed']);
+-		}
+-
+ 		// check for open_basedir
+ 		$content .= $this->_status_message('begin', $this->_lng['requirements']['openbasedir']);
+ 		$php_ob = @ini_get("open_basedir");
+diff --git a/install/lng/english.lng.php b/install/lng/english.lng.php
+index 8651bb8..a4cea2d 100644
+--- a/install/lng/english.lng.php
++++ b/install/lng/english.lng.php
+@@ -38,7 +38,6 @@ $lng['requirements']['phpzip'] = 'PHP zip-extension...';
+ $lng['requirements']['phpjson'] = 'PHP json-extension...';
+ $lng['requirements']['bcmathdescription'] = 'Traffic-calculation related functions will not work correctly!';
+ $lng['requirements']['zipdescription'] = 'The auto-update feature requires the zip extension.';
+-$lng['requirements']['jsondescription'] = 'The settings import/export feature requires the json extension.';
+ $lng['requirements']['openbasedir'] = 'open_basedir...';
+ $lng['requirements']['openbasedirenabled'] = 'Froxlor will not work properly with open_basedir enabled. Please disable open_basedir for Froxlor in the coresponding php.ini';
+ $lng['requirements']['diedbecauseofrequirements'] = 'Cannot install Froxlor without these requirements! Try to fix them and retry.';
+diff --git a/install/lng/german.lng.php b/install/lng/german.lng.php
+index d18e94c..4e4638d 100644
+--- a/install/lng/german.lng.php
++++ b/install/lng/german.lng.php
+@@ -38,7 +38,6 @@ $lng['requirements']['phpzip'] = 'PHP zip-Erweiterung...';
+ $lng['requirements']['phpjson'] = 'PHP json-Erweiterung...';
+ $lng['requirements']['bcmathdescription'] = 'Traffic-Berechnungs bezogene Funktionen stehen nicht vollständig zur Verfügung!';
+ $lng['requirements']['zipdescription'] = 'Die Auto-Update Funktion benötigt die zip Erweiterung.';
+-$lng['requirements']['jsondescription'] = 'Die Einstellungen Import/Export Funktion benötigt die json Erweiterung.';
+ $lng['requirements']['openbasedir'] = 'open_basedir genutzt wird...';
+ $lng['requirements']['openbasedirenabled'] = 'Froxlor wird mit aktiviertem open_basedir nicht vollständig funktionieren. Bitte deaktivieren Sie open_basedir für Froxlor in der entsprechenden php.ini';
+ $lng['requirements']['diedbecauseofrequirements'] = 'Kann Froxlor ohne diese Voraussetzungen nicht installieren! Beheben Sie die angezeigten Probleme und versuchen Sie es erneut.';
+diff --git a/install/updates/froxlor/0.9/update_0.9.inc.php b/install/updates/froxlor/0.9/update_0.9.inc.php
+index e5e3c60..17432b9 100644
+--- a/install/updates/froxlor/0.9/update_0.9.inc.php
++++ b/install/updates/froxlor/0.9/update_0.9.inc.php
+@@ -3968,3 +3968,33 @@ if (isDatabaseVersion('201805240')) {
+ 
+ 	updateToDbVersion('201805241');
+ }
++
++if (isDatabaseVersion('201805241')) {
++
++	$do_update = true;
++	showUpdateStep("Checking for required PHP json-extension");
++	if (! extension_loaded('json')) {
++		$do_update = false;
++		lastStepStatus(2, 'not installed');
++	} else {
++		lastStepStatus(0);
++
++		showUpdateStep("Checking for current cronjobs that need converting");
++		$result_tasks_stmt = Database::query("
++			SELECT * FROM `" . TABLE_PANEL_TASKS . "` ORDER BY `id` ASC
++		");
++		$upd_stmt = Database::prepare("UPDATE `" . TABLE_PANEL_TASKS . "` SET `data` = :data WHERE `id` = :taskid");
++		while ($row = $result_tasks_stmt->fetch(PDO::FETCH_ASSOC)) {
++			if (! empty($row['data'])) {
++				$data = unserialize($row['data']);
++				Database::pexecute($upd_stmt, array(
++					'data' => json_encode($data),
++					'taskid' => $row['id']
++				));
++			}
++		}
++		lastStepStatus(0);
++
++		updateToDbVersion('201805290');
++	}
++}
+diff --git a/lib/classes/output/class.paging.php b/lib/classes/output/class.paging.php
+index 8ee2bc2..64643b7 100644
+--- a/lib/classes/output/class.paging.php
++++ b/lib/classes/output/class.paging.php
+@@ -114,7 +114,7 @@ class paging {
+ 		$this->userinfo = $userinfo;
+ 
+ 		if (!is_array($this->userinfo['lastpaging'])) {
+-			$this->userinfo['lastpaging'] = unserialize($this->userinfo['lastpaging']);
++			$this->userinfo['lastpaging'] = json_decode($this->userinfo['lastpaging'], true);
+ 		}
+ 
+ 		$this->table = $table;
+@@ -224,7 +224,7 @@ class paging {
+ 			AND `adminsession` = :adminsession
+ 		");
+ 		$upd_data = array(
+-			'lastpaging' => serialize($this->userinfo['lastpaging']),
++			'lastpaging' => json_encode($this->userinfo['lastpaging']),
+ 			'hash' => $userinfo['hash'],
+ 			'userid' => $userinfo['userid'],
+ 			'ipaddr' => $userinfo['ipaddress'],
+diff --git a/lib/functions/froxlor/function.CronjobFunctions.php b/lib/functions/froxlor/function.CronjobFunctions.php
+index a2c0978..0b5f80f 100644
+--- a/lib/functions/froxlor/function.CronjobFunctions.php
++++ b/lib/functions/froxlor/function.CronjobFunctions.php
+@@ -63,7 +63,7 @@ function getOutstandingTasks() {
+ 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+ 
+ 		if ($row['data'] != '') {
+-			$row['data'] = unserialize($row['data']);
++			$row['data'] = json_decode($row['data'], true);
+ 		}
+ 
+ 		// rebuilding webserver-configuration
+diff --git a/lib/functions/froxlor/function.inserttask.php b/lib/functions/froxlor/function.inserttask.php
+index 3f2cdbd..705bf77 100644
+--- a/lib/functions/froxlor/function.inserttask.php
++++ b/lib/functions/froxlor/function.inserttask.php
+@@ -70,7 +70,7 @@ function inserttask($type, $param1 = '', $param2 = '', $param3 = '', $param4 = '
+ 		$data['uid'] = $param2;
+ 		$data['gid'] = $param3;
+ 		$data['store_defaultindex'] = $param4;
+-		$data = serialize($data);
++		$data = json_encode($data);
+ 		Database::pexecute($ins_stmt, array('type' => '2', 'data' => $data));
+ 
+ 	} elseif ($type == '6'
+@@ -78,7 +78,7 @@ function inserttask($type, $param1 = '', $param2 = '', $param3 = '', $param4 = '
+ 	) {
+ 		$data = array();
+ 		$data['loginname'] = $param1;
+-		$data = serialize($data);
++		$data = json_encode($data);
+ 		Database::pexecute($ins_stmt, array('type' => '6', 'data' => $data));
+ 
+ 	} elseif ($type == '7'
+@@ -88,7 +88,7 @@ function inserttask($type, $param1 = '', $param2 = '', $param3 = '', $param4 = '
+ 		$data = array();
+ 		$data['loginname'] = $param1;
+ 		$data['email'] = $param2;
+-		$data = serialize($data);
++		$data = json_encode($data);
+ 		Database::pexecute($ins_stmt, array('type' => '7', 'data' => $data));
+ 
+ 	} elseif ($type == '8'
+@@ -98,13 +98,13 @@ function inserttask($type, $param1 = '', $param2 = '', $param3 = '', $param4 = '
+ 		$data = array();
+ 		$data['loginname'] = $param1;
+ 		$data['homedir'] = $param2;
+-		$data = serialize($data);
++		$data = json_encode($data);
+ 		Database::pexecute($ins_stmt, array('type' => '8', 'data' => $data));
+ 
+ 	} elseif ($type == '20'
+ 		&& is_array($param1)
+ 	) {
+-		$data = serialize($param1);
++		$data = json_encode($param1);
+ 		Database::pexecute($ins_stmt, array('type' => '20', 'data' => $data));
+ 	}
+ }
+diff --git a/scripts/jobs/cron_backup.php b/scripts/jobs/cron_backup.php
+index b01fe1e..131a200 100644
+--- a/scripts/jobs/cron_backup.php
++++ b/scripts/jobs/cron_backup.php
+@@ -79,7 +79,7 @@ $all_jobs = $result_tasks_stmt->fetchAll();
+ foreach ($all_jobs as $row) {
+ 
+ 	if ($row['data'] != '') {
+-		$row['data'] = unserialize($row['data']);
++		$row['data'] = json_decode($row['data'], true);
+ 	}
+ 
+ 	if (is_array($row['data'])) {
+diff --git a/scripts/jobs/cron_tasks.php b/scripts/jobs/cron_tasks.php
+index b7176a5..48cbbb6 100644
+--- a/scripts/jobs/cron_tasks.php
++++ b/scripts/jobs/cron_tasks.php
+@@ -43,7 +43,7 @@ while ($row = $result_tasks_stmt->fetch(PDO::FETCH_ASSOC)) {
+ 	$resultIDs[] = $row['id'];
+ 
+ 	if ($row['data'] != '') {
+-		$row['data'] = unserialize($row['data']);
++		$row['data'] = json_decode($row['data'], true);
+ 	}
+ 
+ 	/**

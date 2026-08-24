@@ -1,0 +1,96 @@
+﻿diff --git a/library/Zend/Json/Json.php b/library/Zend/Json/Json.php
+index 68a125f5..d461815a 100644
+--- a/library/Zend/Json/Json.php
++++ b/library/Zend/Json/Json.php
+@@ -12,6 +12,7 @@ namespace Zend\Json;
+ use SimpleXMLElement;
+ use Zend\Json\Exception\RecursionException;
+ use Zend\Json\Exception\RuntimeException;
++use Zend\Xml\Security as XmlSecurity;
+ 
+ /**
+  * Class for encoding to and decoding from JSON.
+@@ -311,10 +312,10 @@ class Json
+     public static function fromXml($xmlStringContents, $ignoreXmlAttributes = true)
+     {
+         // Load the XML formatted string into a Simple XML Element object.
+-        $simpleXmlElementObject = simplexml_load_string($xmlStringContents);
++        $simpleXmlElementObject = XmlSecurity::scan($xmlStringContents);
+ 
+         // If it is not a valid XML content, throw an exception.
+-        if ($simpleXmlElementObject == null) {
++        if (!$simpleXmlElementObject) {
+             throw new RuntimeException('Function fromXml was called with an invalid XML formatted string.');
+         } // End of if ($simpleXmlElementObject == null)
+ 
+diff --git a/library/Zend/XmlRpc/Fault.php b/library/Zend/XmlRpc/Fault.php
+index 7f85ad9f..9715bafd 100644
+--- a/library/Zend/XmlRpc/Fault.php
++++ b/library/Zend/XmlRpc/Fault.php
+@@ -10,6 +10,7 @@
+ namespace Zend\XmlRpc;
+ 
+ use SimpleXMLElement;
++use Zend\Xml\Security as XmlSecurity;
+ 
+ /**
+  * XMLRPC Faults
+@@ -180,10 +181,10 @@ class Fault
+ 
+         $xmlErrorsFlag = libxml_use_internal_errors(true);
+         try {
+-            $xml = new SimpleXMLElement($fault);
+-        } catch (\Exception $e) {
+-            // Not valid XML
+-            throw new Exception\InvalidArgumentException('Failed to parse XML fault: ' .  $e->getMessage(), 500, $e);
++            $xml = XmlSecurity::scan($fault);
++        } catch (\Zend\Xml\Exception\RuntimeException $e) {
++            // Unsecure XML
++            throw new Exception\RuntimeException('Failed to parse XML fault: ' .  $e->getMessage(), 500, $e);
+         }
+         if (!$xml instanceof SimpleXMLElement) {
+             $errors = libxml_get_errors();
+diff --git a/library/Zend/XmlRpc/Response.php b/library/Zend/XmlRpc/Response.php
+index eccd4d3e..ac7a3f39 100644
+--- a/library/Zend/XmlRpc/Response.php
++++ b/library/Zend/XmlRpc/Response.php
+@@ -9,6 +9,8 @@
+ 
+ namespace Zend\XmlRpc;
+ 
++use Zend\Xml\Security as XmlSecurity;
++
+ /**
+  * XmlRpc Response
+  *
+@@ -151,28 +153,9 @@ class Response
+             return false;
+         }
+ 
+-        // @see ZF-12293 - disable external entities for security purposes
+-        $loadEntities         = libxml_disable_entity_loader(true);
+-        $useInternalXmlErrors = libxml_use_internal_errors(true);
+         try {
+-            $dom = new \DOMDocument;
+-            $dom->loadXML($response);
+-            foreach ($dom->childNodes as $child) {
+-                if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+-                    throw new Exception\ValueException(
+-                        'Invalid XML: Detected use of illegal DOCTYPE'
+-                    );
+-                }
+-            }
+-            // TODO: Locate why this passes tests but a simplexml import doesn't
+-            //$xml = simplexml_import_dom($dom);
+-            $xml = new \SimpleXMLElement($response);
+-            libxml_disable_entity_loader($loadEntities);
+-            libxml_use_internal_errors($useInternalXmlErrors);
+-        } catch (\Exception $e) {
+-            libxml_disable_entity_loader($loadEntities);
+-            libxml_use_internal_errors($useInternalXmlErrors);
+-            // Not valid XML
++            $xml = XmlSecurity::scan($response);
++        } catch (\Zend\Xml\Exception\RuntimeException $e) {
+             $this->fault = new Fault(651);
+             $this->fault->setEncoding($this->getEncoding());
+             return false;

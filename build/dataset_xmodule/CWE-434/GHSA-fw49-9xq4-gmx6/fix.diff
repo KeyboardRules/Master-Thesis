@@ -1,0 +1,195 @@
+﻿diff --git a/modules/Theme/Controllers/Theme.php b/modules/Theme/Controllers/Theme.php
+index 74d13c0..f197fda 100644
+--- a/modules/Theme/Controllers/Theme.php
++++ b/modules/Theme/Controllers/Theme.php
+@@ -20,13 +20,53 @@ class Theme extends \Modules\Backend\Controllers\BaseController
+         $tempPath = WRITEPATH . 'tmp/' . str_replace('_theme.zip', '', $file->getName()) . '/';
+         $zip = new \ZipArchive();
+         if ($zip->open($file->getTempName()) === true) {
++            // ── Security: Pre-extraction validation ──────────────────────
++            // Allowed static file extensions for the public/ directory.
++            // PHP files MUST NOT be written under public/ (RCE prevention).
++            $allowedPublicExtensions = [
++                'css', 'js', 'map',
++                'png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'bmp', 'avif',
++                'woff', 'woff2', 'ttf', 'eot', 'otf',
++                'xml', 'json', 'txt', 'md',
++                'mp4', 'webm', 'ogg', 'mp3', 'wav',
++                'pdf',
++            ];
++
++            $forbiddenEntries = [];
++
+             for ($i = 0; $i < $zip->numFiles; $i++) {
+                 $entryName = $zip->getNameIndex($i);
+-                if (preg_match('/\.\./', $entryName)) {
++
++                // 1. Path traversal check (strengthened)
++                if (preg_match('/\.\.[\\/\\\\]/', $entryName) || preg_match('/^[\\/\\\\]/', $entryName)) {
+                     $zip->close();
+-                    return redirect()->route('backendThemes')->withInput()->with('errors', [lang('Theme.zipOpenFailed')]);
++                    return redirect()->route('backendThemes')->withInput()
++                        ->with('errors', [lang('Theme.pathTraversalDetected', [$entryName])]);
++                }
++
++                // 2. Forbidden file extension check for public/ directory
++                //    Skip directory entries (they end with /)
++                if (substr($entryName, -1) === '/') {
++                    continue;
++                }
++
++                // Normalize: check files destined for public/
++                $normalizedEntry = strtolower($entryName);
++                if (strpos($normalizedEntry, 'public/') === 0) {
++                    $ext = strtolower(pathinfo($entryName, PATHINFO_EXTENSION));
++                    if (!empty($ext) && !in_array($ext, $allowedPublicExtensions, true)) {
++                        $forbiddenEntries[] = $entryName;
++                    }
+                 }
+             }
++
++            if (!empty($forbiddenEntries)) {
++                $zip->close();
++                return redirect()->route('backendThemes')->withInput()
++                    ->with('errors', [lang('Theme.forbiddenFileInZip', [implode(', ', $forbiddenEntries)])]);
++            }
++            // ── End Security ─────────────────────────────────────────────
++
+             $zip->extractTo($tempPath);
+             $zip->close();
+         } else {
+diff --git a/modules/Theme/Helpers/themes_helper.php b/modules/Theme/Helpers/themes_helper.php
+index fee29bd..adedda6 100644
+--- a/modules/Theme/Helpers/themes_helper.php
++++ b/modules/Theme/Helpers/themes_helper.php
+@@ -28,6 +28,17 @@ if (!function_exists('findDuplicateSubfolders')) {
+             $baseApp    = rtrim(APPPATH, '/');
+             $basePublic = rtrim(ROOTPATH . 'public', '/');
+ 
++            // ── Security: Allowed extensions for public/ directory ──
++            $allowedPublicExtensions = [
++                'css', 'js', 'map',
++                'png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'bmp', 'avif',
++                'woff', 'woff2', 'ttf', 'eot', 'otf',
++                'xml', 'json', 'txt', 'md',
++                'mp4', 'webm', 'ogg', 'mp3', 'wav',
++                'pdf',
++            ];
++            // ── End Security ────────────────────────────────────────
++
+             $appFolders = ['Config', 'Controllers', 'Helpers', 'Libraries', 'Views', 'Database/Migrations'];
+ 
+             // folders under app
+@@ -42,14 +53,14 @@ if (!function_exists('findDuplicateSubfolders')) {
+                 $log = array_merge($log, smart_move($src, $dst));
+             }
+ 
+-            // Move public/assets
++            // Move public/assets (with extension filter)
+             $srcAssets = "$tmpPath/public/assets";
+             if (is_dir("$tmpPath/public/templates/$themeName/assets")) {
+                 $srcAssets = "$tmpPath/public/templates/$themeName/assets";
+             }
+ 
+             $dstAssets = "$basePublic/templates/$themeName/assets";
+-            $log = array_merge($log, smart_move($srcAssets, $dstAssets));
++            $log = array_merge($log, smart_move($srcAssets, $dstAssets, $allowedPublicExtensions));
+ 
+             // public root files (info.xml, screenshot.png etc.)
+             $publicSearchDir = "$tmpPath/public";
+@@ -60,6 +71,14 @@ if (!function_exists('findDuplicateSubfolders')) {
+             foreach (glob("$publicSearchDir/*.*") as $file) {
+                 if (is_dir($file) || basename($file) === 'assets') continue;
+ 
++                // ── Security: Filter public root files by extension ──
++                $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
++                if (!empty($ext) && !in_array($ext, $allowedPublicExtensions, true)) {
++                    $log[] = "⛔ Blocked (forbidden extension): " . basename($file);
++                    continue;
++                }
++                // ── End Security ─────────────────────────────────────
++
+                 $targetDir = "$basePublic/templates/$themeName";
+                 if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+ 
+@@ -73,7 +92,16 @@ if (!function_exists('findDuplicateSubfolders')) {
+     }
+ 
+     if (!function_exists('smart_move')) {
+-        function smart_move(string $source, string $target): array
++        /**
++         * Recursively move files from source to target directory.
++         *
++         * @param string     $source              Source directory path
++         * @param string     $target              Target directory path
++         * @param array|null $allowedExtensions    If provided, only files with these extensions will be moved.
++         *                                        This is used as a defense-in-depth measure for public/ directory writes.
++         * @return array     Log messages
++         */
++        function smart_move(string $source, string $target, ?array $allowedExtensions = null): array
+         {
+             $log = [];
+ 
+@@ -93,16 +121,26 @@ if (!function_exists('findDuplicateSubfolders')) {
+                 if ($fileInfo->isDir()) {
+                     if (!is_dir($toPath)) {
+                         mkdir($toPath, 0777, true);
+-                        $log[] = "📁 Folder created: $toPath"; // Optional log
++                        $log[] = "📁 Folder created: $toPath";
+                     }
+                 } else {
++                    // ── Security: Extension filter (defense-in-depth) ──
++                    if ($allowedExtensions !== null) {
++                        $ext = strtolower(pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION));
++                        if (!empty($ext) && !in_array($ext, $allowedExtensions, true)) {
++                            $log[] = "⛔ Blocked (forbidden extension): " . $fileInfo->getFilename();
++                            continue;
++                        }
++                    }
++                    // ── End Security ───────────────────────────────────
++
+                     $toDir = dirname($toPath);
+                     if (!is_dir($toDir)) {
+                         mkdir($toDir, 0777, true);
+                     }
+ 
+-                    rename($fileInfo->getPathname(), $toPath); // veya copy()
+-                    $log[] = "📄 Moved: " . $fileInfo->getFilename(); // Optional log
++                    rename($fileInfo->getPathname(), $toPath);
++                    $log[] = "📄 Moved: " . $fileInfo->getFilename();
+                 }
+             }
+ 
+@@ -156,7 +194,7 @@ if (!function_exists('findDuplicateSubfolders')) {
+                 $target = "$baseApp/$folder/templates/$themeName";
+                 if (is_dir($target)) {
+                     deleteFldr($target);
+-                    $log[] = lang('Theme.deleted', "app/$folder/templates/$themeName");
++                    $log[] = lang('Theme.deleted', ["app/$folder/templates/$themeName"]);
+                 }
+             }
+ 
+diff --git a/modules/Theme/Language/en/Theme.php b/modules/Theme/Language/en/Theme.php
+index 44b4d22..9d322e0 100644
+--- a/modules/Theme/Language/en/Theme.php
++++ b/modules/Theme/Language/en/Theme.php
+@@ -7,4 +7,6 @@ return [
+     'foldersWithSameNameHeader' => '<h3>Folders with the same name:</h3>',
+     'foldersWithSameNameMessage' => '<strong>{0}</strong> exists in the following folders:<ul>',
+     'foldersWithSameNameListItem' => '<li>{0}</li>',
++    'forbiddenFileInZip'          => 'Forbidden file type detected in the ZIP archive: {0}. Only static asset files (css, js, images, fonts, xml, json) are allowed under the public/ directory. PHP files are not permitted.',
++    'pathTraversalDetected'       => 'Potential path traversal attack detected in the ZIP archive entry: {0}',
+ ];
+diff --git a/modules/Theme/Language/tr/Theme.php b/modules/Theme/Language/tr/Theme.php
+index 3ef2b0e..bebae56 100644
+--- a/modules/Theme/Language/tr/Theme.php
++++ b/modules/Theme/Language/tr/Theme.php
+@@ -15,5 +15,7 @@ return [
+     'themeDeletedSuccessfully' => 'Tema başarıyla kaldırıldı.',
+     'themeActiveCannotDelete' => 'DİKKAT: Bu tema an itibariyle aktif! Lütfen önce başka bir temaya geçiş yapın.',
+     'noTablesFound' => 'Bu temaya ait hiçbir migration/veritabanı tablosu tespit edilemedi. Sadece tema dosyaları kaldırılacaktır.',
+-    'deleted'=>'Silindi : {0}'
++    'deleted'=>'Silindi : {0}',
++    'forbiddenFileInZip'          => 'ZIP arşivinde yasaklı dosya türü tespit edildi: {0}. public/ dizini altında yalnızca statik dosyalara (css, js, resimler, fontlar, xml, json) izin verilir. PHP dosyalarına izin verilmez.',
++    'pathTraversalDetected'       => 'ZIP arşiv girişinde olası dizin geçişi (path traversal) saldırısı tespit edildi: {0}',
+ ];

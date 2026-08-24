@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5fh3-25xr-g85h",
+    "cve":  "CVE-2021-4018",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "ff81e6d5366c2cfb15618793ad919ae4cbb3ac57",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Transformers/AccessoriesTransformer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Http/Transformers/AccessoriesTransformer.php"
+                    ],
+    "sink_hit":  true
+}

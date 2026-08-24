@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p4pj-9g59-4ppv",
+    "cve":  "CVE-2020-15143",
+    "cwe":  "CWE-74",
+    "repo":  "Sylius/SyliusResourceBundle",
+    "sha":  "73ed8b8bb083f36c30ad7c3cec336f65d6a80650",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Bundle/Controller/ParametersParser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Bundle/Controller/ParametersParser.php"
+                    ],
+    "sink_hit":  false
+}

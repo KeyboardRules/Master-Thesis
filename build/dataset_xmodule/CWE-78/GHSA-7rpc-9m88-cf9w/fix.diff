@@ -1,0 +1,486 @@
+﻿diff --git a/app/webroot/theme/admin-third/Installations/admin/step2.php b/app/webroot/theme/admin-third/Installations/admin/step2.php
+index ec2b6c41..545ccae1 100755
+--- a/app/webroot/theme/admin-third/Installations/admin/step2.php
++++ b/app/webroot/theme/admin-third/Installations/admin/step2.php
+@@ -388,7 +388,25 @@
+ 				</ul>
+ 			<?php endif ?>
+ 		</div>
++		
++		<div class="panel-box bca-panel-box corner10">
++			<h3 class="bca-panel-box__title"><?php echo __d('baser', '拡張モジュール') ?></h3>
++			<ul class="section">
++				<li class='<?php if ($zipOk) echo 'check'; else echo 'failed'; ?>'>
++					<?php echo __d('baser', 'Zip') ?><br/>
++					<div class="check-result">
++						<?php if ($zipOk): ?>
++							<?php echo __d('baser', '利用可') ?>
++						<?php else: ?>
++							<?php echo __d('baser', '利用不可') ?><br/>
++							<small><?php echo __d('baser', 'テーマなどのzipダウンロードが制限されます。') ?></small>
++						<?php endif ?>
++					</div>
++				</li>
++			</ul>
++		</div>
+ 	</div>
++		
+ 
+ 	<form action="<?php echo $this->request->base ?>/installations/step2" method="post" id="checkenv">
+ 		<?php echo $this->BcForm->hidden('clicked') ?>
+diff --git a/app/webroot/theme/admin-third/Tools/admin/log.php b/app/webroot/theme/admin-third/Tools/admin/log.php
+index 4ea9769f..689de5a1 100755
+--- a/app/webroot/theme/admin-third/Tools/admin/log.php
++++ b/app/webroot/theme/admin-third/Tools/admin/log.php
+@@ -16,11 +16,13 @@
+ ?>
+ 
+ 
++<?php if ($zipEnable): ?>
+ <div class="section bca-main__section">
+ 	<h2 class="bca-main__heading" data-bca-heading-size="lg"><?php echo __d('baser', 'ログ(エラーログ)の取得') ?></h2>
+ 	<p class="bca-main__text"><?php echo __d('baser', 'ログ(エラーログ)をPCにダウンロードします。') ?></p>
+ 	<p class="bca-main__text"><?php $this->BcBaser->link(__d('baser', 'ダウンロード'), ['download'], ['class' => 'button-small bca-btn', 'data-bca-btn-type' => 'download']) ?> </p>
+ </div>
++<?php endif; ?>
+ 
+ <div class="section bca-main__section">
+ 	<h2 class="bca-main__heading" data-bca-heading-size="lg"><?php echo __d('baser', 'エラーログの削除') ?></h2>
+diff --git a/lib/Baser/Config/setting.php b/lib/Baser/Config/setting.php
+index edb46329..778e60b9 100755
+--- a/lib/Baser/Config/setting.php
++++ b/lib/Baser/Config/setting.php
+@@ -478,6 +478,16 @@ $config['BcApp'] = [
+ 	'systemMessageLangFromSiteSetting' => true
+ ];
+ 
++/**
++ * Zipモジュールなし
++ */
++if (!extension_loaded('zip')) {
++	unset($config['BcApp']['adminNavigation']['Systems']['Theme']['menus']['ThemesDownload']);
++	unset($config['BcApp']['adminNavigation']['Systems']['Theme']['menus']['ThemesDownloadDefaultDataPattern']);
++	unset($config['BcApp']['adminNavigation']['Systems']['Tools']['menus']['ToolsMaintenance']);
++}
++
++
+ /**
+  * システム要件
+  */
+diff --git a/lib/Baser/Controller/Component/BcManagerComponent.php b/lib/Baser/Controller/Component/BcManagerComponent.php
+index c7e8451e..96f65763 100644
+--- a/lib/Baser/Controller/Component/BcManagerComponent.php
++++ b/lib/Baser/Controller/Component/BcManagerComponent.php
+@@ -1387,6 +1387,7 @@ class BcManagerComponent extends Component
+ 			'phpGd' => extension_loaded('gd'),
+ 			'phpPdo' => extension_loaded('pdo'),
+ 			'phpXml' => extension_loaded('xml'),
++			'phpZip' => extension_loaded('zip'),
+ 			'apacheRewrite' => $rewriteInstalled,
+ 		];
+ 		$check = [
+@@ -1394,6 +1395,7 @@ class BcManagerComponent extends Component
+ 			'gdOk' => $status['phpGd'],
+ 			'pdoOk' => $status['phpPdo'],
+ 			'xmlOk' => $status['phpXml'],
++			'zipOk' => $status['phpZip'],
+ 			'phpVersionOk' => version_compare(preg_replace('/[a-z-]/', '', $status['phpVersion']), Configure::read('BcRequire.phpVersion'), '>='),
+ 			'phpMemoryOk' => ((($status['phpMemory'] >= Configure::read('BcRequire.phpMemory')) || $status['phpMemory'] == -1) === true)
+ 		];
+diff --git a/lib/Baser/Controller/PagesController.php b/lib/Baser/Controller/PagesController.php
+index d99b25f7..f0944c74 100644
+--- a/lib/Baser/Controller/PagesController.php
++++ b/lib/Baser/Controller/PagesController.php
+@@ -410,8 +410,16 @@ class PagesController extends AppController
+ 			// POSTパラメータのコードに含まれるscriptタグをそのままHTMLに出力するとブラウザによりXSSと判定される
+ 			// 一度データをセッションに退避する
+ 			if ($this->BcContents->preview === 'default') {
++				// 入力validation
++				$check = ['content_tmp' => $this->request->data['Page']['contents_tmp']];
++				if (!$this->Page->containsScript($check)) {
++					$this->BcMessage->setError(__d('baser', '本稿欄でスクリプトの入力は許可されていません。'));
++					$this->notFound();
++				}
++				
+ 				$sessionKey = __CLASS__ . '_preview_default_' . $this->request->data['Content']['entity_id'];
+ 				$this->request->data = $this->Content->saveTmpFiles($this->request->data, mt_rand(0, 99999999));
++				
+ 				$this->Session->write($sessionKey, $this->request->data);
+ 				$query = [];
+ 				if ($this->request->query) {
+@@ -431,6 +439,13 @@ class PagesController extends AppController
+ 			}
+ 
+ 			if ($this->BcContents->preview === 'draft') {
++				// 入力validation
++				$check = ['content_tmp' => $this->request->data['Page']['contents_tmp']];
++				if (!$this->Page->containsScript($check)) {
++					$this->BcMessage->setError(__d('baser', '本稿欄でスクリプトの入力は許可されていません。'));
++					$this->notFound();
++				}
++				
+ 				$this->request->data = $this->Content->saveTmpFiles($this->request->data, mt_rand(0, 99999999));
+ 				$this->request->params['Content']['eyecatch'] = $this->request->data['Content']['eyecatch'];
+ 
+diff --git a/lib/Baser/Controller/ThemesController.php b/lib/Baser/Controller/ThemesController.php
+index 2adad446..f8b3022e 100644
+--- a/lib/Baser/Controller/ThemesController.php
++++ b/lib/Baser/Controller/ThemesController.php
+@@ -10,7 +10,7 @@
+  * @license         https://basercms.net/license/index.html
+  */
+ 
+-App::uses('Simplezip', 'Vendor');
++App::uses('BcZip', 'Lib');
+ 
+ /**
+  * Class ThemesController
+@@ -95,7 +95,6 @@ class ThemesController extends AppController
+ 
+ 		$name = $this->request->data['Theme']['file']['name'];
+ 		move_uploaded_file($this->request->data['Theme']['file']['tmp_name'], TMP . $name);
+-		App::uses('BcZip', 'Lib');
+ 		$BcZip = new BcZip();
+ 		if (!$BcZip->extract(TMP . $name, BASER_THEMES)) {
+ 			$msg = __d('baser', 'アップロードしたZIPファイルの展開に失敗しました。');
+@@ -573,11 +572,17 @@ class ThemesController extends AppController
+ 	 */
+ 	public function admin_download_default_data_pattern()
+ 	{
++		if (!extension_loaded('zip')) {
++			$this->notFound();
++		}
++		
++		$this->autoRender = false;
+ 		set_time_limit(0);
+ 		ini_set('memory_limit', -1);
+ 
+ 		/* コアのCSVを生成 */
+ 		$tmpDir = TMP . 'csv' . DS;
++		$distPath = TMP . 'default.zip';
+ 		$Folder = new Folder();
+ 		$Folder->create($tmpDir);
+ 		emptyFolder($tmpDir);
+@@ -604,13 +609,20 @@ class ThemesController extends AppController
+ 		}
+ 		ftruncate($fp, 0);
+ 		fwrite($fp, implode("\n", $records));
++		
+ 		/* ZIPに固めてダウンロード */
+-		$fileName = 'default';
+-		$Simplezip = new Simplezip();
+-		$Simplezip->addFolder($tmpDir);
+-		$Simplezip->download($fileName);
++		$bcZip = new BcZip();
++		$bcZip->create($tmpDir, $distPath);
++		
++		header("Cache-Control: no-store");
++		header("Content-Type: application/zip");
++		header("Content-Disposition: attachment; filename=" . basename($distPath) . ";");
++		header("Content-Length: " . filesize($distPath));
++		while (ob_get_level()) { ob_end_clean(); }
++		echo readfile($distPath);
++		
+ 		emptyFolder($tmpDir);
+-		exit();
++		unlink($distPath);
+ 	}
+ 
+ 	/**
+@@ -671,19 +683,33 @@ class ThemesController extends AppController
+ 	 */
+ 	public function admin_download()
+ 	{
++		if (!extension_loaded('zip')) {
++			$this->notFound();
++		}
++		
+ 		$this->autoRender = false;
+ 		$tmpDir = TMP . 'theme' . DS;
++		$orgPath = BASER_THEMES . $this->siteConfigs['theme'] . DS;
++		$sourcePath = $tmpDir . $this->siteConfigs['theme'];
++		$distPath = $sourcePath . '.zip';
++		
+ 		$Folder = new Folder();
+ 		$Folder->create($tmpDir);
+-		$path = BASER_THEMES . $this->siteConfigs['theme'] . DS;
+ 		$Folder->copy([
+-			'from' => $path,
+-			'to' => $tmpDir . $this->siteConfigs['theme'],
++			'from' => $orgPath,
++			'to' => $sourcePath,
+ 			'chmod' => 0777
+ 		]);
+-		$Simplezip = new Simplezip();
+-		$Simplezip->addFolder($tmpDir);
+-		$Simplezip->download($this->siteConfigs['theme']);
++		$bcZip = new BcZip();
++		$bcZip->create($sourcePath, $distPath);
++		
++		header("Cache-Control: no-store");
++		header("Content-Type: application/zip");
++		header("Content-Disposition: attachment; filename=" . basename($distPath) . ";");
++		header("Content-Length: " . filesize($distPath));
++		while (ob_get_level()) { ob_end_clean(); }
++		echo readfile($distPath);
++		
+ 		$Folder->delete($tmpDir);
+ 	}
+ }
+diff --git a/lib/Baser/Controller/ToolsController.php b/lib/Baser/Controller/ToolsController.php
+index 83411854..ba97f4b0 100644
+--- a/lib/Baser/Controller/ToolsController.php
++++ b/lib/Baser/Controller/ToolsController.php
+@@ -10,7 +10,7 @@
+  * @license         https://basercms.net/license/index.html
+  */
+ 
+-App::uses('Simplezip', 'Vendor');
++App::uses('BcZip', 'Lib');
+ 
+ /**
+  * Class ToolsController
+@@ -93,9 +93,13 @@ class ToolsController extends AppController
+ 	public function admin_maintenance($mode = '')
+ 	{
+ 		$this->_checkReferer();
++		$zipEnable = extension_loaded('zip');
++		if (!$zipEnable) {
++			$this->notFound();
++		}
++		
+ 		switch($mode) {
+ 			case 'backup':
+-				set_time_limit(0);
+ 				$this->_backupDb($this->request->query['backup_encoding']);
+ 				break;
+ 			case 'restore':
+@@ -155,10 +159,10 @@ class ToolsController extends AppController
+ 		if (!move_uploaded_file($data['Tool']['backup']['tmp_name'], $targetPath)) {
+ 			return false;
+ 		}
+-
++		
+ 		/* ZIPファイルを解凍する */
+-		$Simplezip = new Simplezip();
+-		if (!$Simplezip->unzip($targetPath, $tmpPath)) {
++		$bcZip = new BcZip();
++		if (!$bcZip->extract($targetPath, $tmpPath)) {
+ 			return false;
+ 		}
+ 		@unlink($targetPath);
+@@ -255,8 +259,12 @@ class ToolsController extends AppController
+ 	 */
+ 	protected function _backupDb($encoding)
+ 	{
+-		$tmpDir = TMP . 'schemas' . DS;
++		set_time_limit(0);
++		
+ 		$version = str_replace(' ', '_', $this->getBaserVersion());
++		$tmpDir = TMP . 'schemas' . DS;
++		$distPath = TMP . 'baserbackup_' . $version . '_' . date('Ymd_His') . '.zip';
++		
+ 		$this->_resetTmpSchemaFolder();
+ 		clearAllCache();
+ 		$this->_writeBackup($tmpDir . 'core' . DS, '', $encoding);
+@@ -267,13 +275,21 @@ class ToolsController extends AppController
+ 				$this->_writeBackup($tmpDir . 'plugin' . DS, $plugin['Plugin']['name'], $encoding);
+ 			}
+ 		}
++		
+ 		// ZIP圧縮して出力
+-		$fileName = 'baserbackup_' . $version . '_' . date('Ymd_His');
+-		$Simplezip = new Simplezip();
+-		$Simplezip->addFolder($tmpDir);
+-		$Simplezip->download($fileName);
++		$bcZip = new BcZip();
++		$bcZip->create($tmpDir, $distPath);
++		
++		header("Cache-Control: no-store");
++		header("Content-Type: application/zip");
++		header("Content-Disposition: attachment; filename=" . basename($distPath) . ";");
++		header("Content-Length: " . filesize($distPath));
++		while (ob_get_level()) { ob_end_clean(); }
++		echo readfile($distPath);
++		
++		unlink($distPath);
+ 		$this->_resetTmpSchemaFolder();
+-		exit();
++		return true;
+ 	}
+ 
+ 	/**
+@@ -312,6 +328,7 @@ class ToolsController extends AppController
+ 	public function admin_write_schema()
+ 	{
+ 		$path = TMP . 'schemas' . DS;
++		$distPath = TMP . 'schemas.zip';
+ 
+ 		/* 表示設定 */
+ 		$this->pageTitle = __d('baser', 'スキーマファイル生成');
+@@ -336,10 +353,26 @@ class ToolsController extends AppController
+ 			return;
+ 		}
+ 
+-		$Simplezip = new Simplezip();
+-		$Simplezip->addFolder($path);
+-		$Simplezip->download('schemas');
+-		exit();
++		// ZIP圧縮して出力
++		set_time_limit(0);
++		$this->autoRender = false;
++		
++		// 不要ディレクトリの削除
++		rmdir($path . 'core');
++		rmdir($path . 'plugin');
++		
++		$bcZip = new BcZip();
++		$bcZip->create($path, $distPath);
++		
++		header("Cache-Control: no-store");
++		header("Content-Type: application/zip");
++		header("Content-Disposition: attachment; filename=" . basename($distPath) . ";");
++		header("Content-Length: " . filesize($distPath));
++		while (ob_get_level()) { ob_end_clean(); }
++		echo readfile($distPath);
++		
++		unlink($distPath);
++		return true;
+ 	}
+ 
+ 	/**
+@@ -401,12 +434,16 @@ class ToolsController extends AppController
+ 	 */
+ 	public function admin_log($mode = '')
+ 	{
++		$zipEnable = extension_loaded('zip');
+ 		$errorLogPath = TMP . 'logs' . DS . 'error.log';
+ 		switch($mode) {
+ 			case 'download':
+-				set_time_limit(0);
++				if (!$zipEnable) {
++					$this->notFound();
++				}
++				$this->autoRender = false;
+ 				if ($this->_downloadErrorLog()) {
+-					exit();
++					return;
+ 				}
+ 				$this->BcMessage->setInfo('エラーログが存在しません。');
+ 				$this->redirect(['action' => 'log']);
+@@ -441,6 +478,7 @@ class ToolsController extends AppController
+ 
+ 		$this->pageTitle = __d('baser', 'データメンテナンス');
+ 		$this->help = 'tools_log';
++		$this->set('zipEnable', $zipEnable);
+ 		$this->set('fileSize', $fileSize);
+ 	}
+ 
+@@ -451,17 +489,27 @@ class ToolsController extends AppController
+ 	 */
+ 	protected function _downloadErrorLog()
+ 	{
++		set_time_limit(0);
++		
+ 		$tmpDir = TMP . 'logs' . DS;
++		$distPath = TMP . 'basercms_logs_' . date('Ymd_His') . '.zip';
+ 		$Folder = new Folder($tmpDir);
+ 		$files = $Folder->read(true, true, false);
+ 		if (count($files[0]) === 0 && count($files[1]) === 0) {
+ 			return false;
+ 		}
+ 		// ZIP圧縮して出力
+-		$fileName = 'basercms_logs_' . date('Ymd_His');
+-		$Simplezip = new Simplezip();
+-		$Simplezip->addFolder($tmpDir);
+-		$Simplezip->download($fileName);
++		$bcZip = new BcZip();
++		$bcZip->create($tmpDir, $distPath);
++		
++		header("Cache-Control: no-store");
++		header("Content-Type: application/zip");
++		header("Content-Disposition: attachment; filename=" . basename($distPath) . ";");
++		header("Content-Length: " . filesize($distPath));
++		while (ob_get_level()) { ob_end_clean(); }
++		echo readfile($distPath);
++		
++		unlink($distPath);
+ 		return true;
+ 	}
+ 
+diff --git a/lib/Baser/Lib/BcZip.php b/lib/Baser/Lib/BcZip.php
+index e3392193..f54fdbbd 100644
+--- a/lib/Baser/Lib/BcZip.php
++++ b/lib/Baser/Lib/BcZip.php
+@@ -84,6 +84,7 @@ class BcZip
+ 			$archivePath = $this->Zip->getNameIndex(0);
+ 			$archivePathAry = explode(DS, $archivePath);
+ 			$this->topArchiveName = $archivePathAry[0];
++			$this->Zip->close();
+ 			return true;
+ 		} else {
+ 			return false;
+@@ -120,16 +121,6 @@ class BcZip
+ 		}
+ 	}
+ 
+-	/**
+-	 * Destruct
+-	 */
+-	public function __destruct()
+-	{
+-		if (class_exists('ZipArchive')) {
+-			$this->Zip->close();
+-		}
+-	}
+-
+ 	/**
+ 	 * CUI 向けにパスをエスケープする
+ 	 *
+@@ -145,4 +136,46 @@ class BcZip
+ 		return implode(DS, $pathAry);
+ 	}
+ 
++	/**
++	 * zip生成
++	 *
++	 * @param string $sorce 元データ
++	 * @param string $dist 出力先
++	 * @return void
++	 */
++    public function create($sorce, $dist)
++    {
++        $za = new \ZipArchive();
++        $za->open($dist, \ZIPARCHIVE::CREATE);
++        $this->zipSub($za, $sorce);
++        $za->close();
++    }
++
++	/**
++	 * 再帰的にzip生成対象ファイルを追加する
++	 *
++	 * @param ZipArchive $za
++	 * @param string $path
++	 * @param string $parentPath
++	 * @return void
++	 */
++    private function zipSub($za, $path, $parentPath = '')
++    {
++        $dh = opendir($path);
++        while (($entry = readdir($dh)) !== false) {
++            if ($entry == '.' || $entry == '..') {
++            } else {
++                $localPath = $parentPath . $entry;
++                $fullpath = $path . DS . $entry;
++                if (is_file($fullpath)) {
++                    $za->addFile($fullpath, $localPath);
++                } else if (is_dir($fullpath)) {
++                    $za->addEmptyDir($localPath);
++                    $this->zipSub($za, $fullpath, $localPath . DS);
++                }
++            }
++        }
++        closedir($dh);
++    }
++
+ }

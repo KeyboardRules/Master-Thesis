@@ -1,0 +1,114 @@
+﻿diff --git a/db_operations.php b/db_operations.php
+index ebac542a..7f37a3dd 100644
+--- a/db_operations.php
++++ b/db_operations.php
+@@ -463,7 +463,7 @@ if ($cfgRelation['pdfwork'] && $num_tables > 0) { ?>
+         <?php
+         while ($pages = @PMA_DBI_fetch_assoc($test_rs)) {
+             echo '                <option value="' . $pages['page_nr'] . '">'
+-                . $pages['page_nr'] . ': ' . $pages['page_descr'] . '</option>' . "\n";
++                . $pages['page_nr'] . ': ' . htmlspecialchars($pages['page_descr']) . '</option>' . "\n";
+         } // end while
+         PMA_DBI_free_result($test_rs);
+         unset($test_rs);
+diff --git a/pdf_pages.php b/pdf_pages.php
+index 02673821..29a4f1ae 100644
+--- a/pdf_pages.php
++++ b/pdf_pages.php
+@@ -273,7 +273,7 @@ if ($cfgRelation['pdfwork']) {
+             if (isset($chpage) && $chpage == $curr_page['page_nr']) {
+                 echo ' selected="selected"';
+             }
+-            echo '>' . $curr_page['page_nr'] . ': ' . $curr_page['page_descr'] . '</option>';
++            echo '>' . $curr_page['page_nr'] . ': ' . htmlspecialchars($curr_page['page_descr']) . '</option>';
+         } // end while
+         echo "\n";
+         ?>
+@@ -426,12 +426,12 @@ function resetDrag() {
+             echo "\n" . '        <td>'
+                  . "\n" . '            <select name="c_table_' . $i . '[name]">';
+             foreach ($selectboxall AS $key => $value) {
+-                echo "\n" . '                <option value="' . $value . '"';
++                echo "\n" . '                <option value="' . htmlspecialchars($value) . '"';
+                 if ($value == $sh_page['table_name']) {
+                     echo ' selected="selected"';
+                     $tabExist[$_mtab] = TRUE;
+                 }
+-                echo '>' . $value . '</option>';
++                echo '>' . htmlspecialchars($value) . '</option>';
+             } // end while
+             echo "\n" . '            </select>'
+                  . "\n" . '        </td>';
+@@ -459,7 +459,7 @@ function resetDrag() {
+         echo "\n" . '        <td>'
+              . "\n" . '            <select name="c_table_' . $i . '[name]">';
+         foreach ($selectboxall AS $key => $value) {
+-            echo "\n" . '                <option value="' . $value . '">' . $value . '</option>';
++            echo "\n" . '                <option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($value) . '</option>';
+         }
+         echo "\n" . '            </select>'
+              . "\n" . '        </td>';
+@@ -490,8 +490,8 @@ function resetDrag() {
+     if (!empty($tabExist) && is_array($tabExist)) {
+         foreach ($tabExist AS $key => $value) {
+             if (!$value) {
+-                $_strtrans  .= '<input type="hidden" name="delrow[]" value="' . $key . '" />' . "\n";
+-                $_strname   .= '<li>' . $key . '</li>' . "\n";
++                $_strtrans  .= '<input type="hidden" name="delrow[]" value="' . htmlspecialchars($key) . '" />' . "\n";
++                $_strname   .= '<li>' . htmlspecialchars($key) . '</li>' . "\n";
+                 $shoot       = TRUE;
+             }
+         }
+diff --git a/pmd_pdf.php b/pmd_pdf.php
+index eb6c13d8..125fb692 100644
+--- a/pmd_pdf.php
++++ b/pmd_pdf.php
+@@ -23,10 +23,12 @@ if (isset($scale)) {
+ 
+     $pmd_table = PMA_backquote($GLOBALS['cfgRelation']['db']) . '.' . PMA_backquote($GLOBALS['cfgRelation']['designer_coords']);
+     $pma_table = PMA_backquote($GLOBALS['cfgRelation']['db']) . '.' . PMA_backquote($cfgRelation['table_coords']);
++    $scale_q = PMA_sqlAddslashes($scale);
++    $pdf_page_number_q = PMA_sqlAddslashes($pdf_page_number);
+ 
+     if (isset($exp)) {
+ 
+-        $sql = "REPLACE INTO " . $pma_table . " (db_name, table_name, pdf_page_number, x, y) SELECT db_name, table_name, " . $pdf_page_number . ", ROUND(x/" . $scale . ") , ROUND(y/" . $scale . ") y FROM " . $pmd_table . " WHERE db_name = '" . $db . "'";
++        $sql = "REPLACE INTO " . $pma_table . " (db_name, table_name, pdf_page_number, x, y) SELECT db_name, table_name, " . $pdf_page_number_q . ", ROUND(x/" . $scale_q . ") , ROUND(y/" . $scale_q . ") y FROM " . $pmd_table . " WHERE db_name = '" . PMA_sqlAddslashes($db) . "'";
+ 
+         PMA_query_as_cu($sql,TRUE,PMA_DBI_QUERY_STORE);
+     }
+@@ -34,15 +36,16 @@ if (isset($scale)) {
+     if (isset($imp)) {
+         PMA_query_as_cu(
+         'UPDATE ' . $pma_table . ',' . $pmd_table .
+-        ' SET ' . $pmd_table . '.`x`= ' . $pma_table . '.`x` * '. $scale . ',
+-        ' . $pmd_table . '.`y`= ' . $pma_table . '.`y` * '.$scale.'
++        ' SET ' . $pmd_table . '.`x`= ' . $pma_table . '.`x` * '. $scale_q . ',
++        ' . $pmd_table . '.`y`= ' . $pma_table . '.`y` * '. $scale_q .'
+         WHERE
+         ' . $pmd_table . '.`db_name`=' . $pma_table . '.`db_name`
+         AND
+         ' . $pmd_table . '.`table_name` = ' . $pma_table . '.`table_name`
+         AND
+-        ' . $pmd_table . '.`db_name`=\''.$db.'\'
+-        AND pdf_page_number = '.$pdf_page_number.';',TRUE,PMA_DBI_QUERY_STORE);     }
++        ' . $pmd_table . '.`db_name`=\''. PMA_sqlAddslashes($db) .'\'
++        AND pdf_page_number = ' . $pdf_page_number_q . ';', TRUE, PMA_DBI_QUERY_STORE);     
++    }
+ 
+     die("<script>alert('$strModifications');history.go(-2);</script>");
+ }
+@@ -76,11 +79,11 @@ if (isset($scale)) {
+       <select name="pdf_page_number">
+       <?php
+       $table_info_result = PMA_query_as_cu('SELECT * FROM '.PMA_backquote($GLOBALS['cfgRelation']['db']) . '.' . PMA_backquote($cfgRelation['pdf_pages']).'
+-                                             WHERE db_name = \''.$db.'\'');
++                                              WHERE db_name = \'' . PMA_sqlAddslashes($db) . '\'');
+       while($page = PMA_DBI_fetch_assoc($table_info_result))
+       {
+       ?>
+-      <option value="<?php echo $page['page_nr'] ?>"><?php echo $page['page_descr'] ?></option>
++      <option value="<?php echo $page['page_nr'] ?>"><?php echo htmlspecialchars($page['page_descr']) ?></option>
+       <?php
+       }
+       ?>

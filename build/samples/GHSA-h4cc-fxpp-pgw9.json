@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h4cc-fxpp-pgw9",
+    "cve":  "CVE-2023-25654",
+    "cwe":  "CWE-434",
+    "repo":  "baserproject/basercms",
+    "sha":  "002886be0998c74c386e04f0b43688a8a45d7a96",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Baser/Model/BcAppModel.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "lib/Baser/Model/BcAppModel.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "lib/Baser/Model/BcAppModel.php"
+                    ],
+    "sink_hit":  false
+}

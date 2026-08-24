@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gr6v-3pmp-996p",
+    "cve":  "CVE-2025-62671",
+    "cwe":  "CWE-79",
+    "repo":  "wikimedia/mediawiki-extensions-Cargo",
+    "fix_commit":  "e50915626c0d9a7b222dabc94ddfcb516caf557d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "drilldown/CargoDrilldownPage.php"
+                    ],
+    "evidence":  [
+                     "drilldown/CargoDrilldownPage.php class extends QueryPage"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

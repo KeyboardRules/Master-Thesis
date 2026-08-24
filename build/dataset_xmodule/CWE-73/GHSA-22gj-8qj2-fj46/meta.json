@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-22gj-8qj2-fj46",
+    "cve":  "CVE-2023-30943",
+    "cwe":  "CWE-73",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "59d42e1ed23f916dcb47d53c745bef18a116d800",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/editor/tiny/lang.php",
+                        "lib/editor/tiny/loader.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/editor/tiny/lang.php includes 2 project file(s)",
+                     "lib/editor/tiny/loader.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

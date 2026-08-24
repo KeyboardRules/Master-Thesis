@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-rx7m-68vc-ppxh",
+    "cve":  "CVE-2025-54370",
+    "cwe":  "CWE-918",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "334a67797ace574d1d37c0992ffe283b7415471a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/BaseReader.php",
+                        "tests/PhpSpreadsheetTests/Reader/Html/HtmlImage2Test.php",
+                        "tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/PhpSpreadsheetTests/Reader/Html/HtmlImage2Test.php class extends TestCase",
+                     "tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/PhpSpreadsheet/Reader/BaseReader.php",
+                        "tests/PhpSpreadsheetTests/Reader/Html/HtmlImage2Test.php",
+                        "tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php"
+                    ],
+    "sink_hit":  true
+}

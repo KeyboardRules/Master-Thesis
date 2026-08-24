@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-whv5-4q2f-q68g",
+    "cve":  "CVE-2026-29782",
+    "cwe":  "CWE-502",
+    "repo":  "devcode-it/openstamanager",
+    "sha":  "d2e38cbdf91a831cefc0da1548e02b297ae644cc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Models/OAuth2.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Models/OAuth2.php class extends Model",
+                     "src/Models/OAuth2.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Models/OAuth2.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-4h37-q5j3-hw96",
+    "cve":  "CVE-2023-6890",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "97d90ebbe11ebc6081bf49a2ba4b60f227cd1b43",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/SearchHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php class extends Helper",
+                     "phpmyfaq/src/phpMyFAQ/Helper/SearchHelper.php class extends Helper"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/SearchHelper.php"
+                    ],
+    "sink_hit":  true
+}

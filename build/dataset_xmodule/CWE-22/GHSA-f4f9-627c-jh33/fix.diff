@@ -1,0 +1,30 @@
+﻿diff --git a/objects/aVideoEncoderReceiveImage.json.php b/objects/aVideoEncoderReceiveImage.json.php
+index e264542da..036f34336 100644
+--- a/objects/aVideoEncoderReceiveImage.json.php
++++ b/objects/aVideoEncoderReceiveImage.json.php
+@@ -42,8 +42,14 @@ $securityChecks = array(
+ );
+ 
+ foreach ($securityChecks as $key => $value) {
+-    if(!empty($_REQUEST[$value])){
+-        $_REQUEST[$value] = str_replace('../', '', $_REQUEST[$value]);
++    if (!empty($_REQUEST[$value])) {
++        // Block directory traversal in URL paths.
++        // str_replace('../','') is bypassable via '....//'; instead reject any URL
++        // whose decoded path contains '..' (covers '../', '....//'-bypass, and %2e%2e variants).
++        $decodedPath = urldecode((string)(parse_url($_REQUEST[$value], PHP_URL_PATH) ?? ''));
++        if (strpos($decodedPath, '..') !== false) {
++            unset($_REQUEST[$value]);
++        }
+     }
+ }
+ 
+@@ -188,7 +194,7 @@ if (!empty($obj->jpgSpectrumDest)) {
+     $obj->jpgSpectrumDest_deleteInvalidImage = deleteInvalidImage(@$obj->jpgSpectrumDest);
+ }
+ if (!empty($obj->gifDest)) {
+-    $obj->gifDest_deleteInvalidImage = deleteInvalidImage(@$obj->jpgSpegifDestctrumDest);
++    $obj->gifDest_deleteInvalidImage = deleteInvalidImage($obj->gifDest);
+ }
+ if (!empty($obj->webpDest)) {
+     $obj->webpDest_deleteInvalidImage = deleteInvalidImage(@$obj->webpDest);

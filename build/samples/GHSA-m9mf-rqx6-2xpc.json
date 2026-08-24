@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-m9mf-rqx6-2xpc",
+    "cve":  "CVE-2022-40849",
+    "cwe":  "CWE-79",
+    "repo":  "thinkcmf/thinkcmf",
+    "sha":  "aba1f52bbf6c9515c545e046cec8416cbaefa496",
+    "status":  "ok",
+    "changed_php":  [
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/SlideController.php",
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/SlideItemController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "vendor/thinkcmf/cmf-app/src/admin/controller/SlideController.php class extends AdminBaseController",
+                     "vendor/thinkcmf/cmf-app/src/admin/controller/SlideItemController.php class extends AdminBaseController"
+                 ],
+    "changed_all":  [
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/SlideController.php",
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/SlideItemController.php"
+                    ],
+    "sink_hit":  true
+}

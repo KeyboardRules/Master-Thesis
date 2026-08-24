@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-4m5r-w2rq-q54q",
+    "cve":  "CVE-2024-50355",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "bb4731419b592867bf974dde525e536606a52976",
+    "status":  "ok",
+    "changed_php":  [
+                        "LibreNMS/Util/Url.php",
+                        "includes/html/common/availability-map.inc.php",
+                        "includes/html/pages/edituser.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/html/common/availability-map.inc.php includes 1 project file(s)",
+                     "includes/html/pages/edituser.inc.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "LibreNMS/Util/Url.php",
+                        "includes/html/common/availability-map.inc.php",
+                        "includes/html/pages/edituser.inc.php"
+                    ],
+    "sink_hit":  true
+}

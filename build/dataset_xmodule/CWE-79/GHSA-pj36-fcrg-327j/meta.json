@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-pj36-fcrg-327j",
+    "cve":  "CVE-2024-36676",
+    "cwe":  "CWE-79",
+    "repo":  "BookStackApp/BookStack",
+    "fix_commit":  "69af9e0dbdefd8c6c951e8afbe2bba141d454beb",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Access/Controllers/ForgotPasswordController.php",
+                        "app/Access/Controllers/ResetPasswordController.php",
+                        "app/App/Providers/RouteServiceProvider.php",
+                        "routes/web.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/Access/Controllers/ForgotPasswordController.php class extends Controller",
+                     "app/Access/Controllers/ResetPasswordController.php class extends Controller",
+                     "app/App/Providers/RouteServiceProvider.php includes 2 project file(s)",
+                     "app/App/Providers/RouteServiceProvider.php class extends ServiceProvider",
+                     "tests/Auth/RegistrationTest.php class extends TestCase",
+                     "tests/Auth/ResetPasswordTest.php class extends TestCase",
+                     "tests/Auth/UserInviteTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

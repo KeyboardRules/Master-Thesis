@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-875v-7m49-8x88",
+    "cve":  "CVE-2026-32271",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "6d2d24b3a2b0c06593856d05446f82bd8af92d72",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/stats/TotalRevenue.php",
+                        "src/widgets/TotalRevenue.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/stats/TotalRevenue.php class extends Stat",
+                     "src/widgets/TotalRevenue.php class extends Widget",
+                     "src/widgets/TotalRevenue.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

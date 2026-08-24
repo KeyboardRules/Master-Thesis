@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-8vx9-hcvq-gfv8",
+    "cve":  "CVE-2016-7111",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "b3511d2feb47eaee41feb5f69cf3c8a2c9acd229",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core.php",
+                        "core/events_inc.php",
+                        "core/http_api.php",
+                        "plugins/Gravatar/Gravatar.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "core.php includes 6 project file(s)",
+                     "plugins/Gravatar/Gravatar.php class extends MantisPlugin",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

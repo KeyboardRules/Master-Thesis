@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-632q-77qj-c89q",
+    "cve":  "CVE-2024-28710",
+    "cwe":  "CWE-79",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "sha":  "c2fd60f94bc1db275f20cbb27a3135a9bdfb7f10",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/controllers/AjaxAlertController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/controllers/AjaxAlertController.php class extends LSBaseController"
+                 ],
+    "changed_all":  [
+                        "application/controllers/AjaxAlertController.php"
+                    ],
+    "sink_hit":  false
+}

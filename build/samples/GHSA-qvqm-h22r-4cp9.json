@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qvqm-h22r-4cp9",
+    "cve":  "CVE-2018-15133",
+    "cwe":  "CWE-502",
+    "repo":  "laravel/framework",
+    "sha":  "d84cf988ed5d4661a4bf1fdcb08f5073835083a0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Illuminate/Cookie/Middleware/EncryptCookies.php",
+                        "src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Illuminate/Cookie/Middleware/EncryptCookies.php",
+                        "src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php"
+                    ],
+    "sink_hit":  false
+}

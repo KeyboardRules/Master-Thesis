@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4f25-2x2c-vg6v",
+    "cve":  "CVE-2023-1703",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "765832f0dc5f6cfb296a82e089b701066f27bcef",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

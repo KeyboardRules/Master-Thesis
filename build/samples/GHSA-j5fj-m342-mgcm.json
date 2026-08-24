@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j5fj-m342-mgcm",
+    "cve":  "CVE-2012-1188",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "sha":  "1269fe8b3813c7b7d5552a2b88bc2e7bd4d0c1f9",
+    "status":  "ok",
+    "changed_php":  [
+                        "backend/modules/error/actions/index.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "backend/modules/error/actions/index.php class extends BackendBaseActionIndex"
+                 ],
+    "changed_all":  [
+                        "backend/modules/error/actions/index.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-wf5p-f5xr-c4jj",
+    "cve":  "CVE-2021-44427",
+    "cwe":  "CWE-89",
+    "repo":  "francoisjacquet/rosariosis",
+    "fix_commit":  "e001430aa9fb53d2502fb6f036f6c51c578d2016",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "ProgramFunctions/PortalPollsNotes.fnc.php",
+                        "modules/misc/Portal.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "ProgramFunctions/PortalPollsNotes.fnc.php includes 2 project file(s)",
+                     "modules/misc/Portal.php includes 10 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

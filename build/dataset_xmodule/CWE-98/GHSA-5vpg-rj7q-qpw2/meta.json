@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-5vpg-rj7q-qpw2",
+    "cve":  "CVE-2026-39850",
+    "cwe":  "CWE-98",
+    "repo":  "yiisoft/yii2",
+    "fix_commit":  "109878b491dbffa541032bc99fb5e26d12cd0375",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "framework/base/View.php",
+                        "framework/web/ErrorHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "framework/base/View.php class extends Component",
+                     "framework/web/ErrorHandler.php class extends \\yii\\base\\ErrorHandler",
+                     "tests/framework/base/ViewTest.php class extends TestCase",
+                     "tests/framework/web/ErrorHandlerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

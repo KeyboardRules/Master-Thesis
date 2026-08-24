@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-8qwh-4vwv-7c5m",
+    "cve":  "CVE-2024-34000",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "4c966677de06bff56d46d55c419049f78e70f017",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/lesson/locallib.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "mod/lesson/locallib.php includes 10 project file(s)",
+                     "mod/lesson/locallib.php class extends moodleform"
+                 ],
+    "changed_all":  [
+                        "mod/lesson/locallib.php"
+                    ],
+    "sink_hit":  true
+}

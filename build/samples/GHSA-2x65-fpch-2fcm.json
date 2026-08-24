@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2x65-fpch-2fcm",
+    "cve":  "CVE-2024-52596",
+    "cwe":  "CWE-611",
+    "repo":  "simplesamlphp/xml-common",
+    "sha":  "fa4ade391c3194466acf5fbfd5d2ecdbf5e831f5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/DOMDocumentFactory.php",
+                        "tests/XML/DOMDocumentFactoryTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/XML/DOMDocumentFactoryTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/DOMDocumentFactory.php",
+                        "tests/XML/DOMDocumentFactoryTest.php"
+                    ],
+    "sink_hit":  true
+}

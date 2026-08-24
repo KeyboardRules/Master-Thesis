@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2jjm-6whx-p8w4",
+    "cve":  "CVE-2017-16880",
+    "cwe":  "CWE-79",
+    "repo":  "filp/whoops",
+    "sha":  "c16791d28d1ca3139e398145f0c6565c523c291a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Whoops/Util/TemplateHelper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Whoops/Util/TemplateHelper.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9738-c49q-4rgc",
+    "cve":  "CVE-2018-16327",
+    "cwe":  "CWE-79",
+    "repo":  "intelliants/subrion",
+    "fix_commit":  "ec8e6e8984eeebfaf0d8022f4c07aa508624ee18",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "admin/configuration.php"
+                    ],
+    "evidence":  [
+                     "admin/configuration.php class extends iaAbstractControllerBackend"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

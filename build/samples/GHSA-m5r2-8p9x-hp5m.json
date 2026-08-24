@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m5r2-8p9x-hp5m",
+    "cve":  "CVE-2026-25494",
+    "cwe":  "CWE-918",
+    "repo":  "craftcms/cms",
+    "sha":  "d49e93e5ba0c48939ce5eaa6cd9b4a990542d8b2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/gql/resolvers/mutations/Asset.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/gql/resolvers/mutations/Asset.php class extends ElementMutationResolver"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/gql/resolvers/mutations/Asset.php"
+                    ],
+    "sink_hit":  false
+}

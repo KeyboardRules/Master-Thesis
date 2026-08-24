@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ch68-5r37-p7c3",
+    "cve":  "CVE-2014-0218",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "5c276a4c324b5137064496d6dd68e71476015fcd",
+    "status":  "ok",
+    "changed_php":  [
+                        "repository/url/lib.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "repository/url/lib.php includes 2 project file(s)",
+                     "repository/url/lib.php class extends repository"
+                 ],
+    "changed_all":  [
+                        "repository/url/lib.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jf9v-q8vh-3fmc",
+    "cve":  "CVE-2021-32106",
+    "cwe":  "CWE-79",
+    "repo":  "icecoder/ICEcoder",
+    "fix_commit":  "21d6ae0f2a3fce7d076ae430d48f5df56bd0f256",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/multiple-results.php"
+                    ],
+    "evidence":  [
+                     "lib/multiple-results.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

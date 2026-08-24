@@ -1,0 +1,145 @@
+﻿diff --git a/src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php b/src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php
+index 662c274f7..b7eba1bda 100644
+--- a/src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php
++++ b/src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php
+@@ -53,15 +53,17 @@ class ProxyDumper implements DumperInterface
+     public function getProxyFactoryCode(Definition $definition, $id)
+     {
+         $instantiation = 'return';
++        $scope = '';
+ 
+         if ($definition->isShared()) {
+-            $instantiation .= " \$this->services['$id'] =";
++            $instantiation .= ' $this->services[%s] =';
+ 
+             if (\defined('Symfony\Component\DependencyInjection\ContainerInterface::SCOPE_CONTAINER') && ContainerInterface::SCOPE_CONTAINER !== $scope = $definition->getScope(false)) {
+-                $instantiation .= " \$this->scopedServices['$scope']['$id'] =";
++                $instantiation .= ' $this->scopedServices[%s][%1$s] =';
+             }
+         }
+ 
++        $instantiation = sprintf($instantiation, var_export($id, true), var_export($scope, true));
+         $methodName = 'get'.Container::camelize($id).'Service';
+         $proxyClass = $this->getProxyClassName($definition);
+ 
+diff --git a/src/Symfony/Component/DependencyInjection/ContainerBuilder.php b/src/Symfony/Component/DependencyInjection/ContainerBuilder.php
+index c31eeea41..0e1391f9f 100644
+--- a/src/Symfony/Component/DependencyInjection/ContainerBuilder.php
++++ b/src/Symfony/Component/DependencyInjection/ContainerBuilder.php
+@@ -641,6 +641,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
+     {
+         $alias = strtolower($alias);
+ 
++        if ('' === $alias || '\\' === substr($alias, -1) || \strlen($alias) !== strcspn($alias, "\0\r\n'")) {
++            throw new InvalidArgumentException(sprintf('Invalid alias id: "%s"', $alias));
++        }
++
+         if (\is_string($id)) {
+             $id = new Alias($id);
+         } elseif (!$id instanceof Alias) {
+@@ -775,6 +779,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
+ 
+         $id = strtolower($id);
+ 
++        if ('' === $id || '\\' === substr($id, -1) || \strlen($id) !== strcspn($id, "\0\r\n'")) {
++            throw new InvalidArgumentException(sprintf('Invalid service id: "%s"', $id));
++        }
++
+         unset($this->aliasDefinitions[$id]);
+ 
+         return $this->definitions[$id] = $definition;
+diff --git a/src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php b/src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php
+index 2e2de19aa..2f530e9e3 100644
+--- a/src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php
++++ b/src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php
+@@ -379,9 +379,9 @@ class PhpDumper extends Dumper
+         $instantiation = '';
+ 
+         if (!$isProxyCandidate && $definition->isShared() && ContainerInterface::SCOPE_CONTAINER === $definition->getScope(false)) {
+-            $instantiation = "\$this->services['$id'] = ".($simple ? '' : '$instance');
++            $instantiation = sprintf('$this->services[%s] = %s', var_export($id, true), $simple ? '' : '$instance');
+         } elseif (!$isProxyCandidate && $definition->isShared() && ContainerInterface::SCOPE_PROTOTYPE !== $scope = $definition->getScope(false)) {
+-            $instantiation = "\$this->services['$id'] = \$this->scopedServices['$scope']['$id'] = ".($simple ? '' : '$instance');
++            $instantiation = sprintf('$this->services[%s] = $this->scopedServices[%s][%1$s] = %s', var_export($id, true), var_export($scope, true), $simple ? '' : '$instance');
+         } elseif (!$simple) {
+             $instantiation = '$instance';
+         }
+@@ -609,6 +609,9 @@ class PhpDumper extends Dumper
+      * Gets the $public '$id'$shared$autowired service.
+      *
+      * $return
++EOF;
++            $code = str_replace('*/', ' ', $code).<<<EOF
++
+      */
+     {$visibility} function get{$this->camelize($id)}Service($lazyInitialization)
+     {
+@@ -620,7 +623,7 @@ EOF;
+         if (!\in_array($scope, array(ContainerInterface::SCOPE_CONTAINER, ContainerInterface::SCOPE_PROTOTYPE))) {
+             $code .= <<<EOF
+         if (!isset(\$this->scopedServices['$scope'])) {
+-            throw new InactiveScopeException('$id', '$scope');
++            throw new InactiveScopeException({$this->export($id)}, '$scope');
+         }
+ 
+ 
+@@ -628,7 +631,7 @@ EOF;
+         }
+ 
+         if ($definition->isSynthetic()) {
+-            $code .= sprintf("        throw new RuntimeException('You have requested a synthetic service (\"%s\"). The DIC does not know how to construct this service.');\n    }\n", $id);
++            $code .= sprintf("        throw new RuntimeException(%s);\n    }\n", var_export("You have requested a synthetic service (\"$id\"). The DIC does not know how to construct this service.", true));
+         } else {
+             if ($definition->isDeprecated()) {
+                 $code .= sprintf("        @trigger_error(%s, E_USER_DEPRECATED);\n\n", var_export($definition->getDeprecationMessage($id), true));
+@@ -706,10 +709,11 @@ EOF;
+                             $arguments[] = $this->dumpValue($value);
+                         }
+ 
+-                        $call = $this->wrapServiceConditionals($call[1], sprintf("\$this->get('%s')->%s(%s);", $definitionId, $call[0], implode(', ', $arguments)));
++                        $definitionId = var_export($definitionId, true);
++                        $call = $this->wrapServiceConditionals($call[1], sprintf('$this->get(%s)->%s(%s);', $definitionId, $call[0], implode(', ', $arguments)));
+ 
+                         $code .= <<<EOF
+-        if (\$this->initialized('$definitionId')) {
++        if (\$this->initialized($definitionId)) {
+             $call
+         }
+ 
+@@ -1142,7 +1146,7 @@ EOF;
+ 
+         $conditions = array();
+         foreach ($services as $service) {
+-            $conditions[] = sprintf("\$this->has('%s')", $service);
++            $conditions[] = sprintf('$this->has(%s)', var_export($service, true));
+         }
+ 
+         // re-indent the wrapped code
+@@ -1419,11 +1423,13 @@ EOF;
+      */
+     public function dumpParameter($name)
+     {
++        $name = (string) $name;
++
+         if ($this->container->isFrozen() && $this->container->hasParameter($name)) {
+             return $this->dumpValue($this->container->getParameter($name), false);
+         }
+ 
+-        return sprintf("\$this->getParameter('%s')", strtolower($name));
++        return sprintf('$this->getParameter(%s)', var_export($name, true));
+     }
+ 
+     /**
+@@ -1458,10 +1464,10 @@ EOF;
+         }
+ 
+         if (null !== $reference && ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $reference->getInvalidBehavior()) {
+-            return sprintf('$this->get(\'%s\', ContainerInterface::NULL_ON_INVALID_REFERENCE)', $id);
++            return sprintf('$this->get(%s, ContainerInterface::NULL_ON_INVALID_REFERENCE)', var_export($id, true));
+         }
+ 
+-        return sprintf('$this->get(\'%s\')', $id);
++        return sprintf('$this->get(%s)', var_export($id, true));
+     }
+ 
+     /**

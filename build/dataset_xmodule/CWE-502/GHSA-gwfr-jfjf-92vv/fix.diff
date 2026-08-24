@@ -1,0 +1,177 @@
+﻿diff --git a/system/src/Grav/Common/GPM/Installer.php b/system/src/Grav/Common/GPM/Installer.php
+index 264bd2cb..cb7f2d26 100644
+--- a/system/src/Grav/Common/GPM/Installer.php
++++ b/system/src/Grav/Common/GPM/Installer.php
+@@ -179,6 +179,24 @@ class Installer
+         $archive = $zip->open($zip_file);
+ 
+         if ($archive === true) {
++            // GHSA-w48r-jppp-rcfw: validate every entry name before extraction.
++            // ZipArchive::extractTo would otherwise honour `../` segments and
++            // absolute paths, letting a crafted plugin/theme ZIP write files
++            // anywhere the web server can reach (Zip Slip, CVE-2018-1000544
++            // family). Note: this hardens the path layer; it does NOT and
++            // cannot defend against a well-formed but malicious plugin whose
++            // own PHP code is the payload — that's a "trust the source"
++            // problem the admin must own when using directInstall.
++            $numFiles = $zip->numFiles;
++            for ($i = 0; $i < $numFiles; $i++) {
++                $entryName = (string) $zip->getNameIndex($i);
++                if (!self::isSafeArchiveEntry($entryName)) {
++                    self::$error = self::ZIP_EXTRACT_ERROR;
++                    $zip->close();
++                    return false;
++                }
++            }
++
+             Folder::create($destination);
+ 
+             $unzip = $zip->extractTo($destination);
+@@ -207,6 +225,35 @@ class Installer
+         return false;
+     }
+ 
++    /**
++     * Reject Zip Slip primitives in archive entry names: empty names, NUL
++     * bytes, absolute paths, or any path segment that is `..`. Forward and
++     * back slashes are both treated as separators so Windows-authored
++     * archives are also covered.
++     *
++     * @internal Public for testing.
++     */
++    public static function isSafeArchiveEntry(string $name): bool
++    {
++        if ($name === '' || str_contains($name, "\0")) {
++            return false;
++        }
++        if (str_starts_with($name, '/') || str_starts_with($name, '\\')) {
++            return false;
++        }
++        // Windows drive letter: C:\..., D:/...
++        if (preg_match('#^[A-Za-z]:[/\\\\]#', $name) === 1) {
++            return false;
++        }
++        // Any `..` path segment, regardless of slash flavour.
++        foreach (preg_split('#[\\\\/]+#', $name) as $segment) {
++            if ($segment === '..') {
++                return false;
++            }
++        }
++        return true;
++    }
++
+     /**
+      * Instantiates and returns the package installer class
+      *
+diff --git a/system/src/Grav/Common/Media/Traits/MediaObjectTrait.php b/system/src/Grav/Common/Media/Traits/MediaObjectTrait.php
+index dcf5931f..f26c85c3 100644
+--- a/system/src/Grav/Common/Media/Traits/MediaObjectTrait.php
++++ b/system/src/Grav/Common/Media/Traits/MediaObjectTrait.php
+@@ -325,18 +325,51 @@ trait MediaObjectTrait
+     /**
+      * Add custom attribute to medium.
+      *
++     * Reachable from Markdown via `?attribute=name,value` on image excerpts, so
++     * the attribute NAME is editor-controlled. We restrict it to plain HTML
++     * attribute identifiers (alphanumerics + `-`/`:`/`_`) and reject any name
++     * that would inject script when rendered onto an `<img>` tag — event
++     * handlers (`on*`), inline style, the XML namespace, srcdoc, and the
++     * various `form*` attributes whose URL targets are themselves trusted as
++     * actions. GHSA-r7fx-8g49-7hhr.
++     *
+      * @param string $attribute
+      * @param string $value
+      * @return $this
+      */
+     public function attribute($attribute = null, $value = '')
+     {
+-        if (!empty($attribute)) {
+-            $this->attributes[$attribute] = $value;
++        if (empty($attribute) || !is_string($attribute)) {
++            return $this;
+         }
++        if (!self::isSafeAttributeName($attribute)) {
++            return $this;
++        }
++        $this->attributes[$attribute] = $value;
+         return $this;
+     }
+ 
++    /** @internal */
++    private static function isSafeAttributeName(string $name): bool
++    {
++        // Strict shape: HTML attribute names are letter-led, then alnum/-/_/:/./$
++        // Anything else (whitespace, quotes, `<>`, etc.) is rejected outright.
++        if (!preg_match('/^[A-Za-z][A-Za-z0-9_:.\-]*$/', $name)) {
++            return false;
++        }
++        $lower = strtolower($name);
++        // Event handlers — primary GHSA-r7fx-8g49-7hhr vector.
++        if (str_starts_with($lower, 'on')) {
++            return false;
++        }
++        // Attribute names that open a scripting context regardless of value.
++        // We deliberately do NOT deny `src` / `href` here — themes legitimately
++        // call `$image->attribute('src', $signed_url)` from PHP, and the
++        // primary script-injection surface is the event-handler family above.
++        $denylist = ['style', 'xmlns', 'srcdoc', 'formaction'];
++        return !in_array($lower, $denylist, true);
++    }
++
+     /**
+      * Switch display mode.
+      *
+diff --git a/system/src/Grav/Common/Page/Medium/VectorImageMedium.php b/system/src/Grav/Common/Page/Medium/VectorImageMedium.php
+index 98645484..b7377b40 100644
+--- a/system/src/Grav/Common/Page/Medium/VectorImageMedium.php
++++ b/system/src/Grav/Common/Page/Medium/VectorImageMedium.php
+@@ -46,7 +46,24 @@ class VectorImageMedium extends StaticImageMedium
+             return;
+         }
+ 
+-        $xml = simplexml_load_string(file_get_contents($path));
++        // GHSA-3446-6mgw-f79p: strip DOCTYPE/ENTITY declarations and pass
++        // LIBXML_NONET to prevent XXE / billion-laughs / network exfiltration
++        // when reading width/height from an attacker-supplied SVG.
++        $svg = (string) file_get_contents($path);
++        $svg = preg_replace('/<!DOCTYPE\b[^>]*(?:\[[^\]]*\])?[^>]*>/is', '', $svg) ?? $svg;
++        $svg = preg_replace('/<!ENTITY\b[^>]*>/i', '', $svg) ?? $svg;
++
++        $previousEntityLoader = null;
++        if (\PHP_VERSION_ID < 80000 && function_exists('libxml_disable_entity_loader')) {
++            $previousEntityLoader = libxml_disable_entity_loader(true);
++        }
++        try {
++            $xml = simplexml_load_string($svg, 'SimpleXMLElement', LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
++        } finally {
++            if ($previousEntityLoader !== null) {
++                libxml_disable_entity_loader($previousEntityLoader);
++            }
++        }
+         $attr = $xml ? $xml->attributes() : null;
+         if (!$attr instanceof \SimpleXMLElement) {
+             return;
+diff --git a/system/src/Grav/Common/Security.php b/system/src/Grav/Common/Security.php
+index 242f28cd..c24b0c9c 100644
+--- a/system/src/Grav/Common/Security.php
++++ b/system/src/Grav/Common/Security.php
+@@ -229,9 +229,16 @@ class Security
+ 
+         // Set the patterns we'll test against
+         $patterns = [
+-            // Match any attribute starting with "on" or xmlns (must be preceded by whitespace/special chars)
+-            // Allow optional whitespace between 'on' and event name to catch obfuscation attempts
+-            'on_events' => '#(<[^>]+[\s\x00-\x20\"\'\/])(on\s*[a-z]+|xmlns)\s*=[\s|\'\"].*[\s|\'\"]>#iUu',
++            // Match any attribute starting with "on" or xmlns (must be preceded by an
++            // attribute boundary: whitespace, NUL, quote or slash). We deliberately
++            // do NOT try to match the attribute value itself — the previous regex
++            // required quotes-or-spaces around the `=` sign and was bypassed by
++            // unquoted handlers like `<img src=x onerror=alert(1)>`
++            // (GHSA-9695-8fr9-hw5q, also exploited by GHSA-c2q3-p4jr-c55f and
++            // GHSA-w8cg-7jcj-4vv2). Detecting the attribute name + `=` is enough
++            // for a tripwire; trade-off is occasional false positives when an
++            // unrelated `on*=` substring appears inside another attribute's value.
++            'on_events' => '#<[^>]*?[\s\x00-\x20\"\'\/](on\s*[a-z]+|xmlns)\s*=#iu',
+ 
+             // Match javascript:, livescript:, vbscript:, mocha:, feed: and data: protocols
+             'invalid_protocols' => '#(' . implode('|', array_map('preg_quote', $invalid_protocols, ['#'])) . ')(:|\&\#58)\S.*?#iUu',

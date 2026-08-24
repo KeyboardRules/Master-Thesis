@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xmxj-v2q8-8qx6",
+    "cve":  "CVE-2024-8661",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "fix_commit":  "3e548b416ae32efee1e0a42c4510be1106c7eb25",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "concrete/blocks/next_previous/controller.php"
+                    ],
+    "evidence":  [
+                     "concrete/blocks/next_previous/controller.php class extends BlockController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

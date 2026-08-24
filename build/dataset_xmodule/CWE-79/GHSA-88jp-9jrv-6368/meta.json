@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-88jp-9jrv-6368",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "cebc0d08c5cc8177c2462a963b76e5bc7827146d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "forms/FormAction.php",
+                        "forms/TreeDropdownField.php",
+                        "forms/TreeMultiselectField.php",
+                        "forms/gridfield/GridFieldPrintButton.php",
+                        "model/DataDifferencer.php",
+                        "model/DataObject.php",
+                        "security/PermissionCheckboxSetField.php",
+                        "view/ViewableData.php"
+                    ],
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "forms/FormAction.php class extends FormField",
+                     "forms/TreeDropdownField.php class extends FormField",
+                     "forms/TreeMultiselectField.php class extends TreeDropdownField",
+                     "model/DataDifferencer.php class extends ViewableData",
+                     "model/DataObject.php class extends DataObject",
+                     "security/PermissionCheckboxSetField.php class extends FormField",
+                     "tests/model/DataDifferencerTest.php class extends SapphireTest",
+                     "view/ViewableData.php class extends Object"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

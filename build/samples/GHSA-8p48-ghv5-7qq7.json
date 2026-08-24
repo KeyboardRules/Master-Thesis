@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8p48-ghv5-7qq7",
+    "cve":  "CVE-2023-1756",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "ca75f4688a8b0f14d5d0697b9f4b6ea66088f726",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "phpmyfaq/src/phpMyFAQ/Export/Html5.php class extends Export"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "sink_hit":  false
+}

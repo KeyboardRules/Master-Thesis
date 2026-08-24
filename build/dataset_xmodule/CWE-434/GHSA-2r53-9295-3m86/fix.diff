@@ -1,0 +1,26 @@
+﻿diff --git a/src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php b/src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php
+index 44fec253..4709f602 100644
+--- a/src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php
++++ b/src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php
+@@ -12,7 +12,7 @@ class FilesFieldtypeController extends CpController
+     {
+         $request->validate([
+             'file' => ['file', function ($attribute, $value, $fail) {
+-                if (in_array(trim(strtolower($value->getClientOriginalExtension())), ['php', 'php3', 'php4', 'php5', 'phtml'])) {
++                if (in_array(trim(strtolower($value->getClientOriginalExtension())), ['php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phar'])) {
+                     $fail(__('validation.uploaded'));
+                 }
+             }],
+diff --git a/src/Http/Controllers/FormController.php b/src/Http/Controllers/FormController.php
+index 1fb0adc8..2f228ae2 100644
+--- a/src/Http/Controllers/FormController.php
++++ b/src/Http/Controllers/FormController.php
+@@ -178,7 +178,7 @@ class FormController extends Controller
+             })
+             ->mapWithKeys(function ($field) {
+                 return [$field->handle().'.*' => ['file', function ($attribute, $value, $fail) {
+-                    if (in_array(trim(strtolower($value->getClientOriginalExtension())), ['php', 'php3', 'php4', 'php5', 'phtml'])) {
++                    if (in_array(trim(strtolower($value->getClientOriginalExtension())), ['php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phar'])) {
+                         $fail(__('validation.uploaded'));
+                     }
+                 }]];

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-f92p-f8r2-c87q",
+    "cve":  "CVE-2020-36608",
+    "cwe":  "CWE-79",
+    "repo":  "TribalSystems/Zenario",
+    "fix_commit":  "dfd0afacb26c3682a847bea7b49ea440b63f3baa",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/welcome.php",
+                        "zenario/modules/zenario_forum/module_code.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "zenario/autoload/welcome.php includes 3 project file(s)",
+                     "zenario/modules/zenario_forum/module_code.php class extends zenario_comments",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-p6w8-q63m-72c8",
+    "cve":  "CVE-2026-25488",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "sha":  "fa273330807807d05b564d37c88654cd772839ee",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/InventoryLocationsController.php",
+                        "src/controllers/ShippingCategoriesController.php",
+                        "src/controllers/ShippingMethodsController.php",
+                        "src/controllers/ShippingZonesController.php",
+                        "src/controllers/TaxCategoriesController.php",
+                        "src/controllers/TaxRatesController.php",
+                        "src/controllers/TaxZonesController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/controllers/InventoryLocationsController.php class extends Controller",
+                     "src/controllers/ShippingCategoriesController.php class extends BaseShippingSettingsController",
+                     "src/controllers/ShippingMethodsController.php class extends BaseShippingSettingsController",
+                     "src/controllers/ShippingZonesController.php class extends BaseShippingSettingsController",
+                     "src/controllers/TaxCategoriesController.php class extends BaseTaxSettingsController",
+                     "src/controllers/TaxRatesController.php class extends BaseTaxSettingsController",
+                     "src/controllers/TaxZonesController.php class extends BaseTaxSettingsController"
+                 ],
+    "changed_all":  [
+                        "src/controllers/InventoryLocationsController.php",
+                        "src/controllers/ShippingCategoriesController.php",
+                        "src/controllers/ShippingMethodsController.php",
+                        "src/controllers/ShippingZonesController.php",
+                        "src/controllers/TaxCategoriesController.php",
+                        "src/controllers/TaxRatesController.php",
+                        "src/controllers/TaxZonesController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8gv-gvhf-7rhp",
+    "cve":  "CVE-2022-1571",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "fix_commit":  "482c5a82b4d79e7a19614f5a67dc24593046cefd",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Core/Model/Subcuenta.php"
+                    ],
+    "evidence":  [
+                     "Core/Model/Subcuenta.php class extends Base\\ModelClass"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

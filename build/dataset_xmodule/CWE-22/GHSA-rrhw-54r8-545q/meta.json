@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-rrhw-54r8-545q",
+    "cve":  "CVE-2022-1850",
+    "cwe":  "CWE-22",
+    "repo":  "filegator/filegator",
+    "fix_commit":  "6e2b68f17f48cdc1d6a4a93a2369d2069fe64989",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "backend/Services/Storage/Filesystem.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/backend/Unit/FilesystemTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9c6w-55cp-5w25",
+    "cve":  "CVE-2022-36107",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "546208428c861a09d62b86cde141eb19a81fae66",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Controller/FileDumpController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Controller/FileDumpController.php"
+                    ],
+    "sink_hit":  false
+}

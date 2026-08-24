@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qjjq-rcq8-jw6j",
+    "cve":  "CVE-2012-1296",
+    "cwe":  "CWE-79",
+    "repo":  "jbroadway/elefant",
+    "sha":  "1e38b1d91d9f8bfb4a0cda8316fe763a6cdd31d0",
+    "status":  "ok",
+    "changed_php":  [
+                        "apps/admin/handlers/preview.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "apps/admin/handlers/preview.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,16 @@
+﻿diff --git a/src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php b/src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php
+index d44f6506..359e3e83 100644
+--- a/src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php
++++ b/src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php
+@@ -44,7 +44,10 @@ class SymfonyExpressionTokenProvider implements TokenProviderInterface
+                 $this->translator->setLocale($entity->getLocale());
+             }
+ 
+-            $result = $this->expressionLanguage->evaluate($name, ['object' => $entity, 'translator' => $this->translator]);
++            $result = $this->expressionLanguage->evaluate($name, [
++                'object' => $entity,
++                'translator' => new TranslatorWrapper($this->translator),
++            ]);
+             $this->translator->setLocale($locale);
+ 
+             return $result;

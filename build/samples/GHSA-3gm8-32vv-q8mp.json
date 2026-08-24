@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3gm8-32vv-q8mp",
+    "cve":  "CVE-2010-2230",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "704c5dfed4f4531b6d74d19cfad573984e74885e",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/weblib.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "lib/weblib.php includes 7 project file(s)",
+                     "lib/weblib.php class extends progress_trace"
+                 ],
+    "changed_all":  [
+                        "lib/weblib.php"
+                    ],
+    "sink_hit":  true
+}

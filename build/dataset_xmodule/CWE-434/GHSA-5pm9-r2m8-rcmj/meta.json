@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-5pm9-r2m8-rcmj",
+    "cve":  "CVE-2025-58048",
+    "cwe":  "CWE-434",
+    "repo":  "Paymenter/Paymenter",
+    "fix_commit":  "87c3db42282ada1e3cda54b9a01f846926c0669b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Livewire/Tickets/Create.php",
+                        "app/Livewire/Tickets/Show.php",
+                        "themes/default/views/components/easymde-editor.blade.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Livewire/Tickets/Create.php class extends Component",
+                     "app/Livewire/Tickets/Create.php class uses trait",
+                     "app/Livewire/Tickets/Show.php class extends Component",
+                     "app/Livewire/Tickets/Show.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

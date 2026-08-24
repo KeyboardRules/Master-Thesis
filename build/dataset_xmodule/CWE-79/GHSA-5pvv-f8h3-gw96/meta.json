@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-5pvv-f8h3-gw96",
+    "cve":  "CVE-2009-3696",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "fix_commit":  "212daad0c082dfb853e3a4098838781a96b2ce1f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "db_operations.php",
+                        "pdf_pages.php",
+                        "pmd_pdf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "db_operations.php includes 9 project file(s)",
+                     "pdf_pages.php includes 6 project file(s)",
+                     "pmd_pdf.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

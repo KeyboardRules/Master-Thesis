@@ -1,0 +1,21 @@
+﻿diff --git a/models/DataObject/ClassDefinition/Data/UrlSlug.php b/models/DataObject/ClassDefinition/Data/UrlSlug.php
+index 42a802e4de..c650e7204d 100644
+--- a/models/DataObject/ClassDefinition/Data/UrlSlug.php
++++ b/models/DataObject/ClassDefinition/Data/UrlSlug.php
+@@ -177,10 +177,15 @@ class UrlSlug extends Data implements CustomResourcePersistingInterface, LazyLoa
+         if (is_array($data)) {
+             /** @var Model\DataObject\Data\UrlSlug $item */
+             foreach ($data as $item) {
+-                $slug = $item->getSlug();
++                $slug = htmlspecialchars($item->getSlug());
+                 $foundSlug = true;
+ 
+                 if (strlen($slug) > 0) {
++                    $slugToCompare = preg_replace('/[#\?\*\:\\\\<\>\|"%&@=;]/', '-', $item->getSlug());
++                    if($item->getSlug() !== $slugToCompare){
++                        throw new Model\Element\ValidationException('Slug contains forbidden characters!');
++                    }
++
+                     $document = Model\Document::getByPath($slug);
+                     if ($document) {
+                         throw new Model\Element\ValidationException('Slug must be unique. Found conflict with document path "' . $slug . '"');

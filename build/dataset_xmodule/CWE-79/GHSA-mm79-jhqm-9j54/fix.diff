@@ -1,0 +1,76 @@
+﻿diff --git a/src/Behavior.php b/src/Behavior.php
+index d26c10c..ae2b829 100644
+--- a/src/Behavior.php
++++ b/src/Behavior.php
+@@ -62,6 +62,11 @@ class Behavior
+      */
+     public const ENCODE_INVALID_CDATA_SECTION = 32;
+ 
++    /**
++     * in case an unexpected processing instruction (e.g. `<?xml>`) was found, encode the whole node as HTML
++     */
++    public const ENCODE_INVALID_PROCESSING_INSTRUCTION = 64;
++
+     /**
+      * @var int
+      */
+@@ -224,6 +229,11 @@ class Behavior
+         return ($this->flags & self::ENCODE_INVALID_CDATA_SECTION) === self::ENCODE_INVALID_CDATA_SECTION;
+     }
+ 
++    public function shallEncodeInvalidProcessingInstruction(): bool
++    {
++        return ($this->flags & self::ENCODE_INVALID_PROCESSING_INSTRUCTION) === self::ENCODE_INVALID_PROCESSING_INSTRUCTION;
++    }
++
+     public function shallRemoveUnexpectedChildren(): bool
+     {
+         return ($this->flags & self::REMOVE_UNEXPECTED_CHILDREN) === self::REMOVE_UNEXPECTED_CHILDREN;
+diff --git a/src/Builder/CommonBuilder.php b/src/Builder/CommonBuilder.php
+index 9e38f08..71daf88 100644
+--- a/src/Builder/CommonBuilder.php
++++ b/src/Builder/CommonBuilder.php
+@@ -76,7 +76,11 @@ class CommonBuilder implements BuilderInterface
+     protected function createBehavior(): Behavior
+     {
+         return (new Behavior())
+-            ->withFlags(Behavior::ENCODE_INVALID_TAG | Behavior::REMOVE_UNEXPECTED_CHILDREN)
++            ->withFlags(
++                Behavior::ENCODE_INVALID_TAG
++                | Behavior::REMOVE_UNEXPECTED_CHILDREN
++                | Behavior::ENCODE_INVALID_PROCESSING_INSTRUCTION
++            )
+             ->withName('common')
+             ->withTags(...array_values($this->createBasicTags()))
+             ->withTags(...array_values($this->createMediaTags()))
+diff --git a/src/Visitor/CommonVisitor.php b/src/Visitor/CommonVisitor.php
+index 64381e0..d92a042 100644
+--- a/src/Visitor/CommonVisitor.php
++++ b/src/Visitor/CommonVisitor.php
+@@ -19,6 +19,7 @@ use DOMCdataSection;
+ use DOMComment;
+ use DOMElement;
+ use DOMNode;
++use DOMProcessingInstruction;
+ use DOMText;
+ use Psr\Log\LoggerAwareInterface;
+ use Psr\Log\LoggerAwareTrait;
+@@ -64,6 +65,10 @@ class CommonVisitor extends AbstractVisitor implements LoggerAwareInterface
+ 
+     public function enterNode(DOMNode $domNode): ?DOMNode
+     {
++        if ($domNode instanceof DOMProcessingInstruction) {
++            return $this->handleInvalidNode($domNode);
++        }
++
+         if (!$domNode instanceof DOMCdataSection
+             && !$domNode instanceof DOMComment
+             && !$domNode instanceof DOMElement
+@@ -219,6 +224,7 @@ class CommonVisitor extends AbstractVisitor implements LoggerAwareInterface
+         if (
+             ($domNode instanceof DOMComment && $this->behavior->shallEncodeInvalidComment())
+             || ($domNode instanceof DOMCdataSection && $this->behavior->shallEncodeInvalidCdataSection())
++            || ($domNode instanceof DOMProcessingInstruction && $this->behavior->shallEncodeInvalidProcessingInstruction())
+         ) {
+             $this->log('Found unexpected node {nodeName}', [
+                 'behavior' => $this->behavior->getName(),

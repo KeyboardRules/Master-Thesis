@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-xggw-g9pm-9qhh",
+    "cve":  "CVE-2026-33479",
+    "cwe":  "CWE-94",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "087dab8841f8bdb54be184105ef19b47c5698fcb",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/Gallery/view/saveSort.json.php",
+                        "plugin/Gallery/view/sections.php",
+                        "plugin/Plugin.abstract.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "plugin/Gallery/view/saveSort.json.php includes 1 project file(s)",
+                     "plugin/Gallery/view/sections.php includes 1 project file(s)",
+                     "plugin/Plugin.abstract.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

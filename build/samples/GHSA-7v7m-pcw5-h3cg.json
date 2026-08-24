@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-7v7m-pcw5-h3cg",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "pusher/pusher-http-php",
+    "sha":  "5a2ccdd3b14932b9cb5d0f59cf81d19c447214f1",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Pusher.php",
+                        "test/unit/channelInfoUnitTest.php",
+                        "test/unit/socketAuthTest.php",
+                        "test/unit/triggerUnitTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lib/Pusher.php class extends Exception",
+                     "test/unit/socketAuthTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Pusher.php",
+                        "test/unit/channelInfoUnitTest.php",
+                        "test/unit/socketAuthTest.php",
+                        "test/unit/triggerUnitTest.php"
+                    ],
+    "sink_hit":  false
+}

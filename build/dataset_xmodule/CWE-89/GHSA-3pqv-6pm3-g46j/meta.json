@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-3pqv-6pm3-g46j",
+    "cve":  "CVE-2022-2067",
+    "cwe":  "CWE-89",
+    "repo":  "francoisjacquet/rosariosis",
+    "fix_commit":  "15d5e8700d538935b5c411b2a1e25bcf7e16c47c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "modules/Custom/includes/RegistrationSave.fnc.php",
+                        "modules/School_Setup/Calendar.php",
+                        "modules/School_Setup/MarkingPeriods.php",
+                        "modules/School_Setup/SchoolFields.php",
+                        "modules/Students/includes/AddressFields.php",
+                        "modules/Students/includes/PeopleFields.php",
+                        "modules/Students/includes/StudentFields.php",
+                        "modules/Users/UserFields.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "modules/School_Setup/Calendar.php includes 2 project file(s)",
+                     "modules/School_Setup/MarkingPeriods.php includes 1 project file(s)",
+                     "modules/School_Setup/SchoolFields.php includes 1 project file(s)",
+                     "modules/Users/UserFields.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

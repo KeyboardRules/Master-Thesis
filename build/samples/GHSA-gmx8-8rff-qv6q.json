@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gmx8-8rff-qv6q",
+    "cve":  "CVE-2023-5917",
+    "cwe":  "CWE-79",
+    "repo":  "phpbb/phpbb-app",
+    "sha":  "a3a84334f1c17ee57cc9af3d84996af8772736d3",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/acp/acp_icons.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/acp/acp_icons.php"
+                    ],
+    "sink_hit":  true
+}

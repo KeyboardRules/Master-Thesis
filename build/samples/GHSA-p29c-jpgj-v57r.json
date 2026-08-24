@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p29c-jpgj-v57r",
+    "cve":  "CVE-2020-10235",
+    "cwe":  "CWE-78",
+    "repo":  "Froxlor/Froxlor",
+    "sha":  "62ce21c9ec393f9962515c88f0c489ace42bf656",
+    "status":  "ok",
+    "changed_php":  [
+                        "install/lib/class.FroxlorInstall.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "install/lib/class.FroxlorInstall.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "install/lib/class.FroxlorInstall.php"
+                    ],
+    "sink_hit":  true
+}

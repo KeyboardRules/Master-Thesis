@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2wxv-3g4v-p76p",
+    "cve":  "CVE-2006-3360",
+    "cwe":  "CWE-22",
+    "repo":  "phpsysinfo/phpsysinfo",
+    "sha":  "60b5bbb5d1cc17f44050e99a3e746f55a4fd4e18",
+    "status":  "ok",
+    "changed_php":  [
+                        "language/language.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "language/language.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "language/language.php"
+                    ],
+    "sink_hit":  true
+}

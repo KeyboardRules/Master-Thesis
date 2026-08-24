@@ -1,0 +1,40 @@
+﻿{
+    "id":  "GHSA-pwrw-g29q-3mp8",
+    "cve":  "CVE-2023-3531",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "cb8ea5ccca61653895bb6881547e463baa50293d",
+    "status":  "ok",
+    "changed_php":  [
+                        "install/install.queries.php",
+                        "install/upgrade_operations.php",
+                        "install/upgrade_run_3.0.php",
+                        "install/upgrade_scripts_manager.php",
+                        "pages/items.js.php",
+                        "pages/items.php",
+                        "sources/items.queries.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "install/install.queries.php includes 39 project file(s)",
+                     "install/upgrade_operations.php includes 11 project file(s)",
+                     "install/upgrade_run_3.0.php includes 10 project file(s)",
+                     "install/upgrade_scripts_manager.php includes 2 project file(s)",
+                     "pages/items.js.php includes 4 project file(s)",
+                     "pages/items.php includes 7 project file(s)",
+                     "sources/items.queries.php includes 16 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/js/functions.js",
+                        "install/install.queries.php",
+                        "install/upgrade_operations.php",
+                        "install/upgrade_run_3.0.php",
+                        "install/upgrade_scripts_manager.php",
+                        "pages/items.js.php",
+                        "pages/items.php",
+                        "sources/items.queries.php"
+                    ],
+    "sink_hit":  true
+}

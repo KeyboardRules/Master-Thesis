@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rmr4-x6c9-jc68",
+    "cve":  "CVE-2024-49764",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "af15eabbb1752985d36f337cecf137a947e170f6",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/device/capture.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/device/capture.inc.php"
+                    ],
+    "sink_hit":  true
+}

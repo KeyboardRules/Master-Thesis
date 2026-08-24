@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mj5r-x73q-fjw6",
+    "cve":  "CVE-2024-53860",
+    "cwe":  "CWE-74",
+    "repo":  "Spencer14420/SPEmailHandler-PHP",
+    "sha":  "6f00dd0d44ff27889aed2980a5ba06e60d83549d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/EmailHandler.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/EmailHandler.php"
+                    ],
+    "sink_hit":  false
+}

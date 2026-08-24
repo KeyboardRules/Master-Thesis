@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-3x67-4c2c-w45m",
+    "cve":  "CVE-2026-32813",
+    "cwe":  "CWE-89",
+    "repo":  "Admidio/admidio",
+    "fix_commit":  "3473bf5a7aa1bfc5043e73979719396276f4189f",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/groups-roles/mylist.php",
+                        "src/Roles/Entity/ListConfiguration.php",
+                        "src/Roles/ValueObject/ConditionParser.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/groups-roles/mylist.php includes 2 project file(s)",
+                     "src/Roles/Entity/ListConfiguration.php class extends Entity"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gv4m-f6fx-859x",
+    "cve":  "CVE-2024-51497",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "42b156e42a3811c23758772ce8c63d4d3eaba59b",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/print-customoid.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/print-customoid.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/print-customoid.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-77mr-wc79-m8j3",
+    "cve":  "CVE-2021-3603",
+    "cwe":  "CWE-74",
+    "repo":  "PHPMailer/PHPMailer",
+    "fix_commit":  "45f3c18dc6a2de1cb1bf49b9b249a9ee36a5f7f3",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/PHPMailer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/PHPMailerTest.php includes 5 project file(s)",
+                     "test/PHPMailerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

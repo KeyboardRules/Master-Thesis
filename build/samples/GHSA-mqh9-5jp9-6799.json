@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mqh9-5jp9-6799",
+    "cve":  "CVE-2022-3000",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "eebc12601495ada38495076bec12841b2477516b",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "layouts/basic/modules/Settings/LayoutEditor/EditField.tpl"
+                    ],
+    "sink_hit":  false
+}

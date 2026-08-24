@@ -1,0 +1,172 @@
+﻿diff --git a/objects/Object.php b/objects/Object.php
+index bb3ca0e48..36053c2e8 100644
+--- a/objects/Object.php
++++ b/objects/Object.php
+@@ -268,6 +268,7 @@ abstract class ObjectYPT implements ObjectInterface
+         if (!empty($_GET['q'])) {
+             global $global;
+             $search = strtolower(xss_esc($_GET['q']));
++            $search = $global['mysqli']->real_escape_string($search);
+ 
+             $like = [];
+             $searchFields = static::getSearchFieldsNames();
+diff --git a/objects/bootGrid.php b/objects/bootGrid.php
+index 64ec2a91c..11e7f460b 100644
+--- a/objects/bootGrid.php
++++ b/objects/bootGrid.php
+@@ -25,7 +25,7 @@ class BootGrid
+                 $direction = "ASC";
+                 if (strtoupper($value)==="DESC") {
+                     $direction = "DESC";
+-                }else 
++                }else
+                 if (strtoupper($value)==="IS NULL") {
+                     $direction = "IS NULL";
+                 }else if (strtoupper($value)==="IS NOT NULL DESC") {
+@@ -71,7 +71,9 @@ class BootGrid
+             global $global;
+             $search = strtolower(xss_esc($_POST['searchPhrase']));
+             $search = str_replace('&quot;', '"', $search);
++            $search = $global['mysqli']->real_escape_string($search);
+             $searchRegexpSafe = preg_quote($search, '/');
++            $searchRegexpSafe = $global['mysqli']->real_escape_string($searchRegexpSafe);
+             $like = [];
+             foreach ($searchFieldsNames as $value) {
+                 $like[] = " {$value} LIKE '%{$search}%' ";
+diff --git a/objects/video.php b/objects/video.php
+index e1900d55b..f3f8a234c 100644
+--- a/objects/video.php
++++ b/objects/video.php
+@@ -1319,6 +1319,7 @@ if (!class_exists('Video')) {
+ 
+         static function getCatSQL()
+         {
++            global $global;
+             $catName = @$_REQUEST['catName'];
+             $sql = '';
+             if (!empty($catName)) {
+@@ -1327,6 +1328,7 @@ if (!class_exists('Video')) {
+                 }
+                 $sqls = [];
+                 foreach ($catName as $value) {
++                    $value = $global['mysqli']->real_escape_string($value);
+                     if (empty($_REQUEST['doNotShowCats'])) {
+                         $sqlText = " (c.clean_name = '{$value}' ";
+                         if (empty($_REQUEST['doNotShowCatChilds'])) {
+@@ -1473,11 +1475,12 @@ if (!class_exists('Video')) {
+ 
+             if (!empty($_POST['searchPhrase'])) {
+                 $_POST['searchPhrase'] = mb_strtolower(str_replace('&quot;', '"', $_POST['searchPhrase']));
++                $searchPhraseEscaped = $global['mysqli']->real_escape_string($_POST['searchPhrase']);
+                 $searchFieldsNames = self::getSearchFieldsNames();
+                 if (AVideoPlugin::isEnabledByName("VideoTags")) {
+                     $sql .= " AND (";
+                     $sql .= "v.id IN (select videos_id FROM tags_has_videos LEFT JOIN tags as t ON tags_id = t.id AND t.name "
+-                        . "LIKE '%{$_POST['searchPhrase']}%' WHERE t.id is NOT NULL)";
++                        . "LIKE '%{$searchPhraseEscaped}%' WHERE t.id is NOT NULL)";
+                     $sql .= BootGrid::getSqlSearchFromPost($searchFieldsNames, "OR");
+                     $searchFieldsNames = ['v.title'];
+                     $sql .= self::getFullTextSearch($searchFieldsNames, $_POST['searchPhrase']);
+@@ -1989,8 +1992,9 @@ if (!class_exists('Video')) {
+                     $sql .= " AND (v.type = 'video')";
+                 } elseif ($_SESSION['type'] == 'audio') {
+                     $sql .= " AND (v.type = 'audio' OR  v.type = 'linkAudio')";
+-                } else {
+-                    $sql .= " AND v.type = '{$_SESSION['type']}' ";
++                } elseif (in_array($_SESSION['type'], self::$typeOptions)) {
++                    $sessionType = $global['mysqli']->real_escape_string($_SESSION['type']);
++                    $sql .= " AND v.type = '{$sessionType}' ";
+                 }
+             }
+ 
+@@ -2048,11 +2052,12 @@ if (!class_exists('Video')) {
+ 
+             if (!empty($_POST['searchPhrase'])) {
+                 $_POST['searchPhrase'] = mb_strtolower(str_replace('&quot;', '"', $_POST['searchPhrase']));
++                $searchPhraseEscaped = $global['mysqli']->real_escape_string($_POST['searchPhrase']);
+                 $searchFieldsNames = self::getSearchFieldsNames();
+                 if (AVideoPlugin::isEnabledByName("VideoTags")) {
+                     $sql .= " AND (";
+                     $sql .= "v.id IN (select videos_id FROM tags_has_videos LEFT JOIN tags as t ON tags_id = t.id AND t.name "
+-                        . "LIKE '%{$_POST['searchPhrase']}%' WHERE t.id is NOT NULL)";
++                        . "LIKE '%{$searchPhraseEscaped}%' WHERE t.id is NOT NULL)";
+                     $sql .= BootGrid::getSqlSearchFromPost($searchFieldsNames, "OR");
+                     $searchFieldsNames = ['v.title'];
+                     $sql .= self::getFullTextSearch($searchFieldsNames, $_POST['searchPhrase']);
+@@ -2836,8 +2841,9 @@ if (!class_exists('Video')) {
+                     $sql .= " AND (v.type = 'video' OR  v.type = 'embed' OR  v.type = 'linkVideo')";
+                 } elseif ($_SESSION['type'] == 'audio') {
+                     $sql .= " AND (v.type = 'audio' OR  v.type = 'linkAudio')";
+-                } else {
+-                    $sql .= " AND v.type = '{$_SESSION['type']}' ";
++                } elseif (in_array($_SESSION['type'], self::$typeOptions)) {
++                    $sessionType = $global['mysqli']->real_escape_string($_SESSION['type']);
++                    $sql .= " AND v.type = '{$sessionType}' ";
+                 }
+             }
+ 
+@@ -2895,10 +2901,11 @@ if (!class_exists('Video')) {
+ 
+             if (!empty($_POST['searchPhrase'])) {
+                 $_POST['searchPhrase'] = mb_strtolower(str_replace('&quot;', '"', $_POST['searchPhrase']));
++                $searchPhraseEscaped = $global['mysqli']->real_escape_string($_POST['searchPhrase']);
+                 $searchFieldsNames = self::getSearchFieldsNames();
+                 if (AVideoPlugin::isEnabledByName("VideoTags")) {
+                     $sql .= " AND (";
+-                    $sql .= "v.id IN (select videos_id FROM tags_has_videos LEFT JOIN tags as t ON tags_id = t.id AND t.name LIKE '%{$_POST['searchPhrase']}%' WHERE t.id is NOT NULL)";
++                    $sql .= "v.id IN (select videos_id FROM tags_has_videos LEFT JOIN tags as t ON tags_id = t.id AND t.name LIKE '%{$searchPhraseEscaped}%' WHERE t.id is NOT NULL)";
+                     $sql .= BootGrid::getSqlSearchFromPost($searchFieldsNames, "OR");
+                     $searchFieldsNames = ['v.title'];
+                     $sql .= self::getFullTextSearch($searchFieldsNames, $_POST['searchPhrase']);
+@@ -6764,6 +6771,7 @@ if (!class_exists('Video')) {
+             $search = (xss_esc($search));
+             $search = str_replace('&quot;', '"', $search);
+             $search = mb_strtolower($search);
++            $search = $global['mysqli']->real_escape_string($search);
+             if (empty($columnsArray) || empty($search)) {
+                 return "";
+             }
+diff --git a/plugin/Live/Live.php b/plugin/Live/Live.php
+index 128c9a796..5e24a16c0 100644
+--- a/plugin/Live/Live.php
++++ b/plugin/Live/Live.php
+@@ -3659,13 +3659,14 @@ Click <a href=\"{link}\">here</a> to join our live.";
+         }
+ 
+         if (!empty($_REQUEST['catName'])) {
+-            $catName = ($_REQUEST['catName']);
++            $catName = $global['mysqli']->real_escape_string($_REQUEST['catName']);
+             $sql .= " AND (c.clean_name = '{$catName}' OR c.parentId IN (SELECT cs.id from categories cs where cs.clean_name =  '{$catName}' ))";
+         }
+ 
+         if (!empty($_GET['modified'])) {
+-            $_GET['modified'] = str_replace("'", "", $_GET['modified']);
+-            $sql .= " AND v.modified >= '{$_GET['modified']}'";
++            $_GET['modified'] = preg_replace('/[^0-9: \-]/', '', $_GET['modified']);
++            $modifiedEscaped = $global['mysqli']->real_escape_string($_GET['modified']);
++            $sql .= " AND v.modified >= '{$modifiedEscaped}'";
+         }
+ 
+         $sql .= AVideoPlugin::getVideoWhereClause();
+diff --git a/plugin/LiveLinks/LiveLinks.php b/plugin/LiveLinks/LiveLinks.php
+index ea5318eaa..9a54dfa14 100644
+--- a/plugin/LiveLinks/LiveLinks.php
++++ b/plugin/LiveLinks/LiveLinks.php
+@@ -330,13 +330,14 @@ class LiveLinks extends PluginAbstract {
+         }
+ 
+         if (!empty($_REQUEST['catName'])) {
+-            $catName = ($_REQUEST['catName']);
++            $catName = $global['mysqli']->real_escape_string($_REQUEST['catName']);
+             $sql .= " AND (c.clean_name = '{$catName}' OR c.parentId IN (SELECT cs.id from categories cs where cs.clean_name =  '{$catName}' ))";
+         }
+ 
+         if (!empty($_GET['modified'])) {
+-            $_GET['modified'] = str_replace("'", "", $_GET['modified']);
+-            $sql .= " AND v.modified >= '{$_GET['modified']}'";
++            $_GET['modified'] = preg_replace('/[^0-9: \-]/', '', $_GET['modified']);
++            $modifiedEscaped = $global['mysqli']->real_escape_string($_GET['modified']);
++            $sql .= " AND v.modified >= '{$modifiedEscaped}'";
+         }
+ 
+         $sql .= AVideoPlugin::getVideoWhereClause();

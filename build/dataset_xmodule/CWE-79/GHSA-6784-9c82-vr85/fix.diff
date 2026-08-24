@@ -1,0 +1,30 @@
+﻿diff --git a/src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php b/src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php
+index 59b9da28..317c0fc7 100644
+--- a/src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php
++++ b/src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php
+@@ -81,10 +81,11 @@ class MediaStreamController
+ 
+     /**
+      * @param int $id
++     * @param string $slug
+      *
+      * @return Response
+      */
+-    public function downloadAction(Request $request, $id)
++    public function downloadAction(Request $request, $id, $slug)
+     {
+         try {
+             if (\ob_get_length()) {
+@@ -98,7 +99,11 @@ class MediaStreamController
+             $fileVersion = $this->getFileVersion($id, $version);
+ 
+             if (!$fileVersion) {
+-                return new Response(null, 404);
++                return new Response('Invalid version "' . $version . '" for media with ID "' . $id . '".', 404);
++            }
++
++            if ($fileVersion->getName() !== $slug) {
++                return new Response('Invalid file name "' . $slug . '" for media with ID "' . $id . '".', 404);
+             }
+ 
+             if ($this->securityChecker) {

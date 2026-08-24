@@ -1,0 +1,43 @@
+﻿{
+    "id":  "GHSA-4286-h47h-m5v6",
+    "cve":  "CVE-2021-41745",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "sha":  "aec3df841958059c1db9ab1af25acc2af81e4e0e",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Controller/AttachmentController.class.php",
+                        "server/Application/Api/Controller/CommonController.class.php",
+                        "server/Application/Api/Controller/PageController.class.php",
+                        "server/Application/Api/Controller/UpdateController.class.php",
+                        "server/Application/Api/Model/AttachmentModel.class.php",
+                        "server/Application/Api/Model/PageModel.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "server/Application/Api/Controller/CommonController.class.php class extends BaseController",
+                     "server/Application/Api/Controller/PageController.class.php class extends BaseController",
+                     "server/Application/Api/Controller/UpdateController.class.php class extends BaseController",
+                     "server/Application/Api/Model/PageModel.class.php class extends BaseModel",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Controller/AttachmentController.class.php",
+                        "server/Application/Api/Controller/CommonController.class.php",
+                        "server/Application/Api/Controller/PageController.class.php",
+                        "server/Application/Api/Controller/UpdateController.class.php",
+                        "server/Application/Api/Model/AttachmentModel.class.php",
+                        "server/Application/Api/Model/PageModel.class.php",
+                        "web_src/.prettierrc.json",
+                        "web_src/src/components/admin/Index.vue",
+                        "web_src/src/components/admin/attachment/Index.vue",
+                        "web_src/src/components/attachment/Index.vue",
+                        "web_src/src/components/item/Index.vue",
+                        "web_src/src/router/index.js",
+                        "web_src/static/css/common.css",
+                        "web_src/static/lang/en.js",
+                        "web_src/static/lang/zh-CN.js"
+                    ],
+    "sink_hit":  false
+}

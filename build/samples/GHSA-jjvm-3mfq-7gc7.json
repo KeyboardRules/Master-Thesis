@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-jjvm-3mfq-7gc7",
+    "cve":  "CVE-2022-0506",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "05d55f2befb1b25375ca5371875ff535d6cc5f70",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/User/routes/api.php",
+                        "src/MicroweberPackages/User/routes/web.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/User/routes/api.php",
+                        "src/MicroweberPackages/User/routes/web.php"
+                    ],
+    "sink_hit":  false
+}

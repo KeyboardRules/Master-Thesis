@@ -1,0 +1,21 @@
+﻿diff --git a/modules/views/src/ViewExecutable.php b/modules/views/src/ViewExecutable.php
+index fc40f6a32..87739a90c 100644
+--- a/modules/views/src/ViewExecutable.php
++++ b/modules/views/src/ViewExecutable.php
+@@ -8,6 +8,7 @@ use Drupal\Core\Logger\LoggerChannelTrait;
+ use Drupal\Core\Routing\RouteProviderInterface;
+ use Drupal\Core\Session\AccountInterface;
+ use Drupal\views\Plugin\views\display\DisplayRouterInterface;
++use Drupal\views\Plugin\views\query\QueryPluginBase;
+ use Drupal\views\Plugin\ViewsPluginManager;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+@@ -219,7 +220,7 @@ class ViewExecutable {
+    *
+    * @var \Drupal\views\Plugin\views\query\QueryPluginBase
+    */
+-  public $query = NULL;
++  public ?QueryPluginBase $query = NULL;
+ 
+   /**
+    * The used pager plugin used by the current executed view.

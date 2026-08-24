@@ -1,0 +1,52 @@
+﻿diff --git a/src/Dev/FixtureBlueprint.php b/src/Dev/FixtureBlueprint.php
+index 9d219a36f..47e6a1805 100644
+--- a/src/Dev/FixtureBlueprint.php
++++ b/src/Dev/FixtureBlueprint.php
+@@ -121,7 +121,7 @@ class FixtureBlueprint
+                         continue;
+                     }
+ 
+-                    if (is_callable($fieldVal)) {
++                    if (!is_string($fieldVal) && is_callable($fieldVal)) {
+                         $obj->$fieldName = $fieldVal($obj, $data, $fixtures);
+                     } else {
+                         $obj->$fieldName = $fieldVal;
+diff --git a/src/Forms/GridField/GridFieldDataColumns.php b/src/Forms/GridField/GridFieldDataColumns.php
+index 623515323..c8dd223da 100644
+--- a/src/Forms/GridField/GridFieldDataColumns.php
++++ b/src/Forms/GridField/GridFieldDataColumns.php
+@@ -281,7 +281,7 @@ class GridFieldDataColumns implements GridField_ColumnProvider
+         }
+ 
+         $spec = $this->fieldFormatting[$fieldName];
+-        if (is_callable($spec)) {
++        if (!is_string($spec) && is_callable($spec)) {
+             return $spec($value, $item);
+         } else {
+             $format = str_replace('$value', "__VAL__", $spec);
+diff --git a/src/ORM/Hierarchy/MarkedSet.php b/src/ORM/Hierarchy/MarkedSet.php
+index 96fd23602..a2adda78d 100644
+--- a/src/ORM/Hierarchy/MarkedSet.php
++++ b/src/ORM/Hierarchy/MarkedSet.php
+@@ -333,7 +333,7 @@ class MarkedSet
+         $parentNode->setField('markingClasses', $this->markingClasses($data['node']));
+ 
+         // Evaluate custom context
+-        if (is_callable($context)) {
++        if (!is_string($context) && is_callable($context)) {
+             $context = call_user_func($context, $data['node']);
+         }
+         if ($context) {
+diff --git a/src/View/SSViewer_DataPresenter.php b/src/View/SSViewer_DataPresenter.php
+index cf609d117..f8d120cd8 100644
+--- a/src/View/SSViewer_DataPresenter.php
++++ b/src/View/SSViewer_DataPresenter.php
+@@ -326,7 +326,7 @@ class SSViewer_DataPresenter extends SSViewer_Scope
+         $override = $overrides[$property];
+ 
+         // Late-evaluate this value
+-        if (is_callable($override)) {
++        if (!is_string($override) && is_callable($override)) {
+             $override = $override();
+ 
+             // Late override may yet return null

@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-cpxc-67rc-c775",
+    "cve":  "CVE-2020-15154",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "sha":  "7f4b905b90954e394ec10dd35bad2a5dec505371",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Elements/admin/content_fields.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_info.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_options.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_related.php",
+                        "app/webroot/theme/admin-third/Elements/admin/contents/index_list_tree.php",
+                        "lib/Baser/View/Elements/admin/contents/index_list_tree.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 6 php files"
+                 ],
+    "changed_all":  [
+                        "app/webroot/theme/admin-third/Elements/admin/content_fields.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_info.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_options.php",
+                        "app/webroot/theme/admin-third/Elements/admin/content_related.php",
+                        "app/webroot/theme/admin-third/Elements/admin/contents/index_list_tree.php",
+                        "app/webroot/theme/admin-third/js/admin/libs/jquery.bcTree.js",
+                        "lib/Baser/View/Elements/admin/contents/index_list_tree.php",
+                        "lib/Baser/webroot/js/admin/libs/jquery.bcTree.js"
+                    ],
+    "sink_hit":  true
+}

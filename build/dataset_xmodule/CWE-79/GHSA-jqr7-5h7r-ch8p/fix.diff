@@ -1,0 +1,30 @@
+﻿diff --git a/engine/Shopware/Controllers/Frontend/Address.php b/engine/Shopware/Controllers/Frontend/Address.php
+index dd839188..80ccb04b 100644
+--- a/engine/Shopware/Controllers/Frontend/Address.php
++++ b/engine/Shopware/Controllers/Frontend/Address.php
+@@ -280,6 +280,12 @@ class Shopware_Controllers_Frontend_Address extends Enlight_Controller_Action
+             }
+         }
+ 
++        /** @var string $data */
++        $extraData = array_map(function ($data) {
++            // only allow alphanumeric characters, commas and spaces
++            return preg_replace('/[^A-Za-z0-9 ,]/', '', $data);
++        }, $extraData);
++
+         $this->View()->assign('addresses', $addresses);
+         $this->View()->assign('activeAddressId', $activeAddressId);
+         $this->View()->assign('extraData', $extraData);
+diff --git a/engine/Shopware/Controllers/Frontend/Newsletter.php b/engine/Shopware/Controllers/Frontend/Newsletter.php
+index 52e5d2f3..0b335047 100644
+--- a/engine/Shopware/Controllers/Frontend/Newsletter.php
++++ b/engine/Shopware/Controllers/Frontend/Newsletter.php
+@@ -205,7 +205,7 @@ class Shopware_Controllers_Frontend_Newsletter extends Enlight_Controller_Action
+         }
+ 
+         $this->View()->sContentItem = $content;
+-        $this->View()->sBackLink = $this->Front()->Router()->assemble(['action' => 'listing']) . '?p=' . $this->Request()->getParam('p', 1);
++        $this->View()->sBackLink = $this->Front()->Router()->assemble(['action' => 'listing']) . '?p=' . (int) $this->Request()->getParam('p', 1);
+     }
+ 
+     /**

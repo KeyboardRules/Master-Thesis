@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-vmgw-24w6-9v82",
+    "cve":  "CVE-2025-30081",
+    "cwe":  "CWE-79",
+    "repo":  "clickstorm/cs_seo",
+    "sha":  "46e15a22d52da227b110bf6e95c2bcbb2fe4f55f",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Controller/AbstractModuleController.php",
+                        "Classes/Controller/ModuleFileController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Controller/AbstractModuleController.php class extends ActionController",
+                     "Classes/Controller/ModuleFileController.php class extends AbstractModuleController"
+                 ],
+    "changed_all":  [
+                        "Classes/Controller/AbstractModuleController.php",
+                        "Classes/Controller/ModuleFileController.php",
+                        "Resources/Private/Templates/ModuleFile/ShowEmptyImageAlt.html"
+                    ],
+    "sink_hit":  true
+}

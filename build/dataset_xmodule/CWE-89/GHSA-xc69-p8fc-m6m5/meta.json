@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xc69-p8fc-m6m5",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-subsites",
+    "fix_commit":  "bf2c81dce62ae9a7623d224fd31a39505260eb57",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Extensions/GroupSubsites.php"
+                    ],
+    "evidence":  [
+                     "src/Extensions/GroupSubsites.php class extends DataExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

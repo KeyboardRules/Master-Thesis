@@ -1,0 +1,17 @@
+﻿diff --git a/src/fields/formfields/Hidden.php b/src/fields/formfields/Hidden.php
+index fc4bd40..fcb026b 100644
+--- a/src/fields/formfields/Hidden.php
++++ b/src/fields/formfields/Hidden.php
+@@ -111,11 +111,9 @@ class Hidden extends FormField implements PreviewableFieldInterface, SortableFie
+ 
+             // Check if there's no value been added on the front-end, and use the default value
+             if ($value === '') {
+-                $value = $this->defaultValue;
++                $value = Variables::getParsedValue($this->defaultValue, $element);
+             }
+ 
+-            $value = Variables::getParsedValue($value, $element);
+-
+             // Immediately update the value for the element, so integrations use the up-to-date value
+             if ($element) {
+                 $element->setFieldValue($this->handle, $value);

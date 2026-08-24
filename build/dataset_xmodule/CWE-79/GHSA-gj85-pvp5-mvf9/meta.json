@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-gj85-pvp5-mvf9",
+    "cve":  "CVE-2022-0501",
+    "cwe":  "CWE-79",
+    "repo":  "ptrofimov/beanstalk_console",
+    "fix_commit":  "e351c8260ec1d3718d9e475ee57c7e12c47f19da",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/include.php"
+                    ],
+    "evidence":  [
+                     "lib/include.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

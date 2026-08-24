@@ -1,0 +1,41 @@
+﻿diff --git a/framework/base/View.php b/framework/base/View.php
+index d4d7aa2..69b8ff1 100644
+--- a/framework/base/View.php
++++ b/framework/base/View.php
+@@ -341,11 +341,14 @@ class View extends Component implements DynamicContentAwareInterface
+     public function renderPhpFile($_file_, $_params_ = [])
+     {
+         $_obInitialLevel_ = ob_get_level();
++        $_renderer_ = function () {
++            extract(func_get_arg(1), EXTR_OVERWRITE);
++            require func_get_arg(0);
++        };
+         ob_start();
+         ob_implicit_flush(false);
+-        extract($_params_, EXTR_OVERWRITE);
+         try {
+-            require $_file_;
++            call_user_func_array($_renderer_, [$_file_, $_params_]);
+             return ob_get_clean();
+         } catch (\Exception $e) {
+             while (ob_get_level() > $_obInitialLevel_) {
+diff --git a/framework/web/ErrorHandler.php b/framework/web/ErrorHandler.php
+index f89195c..a383725 100644
+--- a/framework/web/ErrorHandler.php
++++ b/framework/web/ErrorHandler.php
+@@ -259,10 +259,13 @@ class ErrorHandler extends \yii\base\ErrorHandler
+     {
+         $_params_['handler'] = $this;
+         if ($this->exception instanceof ErrorException || !Yii::$app->has('view')) {
++            $_renderer_ = function () {
++                extract(func_get_arg(1), EXTR_OVERWRITE);
++                require Yii::getAlias(func_get_arg(0));
++            };
+             ob_start();
+             ob_implicit_flush(false);
+-            extract($_params_, EXTR_OVERWRITE);
+-            require Yii::getAlias($_file_);
++            call_user_func_array($_renderer_, [$_file_, $_params_]);
+ 
+             return ob_get_clean();
+         }

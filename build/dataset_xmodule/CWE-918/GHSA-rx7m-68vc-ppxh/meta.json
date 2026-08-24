@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rx7m-68vc-ppxh",
+    "cve":  "CVE-2025-54370",
+    "cwe":  "CWE-918",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "334a67797ace574d1d37c0992ffe283b7415471a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/BaseReader.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/PhpSpreadsheetTests/Reader/Html/HtmlImage2Test.php class extends TestCase",
+                     "tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

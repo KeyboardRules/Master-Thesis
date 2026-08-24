@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-5xmg-w578-gq5j",
+    "cve":  "CVE-2013-5583",
+    "cwe":  "CWE-79",
+    "repo":  "joomla/joomla-cms",
+    "fix_commit":  "c00c033d33d901e1ca6be9061a44e55acd041b1f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "administrator/components/com_admin/script.php",
+                        "libraries/idna_convert/example.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libraries/idna_convert/example.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

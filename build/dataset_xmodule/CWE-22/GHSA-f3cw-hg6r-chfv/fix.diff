@@ -1,0 +1,13 @@
+﻿diff --git a/src/helpers/FileHelper.php b/src/helpers/FileHelper.php
+index 0c2da88..85cf381 100644
+--- a/src/helpers/FileHelper.php
++++ b/src/helpers/FileHelper.php
+@@ -133,7 +133,7 @@ class FileHelper extends \yii\helpers\FileHelper
+             $from = static::absolutePath($from, ds: $ds);
+         }
+ 
+-        return $from . $ds . $to;
++        return static::normalizePath($from . $ds . $to, $ds);
+     }
+ 
+     /**

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9724-h8p7-r3jv",
+    "cve":  "CVE-2023-5546",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "aa8ab48521fe4a57c3ec923e6e82a5ac1202e9de",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "mod/quiz/report/grading/report.php"
+                    ],
+    "evidence":  [
+                     "mod/quiz/report/grading/report.php includes 1 project file(s)",
+                     "mod/quiz/report/grading/report.php class extends report_base"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

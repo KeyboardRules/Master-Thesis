@@ -1,0 +1,46 @@
+﻿{
+    "id":  "GHSA-9m5v-vq4f-mrvf",
+    "cve":  "CVE-2012-5657",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zf1",
+    "sha":  "15c84914f063efea49ea1c4425459a792cc185ea",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Feed.php",
+                        "library/Zend/Feed/Abstract.php",
+                        "library/Zend/Feed/Writer/Deleted.php",
+                        "library/Zend/Feed/Writer/Entry.php",
+                        "library/Zend/Feed/Writer/Feed/FeedAbstract.php",
+                        "tests/Zend/Feed/AbstractFeedTest.php",
+                        "tests/Zend/Feed/AllTests.php",
+                        "tests/Zend/Feed/AtomTest.php",
+                        "tests/Zend/Feed/RssTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "library/Zend/Feed.php includes 13 project file(s)",
+                     "library/Zend/Feed/Abstract.php includes 3 project file(s)",
+                     "library/Zend/Feed/Abstract.php class extends Zend_Feed_Element",
+                     "library/Zend/Feed/Writer/Deleted.php includes 7 project file(s)",
+                     "library/Zend/Feed/Writer/Entry.php includes 27 project file(s)",
+                     "library/Zend/Feed/Writer/Feed/FeedAbstract.php includes 38 project file(s)",
+                     "tests/Zend/Feed/AllTests.php includes 31 project file(s)"
+                 ],
+    "changed_all":  [
+                        "library/Zend/Feed.php",
+                        "library/Zend/Feed/Abstract.php",
+                        "library/Zend/Feed/Writer/Deleted.php",
+                        "library/Zend/Feed/Writer/Entry.php",
+                        "library/Zend/Feed/Writer/Feed/FeedAbstract.php",
+                        "tests/TestConfiguration.php.dist",
+                        "tests/Zend/Feed/AbstractFeedTest.php",
+                        "tests/Zend/Feed/AllTests.php",
+                        "tests/Zend/Feed/AtomTest.php",
+                        "tests/Zend/Feed/RssTest.php",
+                        "tests/Zend/Feed/_files/xxe-info.txt",
+                        "tests/Zend/Feed/_files/zend_feed_atom_xxe.xml",
+                        "tests/Zend/Feed/_files/zend_feed_rss_xxe.xml"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-7vp9-x248-9vr9",
+    "cve":  "CVE-2026-0859",
+    "cwe":  "CWE-502",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "3225d705080a1bde57a66689621c947da5a4782f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Mail/FileSpool.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "typo3/sysext/core/Classes/Mail/FileSpool.php class extends AbstractTransport",
+                     "typo3/sysext/core/Tests/Unit/Mail/FileSpoolTest.php class extends UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

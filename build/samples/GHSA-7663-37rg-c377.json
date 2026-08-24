@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7663-37rg-c377",
+    "cve":  "CVE-2024-51494",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "82a744bfe29017b8b58b5752ab9e1b335bedf0a0",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Table/EditPortsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/Table/EditPortsController.php class extends TableController"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Table/EditPortsController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,100 @@
+﻿diff --git a/language/phpmailer.lang-ar.php b/language/phpmailer.lang-ar.php
+index 8ab485c..f795580 100644
+--- a/language/phpmailer.lang-ar.php
++++ b/language/phpmailer.lang-ar.php
+@@ -19,8 +19,7 @@ $PHPMAILER_LANG['instantiate']          = 'لا يمكن توفير خدمة ا
+ $PHPMAILER_LANG['invalid_address']      = 'الإرسال غير ممكن لأن عنوان البريد الإلكتروني غير صالح: ';
+ $PHPMAILER_LANG['mailer_not_supported'] = ' برنامج الإرسال غير مدعوم.';
+ $PHPMAILER_LANG['provide_address']      = 'يجب توفير عنوان البريد الإلكتروني لمستلم واحد على الأقل.';
+-$PHPMAILER_LANG['recipients_failed']    = 'خطأ SMTP: الأخطاء التالية ' .
+-                                          'فشل في الارسال لكل من : ';
++$PHPMAILER_LANG['recipients_failed']    = 'خطأ SMTP: الأخطاء التالية فشل في الارسال لكل من : ';
+ $PHPMAILER_LANG['signing']              = 'خطأ في التوقيع: ';
+ $PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() غير ممكن.';
+ $PHPMAILER_LANG['smtp_error']           = 'خطأ على مستوى الخادم SMTP: ';
+diff --git a/src/PHPMailer.php b/src/PHPMailer.php
+index 032ef1c..eb4b742 100644
+--- a/src/PHPMailer.php
++++ b/src/PHPMailer.php
+@@ -750,7 +750,7 @@ class PHPMailer
+      *
+      * @var string
+      */
+-    const VERSION = '6.4.1';
++    const VERSION = '6.5.0';
+ 
+     /**
+      * Error severity: message only, continue processing.
+@@ -2185,7 +2185,8 @@ class PHPMailer
+      * The default language is English.
+      *
+      * @param string $langcode  ISO 639-1 2-character language code (e.g. French is "fr")
+-     * @param string $lang_path Path to the language file directory, with trailing separator (slash)
++     * @param string $lang_path Path to the language file directory, with trailing separator (slash).D
++     *                          Do not set this from user input!
+      *
+      * @return bool
+      */
+@@ -2247,14 +2248,32 @@ class PHPMailer
+             if (!static::fileIsAccessible($lang_file)) {
+                 $foundlang = false;
+             } else {
+-                //Overwrite language-specific strings.
+-                //This way we'll never have missing translation keys.
+-                $foundlang = include $lang_file;
++                //$foundlang = include $lang_file;
++                $lines = file($lang_file);
++                foreach ($lines as $line) {
++                    //Translation file lines look like this:
++                    //$PHPMAILER_LANG['authenticate'] = 'SMTP-Fehler: Authentifizierung fehlgeschlagen.';
++                    //These files are parsed as text and not PHP so as to avoid the possibility of code injection
++                    //See https://blog.stevenlevithan.com/archives/match-quoted-string
++                    $matches = [];
++                    if (
++                        preg_match(
++                            '/^\$PHPMAILER_LANG\[\'([a-z\d_]+)\'\]\s*=\s*(["\'])(.+)*?\2;/',
++                            $line,
++                            $matches
++                        ) &&
++                        //Ignore unknown translation keys
++                        array_key_exists($matches[1], $PHPMAILER_LANG)
++                    ) {
++                        //Overwrite language-specific strings so we'll never have missing translation keys.
++                        $PHPMAILER_LANG[$matches[1]] = (string)$matches[3];
++                    }
++                }
+             }
+         }
+         $this->language = $PHPMAILER_LANG;
+ 
+-        return (bool) $foundlang; //Returns false if language not found
++        return $foundlang; //Returns false if language not found
+     }
+ 
+     /**
+diff --git a/src/POP3.php b/src/POP3.php
+index a39f480..b38964b 100644
+--- a/src/POP3.php
++++ b/src/POP3.php
+@@ -46,7 +46,7 @@ class POP3
+      *
+      * @var string
+      */
+-    const VERSION = '6.4.1';
++    const VERSION = '6.5.0';
+ 
+     /**
+      * Default POP3 port number.
+diff --git a/src/SMTP.php b/src/SMTP.php
+index 0e7f53d..2913403 100644
+--- a/src/SMTP.php
++++ b/src/SMTP.php
+@@ -35,7 +35,7 @@ class SMTP
+      *
+      * @var string
+      */
+-    const VERSION = '6.4.1';
++    const VERSION = '6.5.0';
+ 
+     /**
+      * SMTP line break constant.

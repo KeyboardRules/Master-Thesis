@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-3xg3-cgvq-2xwr",
+    "cve":  "CVE-2025-24374",
+    "cwe":  "CWE-74",
+    "repo":  "twigphp/Twig",
+    "sha":  "38576b12f05df3cc871bf68f39ccb46b418334a3",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Node/Expression/Binary/NullCoalesceBinary.php",
+                        "tests/Node/Expression/Binary/NullCoalesceTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Node/Expression/Binary/NullCoalesceBinary.php class extends AbstractBinary",
+                     "tests/Node/Expression/Binary/NullCoalesceTest.php class extends NodeTestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG",
+                        "src/Node/Expression/Binary/NullCoalesceBinary.php",
+                        "tests/Fixtures/expressions/ternary_operator.test",
+                        "tests/Fixtures/expressions/ternary_operator_noelse.test",
+                        "tests/Fixtures/expressions/ternary_operator_nothen.test",
+                        "tests/Fixtures/tests/null_coalesce.test",
+                        "tests/Node/Expression/Binary/NullCoalesceTest.php"
+                    ],
+    "sink_hit":  false
+}

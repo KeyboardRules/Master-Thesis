@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jqr7-5h7r-ch8p",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "shopware5/shopware",
+    "fix_commit":  "54461aa651566dc2701b873fe6bd94589604751b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "engine/Shopware/Controllers/Frontend/Address.php",
+                        "engine/Shopware/Controllers/Frontend/Newsletter.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "engine/Shopware/Controllers/Frontend/Address.php class extends Enlight_Controller_Action",
+                     "engine/Shopware/Controllers/Frontend/Newsletter.php class extends Enlight_Controller_Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

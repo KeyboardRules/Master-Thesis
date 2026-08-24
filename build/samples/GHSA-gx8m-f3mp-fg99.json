@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-gx8m-f3mp-fg99",
+    "cve":  "CVE-2024-35621",
+    "cwe":  "CWE-79",
+    "repo":  "getformwork/formwork",
+    "sha":  "2d92e6dbf99a9a49797947afbda0cdd4e56e11df",
+    "status":  "ok",
+    "changed_php":  [
+                        "formwork/Core/Formwork.php",
+                        "formwork/Parsers/Extensions/ParsedownExtra.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "formwork/Core/Formwork.php class uses trait",
+                     "formwork/Parsers/Extensions/ParsedownExtra.php class extends \\ParsedownExtra"
+                 ],
+    "changed_all":  [
+                        "formwork/Core/Formwork.php",
+                        "formwork/Parsers/Extensions/ParsedownExtra.php"
+                    ],
+    "sink_hit":  true
+}

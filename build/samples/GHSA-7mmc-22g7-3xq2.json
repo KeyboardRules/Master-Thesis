@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7mmc-22g7-3xq2",
+    "cve":  "CVE-2023-30944",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "sha":  "5521d1d6e8bb8bebb76ad8154095f6b18ea26e7f",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/wiki/classes/external.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "mod/wiki/classes/external.php includes 2 project file(s)",
+                     "mod/wiki/classes/external.php class extends external_api"
+                 ],
+    "changed_all":  [
+                        "mod/wiki/classes/external.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hxw5-9cc5-cmw5",
+    "cve":  "CVE-2025-47931",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "88fe1a7abdb500d9a2d4c45f9872df54c9ff8062",
+    "status":  "ok",
+    "changed_php":  [
+                        "LibreNMS/Util/Version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "LibreNMS/Util/Version.php",
+                        "doc/General/Changelog.md"
+                    ],
+    "sink_hit":  true
+}

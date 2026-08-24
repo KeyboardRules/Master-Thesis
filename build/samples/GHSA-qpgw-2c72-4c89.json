@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-qpgw-2c72-4c89",
+    "cve":  "CVE-2017-1000490",
+    "cwe":  "CWE-22",
+    "repo":  "mautic/mautic",
+    "sha":  "3b01786433ae15e9a23f1eb9b0d3dfdb065b6241",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/filemanager.class.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_exceptions.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_http.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.class.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.config.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/filemanager.class.php includes 3 project file(s)",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles.php includes 2 project file(s)",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_exceptions.php class extends Exception",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_http.php includes 1 project file(s)",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.class.php includes 1 project file(s)",
+                     "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.class.php class extends Filemanager",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/filemanager.class.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/COPYING",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_exceptions.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/cloudfiles_http.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.class.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/filemanager.rsc.config.php",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/share/cacert.pem",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/share/magic",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/share/magic.mgc",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/share/magic.mime",
+                        "app/bundles/CoreBundle/Assets/js/libraries/ckeditor/filemanager/connectors/php/plugins/rsc/share/magic.mime.mgc"
+                    ],
+    "sink_hit":  true
+}

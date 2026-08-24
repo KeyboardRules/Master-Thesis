@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-735f-w79p-282x",
+    "cve":  "CVE-2023-4145",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/customer-data-framework",
+    "sha":  "72f45dd537a706954e7a71c99fbe318640e846a2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/View/Formatter/DefaultViewFormatter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/View/Formatter/DefaultViewFormatter.php"
+                    ],
+    "sink_hit":  false
+}

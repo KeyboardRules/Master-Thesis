@@ -1,0 +1,28 @@
+﻿diff --git a/app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php b/app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
+index cf813a83c..bfbddaad7 100644
+--- a/app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
++++ b/app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php
+@@ -236,6 +236,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
+             $this->_fault('can_not_delete');
+         }
+ 
++        if (!$model->getIsUserDefined()) {
++            $this->_fault('can_not_delete');
++        }
++
+         try {
+             $model->delete();
+             return true;
+diff --git a/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php b/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
+index 2e0aa1ffe..02ccd8716 100644
+--- a/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
++++ b/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
+@@ -542,7 +542,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
+ 
+         foreach ($this as $product) {
+             if ($product->isRecurring() && $profile = $product->getRecurringProfile()) {
+-                $product->setRecurringProfile(unserialize($profile));
++                $product->setRecurringProfile(Mage::helper('core/unserializeArray')->unserialize($profile));
+             }
+         }
+ 

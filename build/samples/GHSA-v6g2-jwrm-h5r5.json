@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-v6g2-jwrm-h5r5",
+    "cve":  "CVE-2023-3469",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "04a0183c25dd425f4c2bfb5f75b7650b932ae278",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/backup.import.php",
+                        "phpmyfaq/src/phpMyFAQ/Core/Error.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/backup.import.php",
+                        "phpmyfaq/src/phpMyFAQ/Core/Error.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-42hm-pq2f-3r7m",
+    "cve":  "CVE-2025-48882",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/Math",
+    "sha":  "fc31c8f57a7a81f962cbf389fd89f4d9d06fc99a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Math/Exception/SecurityException.php",
+                        "src/Math/Reader/MathML.php",
+                        "src/Math/Reader/Security/XmlScanner.php",
+                        "tests/Math/Reader/MathMLTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/Math/Reader/MathMLTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "docs/changes/0.3.0.md",
+                        "src/Math/Exception/SecurityException.php",
+                        "src/Math/Reader/MathML.php",
+                        "src/Math/Reader/Security/XmlScanner.php",
+                        "tests/Math/Reader/MathMLTest.php"
+                    ],
+    "sink_hit":  true
+}

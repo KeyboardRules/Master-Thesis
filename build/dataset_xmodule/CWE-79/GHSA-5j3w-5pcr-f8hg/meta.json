@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-5j3w-5pcr-f8hg",
+    "cve":  "CVE-2025-47946",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/ux-live-component",
+    "fix_commit":  "7ad44cf56d750b9f56658ed986286a10da132ee7",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/DependencyInjection/LiveComponentExtension.php",
+                        "src/EventListener/AddLiveAttributesSubscriber.php",
+                        "src/LiveComponentHydrator.php",
+                        "src/Util/ChildComponentPartialRenderer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/DependencyInjection/LiveComponentExtension.php class extends Extension",
+                     "tests/Integration/LiveComponentHydratorTest.php class extends KernelTestCase",
+                     "tests/Integration/LiveComponentHydratorTest.php class uses trait",
+                     "tests/Unit/LiveComponentHydratorTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-v9w8-hq92-v39m",
+    "cve":  "CVE-2021-20683",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "sha":  "88ccc61e5656b05dd13204d61de706efaa2cd0b1",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Baser/Controller/PluginsController.php",
+                        "lib/Baser/Model/BcAppModel.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/Baser/Controller/PluginsController.php class extends AppController",
+                     "lib/Baser/Model/BcAppModel.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "lib/Baser/Controller/PluginsController.php",
+                        "lib/Baser/Model/BcAppModel.php",
+                        "lib/Baser/VERSION.txt"
+                    ],
+    "sink_hit":  true
+}

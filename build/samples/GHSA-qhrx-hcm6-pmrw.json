@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-qhrx-hcm6-pmrw",
+    "cve":  "CVE-2019-11458",
+    "cwe":  "CWE-502",
+    "repo":  "cakephp/cakephp",
+    "sha":  "1a74e798309192a9895c9cedabd714ceee345f4e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Mailer/Transport/SmtpTransport.php",
+                        "tests/TestCase/Mailer/Transport/SmtpTransportTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Mailer/Transport/SmtpTransport.php class extends AbstractTransport",
+                     "tests/TestCase/Mailer/Transport/SmtpTransportTest.php class extends SmtpTransport"
+                 ],
+    "changed_all":  [
+                        "src/Mailer/Transport/SmtpTransport.php",
+                        "tests/TestCase/Mailer/Transport/SmtpTransportTest.php"
+                    ],
+    "sink_hit":  false
+}

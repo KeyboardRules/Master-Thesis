@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-frc6-pwgr-c28w",
+    "cve":  "CVE-2025-62411",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "706a77085f4d5964f7de9444208ef707e1f79450",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/print-alert-rules.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "sink_hit":  true
+}

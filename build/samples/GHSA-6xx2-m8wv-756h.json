@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-6xx2-m8wv-756h",
+    "cve":  "CVE-2026-42844",
+    "cwe":  "CWE-434",
+    "repo":  "getgrav/grav-plugin-api",
+    "sha":  "97fc02844a35f743dfe93d34efd92d47eedd5bc5",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/Api/Controllers/BlueprintUploadController.php",
+                        "classes/Api/Controllers/GpmController.php",
+                        "tests/Unit/Controllers/BlueprintUploadControllerSecurityTest.php",
+                        "tests/Unit/Controllers/GpmControllerSecurityTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "classes/Api/Controllers/BlueprintUploadController.php class extends AbstractApiController",
+                     "classes/Api/Controllers/GpmController.php class extends AbstractApiController"
+                 ],
+    "changed_all":  [
+                        "classes/Api/Controllers/BlueprintUploadController.php",
+                        "classes/Api/Controllers/GpmController.php",
+                        "tests/Unit/Controllers/BlueprintUploadControllerSecurityTest.php",
+                        "tests/Unit/Controllers/GpmControllerSecurityTest.php"
+                    ],
+    "sink_hit":  false
+}

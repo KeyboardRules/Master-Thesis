@@ -1,0 +1,53 @@
+﻿diff --git a/includes/Partials/Drawer.php b/includes/Partials/Drawer.php
+index 5400bef..1403ca0 100644
+--- a/includes/Partials/Drawer.php
++++ b/includes/Partials/Drawer.php
+@@ -47,9 +47,6 @@ final class Drawer extends Partial {
+ 	 * @throws Exception
+ 	 */
+ 	public function decorateSidebarData( $sidebarData ) {
+-		// Enable label for first portlet
+-		$sidebarData['data-portlets-first']['has-label'] = true;
+-
+ 		$globalToolsId = $this->getConfigValue( 'CitizenGlobalToolsPortlet' );
+ 		$globalToolsHtml = $this->getGlobalToolsHTML();
+ 		$globalToolsAdded = false;
+@@ -62,9 +59,6 @@ final class Drawer extends Partial {
+ 		}
+ 
+ 		for ( $i = 0; $i < count( $sidebarData['array-portlets-rest'] ); $i++ ) {
+-			// Enable label for other portlet
+-			$sidebarData['array-portlets-rest'][$i]['has-label'] = true;
+-
+ 			switch ( $sidebarData['array-portlets-rest'][$i]['id'] ) {
+ 				// Remove toolbox since it is handled by page tools
+ 				case 'p-tb': {
+diff --git a/includes/Partials/PageTools.php b/includes/Partials/PageTools.php
+index 44aac68..07305f1 100644
+--- a/includes/Partials/PageTools.php
++++ b/includes/Partials/PageTools.php
+@@ -93,7 +93,6 @@ final class PageTools extends Partial {
+ 		foreach ( $sidebarData['array-portlets-rest'] as $portlet ) {
+ 			if ( $portlet['id'] === 'p-tb' ) {
+ 				$data = $portlet;
+-				$data['has-label'] = true;
+ 				$data['is-empty'] = false;
+ 				break;
+ 			}
+diff --git a/includes/SkinCitizen.php b/includes/SkinCitizen.php
+index 7200a68..5d11b30 100644
+--- a/includes/SkinCitizen.php
++++ b/includes/SkinCitizen.php
+@@ -108,12 +108,6 @@ class SkinCitizen extends SkinMustache {
+ 
+ 		$data += $tools->getPageToolsData( $parentData );
+ 
+-		// Show some portlet labels
+-		// NOTE: This is only placed here temporarily
+-		if ( $parentData['data-portlets']['data-variants']['is-empty'] === false ) {
+-			$parentData['data-portlets']['data-variants']['has-label'] = true;
+-		}
+-
+ 		return array_merge( $parentData, $data );
+ 	}
+ 

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-g3mv-64h3-h482",
+    "cve":  "CVE-2023-4451",
+    "cwe":  "CWE-79",
+    "repo":  "cockpit-hq/cockpit",
+    "fix_commit":  "30609466c817e39f9de1871559603e93cd4d0d0c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "install/index.php"
+                    ],
+    "evidence":  [
+                     "install/index.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

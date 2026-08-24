@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-v59p-p692-v382",
+    "cve":  "CVE-2015-0270",
+    "cwe":  "CWE-89",
+    "repo":  "zendframework/zendframework",
+    "sha":  "569f18228f5fc84534af6ff2f367ca1a7143ec65",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Db/Adapter/Platform/Postgresql.php",
+                        "tests/ZendTest/Db/Adapter/Platform/PostgresqlTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/ZendTest/Db/Adapter/Platform/PostgresqlTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "README.md",
+                        "library/Zend/Db/Adapter/Platform/Postgresql.php",
+                        "tests/ZendTest/Db/Adapter/Platform/PostgresqlTest.php"
+                    ],
+    "sink_hit":  false
+}

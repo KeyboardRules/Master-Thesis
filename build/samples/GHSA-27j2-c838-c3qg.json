@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-27j2-c838-c3qg",
+    "cve":  "CVE-2014-3543",
+    "cwe":  "CWE-611",
+    "repo":  "moodle/moodle",
+    "sha":  "595ef4772d330a20c757635ab090acdcc9b2a2fa",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/imscp/locallib.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "mod/imscp/locallib.php includes 3 project file(s)",
+                     "mod/imscp/locallib.php class extends file_info"
+                 ],
+    "changed_all":  [
+                        "mod/imscp/locallib.php"
+                    ],
+    "sink_hit":  true
+}

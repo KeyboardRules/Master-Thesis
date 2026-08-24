@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-87fg-9x5w-j3rm",
+    "cve":  "CVE-2023-38519",
+    "cwe":  "CWE-89",
+    "repo":  "mainwp/mainwp",
+    "fix_commit":  "8df951c0e8b2c2646cc57fc66b00767551cac400",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "class/class-mainwp-db-client.php",
+                        "class/class-mainwp-db.php",
+                        "class/class-mainwp-system.php",
+                        "mainwp.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "class/class-mainwp-db-client.php class extends MainWP_DB",
+                     "class/class-mainwp-db.php class extends MainWP_DB_Base",
+                     "class/class-mainwp-system.php includes 3 project file(s)",
+                     "mainwp.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-3747-gjc9-vvg6",
+    "cve":  "CVE-2013-6919",
+    "cwe":  "CWE-918",
+    "repo":  "JamesHeinrich/phpThumb",
+    "sha":  "457a37d4a22ac9cdbbfe19577376622e58df81b0",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpThumb.php",
+                        "phpthumb.class.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpThumb.php includes 5 project file(s)",
+                     "phpthumb.class.php includes 14 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpThumb.php",
+                        "phpthumb.class.php"
+                    ],
+    "sink_hit":  true
+}

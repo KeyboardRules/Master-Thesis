@@ -1,0 +1,54 @@
+﻿diff --git a/typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php b/typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php
+index 0495f1200b..dc6d9e52ea 100644
+--- a/typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php
++++ b/typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php
+@@ -84,13 +84,13 @@ class HtmlentitiesViewHelper extends AbstractEncodingViewHelper
+         $keepQuotes = $arguments['keepQuotes'];
+         $doubleEncode = $arguments['doubleEncode'];
+ 
+-        if (!is_string($value)) {
++        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+             return $value;
+         }
+         if ($encoding === null) {
+             $encoding = self::resolveDefaultEncoding();
+         }
+-        $flags = $keepQuotes ? ENT_NOQUOTES : ENT_COMPAT;
+-        return htmlentities($value, $flags, $encoding, $doubleEncode);
++        $flags = $keepQuotes ? ENT_NOQUOTES : ENT_QUOTES;
++        return htmlentities((string)$value, $flags, $encoding, $doubleEncode);
+     }
+ }
+diff --git a/typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php b/typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php
+index 8601728603..b7faf949b0 100644
+--- a/typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php
++++ b/typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php
+@@ -87,9 +87,9 @@ unction');
+     ) {
+         $value = $renderChildrenClosure();
+         $allowedTags = $arguments['allowedTags'];
+-        if (!is_string($value)) {
++        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+             return $value;
+         }
+-        return strip_tags($value, $allowedTags);
++        return strip_tags((string)$value, $allowedTags);
+     }
+ }
+diff --git a/typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php b/typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php
+index f3579dd583..ed842cc0f4 100644
+--- a/typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php
++++ b/typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php
+@@ -75,10 +75,9 @@ class UrlencodeViewHelper extends AbstractViewHelper
+     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+     {
+         $value = $renderChildrenClosure();
+-
+-        if (!is_string($value)) {
++        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+             return $value;
+         }
+-        return rawurlencode($value);
++        return rawurlencode((string)$value);
+     }
+ }

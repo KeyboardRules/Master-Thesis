@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-6xxj-gcjq-wgf4",
+    "cve":  "CVE-2021-43789",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "6482b9ddc9dcebf7588dbfd616d2d635218408d6",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/Validate.php",
+                        "src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php",
+                        "src/Core/Grid/Query/WebserviceKeyQueryBuilder.php",
+                        "src/Core/Search/Filters.php",
+                        "tests/Resources/SampleFilters.php",
+                        "tests/Unit/Core/Search/Builder/ClassFiltersBuilderTest.php",
+                        "tests/Unit/Core/Search/FiltersTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php class extends AbstractDoctrineQueryBuilder",
+                     "src/Core/Grid/Query/WebserviceKeyQueryBuilder.php class extends AbstractDoctrineQueryBuilder",
+                     "src/Core/Search/Filters.php class extends ParameterBag",
+                     "tests/Unit/Core/Search/Builder/ClassFiltersBuilderTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "classes/Validate.php",
+                        "src/Core/Grid/Query/CmsPageCategoryQueryBuilder.php",
+                        "src/Core/Grid/Query/WebserviceKeyQueryBuilder.php",
+                        "src/Core/Search/Filters.php",
+                        "tests/Resources/SampleFilters.php",
+                        "tests/Unit/Core/Search/Builder/ClassFiltersBuilderTest.php",
+                        "tests/Unit/Core/Search/FiltersTest.php"
+                    ],
+    "sink_hit":  false
+}

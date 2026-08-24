@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-44wr-rmwq-3phw",
+    "cve":  "CVE-2023-40035",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "0bd33861abdc60c93209cff03eeee54504d3d3b5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/helpers/FileHelper.php"
+                    ],
+    "evidence":  [
+                     "src/helpers/FileHelper.php class extends \\yii\\helpers\\FileHelper"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

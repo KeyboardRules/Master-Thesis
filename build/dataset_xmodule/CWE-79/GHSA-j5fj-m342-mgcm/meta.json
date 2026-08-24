@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j5fj-m342-mgcm",
+    "cve":  "CVE-2012-1188",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "fix_commit":  "1269fe8b3813c7b7d5552a2b88bc2e7bd4d0c1f9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "backend/modules/error/actions/index.php"
+                    ],
+    "evidence":  [
+                     "backend/modules/error/actions/index.php class extends BackendBaseActionIndex"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

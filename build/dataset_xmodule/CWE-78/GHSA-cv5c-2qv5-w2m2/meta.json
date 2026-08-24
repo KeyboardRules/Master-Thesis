@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-cv5c-2qv5-w2m2",
+    "cve":  "",
+    "cwe":  "CWE-78",
+    "repo":  "passbolt/passbolt_api",
+    "fix_commit":  "be84671676ebac43d49e326a14f1afe259777611",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php",
+                        "plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php",
+                        "plugins/Passbolt/WebInstaller/src/Form/GpgKeyGenerateForm.php",
+                        "plugins/Passbolt/WebInstaller/src/Form/GpgKeyImportForm.php",
+                        "plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_generate.ctp",
+                        "plugins/Passbolt/WebInstaller/src/Template/Pages/gpg_key_import.ctp",
+                        "plugins/Passbolt/WebInstaller/src/Utility/Gpg.php",
+                        "plugins/Passbolt/WebInstaller/src/Utility/WebInstaller.php"
+                    ],
+    "evidence":  [
+                     "fix touches 15 php files",
+                     "plugins/Passbolt/WebInstaller/src/Controller/GpgKeyGenerateController.php class extends WebInstallerController",
+                     "plugins/Passbolt/WebInstaller/src/Controller/GpgKeyImportController.php class extends WebInstallerController",
+                     "plugins/Passbolt/WebInstaller/src/Form/GpgKeyGenerateForm.php class extends Form",
+                     "plugins/Passbolt/WebInstaller/src/Form/GpgKeyImportForm.php class extends Form",
+                     "plugins/Passbolt/WebInstaller/tests/TestCase/Controller/GpgKeyGenerateControllerTest.php class extends WebInstallerIntegrationTestCase",
+                     "plugins/Passbolt/WebInstaller/tests/TestCase/Controller/GpgKeyImportControllerTest.php class extends WebInstallerIntegrationTestCase",
+                     "plugins/Passbolt/WebInstaller/tests/TestCase/Controller/InstallationControllerTest.php class extends WebInstallerIntegrationTestCase",
+                     "plugins/Passbolt/WebInstaller/tests/TestCase/Utility/WebInstallerTest.php class extends TestCase",
+                     "plugins/Passbolt/WebInstaller/tests/TestCase/Utility/WebInstallerTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

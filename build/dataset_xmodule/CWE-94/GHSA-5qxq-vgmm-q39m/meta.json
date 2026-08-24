@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-5qxq-vgmm-q39m",
+    "cve":  "CVE-2022-39365",
+    "cwe":  "CWE-94",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "43aa34e018f5cd447bceb864358285ba92f68372",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/CoreBundle/DependencyInjection/Configuration.php",
+                        "bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php",
+                        "lib/Mail.php",
+                        "lib/Templating/TwigDefaultDelegatingEngine.php",
+                        "models/DataObject/ClassDefinition/Layout/Text.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php class extends ConfigurableExtension",
+                     "lib/Mail.php class extends Email",
+                     "lib/Templating/TwigDefaultDelegatingEngine.php class extends BaseDelegatingEngine",
+                     "models/DataObject/ClassDefinition/Layout/Text.php class extends Model\\DataObject\\ClassDefinition\\Layout"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

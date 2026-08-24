@@ -1,0 +1,39 @@
+﻿diff --git a/plugin/CustomizeUser/CustomizeUser.php b/plugin/CustomizeUser/CustomizeUser.php
+index d696fe461..24ef3d812 100644
+--- a/plugin/CustomizeUser/CustomizeUser.php
++++ b/plugin/CustomizeUser/CustomizeUser.php
+@@ -1029,7 +1029,7 @@ class CustomizeUser extends PluginAbstract
+                             $users_id = $isACompany ? $value['users_id_affiliate'] : $value['users_id_company'];
+                             $value['users_id'] = $users_id;
+ 
+-                            $value['js'] = 'avideoAlertOnce('
++                            $value['js'] = 'avideoAlertOnceHTML('
+                                 . '"' . __('You have a new affiliation request') . '",'
+                                 . "\"<a href='{$global['webSiteRootURL']}user?tab=tabAffiliation'>" . __('Please click here') . '</a>", "info", "' . $value['id'] . $value['modified'] . '");';
+ 
+diff --git a/plugin/PlayerSkins/saveThumbnail.php b/plugin/PlayerSkins/saveThumbnail.php
+index 377b9e96b..0369a65e9 100644
+--- a/plugin/PlayerSkins/saveThumbnail.php
++++ b/plugin/PlayerSkins/saveThumbnail.php
+@@ -44,7 +44,7 @@ $videos_id = getVideos_id();
+             const imgHtml = `<div style='text-align: center;'>
+                                 <img src='${dataURL}' style='max-width: 100%; max-height: 300px; border: 1px solid #ddd;' />
+                              </div>`;
+-            const confirmSave = await avideoConfirm(imgHtml + 'Do you want to save this frame as the thumbnail?');
++            const confirmSave = await avideoConfirmHTML(imgHtml + 'Do you want to save this frame as the thumbnail?');
+             if (!confirmSave) {
+                 return; // Exit if the user cancels
+             }
+diff --git a/view/videoNotFound.php b/view/videoNotFound.php
+index 1c74f2f94..2f859a363 100644
+--- a/view/videoNotFound.php
++++ b/view/videoNotFound.php
+@@ -46,7 +46,7 @@ showCloseButton();
+     $(function() {
+         <?php
+         if (!empty($_REQUEST['404ErrorMsg'])) {
+-            echo 'avideoAlertInfo(' . json_encode($_REQUEST['404ErrorMsg']) . ');';
++            echo 'avideoAlertInfo(' . json_encode($_REQUEST['404ErrorMsg'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ');';
+         }
+         ?>
+     });

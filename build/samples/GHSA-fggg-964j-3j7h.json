@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-fggg-964j-3j7h",
+    "cve":  "CVE-2026-48555",
+    "cwe":  "CWE-918",
+    "repo":  "spatie/laravel-medialibrary",
+    "sha":  "608ea03703d3887c46434f5dda6af56de6346aba",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/media-library.php",
+                        "src/MediaCollections/Exceptions/FileNameNotAllowed.php",
+                        "src/MediaCollections/FileAdder.php",
+                        "tests/MediaCollections/FileAdderTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MediaCollections/Exceptions/FileNameNotAllowed.php class extends FileCannotBeAdded",
+                     "src/MediaCollections/FileAdder.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "config/media-library.php",
+                        "docs/api/adding-files.md",
+                        "docs/basic-usage/retrieving-media.md",
+                        "docs/converting-other-file-types/using-image-generators.md",
+                        "src/MediaCollections/Exceptions/FileNameNotAllowed.php",
+                        "src/MediaCollections/FileAdder.php",
+                        "tests/MediaCollections/FileAdderTest.php"
+                    ],
+    "sink_hit":  false
+}

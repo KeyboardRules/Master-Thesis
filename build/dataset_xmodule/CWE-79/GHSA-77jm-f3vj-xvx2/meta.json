@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-77jm-f3vj-xvx2",
+    "cve":  "CVE-2023-28331",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "1899e0397350c4c2bb3e73773981f66f16f8f2fc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "filter/data/filter.php"
+                    ],
+    "evidence":  [
+                     "filter/data/filter.php class extends moodle_text_filter"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

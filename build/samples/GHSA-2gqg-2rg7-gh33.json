@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2gqg-2rg7-gh33",
+    "cve":  "CVE-2022-29711",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "cc6112b8fb36039b862b42d86eb79ef7ee89d31b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Table/GraylogController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/Table/GraylogController.php class extends SimpleTableController"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Table/GraylogController.php"
+                    ],
+    "sink_hit":  false
+}

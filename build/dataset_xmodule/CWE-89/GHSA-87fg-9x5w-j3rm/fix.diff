@@ -1,0 +1,84 @@
+﻿diff --git a/class/class-mainwp-db-client.php b/class/class-mainwp-db-client.php
+index d072795..388db2b 100644
+--- a/class/class-mainwp-db-client.php
++++ b/class/class-mainwp-db-client.php
+@@ -656,6 +656,21 @@ class MainWP_DB_Client extends MainWP_DB {
+ 		$with_tags           = isset( $params['with_tags'] ) && $params['with_tags'] ? true : false;
+ 		$group_ids           = isset( $params['by_tags'] ) ? $params['by_tags'] : '';
+ 
++		// valid group ids.
++		if ( is_array( $group_ids ) ) {
++			$group_ids = array_filter(
++				$group_ids,
++				function( $e ) {
++					if ( 'nogroups' === $e ) {
++						return true;
++					}
++					return ( is_numeric( $e ) && 0 < $e ) ? true : false;
++				}
++			);
++		} else {
++			$group_ids = '';
++		}
++
+ 		$select_sites  = '';
+ 		$select_tags   = '';
+ 		$where_clients = '';
+@@ -867,8 +882,7 @@ class MainWP_DB_Client extends MainWP_DB {
+ 		$site_ids = array_filter(
+ 			$site_ids,
+ 			function( $e ) {
+-				$e = intval( $e );
+-				return ( 0 < $e ) ? true : false;
++				return ( is_numeric( $e ) && 0 < $e ) ? true : false;
+ 			}
+ 		);
+ 
+diff --git a/class/class-mainwp-db.php b/class/class-mainwp-db.php
+index d3500a9..6ce6f10 100644
+--- a/class/class-mainwp-db.php
++++ b/class/class-mainwp-db.php
+@@ -1076,7 +1076,7 @@ class MainWP_DB extends MainWP_DB_Base {
+ 		$group_ids = array_filter(
+ 			$group_ids,
+ 			function( $e ) {
+-				if ( 'nogroups' == $e ) {
++				if ( 'nogroups' === $e ) {
+ 					return true;
+ 				}
+ 				$e = intval( $e );
+@@ -1092,7 +1092,7 @@ class MainWP_DB extends MainWP_DB_Base {
+ 		$client_ids = array_filter(
+ 			$client_ids,
+ 			function( $e ) {
+-				if ( 'noclients' == $e ) {
++				if ( 'noclients' === $e ) {
+ 					return true;
+ 				}
+ 				return is_numeric( $e ) && ! empty( $e ) ? true : false; // to valid client ids.
+diff --git a/class/class-mainwp-system.php b/class/class-mainwp-system.php
+index 6a6bf36..0100dbd 100644
+--- a/class/class-mainwp-system.php
++++ b/class/class-mainwp-system.php
+@@ -35,7 +35,7 @@ class MainWP_System {
+ 	 *
+ 	 * @var string Current plugin version.
+ 	 */
+-	public static $version = '4.4.3.3';
++	public static $version = '4.4.3.4';
+ 
+ 	/**
+ 	 * Private static variable to hold the single instance of the class.
+diff --git a/mainwp.php b/mainwp.php
+index 16ae508..2a8df46 100644
+--- a/mainwp.php
++++ b/mainwp.php
+@@ -8,7 +8,7 @@
+  * Author URI: https://mainwp.com
+  * Plugin URI: https://mainwp.com/
+  * Text Domain: mainwp
+- * Version:  4.4.3.3
++ * Version:  4.4.3.4
+  *
+  * @package MainWP/Dashboard
+  *

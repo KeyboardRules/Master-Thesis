@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-pjmx-4gc6-hwv8",
+    "cve":  "CVE-2010-3094",
+    "cwe":  "CWE-79",
+    "repo":  "drupal/drupal",
+    "sha":  "4e8e0454b3bfc3b846cf4b7bcaca0e8f42f0c17a",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/actions.inc",
+                        "modules/comment/comment.module",
+                        "modules/openid/openid.module",
+                        "modules/system/system.module",
+                        "modules/trigger/trigger.admin.inc",
+                        "modules/upload/upload.module"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.txt",
+                        "includes/actions.inc",
+                        "modules/comment/comment.module",
+                        "modules/openid/openid.install",
+                        "modules/openid/openid.module",
+                        "modules/system/system.module",
+                        "modules/trigger/trigger.admin.inc",
+                        "modules/upload/upload.module"
+                    ],
+    "sink_hit":  true
+}

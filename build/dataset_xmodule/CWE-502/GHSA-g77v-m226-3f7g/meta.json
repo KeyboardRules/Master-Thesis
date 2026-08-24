@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-g77v-m226-3f7g",
+    "cve":  "CVE-2018-1000527",
+    "cwe":  "CWE-502",
+    "repo":  "Froxlor/Froxlor",
+    "fix_commit":  "c1e62e6be719affc003774a639de5c952ffd8ffc",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "admin_domains.php",
+                        "customer_extras.php",
+                        "dns_editor.php",
+                        "install/lib/class.FroxlorInstall.php",
+                        "install/lng/english.lng.php",
+                        "install/lng/german.lng.php",
+                        "install/updates/froxlor/0.9/update_0.9.inc.php",
+                        "lib/classes/output/class.paging.php",
+                        "lib/functions/froxlor/function.CronjobFunctions.php",
+                        "lib/functions/froxlor/function.inserttask.php",
+                        "scripts/jobs/cron_backup.php",
+                        "scripts/jobs/cron_tasks.php"
+                    ],
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "admin_domains.php includes 6 project file(s)",
+                     "customer_extras.php includes 6 project file(s)",
+                     "install/lib/class.FroxlorInstall.php includes 3 project file(s)",
+                     "scripts/jobs/cron_tasks.php includes 9 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

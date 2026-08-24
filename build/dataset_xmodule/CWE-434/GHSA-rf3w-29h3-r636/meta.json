@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-rf3w-29h3-r636",
+    "cve":  "CVE-2020-21322",
+    "cwe":  "CWE-434",
+    "repo":  "liufee/cms",
+    "fix_commit":  "ecbfb0ca77874ead5b6e79b96a5e1f94e67475a9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "backend/models/User.php",
+                        "common/models/Article.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "backend/models/User.php class extends \\common\\models\\User",
+                     "common/models/Article.php class extends \\yii\\db\\ActiveRecord"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

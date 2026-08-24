@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-9qvw-fhj2-xqmv",
+    "cve":  "CVE-2023-1367",
+    "cwe":  "CWE-94",
+    "repo":  "alextselegidis/easyappointments",
+    "sha":  "453c6e130229718680c91bef450db643a0f263e4",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/views/components/appointments_modal.php",
+                        "application/views/components/backend_footer.php",
+                        "application/views/components/google_analytics_script.php",
+                        "application/views/components/matomo_analytics_script.php",
+                        "application/views/emails/account_recovery_email.php",
+                        "application/views/emails/appointment_deleted_email.php",
+                        "application/views/emails/appointment_saved_email.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 7 php files"
+                 ],
+    "changed_all":  [
+                        "application/views/components/appointments_modal.php",
+                        "application/views/components/backend_footer.php",
+                        "application/views/components/google_analytics_script.php",
+                        "application/views/components/matomo_analytics_script.php",
+                        "application/views/emails/account_recovery_email.php",
+                        "application/views/emails/appointment_deleted_email.php",
+                        "application/views/emails/appointment_saved_email.php"
+                    ],
+    "sink_hit":  false
+}

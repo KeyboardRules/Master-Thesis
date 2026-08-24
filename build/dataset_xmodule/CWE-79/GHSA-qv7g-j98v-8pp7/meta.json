@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-qv7g-j98v-8pp7",
+    "cve":  "CVE-2021-41236",
+    "cwe":  "CWE-79",
+    "repo":  "oroinc/platform",
+    "fix_commit":  "2a089c971fc70bc63baf8770d29ee515ce5a415a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Oro/Bundle/EmailBundle/Provider/EmailRenderer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Oro/Bundle/EmailBundle/Provider/EmailRenderer.php class extends TemplateRenderer",
+                     "src/Oro/Bundle/EmailBundle/Tests/Unit/Provider/EmailRendererTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,331 @@
+﻿diff --git a/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php b/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
+index ded0788bfa..f9ea1256cf 100644
+--- a/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
++++ b/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
+@@ -398,7 +398,7 @@ class GraphicalFunctions
+         }
+         // re-apply colorspace-setting for the resulting image so colors don't appear to dark (sRGB instead of RGB)
+         if (!str_contains($command, '-colorspace')) {
+-            $command .= ' -colorspace ' . $this->colorspace;
++            $command .= ' -colorspace ' . CommandUtility::escapeShellArgument($this->colorspace);
+         }
+         if ($this->alternativeOutputKey) {
+             $theOutputName = md5($command . $processingInstructions->cropArea . PathUtility::basename($sourceFile) . $this->alternativeOutputKey . '[' . $frame . ']');
+@@ -651,14 +651,20 @@ class GraphicalFunctions
+      */
+     protected function modifyImageMagickStripProfileParameters(string $parameters, array $options): string
+     {
+-        if (isset($options['stripProfile'])) {
+-            if ($options['stripProfile'] && $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor_stripColorProfileCommand'] !== '') {
+-                $parameters = $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor_stripColorProfileCommand'] . ' ' . $parameters;
+-            } else {
+-                $parameters .= '###SkipStripProfile###';
+-            }
++        if (!isset($options['stripProfile'])) {
++            return $parameters;
+         }
+-        return $parameters;
++
++        $gfxConf = $GLOBALS['TYPO3_CONF_VARS']['GFX'] ?? [];
++        // Use legacy processor_stripColorProfileCommand setting if defined, otherwise
++        // use the preferred configuration option processor_stripColorProfileParameters
++        $stripColorProfileCommand = $gfxConf['processor_stripColorProfileCommand'] ??
++            implode(' ', array_map(CommandUtility::escapeShellArgument(...), $gfxConf['processor_stripColorProfileParameters'] ?? []));
++        if ($options['stripProfile'] && $stripColorProfileCommand !== '') {
++            return $stripColorProfileCommand . ' ' . $parameters;
++        }
++
++        return $parameters . '###SkipStripProfile###';
+     }
+ 
+     /***********************************
+diff --git a/typo3/sysext/core/Classes/Mail/TransportFactory.php b/typo3/sysext/core/Classes/Mail/TransportFactory.php
+index 32772ad3b3..ee04673225 100644
+--- a/typo3/sysext/core/Classes/Mail/TransportFactory.php
++++ b/typo3/sysext/core/Classes/Mail/TransportFactory.php
+@@ -27,6 +27,7 @@ use Symfony\Component\Mailer\Transport\TransportInterface;
+ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+ use TYPO3\CMS\Core\Exception;
+ use TYPO3\CMS\Core\Log\LogManagerInterface;
++use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
+ use TYPO3\CMS\Core\SingletonInterface;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ 
+@@ -150,6 +151,10 @@ class TransportFactory implements SingletonInterface, LoggerAwareInterface
+                 if ($mboxFile === '') {
+                     throw new Exception('$GLOBALS[\'TYPO3_CONF_VARS\'][\'MAIL\'][\'transport_mbox_file\'] needs to be set when transport is set to "mbox".', 1294586645);
+                 }
++                $fileNameValidator = GeneralUtility::makeInstance(FileNameValidator::class);
++                if (!$fileNameValidator->isValid($mboxFile)) {
++                    throw new Exception('$GLOBALS[\'TYPO3_CONF_VARS\'][\'MAIL\'][\'transport_mbox_file\'] failed against deny-pattern', 1705312431);
++                }
+                 // Create our transport
+                 $transport = GeneralUtility::makeInstance(
+                     MboxTransport::class,
+diff --git a/typo3/sysext/core/Classes/Utility/CommandUtility.php b/typo3/sysext/core/Classes/Utility/CommandUtility.php
+index df74cd8a67..e1ec81d241 100644
+--- a/typo3/sysext/core/Classes/Utility/CommandUtility.php
++++ b/typo3/sysext/core/Classes/Utility/CommandUtility.php
+@@ -119,14 +119,18 @@ class CommandUtility
+         }
+         // strip profile information for thumbnails and reduce their size
+         if ($parameters && $command !== 'identify') {
++            // Use legacy processor_stripColorProfileCommand setting if defined, otherwise
++            // use the preferred configuration option processor_stripColorProfileParameters
++            $stripColorProfileCommand = $gfxConf['processor_stripColorProfileCommand'] ??
++                implode(' ', array_map(CommandUtility::escapeShellArgument(...), $gfxConf['processor_stripColorProfileParameters'] ?? []));
+             // Determine whether the strip profile action has be disabled by TypoScript:
+             if ($gfxConf['processor_stripColorProfileByDefault']
+-                && $gfxConf['processor_stripColorProfileCommand'] !== ''
++                && $stripColorProfileCommand !== ''
+                 && $parameters !== '-version'
+-                && !str_contains($parameters, $gfxConf['processor_stripColorProfileCommand'])
++                && !str_contains($parameters, $stripColorProfileCommand)
+                 && !str_contains($parameters, '###SkipStripProfile###')
+             ) {
+-                $parameters = $gfxConf['processor_stripColorProfileCommand'] . ' ' . $parameters;
++                $parameters = $stripColorProfileCommand . ' ' . $parameters;
+             } else {
+                 $parameters = str_replace('###SkipStripProfile###', '', $parameters);
+             }
+@@ -137,7 +141,7 @@ class CommandUtility
+         }
+         // set interlace parameter for convert command
+         if ($command !== 'identify' && $gfxConf['processor_interlace']) {
+-            $parameters = '-interlace ' . $gfxConf['processor_interlace'] . ' ' . $parameters;
++            $parameters = '-interlace ' . CommandUtility::escapeShellArgument($gfxConf['processor_interlace']) . ' ' . $parameters;
+         }
+         $cmdLine = $path . ' ' . $parameters;
+         // It is needed to change the parameters order when a mask image has been specified
+diff --git a/typo3/sysext/core/Configuration/DefaultConfiguration.php b/typo3/sysext/core/Configuration/DefaultConfiguration.php
+index b085b5cd34..c3ad345eea 100644
+--- a/typo3/sysext/core/Configuration/DefaultConfiguration.php
++++ b/typo3/sysext/core/Configuration/DefaultConfiguration.php
+@@ -46,7 +46,7 @@ return [
+         'processor_allowUpscaling' => true,
+         'processor_allowFrameSelection' => true,
+         'processor_stripColorProfileByDefault' => true,
+-        'processor_stripColorProfileCommand' => '+profile \'*\'',
++        'processor_stripColorProfileParameters' => ['+profile', '*'],
+         'processor_colorspace' => '',
+         'processor_interlace' => 'None',
+         'jpg_quality' => 85,
+diff --git a/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php b/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
+index 87741b9d39..214e64d0e4 100644
+--- a/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
++++ b/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
+@@ -3627,7 +3627,7 @@ class ContentObjectRenderer implements LoggerAwareInterface
+                 }
+ 
+                 // Possibility to cancel/force profile extraction
+-                // see $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor_stripColorProfileCommand']
++                // see $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor_stripColorProfileParameters']
+                 if (isset($fileArray['stripProfile'])) {
+                     $processingConfiguration['stripProfile'] = $fileArray['stripProfile'];
+                 }
+diff --git a/typo3/sysext/install/Classes/Configuration/AbstractCustomPreset.php b/typo3/sysext/install/Classes/Configuration/AbstractCustomPreset.php
+index 89d7caa387..dbdcf060ba 100644
+--- a/typo3/sysext/install/Classes/Configuration/AbstractCustomPreset.php
++++ b/typo3/sysext/install/Classes/Configuration/AbstractCustomPreset.php
+@@ -70,17 +70,29 @@ abstract class AbstractCustomPreset extends AbstractPreset
+     }
+ 
+     /**
+-     * Get configuration values is used in fluid to show configuration options.
++     * Get configuration values is used to persist data and is merged with given $postValues.
++     *
++     * @return array Configuration values needed to activate prefix
++     */
++    public function getConfigurationValues()
++    {
++        return array_map(static fn($configuration) => $configuration['value'], $this->getConfigurationDescriptors());
++    }
++
++    /**
++     * Build configuration descriptors to be used in fluid to show configuration options.
+      * They are fetched from LocalConfiguration / DefaultConfiguration and
+      * merged with given $postValues.
+      *
+      * @return array Configuration values needed to activate prefix
+      */
+-    public function getConfigurationValues()
++    public function getConfigurationDescriptors()
+     {
+         $configurationValues = [];
+         foreach ($this->configurationValues as $configurationKey => $configurationValue) {
+-            if (isset($this->postValues['enable'])
++            $readonly = isset($this->readonlyConfigurationValues[$configurationKey]);
++            if (!$readonly
++                && isset($this->postValues['enable'])
+                 && $this->postValues['enable'] === $this->name
+                 && isset($this->postValues[$this->name][$configurationKey])
+             ) {
+@@ -88,7 +100,10 @@ abstract class AbstractCustomPreset extends AbstractPreset
+             } else {
+                 $currentValue = $this->configurationManager->getConfigurationValueByPath($configurationKey);
+             }
+-            $configurationValues[$configurationKey] = $currentValue;
++            $configurationValues[$configurationKey] = [
++                'value' => $currentValue,
++                'readonly' => $readonly,
++            ];
+         }
+         return $configurationValues;
+     }
+diff --git a/typo3/sysext/install/Classes/Configuration/AbstractPreset.php b/typo3/sysext/install/Classes/Configuration/AbstractPreset.php
+index 57e4a182da..3efd0c9585 100644
+--- a/typo3/sysext/install/Classes/Configuration/AbstractPreset.php
++++ b/typo3/sysext/install/Classes/Configuration/AbstractPreset.php
+@@ -45,6 +45,11 @@ abstract class AbstractPreset implements PresetInterface
+      */
+     protected $configurationValues = [];
+ 
++    /**
++     * @var array Configuration values that are visible but not editable via presets GUI
++     */
++    protected $readonlyConfigurationValues = [];
++
+     /**
+      * @var array List of $POST values
+      */
+diff --git a/typo3/sysext/install/Classes/Configuration/Image/CustomPreset.php b/typo3/sysext/install/Classes/Configuration/Image/CustomPreset.php
+index 1a5d8062c7..cfdefc0111 100644
+--- a/typo3/sysext/install/Classes/Configuration/Image/CustomPreset.php
++++ b/typo3/sysext/install/Classes/Configuration/Image/CustomPreset.php
+@@ -34,4 +34,8 @@ class CustomPreset extends AbstractCustomPreset implements CustomPresetInterface
+         'GFX/processor_effects' => false,
+         'GFX/processor_colorspace' => '',
+     ];
++
++    protected $readonlyConfigurationValues = [
++        'GFX/processor_path' => true,
++    ];
+ }
+diff --git a/typo3/sysext/install/Classes/Configuration/Mail/CustomPreset.php b/typo3/sysext/install/Classes/Configuration/Mail/CustomPreset.php
+index a6866752a3..88e2bb22f6 100644
+--- a/typo3/sysext/install/Classes/Configuration/Mail/CustomPreset.php
++++ b/typo3/sysext/install/Classes/Configuration/Mail/CustomPreset.php
+@@ -35,4 +35,8 @@ class CustomPreset extends AbstractCustomPreset implements CustomPresetInterface
+         'MAIL/transport_smtp_username' => '',
+         'MAIL/transport_smtp_password' => '',
+     ];
++
++    protected $readonlyConfigurationValues = [
++        'MAIL/transport_sendmail_command' => true,
++    ];
+ }
+diff --git a/typo3/sysext/install/Classes/Configuration/PasswordHashing/CustomPreset.php b/typo3/sysext/install/Classes/Configuration/PasswordHashing/CustomPreset.php
+index cf1a0a433a..8e01fb67b4 100644
+--- a/typo3/sysext/install/Classes/Configuration/PasswordHashing/CustomPreset.php
++++ b/typo3/sysext/install/Classes/Configuration/PasswordHashing/CustomPreset.php
+@@ -32,22 +32,35 @@ class CustomPreset extends AbstractCustomPreset implements CustomPresetInterface
+      * Get configuration values is used in fluid to show configuration options.
+      * They are fetched from LocalConfiguration / DefaultConfiguration.
+      *
++     * They are not merged with postValues for security reasons, as
++     * all options are readonly.
++     *
+      * @return array Current custom configuration values
+      */
+-    public function getConfigurationValues(): array
++    public function getConfigurationDescriptors(): array
+     {
+         $configurationValues = [];
+-        $configurationValues['BE/passwordHashing/className'] =
+-            $this->configurationManager->getConfigurationValueByPath('BE/passwordHashing/className');
++        $configurationValues['BE/passwordHashing/className'] = [
++            'value' => $this->configurationManager->getConfigurationValueByPath('BE/passwordHashing/className'),
++            'readonly' => true,
++        ];
+         $options = (array)$this->configurationManager->getConfigurationValueByPath('BE/passwordHashing/options');
+         foreach ($options as $optionName => $optionValue) {
+-            $configurationValues['BE/passwordHashing/options/' . $optionName] = $optionValue;
++            $configurationValues['BE/passwordHashing/options/' . $optionName] = [
++                'value' => $optionValue,
++                'readonly' => true,
++            ];
+         }
+-        $configurationValues['FE/passwordHashing/className'] =
+-            $this->configurationManager->getConfigurationValueByPath('FE/passwordHashing/className');
++        $configurationValues['FE/passwordHashing/className'] = [
++            'value' => $this->configurationManager->getConfigurationValueByPath('FE/passwordHashing/className'),
++            'readonly' => true,
++        ];
+         $options = (array)$this->configurationManager->getConfigurationValueByPath('FE/passwordHashing/options');
+         foreach ($options as $optionName => $optionValue) {
+-            $configurationValues['FE/passwordHashing/options/' . $optionName] = $optionValue;
++            $configurationValues['FE/passwordHashing/options/' . $optionName] = [
++                'value' => $optionValue,
++                'readonly' => true,
++            ];
+         }
+         return $configurationValues;
+     }
+diff --git a/typo3/sysext/install/Classes/Service/LocalConfigurationValueService.php b/typo3/sysext/install/Classes/Service/LocalConfigurationValueService.php
+index d89195699e..4f8068fa57 100644
+--- a/typo3/sysext/install/Classes/Service/LocalConfigurationValueService.php
++++ b/typo3/sysext/install/Classes/Service/LocalConfigurationValueService.php
+@@ -21,6 +21,8 @@ use TYPO3\CMS\Core\Configuration\ConfigurationManager;
+ use TYPO3\CMS\Core\Configuration\Loader\YamlFileLoader;
+ use TYPO3\CMS\Core\Messaging\FlashMessage;
+ use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
++use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
++use TYPO3\CMS\Core\Utility\Exception\MissingArrayPathException;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ 
+ /**
+@@ -90,6 +92,7 @@ class LocalConfigurationValueService
+                 $itemData['path'] = '[' . implode('][', $newPath) . ']';
+                 $itemData['fieldType'] = $descriptionInfo['type'];
+                 $itemData['description'] = $descriptionInfo['description'] ?? '';
++                $itemData['readonly'] = $descriptionInfo['readonly'] ?? false;
+                 $itemData['allowedValues'] = $descriptionInfo['allowedValues'] ?? [];
+                 $itemData['differentValueInCurrentConfiguration'] = (!isset($descriptionInfo['compareValuesWithCurrentConfiguration']) ||
+                     $descriptionInfo['compareValuesWithCurrentConfiguration']) &&
+@@ -151,11 +154,28 @@ class LocalConfigurationValueService
+         $commentArray = $this->getDefaultConfigArrayComments();
+         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+         foreach ($valueList as $path => $value) {
+-            $oldValue = $configurationManager->getConfigurationValueByPath($path);
++            try {
++                $oldValue = $configurationManager->getConfigurationValueByPath($path);
++            } catch (MissingArrayPathException) {
++                $messageQueue->enqueue(new FlashMessage(
++                    'Update rejected, the category of this setting does not exist',
++                    $path,
++                    ContextualFeedbackSeverity::ERROR
++                ));
++                continue;
++            }
+             $pathParts = explode('/', $path);
+             $descriptionData = $commentArray[$pathParts[0]];
+ 
+             while ($part = next($pathParts)) {
++                if (!isset($descriptionData['items'][$part])) {
++                    $messageQueue->enqueue(new FlashMessage(
++                        'Update rejected, this setting is not writable',
++                        $path,
++                        ContextualFeedbackSeverity::ERROR
++                    ));
++                    continue 2;
++                }
+                 $descriptionData = $descriptionData['items'][$part];
+             }
+ 
+@@ -183,6 +203,16 @@ class LocalConfigurationValueService
+                 $valueHasChanged = (string)$oldValue !== (string)$value;
+             }
+ 
++            $readonly = $descriptionData['readonly'] ?? false;
++            if ($readonly && $valueHasChanged) {
++                $messageQueue->enqueue(new FlashMessage(
++                    'Update rejected, this setting is readonly',
++                    $path,
++                    ContextualFeedbackSeverity::ERROR
++                ));
++                continue;
++            }
++
+             // Save if value changed
+             if ($valueHasChanged) {
+                 $configurationPathValuePairs[$path] = $value;

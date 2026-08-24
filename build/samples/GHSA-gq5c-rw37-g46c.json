@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-gq5c-rw37-g46c",
+    "cve":  "CVE-2026-27964",
+    "cwe":  "CWE-79",
+    "repo":  "NeoRazorX/facturascripts",
+    "sha":  "9066e10326029adf012114e27eb5f3f33f78ecfd",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/Base/Controller.php",
+                        "Core/Controller/Login.php",
+                        "Core/Controller/SendMail.php",
+                        "Core/Template/Controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "Core/Controller/SendMail.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "Core/Base/Controller.php",
+                        "Core/Controller/Login.php",
+                        "Core/Controller/SendMail.php",
+                        "Core/Template/Controller.php"
+                    ],
+    "sink_hit":  true
+}

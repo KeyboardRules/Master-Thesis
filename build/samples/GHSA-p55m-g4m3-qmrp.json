@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-p55m-g4m3-qmrp",
+    "cve":  "CVE-2022-4069",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "8383376f1355812e09ec0c2af67f6d46891b7ba7",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/DeviceGroupController.php",
+                        "app/Http/Controllers/PortGroupController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Http/Controllers/DeviceGroupController.php class extends Controller",
+                     "app/Http/Controllers/PortGroupController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/DeviceGroupController.php",
+                        "app/Http/Controllers/PortGroupController.php"
+                    ],
+    "sink_hit":  false
+}

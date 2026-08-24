@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-jj8r-p9f5-fmvv",
+    "cve":  "CVE-2021-36785",
+    "cwe":  "CWE-79",
+    "repo":  "miniOrangeDev/miniorange-saml-typo3-sso",
+    "fix_commit":  "1fe2802267ffe1b48823d9d8b3a496c870a0af48",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Classes/Controller/FesamlController.php",
+                        "Helper/Actions/HttpAction.php",
+                        "Helper/Actions/TestResultActions.php",
+                        "Helper/Assertion.php",
+                        "Helper/Utilities.php",
+                        "Helper/lib/XMLSecLibs/XMLSecEnc.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityDSig.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityKey.php",
+                        "ext_emconf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "Classes/Controller/FesamlController.php class extends ActionController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cx2r-mf6x-55rx",
+    "cve":  "CVE-2020-5273",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/ps_linklist",
+    "sha":  "83e6e0bdda2287f4d6e64127cb90c41d26b5ad82",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Form/Type/CustomUrlType.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Form/Type/CustomUrlType.php class extends TranslatorAwareType"
+                 ],
+    "changed_all":  [
+                        "src/Form/Type/CustomUrlType.php"
+                    ],
+    "sink_hit":  false
+}

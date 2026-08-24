@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-q3g4-2vw9-xv27",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "shopware5/shopware",
+    "sha":  "14299e9ee9f7d93f687b4ec838e0873afbc84fec",
+    "status":  "ok",
+    "changed_php":  [
+                        "engine/Shopware/Controllers/Frontend/Forms.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "engine/Shopware/Controllers/Frontend/Forms.php class extends Enlight_Controller_Action",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "engine/Shopware/Controllers/Frontend/Forms.php",
+                        "themes/Frontend/Bare/frontend/forms/elements.tpl"
+                    ],
+    "sink_hit":  false
+}

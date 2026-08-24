@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-98xr-mmq5-vc5h",
+    "cve":  "CVE-2017-12061",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "17f9b94f031ba93ae2a727bca0e68458ecd08fb0",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/install.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/install.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/install.php"
+                    ],
+    "sink_hit":  true
+}

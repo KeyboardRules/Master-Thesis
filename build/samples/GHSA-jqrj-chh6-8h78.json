@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jqrj-chh6-8h78",
+    "cve":  "CVE-2026-34739",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "31e6888e40be89cc2ab27d4cef449f6d8339ffb2",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/User_Location/testIP.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/User_Location/testIP.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/User_Location/testIP.php"
+                    ],
+    "sink_hit":  true
+}

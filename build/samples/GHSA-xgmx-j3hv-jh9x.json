@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-xgmx-j3hv-jh9x",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "25f796b94e23bac77e836bd38f53ce998c094901",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php",
+                        "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php",
+                        "typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php",
+                        "typo3/sysext/frontend/Tests/Functional/SiteHandling/TypoLinkTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php class uses trait",
+                     "typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php class extends AbstractTypolinkBuilder",
+                     "typo3/sysext/frontend/Tests/Functional/SiteHandling/TypoLinkTest.php class extends AbstractTestCase"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php",
+                        "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php",
+                        "typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php",
+                        "typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php",
+                        "typo3/sysext/frontend/Tests/Functional/SiteHandling/Fixtures/TypoLinkScenario.yaml",
+                        "typo3/sysext/frontend/Tests/Functional/SiteHandling/TypoLinkTest.php"
+                    ],
+    "sink_hit":  true
+}

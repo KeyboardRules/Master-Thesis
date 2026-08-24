@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-28rm-rj57-qjpv",
+    "cve":  "CVE-2014-2054",
+    "cwe":  "CWE-611",
+    "repo":  "PHPOffice/PHPExcel",
+    "sha":  "e04bf7ed091b0a72d028eacf26d770b485d4e897",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/PHPExcel/Reader/Excel2003XML.php",
+                        "Classes/PHPExcel/Reader/Excel2007.php",
+                        "Classes/PHPExcel/Reader/Gnumeric.php",
+                        "Classes/PHPExcel/Reader/OOCalc.php",
+                        "Classes/PHPExcel/Settings.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "Classes/PHPExcel/Reader/Excel2003XML.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Excel2003XML.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/Excel2007.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Excel2007.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/Gnumeric.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/Gnumeric.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Reader/OOCalc.php includes 1 project file(s)",
+                     "Classes/PHPExcel/Reader/OOCalc.php class extends PHPExcel_Reader_Abstract",
+                     "Classes/PHPExcel/Settings.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "Classes/PHPExcel/Reader/Excel2003XML.php",
+                        "Classes/PHPExcel/Reader/Excel2007.php",
+                        "Classes/PHPExcel/Reader/Gnumeric.php",
+                        "Classes/PHPExcel/Reader/OOCalc.php",
+                        "Classes/PHPExcel/Settings.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-8fv7-wq38-f5c9",
+    "cve":  "CVE-2023-38491",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "sha":  "2f06ba1c026bc91cb0702bc16b7d505642536d15",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Http/Response.php",
+                        "tests/Http/ResponseTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Http/ResponseTest.php includes 1 project file(s)",
+                     "tests/Http/ResponseTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Http/Response.php",
+                        "tests/Http/ResponseTest.php",
+                        "tests/Http/fixtures/download.json",
+                        "tests/Http/fixtures/download.xyz"
+                    ],
+    "sink_hit":  true
+}

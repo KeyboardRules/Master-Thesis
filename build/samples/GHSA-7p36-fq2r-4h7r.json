@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7p36-fq2r-4h7r",
+    "cve":  "CVE-2026-11407",
+    "cwe":  "CWE-1336",
+    "repo":  "pimcore/pimcore",
+    "sha":  "fffa7f6396329e88610db70a8652529bbc734892",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Twig/Sandbox/SecurityPolicy.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "lib/Twig/Sandbox/SecurityPolicy.php"
+                    ],
+    "sink_hit":  false
+}

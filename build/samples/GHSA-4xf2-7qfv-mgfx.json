@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4xf2-7qfv-mgfx",
+    "cve":  "CVE-2023-35782",
+    "cwe":  "CWE-89",
+    "repo":  "einpraegsam/ipandlanguageredirect",
+    "sha":  "d80eb99e739a09984ad0ea94b12380236346ae42",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Domain/Service/IpToCountry/LocalDatabase.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Classes/Domain/Service/IpToCountry/LocalDatabase.php class extends AbstractIpToCountry"
+                 ],
+    "changed_all":  [
+                        "Classes/Domain/Service/IpToCountry/LocalDatabase.php"
+                    ],
+    "sink_hit":  true
+}

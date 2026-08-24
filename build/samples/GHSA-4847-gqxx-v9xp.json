@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4847-gqxx-v9xp",
+    "cve":  "CVE-2020-25915",
+    "cwe":  "CWE-79",
+    "repo":  "thinkcmf/thinkcmf",
+    "sha":  "27e1fbea5aed5619d15c1257614df45298f04436",
+    "status":  "ok",
+    "changed_php":  [
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/UserController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "vendor/thinkcmf/cmf-app/src/admin/controller/UserController.php class extends AdminBaseController",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "vendor/thinkcmf/cmf-app/src/admin/controller/UserController.php"
+                    ],
+    "sink_hit":  true
+}

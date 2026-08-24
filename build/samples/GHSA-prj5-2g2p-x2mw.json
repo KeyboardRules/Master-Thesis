@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-prj5-2g2p-x2mw",
+    "cve":  "CVE-2023-2591",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "57a977c6323656e5dc06ab5c227e75c3465a1a4a",
+    "status":  "ok",
+    "changed_php":  [
+                        "pages/items.js.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "pages/items.js.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "pages/items.js.php"
+                    ],
+    "sink_hit":  true
+}

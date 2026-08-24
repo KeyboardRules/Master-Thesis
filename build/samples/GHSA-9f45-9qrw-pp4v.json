@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9f45-9qrw-pp4v",
+    "cve":  "CVE-2023-28332",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "9f178c1f816e78ec024ab16a10192c81305b2624",
+    "status":  "ok",
+    "changed_php":  [
+                        "filter/algebra/filter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "filter/algebra/filter.php class extends moodle_text_filter"
+                 ],
+    "changed_all":  [
+                        "filter/algebra/filter.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-fvwq-45qv-xvhv",
+    "cve":  "CVE-2026-31859",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "cc9921c14897ee2b592a431c2356af8a04ce4cfe",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/web/User.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/web/User.php class extends \\yii\\web\\User"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/web/User.php"
+                    ],
+    "sink_hit":  false
+}

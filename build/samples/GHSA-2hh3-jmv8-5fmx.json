@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-2hh3-jmv8-5fmx",
+    "cve":  "CVE-2016-5013",
+    "cwe":  "CWE-74",
+    "repo":  "moodle/moodle",
+    "sha":  "ed63718caa48803843a14140d8a27f04aba9c8c4",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/phpmailer/moodle_phpmailer.php",
+                        "lib/tests/text_test.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/phpmailer/moodle_phpmailer.php includes 2 project file(s)",
+                     "lib/phpmailer/moodle_phpmailer.php class extends PHPMailer",
+                     "lib/tests/text_test.php class extends advanced_testcase"
+                 ],
+    "changed_all":  [
+                        "lib/phpmailer/moodle_phpmailer.php",
+                        "lib/tests/text_test.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-w2f4-hxpm-mq98",
+    "cve":  "CVE-2021-3915",
+    "cwe":  "CWE-434",
+    "repo":  "bookstackapp/bookstack",
+    "fix_commit":  "ae155d67454d6b9f6c93b2bb457aaa4b2eb1a9ed",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/Controller.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Http/Controllers/Controller.php class extends BaseController",
+                     "app/Http/Controllers/Controller.php class uses trait",
+                     "tests/Uploads/AttachmentTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

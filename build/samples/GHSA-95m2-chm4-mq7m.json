@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-95m2-chm4-mq7m",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "textile/php-textile",
+    "sha":  "ab18ae9703bee8b15f1b9d889d40e1881728bae6",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Netcarver/Textile/Parser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.textile",
+                        "src/Netcarver/Textile/Parser.php",
+                        "test/fixtures/GHSA-95m2-chm4-mq7m.yaml"
+                    ],
+    "sink_hit":  true
+}

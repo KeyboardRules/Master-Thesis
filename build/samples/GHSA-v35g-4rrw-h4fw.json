@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-v35g-4rrw-h4fw",
+    "cve":  "CVE-2014-6072",
+    "cwe":  "CWE-94",
+    "repo":  "symfony/symfony",
+    "sha":  "f38536ab79058f6a934426c41170256ba9623a02",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Bundle/WebProfilerBundle/Command/ExportCommand.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Command/ImportCommand.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Controller/ProfilerController.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Tests/Command/ExportCommandTest.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Tests/Command/ImportCommandTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 5 php files"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Bundle/WebProfilerBundle/Command/ExportCommand.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Command/ImportCommand.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Controller/ProfilerController.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Resources/config/commands.xml",
+                        "src/Symfony/Bundle/WebProfilerBundle/Resources/views/Profiler/admin.html.twig",
+                        "src/Symfony/Bundle/WebProfilerBundle/Tests/Command/ExportCommandTest.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Tests/Command/ImportCommandTest.php",
+                        "src/Symfony/Bundle/WebProfilerBundle/Tests/Fixtures/profile.data"
+                    ],
+    "sink_hit":  true
+}

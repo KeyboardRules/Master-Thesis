@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-jrrg-99xh-5j2q",
+    "cve":  "CVE-2026-46491",
+    "cwe":  "CWE-22",
+    "repo":  "simplesamlphp/simplesamlphp-module-casserver",
+    "sha":  "b84f3e4ed57c4d97e0dc73df102e7eff831a681f",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Cas/Ticket/FileSystemTicketStore.php",
+                        "src/Controller/Cas10Controller.php",
+                        "src/Controller/Traits/TicketValidatorTrait.php",
+                        "tests/src/Controller/Cas10ControllerTest.php",
+                        "tests/src/Controller/Cas20ControllerTest.php",
+                        "tests/src/Ticket/FileSystemTicketStoreTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Cas/Ticket/FileSystemTicketStore.php class extends TicketStore",
+                     "src/Controller/Cas10Controller.php class uses trait",
+                     "tests/src/Controller/Cas10ControllerTest.php class extends TestCase",
+                     "tests/src/Controller/Cas20ControllerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Cas/Ticket/FileSystemTicketStore.php",
+                        "src/Controller/Cas10Controller.php",
+                        "src/Controller/Traits/TicketValidatorTrait.php",
+                        "tests/src/Controller/Cas10ControllerTest.php",
+                        "tests/src/Controller/Cas20ControllerTest.php",
+                        "tests/src/Ticket/FileSystemTicketStoreTest.php"
+                    ],
+    "sink_hit":  true
+}

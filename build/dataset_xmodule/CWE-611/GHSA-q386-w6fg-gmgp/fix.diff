@@ -1,0 +1,13 @@
+﻿diff --git a/src/Toolkit/Xml.php b/src/Toolkit/Xml.php
+index 011fada8..a4954b77 100644
+--- a/src/Toolkit/Xml.php
++++ b/src/Toolkit/Xml.php
+@@ -271,7 +271,7 @@ class Xml
+ 	 */
+ 	public static function parse(string $xml): array|null
+ 	{
+-		$xml = @simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOENT);
++		$xml = @simplexml_load_string($xml);
+ 
+ 		if (is_object($xml) !== true) {
+ 			return null;

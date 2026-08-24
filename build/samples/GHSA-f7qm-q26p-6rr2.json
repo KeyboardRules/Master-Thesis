@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f7qm-q26p-6rr2",
+    "cve":  "CVE-2015-3274",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "7b15a363201109354bbd6d51a7c70f50dac7b9d8",
+    "status":  "ok",
+    "changed_php":  [
+                        "user/lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "user/lib.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "user/lib.php"
+                    ],
+    "sink_hit":  false
+}

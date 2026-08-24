@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-4w8r-3xrw-v25g",
+    "cve":  "CVE-2023-41892",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "7359d18d46389ffac86c2af1e0cd59e37c298857",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/controllers/ConditionsController.php",
+                        "src/helpers/Component.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/controllers/ConditionsController.php class extends Controller",
+                     "tests/unit/helpers/ComponentHelperTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

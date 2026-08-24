@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-ghcv-22jf-vfxm",
+    "cve":  "CVE-2026-43874",
+    "cwe":  "CWE-94",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "9f3006f9a89a34daa67a83c6ad35f450cb91fcce",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/YPTSocket/Message.php",
+                        "plugin/YPTSocket/MessageSQLiteV2.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/YPTSocket/Message.php includes 2 project file(s)",
+                     "plugin/YPTSocket/MessageSQLiteV2.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

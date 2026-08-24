@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-vcwc-6mr9-8m7c",
+    "cve":  "CVE-2022-23808",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "44eb12f15a562718bbe54c9a16af91ceea335d59",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/classes/Controllers/Setup/ConfigController.php",
+                        "libraries/classes/Controllers/Setup/FormController.php",
+                        "libraries/classes/Controllers/Setup/HomeController.php",
+                        "libraries/classes/Controllers/Setup/ServersController.php",
+                        "libraries/classes/Setup/FormProcessing.php",
+                        "setup/index.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "libraries/classes/Controllers/Setup/ConfigController.php class extends AbstractController",
+                     "libraries/classes/Controllers/Setup/FormController.php class extends AbstractController",
+                     "libraries/classes/Controllers/Setup/HomeController.php class extends AbstractController",
+                     "libraries/classes/Controllers/Setup/ServersController.php class extends AbstractController",
+                     "setup/index.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "libraries/classes/Controllers/Setup/ConfigController.php",
+                        "libraries/classes/Controllers/Setup/FormController.php",
+                        "libraries/classes/Controllers/Setup/HomeController.php",
+                        "libraries/classes/Controllers/Setup/ServersController.php",
+                        "libraries/classes/Setup/FormProcessing.php",
+                        "phpstan-baseline.neon",
+                        "psalm-baseline.xml",
+                        "setup/index.php",
+                        "templates/setup/servers/index.twig"
+                    ],
+    "sink_hit":  true
+}

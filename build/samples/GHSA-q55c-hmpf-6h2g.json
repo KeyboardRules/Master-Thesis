@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q55c-hmpf-6h2g",
+    "cve":  "CVE-2023-2191",
+    "cwe":  "CWE-79",
+    "repo":  "azuracast/azuracast",
+    "sha":  "24276cb4166b2057de73569ec33046a80a8bb437",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/main.phtml"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/main.phtml"
+                    ],
+    "sink_hit":  false
+}

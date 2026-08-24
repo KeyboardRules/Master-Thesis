@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-f3cx-396f-7jqp",
+    "cve":  "CVE-2024-47823",
+    "cwe":  "CWE-434",
+    "repo":  "livewire/livewire",
+    "sha":  "70503b79f5db75a1eac9bf55826038a6ee5a16d5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Features/SupportFileUploads/TemporaryUploadedFile.php",
+                        "src/Features/SupportFileUploads/UnitTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Features/SupportFileUploads/TemporaryUploadedFile.php class extends UploadedFile",
+                     "src/Features/SupportFileUploads/UnitTest.php class extends \\Tests\\TestCase",
+                     "src/Features/SupportFileUploads/UnitTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Features/SupportFileUploads/TemporaryUploadedFile.php",
+                        "src/Features/SupportFileUploads/UnitTest.php"
+                    ],
+    "sink_hit":  false
+}

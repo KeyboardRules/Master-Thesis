@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-h632-p764-pjqm",
+    "cve":  "CVE-2021-41231",
+    "cwe":  "CWE-434",
+    "repo":  "OpenMage/magento-lts",
+    "fix_commit":  "d16fc6c5a1e66c6f0d9f82020f11702a7ddd78e4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php",
+                        "lib/Varien/Io/File.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php class extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract",
+                     "lib/Varien/Io/File.php class extends Varien_Io_Abstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

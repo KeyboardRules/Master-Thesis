@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-fw49-9xq4-gmx6",
+    "cve":  "CVE-2026-41587",
+    "cwe":  "CWE-434",
+    "repo":  "ci4-cms-erp/ci4ms",
+    "sha":  "b969465e71eacd9eb57014ad1fce1fc34fa7bca0",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/Theme/Controllers/Theme.php",
+                        "modules/Theme/Helpers/themes_helper.php",
+                        "modules/Theme/Language/en/Theme.php",
+                        "modules/Theme/Language/tr/Theme.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "modules/Theme/Controllers/Theme.php class extends \\Modules\\Backend\\Controllers\\BaseController"
+                 ],
+    "changed_all":  [
+                        "modules/Theme/Controllers/Theme.php",
+                        "modules/Theme/Helpers/themes_helper.php",
+                        "modules/Theme/Language/en/Theme.php",
+                        "modules/Theme/Language/tr/Theme.php",
+                        "public/templates/.htaccess"
+                    ],
+    "sink_hit":  false
+}

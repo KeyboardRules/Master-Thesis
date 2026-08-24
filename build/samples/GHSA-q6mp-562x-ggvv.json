@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q6mp-562x-ggvv",
+    "cve":  "CVE-2022-2300",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "70b46e231e7b2c113666745a0ab6de9a8b7ef08e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Utils/System/Files.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Utils/System/Files.php"
+                    ],
+    "sink_hit":  true
+}

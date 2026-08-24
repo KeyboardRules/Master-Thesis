@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c8f2-5h29-8j2h",
+    "cve":  "CVE-2022-33157",
+    "cwe":  "CWE-79",
+    "repo":  "subhh/libconnect",
+    "fix_commit":  "8c582f3f6575f8744bf29f99bc1697ab8b7bd3af",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Classes/Controller/EzbController.php"
+                    ],
+    "evidence":  [
+                     "Classes/Controller/EzbController.php class extends \\TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

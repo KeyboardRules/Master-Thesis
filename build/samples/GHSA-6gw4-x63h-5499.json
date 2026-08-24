@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6gw4-x63h-5499",
+    "cve":  "CVE-2020-15245",
+    "cwe":  "CWE-79",
+    "repo":  "Sylius/Sylius",
+    "sha":  "60636d711a4011e8694d10d201b53632c7e8ecaf",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sylius/Behat/Context/Ui/Shop/VerificationContext.php",
+                        "src/Sylius/Bundle/ShopBundle/EventListener/CustomerEmailUpdaterListener.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "features/account/customer_account/editing_customer_profile.feature",
+                        "src/Sylius/Behat/Context/Ui/Shop/VerificationContext.php",
+                        "src/Sylius/Bundle/ShopBundle/EventListener/CustomerEmailUpdaterListener.php",
+                        "src/Sylius/Bundle/ShopBundle/Resources/config/services.xml"
+                    ],
+    "sink_hit":  false
+}

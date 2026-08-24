@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-f23x-4gf4-m9ff",
+    "cve":  "CVE-2022-1584",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "527abd148e6b7aff8df92a9f1aa951e5bebac59c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/MicroweberPackages/App/Http/Controllers/ApiController.php class extends FrontendController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

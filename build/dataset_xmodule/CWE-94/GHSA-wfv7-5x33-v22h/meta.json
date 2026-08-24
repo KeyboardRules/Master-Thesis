@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-wfv7-5x33-v22h",
+    "cve":  "CVE-2014-4931",
+    "cwe":  "CWE-94",
+    "repo":  "symfony/symfony",
+    "fix_commit":  "06a80fbdbe744ad6f3010479ba64ef5cf35dd9af",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/Translator.php",
+                        "src/Symfony/Component/Translation/TranslatorInterface.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Symfony/Bundle/FrameworkBundle/Tests/Translation/TranslatorTest.php class extends \\PHPUnit_Framework_TestCase",
+                     "src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php class extends BaseTranslator",
+                     "src/Symfony/Component/Translation/Tests/TranslatorTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

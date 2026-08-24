@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-8fv7-wq38-f5c9",
+    "cve":  "CVE-2023-38491",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "fix_commit":  "2f06ba1c026bc91cb0702bc16b7d505642536d15",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Http/Response.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Http/ResponseTest.php includes 1 project file(s)",
+                     "tests/Http/ResponseTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

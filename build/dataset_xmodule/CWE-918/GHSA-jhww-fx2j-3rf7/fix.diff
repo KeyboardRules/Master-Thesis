@@ -1,0 +1,63 @@
+﻿diff --git a/src/Lib/RemoteFile/RemoteFile.php b/src/Lib/RemoteFile/RemoteFile.php
+index d5b9b78..67e6442 100644
+--- a/src/Lib/RemoteFile/RemoteFile.php
++++ b/src/Lib/RemoteFile/RemoteFile.php
+@@ -18,9 +18,11 @@ namespace App\Lib\RemoteFile;
+ 
+ class RemoteFile
+ {
+-    public static function exists(string $remoteFile): bool
++    public static function exists(string $remoteFile, $allowedHosts = []): bool
+     {
+ 
++        self::verifyAllowedHosts($allowedHosts, $remoteFile);
++
+         $ch = curl_init($remoteFile);
+         curl_setopt($ch, CURLOPT_NOBODY, true);
+         curl_exec($ch);
+@@ -35,4 +37,16 @@ class RemoteFile
+ 
+     }
+ 
++    private static function verifyAllowedHosts($allowedHosts, $remoteFile)
++    {
++        if (empty($allowedHosts)) {
++            throw new \Exception('allowedHosts must be set');
++        } else {
++            $host = parse_url($remoteFile, PHP_URL_HOST);
++            if (!in_array($host, $allowedHosts)) {
++                throw new \Exception('invalid host');
++             }
++        }
++    }
++
+ }
+diff --git a/src/Model/Table/ProductsTable.php b/src/Model/Table/ProductsTable.php
+index fd2a2f1..3da70ec 100644
+--- a/src/Model/Table/ProductsTable.php
++++ b/src/Model/Table/ProductsTable.php
+@@ -1370,7 +1370,10 @@ class ProductsTable extends AppTable
+             }
+ 
+             if (filter_var($imageFromRemoteServer, FILTER_VALIDATE_URL)) {
+-                if (!RemoteFile::exists($imageFromRemoteServer)) {
++                $syncDomainsTable = FactoryLocator::get('Table')->get('Network.SyncDomains');
++                $syncDomains = $syncDomainsTable->getActiveSyncDomains()->toArray();
++                $syncDomains = Hash::extract($syncDomains, '{n}.domain');
++                if (!RemoteFile::exists($imageFromRemoteServer, $syncDomains)) {
+                     throw new InvalidParameterException('remote image not existing: ' . $imageFromRemoteServer);
+                 }
+             } else {
+@@ -1380,9 +1383,9 @@ class ProductsTable extends AppTable
+                 }
+             }
+ 
+-            $imageSize = getimagesize($imageFromRemoteServer);
+-            if ($imageSize === false) {
+-                throw new InvalidParameterException('file is not not an image: ' . $imageFromRemoteServer);
++            $mimeContentType = mime_content_type($imageFromRemoteServer);
++            if (!in_array($mimeContentType, Configure::read('app.allowedImageMimeTypes'))) {
++                throw new InvalidParameterException('file is not an image: ' . $imageFromRemoteServer);
+             }
+         }
+ 

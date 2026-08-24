@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-5jjm-qp48-qp86",
+    "cve":  "CVE-2023-4981",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "03c4da62c8acde0a82acbb4a445ae866ebfdd3f7",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/common/eventlog.inc.php",
+                        "includes/html/common/syslog.inc.php",
+                        "includes/html/pages/eventlog.inc.php",
+                        "includes/html/pages/syslog.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "includes/html/pages/eventlog.inc.php includes 1 project file(s)",
+                     "includes/html/pages/syslog.inc.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/common/eventlog.inc.php",
+                        "includes/html/common/syslog.inc.php",
+                        "includes/html/pages/eventlog.inc.php",
+                        "includes/html/pages/syslog.inc.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rrvc-c7xg-7cf3",
+    "cve":  "CVE-2024-37156",
+    "cwe":  "CWE-79",
+    "repo":  "sulu/SuluFormBundle",
+    "sha":  "3f341b71a7309cbc8fd2c5bff894c654d1679b17",
+    "status":  "ok",
+    "changed_php":  [
+                        "Controller/FormTokenController.php",
+                        "Tests/Functional/Controller/FormTokenControllerTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "Controller/FormTokenController.php",
+                        "Tests/Functional/Controller/FormTokenControllerTest.php"
+                    ],
+    "sink_hit":  false
+}

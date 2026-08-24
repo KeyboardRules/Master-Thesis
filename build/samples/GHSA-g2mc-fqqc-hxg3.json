@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g2mc-fqqc-hxg3",
+    "cve":  "CVE-2023-30855",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "sha":  "7f788fa44bc18bc1c9182c25e26b770a1d30b62f",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Reports/CustomReportController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Reports/CustomReportController.php class extends ReportsControllerBase"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Reports/CustomReportController.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-pv87-r9qf-x56p",
+    "cve":  "CVE-2026-28501",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "0c10be681c64044618ab94473251bd7c9b114fa1",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/Object.php",
+                        "objects/bootGrid.php",
+                        "objects/video.php",
+                        "plugin/Live/Live.php",
+                        "plugin/LiveLinks/LiveLinks.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "objects/Object.php class extends CacheHandler",
+                     "objects/video.php includes 23 project file(s)",
+                     "objects/video.php class extends ObjectYPT",
+                     "plugin/Live/Live.php includes 16 project file(s)",
+                     "plugin/Live/Live.php class extends PluginAbstract",
+                     "plugin/LiveLinks/LiveLinks.php includes 6 project file(s)",
+                     "plugin/LiveLinks/LiveLinks.php class extends PluginAbstract",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

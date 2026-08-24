@@ -1,0 +1,45 @@
+﻿diff --git a/core/project_api.php b/core/project_api.php
+index 32c34af4..51e5d221 100644
+--- a/core/project_api.php
++++ b/core/project_api.php
+@@ -1016,3 +1016,19 @@ function project_link_for_menu( $p_project_id, $p_active = false, $p_class = '',
+ 
+ 	return sprintf('<a class="%s" href="%s">%s</a>', $p_class, $t_url, $t_label );
+ }
++
++/**
++ * Returns the number of issues associated with the given Project.
++ *
++ * @param int $p_project_id A project identifier.
++ *
++ * @return int
++ */
++function project_get_bug_count( $p_project_id ) {
++	$t_query = new DbQuery();
++	$t_query->sql( 'SELECT COUNT(*) FROM {bug} WHERE project_id='
++		. $t_query->param( $p_project_id )
++	);
++	$t_query->execute();
++	return $t_query->value();
++}
+diff --git a/manage_proj_delete.php b/manage_proj_delete.php
+index 16902120..f8c7d5be 100644
+--- a/manage_proj_delete.php
++++ b/manage_proj_delete.php
+@@ -55,11 +55,11 @@ $f_project_id = gpc_get_int( 'project_id' );
+ 
+ access_ensure_project_level( config_get( 'delete_project_threshold' ), $f_project_id );
+ 
+-$t_project_name = project_get_name( $f_project_id );
+-
+-helper_ensure_confirmed( lang_get( 'project_delete_msg' ) .
+-		'<br />' . lang_get( 'project_name_label' ) . lang_get( 'word_separator' ) . $t_project_name,
+-		lang_get( 'project_delete_button' ) );
++$t_message = sprintf( lang_get( 'project_delete_msg' ),
++	string_attribute( project_get_name( $f_project_id ) ),
++	project_get_bug_count( $f_project_id )
++);
++helper_ensure_confirmed( $t_message, lang_get( 'project_delete_button' ) );
+ 
+ project_delete( $f_project_id );
+ 

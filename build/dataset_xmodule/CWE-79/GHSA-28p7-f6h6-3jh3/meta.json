@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-28p7-f6h6-3jh3",
+    "cve":  "CVE-2024-51496",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "aef739a438ffb507e927a4ec87b359164a7a053a",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/html/pages/health.inc.php",
+                        "includes/html/pages/wireless.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/pages/health.inc.php includes 1 project file(s)",
+                     "includes/html/pages/wireless.inc.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

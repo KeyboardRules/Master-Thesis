@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-hhvj-mcrx-3vcf",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "9574d627f95aca7ae0fcefcae2bf56215777e190",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/code/LeftAndMain.php",
+                        "admin/tests/LeftAndMainTest.php",
+                        "model/Hierarchy.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "admin/code/LeftAndMain.php class extends Controller",
+                     "admin/tests/LeftAndMainTest.php class extends FunctionalTest",
+                     "model/Hierarchy.php class extends DataExtension"
+                 ],
+    "changed_all":  [
+                        "admin/code/LeftAndMain.php",
+                        "admin/templates/Includes/LeftAndMain_TreeNode.ss",
+                        "admin/tests/LeftAndMainTest.php",
+                        "model/Hierarchy.php"
+                    ],
+    "sink_hit":  false
+}

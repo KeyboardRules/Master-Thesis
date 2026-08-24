@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v3mr-gp7j-pw5w",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "terminal42/contao-tablelookupwizard",
+    "fix_commit":  "a5e723a28f110b7df8ffc4175cef9b061d3cc717",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "TableLookupWizard.php"
+                    ],
+    "evidence":  [
+                     "TableLookupWizard.php class extends Widget"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

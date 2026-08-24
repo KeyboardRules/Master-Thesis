@@ -1,0 +1,22 @@
+﻿diff --git a/src/controllers/FeedsController.php b/src/controllers/FeedsController.php
+index 81e47be..ede4640 100644
+--- a/src/controllers/FeedsController.php
++++ b/src/controllers/FeedsController.php
+@@ -152,6 +152,17 @@ class FeedsController extends Controller
+     {
+         $feed = $this->_getModelFromPost();
+ 
++        if ($feed->getErrors()) {
++            $this->setFailFlash(Craft::t('feed-me', 'Couldn’t save the feed.'));
++
++            // Send the category group back to the template
++            Craft::$app->getUrlManager()->setRouteParams([
++                'feed' => $feed,
++            ]);
++
++            return null;
++        }
++
+         return $this->_saveAndRedirect($feed, 'feed-me/feeds/', true);
+     }
+ 

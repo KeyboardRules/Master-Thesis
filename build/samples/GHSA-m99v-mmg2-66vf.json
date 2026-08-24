@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-m99v-mmg2-66vf",
+    "cve":  "CVE-2024-40101",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "0dede6886c6df3d1f31c4f4e3ba1ab4a336fbf79",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Helper/XSSClean.php",
+                        "src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Helper/XSSClean.php",
+                        "src/MicroweberPackages/Security/HtmlSanitizer/MwHtmlSanitizerReference.php"
+                    ],
+    "sink_hit":  false
+}

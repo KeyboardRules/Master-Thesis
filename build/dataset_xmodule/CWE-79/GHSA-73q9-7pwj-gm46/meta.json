@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-73q9-7pwj-gm46",
+    "cve":  "CVE-2021-3862",
+    "cwe":  "CWE-79",
+    "repo":  "icecoder/icecoder",
+    "fix_commit":  "51cf24b2a39138e6a7b5739ef59eb38cd7c39763",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "editor.php"
+                    ],
+    "evidence":  [
+                     "editor.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

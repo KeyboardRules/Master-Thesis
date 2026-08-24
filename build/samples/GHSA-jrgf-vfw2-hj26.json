@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-jrgf-vfw2-hj26",
+    "cve":  "CVE-2020-15244",
+    "cwe":  "CWE-502",
+    "repo":  "OpenMage/magento-lts",
+    "sha":  "26433d15b57978fcb7701b5f99efe8332ca8630b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php",
+                        "app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php class extends Mage_Catalog_Model_Api_Resource",
+                     "app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php class extends Mage_Catalog_Model_Resource_Collection_Abstract"
+                 ],
+    "changed_all":  [
+                        "app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php",
+                        "app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php"
+                    ],
+    "sink_hit":  true
+}

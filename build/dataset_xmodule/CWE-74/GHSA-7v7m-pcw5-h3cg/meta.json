@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-7v7m-pcw5-h3cg",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "pusher/pusher-http-php",
+    "fix_commit":  "5a2ccdd3b14932b9cb5d0f59cf81d19c447214f1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Pusher.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lib/Pusher.php class extends Exception",
+                     "test/unit/socketAuthTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

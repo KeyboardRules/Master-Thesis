@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rg56-94j7-hjx9",
+    "cve":  "CVE-2025-26533",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "sha":  "1310e64699807ead6c38ee89354ac57c503c2836",
+    "status":  "ok",
+    "changed_php":  [
+                        "course/classes/category.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "course/classes/category.php includes 10 project file(s)"
+                 ],
+    "changed_all":  [
+                        "course/classes/category.php"
+                    ],
+    "sink_hit":  true
+}

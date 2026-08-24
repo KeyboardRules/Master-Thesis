@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-6p8w-pc35-mqv8",
+    "cve":  "CVE-2025-48203",
+    "cwe":  "CWE-79",
+    "repo":  "clickstorm/cs_seo",
+    "fix_commit":  "1cf6c40821102b1f1508fe4e76825569340c8f90",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Classes/Evaluation/TCA/JsonLdEvaluator.php",
+                        "Classes/UserFunc/StructuredData.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Evaluation/TCA/JsonLdEvaluator.php class extends AbstractEvaluator",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

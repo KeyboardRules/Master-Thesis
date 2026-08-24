@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9v3w-m552-m6ff",
+    "cve":  "CVE-2017-7251",
+    "cwe":  "CWE-79",
+    "repo":  "pi-engine/pi",
+    "sha":  "557cd05b21b4d7fe422f90adcfa0c6e3bea06153",
+    "status":  "ok",
+    "changed_php":  [
+                        "www/script/editor/markitup/preview/markdown.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "www/script/editor/markitup/preview/markdown.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-rm3q-qfrm-frrv",
+    "cve":  "CVE-2017-15054",
+    "cwe":  "CWE-434",
+    "repo":  "nilsteampassnet/TeamPass",
+    "fix_commit":  "9811c9d453da4bd1101ff7033250d1fbedf101fc",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "admin.settings.load.php",
+                        "admin.settings.php",
+                        "api/functions.php",
+                        "items.import.php",
+                        "items.load.php",
+                        "items.php",
+                        "profile.php",
+                        "sources/admin.queries.php",
+                        "sources/import.queries.php",
+                        "sources/items.queries.php",
+                        "sources/main.functions.php",
+                        "sources/upload/upload.files.php"
+                    ],
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "admin.settings.php includes 6 project file(s)",
+                     "api/functions.php includes 18 project file(s)",
+                     "items.import.php includes 11 project file(s)",
+                     "items.load.php includes 3 project file(s)",
+                     "items.php includes 8 project file(s)",
+                     "profile.php includes 8 project file(s)",
+                     "sources/admin.queries.php includes 42 project file(s)",
+                     "sources/import.queries.php includes 10 project file(s)",
+                     "sources/items.queries.php includes 13 project file(s)",
+                     "sources/main.functions.php includes 80 project file(s)",
+                     "sources/upload/upload.files.php includes 6 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

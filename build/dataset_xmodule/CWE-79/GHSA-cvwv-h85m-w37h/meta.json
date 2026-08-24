@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cvwv-h85m-w37h",
+    "cve":  "CVE-2023-4829",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "fix_commit":  "4711a414360782fe4fc94f7c25027077cbcdf73d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/HostingPlans.php"
+                    ],
+    "evidence":  [
+                     "lib/Froxlor/Api/Commands/HostingPlans.php class extends ApiCommand"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

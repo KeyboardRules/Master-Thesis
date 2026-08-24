@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-57m2-mpc7-gwgx",
+    "cve":  "CVE-2023-4977",
+    "cwe":  "CWE-94",
+    "repo":  "librenms/librenms",
+    "sha":  "1194934d31c795a3f6877a96ffaa34b1f475bdd0",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/search.inc.php",
+                        "includes/html/pages/search/ipv4.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/pages/search.inc.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/search.inc.php",
+                        "includes/html/pages/search/ipv4.inc.php"
+                    ],
+    "sink_hit":  false
+}

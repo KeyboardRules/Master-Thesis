@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-wpww-4jf4-4hx8",
+    "cve":  "CVE-2020-15273",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "fix_commit":  "b70474ef9dcee6ad8826360884625dc7ca9041a1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Elements/admin/themes/index_list.php",
+                        "app/webroot/theme/admin-third/Elements/admin/themes/index_row.php",
+                        "app/webroot/theme/admin-third/ThemeFiles/admin/form.php",
+                        "lib/Baser/Config/setting.php",
+                        "lib/Baser/Controller/ThemeFilesController.php",
+                        "lib/Baser/View/Elements/admin/themes/index_list.php",
+                        "lib/Baser/View/Elements/admin/themes/index_row.php",
+                        "lib/Baser/View/ThemeFiles/admin/form.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "lib/Baser/Controller/ThemeFilesController.php class extends AppController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

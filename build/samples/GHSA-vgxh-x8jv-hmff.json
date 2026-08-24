@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-vgxh-x8jv-hmff",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "6f50728b185e62c0087a58b295a015cb13276911",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Dev/FixtureBlueprint.php",
+                        "src/Forms/GridField/GridFieldDataColumns.php",
+                        "src/ORM/Hierarchy/MarkedSet.php",
+                        "src/View/SSViewer_DataPresenter.php",
+                        "tests/php/View/SSViewerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/ORM/Hierarchy/MarkedSet.php class uses trait",
+                     "src/View/SSViewer_DataPresenter.php class extends SSViewer_Scope",
+                     "tests/php/View/SSViewerTest.php class extends SapphireTest"
+                 ],
+    "changed_all":  [
+                        "src/Dev/FixtureBlueprint.php",
+                        "src/Forms/GridField/GridFieldDataColumns.php",
+                        "src/ORM/Hierarchy/MarkedSet.php",
+                        "src/View/SSViewer_DataPresenter.php",
+                        "tests/php/View/SSViewerTest.php"
+                    ],
+    "sink_hit":  false
+}

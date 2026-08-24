@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p2fm-8rhj-58fr",
+    "cve":  "CVE-2018-10095",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "1dc466e1fb687cfe647de4af891720419823ed56",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/adherents/cartes/carte.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/adherents/cartes/carte.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/adherents/cartes/carte.php"
+                    ],
+    "sink_hit":  true
+}

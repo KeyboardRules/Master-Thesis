@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-2v3v-3whp-953h",
+    "cve":  "CVE-2025-49578",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-skins-Citizen",
+    "sha":  "64cb5d7ab3a6dc0381fae54b31e8fc4afadc8beb",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/Components/CitizenComponentPageHeading.php",
+                        "includes/Components/CitizenComponentUserInfo.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "includes/Components/CitizenComponentPageHeading.php",
+                        "includes/Components/CitizenComponentUserInfo.php",
+                        "resources/.eslintrc.json",
+                        "resources/skins.citizen.scripts/contentEnhancements.js",
+                        "resources/skins.citizen.scripts/search.js",
+                        "resources/skins.citizen.scripts/skin.js",
+                        "skin.json"
+                    ],
+    "sink_hit":  false
+}

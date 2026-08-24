@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-ch5w-2994-6h82",
+    "cve":  "CVE-2023-1875",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "dcf7dd43a3412aa951d7087b86a8b917fae2133a",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/user.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/user.php"
+                    ],
+    "sink_hit":  true
+}

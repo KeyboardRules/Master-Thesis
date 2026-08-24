@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qr8f-5qqg-j3wg",
+    "cve":  "CVE-2024-50352",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "b4af778ca42c5839801f16ece53505bb7fa1e7bc",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/device/overview/services.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/device/overview/services.inc.php"
+                    ],
+    "sink_hit":  true
+}

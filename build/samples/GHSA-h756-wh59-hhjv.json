@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-h756-wh59-hhjv",
+    "cve":  "CVE-2025-66295",
+    "cwe":  "CWE-22",
+    "repo":  "getgrav/grav",
+    "sha":  "3462d94d575064601689b236508c316242e15741",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Flex/Types/Users/UserObject.php",
+                        "system/src/Grav/Common/User/DataUser/User.php",
+                        "system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php",
+                        "system/src/Grav/Framework/Flex/Storage/FolderStorage.php",
+                        "tests/unit/Grav/Common/Security/UsernameValidationTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "system/src/Grav/Common/Flex/Types/Users/UserObject.php class extends FlexObject",
+                     "system/src/Grav/Common/Flex/Types/Users/UserObject.php class uses trait",
+                     "system/src/Grav/Common/User/DataUser/User.php class extends Data",
+                     "system/src/Grav/Common/User/DataUser/User.php class uses trait",
+                     "system/src/Grav/Framework/Flex/Storage/FolderStorage.php class extends AbstractFilesystemStorage"
+                 ],
+    "changed_all":  [
+                        "system/src/Grav/Common/Flex/Types/Users/UserObject.php",
+                        "system/src/Grav/Common/User/DataUser/User.php",
+                        "system/src/Grav/Framework/Flex/Storage/AbstractFilesystemStorage.php",
+                        "system/src/Grav/Framework/Flex/Storage/FolderStorage.php",
+                        "tests/unit/Grav/Common/Security/UsernameValidationTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x82r-6j37-vrgg",
+    "cve":  "CVE-2025-30166",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "fix_commit":  "76b690d4f8fcd9c9d41766bc5238c2513242e60e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Controller/Admin/EmailController.php"
+                    ],
+    "evidence":  [
+                     "src/Controller/Admin/EmailController.php class extends AdminAbstractController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

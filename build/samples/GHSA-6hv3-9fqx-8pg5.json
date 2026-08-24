@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6hv3-9fqx-8pg5",
+    "cve":  "CVE-2016-15022",
+    "cwe":  "CWE-79",
+    "repo":  "mosbth/cimage",
+    "sha":  "401478c8393989836beeddfeac5ce44570af162b",
+    "status":  "ok",
+    "changed_php":  [
+                        "webroot/check_system.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "REVISION.md",
+                        "webroot/check_system.php"
+                    ],
+    "sink_hit":  true
+}

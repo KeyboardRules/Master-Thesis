@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-28h4-788g-rh42",
+    "cve":  "CVE-2024-45406",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "b7348942f8131b3868ec6f46d615baae50151bb8",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/base/Element.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/base/Element.php class extends Component",
+                     "src/base/Element.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/base/Element.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-cjw5-f2x5-r4q5",
+    "cve":  "CVE-2022-0602",
+    "cwe":  "CWE-79",
+    "repo":  "tastyigniter/tastyigniter",
+    "sha":  "992d4ce6444805c3132e3635a01b6fd222063554",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/admin/formwidgets/ScheduleEditor.php",
+                        "app/admin/formwidgets/scheduleeditor/schedules.blade.php",
+                        "app/main/formwidgets/components/component.blade.php",
+                        "app/system/models/config/mail_templates_model.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "app/admin/formwidgets/ScheduleEditor.php class extends BaseFormWidget",
+                     "app/admin/formwidgets/ScheduleEditor.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/admin/formwidgets/ScheduleEditor.php",
+                        "app/admin/formwidgets/scheduleeditor/schedules.blade.php",
+                        "app/main/formwidgets/components/component.blade.php",
+                        "app/system/models/config/mail_templates_model.php"
+                    ],
+    "sink_hit":  false
+}

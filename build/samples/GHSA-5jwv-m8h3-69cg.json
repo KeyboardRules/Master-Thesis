@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-5jwv-m8h3-69cg",
+    "cve":  "CVE-2023-5317",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "ec551bdf1566ede1e55f289888c446f877ad9a83",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.config.php",
+                        "phpmyfaq/admin/instances.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/ajax.config.php",
+                        "phpmyfaq/admin/instances.php"
+                    ],
+    "sink_hit":  true
+}

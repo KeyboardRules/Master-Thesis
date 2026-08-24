@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-wphc-5f2j-jhvg",
+    "cve":  "CVE-2025-24017",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "c1e28b59394957902c31c850219e4504a20db98b",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/attach/libs/attach.lib.php",
+                        "tools/tags/services/TagsManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "tools/attach/libs/attach.lib.php",
+                        "tools/tags/services/TagsManager.php"
+                    ],
+    "sink_hit":  true
+}

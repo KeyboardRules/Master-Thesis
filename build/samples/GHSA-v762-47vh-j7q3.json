@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v762-47vh-j7q3",
+    "cve":  "CVE-2020-21146",
+    "cwe":  "CWE-79",
+    "repo":  "liufee/cms",
+    "sha":  "e92f6877d96e53498101d0664174956e94223d6e",
+    "status":  "ok",
+    "changed_php":  [
+                        "frontend/models/User.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "frontend/models/User.php class extends \\common\\models\\User"
+                 ],
+    "changed_all":  [
+                        "frontend/models/User.php"
+                    ],
+    "sink_hit":  false
+}

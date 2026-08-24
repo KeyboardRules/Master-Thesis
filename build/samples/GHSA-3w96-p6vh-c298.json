@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-3w96-p6vh-c298",
+    "cve":  "CVE-2023-0827",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "f4050586136cb4c44e3d6042111a1b87b340df95",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition/Data/UrlSlug.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/DataObject/ClassDefinition/Data/UrlSlug.php class extends Data"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/tags/urlSlug.js",
+                        "bundles/CoreBundle/Resources/translations/en.json",
+                        "models/DataObject/ClassDefinition/Data/UrlSlug.php"
+                    ],
+    "sink_hit":  false
+}

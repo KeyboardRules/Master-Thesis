@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-96c2-h667-9fxp",
+    "cve":  "CVE-2025-54082",
+    "cwe":  "CWE-434",
+    "repo":  "marshmallow-packages/nova-tiptap",
+    "fix_commit":  "fed42d2f8ebb9e3c74f1ee262c9db33567030756",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/nova-tiptap.php",
+                        "src/Controllers/FilesController.php",
+                        "src/Controllers/ImagesController.php",
+                        "src/FieldServiceProvider.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/FieldServiceProvider.php class extends ServiceProvider"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

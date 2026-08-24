@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c636-cg5r-2498",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "symfony/dependency-injection",
+    "fix_commit":  "5c5040c890a8e4085dcd6fa3827f574ab5f71f4c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "evidence":  [
+                     "Loader/XmlFileLoader.php class extends FileLoader"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-pj36-fcrg-327j",
+    "cve":  "CVE-2024-36676",
+    "cwe":  "CWE-79",
+    "repo":  "BookStackApp/BookStack",
+    "sha":  "69af9e0dbdefd8c6c951e8afbe2bba141d454beb",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Access/Controllers/ForgotPasswordController.php",
+                        "app/Access/Controllers/ResetPasswordController.php",
+                        "app/App/Providers/RouteServiceProvider.php",
+                        "routes/web.php",
+                        "tests/Auth/RegistrationTest.php",
+                        "tests/Auth/ResetPasswordTest.php",
+                        "tests/Auth/UserInviteTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/Access/Controllers/ForgotPasswordController.php class extends Controller",
+                     "app/Access/Controllers/ResetPasswordController.php class extends Controller",
+                     "app/App/Providers/RouteServiceProvider.php includes 2 project file(s)",
+                     "app/App/Providers/RouteServiceProvider.php class extends ServiceProvider",
+                     "tests/Auth/RegistrationTest.php class extends TestCase",
+                     "tests/Auth/ResetPasswordTest.php class extends TestCase",
+                     "tests/Auth/UserInviteTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/Access/Controllers/ForgotPasswordController.php",
+                        "app/Access/Controllers/ResetPasswordController.php",
+                        "app/App/Providers/RouteServiceProvider.php",
+                        "routes/web.php",
+                        "tests/Auth/RegistrationTest.php",
+                        "tests/Auth/ResetPasswordTest.php",
+                        "tests/Auth/UserInviteTest.php"
+                    ],
+    "sink_hit":  false
+}

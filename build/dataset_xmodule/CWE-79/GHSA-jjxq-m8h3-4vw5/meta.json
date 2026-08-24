@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jjxq-m8h3-4vw5",
+    "cve":  "CVE-2024-26128",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "fix_commit":  "18f426d63e752b4d22c40e9ea8d1f6e692ef601c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php"
+                    ],
+    "evidence":  [
+                     "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php class extends BcFormHelper",
+                     "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

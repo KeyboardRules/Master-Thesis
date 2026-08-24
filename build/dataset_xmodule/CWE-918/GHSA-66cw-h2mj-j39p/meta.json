@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-66cw-h2mj-j39p",
+    "cve":  "CVE-2026-33294",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "4589a3a089baf4ea439481f5088b38a8aa9c82b6",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugin/BulkEmbed/save.json.php"
+                    ],
+    "evidence":  [
+                     "plugin/BulkEmbed/save.json.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

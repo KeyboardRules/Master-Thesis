@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gcgp-q2jq-fw52",
+    "cve":  "CVE-2024-47526",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "f259edc19b9f0ccca484c60b1ba70a0bfff97ef5",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/forms/alert-templates.inc.php",
+                        "includes/html/modal/alert_template.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "includes/html/forms/alert-templates.inc.php",
+                        "includes/html/modal/alert_template.inc.php"
+                    ],
+    "sink_hit":  true
+}

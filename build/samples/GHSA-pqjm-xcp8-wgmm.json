@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-pqjm-xcp8-wgmm",
+    "cve":  "",
+    "cwe":  "CWE-94",
+    "repo":  "ezsystems/ezplatform",
+    "sha":  "9a0c52dc4535e4b3ce379f80222dc53f705a2cfd",
+    "status":  "ok",
+    "changed_php":  [
+                        "web/app.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "web/app.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "app/console",
+                        "web/app.php"
+                    ],
+    "sink_hit":  false
+}

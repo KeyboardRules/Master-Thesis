@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-9mh6-g99m-ppcw",
+    "cve":  "CVE-2025-58769",
+    "cwe":  "CWE-22",
+    "repo":  "auth0/auth0-PHP",
+    "sha":  "9026da58f5c381cd4cb5932de829eff6eacbb65c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Utility/Assert.php",
+                        "src/Utility/HttpRequest.php",
+                        "tests/Unit/Utility/HttpRequestTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "src/Utility/Assert.php",
+                        "src/Utility/HttpRequest.php",
+                        "tests/Unit/Utility/HttpRequestTest.php"
+                    ],
+    "sink_hit":  true
+}

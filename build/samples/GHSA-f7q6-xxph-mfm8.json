@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f7q6-xxph-mfm8",
+    "cve":  "CVE-2022-0251",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "3ae96b9d41c117aafa45873ad10077d4b873a3cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition/Service.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "models/DataObject/ClassDefinition/Service.php"
+                    ],
+    "sink_hit":  false
+}

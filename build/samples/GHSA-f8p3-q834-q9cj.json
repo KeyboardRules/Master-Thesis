@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-f8p3-q834-q9cj",
+    "cve":  "CVE-2021-30134",
+    "cwe":  "CWE-79",
+    "repo":  "php-mod/curl",
+    "sha":  "0bddefe8bbd292065f23dd6e24d2c745c4865cf7",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/server/php-curl-test/post_file_path_upload.php",
+                        "tests/server/php-curl-test/post_multidimensional.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tests/server/php-curl-test/post_file_path_upload.php",
+                        "tests/server/php-curl-test/post_multidimensional.php"
+                    ],
+    "sink_hit":  true
+}

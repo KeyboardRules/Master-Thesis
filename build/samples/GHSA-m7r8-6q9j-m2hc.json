@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m7r8-6q9j-m2hc",
+    "cve":  "CVE-2026-41063",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "3ae02fa240939dbefc5949d64f05790fd25d728d",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/functionsSecurity.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "objects/functionsSecurity.php includes 2 project file(s)",
+                     "objects/functionsSecurity.php class extends Parsedown"
+                 ],
+    "changed_all":  [
+                        "objects/functionsSecurity.php"
+                    ],
+    "sink_hit":  false
+}

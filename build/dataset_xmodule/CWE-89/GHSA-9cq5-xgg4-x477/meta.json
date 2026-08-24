@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9cq5-xgg4-x477",
+    "cve":  "CVE-2022-0362",
+    "cwe":  "CWE-89",
+    "repo":  "star7th/showdoc",
+    "fix_commit":  "2b34e267e4186125f99bfa420140634ad45801fb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "server/Application/Api/Controller/AdminUserController.class.php"
+                    ],
+    "evidence":  [
+                     "server/Application/Api/Controller/AdminUserController.class.php class extends BaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

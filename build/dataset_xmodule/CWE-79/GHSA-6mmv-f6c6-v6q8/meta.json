@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6mmv-f6c6-v6q8",
+    "cve":  "CVE-2025-67850",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "c85f153068a717a3b28bc122e75154bac99e67e1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "public/lib/editor/tiny/plugins/equation/classes/external/filter.php"
+                    ],
+    "evidence":  [
+                     "public/lib/editor/tiny/plugins/equation/classes/external/filter.php class extends external_api"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

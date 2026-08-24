@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-qx44-885h-7p56",
+    "cve":  "CVE-2024-21515",
+    "cwe":  "CWE-79",
+    "repo":  "opencart/opencart",
+    "sha":  "c546199e8f100c1f3797a7a9d3cf4db1887399a2",
+    "status":  "ok",
+    "changed_php":  [
+                        "upload/admin/controller/common/login.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "upload/admin/controller/common/login.php class extends \\Opencart\\System\\Engine\\Controller"
+                 ],
+    "changed_all":  [
+                        "upload/admin/controller/common/login.php",
+                        "upload/admin/view/template/common/login.twig"
+                    ],
+    "sink_hit":  false
+}

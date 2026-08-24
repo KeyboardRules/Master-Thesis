@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-27hj-48r9-x2vx",
+    "cve":  "CVE-2025-56588",
+    "cwe":  "CWE-94",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "b03f30c7e27fb89dbfb15902dbf4619ae77f0f86",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/install/upgrade.php",
+                        "htdocs/install/upgrade2.php",
+                        "test/phpunit/SecurityTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "htdocs/core/lib/functions.lib.php includes 38 project file(s)",
+                     "htdocs/install/upgrade.php includes 4 project file(s)",
+                     "htdocs/install/upgrade2.php includes 24 project file(s)",
+                     "test/phpunit/SecurityTest.php includes 8 project file(s)",
+                     "test/phpunit/SecurityTest.php class extends CommonClassTest"
+                 ],
+    "changed_all":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/install/upgrade.php",
+                        "htdocs/install/upgrade2.php",
+                        "test/phpunit/SecurityTest.php"
+                    ],
+    "sink_hit":  true
+}

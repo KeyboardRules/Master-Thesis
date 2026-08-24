@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4x28-j85r-668q",
+    "cve":  "CVE-2012-1207",
+    "cwe":  "CWE-22",
+    "repo":  "forkcms/forkcms",
+    "sha":  "a9986b86c53de0582248b39605660fbba0c21a29",
+    "status":  "ok",
+    "changed_php":  [
+                        "frontend/core/engine/javascript.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "frontend/core/engine/javascript.php"
+                    ],
+    "sink_hit":  false
+}

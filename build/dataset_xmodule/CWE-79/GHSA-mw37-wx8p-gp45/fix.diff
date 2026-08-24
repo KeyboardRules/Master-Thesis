@@ -1,0 +1,29 @@
+﻿diff --git a/src/base/Element.php b/src/base/Element.php
+index dc36fc7..86f1561 100644
+--- a/src/base/Element.php
++++ b/src/base/Element.php
+@@ -4086,7 +4086,10 @@ abstract class Element extends Component implements ElementInterface
+                 }
+                 /** @var RevisionBehavior $behavior */
+                 $behavior = $revision->getBehavior('revision');
+-                return $behavior->revisionNotes ?: false;
++                if ($behavior->revisionNotes === null || $behavior->revisionNotes === '') {
++                    return false;
++                }
++                return Html::encode($behavior->revisionNotes);
+             },
+         ]);
+     }
+diff --git a/src/config/app.php b/src/config/app.php
+index 0c473a3..52bc2a2 100644
+--- a/src/config/app.php
++++ b/src/config/app.php
+@@ -3,7 +3,7 @@
+ return [
+     'id' => 'CraftCMS',
+     'name' => 'Craft CMS',
+-    'version' => '3.7.55.1',
++    'version' => '3.7.55.2',
+     'schemaVersion' => '3.7.33',
+     'minVersionRequired' => '2.6.2788',
+     'basePath' => dirname(__DIR__), // Defines the @app alias

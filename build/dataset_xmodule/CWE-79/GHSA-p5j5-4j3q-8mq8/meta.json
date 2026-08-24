@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-p5j5-4j3q-8mq8",
+    "cve":  "CVE-2026-47345",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "fix_commit":  "8b5d0be44ded457ca993ec9ca93d859941c63764",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Serializer/Rules.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Serializer/Rules.php class extends OutputRules",
+                     "tests/CommonBuilderTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

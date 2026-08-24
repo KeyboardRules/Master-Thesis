@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v6f4-jwv9-682w",
+    "cve":  "CVE-2023-6551",
+    "cwe":  "CWE-434",
+    "repo":  "verot/class.upload.php",
+    "sha":  "befbccc2330b0ccb148fc87495896bd7b57f8c57",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/class.upload.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/class.upload.php"
+                    ],
+    "sink_hit":  true
+}

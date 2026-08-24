@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2grw-mc9r-822r",
+    "cve":  "CVE-2024-28107",
+    "cwe":  "CWE-89",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "d0fae62a72615d809e6710861c1a7f67ac893007",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Faq.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Faq.php"
+                    ],
+    "sink_hit":  true
+}

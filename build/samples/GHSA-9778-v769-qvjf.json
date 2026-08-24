@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-9778-v769-qvjf",
+    "cve":  "CVE-2025-61457",
+    "cwe":  "CWE-79",
+    "repo":  "code16/sharp",
+    "sha":  "bf7fedf2086d86aac16194733a6385564e5cf124",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Form/Fields/Formatters/UploadFormatter.php",
+                        "src/Form/Fields/SharpFormUploadField.php",
+                        "src/Http/Jobs/HandleUploadedFileJob.php",
+                        "src/Http/Jobs/SanitizeSvgJob.php",
+                        "src/Utils/Uploads/SharpUploadManager.php",
+                        "tests/Http/Jobs/HandleUploadedFileJobTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Form/Fields/Formatters/UploadFormatter.php class extends SharpFieldFormatter",
+                     "src/Form/Fields/SharpFormUploadField.php class extends SharpFormField",
+                     "src/Http/Jobs/HandleUploadedFileJob.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "demo/composer.json",
+                        "demo/composer.lock",
+                        "src/Form/Fields/Formatters/UploadFormatter.php",
+                        "src/Form/Fields/SharpFormUploadField.php",
+                        "src/Http/Jobs/HandleUploadedFileJob.php",
+                        "src/Http/Jobs/SanitizeSvgJob.php",
+                        "src/Utils/Uploads/SharpUploadManager.php",
+                        "tests-e2e/site/composer.json",
+                        "tests-e2e/site/composer.lock",
+                        "tests/Http/Jobs/HandleUploadedFileJobTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-4rmg-292m-wg3w",
+    "cve":  "CVE-2024-35226",
+    "cwe":  "CWE-94",
+    "repo":  "smarty-php/smarty",
+    "fix_commit":  "0be92bc8a6fb83e6e0d883946f7e7c09ba4e857a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Compile/Tag/ExtendsTag.php",
+                        "src/Compiler/Template.php",
+                        "src/Smarty.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Compile/Tag/ExtendsTag.php class extends Inheritance",
+                     "src/Compiler/Template.php class extends BaseCompiler",
+                     "src/Smarty.php class extends \\Smarty\\TemplateBase",
+                     "tests/UnitTests/TemplateSource/TagTests/BockExtend/CompileBlockExtendsTest.php class extends PHPUnit_Smarty",
+                     "tests/UnitTests/TemplateSource/TagTests/Include/CompileIncludeTest.php class extends PHPUnit_Smarty",
+                     "tests/UnitTests/TemplateSource/_Issues/419/ExtendsIssue419Test.php class extends PHPUnit_Smarty"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

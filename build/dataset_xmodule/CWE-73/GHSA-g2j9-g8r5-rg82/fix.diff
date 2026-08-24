@@ -1,0 +1,228 @@
+﻿diff --git a/lib/Controller.php b/lib/Controller.php
+index 3d31668..1d726da 100644
+--- a/lib/Controller.php
++++ b/lib/Controller.php
+@@ -216,13 +216,17 @@ class Controller
+     {
+         $templates = $this->_conf->getKey('availabletemplates');
+         $template  = $this->_conf->getKey('template');
++        if (!in_array($template, $templates, true)) {
++            $templates[] = $template;
++        }
+         TemplateSwitcher::setAvailableTemplates($templates);
+         TemplateSwitcher::setTemplateFallback($template);
+ 
+-        // force default template, if template selection is disabled and a default is set
+-        if (!$this->_conf->getKey('templateselection') && !empty($template)) {
+-            $_COOKIE['template'] = $template;
+-            setcookie('template', $template, array('SameSite' => 'Lax', 'Secure' => true));
++        // force default template, if template selection is disabled
++        if (!$this->_conf->getKey('templateselection') && array_key_exists('template', $_COOKIE)) {
++            unset($_COOKIE['template']); // ensure value is not re-used in template switcher
++            $expiredInAllTimezones = time() - 86400;
++            setcookie('template', '', array('expires' => $expiredInAllTimezones, 'SameSite' => 'Lax', 'Secure' => true));
+         }
+     }
+ 
+diff --git a/lib/TemplateSwitcher.php b/lib/TemplateSwitcher.php
+index 22c65b0..fa9fdb1 100644
+--- a/lib/TemplateSwitcher.php
++++ b/lib/TemplateSwitcher.php
+@@ -59,16 +59,13 @@ class TemplateSwitcher
+     {
+         if (self::isTemplateAvailable($template)) {
+             self::$_templateFallback = $template;
+-
+-            if (!in_array($template, self::getAvailableTemplates())) {
+-                // Add custom template to the available templates list
+-                self::$_availableTemplates[] = $template;
+-            }
++        } else {
++            error_log('failed to set "' . $template . '" as a fallback, it needs to be added to the list of `availabletemplates` in the configuration file');
+         }
+     }
+ 
+     /**
+-     * get currently loaded template
++     * get user selected template or fallback
+      *
+      * @access public
+      * @static
+@@ -76,8 +73,13 @@ class TemplateSwitcher
+      */
+     public static function getTemplate(): string
+     {
+-        $selectedTemplate = self::getSelectedByUserTemplate();
+-        return $selectedTemplate ?? self::$_templateFallback;
++        if (array_key_exists('template', $_COOKIE)) {
++            $template = basename($_COOKIE['template']);
++            if (self::isTemplateAvailable($template)) {
++                return $template;
++            }
++        }
++        return self::$_templateFallback;
+     }
+ 
+     /**
+@@ -101,32 +103,10 @@ class TemplateSwitcher
+      */
+     public static function isTemplateAvailable(string $template): bool
+     {
+-        $available = in_array($template, self::getAvailableTemplates());
+-
+-        if (!$available && !View::isBootstrapTemplate($template)) {
+-            $path      = View::getTemplateFilePath($template);
+-            $available = file_exists($path);
+-        }
+-
+-        return $available;
+-    }
+-
+-    /**
+-     * get the template selected by user
+-     *
+-     * @access private
+-     * @static
+-     * @return string|null
+-     */
+-    private static function getSelectedByUserTemplate(): ?string
+-    {
+-        $selectedTemplate    = null;
+-        $templateCookieValue = $_COOKIE['template'] ?? '';
+-
+-        if (self::isTemplateAvailable($templateCookieValue)) {
+-            $selectedTemplate = $templateCookieValue;
++        if (in_array($template, self::getAvailableTemplates(), true)) {
++            return true;
+         }
+-
+-        return $selectedTemplate;
++        error_log('template "' . $template . '" is not in the list of `availabletemplates` in the configuration file');
++        return false;
+     }
+ }
+diff --git a/lib/View.php b/lib/View.php
+index dd15e32..514ac2b 100644
+--- a/lib/View.php
++++ b/lib/View.php
+@@ -49,39 +49,19 @@ class View
+      */
+     public function draw($template)
+     {
+-        $path = self::getTemplateFilePath($template);
+-        if (!file_exists($path)) {
+-            throw new Exception('Template ' . $template . ' not found!', 80);
++        $dir  = PATH . 'tpl' . DIRECTORY_SEPARATOR;
++        $file = substr($template, 0, 10) === 'bootstrap-' ? 'bootstrap' : $template;
++        $path = $dir . $file . '.php';
++        if (!is_file($path)) {
++            throw new Exception('Template ' . $template . ' not found in file ' . $path . '!', 80);
++        }
++        if (!in_array($path, glob($dir . '*.php', GLOB_NOSORT | GLOB_ERR), true)) {
++            throw new Exception('Template ' . $file . '.php not found in ' . $dir . '!', 81);
+         }
+         extract($this->_variables);
+         include $path;
+     }
+ 
+-    /**
+-     * Get template file path
+-     *
+-     * @access public
+-     * @param  string $template
+-     * @return string
+-     */
+-    public static function getTemplateFilePath(string $template): string
+-    {
+-        $file = self::isBootstrapTemplate($template) ? 'bootstrap' : $template;
+-        return PATH . 'tpl' . DIRECTORY_SEPARATOR . $file . '.php';
+-    }
+-
+-    /**
+-     * Is the template a variation of the bootstrap template
+-     *
+-     * @access public
+-     * @param  string $template
+-     * @return bool
+-     */
+-    public static function isBootstrapTemplate(string $template): bool
+-    {
+-        return substr($template, 0, 10) === 'bootstrap-';
+-    }
+-
+     /**
+      * echo script tag incl. SRI hash for given script file
+      *
+diff --git a/tst/Bootstrap.php b/tst/Bootstrap.php
+index 5c5ceb6..e905312 100644
+--- a/tst/Bootstrap.php
++++ b/tst/Bootstrap.php
+@@ -6,7 +6,9 @@ use Google\Cloud\Storage\Bucket;
+ use Google\Cloud\Storage\Connection\ConnectionInterface;
+ use Google\Cloud\Storage\StorageClient;
+ use Google\Cloud\Storage\StorageObject;
++use PrivateBin\Configuration;
+ use PrivateBin\Persistence\ServerSalt;
++use PrivateBin\TemplateSwitcher;
+ 
+ error_reporting(E_ALL | E_STRICT);
+ 
+@@ -26,6 +28,7 @@ if (!defined('CONF_SAMPLE')) {
+ 
+ require PATH . 'vendor/autoload.php';
+ Helper::updateSubresourceIntegrity();
++TemplateSwitcher::setAvailableTemplates(Configuration::getDefaults()['main']['availabletemplates']);
+ 
+ /**
+  * Class Helper provides unit tests pastes and comments of various formats
+diff --git a/tst/TemplateSwitcherTest.php b/tst/TemplateSwitcherTest.php
+index 16aec6b..7f4ef8d 100644
+--- a/tst/TemplateSwitcherTest.php
++++ b/tst/TemplateSwitcherTest.php
+@@ -41,6 +41,7 @@ class TemplateSwitcherTest extends TestCase
+         $defaultTemplateFallback = 'bootstrap5';
+         $customTemplate          = 'bootstrap-dark';
+         $customWrongTemplate     = 'bootstrap-wrong';
++        $escapeTemplateDirectory = '../index';
+ 
+         TemplateSwitcher::setTemplateFallback($defaultTemplateFallback);
+ 
+@@ -49,6 +50,9 @@ class TemplateSwitcherTest extends TestCase
+ 
+         $_COOKIE['template'] = $customTemplate;
+         $this->assertEquals($customTemplate, TemplateSwitcher::getTemplate(), 'Custom template');
++
++        $_COOKIE['template'] = $escapeTemplateDirectory;
++        $this->assertEquals($defaultTemplateFallback, TemplateSwitcher::getTemplate(), 'Fallback on escaping template directory');
+     }
+ 
+     public function testGetAvailableTemplates()
+diff --git a/tst/ViewTest.php b/tst/ViewTest.php
+index fcb0bda..b3d4aa3 100644
+--- a/tst/ViewTest.php
++++ b/tst/ViewTest.php
+@@ -142,19 +142,12 @@ class ViewTest extends TestCase
+         $test->draw('123456789 does not exist!');
+     }
+ 
+-    public function testTemplateFilePath()
++    public function testInvalidTemplate()
+     {
+-        $template     = 'bootstrap';
+-        $templatePath = PATH . 'tpl' . DIRECTORY_SEPARATOR . $template . '.php';
+-        $path         = View::getTemplateFilePath($template);
+-        $this->assertEquals($templatePath, $path, 'Template file path');
++        $test = new View;
++        $this->expectException(Exception::class);
++        $this->expectExceptionCode(81);
++        $test->draw('../index');
+     }
+ 
+-    public function testIsBootstrapTemplate()
+-    {
+-        $bootstrapTemplate    = 'bootstrap-dark';
+-        $nonBootstrapTemplate = 'bootstrap5';
+-        $this->assertTrue(View::isBootstrapTemplate($bootstrapTemplate), 'Is bootstrap template');
+-        $this->assertFalse(View::isBootstrapTemplate($nonBootstrapTemplate), 'Is not bootstrap template');
+-    }
+ }

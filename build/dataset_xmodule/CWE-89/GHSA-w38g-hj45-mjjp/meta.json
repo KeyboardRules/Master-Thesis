@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w38g-hj45-mjjp",
+    "cve":  "CVE-2017-16558",
+    "cwe":  "CWE-89",
+    "repo":  "contao/contao",
+    "fix_commit":  "501cb3cd34d61089b94e7ed78da53977bc71fc3e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/drivers/DC_Table.php"
+                    ],
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/drivers/DC_Table.php class extends \\DataContainer"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

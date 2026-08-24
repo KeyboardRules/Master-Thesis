@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-23q7-59jj-2pj4",
+    "cve":  "CVE-2020-12790",
+    "cwe":  "CWE-74",
+    "repo":  "nystudio107/craft-seomatic",
+    "fix_commit":  "82f4a25b28fd622393da6592dc9e5ccee7fc5be3",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/helpers/DynamicMeta.php",
+                        "src/helpers/Text.php",
+                        "src/helpers/UrlHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/helpers/UrlHelper.php class extends CraftUrlHelper"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

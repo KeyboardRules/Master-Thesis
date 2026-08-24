@@ -1,0 +1,29 @@
+﻿diff --git a/src/gql/resolvers/mutations/Asset.php b/src/gql/resolvers/mutations/Asset.php
+index 805414c..e3880e6 100644
+--- a/src/gql/resolvers/mutations/Asset.php
++++ b/src/gql/resolvers/mutations/Asset.php
+@@ -251,6 +251,10 @@ class Asset extends ElementMutationResolver
+         } elseif (!empty($fileInformation['url'])) {
+             $url = $fileInformation['url'];
+ 
++            if (!$this->validateScheme($url)) {
++                throw new UserError("$url contains an invalid scheme.");
++            }
++
+             if (!$this->validateHostname($url)) {
+                 throw new UserError("$url contains an invalid hostname.");
+             }
+@@ -297,6 +301,13 @@ class Asset extends ElementMutationResolver
+         return true;
+     }
+ 
++    private function validateScheme(string $url): bool
++    {
++        // block Gopher/File/FTP Smuggling
++        $scheme = parse_url($url, PHP_URL_SCHEME);
++        return in_array(strtolower($scheme), ['http', 'https'], true);
++    }
++
+     private function validateHostname(string $url): bool
+     {
+         $hostname = parse_url($url, PHP_URL_HOST);

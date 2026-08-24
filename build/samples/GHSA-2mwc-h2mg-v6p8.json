@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2mwc-h2mg-v6p8",
+    "cve":  "CVE-2026-21451",
+    "cwe":  "CWE-79",
+    "repo":  "bagisto/bagisto",
+    "sha":  "f533b1cd9c80896792da60976179c95573d78b79",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/Webkul/Product/src/Repositories/ProductReviewAttachmentRepository.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "packages/Webkul/Product/src/Repositories/ProductReviewAttachmentRepository.php class extends Repository"
+                 ],
+    "changed_all":  [
+                        "packages/Webkul/Product/src/Repositories/ProductReviewAttachmentRepository.php"
+                    ],
+    "sink_hit":  false
+}

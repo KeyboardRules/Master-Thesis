@@ -1,0 +1,401 @@
+﻿diff --git a/Classes/Controller/FesamlController.php b/Classes/Controller/FesamlController.php
+index 9cbc08d..34a03ab 100644
+--- a/Classes/Controller/FesamlController.php
++++ b/Classes/Controller/FesamlController.php
+@@ -128,15 +128,17 @@ class FesamlController extends ActionController
+         $sp_object = json_decode(Utilities::fetchFromTable(Constants::COLUMN_OBJECT_SP,Constants::TABLE_SAML),true);
+ 
+          $this->idp_name = $idp_object[Constants::COLUMN_IDP_NAME];
+-         $this->acs_url = $idp_object[Constants::COLUMN_IDP_NAME];
++         $this->idp_entity_id =$idp_object[Constants::COLUMN_IDP_ENTITY_ID];
+          $this->saml_login_url = $idp_object[Constants::COLUMN_IDP_LOGIN_URL];
+          $this->x509_certificate = $idp_object[Constants::COLUMN_IDP_CERTIFICATE];
+-         $this->idp_entity_id =$idp_object[Constants::COLUMN_IDP_ENTITY_ID];
+          $this->force_authn = false;
+-         $this->sp_entity_id = $sp_object[Constants::COLUMN_SP_ENTITY_ID];
++
++        $this->acs_url = $sp_object[Constants::COLUMN_SP_ACS_URL];
++        $this->sp_entity_id = $sp_object[Constants::COLUMN_SP_ENTITY_ID];
+ 
+         $this->signedAssertion = true;
+         $this->signedResponse = true;
++
+         $this->destination = $this->saml_login_url;
+     }
+ 
+diff --git a/Helper/Actions/HttpAction.php b/Helper/Actions/HttpAction.php
+index ece2e8d..cb8a60c 100644
+--- a/Helper/Actions/HttpAction.php
++++ b/Helper/Actions/HttpAction.php
+@@ -75,8 +75,14 @@ class HttpAction
+         $base64EncodedXML = base64_encode($signedXML);
+         //post request
+         ob_clean();
+-        printf("  <html><head><script src='https://code.jquery.com/jquery-1.11.3.min.js'></script><script type=\"text/javascript\">
+-                    $(function(){document.forms['saml-request-form'].submit();});</script></head>
++        printf("  <html>
++                    <head>
++                    <script type=\"text/javascript\">
++                            $(function(){
++                                document.getElementById('saml-request-form').submit(); 
++                            });
++                    </script>
++                    </head>
+                     <body>
+                         Please wait...
+                         <form action=\"%s\" method=\"post\" id=\"saml-request-form\" style=\"display:none;\">
+@@ -110,7 +116,7 @@ class HttpAction
+         $base64EncodedXML = base64_encode($signedXML);
+         //post request
+         ob_clean();
+-        printf("  <html><head><script src='https://code.jquery.com/jquery-1.11.3.min.js'></script><script type=\"text/javascript\">
++        printf("  <html><head><script src='https://code.jquery.com/jquery-1.12.4.min.js'></script><script type=\"text/javascript\">
+                     $(function(){document.forms['saml-request-form'].submit();});</script></head>
+                     <body>
+                         Please wait...
+@@ -121,4 +127,4 @@ class HttpAction
+                     </body>
+                 </html>",$ssoUrl,$base64EncodedXML,htmlentities($sendRelayState));
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/Helper/Actions/TestResultActions.php b/Helper/Actions/TestResultActions.php
+index 14259ea..d628d6e 100644
+--- a/Helper/Actions/TestResultActions.php
++++ b/Helper/Actions/TestResultActions.php
+@@ -150,7 +150,7 @@ class TestResultActions
+      */
+     private function processTemplateContent()
+     {
+-        $this->commonBody = str_replace("{{email}}",implode("/",$this->nameId),$this->commonBody);
++        $this->commonBody = str_replace("{{email}}",strip_tags(implode("/",$this->nameId)),$this->commonBody);
+         $tableContent = !array_filter($this->attrs) ? "No Attributes Received." : $this->getTableContent();
+         $this->commonBody = str_replace("{{tablecontent}}",$tableContent,$this->commonBody);
+         $this->template = str_replace("{{commonbody}}",$this->commonBody,$this->template);
+@@ -168,7 +168,7 @@ class TestResultActions
+         {
+             if(!in_array(null, $value))
+                 $tableContent .= str_replace("{{key}}",$key,str_replace("{{value}}",
+-                    implode("<br/>",$value),$this->tableContent));
++                    strip_tags(implode("<br/>",$value)),$this->tableContent));
+         }
+         return $tableContent;
+     }
+@@ -181,4 +181,4 @@ class TestResultActions
+     {
+         $this->template = str_replace("{{footer}}",$this->footer,$this->template);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/Helper/Assertion.php b/Helper/Assertion.php
+index 46fbb66..782127a 100644
+--- a/Helper/Assertion.php
++++ b/Helper/Assertion.php
+@@ -289,11 +289,11 @@ class Assertion
+         }
+ 
+         // Constraint from XSD: MUST have one of the three
+-        if (empty($this->authnContextClassRef) && empty($this->authnContextDecl) && empty($this->authnContextDeclRef)) {
+-            throw new Exception(
+-                'Missing either <saml:AuthnContextClassRef> or <saml:AuthnContextDeclRef> or <saml:AuthnContextDecl>'
+-            );
+-        }
++//        if (empty($this->authnContextClassRef) && empty($this->authnContextDecl) && empty($this->authnContextDeclRef)) {
++//            throw new Exception(
++//                'Missing either <saml:AuthnContextClassRef> or <saml:AuthnContextDeclRef> or <saml:AuthnContextDecl>'
++//            );
++//        }
+ 
+         $this->AuthenticatingAuthority = SAMLUtilities::extractStrings(
+             $authnContextEl,
+diff --git a/Helper/Utilities.php b/Helper/Utilities.php
+index f5a160c..0ae6807 100644
+--- a/Helper/Utilities.php
++++ b/Helper/Utilities.php
+@@ -233,54 +233,21 @@
+         }
+ 
+ 
+-			/**
+-			 * Exception Page HTML Content
+-			 * @param $message
+-			 */
+-			public static function showErrorMessage($message)
+-			{
+-					echo '
+-							<head>
+-									<meta charset="utf-8">
+-									<meta http-equiv="X-UA-Compatible" content="IE=edge">
+-									<meta name="viewport" content="width=device-width, initial-scale=1">
+-									<title>We\'ve got some trouble | 500 - Webservice currently unavailable</title>
+-									<style type="text/css">html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}/*! Simple HttpErrorPages | MIT X11 License | https://github.com/AndiDittrich/HttpErrorPages */body,html{width:100%;height:100%;background-color:#21232a}body{color:#fff;text-align:center;text-shadow:0 2px 4px rgba(0,0,0,.5);padding:0;min-height:100%;-webkit-box-shadow:inset 0 0 75pt rgba(0,0,0,.8);box-shadow:inset 0 0 75pt rgba(0,0,0,.8);display:table;font-family:"Open Sans",Arial,sans-serif}h1{font-family:inherit;font-weight:500;line-height:1.1;color:inherit;font-size:36px}h1 small{font-size:68%;font-weight:400;line-height:1;color:#777}a{text-decoration:none;color:#fff;font-size:inherit;border-bottom:dotted 1px #707070}.lead{color:silver;font-size:21px;line-height:1.4}.cover{display:table-cell;vertical-align:middle;padding:0 20px}footer{position:fixed;width:100%;height:40px;left:0;bottom:0;color:#a0a0a0;font-size:14px}</style>
+-							</head>
+-							<body>
+-									<div class="cover">
+-											<h1>Oops!! Something went wrong.</h1>
+-											<p class="lead"> An unexpected condition was encountered.<br> </p>
+-											<p>
+-													'.$message.'
+-											</p>
+-									</div>        
+-							</body>
+-					';
+-					exit;
+-			}
+-
+-			public static function showErrorFlashMessage($message, $header="ERROR"){
+-				$message = GeneralUtility::makeInstance(FlashMessage::class,$message,$header,FlashMessage::ERROR);
+-                $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+-				$out = GeneralUtility::makeInstance(ListRenderer ::class)->render([$message]);
+-				echo $out;
+-			}
+-
+-			public static function showSuccessFlashMessage($message, $header="OK"){
+-				$message = GeneralUtility::makeInstance(FlashMessage::class, $message, $header, FlashMessage::OK);
+-                $out = GeneralUtility::makeInstance(ListRenderer ::class)->render([$message]);
+-                echo $out;
+-			}
+-
+-			public static function clearFlashMessages(){
+-				$flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+-				$messageQueue  = $flashMessageService->getMessageQueueByIdentifier();
+-				$messageQueue->clear();
+-			}
+-
+-			public static function log_php_error($msg="",$obj){
+-			    error_log($msg.": ".print_r($obj,true));
+-            }
++        public static function showErrorFlashMessage($message, $header="ERROR"){
++            $message = GeneralUtility::makeInstance(FlashMessage::class,$message,$header,FlashMessage::ERROR);
++            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
++            $out = GeneralUtility::makeInstance(ListRenderer ::class)->render([$message]);
++            echo $out;
++        }
++
++        public static function showSuccessFlashMessage($message, $header="OK"){
++            $message = GeneralUtility::makeInstance(FlashMessage::class, $message, $header, FlashMessage::OK);
++            $out = GeneralUtility::makeInstance(ListRenderer ::class)->render([$message]);
++            echo $out;
++        }
++
++        public static function log_php_error($msg="",$obj){
++            error_log($msg.": ".print_r($obj,true));
++        }
+ 
+     }
+diff --git a/Helper/lib/XMLSecLibs/XMLSecEnc.php b/Helper/lib/XMLSecLibs/XMLSecEnc.php
+index 8a96c29..5c17e96 100644
+--- a/Helper/lib/XMLSecLibs/XMLSecEnc.php
++++ b/Helper/lib/XMLSecLibs/XMLSecEnc.php
+@@ -5,11 +5,12 @@ use DOMDocument;
+ use DOMNode;
+ use DOMXPath;
+ use Exception;
++use Miniorange\Helper\lib\XMLSecLibs\Utils\XPath as XPath;
+ 
+ /**
+  * xmlseclibs.php
+  *
+- * Copyright (c) 2007-2017, Robert Richards <rrichards@cdatazone.org>.
++ * Copyright (c) 2007-2019, Robert Richards <rrichards@cdatazone.org>.
+  * All rights reserved.
+  *
+  * Redistribution and use in source and binary forms, with or without
+@@ -42,7 +43,7 @@ use Exception;
+  * POSSIBILITY OF SUCH DAMAGE.
+  *
+  * @author    Robert Richards <rrichards@cdatazone.org>
+- * @copyright 2007-2017 Robert Richards <rrichards@cdatazone.org>
++ * @copyright 2007-2019 Robert Richards <rrichards@cdatazone.org>
+  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+  */
+ 
+@@ -470,7 +471,7 @@ class XMLSecEnc
+                     }
+                     $id = substr($uri, 1);
+ 
+-                    $query = "//xmlsecenc:EncryptedKey[@Id='$id']";
++                    $query = '//xmlsecenc:EncryptedKey[@Id="'.XPath::filterAttrValue($id, XPath::DOUBLE_QUOTE).'"]';
+                     $keyElement = $xpath->query($query)->item(0);
+                     if (!$keyElement) {
+                         throw new Exception("Unable to locate EncryptedKey with @Id='$id'.");
+diff --git a/Helper/lib/XMLSecLibs/XMLSecurityDSig.php b/Helper/lib/XMLSecLibs/XMLSecurityDSig.php
+index d56b7b6..86c9b40 100644
+--- a/Helper/lib/XMLSecLibs/XMLSecurityDSig.php
++++ b/Helper/lib/XMLSecLibs/XMLSecurityDSig.php
+@@ -6,11 +6,12 @@ use DOMElement;
+ use DOMNode;
+ use DOMXPath;
+ use Exception;
++use Miniorange\Helper\lib\XMLSecLibs\Utils\XPath as XPath;
+ 
+ /**
+  * xmlseclibs.php
+  *
+- * Copyright (c) 2007-2017, Robert Richards <rrichards@cdatazone.org>.
++ * Copyright (c) 2007-2019, Robert Richards <rrichards@cdatazone.org>.
+  * All rights reserved.
+  *
+  * Redistribution and use in source and binary forms, with or without
+@@ -43,7 +44,7 @@ use Exception;
+  * POSSIBILITY OF SUCH DAMAGE.
+  *
+  * @author    Robert Richards <rrichards@cdatazone.org>
+- * @copyright 2007-2017 Robert Richards <rrichards@cdatazone.org>
++ * @copyright 2007-2019 Robert Richards <rrichards@cdatazone.org>
+  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+  */
+ 
+@@ -193,6 +194,11 @@ class XMLSecurityDSig
+             $query = ".//secdsig:Signature";
+             $nodeset = $xpath->query($query, $objDoc);
+             $this->sigNode = $nodeset->item($pos);
++            $query = "./secdsig:SignedInfo";
++            $nodeset = $xpath->query($query, $this->sigNode);
++            if ($nodeset->length > 1) {
++                throw new Exception("Invalid structure - Too many SignedInfo elements found");
++            }
+             return $this->sigNode;
+         }
+         return null;
+@@ -302,6 +308,9 @@ class XMLSecurityDSig
+             $xpath = $this->getXPathObj();
+             $query = "./secdsig:SignedInfo";
+             $nodeset = $xpath->query($query, $this->sigNode);
++            if ($nodeset->length > 1) {
++                throw new Exception("Invalid structure - Too many SignedInfo elements found");
++            }
+             if ($signInfoNode = $nodeset->item(0)) {
+                 $query = "./secdsig:CanonicalizationMethod";
+                 $nodeset = $xpath->query($query, $signInfoNode);
+@@ -366,7 +375,7 @@ class XMLSecurityDSig
+         $digValue = $this->calculateDigest($digestAlgorithm, $data, false);
+         $query = 'string(./secdsig:DigestValue)';
+         $digestValue = $xpath->evaluate($query, $refNode);
+-        return ($digValue == base64_decode($digestValue));
++        return ($digValue === base64_decode($digestValue));
+     }
+ 
+     /**
+@@ -439,7 +448,7 @@ class XMLSecurityDSig
+                         if ($node->localName == 'XPath') {
+                             $arXPath = array();
+                             $arXPath['query'] = '(.//. | .//@* | .//namespace::*)['.$node->nodeValue.']';
+-                            $arXpath['namespaces'] = array();
++                            $arXPath['namespaces'] = array();
+                             $nslist = $xpath->query('./namespace::*', $node);
+                             foreach ($nslist AS $nsnode) {
+                                 if ($nsnode->localName != "xml") {
+@@ -485,14 +494,15 @@ class XMLSecurityDSig
+ 
+                     $xPath = new DOMXPath($refNode->ownerDocument);
+                     if ($this->idNS && is_array($this->idNS)) {
+-                        foreach ($this->idNS AS $nspf => $ns) {
++                        foreach ($this->idNS as $nspf => $ns) {
+                             $xPath->registerNamespace($nspf, $ns);
+                         }
+                     }
+-                    $iDlist = '@Id="'.$identifier.'"';
++                    $iDlist = '@Id="'.XPath::filterAttrValue($identifier, XPath::DOUBLE_QUOTE).'"';
+                     if (is_array($this->idKeys)) {
+-                        foreach ($this->idKeys AS $idKey) {
+-                            $iDlist .= " or @$idKey='$identifier'";
++                        foreach ($this->idKeys as $idKey) {
++                            $iDlist .= " or @".XPath::filterAttrName($idKey).'="'.
++                                XPath::filterAttrValue($identifier, XPath::DOUBLE_QUOTE).'"';
+                         }
+                     }
+                     $query = '//*['.$iDlist.']';
+@@ -500,8 +510,6 @@ class XMLSecurityDSig
+                 } else {
+                     $dataObject = $refNode->ownerDocument;
+                 }
+-            } else {
+-                $dataObject = file_get_contents($arUrl);
+             }
+         } else {
+             /* This reference identifies the root node with an empty URI. This should
+@@ -554,7 +562,7 @@ class XMLSecurityDSig
+         $refids = array();
+ 
+         $xpath = $this->getXPathObj();
+-        $query = "./secdsig:SignedInfo/secdsig:Reference";
++        $query = "./secdsig:SignedInfo[1]/secdsig:Reference";
+         $nodeset = $xpath->query($query, $this->sigNode);
+         if ($nodeset->length == 0) {
+             throw new Exception("Reference nodes not found");
+@@ -578,7 +586,7 @@ class XMLSecurityDSig
+             }
+         }
+         $xpath = $this->getXPathObj();
+-        $query = "./secdsig:SignedInfo/secdsig:Reference";
++        $query = "./secdsig:SignedInfo[1]/secdsig:Reference";
+         $nodeset = $xpath->query($query, $this->sigNode);
+         if ($nodeset->length == 0) {
+             throw new Exception("Reference nodes not found");
+diff --git a/Helper/lib/XMLSecLibs/XMLSecurityKey.php b/Helper/lib/XMLSecLibs/XMLSecurityKey.php
+index c3e0e3e..63b38de 100644
+--- a/Helper/lib/XMLSecLibs/XMLSecurityKey.php
++++ b/Helper/lib/XMLSecLibs/XMLSecurityKey.php
+@@ -7,7 +7,7 @@ use Exception;
+ /**
+  * xmlseclibs.php
+  *
+- * Copyright (c) 2007-2017, Robert Richards <rrichards@cdatazone.org>.
++ * Copyright (c) 2007-2019, Robert Richards <rrichards@cdatazone.org>.
+  * All rights reserved.
+  *
+  * Redistribution and use in source and binary forms, with or without
+@@ -40,7 +40,7 @@ use Exception;
+  * POSSIBILITY OF SUCH DAMAGE.
+  *
+  * @author    Robert Richards <rrichards@cdatazone.org>
+- * @copyright 2007-2017 Robert Richards <rrichards@cdatazone.org>
++ * @copyright 2007-2019 Robert Richards <rrichards@cdatazone.org>
+  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+  */
+ 
+@@ -575,17 +575,26 @@ class XMLSecurityKey
+      */
+     public function signData($data)
+     {
+-
+         switch ($this->cryptParams['library']) {
+             case 'openssl':
+                 return $this->signOpenSSL($data);
+             case (self::HMAC_SHA1):
+-
+                 return hash_hmac("sha1", $data, $this->key, true);
+         }
+     }
++
+     /**
+      * Verifies the data (string) against the given signature using the extension assigned to the type in the constructor.
++     *
++     * Returns in case of openSSL:
++     *  1 on succesful signature verification,
++     *  0 when signature verification failed,
++     *  -1 if an error occurred during processing.
++     *
++     * NOTE: be very careful when checking the return value, because in PHP,
++     * -1 will be cast to True when in boolean context. So always check the
++     * return value in a strictly typed way, e.g. "$obj->verify(...) === 1".
++     *
+      * @param string $data
+      * @param string $signature
+      * @return bool|int
+diff --git a/ext_emconf.php b/ext_emconf.php
+index 7da4661..3d4f878 100644
+--- a/ext_emconf.php
++++ b/ext_emconf.php
+@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = [
+     'uploadfolder' => 0,
+     'createDirs' => '',
+     'clearCacheOnLoad' => 0,
+-    'version' => '1.4.2',
++    'version' => '1.4.3',
+     'constraints' => [
+         'depends' => [
+             'typo3' => '8.7.0-10.6.0',

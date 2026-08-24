@@ -1,0 +1,59 @@
+﻿diff --git a/import.php b/import.php
+index 7315a8f7..ae0eaef8 100644
+--- a/import.php
++++ b/import.php
+@@ -111,7 +111,7 @@ if (! empty($sql_query)) {
+         && is_array($_REQUEST['parameters'])) {
+         $parameters = $_REQUEST['parameters'];
+         foreach ($parameters as $parameter => $replacement) {
+-            $quoted = preg_quote($parameter);
++            $quoted = preg_quote($parameter, '/');
+             // making sure that :param does not apply values to :param1
+             $sql_query = preg_replace(
+                 '/' . $quoted . '([^a-zA-Z0-9_])/',
+diff --git a/libraries/Tracker.php b/libraries/Tracker.php
+index 8f7e3d43..a4cb56c9 100644
+--- a/libraries/Tracker.php
++++ b/libraries/Tracker.php
+@@ -903,7 +903,7 @@ class Tracker
+ 
+                 // Cut off `dbname`. from query
+                 $query = preg_replace(
+-                    '/`' . preg_quote($dbname) . '`\s?\./',
++                    '/`' . preg_quote($dbname, '/') . '`\s?\./',
+                     '',
+                     $query
+                 );
+diff --git a/libraries/plugins/export/ExportSql.php b/libraries/plugins/export/ExportSql.php
+index 8b531076..7812c7c7 100644
+--- a/libraries/plugins/export/ExportSql.php
++++ b/libraries/plugins/export/ExportSql.php
+@@ -1506,7 +1506,7 @@ class ExportSql extends ExportPlugin
+              */
+             if ($view) {
+                 $create_query = preg_replace(
+-                    '/' . preg_quote(Util::backquote($db)) . '\./',
++                    '/' . preg_quote(Util::backquote($db), '/') . '\./',
+                     '',
+                     $create_query
+                 );
+diff --git a/templates/columns_definitions/transformation.phtml b/templates/columns_definitions/transformation.phtml
+index d12e996b..96467007 100644
+--- a/templates/columns_definitions/transformation.phtml
++++ b/templates/columns_definitions/transformation.phtml
+@@ -7,7 +7,7 @@
+             <?php
+                 $checked = isset($columnMeta['Field'])
+                          && isset($mime_map[$columnMeta['Field']][$type])
+-                         && preg_match('@' . preg_quote($available_mime[$type . '_file'][$mimekey]) . '3?@i',
++                         && preg_match('@' . preg_quote($available_mime[$type . '_file'][$mimekey], '@') . '3?@i',
+                                         $mime_map[$columnMeta['Field']][$type]) ? 'selected ' : '';
+                 $tooltip = PMA_getTransformationDescription(
+                     $available_mime[$type . '_file'][$mimekey]
+@@ -24,4 +24,4 @@
+             </option>
+         <?php endforeach; ?>
+     <?php endif; ?>
+-</select>
+\ No newline at end of file
++</select>

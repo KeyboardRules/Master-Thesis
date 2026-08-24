@@ -1,0 +1,108 @@
+﻿diff --git a/typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php b/typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php
+index 937cb662de..9e3474f195 100644
+--- a/typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php
++++ b/typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php
+@@ -157,6 +157,12 @@ class LocalDriver extends AbstractHierarchicalFilesystemDriver implements Stream
+         }
+         $absoluteBasePath = $this->canonicalizeAndCheckFilePath($absoluteBasePath);
+         $absoluteBasePath = rtrim($absoluteBasePath, '/') . '/';
++        if (!$this->isAllowedAbsolutePath($absoluteBasePath)) {
++            throw new InvalidConfigurationException(
++                'Base path "' . $absoluteBasePath . '" is not within the allowed project root path or allowed lockRootPath.',
++                1704807715
++            );
++        }
+         if (!is_dir($absoluteBasePath)) {
+             throw new InvalidConfigurationException(
+                 'Base path "' . $absoluteBasePath . '" does not exist or is no directory.',
+@@ -1360,4 +1366,13 @@ class LocalDriver extends AbstractHierarchicalFilesystemDriver implements Stream
+ 
+         return '';
+     }
++
++    /**
++     * Wrapper for `GeneralUtility::isAllowedAbsPath`, which implicitly invokes
++     * `GeneralUtility::validPathStr` (like in `parent::isPathValid`).
++     */
++    protected function isAllowedAbsolutePath(string $path): bool
++    {
++        return GeneralUtility::isAllowedAbsPath($path);
++    }
+ }
+diff --git a/typo3/sysext/core/Classes/Utility/GeneralUtility.php b/typo3/sysext/core/Classes/Utility/GeneralUtility.php
+index 32ac137c9c..bc427db08e 100644
+--- a/typo3/sysext/core/Classes/Utility/GeneralUtility.php
++++ b/typo3/sysext/core/Classes/Utility/GeneralUtility.php
+@@ -2478,12 +2478,11 @@ class GeneralUtility
+         if (substr($path, 0, 6) === 'vfs://') {
+             return true;
+         }
+-        $lockRootPath = $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] ?? '';
+         return PathUtility::isAbsolutePath($path) && static::validPathStr($path)
+             && (
+                 str_starts_with($path, Environment::getProjectPath())
+                 || str_starts_with($path, Environment::getPublicPath())
+-                || ($lockRootPath && str_starts_with($path, $lockRootPath))
++                || PathUtility::isAllowedAdditionalPath($path)
+             );
+     }
+ 
+diff --git a/typo3/sysext/core/Classes/Utility/PathUtility.php b/typo3/sysext/core/Classes/Utility/PathUtility.php
+index 31a01cfb41..d676ea0427 100644
+--- a/typo3/sysext/core/Classes/Utility/PathUtility.php
++++ b/typo3/sysext/core/Classes/Utility/PathUtility.php
+@@ -446,4 +446,33 @@ class PathUtility
+     {
+         return str_starts_with($path, '//') || strpos($path, '://') > 0;
+     }
++
++    /**
++     * Evaluates a given path against the optional settings in `$GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath']`.
++     * Albeit the name `BE/lockRootPath` is misleading, this setting was and is used in general and is not limited
++     * to the backend-scope. The setting actually allows defining additional paths, besides the project root path.
++     *
++     * @param string $path Absolute path to a file or directory
++     */
++    public static function isAllowedAdditionalPath(string $path): bool
++    {
++        // ensure the submitted path ends with a string, even for a file
++        $path = self::sanitizeTrailingSeparator($path);
++        $allowedPaths = $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] ?? [];
++        if (is_string($allowedPaths)) {
++            // The setting was a string before and is now an array
++            // For compatibility reasons, we cast a string to an array here for now
++            $allowedPaths = [$allowedPaths];
++        }
++        if (!is_array($allowedPaths)) {
++            throw new \RuntimeException('$GLOBALS[\'TYPO3_CONF_VARS\'][\'BE\'][\'lockRootPath\'] is expected to be an array.', 1707408379);
++        }
++        foreach ($allowedPaths as $allowedPath) {
++            $allowedPath = trim($allowedPath);
++            if ($allowedPath !== '' && str_starts_with($path, self::sanitizeTrailingSeparator($allowedPath))) {
++                return true;
++            }
++        }
++        return false;
++    }
+ }
+diff --git a/typo3/sysext/filelist/Classes/Controller/FileListController.php b/typo3/sysext/filelist/Classes/Controller/FileListController.php
+index 346747fa62..ad37fd731b 100644
+--- a/typo3/sysext/filelist/Classes/Controller/FileListController.php
++++ b/typo3/sysext/filelist/Classes/Controller/FileListController.php
+@@ -44,6 +44,7 @@ use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
+ use TYPO3\CMS\Core\Page\PageRenderer;
+ use TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior;
+ use TYPO3\CMS\Core\Resource\Exception;
++use TYPO3\CMS\Core\Resource\Exception\FolderDoesNotExistException;
+ use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+ use TYPO3\CMS\Core\Resource\Folder;
+ use TYPO3\CMS\Core\Resource\ResourceFactory;
+@@ -150,7 +151,7 @@ class FileListController implements LoggerAwareInterface
+             if ($this->folderObject && !$this->folderObject->getStorage()->isWithinFileMountBoundaries($this->folderObject)) {
+                 throw new \RuntimeException('Folder not accessible.', 1430409089);
+             }
+-        } catch (InsufficientFolderAccessPermissionsException $permissionException) {
++        } catch (FolderDoesNotExistException|InsufficientFolderAccessPermissionsException $permissionException) {
+             $this->folderObject = null;
+             if ($storage !== null && $storage->getDriverType() === 'Local' && !$storage->isOnline()) {
+                 // If the base folder for a local storage does not exists, the storage is marked as offline and the

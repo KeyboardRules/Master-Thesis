@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-3v56-q6r6-4gcw",
+    "cve":  "CVE-2021-41170",
+    "cwe":  "CWE-74",
+    "repo":  "sroehrl/neoan3-template",
+    "fix_commit":  "4a2c9570f071d3c8f4ac790007599cba20e16934",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Template.php",
+                        "TemplateFunctions.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/TemplateTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

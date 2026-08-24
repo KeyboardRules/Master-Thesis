@@ -1,0 +1,47 @@
+﻿diff --git a/src/Platform/Dashboard.php b/src/Platform/Dashboard.php
+index 9f8c926..d81d6c6 100644
+--- a/src/Platform/Dashboard.php
++++ b/src/Platform/Dashboard.php
+@@ -17,7 +17,7 @@ class Dashboard
+     /**
+      * ORCHID Version.
+      */
+-    public const VERSION = '9.4.3';
++    public const VERSION = '9.4.4';
+ 
+     /**
+      * The Dashboard configuration options.
+diff --git a/src/Screen/Field.php b/src/Screen/Field.php
+index 4d74e86..e705ce4 100644
+--- a/src/Screen/Field.php
++++ b/src/Screen/Field.php
+@@ -245,11 +245,13 @@ class Field implements Fieldable
+     {
+         $allow = array_merge($this->universalAttributes, $this->inlineAttributes);
+ 
+-        $attribute = new ComponentAttributeBag($this->getAttributes());
++        $attributes = collect($this->getAttributes())
++            ->filter(function ($value, $attribute) use ($allow) {
++                return Str::is($allow, $attribute);
++            })->toArray();
+ 
+-        return $attribute->filter(function ($value, $attribute) use ($allow) {
+-            return Str::is($allow, $attribute);
+-        });
++        return (new ComponentAttributeBag())
++            ->merge($attributes);
+     }
+ 
+     /**
+diff --git a/src/Screen/Fields/Upload.php b/src/Screen/Fields/Upload.php
+index 33389b3..4e09b0f 100644
+--- a/src/Screen/Fields/Upload.php
++++ b/src/Screen/Fields/Upload.php
+@@ -81,7 +81,6 @@ class Upload extends Field
+         'multiple',
+         'placeholder',
+         'required',
+-        'value',
+         'groups',
+         'storage',
+         'media',

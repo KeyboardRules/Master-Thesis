@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xrpj-f9v6-2332",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "c9cb2225f1b908fb1e8401d401219228634b26b2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/web/CsvResponseFormatter.php"
+                    ],
+    "evidence":  [
+                     "src/web/CsvResponseFormatter.php class extends Component"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

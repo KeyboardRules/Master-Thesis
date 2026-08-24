@@ -1,0 +1,26 @@
+﻿diff --git a/mod/feedback/classes/complete_form.php b/mod/feedback/classes/complete_form.php
+index d933b500e8..e01132d14b 100644
+--- a/mod/feedback/classes/complete_form.php
++++ b/mod/feedback/classes/complete_form.php
+@@ -323,7 +323,7 @@ class mod_feedback_complete_form extends moodleform {
+ 
+         // Set default value.
+         if ($setdefaultvalue && ($tmpvalue = $this->get_item_value($item))) {
+-            $this->_form->setDefault($element->getName(), htmlspecialchars_decode($tmpvalue, ENT_QUOTES));
++            $this->_form->setDefault($element->getName(), s($tmpvalue));
+         }
+ 
+         // Freeze if needed.
+diff --git a/mod/feedback/classes/responses_table.php b/mod/feedback/classes/responses_table.php
+index 3d5c334a89..84d477b5ac 100644
+--- a/mod/feedback/classes/responses_table.php
++++ b/mod/feedback/classes/responses_table.php
+@@ -196,7 +196,7 @@ class mod_feedback_responses_table extends table_sql {
+             $itemobj = feedback_get_item_class($items[$matches[1]]->typ);
+             $printval = $itemobj->get_printval($items[$matches[1]], (object) ['value' => $row->$column]);
+             if ($this->is_downloading()) {
+-                $printval = html_entity_decode($printval, ENT_QUOTES);
++                $printval = s($printval);
+             }
+             return trim($printval);
+         }

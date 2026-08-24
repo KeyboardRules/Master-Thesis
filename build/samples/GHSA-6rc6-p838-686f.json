@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6rc6-p838-686f",
+    "cve":  "CVE-2026-40909",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "sha":  "57f89ffbc27d37c9d9dd727212334846e78ac21a",
+    "status":  "ok",
+    "changed_php":  [
+                        "locale/index.php",
+                        "locale/save.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "locale/index.php includes 2 project file(s)",
+                     "locale/save.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "locale/index.php",
+                        "locale/save.php"
+                    ],
+    "sink_hit":  true
+}

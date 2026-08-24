@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-2rcw-9hrm-8q7q",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "1c85fe70269e2ff8ecf0b6d5f16550c6cd0ddc78",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/felogin/Classes/Controller/FrontendLoginController.php",
+                        "typo3/sysext/frontend/Classes/Controller/TypoScriptFrontendController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "typo3/sysext/felogin/Classes/Controller/FrontendLoginController.php class extends AbstractPlugin",
+                     "typo3/sysext/felogin/Classes/Controller/FrontendLoginController.php class uses trait",
+                     "typo3/sysext/felogin/Tests/Unit/Controller/FrontendLoginControllerTest.php class extends UnitTestCase",
+                     "typo3/sysext/frontend/Classes/Controller/TypoScriptFrontendController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

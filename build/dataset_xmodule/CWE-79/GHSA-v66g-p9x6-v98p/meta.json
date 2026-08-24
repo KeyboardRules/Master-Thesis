@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v66g-p9x6-v98p",
+    "cve":  "CVE-2024-45060",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "3990173db1207767139e63d33783beafada57007",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "samples/Basic4/45_Quadratic_equation_solver.php"
+                    ],
+    "evidence":  [
+                     "samples/Basic4/45_Quadratic_equation_solver.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h63c-xvpf-264j",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "dregad/ADOdb",
+    "sha":  "34788ce8c1d08500631f55764cc2247b9c7cfd2b",
+    "status":  "ok",
+    "changed_php":  [
+                        "drivers/adodb-pdo_mysql.inc.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "drivers/adodb-pdo_mysql.inc.php class extends ADODB_pdo"
+                 ],
+    "changed_all":  [
+                        "drivers/adodb-pdo_mysql.inc.php"
+                    ],
+    "sink_hit":  true
+}

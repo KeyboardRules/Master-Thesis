@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-v7m3-fpcr-h7m2",
+    "cve":  "CVE-2026-27206",
+    "cwe":  "CWE-502",
+    "repo":  "zumba/json-serializer",
+    "sha":  "bf26227879adefce75eb9651040d8982be97b881",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/JsonSerializer/JsonSerializer.php",
+                        "tests/JsonSerializerTest.php",
+                        "tests/SupportClasses/GadgetClass.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/JsonSerializerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/JsonSerializer/JsonSerializer.php",
+                        "tests/JsonSerializerTest.php",
+                        "tests/SupportClasses/GadgetClass.php"
+                    ],
+    "sink_hit":  true
+}

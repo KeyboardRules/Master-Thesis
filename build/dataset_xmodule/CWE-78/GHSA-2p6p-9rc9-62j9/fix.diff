@@ -1,0 +1,35 @@
+﻿diff --git a/bootstrap/bootstrap.php b/bootstrap/bootstrap.php
+index 6ef6fe0..f123f4c 100644
+--- a/bootstrap/bootstrap.php
++++ b/bootstrap/bootstrap.php
+@@ -27,8 +27,15 @@ if (!isset($appType) || ($appType !== 'web' && $appType !== 'console')) {
+ // Determine the paths
+ // -----------------------------------------------------------------------------
+ 
+-$findConfig = function(string $cliName, string $envName) {
+-    return App::cliOption($cliName, true) ?? App::env($envName);
++$findConfig = function(string $cliName, string $envName) use ($appType) {
++    if ($appType === 'console') {
++        $value = App::cliOption($cliName, true);
++        if ($value !== null) {
++            return $value;
++        }
++    }
++
++    return App::env($envName);
+ };
+ 
+ // Set the vendor path. By default assume that it's 4 levels up from here
+@@ -49,11 +56,7 @@ $testsPath = FileHelper::normalizePath($findConfig('--testsPath', 'CRAFT_TESTS_P
+ // Set the environment
+ // -----------------------------------------------------------------------------
+ 
+-$environment = App::cliOption('--env', true)
+-    ?? App::env('CRAFT_ENVIRONMENT')
+-    ?? App::env('ENVIRONMENT')
+-    ?? $_SERVER['SERVER_NAME']
+-    ?? null;
++$environment = $findConfig('--env', 'CRAFT_ENVIRONMENT') ?? App::env('ENVIRONMENT') ?? $_SERVER['SERVER_NAME'] ?? null;
+ 
+ // Load the general config
+ // -----------------------------------------------------------------------------

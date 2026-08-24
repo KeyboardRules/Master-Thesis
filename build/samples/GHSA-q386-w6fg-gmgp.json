@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-q386-w6fg-gmgp",
+    "cve":  "CVE-2023-38490",
+    "cwe":  "CWE-611",
+    "repo":  "getkirby/kirby",
+    "sha":  "277b05662d2b67386f0a0f18323cf68b30e86387",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Toolkit/Xml.php",
+                        "tests/Toolkit/XmlTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Toolkit/XmlTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Toolkit/Xml.php",
+                        "tests/Toolkit/XmlTest.php",
+                        "tests/Toolkit/fixtures/xml/billion-laughs.xml"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3qpq-6w89-f7mx",
+    "cve":  "CVE-2024-25625",
+    "cwe":  "CWE-74",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "sha":  "b9fee9d383fc73dbd5e1d98dbb0ff3266d6b5a82",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/Admin/UserController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/Admin/UserController.php class extends AdminAbstractController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/Admin/UserController.php"
+                    ],
+    "sink_hit":  false
+}

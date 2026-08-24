@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-7gpv-xrjr-f5h4",
+    "cve":  "CVE-2021-28584",
+    "cwe":  "CWE-22",
+    "repo":  "magento/magento2",
+    "fix_commit":  "1bd5cb8c065e44779526c0b044ce19b884707695",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php",
+                        "app/code/Magento/Customer/Model/AccountManagement.php",
+                        "app/code/Magento/LoginAsCustomerAssistance/Plugin/CustomerPlugin.php",
+                        "app/code/Magento/Payment/view/adminhtml/templates/form/cc.phtml",
+                        "app/code/Magento/Payment/view/adminhtml/templates/transparent/form.phtml",
+                        "app/code/Magento/Payment/view/frontend/templates/form/cc.phtml",
+                        "app/code/Magento/Payment/view/frontend/templates/transparent/form.phtml",
+                        "app/code/Magento/Paypal/view/adminhtml/templates/transparent/form.phtml",
+                        "lib/internal/Magento/Framework/App/StaticResource.php"
+                    ],
+    "evidence":  [
+                     "fix touches 16 php files",
+                     "app/code/Magento/Catalog/Controller/Adminhtml/Product/Gallery/Upload.php class extends \\Magento\\Backend\\App\\Action",
+                     "app/code/Magento/Customer/Test/Unit/Model/AccountManagementTest.php class extends TestCase",
+                     "dev/tests/api-functional/testsuite/Magento/Customer/Api/CustomerRepositoryTest.php class extends WebapiAbstract",
+                     "dev/tests/integration/testsuite/Magento/Catalog/Controller/Adminhtml/Product/Gallery/UploadTest.php class extends AbstractBackendController",
+                     "lib/internal/Magento/Framework/App/StaticResource.php includes 1 project file(s)",
+                     "lib/internal/Magento/Framework/App/Test/Unit/StaticResourceTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

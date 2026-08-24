@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vf7q-g2pv-jxvx",
+    "cve":  "CVE-2023-28438",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "d1abadb181c88ebaa4bce1916f9077469d4ea2bc",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/Tool/CustomReport/Adapter/Sql.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/Tool/CustomReport/Adapter/Sql.php class extends AbstractAdapter"
+                 ],
+    "changed_all":  [
+                        "models/Tool/CustomReport/Adapter/Sql.php"
+                    ],
+    "sink_hit":  false
+}

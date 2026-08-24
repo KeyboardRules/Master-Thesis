@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6mxm-wpqv-675h",
+    "cve":  "CVE-2016-2152",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "3b214760fb51ae2b0c85bbb2b272b9bc7c164657",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/classes/user.php",
+                        "lib/phpunit/classes/util.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lib/phpunit/classes/util.php includes 1 project file(s)",
+                     "lib/phpunit/classes/util.php class extends testing_util",
+                     "lib/tests/user_test.php class extends advanced_testcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

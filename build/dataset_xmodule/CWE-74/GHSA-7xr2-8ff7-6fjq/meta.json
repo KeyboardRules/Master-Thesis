@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7xr2-8ff7-6fjq",
+    "cve":  "CVE-2023-37473",
+    "cwe":  "CWE-74",
+    "repo":  "zenstruck/collection",
+    "fix_commit":  "f4b1c488206e1b1581b06fcd331686846f13f19c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Collection/Doctrine/ORM/EntityRepository.php",
+                        "src/Collection/Doctrine/ORM/EntityRepositoryBridge.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/Doctrine/ORM/EntityRepositoryTest.php class extends TestCase",
+                     "tests/Doctrine/ORM/EntityRepositoryTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

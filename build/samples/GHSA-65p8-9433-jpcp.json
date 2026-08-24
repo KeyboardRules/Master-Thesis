@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-65p8-9433-jpcp",
+    "cve":  "CVE-2026-52762",
+    "cwe":  "CWE-1336",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "89462f1577a8a1fe7fcff75e77b5058a74d8047b",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/services/TemplateEngine.php",
+                        "tools/bazar/services/SemanticTransformer.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/services/TemplateEngine.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/services/TemplateEngine.php",
+                        "tools/bazar/services/SemanticTransformer.php"
+                    ],
+    "sink_hit":  false
+}

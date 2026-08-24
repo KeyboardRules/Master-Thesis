@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-5vfx-8w6m-h3v4",
+    "cve":  "CVE-2021-41129",
+    "cwe":  "CWE-502",
+    "repo":  "pterodactyl/panel",
+    "sha":  "4a84c36009be10dbd83051ac1771662c056e4977",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Auth/AbstractLoginController.php",
+                        "app/Http/Controllers/Auth/LoginCheckpointController.php",
+                        "app/Http/Controllers/Auth/LoginController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Http/Controllers/Auth/AbstractLoginController.php class extends Controller",
+                     "app/Http/Controllers/Auth/AbstractLoginController.php class uses trait",
+                     "app/Http/Controllers/Auth/LoginCheckpointController.php class extends AbstractLoginController",
+                     "app/Http/Controllers/Auth/LoginController.php class extends AbstractLoginController"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Auth/AbstractLoginController.php",
+                        "app/Http/Controllers/Auth/LoginCheckpointController.php",
+                        "app/Http/Controllers/Auth/LoginController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jw6x-4h8h-569x",
+    "cve":  "CVE-2022-4524",
+    "cwe":  "CWE-79",
+    "repo":  "roots/soil",
+    "sha":  "0c9151e00ab047da253e5cdbfccb204dd423269d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Modules/CleanUpModule.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Modules/CleanUpModule.php class extends AbstractModule"
+                 ],
+    "changed_all":  [
+                        "src/Modules/CleanUpModule.php"
+                    ],
+    "sink_hit":  false
+}

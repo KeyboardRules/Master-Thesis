@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-vx6j-pjrh-vgjh",
+    "cve":  "CVE-2021-43836",
+    "cwe":  "CWE-22",
+    "repo":  "sulu/sulu",
+    "sha":  "9c948f9ce350c68b53af8c3910e2cefc7f722b54",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php",
+                        "src/Sulu/Bundle/RouteBundle/Generator/TranslatorWrapper.php",
+                        "src/Sulu/Bundle/RouteBundle/Tests/Unit/Generator/SymfonyExpressionTokenProviderTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Sulu/Bundle/RouteBundle/Tests/Unit/Generator/SymfonyExpressionTokenProviderTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Sulu/Bundle/RouteBundle/Generator/SymfonyExpressionTokenProvider.php",
+                        "src/Sulu/Bundle/RouteBundle/Generator/TranslatorWrapper.php",
+                        "src/Sulu/Bundle/RouteBundle/Tests/Unit/Generator/SymfonyExpressionTokenProviderTest.php"
+                    ],
+    "sink_hit":  false
+}

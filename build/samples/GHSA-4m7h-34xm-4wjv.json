@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-4m7h-34xm-4wjv",
+    "cve":  "CVE-2024-2179",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "ac1ec9b069acac79869b2988e1f56cc5565a3dd4",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/src/User/Group/GroupType.php",
+                        "concrete/src/User/Group/Search/ColumnSet/Available.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "concrete/src/User/Group/GroupType.php class extends ConcreteObject",
+                     "concrete/src/User/Group/Search/ColumnSet/Available.php class extends DefaultSet"
+                 ],
+    "changed_all":  [
+                        "concrete/src/User/Group/GroupType.php",
+                        "concrete/src/User/Group/Search/ColumnSet/Available.php"
+                    ],
+    "sink_hit":  false
+}

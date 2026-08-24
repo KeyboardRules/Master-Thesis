@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-pc32-x737-74cv",
+    "cve":  "CVE-2022-0704",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "6e0922c5b2959ac1b48500ac508d8fc5a97286f9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/DependencyInjection/Configuration.php",
+                        "bundles/AdminBundle/PimcoreAdminBundle.php",
+                        "lib/Twig/Extension/Templating/HeadScript.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "bundles/AdminBundle/PimcoreAdminBundle.php class extends Bundle",
+                     "lib/Twig/Extension/Templating/HeadScript.php class extends CacheBusterAware",
+                     "lib/Twig/Extension/Templating/HeadScript.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

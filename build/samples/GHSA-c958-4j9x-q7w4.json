@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c958-4j9x-q7w4",
+    "cve":  "CVE-2018-15605",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "00d90b3ae415b31338f76263359467a9fbebd0a1",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/classes/Sql.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "libraries/classes/Sql.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "libraries/classes/Sql.php"
+                    ],
+    "sink_hit":  false
+}

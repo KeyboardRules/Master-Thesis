@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-5v43-55m5-qr8f",
+    "cve":  "CVE-2014-2053",
+    "cwe":  "CWE-611",
+    "repo":  "JamesHeinrich/getID3",
+    "sha":  "afbdaa044a9a0a9dff2f800bd670e231b3ec99b2",
+    "status":  "ok",
+    "changed_php":  [
+                        "getid3/getid3.lib.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "getid3/getid3.lib.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "changelog.txt",
+                        "getid3/getid3.lib.php"
+                    ],
+    "sink_hit":  true
+}

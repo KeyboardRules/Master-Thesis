@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-fp5j-j7j4-mcxc",
+    "cve":  "CVE-2026-31857",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "sha":  "8d4903647dcfd31b8d40ed027e27082013347a80",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/base/conditions/BaseElementSelectConditionRule.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/base/conditions/BaseElementSelectConditionRule.php class extends BaseConditionRule"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/base/conditions/BaseElementSelectConditionRule.php"
+                    ],
+    "sink_hit":  false
+}

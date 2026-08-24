@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-pj42-r64f-4xfq",
+    "cve":  "CVE-2024-2753",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "822e689cefe1eb876e9de31dad9ce660f3b5c295",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/blocks/file/view.php",
+                        "concrete/controllers/dialog/express/preset/delete.php",
+                        "concrete/controllers/dialog/file/preset/delete.php",
+                        "concrete/controllers/dialog/search/preset/delete.php",
+                        "concrete/controllers/dialog/search/preset/edit.php",
+                        "concrete/single_pages/dashboard/system/calendar/colors.php",
+                        "concrete/src/StyleCustomizer/Inline/StyleSet.php",
+                        "concrete/views/dialogs/search/preset/delete.php",
+                        "concrete/views/dialogs/search/preset/edit.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "concrete/controllers/dialog/express/preset/delete.php class extends PresetDelete",
+                     "concrete/controllers/dialog/file/preset/delete.php class extends PresetDelete",
+                     "concrete/controllers/dialog/search/preset/delete.php class extends UserInterface",
+                     "concrete/controllers/dialog/search/preset/edit.php class extends UserInterface"
+                 ],
+    "changed_all":  [
+                        "concrete/blocks/file/view.php",
+                        "concrete/controllers/dialog/express/preset/delete.php",
+                        "concrete/controllers/dialog/file/preset/delete.php",
+                        "concrete/controllers/dialog/search/preset/delete.php",
+                        "concrete/controllers/dialog/search/preset/edit.php",
+                        "concrete/single_pages/dashboard/system/calendar/colors.php",
+                        "concrete/src/StyleCustomizer/Inline/StyleSet.php",
+                        "concrete/views/dialogs/search/preset/delete.php",
+                        "concrete/views/dialogs/search/preset/edit.php"
+                    ],
+    "sink_hit":  true
+}

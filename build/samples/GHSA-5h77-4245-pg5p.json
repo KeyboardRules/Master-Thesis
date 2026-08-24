@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-5h77-4245-pg5p",
+    "cve":  "CVE-2022-3562",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "43cb72549d90e338f902b359a83c23d3cb5a2645",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/bill.inc.php",
+                        "includes/html/pages/bill/addoreditbill.inc.php",
+                        "includes/html/table/bills.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/html/pages/bill.inc.php includes 7 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/bill.inc.php",
+                        "includes/html/pages/bill/addoreditbill.inc.php",
+                        "includes/html/table/bills.inc.php"
+                    ],
+    "sink_hit":  true
+}

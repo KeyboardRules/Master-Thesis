@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-2vc4-3hx7-v7v7",
+    "cve":  "CVE-2025-49137",
+    "cwe":  "CWE-79",
+    "repo":  "haxtheweb/haxcms-php",
+    "fix_commit":  "0dd3e98fe2fadd0793b667d4af2aac230980e0f8",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/backend/php/lib/HAXCMS.php",
+                        "system/backend/php/lib/HAXCMSSite.php",
+                        "system/backend/php/lib/JSONOutlineSchema.php",
+                        "system/backend/php/lib/JSONOutlineSchemaItem.php",
+                        "system/backend/php/lib/Operations.php",
+                        "system/backend/php/lib/RSS.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "system/backend/php/lib/HAXCMS.php includes 10 project file(s)",
+                     "system/backend/php/lib/HAXCMS.php class extends RecursiveFilterIterator",
+                     "system/backend/php/lib/HAXCMSSite.php includes 1 project file(s)",
+                     "system/backend/php/lib/JSONOutlineSchema.php includes 1 project file(s)",
+                     "system/backend/php/lib/Operations.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

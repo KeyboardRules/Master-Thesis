@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-6363-v5m4-fvq3",
+    "cve":  "CVE-2024-29800",
+    "cwe":  "CWE-502",
+    "repo":  "timber/timber",
+    "fix_commit":  "13c6b0f60346304f2eed4da1e0bb51566518de4a",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Attachment.php",
+                        "src/Image/Operation/ToJpg.php",
+                        "src/Image/Operation/ToWebp.php",
+                        "src/ImageDimensions.php",
+                        "src/ImageHelper.php",
+                        "src/Timber.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/Attachment.php class extends Post",
+                     "src/Image/Operation/ToJpg.php class extends ImageOperation",
+                     "src/Image/Operation/ToWebp.php class extends ImageOperation",
+                     "src/ImageHelper.php includes 1 project file(s)",
+                     "tests/test-timber-image.php includes 2 project file(s)",
+                     "tests/test-timber-image.php class extends TimberAttachment_UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

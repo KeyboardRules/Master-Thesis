@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-3264-65pg-5xm4",
+    "cve":  "CVE-2019-17223",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "c7736dde41826ac6eca3e838e57eab2f0304e256",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/comm/action/card.php",
+                        "htdocs/core/class/commonobject.class.php",
+                        "htdocs/core/class/html.form.class.php",
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/core/tpl/notes.tpl.php",
+                        "htdocs/theme/eldy/global.inc.php",
+                        "htdocs/theme/md/style.css.php",
+                        "htdocs/user/group/card.php",
+                        "htdocs/user/group/ldap.php",
+                        "htdocs/user/group/perms.php",
+                        "htdocs/user/note.php"
+                    ],
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "htdocs/comm/action/card.php includes 21 project file(s)",
+                     "htdocs/core/class/commonobject.class.php includes 36 project file(s)",
+                     "htdocs/core/class/html.form.class.php includes 37 project file(s)",
+                     "htdocs/core/lib/functions.lib.php includes 19 project file(s)",
+                     "htdocs/theme/eldy/global.inc.php includes 7 project file(s)",
+                     "htdocs/theme/md/style.css.php includes 10 project file(s)",
+                     "htdocs/user/group/card.php includes 10 project file(s)",
+                     "htdocs/user/group/ldap.php includes 6 project file(s)",
+                     "htdocs/user/group/perms.php includes 4 project file(s)",
+                     "htdocs/user/note.php includes 4 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

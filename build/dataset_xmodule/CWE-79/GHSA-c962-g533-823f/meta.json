@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-c962-g533-823f",
+    "cve":  "CVE-2023-36236",
+    "cwe":  "CWE-79",
+    "repo":  "bagisto/bagisto",
+    "fix_commit":  "7bbf0c4bb565fc2601f031f9bbcdfa06e24dbd45",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/Webkul/Core/src/Traits/Sanitizer.php",
+                        "packages/Webkul/Product/src/Repositories/SearchRepository.php",
+                        "packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "packages/Webkul/Product/src/Repositories/SearchRepository.php class extends Repository",
+                     "packages/Webkul/Product/src/Repositories/SearchRepository.php class uses trait",
+                     "packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php class extends Controller",
+                     "packages/Webkul/Velocity/src/Http/Controllers/Admin/ConfigurationController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-j7v9-f46r-2rp4",
+    "cve":  "CVE-2026-41897",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "c885af13f0b8596714ffe11df757c09f35fbd8f4",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core/date_api.php",
+                        "core/filter_form_api.php",
+                        "return_dynamic_filters.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core/filter_form_api.php class extends TableGridLayout",
+                     "return_dynamic_filters.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

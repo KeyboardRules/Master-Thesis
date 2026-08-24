@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-38h6-gmr2-j4wx",
+    "cve":  "CVE-2023-28851",
+    "cwe":  "CWE-79",
+    "repo":  "bigfork/silverstripe-form-capture",
+    "fix_commit":  "3a7a3c480e3fccddce9c5f359796d45a8302a622",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "code/CapturedFormSubmission.php"
+                    ],
+    "evidence":  [
+                     "code/CapturedFormSubmission.php class extends DataObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

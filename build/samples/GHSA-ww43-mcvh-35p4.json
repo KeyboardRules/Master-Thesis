@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-ww43-mcvh-35p4",
+    "cve":  "CVE-2014-125029",
+    "cwe":  "CWE-89",
+    "repo":  "ttskch/PaginationServiceProvider",
+    "sha":  "619de478efce17ece1a3b913ab16e40651e1ea7b",
+    "status":  "ok",
+    "changed_php":  [
+                        "demo/index.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "demo/index.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "demo/index.php"
+                    ],
+    "sink_hit":  false
+}

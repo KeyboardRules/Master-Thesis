@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cp2p-6xh4-jmcp",
+    "cve":  "CVE-2015-10009",
+    "cwe":  "CWE-94",
+    "repo":  "nonfiction/nterchange_backend",
+    "sha":  "fba7d89176fba8fe289edd58835fe45080797d99",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/controllers/code_caller_controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/controllers/code_caller_controller.php includes 3 project file(s)",
+                     "app/controllers/code_caller_controller.php class extends AssetController"
+                 ],
+    "changed_all":  [
+                        "app/controllers/code_caller_controller.php"
+                    ],
+    "sink_hit":  false
+}

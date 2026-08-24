@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-xcr3-4qvr-54rh",
+    "cve":  "CVE-2022-1351",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "8c39a8b8f14dce078b31f61c4da599ca6f8fc7ac",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/DependencyInjection/Configuration.php",
+                        "bundles/AdminBundle/EventListener/AdminSecurityListener.php",
+                        "bundles/AdminBundle/Security/ContentSecurityPolicyHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "bundles/AdminBundle/EventListener/AdminSecurityListener.php class uses trait",
+                     "bundles/AdminBundle/Security/ContentSecurityPolicyHandler.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,379 @@
+﻿diff --git a/zenario/admin/db_updates/latest_revision_no.inc.php b/zenario/admin/db_updates/latest_revision_no.inc.php
+index 9edd6bd3..7e55977d 100644
+--- a/zenario/admin/db_updates/latest_revision_no.inc.php
++++ b/zenario/admin/db_updates/latest_revision_no.inc.php
+@@ -39,6 +39,6 @@ define('ZENARIO_MAJOR_VERSION', '9');
+ define('ZENARIO_MINOR_VERSION', '5');
+ define('ZENARIO_CHANGELOG_URL', 'https://zenar.io/zenario-95');
+ define('ZENARIO_IS_BUILD', true);
+-define('ZENARIO_REVISION', '60437');
++define('ZENARIO_REVISION', '60602');
+ 
+ define('TINYMCE_DIR', 'zenario/libs/manually_maintained/lgpl/tinymce_4_7_3.1/');
+diff --git a/zenario/admin/tree_explorer/includes/json.php b/zenario/admin/tree_explorer/includes/json.php
+deleted file mode 100644
+index a0e5a055..00000000
+--- a/zenario/admin/tree_explorer/includes/json.php
++++ /dev/null
+@@ -1,52 +0,0 @@
+-<?php
+-
+-require '../../../adminheader.inc.php';
+-require 'tree_explorer.fun.php';
+-
+-$cachingRestrictions = 0;
+-$allowCaching = true;
+-
+-if ($_GET["section_id"] ?? false) {
+-	if ($_GET["menu_id"] ?? false) {
+-		if ($menuArray = ze\menu::getStructure($cachingRestrictions, ($_GET["section_id"] ?? false),false,($_GET["menu_id"] ?? false),0,100,false,false,false,true)) {
+-			$levelNodesCount = [];
+-		
+-			generateMenuForJSON($menuArray, $levelNodesCount,ze::get('sk'), ze::get('language'));
+-		}
+-		
+-		$menuNode = ze\menu::details($_GET["menu_id"] ?? false,"en-gb");
+-
+-		if (!ze\ray::issetArrayKey($menuNode,'name')) {
+-			$menuNode = ze\menu::details($_GET["menu_id"] ?? false,"en");
+-		}
+-
+-		$menuNodeAttributes = ze\row::get("menu_nodes",["redundancy","invisible"],["id" => ($_GET["menu_id"] ?? false)]);
+-	
+-		$redundancy = $menuNodeAttributes['redundancy'];
+-		$visibility = $menuNodeAttributes['invisible'] ? "invisible" : "visible";
+-		
+-		$top = $menuNode['name'];
+-
+-		$subMenuArray = false;
+-
+-		if (!empty($menuArray)) {
+-			$subMenuArray = $menuArray;
+-		}
+-
+-		$menuArray = ['name' => $top, 'redundancy' => $redundancy, 'visibility' => $visibility,'children' => $subMenuArray];
+-	} else {
+-		if ($menuArray = ze\menu::getStructure($cachingRestrictions,($_GET["section_id"] ?? false),false,0,0,100,false,false,false,true)) {
+-			$levelNodesCount = [];
+-			
+-			generateMenuForJSON($menuArray, $levelNodesCount, ze::get('sk'), ze::get('language'));
+-		}
+-		
+-		$top = ze\menu::sectionName($_GET["section_id"] ?? false);
+-		$menuArray = ['name' => $top, 'children' => $menuArray, "section" => true];
+-	}
+-}
+-
+-
+-echo json_encode($menuArray);
+-
+-?>
+\ No newline at end of file
+diff --git a/zenario/admin/tree_explorer/includes/tree_explorer.fun.php b/zenario/admin/tree_explorer/includes/tree_explorer.fun.php
+deleted file mode 100644
+index d003cd6e..00000000
+--- a/zenario/admin/tree_explorer/includes/tree_explorer.fun.php
++++ /dev/null
+@@ -1,58 +0,0 @@
+-<?php
+-
+-function generateMenuForJSON (&$array, &$nodesCount, $og = false, $languageId = false, $recurseCount = 20) {
+-	if (--$recurseCount && is_array($array)) {
+-		$array = array_values($array);
+-		
+-		foreach($array as &$menu) {
+-			
+-			if (!isset($nodesCount[(20-$recurseCount)])) {
+-				$nodesCount[(20-$recurseCount)] = 0;
+-			}
+-			
+-			$nodesCount[(20-$recurseCount)]++;			
+-			
+-			foreach($menu as $k => $v) {
+-				switch ($k) {
+-					case 'mID':
+-						$menuNodeAttributes = ze\row::get("menu_nodes",["redundancy","invisible","target_loc"],["id" => $v]);
+-					
+-						$menu['redundancy'] = $menuNodeAttributes['redundancy'];
+-						$menu['visibility'] = $menuNodeAttributes['invisible'] ? "invisible" : "visible";
+-						$menu['target_loc'] = $menuNodeAttributes['target_loc'];
+-						
+-						if ($og) {
+-							$menu['organizer_href'] = ze\menuAdm::organizerLink($v, $languageId);
+-						
+-						} elseif ($menu['cID']) {
+-							$menu['content_href'] = ze\link::toItem($menu['cID'],$menu['cType'],true);
+-						}
+-					
+-						break;
+-					case 'children':
+-						if (is_array($menu[$k])) {
+-							generateMenuForJSON($menu[$k], $nodesCount, $og, $languageId, $recurseCount);
+-						} else {
+-							unset($menu[$k]);
+-						}
+-						
+-						break;
+-					
+-					case 'name':
+-					case 'hide_private_item':
+-					case 'content_href':
+-					case 'organizer_href':
+-					case 'redundancy':
+-					case 'visibility':
+-					case 'target_loc':
+-						break;
+-					
+-					default:
+-						unset($menu[$k]);
+-				}
+-			}
+-		}
+-	}
+-}
+-
+-?>
+\ No newline at end of file
+diff --git a/zenario/admin/tree_explorer/includes/tree_explorer.php b/zenario/admin/tree_explorer/includes/tree_explorer.php
+deleted file mode 100644
+index 7560439a..00000000
+--- a/zenario/admin/tree_explorer/includes/tree_explorer.php
++++ /dev/null
+@@ -1,60 +0,0 @@
+-<?php
+-
+-require CMS_ROOT . 'zenario/adminheader.inc.php';
+-require 'tree_explorer.fun.php';
+-
+-$v = ze\db::codeVersion();
+-
+-$levelNodesCount = [];
+-
+-if (($_GET["type"] ?? false)=="section") {
+-	$parameters = "?section_id=" . ($_GET["id"] ?? false) . "&language=" . ($_GET["language"] ?? false);
+-	$top = "Showing menu tree in menu section \"" . ze\menu::sectionName($_GET["id"] ?? false) . "\"";
+-
+-	if ($menuArray = ze\menu::getStructure($cachingRestrictions,($_GET["id"] ?? false),false,0,0,100,false,false,true)) {
+-		generateMenuForJSON($menuArray, $levelNodesCount, ze::get('og'), ze::get('language'));
+-	}
+-
+-} elseif (($_GET["type"] ?? false)=="menu_node") {
+-	$sectionId = ze\row::get("menu_nodes","section_id",["id" => ($_GET["id"] ?? false)]);
+-
+-	$parameters = "?section_id=" . $sectionId . "&menu_id=" . ($_GET["id"] ?? false) . "&language=" . ($_GET["language"] ?? false);
+-
+-	$menuNode = ze\menu::details($_GET["id"] ?? false,"en-gb");
+-	
+-	if (!ze\ray::issetArrayKey($menuNode,'name')) {
+-		$menuNode = ze\menu::details($_GET["id"] ?? false,"en");
+-	}
+-	
+-	$top = "Showing menu tree beneath menu node \"" . $menuNode['name'] . "\"";
+-
+-	if ($menuArray = ze\menu::getStructure($cachingRestrictions,$sectionId,false,($_GET["id"] ?? false),0,100,false,false,true)) {
+-		generateMenuForJSON($menuArray, $levelNodesCount, ze::get('og'), ze::get('language'));
+-	}
+-
+-} else {
+-	exit;
+-}
+-
+-if (ze::get('og')) {
+-	$parameters .= '&og=1';
+-}
+-
+-$levelNodeCount = 0;
+-
+-foreach ($levelNodesCount as $count) {
+-	if ($count>$levelNodeCount) {
+-		$levelNodeCount = $count;
+-	}
+-}
+-
+-$nodeHeightFactor = 30;
+-$defaultSVGHeight = 640;
+-
+-/*
+-$svgHeight = (($levelNodeCount * $nodeHeightFactor) > $defaultSVGHeight) ? ($levelNodeCount * $nodeHeightFactor) : $defaultSVGHeight;
+-*/
+-
+-$svgHeight = $defaultSVGHeight;
+-
+-?>
+\ No newline at end of file
+diff --git a/zenario/admin/tree_explorer/index.php b/zenario/admin/tree_explorer/index.php
+deleted file mode 100644
+index 315b51e1..00000000
+--- a/zenario/admin/tree_explorer/index.php
++++ /dev/null
+@@ -1,57 +0,0 @@
+-<?php
+-
+-require '../../adminheader.inc.php';
+-require 'includes/tree_explorer.php';
+-
+-?>
+-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+-<html>
+-<head>
+-	<title>Tree Explorer</title>
+-    <link rel="stylesheet" href="../../styles/admin_tree_explorer_styles.min.css?v=<?php echo $v;?>" />
+-    <script type="text/javascript">
+-    	var svgHeight = <?php echo $svgHeight;?>;
+-    	var JSONURL = 'includes/json.php<?php echo $parameters;?>';
+-	</script>
+-</head>
+-<body>
+-    <h1><?php echo $top;?></h1>
+-	<div id="controls">
+-		<div id="mode_container">
+-			<label for="mode">Show:</label>
+-			<select id="mode">
+-				<option value="redundancy" selected="selected">Redundancy</option>
+-				<option value="visibility">Visibility</option>
+-				<option value="privacy">Privacy</option>
+-			</select>
+-		</div>
+-		<div id="redundancy_key" class="mode_key">
+-			<div class="key_block key_primary"></div>
+-			<div class="key_block_label">Primary</div>
+-			<div class="key_block key_secondary"></div>
+-			<div class="key_block_label">Secondary</div>
+-		</div>
+-		<div id="visibility_key" class="mode_key">
+-			<div class="key_block key_visible"></div>
+-			<div class="key_block_label">Visible</div>
+-			<div class="key_block key_invisible"></div>
+-			<div class="key_block_label">Invisible</div>
+-		</div>
+-		<div id="privacy_key" class="mode_key">
+-			<div class="key_block key_privacy_0"></div>
+-			<div class="key_block_label">Show to visitors and extranet users, even if the target content item is private</div>
+-			<div class="key_block key_privacy_1"></div>
+-			<div class="key_block_label">Obey the privacy setting of the content item</div>
+-			<div class="key_block key_privacy_2"></div>
+-			<div class="key_block_label">Show to visitors, hide from extranet users</div>
+-			<div class="key_block key_privacy_3"></div>
+-			<div class="key_block_label">Only show to extranet users</div>
+-		</div>
+-	</div>
+-	<div style="clear: both;"></div>
+-    <div id="body"></div>
+-	<script type="text/javascript" src="../../libs/yarn/jquery/dist/jquery.min.js?v=<?php echo $v;?>"></script>
+-	<script type="text/javascript" src="../../libs/manually_maintained/bsd/d3/d3.min.js?v=<?php echo $v;?>"></script>
+-	<script type="text/javascript" src="../../js/admin_tree_explorer.min.js?v=<?php echo $v;?>"></script>
+-</body>
+-</html>
+\ No newline at end of file
+diff --git a/zenario/autoload/plugin.php b/zenario/autoload/plugin.php
+index 1bf794d8..49a597be 100644
+--- a/zenario/autoload/plugin.php
++++ b/zenario/autoload/plugin.php
+@@ -950,6 +950,12 @@ class plugin {
+ 						$setFiles = [];
+ 						foreach ($eggsToCache as $slotNameNestId => &$cacheVars) {
+ 							$slot = \ze::$slotContents[$slotNameNestId];
++							$eggInstance = $slot->class();
++							
++							//Don't try and check the cache for a nested plugin that refused to load.
++							if (is_null($eggInstance)) {
++								continue;
++							}
+ 						
+ 							//Loop through this slot and any child slots, coming up with the rules as to when we should clear the cache
+ 							//For nests with child slots, we should combine the rules
+@@ -964,7 +970,7 @@ class plugin {
+ 								}
+ 							}
+ 							
+-							$cacheVars['c'] = $slot->class()->zAPIGetCachableVars();
++							$cacheVars['c'] = $eggInstance->zAPIGetCachableVars();
+ 							
+ 							$temps[$slotNameNestId] = $slot->trimVarsBeforeCaching();
+ 							$cacheVars['s'] = $slot;
+diff --git a/zenario/autoload/welcome.php b/zenario/autoload/welcome.php
+index d5acb0b5..ece90729 100644
+--- a/zenario/autoload/welcome.php
++++ b/zenario/autoload/welcome.php
+@@ -4615,8 +4615,10 @@ class welcome {
+ 	//Formerly "redirectAdmin()"
+ 	public static function redirectAdmin($getRequest, $forceAliasInAdminMode = false, $continueTo = 'default') {
+ 		
++		//If the visitor's original request was from a content item, try to use that as the destination.
+ 		$cID = $cType = $redirectNeeded = $aliasInURL = $langIdInURL = false;
+-		if (!empty($getRequest)) {
++		if (!empty($getRequest)
++		 && !(empty($getRequest['cID']) && empty($getRequest['cType']) && empty($getRequest['langId']))) {
+ 			\ze\content::resolveFromRequest($cID, $cType, $redirectNeeded, $aliasInURL, $langIdInURL, $getRequest, $getRequest, []);
+ 		}
+ 		
+diff --git a/zenario/basicheader.inc.php b/zenario/basicheader.inc.php
+index 219eb8fb..831ed597 100644
+--- a/zenario/basicheader.inc.php
++++ b/zenario/basicheader.inc.php
+@@ -517,7 +517,7 @@ class ze {
+ 			|| substr($var, 0, 4) == '_ga_'
+ 			|| substr($var, 0, 9) == 'PHPSESSID'
+ 			|| substr($var, 0, 11) == 'can_cache__'
+-			|| in_array($var, ['cookies_accepted', '_ga', '_gat', 'is_returning']);
++			|| in_array($var, ['cookies_accepted', '_ga', '_gat', '_fbp', '_clck', '_uetvid', 'is_returning', 'COOKIE_LAST_ADMIN_USER', 'COOKIE_LAST_ADMIN_CAPTCHA_COMPLETED', 'ZENARIO_ADMIN_LOGIN_LINK']);
+ 	}
+ 	
+ 	//Returns true if a $_SESSION variable does not affect caching (or is already covered by another existing category)
+diff --git a/zenario/includes/index.pre_load.inc.php b/zenario/includes/index.pre_load.inc.php
+index 88de8756..04f72a93 100644
+--- a/zenario/includes/index.pre_load.inc.php
++++ b/zenario/includes/index.pre_load.inc.php
+@@ -206,6 +206,18 @@ if ($simpleCookieOptions
+ 													
+ 													zenarioPageCacheLogStats(['hits', 'total']);
+ 													touch($chPath. 'accessed');
++													
++													
++													//Try and record the destCID and destCType as we would a normal page view
++													if ($tagId = file_get_contents($chPath. 'tag_id')) {
++														$tag = explode('_', $tagId, 2);
++														if (isset($tag[1])) {
++															if ($cID = (int) $tag[1]) {
++																$_SESSION['destCID'] = $cID;
++																$_SESSION['destCType'] = $tag[0];
++															}
++														}
++													}
+ 												
+ 												
+ 													//If there are cached images on this page, mark that they've been accessed
+diff --git a/zenario/modules/zenario_common_features/classes/admin_boxes/content.php b/zenario/modules/zenario_common_features/classes/admin_boxes/content.php
+index 061e00d7..584cb445 100644
+--- a/zenario/modules/zenario_common_features/classes/admin_boxes/content.php
++++ b/zenario/modules/zenario_common_features/classes/admin_boxes/content.php
+@@ -2096,7 +2096,9 @@ class zenario_common_features__admin_boxes__content extends ze\moduleBaseClass {
+ 			}
+ 		}
+ 		
+-		if (!array_key_exists("refinerName", $_GET)){
++		//If we're creating a new content item from the admin toolbar, navigate to that content item
++		//after the FAB closes.
++		if (!empty($box['key']['create_from_toolbar'])) {
+ 			$contentItemLink = ze\link::toItem($box['key']['cID'], $box['key']['cType']);
+ 			if ($contentItemLink) {
+ 				ze\tuix::closeWithFlags(['go_to_url' => $contentItemLink]);
+diff --git a/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php b/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
+index d0122cd9..78cd9998 100644
+--- a/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
++++ b/zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php
+@@ -150,14 +150,6 @@ class zenario_common_features__organizer__menu_nodes extends ze\moduleBaseClass
+ 			unset($panel['item_buttons']['view_content']);
+ 		}
+ 
+-		if (isset($panel['collection_buttons']['tree_explorer']['popout']['href'])) {
+-			if ($panel['key']['parentId']) {
+-				$panel['collection_buttons']['tree_explorer']['popout']['href'] .= '?type=menu_node&id='. (int) $panel['key']['parentId'];
+-			} else {
+-				$panel['collection_buttons']['tree_explorer']['popout']['href'] .= '?type=section&id='. (int) $panel['key']['sectionId'];
+-			}
+-		}
+-
+ 
+ 		//Pass the Storekeeper Mode onto the create and edit buttons
+ 		if (isset($panel['item_buttons']['edit'])) {

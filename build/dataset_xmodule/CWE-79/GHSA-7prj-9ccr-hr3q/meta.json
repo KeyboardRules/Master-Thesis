@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-7prj-9ccr-hr3q",
+    "cve":  "CVE-2024-29376",
+    "cwe":  "CWE-79",
+    "repo":  "Sylius/Sylius",
+    "fix_commit":  "fb0ecb275747e364f1d4744ed8605c57f9bd8a80",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Sylius/Behat/Context/Setup/AddressContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php"
+                    ],
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php class extends SymfonyPage",
+                     "src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php class extends SymfonyPage"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3q28-xfw3-2q35",
+    "cve":  "CVE-2016-5732",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "0815af37f483f329f0c0565d68821fea9c47b5f5",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/table/structure/display_partitions.phtml"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/table/structure/display_partitions.phtml"
+                    ],
+    "sink_hit":  false
+}

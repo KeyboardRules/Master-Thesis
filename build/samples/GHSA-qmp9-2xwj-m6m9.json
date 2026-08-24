@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-qmp9-2xwj-m6m9",
+    "cve":  "CVE-2024-22406",
+    "cwe":  "CWE-89",
+    "repo":  "shopware/core",
+    "sha":  "e2256ec81e56f792623e90d89786d8a9fcad28bf",
+    "status":  "ok",
+    "changed_php":  [
+                        "Framework/DataAbstractionLayer/Dbal/EntityAggregator.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php",
+                        "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class extends TestCase",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Framework/DataAbstractionLayer/Dbal/EntityAggregator.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php",
+                        "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-x2jp-hh65-4xvf",
+    "cve":  "CVE-2021-20280",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "a303eb9e9e387f95ea2a80cb1ce6c0b132ec1cc4",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/feedback/classes/complete_form.php",
+                        "mod/feedback/classes/responses_table.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/feedback/classes/complete_form.php class extends moodleform",
+                     "mod/feedback/classes/responses_table.php includes 1 project file(s)",
+                     "mod/feedback/classes/responses_table.php class extends table_sql"
+                 ],
+    "changed_all":  [
+                        "mod/feedback/classes/complete_form.php",
+                        "mod/feedback/classes/responses_table.php"
+                    ],
+    "sink_hit":  true
+}

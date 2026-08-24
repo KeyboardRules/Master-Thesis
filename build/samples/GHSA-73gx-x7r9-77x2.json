@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-73gx-x7r9-77x2",
+    "cve":  "CVE-2024-47051",
+    "cwe":  "CWE-94",
+    "repo":  "mautic/mautic",
+    "sha":  "75bc488ce98b9c8ec01114984049fc1c42c0cae5",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/AssetBundle/Config/config.php",
+                        "app/bundles/AssetBundle/Controller/UploadController.php",
+                        "app/bundles/AssetBundle/Entity/Asset.php",
+                        "app/bundles/AssetBundle/EventListener/UploadSubscriber.php",
+                        "app/bundles/AssetBundle/Form/Type/AssetType.php",
+                        "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php",
+                        "app/bundles/AssetBundle/Tests/Controller/UploadControllerFunctionalTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/bundles/AssetBundle/Controller/UploadController.php class extends DropzoneController",
+                     "app/bundles/AssetBundle/Entity/Asset.php class extends FormEntity",
+                     "app/bundles/AssetBundle/Form/Type/AssetType.php class extends AbstractType",
+                     "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php class extends AbstractAssetTest",
+                     "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/bundles/AssetBundle/Config/config.php",
+                        "app/bundles/AssetBundle/Controller/UploadController.php",
+                        "app/bundles/AssetBundle/Entity/Asset.php",
+                        "app/bundles/AssetBundle/EventListener/UploadSubscriber.php",
+                        "app/bundles/AssetBundle/Form/Type/AssetType.php",
+                        "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php",
+                        "app/bundles/AssetBundle/Tests/Controller/UploadControllerFunctionalTest.php",
+                        "app/bundles/AssetBundle/Translations/en_US/messages.ini",
+                        "app/bundles/AssetBundle/Translations/en_US/validators.ini"
+                    ],
+    "sink_hit":  true
+}

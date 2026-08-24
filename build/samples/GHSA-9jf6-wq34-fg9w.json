@@ -1,0 +1,52 @@
+﻿{
+    "id":  "GHSA-9jf6-wq34-fg9w",
+    "cve":  "CVE-2019-14881",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "7455b741c954af3c3e7dfda2972edc1146ea1562",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/roles/admins.php",
+                        "admin/tool/dataprivacy/classes/external.php",
+                        "admin/user.php",
+                        "admin/user/user_bulk_cohortadd.php",
+                        "admin/user/user_bulk_display.php",
+                        "enrol/locallib.php",
+                        "grade/report/grader/lib.php",
+                        "login/index.php",
+                        "report/security/locallib.php",
+                        "user/selector/lib.php",
+                        "webservice/renderer.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "admin/roles/admins.php includes 2 project file(s)",
+                     "admin/tool/dataprivacy/classes/external.php includes 2 project file(s)",
+                     "admin/tool/dataprivacy/classes/external.php class extends external_api",
+                     "admin/user.php includes 5 project file(s)",
+                     "admin/user/user_bulk_cohortadd.php includes 4 project file(s)",
+                     "admin/user/user_bulk_display.php includes 2 project file(s)",
+                     "enrol/locallib.php class extends single_button",
+                     "grade/report/grader/lib.php includes 2 project file(s)",
+                     "grade/report/grader/lib.php class extends grade_report",
+                     "login/index.php includes 4 project file(s)",
+                     "user/selector/lib.php includes 1 project file(s)",
+                     "user/selector/lib.php class extends user_selector_base",
+                     "webservice/renderer.php class extends plugin_renderer_base"
+                 ],
+    "changed_all":  [
+                        "admin/roles/admins.php",
+                        "admin/tool/dataprivacy/classes/external.php",
+                        "admin/user.php",
+                        "admin/user/user_bulk_cohortadd.php",
+                        "admin/user/user_bulk_display.php",
+                        "enrol/locallib.php",
+                        "grade/report/grader/lib.php",
+                        "login/index.php",
+                        "report/security/locallib.php",
+                        "user/selector/lib.php",
+                        "webservice/renderer.php"
+                    ],
+    "sink_hit":  true
+}

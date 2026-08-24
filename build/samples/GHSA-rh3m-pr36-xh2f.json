@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-rh3m-pr36-xh2f",
+    "cve":  "CVE-2015-10029",
+    "cwe":  "CWE-611",
+    "repo":  "kelvinmo/simplexrd",
+    "sha":  "4c9f2e028523ed705b555eca2c18c64e71f1a35d",
+    "status":  "ok",
+    "changed_php":  [
+                        "simplexrd/simplexrd.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "simplexrd/simplexrd.class.php"
+                    ],
+    "sink_hit":  false
+}

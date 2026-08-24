@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r42m-953q-6vjx",
+    "cve":  "CVE-2026-44831",
+    "cwe":  "CWE-79",
+    "repo":  "grokability/snipe-it",
+    "sha":  "28f493d84d057895fbb93b6570e7393a2c2fa438",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Transformers/ComponentsTransformer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Http/Transformers/ComponentsTransformer.php"
+                    ],
+    "sink_hit":  false
+}

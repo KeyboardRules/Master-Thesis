@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qvhv-pwww-53jj",
+    "cve":  "CVE-2020-8091",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "482e2e992f80f5e38cb48fcaea40fd9812a5252c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Page/PageRenderer.php",
+                        "typo3/sysext/frontend/Classes/ContentObject/ScalableVectorGraphicsContentObject.php",
+                        "typo3/sysext/frontend/Classes/Page/PageGenerator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "typo3/sysext/frontend/Classes/ContentObject/ScalableVectorGraphicsContentObject.php class extends AbstractContentObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

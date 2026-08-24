@@ -1,0 +1,50 @@
+﻿diff --git a/generator/lib/behavior/sortable/SortableBehavior.php b/generator/lib/behavior/sortable/SortableBehavior.php
+index 9c31179..2bec845 100644
+--- a/generator/lib/behavior/sortable/SortableBehavior.php
++++ b/generator/lib/behavior/sortable/SortableBehavior.php
+@@ -96,6 +96,7 @@ class SortableBehavior extends Behavior
+ 
+             $methodSignature = array();
+             $buildScope      = array();
++            $buildScopeVars  = array();
+             $paramsDoc       = array();
+ 
+             foreach ($this->getScopes() as $idx => $scope) {
+diff --git a/runtime/lib/adapter/DBMySQL.php b/runtime/lib/adapter/DBMySQL.php
+index f629c68..34ac197 100644
+--- a/runtime/lib/adapter/DBMySQL.php
++++ b/runtime/lib/adapter/DBMySQL.php
+@@ -153,6 +153,9 @@ class DBMySQL extends DBAdapter
+      */
+     public function applyLimit(&$sql, $offset, $limit)
+     {
++        $offset = (int) $offset;
++        $limit = (int) $limit;
++
+         if ($limit > 0) {
+             $sql .= " LIMIT " . ($offset > 0 ? $offset . ", " : "") . $limit;
+         } elseif ($offset > 0) {
+diff --git a/runtime/lib/query/Criteria.php b/runtime/lib/query/Criteria.php
+index 005f83b..3c45ddf 100644
+--- a/runtime/lib/query/Criteria.php
++++ b/runtime/lib/query/Criteria.php
+@@ -1239,8 +1239,7 @@ class Criteria implements IteratorAggregate
+      */
+     public function setLimit($limit)
+     {
+-        // TODO: do we enforce int here? 32bit issue if we do
+-        $this->limit = $limit;
++        $this->limit = (int) $limit;
+ 
+         return $this;
+     }
+@@ -1258,8 +1257,7 @@ class Criteria implements IteratorAggregate
+     /**
+      * Set offset.
+      *
+-     * @param int $offset An int with the value for offset.  (Note this values is
+-     *                    cast to a 32bit integer and may result in truncation)
++     * @param int $offset An int with the value for offset.
+      *
+      * @return Criteria Modified Criteria object (for fluent API)
+      */

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9jq2-jvwc-p52f",
+    "cve":  "CVE-2012-4383",
+    "cwe":  "CWE-89",
+    "repo":  "contao/core",
+    "sha":  "2bf4fc380e19895127cbeaba62bff951a3b8e5cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/modules/backend/Ajax.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "system/modules/backend/Ajax.php class extends Backend"
+                 ],
+    "changed_all":  [
+                        "system/modules/backend/Ajax.php"
+                    ],
+    "sink_hit":  true
+}

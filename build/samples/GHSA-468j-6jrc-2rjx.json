@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-468j-6jrc-2rjx",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "049cdefacfd3122d59d5488c1317f999fe8aacc4",
+    "status":  "ok",
+    "changed_php":  [
+                        "forms/CheckboxSetField.php",
+                        "forms/OptionsetField.php",
+                        "tests/forms/CheckboxSetFieldTest.php",
+                        "tests/forms/OptionsetFieldTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "forms/CheckboxSetField.php class extends OptionsetField",
+                     "forms/OptionsetField.php class extends DropdownField",
+                     "tests/forms/CheckboxSetFieldTest.php class extends SapphireTest",
+                     "tests/forms/OptionsetFieldTest.php class extends SapphireTest"
+                 ],
+    "changed_all":  [
+                        "forms/CheckboxSetField.php",
+                        "forms/OptionsetField.php",
+                        "templates/forms/CheckboxSetField.ss",
+                        "templates/forms/OptionsetField.ss",
+                        "tests/forms/CheckboxSetFieldTest.php",
+                        "tests/forms/OptionsetFieldTest.php"
+                    ],
+    "sink_hit":  false
+}

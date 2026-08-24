@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-gff2-p6vm-3p8g",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "zendframework/zendframework",
+    "sha":  "7c1e89815f5a9c016f4b8088e59b07cb2bf99dc0",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Mail/Transport/Sendmail.php",
+                        "tests/ZendTest/Mail/Transport/SendmailTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/ZendTest/Mail/Transport/SendmailTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "library/Zend/Mail/Transport/Sendmail.php",
+                        "tests/ZendTest/Mail/Transport/SendmailTest.php"
+                    ],
+    "sink_hit":  false
+}

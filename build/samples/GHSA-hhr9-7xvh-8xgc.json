@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hhr9-7xvh-8xgc",
+    "cve":  "CVE-2022-1213",
+    "cwe":  "CWE-918",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "abc9599ee7aded466ca216741dcaea533c908111",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/modules/lhcobrowse/proxycss.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lhc_web/modules/lhcobrowse/proxycss.php"
+                    ],
+    "sink_hit":  true
+}

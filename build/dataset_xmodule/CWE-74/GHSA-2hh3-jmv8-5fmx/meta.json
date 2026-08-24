@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2hh3-jmv8-5fmx",
+    "cve":  "CVE-2016-5013",
+    "cwe":  "CWE-74",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "ed63718caa48803843a14140d8a27f04aba9c8c4",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/phpmailer/moodle_phpmailer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/phpmailer/moodle_phpmailer.php includes 2 project file(s)",
+                     "lib/phpmailer/moodle_phpmailer.php class extends PHPMailer",
+                     "lib/tests/text_test.php class extends advanced_testcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

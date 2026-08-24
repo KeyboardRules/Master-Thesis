@@ -1,0 +1,118 @@
+﻿diff --git a/app/Livewire/Tickets/Create.php b/app/Livewire/Tickets/Create.php
+index bc7b843..e333590 100644
+--- a/app/Livewire/Tickets/Create.php
++++ b/app/Livewire/Tickets/Create.php
+@@ -8,15 +8,10 @@ use App\Models\Ticket;
+ use Illuminate\Support\Facades\Auth;
+ use Illuminate\Support\Facades\RateLimiter;
+ use Illuminate\Support\Facades\Storage;
+-use Livewire\Features\SupportFileUploads\WithFileUploads;
+ 
+ #[DisabledIf('tickets_disabled')]
+ class Create extends Component
+ {
+-    use WithFileUploads;
+-
+-    public array $attachments = [];
+-
+     public string $message;
+ 
+     public string $subject;
+@@ -27,19 +22,6 @@ class Create extends Component
+ 
+     public string $priority;
+ 
+-    public function completeUpload($filename)
+-    {
+-        // Find the attachment by its name
+-        foreach ($this->attachments as $key => $attachment) {
+-            if ($attachment->getFilename() === $filename) {
+-                $url = $attachment->store('public/ticket-attachments');
+-                $url = Storage::url($url);
+-
+-                return url($url);
+-            }
+-        }
+-    }
+-
+     public function create()
+     {
+         // Add rules for the department
+diff --git a/app/Livewire/Tickets/Show.php b/app/Livewire/Tickets/Show.php
+index 46b475a..db612bf 100644
+--- a/app/Livewire/Tickets/Show.php
++++ b/app/Livewire/Tickets/Show.php
+@@ -9,34 +9,16 @@ use Illuminate\Support\Facades\Auth;
+ use Illuminate\Support\Facades\Storage;
+ use Livewire\Attributes\Locked;
+ use Livewire\Attributes\Rule;
+-use Livewire\Features\SupportFileUploads\WithFileUploads;
+ 
+ #[DisabledIf('tickets_disabled')]
+ class Show extends Component
+ {
+-    use WithFileUploads;
+-
+     #[Locked]
+     public Ticket $ticket;
+ 
+-    public array $attachments = [];
+-
+     #[Rule('required', 'string')]
+     public string $message;
+ 
+-    public function completeUpload($filename)
+-    {
+-        // Find the attachment by its name
+-        foreach ($this->attachments as $key => $attachment) {
+-            if ($attachment->getFilename() === $filename) {
+-                $url = $attachment->store('public/ticket-attachments');
+-                $url = Storage::url($url);
+-
+-                return url($url);
+-            }
+-        }
+-    }
+-
+     public function save()
+     {
+         $this->validate();
+diff --git a/themes/default/views/components/easymde-editor.blade.php b/themes/default/views/components/easymde-editor.blade.php
+index fa6e81a..54bad0b 100644
+--- a/themes/default/views/components/easymde-editor.blade.php
++++ b/themes/default/views/components/easymde-editor.blade.php
+@@ -8,7 +8,7 @@
+             element: document.getElementById('editor'),
+             spellChecker: false,
+             previewImagesInEditor: true,
+-            uploadImage: true,
++            uploadImage: false,
+             autoDownloadFontAwesome: false,
+             status: [{
+                 className: 'upload-image',
+@@ -45,11 +45,6 @@
+                     name: 'ordered-list',
+                     action: EasyMDE.toggleOrderedList,
+                 }, '|',
+-                {
+-                    name: 'upload-image',
+-                    action: EasyMDE.drawUploadedImage,
+-                    title: 'Upload Image',
+-                }, '|',
+                 {
+                     name: 'undo',
+                     action: EasyMDE.undo,
+@@ -59,13 +54,6 @@
+                 },
+ 
+             ],
+-            imageUploadFunction: async (file, onSuccess, onError) => {
+-                @this.upload('attachments', file, (url) => {
+-                    @this.completeUpload(url).then((url) => {
+-                        onSuccess(url);
+-                    });
+-                });
+-            },
+         });
+ 
+         editor.codemirror.on('change', function() {

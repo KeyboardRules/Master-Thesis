@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-7rvp-xqj7-rxf2",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "daylightstudio/FUEL-CMS",
+    "fix_commit":  "c8d9381d39b1c0f5488cf059ea9aa659ee227da4",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "fuel/modules/fuel/config/fuel_constants.php",
+                        "fuel/modules/fuel/models/Base_module_model.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fuel/modules/fuel/config/fuel_constants.php includes 2 project file(s)",
+                     "fuel/modules/fuel/models/Base_module_model.php includes 3 project file(s)",
+                     "fuel/modules/fuel/models/Base_module_model.php class extends Base_module_model"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,17 @@
+﻿diff --git a/src/Storefront/Controller/AuthController.php b/src/Storefront/Controller/AuthController.php
+index 54a21a5fd..9cf1d2fd8 100644
+--- a/src/Storefront/Controller/AuthController.php
++++ b/src/Storefront/Controller/AuthController.php
+@@ -90,9 +90,9 @@ class AuthController extends StorefrontController
+             'redirectParameters' => $request->get('redirectParameters', json_encode([])),
+             'errorRoute' => $request->attributes->get('_route'),
+             'page' => $page,
+-            'loginError' => (bool) $request->get('loginError'),
+-            'waitTime' => $request->get('waitTime'),
+-            'errorSnippet' => $request->get('errorSnippet'),
++            'loginError' => $request->attributes->getBoolean('loginError'),
++            'waitTime' => $request->attributes->get('waitTime'),
++            'errorSnippet' => $request->attributes->get('errorSnippet'),
+             'data' => $data,
+         ]);
+     }

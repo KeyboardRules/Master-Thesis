@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mcj5-6qr4-95fj",
+    "cve":  "CVE-2026-33352",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "sha":  "206d38e97b8c854771bb2907b13f9f36e8bcf874",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/category.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "objects/category.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "objects/category.php"
+                    ],
+    "sink_hit":  false
+}

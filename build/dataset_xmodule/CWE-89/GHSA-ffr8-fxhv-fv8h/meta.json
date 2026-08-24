@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ffr8-fxhv-fv8h",
+    "cve":  "CVE-2026-33723",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "36dfae22059fbd66fd34bbc5568a838fc0efd66c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "objects/subscribe.php"
+                    ],
+    "evidence":  [
+                     "objects/subscribe.php includes 3 project file(s)",
+                     "objects/subscribe.php class extends ObjectYPT"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

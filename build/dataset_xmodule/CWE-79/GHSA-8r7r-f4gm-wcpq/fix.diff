@@ -1,0 +1,29 @@
+﻿diff --git a/lang/en/fieldtypes.php b/lang/en/fieldtypes.php
+index 1267da4e..9f4ddea6 100644
+--- a/lang/en/fieldtypes.php
++++ b/lang/en/fieldtypes.php
+@@ -110,6 +110,7 @@ return [
+     'group.title' => 'Group',
+     'hidden.title' => 'Hidden',
+     'html.config.html_instruct' => 'Manage the HTML to be displayed in the publish form. This is for display purposes only, the HTML will not be saved.',
++    'html.config.sanitize_instruct' => 'Whether the HTML should be sanitized before being displayed. Only disable this if you have a good reason.',
+     'html.title' => 'HTML',
+     'icon.config.set' => 'The name of a custom icon set.',
+     'icon.title' => 'Icon',
+diff --git a/src/Fieldtypes/Html.php b/src/Fieldtypes/Html.php
+index 85cfbd32..b49c18be 100644
+--- a/src/Fieldtypes/Html.php
++++ b/src/Fieldtypes/Html.php
+@@ -21,6 +21,12 @@ class Html extends Fieldtype
+                         'mode' => 'htmlmixed',
+                         'mode_selectable' => false,
+                     ],
++                    'sanitize' => [
++                        'display' => __('Sanitize'),
++                        'instructions' => __('statamic::fieldtypes.html.config.sanitize_instruct'),
++                        'type' => 'toggle',
++                        'default' => true,
++                    ],
+                 ],
+             ],
+         ];

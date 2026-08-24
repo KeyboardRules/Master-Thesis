@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3mqf-fwc6-vwqw",
+    "cve":  "CVE-2010-5098",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "3c5d15233ca765fabeac21f0600d831595d31cd8",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/cms/tslib/class.tslib_content.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "typo3/sysext/cms/tslib/class.tslib_content.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "typo3/sysext/cms/tslib/class.tslib_content.php"
+                    ],
+    "sink_hit":  true
+}

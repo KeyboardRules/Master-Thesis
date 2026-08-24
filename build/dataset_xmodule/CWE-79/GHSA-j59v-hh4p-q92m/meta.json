@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-j59v-hh4p-q92m",
+    "cve":  "CVE-2023-5873",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "757375677dc83a44c6c22f26d97452cc5cda5d7c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/CoreBundle/src/DependencyInjection/Configuration.php",
+                        "lib/Messenger/Handler/AssetUpdateTasksHandler.php",
+                        "models/Asset/Document.php",
+                        "models/Element/Service.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "models/Asset/Document.php class extends Model\\Asset",
+                     "models/Element/Service.php class extends Model\\AbstractModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

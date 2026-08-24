@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qgxx-4xv5-6hcw",
+    "cve":  "CVE-2024-27299",
+    "cwe":  "CWE-89",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "1b68a5f89fb65996c56285fa636b818de8608011",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/News.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/News.php"
+                    ],
+    "sink_hit":  true
+}

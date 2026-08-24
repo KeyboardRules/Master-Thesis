@@ -1,0 +1,22 @@
+﻿diff --git a/src/controllers/ElementsController.php b/src/controllers/ElementsController.php
+index 3670d66..f8da645 100644
+--- a/src/controllers/ElementsController.php
++++ b/src/controllers/ElementsController.php
+@@ -898,7 +898,7 @@ JS, [
+                             ? Template::raw(Craft::t('app', 'Saved <time title="{timestampWithDate}">{timestamp}</time> by {creator}', [
+                                 'timestampWithDate' => $timestampWithDate,
+                                 'timestamp' => $timestamp,
+-                                'creator' => $creator->name,
++                                'creator' => Html::encode($creator->name),
+                             ]))
+                             : Template::raw(Craft::t('app', 'Last saved <time title="{timestampWithDate}">{timestamp}</time>', [
+                                 'timestampWithDate' => $timestampWithDate,
+@@ -929,7 +929,7 @@ JS, [
+                             ? Template::raw(Craft::t('app', 'Saved <time title="{timestampWithDate}">{timestamp}</time> by {creator}', [
+                                 'timestampWithDate' => $timestampWithDate,
+                                 'timestamp' => $timestamp,
+-                                'creator' => $creator->name,
++                                'creator' => Html::encode($creator->name),
+                             ]))
+                             : Template::raw(Craft::t('app', 'Saved <time title="{timestampWithDate}">{timestamp}</time>', [
+                                 'timestampWithDate' => $timestampWithDate,

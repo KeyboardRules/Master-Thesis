@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gvmf-wcx6-p974",
+    "cve":  "CVE-2022-31092",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "21559c6bf0e4e828d33ff7af6e88caecb5ac6549",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Model/Listing/AbstractListing.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "lib/Model/Listing/AbstractListing.php class extends AbstractModel"
+                 ],
+    "changed_all":  [
+                        "lib/Model/Listing/AbstractListing.php"
+                    ],
+    "sink_hit":  false
+}

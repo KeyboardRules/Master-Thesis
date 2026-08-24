@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-mx5g-3vxh-rgm8",
+    "cve":  "CVE-2011-4280",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "bd654f0ced8af925c27b7c94321f0c299b50b38e",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php",
+                        "lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php includes 5 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lib/spikephpcoverage/readme_moodle.txt",
+                        "lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php",
+                        "lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2q8c-gqf4-mg3v",
+    "cve":  "CVE-2023-5060",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "8fd8d9b06a11060de5dc69588a1a83594a7e6f72",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/search/ipv6.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/search/ipv6.inc.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-w5mx-334j-6fwv",
+    "cve":  "CVE-2024-27499",
+    "cwe":  "CWE-79",
+    "repo":  "bagisto/bagisto",
+    "sha":  "b01bfc5fab3933a132380f36cb2e9670d2310baf",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/Webkul/Admin/src/Http/Controllers/Settings/ThemeController.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit/static-content.blade.php",
+                        "packages/Webkul/Theme/src/Repositories/ThemeCustomizationRepository.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "packages/Webkul/Admin/src/Http/Controllers/Settings/ThemeController.php class extends Controller",
+                     "packages/Webkul/Theme/src/Repositories/ThemeCustomizationRepository.php class extends Repository"
+                 ],
+    "changed_all":  [
+                        "packages/Webkul/Admin/src/Http/Controllers/Settings/ThemeController.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit.blade.php",
+                        "packages/Webkul/Admin/src/Resources/views/settings/themes/edit/static-content.blade.php",
+                        "packages/Webkul/Theme/src/Repositories/ThemeCustomizationRepository.php"
+                    ],
+    "sink_hit":  false
+}

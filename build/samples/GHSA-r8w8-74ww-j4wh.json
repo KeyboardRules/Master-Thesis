@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-r8w8-74ww-j4wh",
+    "cve":  "CVE-2024-45292",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "392dd08c5569b623060784e1333454d64df1f03d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/NoJavascriptLinksTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "changed_all":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/NoJavascriptLinksTest.php"
+                    ],
+    "sink_hit":  true
+}

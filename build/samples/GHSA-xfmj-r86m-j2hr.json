@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xfmj-r86m-j2hr",
+    "cve":  "CVE-2023-28477",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "546cef6ec29208d5c079113635cd6e6b250e9f7c",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/single_pages/dashboard/system/api/integrations/view_client.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "concrete/single_pages/dashboard/system/api/integrations/view_client.php"
+                    ],
+    "sink_hit":  true
+}

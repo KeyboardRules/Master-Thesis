@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-mp46-7x6q-f28m",
+    "cve":  "CVE-2021-24323",
+    "cwe":  "CWE-79",
+    "repo":  "woocommerce/woocommerce",
+    "fix_commit":  "6ede8c5f59aec3ca70aa27d1ffd5a6574473f2ce",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/admin/settings/class-wc-settings-page.php",
+                        "includes/admin/settings/class-wc-settings-tax.php",
+                        "includes/class-wc-tax.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/admin/settings/class-wc-settings-tax.php includes 2 project file(s)",
+                     "includes/admin/settings/class-wc-settings-tax.php class extends WC_Settings_Page",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

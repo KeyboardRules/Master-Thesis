@@ -1,0 +1,45 @@
+﻿diff --git a/lib/Froxlor/Api/Commands/MysqlServer.php b/lib/Froxlor/Api/Commands/MysqlServer.php
+index 72a0e25..6e75c1c 100644
+--- a/lib/Froxlor/Api/Commands/MysqlServer.php
++++ b/lib/Froxlor/Api/Commands/MysqlServer.php
+@@ -29,6 +29,7 @@ use Exception;
+ use Froxlor\Api\ApiCommand;
+ use Froxlor\Api\ResourceEntity;
+ use Froxlor\Database\Database;
++use Froxlor\FileDir;
+ use Froxlor\Froxlor;
+ use Froxlor\FroxlorLogger;
+ use Froxlor\PhpHelper;
+@@ -103,6 +104,8 @@ class MysqlServer extends ApiCommand implements ResourceEntity
+ 			}
+ 		}
+ 		$mysql_port = Validate::validate($mysql_port, 'port', Validate::REGEX_PORT, '', [3306], true);
++		$mysql_ca = !empty($mysql_ca) ? FileDir::makeCorrectFile($mysql_ca) : '';
++		$privileged_user = Validate::validate($privileged_user, 'privileged_user', '/^[a-z][a-z0-9\-_]+$/i', '', [], true);
+ 		$privileged_password = Validate::validate($privileged_password, 'password', '', '', [], true);
+ 		$description = Validate::validate(trim($description), 'description', Validate::REGEX_DESC_TEXT, '', [], true);
+ 
+@@ -402,6 +405,8 @@ class MysqlServer extends ApiCommand implements ResourceEntity
+ 			}
+ 		}
+ 		$mysql_port = Validate::validate($mysql_port, 'port', Validate::REGEX_PORT, '', [3306], true);
++		$mysql_ca = !empty($mysql_ca) ? FileDir::makeCorrectFile($mysql_ca) : '';
++		$privileged_user = Validate::validate($privileged_user, 'privileged_user', '/^[a-z][a-z0-9\-_]+$/i', '', [], true);
+ 		$privileged_password = Validate::validate($privileged_password, 'password', '', '', [], true);
+ 		$description = Validate::validate(trim($description), 'description', Validate::REGEX_DESC_TEXT, '', [], true);
+ 
+diff --git a/lib/Froxlor/PhpHelper.php b/lib/Froxlor/PhpHelper.php
+index 0ea46af..293f0c1 100644
+--- a/lib/Froxlor/PhpHelper.php
++++ b/lib/Froxlor/PhpHelper.php
+@@ -483,7 +483,9 @@ class PhpHelper
+ 						// special case for passwords (nowdoc)
+ 						$str .= self::tabPrefix($depth, "'{$key}' => <<<'EOT'\n{$value}\nEOT,\n");
+ 					} else {
+-						$str .= self::tabPrefix($depth, "'{$key}' => '{$value}',\n");
++						// escape backslashes first, then single quotes:
++						$escaped = str_replace(['\\', "'"], ['\\\\', "\\'"], $value);
++						$str .= self::tabPrefix($depth, "'{$key}' => '{$escaped}',\n");
+ 					}
+ 				}
+ 			} else {

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2c67-p4xh-m34w",
+    "cve":  "CVE-2023-2342",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "42a5bbe5f16b97371fdbfdcf2bb3ee759dea8564",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/WebsiteSetting.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/WebsiteSetting.php class extends AbstractModel"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/website.js",
+                        "models/WebsiteSetting.php"
+                    ],
+    "sink_hit":  false
+}

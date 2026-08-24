@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8x2v-pcg7-94f4",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zend-json",
+    "sha":  "078e77a6e59cdbf32a94691afe3523db340f5da9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Json.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Json.php"
+                    ],
+    "sink_hit":  true
+}

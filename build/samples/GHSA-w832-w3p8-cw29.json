@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w832-w3p8-cw29",
+    "cve":  "CVE-2025-8264",
+    "cwe":  "CWE-89",
+    "repo":  "Z-Hub/Z-Push",
+    "sha":  "deb044a40e97dab1814da9aa8330c0a590957fc5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/backend/imap/user_identity.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/backend/imap/user_identity.php"
+                    ],
+    "sink_hit":  true
+}

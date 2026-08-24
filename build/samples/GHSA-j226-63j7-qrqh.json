@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-j226-63j7-qrqh",
+    "cve":  "CVE-2025-49130",
+    "cwe":  "CWE-79",
+    "repo":  "barryvdh/laravel-translation-manager",
+    "sha":  "527446ed419f90f2319675fc5211cb8f851d7a1f",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/index.php",
+                        "src/Controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Controller.php class extends BaseController"
+                 ],
+    "changed_all":  [
+                        "resources/views/index.php",
+                        "src/Controller.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,76 @@
+﻿diff --git a/objects/video.php b/objects/video.php
+index 391fa6ffa..9edcb2117 100644
+--- a/objects/video.php
++++ b/objects/video.php
+@@ -915,7 +915,10 @@ if (!class_exists('Video')) {
+             if (empty($duration) || strtolower($duration) == "ee:ee:ee" || $duration == '0:00:00' || $duration == '00:00:00' || $duration == "0:00:00.000000") {
+                 return false;
+             }
+-            return preg_match('/^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/', $duration);
++            // SECURITY: $ anchor is required — without it, arbitrary content after a valid
++            // HH:MM:SS prefix passes validation and can be stored/rendered as XSS.
++            // Optional decimal-seconds suffix (e.g. 00:01:23.456) is allowed.
++            return preg_match('/^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}(\.[0-9]+)?$/', $duration);
+         }
+ 
+         public function getDuration()
+@@ -3477,7 +3480,9 @@ if (!class_exists('Video')) {
+                 } elseif (count($durationParts) == 2) {
+                     return '0:' . static::addZero($durationParts[0]) . ':' . static::addZero($durationParts[1]);
+                 }
+-                return $duration;
++                // Reconstruct from parts instead of returning the raw string — defense in depth
++                // against any malformed duration that may already be stored in the database.
++                return static::addZero($durationParts[0]) . ':' . static::addZero($durationParts[1]) . ':' . static::addZero($durationParts[2]);
+             }
+         }
+ 
+diff --git a/view/include/playlist.php b/view/include/playlist.php
+index fc95abfeb..45d3fbb31 100644
+--- a/view/include/playlist.php
++++ b/view/include/playlist.php
+@@ -69,7 +69,7 @@ if (!empty($videoSerie)) {
+         width: 250px;
+         height: 100px;
+         margin-left: 5px;
+-        position: relative;    
++        position: relative;
+         display: flex;
+         justify-content: center;
+     }
+@@ -156,7 +156,7 @@ if (!empty($videoSerie)) {
+                             <?php
+                             if ($value['type'] !== 'pdf' && $value['type'] !== 'article' && $value['type'] !== 'serie') {
+                             ?>
+-                                <time class="duration"><?php echo Video::getCleanDuration(@$value['duration']); ?></time>
++                                <time class="duration"><?php echo htmlspecialchars(Video::getCleanDuration(@$value['duration']), ENT_QUOTES, 'UTF-8'); ?></time>
+                                 <div class="progress" style="height: 3px; margin-bottom: 2px;">
+                                     <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <?php echo $value['progress']['percent'] ?>%;" aria-valuenow="<?php echo $value['progress']['percent'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                 </div>
+@@ -235,4 +235,4 @@ if (!empty($videoSerie)) {
+             });
+         }
+     }
+-</script>
+\ No newline at end of file
++</script>
+diff --git a/view/trending.php b/view/trending.php
+index f2c1b62bb..0ee3d5d2d 100644
+--- a/view/trending.php
++++ b/view/trending.php
+@@ -69,7 +69,7 @@ $_page->setExtraStyles(
+                                     <img src="<?php echo ImagesPlaceHolders::getVideoPlaceholder(ImagesPlaceHolders::$RETURN_URL); ?>" data-src="<?php echo $imgGif; ?>" style="position: absolute; top: 0; display: none;" alt="<?php echo str_replace('"', '', $value['title']); ?>" id="thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive" height="196" />
+                                 <?php }
+                                 ?>
+-                                <time class="duration"><?php echo Video::getCleanDuration($value['duration']); ?></time>
++                                <time class="duration"><?php echo htmlspecialchars(Video::getCleanDuration($value['duration']), ENT_QUOTES, 'UTF-8'); ?></time>
+                             </div>
+                             <div class="progress" style="height: 3px; margin-bottom: 2px;">
+                                 <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <?php echo $value['progress']['percent'] ?>%;" aria-valuenow="<?php echo $value['progress']['percent'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+@@ -245,4 +245,4 @@ if ($_REQUEST['current'] + 1 <= $pages) {
+ </script>
+ <?php
+ $_page->print();
+-?>
+\ No newline at end of file
++?>

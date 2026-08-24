@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-27g3-58v4-fg9w",
+    "cve":  "CVE-2022-2130",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "dbd37dda91911360db23269897c737e0abae2c24",
+    "status":  "ok",
+    "changed_php":  [
+                        "userfiles/modules/microweber/toolbar/editor_tools/rte_css_editor/index.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "userfiles/modules/microweber/api/libs/cssjson/cssjson.js",
+                        "userfiles/modules/microweber/api/stylesheet.editor.js",
+                        "userfiles/modules/microweber/toolbar/editor_tools/rte_css_editor/index.php"
+                    ],
+    "sink_hit":  true
+}

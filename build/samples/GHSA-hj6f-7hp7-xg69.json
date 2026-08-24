@@ -1,0 +1,44 @@
+﻿{
+    "id":  "GHSA-hj6f-7hp7-xg69",
+    "cve":  "CVE-2025-9821",
+    "cwe":  "CWE-918",
+    "repo":  "mautic/mautic",
+    "sha":  "6084f6de4c88d1aeb5f6c73ea4fe1b09c98ea52b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Helper/PrivateAddressChecker.php",
+                        "app/bundles/CoreBundle/Tests/Helper/PrivateAddressCheckerTest.php",
+                        "app/bundles/WebhookBundle/Config/config.php",
+                        "app/bundles/WebhookBundle/Controller/AjaxController.php",
+                        "app/bundles/WebhookBundle/Exception/PrivateAddressException.php",
+                        "app/bundles/WebhookBundle/Form/Type/ConfigType.php",
+                        "app/bundles/WebhookBundle/Http/Client.php",
+                        "app/bundles/WebhookBundle/Tests/Functional/Command/ProcessWebhookQueuesCommandTest.php",
+                        "app/bundles/WebhookBundle/Tests/Functional/WebhookFunctionalTest.php",
+                        "app/bundles/WebhookBundle/Tests/Unit/Http/ClientTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "app/bundles/WebhookBundle/Controller/AjaxController.php class extends CommonAjaxController",
+                     "app/bundles/WebhookBundle/Form/Type/ConfigType.php class extends AbstractType",
+                     "app/bundles/WebhookBundle/Tests/Functional/Command/ProcessWebhookQueuesCommandTest.php class extends MauticMysqlTestCase",
+                     "app/bundles/WebhookBundle/Tests/Functional/WebhookFunctionalTest.php class extends MauticMysqlTestCase",
+                     "app/bundles/WebhookBundle/Tests/Unit/Http/ClientTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Helper/PrivateAddressChecker.php",
+                        "app/bundles/CoreBundle/Tests/Helper/PrivateAddressCheckerTest.php",
+                        "app/bundles/WebhookBundle/Assets/js/webhook.js",
+                        "app/bundles/WebhookBundle/Config/config.php",
+                        "app/bundles/WebhookBundle/Controller/AjaxController.php",
+                        "app/bundles/WebhookBundle/Exception/PrivateAddressException.php",
+                        "app/bundles/WebhookBundle/Form/Type/ConfigType.php",
+                        "app/bundles/WebhookBundle/Http/Client.php",
+                        "app/bundles/WebhookBundle/Tests/Functional/Command/ProcessWebhookQueuesCommandTest.php",
+                        "app/bundles/WebhookBundle/Tests/Functional/WebhookFunctionalTest.php",
+                        "app/bundles/WebhookBundle/Tests/Unit/Http/ClientTest.php",
+                        "app/bundles/WebhookBundle/Translations/en_US/messages.ini"
+                    ],
+    "sink_hit":  true
+}

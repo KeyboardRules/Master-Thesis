@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w34w-fvp3-68xm",
+    "cve":  "CVE-2025-31131",
+    "cwe":  "CWE-22",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "f78c915369a60c74ab8f38561ae93a4aaca9b989",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/services/ThemeManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/services/ThemeManager.php"
+                    ],
+    "sink_hit":  true
+}

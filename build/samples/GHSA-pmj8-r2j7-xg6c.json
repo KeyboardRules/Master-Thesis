@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pmj8-r2j7-xg6c",
+    "cve":  "CVE-2026-33482",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "sha":  "25c8ab90269e3a01fb4cf205b40a373487f022e1",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/API/standAlone/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "plugin/API/standAlone/functions.php"
+                    ],
+    "sink_hit":  true
+}

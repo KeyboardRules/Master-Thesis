@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-m6m8-6gq8-c9fj",
+    "cve":  "CVE-2023-32692",
+    "cwe":  "CWE-94",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "sha":  "6af677177fa1d9ad62f7a793bc96cba3068632ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/Validation/Validation.php",
+                        "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php",
+                        "tests/system/Validation/ValidationTest.php",
+                        "user_guide_src/source/libraries/validation/020.php",
+                        "user_guide_src/source/libraries/validation/022.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php class extends CIUnitTestCase",
+                     "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php class uses trait",
+                     "tests/system/Validation/ValidationTest.php class extends CIUnitTestCase"
+                 ],
+    "changed_all":  [
+                        "system/Validation/Validation.php",
+                        "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php",
+                        "tests/system/Validation/ValidationTest.php",
+                        "user_guide_src/source/changelogs/v4.3.5.rst",
+                        "user_guide_src/source/installation/upgrade_435.rst",
+                        "user_guide_src/source/libraries/validation.rst",
+                        "user_guide_src/source/libraries/validation/020.php",
+                        "user_guide_src/source/libraries/validation/022.php"
+                    ],
+    "sink_hit":  false
+}

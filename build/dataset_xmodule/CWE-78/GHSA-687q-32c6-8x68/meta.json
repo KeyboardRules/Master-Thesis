@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-687q-32c6-8x68",
+    "cve":  "CVE-2026-33478",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "c85d076375fab095a14170df7ddb27058134d38c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/functions.php",
+                        "plugin/CloneSite/cloneClient.json.php",
+                        "plugin/CloneSite/clones.json.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "objects/functions.php includes 26 project file(s)",
+                     "plugin/CloneSite/cloneClient.json.php includes 4 project file(s)",
+                     "plugin/CloneSite/clones.json.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3qhm-qfj3-4rrx",
+    "cve":  "CVE-2019-6257",
+    "cwe":  "CWE-918",
+    "repo":  "Studio-42/elFinder",
+    "fix_commit":  "2f522db8f037a66ce9040ee0b216aa4a0359286c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "php/elFinder.class.php"
+                    ],
+    "evidence":  [
+                     "php/elFinder.class.php includes 2 project file(s)",
+                     "php/elFinder.class.php class extends Exception"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

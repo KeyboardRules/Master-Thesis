@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-cv9g-h8mm-xx5h",
+    "cve":  "CVE-2022-3525",
+    "cwe":  "CWE-502",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "ae3925b09ad3c5d0f7a9d5a26ae2f2f778834948",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/polling/applications/memcached.inc.php",
+                        "includes/polling/unix-agent.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/polling/unix-agent.inc.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

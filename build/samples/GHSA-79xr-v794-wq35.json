@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-79xr-v794-wq35",
+    "cve":  "CVE-2020-15883",
+    "cwe":  "CWE-79",
+    "repo":  "munkireport/managedinstalls",
+    "sha":  "708f6a2abc4b80a3751bcc9cf896f80d84250c55",
+    "status":  "ok",
+    "changed_php":  [
+                        "managedinstalls_controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "managedinstalls_controller.php class extends Module_controller"
+                 ],
+    "changed_all":  [
+                        "js/managedinstalls_functions.js",
+                        "managedinstalls_controller.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h4ph-crvj-9h92",
+    "cve":  "CVE-2026-44741",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "sha":  "80e57a23d9e19574eddfe9b08e8f26785b2b0d90",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Helper/Dashboard.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Helper/Dashboard.php"
+                    ],
+    "sink_hit":  false
+}

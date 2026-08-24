@@ -1,0 +1,26 @@
+﻿diff --git a/objects/user.php b/objects/user.php
+index cc69b69f8..078bfd3bc 100644
+--- a/objects/user.php
++++ b/objects/user.php
+@@ -3363,7 +3363,7 @@ if (typeof gtag !== \"function\") {
+     public static function loginFromRequestToGet()
+     {
+         if (!empty($_REQUEST['user']) && !empty($_REQUEST['pass'])) {
+-            $return = "user={$_REQUEST['user']}&pass={$_REQUEST['pass']}";
++            $return = "user=" . rawurlencode((string) $_REQUEST['user']) . "&pass=" . rawurlencode((string) $_REQUEST['pass']);
+             if (!empty($_REQUEST['encodedPass'])) {
+                 $return .= "&encodedPass=" . intval($_REQUEST['encodedPass']);
+             }
+diff --git a/plugin/Meet/iframe.php b/plugin/Meet/iframe.php
+index cfe01a750..ce223cd5b 100644
+--- a/plugin/Meet/iframe.php
++++ b/plugin/Meet/iframe.php
+@@ -113,7 +113,7 @@ if (!empty($_REQUEST['nameIdentification'])) {
+         ?>
+ 
+         function _readyToClose() {
+-            document.location = "<?php echo $readyToClose; ?>";
++            document.location = <?php echo json_encode($readyToClose, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+         }
+     </script>
+ </body>

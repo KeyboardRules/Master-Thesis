@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-gq96-8w38-hhj2",
+    "cve":  "CVE-2025-54138",
+    "cwe":  "CWE-98",
+    "repo":  "librenms/librenms",
+    "sha":  "ec89714d929ef0cf2321957ed9198b0f18396c81",
+    "status":  "ok",
+    "changed_php":  [
+                        "html/ajax_form.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "html/ajax_form.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "html/ajax_form.php"
+                    ],
+    "sink_hit":  true
+}

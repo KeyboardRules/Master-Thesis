@@ -1,0 +1,35 @@
+﻿diff --git a/includes/html/forms/parse-alert-template.inc.php b/includes/html/forms/parse-alert-template.inc.php
+index d1f13152..256adb73 100644
+--- a/includes/html/forms/parse-alert-template.inc.php
++++ b/includes/html/forms/parse-alert-template.inc.php
+@@ -26,7 +26,6 @@ $output = [
+     'name' => '',
+     'title' => '',
+     'title_rec' => '',
+-    'type' => '',
+     'rules' => $rules,
+ ];
+ 
+@@ -37,7 +36,6 @@ if ($template_edit) {
+         'name' => $template['name'],
+         'title' => $template['title'],
+         'title_rec' => $template['title_rec'],
+-        'type' => $template['type'],
+     ];
+ }
+ 
+diff --git a/includes/html/print-alert-templates.php b/includes/html/print-alert-templates.php
+index 7ba53e1e..bbad4b2b 100644
+--- a/includes/html/print-alert-templates.php
++++ b/includes/html/print-alert-templates.php
+@@ -50,8 +50,8 @@ foreach ($templates as $template) {
+     $old_template = strpos($template['template'], '{/if}') !== false ? '1' : '';
+     echo '<tr data-row-id="' . $template['id'] . '">
+             <td>' . $template['id'] . '</td>
+-            <td>' . $template['name'] . '</td>
+-            <td>' . json_encode($template['alert_rules']) . '</td>
++            <td>' . htmlspecialchars($template['name']) . '</td>
++            <td>' . htmlspecialchars(json_encode($template['alert_rules'])) . '</td>
+             <td>' . $old_template . '</td>
+           </tr>';
+ }

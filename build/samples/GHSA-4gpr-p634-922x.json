@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-4gpr-p634-922x",
+    "cve":  "CVE-2023-36806",
+    "cwe":  "CWE-79",
+    "repo":  "contao/contao",
+    "sha":  "5c9aff32cfc1f7dc452a045862ac2f86a6b9b4b4",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/widgets/InputUnit.php",
+                        "core-bundle/src/Resources/contao/widgets/TimePeriod.php",
+                        "core-bundle/src/Resources/contao/widgets/TrblField.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core-bundle/src/Resources/contao/widgets/InputUnit.php class extends Widget",
+                     "core-bundle/src/Resources/contao/widgets/TimePeriod.php class extends Widget",
+                     "core-bundle/src/Resources/contao/widgets/TrblField.php class extends Widget"
+                 ],
+    "changed_all":  [
+                        "core-bundle/src/Resources/contao/widgets/InputUnit.php",
+                        "core-bundle/src/Resources/contao/widgets/TimePeriod.php",
+                        "core-bundle/src/Resources/contao/widgets/TrblField.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q8hr-4w58-985p",
+    "cve":  "CVE-2023-4914",
+    "cwe":  "CWE-22",
+    "repo":  "cecilapp/cecil",
+    "sha":  "00dc79f10ce723034b7140d79f4ac731d1d902eb",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/server/router.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "resources/server/router.php"
+                    ],
+    "sink_hit":  true
+}

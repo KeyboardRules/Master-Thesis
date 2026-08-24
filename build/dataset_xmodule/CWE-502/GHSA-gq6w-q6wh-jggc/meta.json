@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gq6w-q6wh-jggc",
+    "cve":  "CVE-2023-28115",
+    "cwe":  "CWE-502",
+    "repo":  "KnpLabs/snappy",
+    "fix_commit":  "1ee6360cbdbea5d09705909a150df7963a88efd6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Knp/Snappy/AbstractGenerator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Knp/Snappy/AbstractGenerator.php class uses trait",
+                     "tests/Knp/Snappy/AbstractGeneratorTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

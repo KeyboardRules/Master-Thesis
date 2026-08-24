@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-j3f9-p6hm-5w6q",
+    "cve":  "CVE-2025-22145",
+    "cwe":  "CWE-98",
+    "repo":  "briannesbitt/Carbon",
+    "fix_commit":  "129700ed449b1f02d70272d2ac802357c8c30c58",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Carbon/AbstractTranslator.php"
+                    ],
+    "evidence":  [
+                     "src/Carbon/AbstractTranslator.php includes 1 project file(s)",
+                     "src/Carbon/AbstractTranslator.php class extends Translation\\Translator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

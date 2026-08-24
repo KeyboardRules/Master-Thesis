@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vxg3-v4p6-f3fp",
+    "cve":  "CVE-2026-27461",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "1c3925fbec4895abeb21e5c244a83679c4e4a6f4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "models/Dependency/Dao.php"
+                    ],
+    "evidence":  [
+                     "models/Dependency/Dao.php class extends Model\\Dao\\AbstractDao"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

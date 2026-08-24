@@ -1,0 +1,237 @@
+﻿diff --git a/classes/Controller/BaseController.php b/classes/Controller/BaseController.php
+index 164686e..3279708 100644
+--- a/classes/Controller/BaseController.php
++++ b/classes/Controller/BaseController.php
+@@ -11,6 +11,9 @@ use Alltube\Library\Downloader;
+ use Alltube\Library\Video;
+ use Alltube\LocaleManager;
+ use Aura\Session\Segment;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Exception\InvalidURLException;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Options;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Url;
+ use Psr\Container\ContainerInterface;
+ use Psr\Log\LoggerInterface;
+ use Slim\Http\Request;
+@@ -127,10 +130,11 @@ abstract class BaseController
+      * @param Request $request PSR-7 request
+      *
+      * @return string|null Password
++     * @throws InvalidURLException
+      */
+     protected function getPassword(Request $request): ?string
+     {
+-        $url = $request->getQueryParam('url');
++        $url = $this->getVideoPageUrl($request);
+ 
+         $password = $request->getParam('password');
+         if (isset($password)) {
+@@ -157,4 +161,19 @@ abstract class BaseController
+ 
+         return $controller->displayError($request, $response, $message);
+     }
++
++    /**
++     * @param Request $request
++     * @return string
++     * @throws InvalidURLException
++     */
++    protected function getVideoPageUrl(Request $request): string
++    {
++        $url = $request->getQueryParam('url') ?: $request->getQueryParam('v');
++
++        // Prevent SSRF attacks.
++        $parts = Url::validateUrl($url, new Options());
++
++        return $parts['url'];
++    }
+ }
+diff --git a/classes/Controller/DownloadController.php b/classes/Controller/DownloadController.php
+index 78e8b77..179c7c0 100644
+--- a/classes/Controller/DownloadController.php
++++ b/classes/Controller/DownloadController.php
+@@ -19,6 +19,7 @@ use Alltube\Library\Exception\YoutubedlException;
+ use Alltube\Stream\ConvertedPlaylistArchiveStream;
+ use Alltube\Stream\PlaylistArchiveStream;
+ use Alltube\Stream\YoutubeStream;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Exception\InvalidURLException;
+ use Slim\Http\Request;
+ use Slim\Http\Response;
+ use Slim\Http\StatusCode;
+@@ -37,56 +38,53 @@ class DownloadController extends BaseController
+      *
+      * @return Response HTTP response
+      * @throws AlltubeLibraryException
++     * @throws InvalidURLException
+      */
+     public function download(Request $request, Response $response): Response
+     {
+-        $url = $request->getQueryParam('url');
++        $url = $this->getVideoPageUrl($request);
+ 
+-        if (isset($url)) {
+-            $this->video = $this->downloader->getVideo($url, $this->getFormat($request), $this->getPassword($request));
++        $this->video = $this->downloader->getVideo($url, $this->getFormat($request), $this->getPassword($request));
+ 
+-            try {
+-                if ($this->config->convert && $request->getQueryParam('audio')) {
+-                    // Audio convert.
+-                    return $this->getAudioResponse($request, $response);
+-                } elseif ($this->config->convertAdvanced && !is_null($request->getQueryParam('customConvert'))) {
+-                    // Advance convert.
+-                    return $this->getConvertedResponse($request, $response);
+-                }
++        try {
++            if ($this->config->convert && $request->getQueryParam('audio')) {
++                // Audio convert.
++                return $this->getAudioResponse($request, $response);
++            } elseif ($this->config->convertAdvanced && !is_null($request->getQueryParam('customConvert'))) {
++                // Advance convert.
++                return $this->getConvertedResponse($request, $response);
++            }
+ 
+-                // Regular download.
+-                return $this->getDownloadResponse($request, $response);
+-            } catch (PasswordException $e) {
+-                $frontController = new FrontController($this->container);
++            // Regular download.
++            return $this->getDownloadResponse($request, $response);
++        } catch (PasswordException $e) {
++            $frontController = new FrontController($this->container);
+ 
+-                return $frontController->password($request, $response);
+-            } catch (WrongPasswordException $e) {
+-                return $this->displayError($request, $response, $this->localeManager->t('Wrong password'));
+-            } catch (PlaylistConversionException $e) {
++            return $frontController->password($request, $response);
++        } catch (WrongPasswordException $e) {
++            return $this->displayError($request, $response, $this->localeManager->t('Wrong password'));
++        } catch (PlaylistConversionException $e) {
++            return $this->displayError(
++                $request,
++                $response,
++                $this->localeManager->t('Conversion of playlists is not supported.')
++            );
++        } catch (InvalidProtocolConversionException $e) {
++            if (in_array($this->video->protocol, ['m3u8', 'm3u8_native'])) {
+                 return $this->displayError(
+                     $request,
+                     $response,
+-                    $this->localeManager->t('Conversion of playlists is not supported.')
++                    $this->localeManager->t('Conversion of M3U8 files is not supported.')
+                 );
+-            } catch (InvalidProtocolConversionException $e) {
+-                if (in_array($this->video->protocol, ['m3u8', 'm3u8_native'])) {
+-                    return $this->displayError(
+-                        $request,
+-                        $response,
+-                        $this->localeManager->t('Conversion of M3U8 files is not supported.')
+-                    );
+-                } elseif ($this->video->protocol == 'http_dash_segments') {
+-                    return $this->displayError(
+-                        $request,
+-                        $response,
+-                        $this->localeManager->t('Conversion of DASH segments is not supported.')
+-                    );
+-                } else {
+-                    throw $e;
+-                }
++            } elseif ($this->video->protocol == 'http_dash_segments') {
++                return $this->displayError(
++                    $request,
++                    $response,
++                    $this->localeManager->t('Conversion of DASH segments is not supported.')
++                );
++            } else {
++                throw $e;
+             }
+-        } else {
+-            return $response->withRedirect($this->router->pathFor('index'));
+         }
+     }
+ 
+diff --git a/classes/Controller/FrontController.php b/classes/Controller/FrontController.php
+index c8c4b45..b379e7b 100644
+--- a/classes/Controller/FrontController.php
++++ b/classes/Controller/FrontController.php
+@@ -12,6 +12,7 @@ use Alltube\Library\Exception\WrongPasswordException;
+ use Alltube\Locale;
+ use Alltube\Middleware\CspMiddleware;
+ use Exception;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Exception\InvalidURLException;
+ use Slim\Http\StatusCode;
+ use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+ use Throwable;
+@@ -198,24 +199,21 @@ class FrontController extends BaseController
+      *
+      * @return Response HTTP response
+      * @throws AlltubeLibraryException
++     * @throws InvalidURLException
+      */
+     public function info(Request $request, Response $response): Response
+     {
+-        $url = $request->getQueryParam('url') ?: $request->getQueryParam('v');
++        $url = $this->getVideoPageUrl($request);
+ 
+-        if (isset($url) && !empty($url)) {
+-            $this->video = $this->downloader->getVideo($url, $this->getFormat($request), $this->getPassword($request));
++        $this->video = $this->downloader->getVideo($url, $this->getFormat($request), $this->getPassword($request));
+ 
+-            if ($this->config->convert && $request->getQueryParam('audio')) {
+-                // We skip the info page and get directly to the download.
+-                return $response->withRedirect(
+-                    $this->router->pathFor('download', [], $request->getQueryParams())
+-                );
+-            } else {
+-                return $this->getInfoResponse($request, $response);
+-            }
++        if ($this->config->convert && $request->getQueryParam('audio')) {
++            // We skip the info page and get directly to the download.
++            return $response->withRedirect(
++                $this->router->pathFor('download', [], $request->getQueryParams())
++            );
+         } else {
+-            return $response->withRedirect($this->router->pathFor('index'));
++            return $this->getInfoResponse($request, $response);
+         }
+     }
+ 
+diff --git a/classes/Controller/JsonController.php b/classes/Controller/JsonController.php
+index 9f916bc..fddef42 100644
+--- a/classes/Controller/JsonController.php
++++ b/classes/Controller/JsonController.php
+@@ -7,6 +7,8 @@
+ namespace Alltube\Controller;
+ 
+ use Alltube\Library\Exception\AlltubeLibraryException;
++use Exception;
++use Graby\HttpClient\Plugin\ServerSideRequestForgeryProtection\Exception\InvalidURLException;
+ use Slim\Http\Request;
+ use Slim\Http\Response;
+ use Slim\Http\StatusCode;
+@@ -23,13 +25,12 @@ class JsonController extends BaseController
+      * @param Response $response PSR-7 response
+      *
+      * @return Response HTTP response
+-     * @throws AlltubeLibraryException
+      */
+     public function json(Request $request, Response $response): Response
+     {
+-        $url = $request->getQueryParam('url');
++        try {
++            $url = $this->getVideoPageUrl($request);
+ 
+-        if (isset($url)) {
+             $this->video = $this->downloader->getVideo(
+                 $url,
+                 $this->getFormat($request),
+@@ -37,8 +38,8 @@ class JsonController extends BaseController
+             );
+ 
+             return $response->withJson($this->video->getJson());
+-        } else {
+-            return $response->withJson(['error' => 'You need to provide the url parameter'])
++        } catch (InvalidURLException $e) {
++            return $response->withJson(['error' => $e->getMessage()])
+                 ->withStatus(StatusCode::HTTP_BAD_REQUEST);
+         }
+     }

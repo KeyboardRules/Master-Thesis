@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j7g8-3qqg-8cvm",
+    "cve":  "CVE-2018-18546",
+    "cwe":  "CWE-89",
+    "repo":  "top-think/thinkphp",
+    "sha":  "9748cb80d2f24c89218f358ca2f5ab88ee33396f",
+    "status":  "ok",
+    "changed_php":  [
+                        "ThinkPHP/Library/Think/Db/Driver.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "ThinkPHP/Library/Think/Db/Driver.class.php"
+                    ],
+    "sink_hit":  true
+}

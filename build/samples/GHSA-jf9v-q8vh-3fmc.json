@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jf9v-q8vh-3fmc",
+    "cve":  "CVE-2021-32106",
+    "cwe":  "CWE-79",
+    "repo":  "icecoder/ICEcoder",
+    "sha":  "21d6ae0f2a3fce7d076ae430d48f5df56bd0f256",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/multiple-results.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "lib/multiple-results.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/multiple-results.php"
+                    ],
+    "sink_hit":  true
+}

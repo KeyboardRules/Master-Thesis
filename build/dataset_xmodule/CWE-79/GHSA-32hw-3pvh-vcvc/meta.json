@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-32hw-3pvh-vcvc",
+    "cve":  "CVE-2021-27909",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "942cb6992df619fdf1c181bfad9e25d5d4178b6f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Controller/CommonController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/CoreBundle/Controller/CommonController.php class extends Controller",
+                     "app/bundles/CoreBundle/Controller/CommonController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

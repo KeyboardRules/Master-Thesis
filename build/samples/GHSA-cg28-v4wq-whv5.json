@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-cg28-v4wq-whv5",
+    "cve":  "",
+    "cwe":  "CWE-94",
+    "repo":  "symfony/symfony",
+    "sha":  "3ffd495bb3cc4d2e24e35b2d83c5b909cab7e259",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Component/VarDumper/Cloner/Internal/NoDefault.php",
+                        "src/Symfony/Component/VarDumper/Cloner/Stub.php",
+                        "src/Symfony/Component/VarDumper/Tests/Cloner/StubTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Component/VarDumper/Cloner/Internal/NoDefault.php",
+                        "src/Symfony/Component/VarDumper/Cloner/Stub.php",
+                        "src/Symfony/Component/VarDumper/Tests/Cloner/StubTest.php"
+                    ],
+    "sink_hit":  false
+}

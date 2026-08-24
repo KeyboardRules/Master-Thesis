@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-86rg-8hc8-v82p",
+    "cve":  "CVE-2025-62365",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "30d3dd7e5f5e22a8c23c9db3ad90a731c005b008",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/functions.php",
+                        "includes/html/pages/device/alerts.inc.php",
+                        "includes/html/pages/device/logs.inc.php",
+                        "includes/html/pages/routing.inc.php",
+                        "includes/html/pages/search.inc.php",
+                        "includes/html/pages/tools.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "includes/html/pages/device/alerts.inc.php includes 6 project file(s)",
+                     "includes/html/pages/device/logs.inc.php includes 4 project file(s)",
+                     "includes/html/pages/routing.inc.php includes 1 project file(s)",
+                     "includes/html/pages/search.inc.php includes 1 project file(s)",
+                     "includes/html/pages/tools.inc.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

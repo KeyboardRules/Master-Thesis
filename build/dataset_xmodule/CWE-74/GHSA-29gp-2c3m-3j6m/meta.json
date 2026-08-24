@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-29gp-2c3m-3j6m",
+    "cve":  "CVE-2021-29454",
+    "cwe":  "CWE-74",
+    "repo":  "smarty-php/smarty",
+    "fix_commit":  "215d81a9fa3cd63d82fb3ab56ecaf97cf1e7db71",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "libs/plugins/function.math.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/UnitTests/TemplateSource/ValueTests/Math/MathTest.php class extends PHPUnit_Smarty"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

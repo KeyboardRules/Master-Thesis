@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8v7-x398-pxrf",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "a24c8260b1d048dc6a0836eb1be9a1ca2056e770",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "admin/code/LeftAndMain.php"
+                    ],
+    "evidence":  [
+                     "admin/code/LeftAndMain.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

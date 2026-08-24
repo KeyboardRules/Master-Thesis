@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-rhx4-hvx9-j387",
+    "cve":  "CVE-2025-30148",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "e99cfd62d160d145a76fcf9631e6b11226e42358",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Core/XssSanitiser.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Core/XssSanitiser.php class uses trait",
+                     "tests/php/Core/XssSanitiserTest.php class extends SapphireTest",
+                     "tests/php/Forms/HTMLEditor/HTMLEditorSanitiserTest.php class extends FunctionalTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

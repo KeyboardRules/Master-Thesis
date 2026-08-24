@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5pqf-54qp-32wx",
+    "cve":  "CVE-2026-26991",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "64b31da444369213eb4559ec1c304ebfaa0ba12c",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/device-group/index.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/device-group/index.blade.php"
+                    ],
+    "sink_hit":  false
+}

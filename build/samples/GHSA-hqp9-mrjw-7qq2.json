@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hqp9-mrjw-7qq2",
+    "cve":  "CVE-2023-38877",
+    "cwe":  "CWE-94",
+    "repo":  "gugoan/economizzer",
+    "sha":  "37308802dfe00d43df396a8afaa2096ece8b7b57",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/web.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "config/web.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "config/web.php"
+                    ],
+    "sink_hit":  false
+}

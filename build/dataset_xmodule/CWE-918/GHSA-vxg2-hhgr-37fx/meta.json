@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-vxg2-hhgr-37fx",
+    "cve":  "CVE-2026-35540",
+    "cwe":  "CWE-918",
+    "repo":  "roundcube/roundcubemail",
+    "fix_commit":  "27ec6cc9cb25e1ef8b4d4ef39ce76d619caa6870",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "program/actions/mail/index.php",
+                        "program/actions/utils/modcss.php",
+                        "program/lib/Roundcube/rcube_utils.php",
+                        "program/lib/Roundcube/rcube_washtml.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "program/actions/mail/index.php class extends rcmail_action",
+                     "program/actions/utils/modcss.php class extends rcmail_action",
+                     "tests/Framework/Utils.php class extends PHPUnit\\Framework\\TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

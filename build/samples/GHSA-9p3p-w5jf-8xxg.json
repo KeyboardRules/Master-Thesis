@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9p3p-w5jf-8xxg",
+    "cve":  "CVE-2025-30207",
+    "cwe":  "CWE-22",
+    "repo":  "getkirby/kirby",
+    "sha":  "3ebc9ad3f5adcbd4838ce60219f1c9a561231235",
+    "status":  "ok",
+    "changed_php":  [
+                        "router.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "router.php"
+                    ],
+    "sink_hit":  true
+}

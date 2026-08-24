@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9vh6-qfv6-vcqp",
+    "cve":  "CVE-2022-23064",
+    "cwe":  "CWE-74",
+    "repo":  "snipe/snipe-it",
+    "sha":  "0c4768fd2a11ac26a61814cef23a71061bfd8bcc",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Providers/AppServiceProvider.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Providers/AppServiceProvider.php class extends ServiceProvider"
+                 ],
+    "changed_all":  [
+                        ".env.example",
+                        "app/Providers/AppServiceProvider.php"
+                    ],
+    "sink_hit":  false
+}

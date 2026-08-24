@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4p75-5p53-65m9",
+    "cve":  "CVE-2024-45604",
+    "cwe":  "CWE-22",
+    "repo":  "contao/contao",
+    "fix_commit":  "63409c6bdfd95197d9906e229d765b630d45742e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/widgets/FileSelector.php"
+                    ],
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/widgets/FileSelector.php class extends Widget"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

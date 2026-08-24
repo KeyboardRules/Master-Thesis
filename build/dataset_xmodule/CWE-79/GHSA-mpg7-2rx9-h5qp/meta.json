@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mpg7-2rx9-h5qp",
+    "cve":  "CVE-2018-5478",
+    "cwe":  "CWE-79",
+    "repo":  "contao/core",
+    "fix_commit":  "3123d6527ae6c46087b0ad8061eb8651cb645b8d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "system/modules/newsletter/modules/ModuleUnsubscribe.php"
+                    ],
+    "evidence":  [
+                     "system/modules/newsletter/modules/ModuleUnsubscribe.php class extends \\Module"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

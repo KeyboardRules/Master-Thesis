@@ -1,0 +1,69 @@
+﻿diff --git a/src/helpers/DynamicMeta.php b/src/helpers/DynamicMeta.php
+index 04cd366..a8e377c 100644
+--- a/src/helpers/DynamicMeta.php
++++ b/src/helpers/DynamicMeta.php
+@@ -80,6 +80,7 @@ class DynamicMeta
+         $url = UrlHelper::stripQueryString($url);
+         // HTML decode the entities, then strip out any tags
+         $url = html_entity_decode($url, ENT_NOQUOTES, 'UTF-8');
++        $url = urldecode($url);
+         $url = strip_tags($url);
+ 
+         // If this is a >= 400 status code, set the canonical URL to nothing
+@@ -647,6 +648,7 @@ class DynamicMeta
+             $url = UrlHelper::absoluteUrlWithProtocol($url);
+ 
+             $url = $url ?? '';
++            $url = self::sanitizeUrl($url);
+             $language = $site->language;
+             $ogLanguage = LocalizationHelper::normalizeOgLocaleLanguage($language);
+             $hreflangLanguage = $language;
+diff --git a/src/helpers/Text.php b/src/helpers/Text.php
+index d77aece..26e7c08 100644
+--- a/src/helpers/Text.php
++++ b/src/helpers/Text.php
+@@ -128,15 +128,30 @@ class Text
+             $result = self::extractTextFromTags($field);
+         } else {
+             if (\is_array($field)) {
+-                $result = strip_tags((string)$field[0]);
++                $result = self::smartStripTags((string)$field[0]);
+             } else {
+-                $result = strip_tags((string)$field);
++                $result = self::smartStripTags((string)$field);
+             }
+         }
+ 
+         return $result;
+     }
+ 
++    /**
++     * Strip HTML tags, but replace them with a space rather than just eliminating them
++     *
++     * @param $str
++     * @return string
++     */
++    public static function smartStripTags($str)
++    {
++        $str = str_replace('<', ' <', $str);
++        $str = strip_tags($str);
++        $str = str_replace('  ', ' ', $str);
++
++        return $str;
++    }
++
+     /**
+      * Extract concatenated text from all of the tags in the $tagElement and
+      * return as a comma-delimited string
+diff --git a/src/helpers/UrlHelper.php b/src/helpers/UrlHelper.php
+index 3cfa711..3216e29 100644
+--- a/src/helpers/UrlHelper.php
++++ b/src/helpers/UrlHelper.php
+@@ -39,6 +39,7 @@ class UrlHelper extends CraftUrlHelper
+     {
+         $siteUrl = Seomatic::$settings->siteUrlOverride;
+         if (!empty($siteUrl)) {
++            $siteUrl = MetaValue::parseString($siteUrl);
+             return rtrim($siteUrl, '/').'/'.ltrim($path, '/');
+         }
+ 

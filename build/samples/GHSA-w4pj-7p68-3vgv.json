@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-w4pj-7p68-3vgv",
+    "cve":  "CVE-2020-11083",
+    "cwe":  "CWE-79",
+    "repo":  "octobercms/october",
+    "sha":  "9ecfb4867baae14a0d3f99f5b5c1e8a979ae8746",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/backend/ServiceProvider.php",
+                        "modules/backend/formwidgets/MarkdownEditor.php",
+                        "modules/backend/lang/en/lang.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/backend/ServiceProvider.php class extends ModuleServiceProvider",
+                     "modules/backend/formwidgets/MarkdownEditor.php class extends FormWidgetBase"
+                 ],
+    "changed_all":  [
+                        "modules/backend/ServiceProvider.php",
+                        "modules/backend/formwidgets/MarkdownEditor.php",
+                        "modules/backend/lang/en/lang.php"
+                    ],
+    "sink_hit":  true
+}

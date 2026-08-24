@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rg6w-c352-p8pg",
+    "cve":  "CVE-2022-43692",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "0bd65388e5a6d455d8b2469fc166f1b6fdf1abbb",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/blocks/express_entry_list/view.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "concrete/blocks/express_entry_list/view.php"
+                    ],
+    "sink_hit":  true
+}

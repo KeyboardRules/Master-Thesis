@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-3rpf-5rqv-689q",
+    "cve":  "CVE-2021-26120",
+    "cwe":  "CWE-94",
+    "repo":  "smarty-php/smarty",
+    "sha":  "165f1bd4d2eec328cfeaca517a725b46001de838",
+    "status":  "ok",
+    "changed_php":  [
+                        "libs/sysplugins/smarty_internal_compile_function.php",
+                        "tests/UnitTests/TemplateSource/TagTests/TemplateFunction/CompileFunctionTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libs/sysplugins/smarty_internal_compile_function.php class extends Smarty_Internal_CompileBase",
+                     "tests/UnitTests/TemplateSource/TagTests/TemplateFunction/CompileFunctionTest.php class extends PHPUnit_Smarty"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "libs/sysplugins/smarty_internal_compile_function.php",
+                        "tests/UnitTests/TemplateSource/TagTests/TemplateFunction/CompileFunctionTest.php"
+                    ],
+    "sink_hit":  true
+}

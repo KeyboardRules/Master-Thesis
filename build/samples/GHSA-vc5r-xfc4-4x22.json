@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vc5r-xfc4-4x22",
+    "cve":  "CVE-2022-0955",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/data-hub",
+    "sha":  "15d5b57af2466eebd3bbc531ead5dafa35d0a36e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/ConfigController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/ConfigController.php class extends \\Pimcore\\Bundle\\AdminBundle\\Controller\\AdminController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/ConfigController.php"
+                    ],
+    "sink_hit":  false
+}

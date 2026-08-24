@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-m9fq-c9hp-59g7",
+    "cve":  "CVE-2021-3785",
+    "cwe":  "CWE-79",
+    "repo":  "yourls/yourls",
+    "sha":  "1d8e224ebabb8a4c75b97f026950ed710faab0ff",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/functions-shorturls.php",
+                        "tests/tests/shorturl/shorturl.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/tests/shorturl/shorturl.php class extends PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "includes/functions-shorturls.php",
+                        "tests/tests/shorturl/shorturl.php"
+                    ],
+    "sink_hit":  false
+}

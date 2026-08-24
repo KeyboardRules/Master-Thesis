@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-8vm8-38pc-8xhh",
+    "cve":  "CVE-2023-3084",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "61b9b7d4e33bbaad2cd61a7ee988f9c22298bf1a",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/core/load.js.php",
+                        "pages/items.js.php",
+                        "pages/users.js.php",
+                        "sources/identify.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "pages/items.js.php includes 4 project file(s)",
+                     "pages/users.js.php includes 4 project file(s)",
+                     "sources/identify.php includes 79 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/core/load.js.php",
+                        "pages/items.js.php",
+                        "pages/users.js.php",
+                        "sources/identify.php"
+                    ],
+    "sink_hit":  true
+}

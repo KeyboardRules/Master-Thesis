@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-g59r-24g3-h7cm",
+    "cve":  "CVE-2025-64112",
+    "cwe":  "CWE-79",
+    "repo":  "statamic/cms",
+    "sha":  "e513751f433679ce698606e20c554a0c839987c1",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/collections/empty.blade.php",
+                        "resources/views/forms/show.blade.php",
+                        "resources/views/taxonomies/empty.blade.php",
+                        "resources/views/taxonomies/show.blade.php",
+                        "resources/views/usergroups/show.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 5 php files"
+                 ],
+    "changed_all":  [
+                        "resources/views/collections/empty.blade.php",
+                        "resources/views/forms/show.blade.php",
+                        "resources/views/taxonomies/empty.blade.php",
+                        "resources/views/taxonomies/show.blade.php",
+                        "resources/views/usergroups/show.blade.php"
+                    ],
+    "sink_hit":  false
+}

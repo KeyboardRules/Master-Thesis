@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-6m93-343m-3jrc",
+    "cve":  "CVE-2021-45394",
+    "cwe":  "CWE-79",
+    "repo":  "spipu/html2pdf",
+    "fix_commit":  "100a4d509abf8550765cf0e0da83e83abb422585",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Html2Pdf.php",
+                        "src/Parsing/Css.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Html2Pdf.php includes 1 project file(s)",
+                     "src/Tests/Html2PdfTest.php class extends AbstractTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

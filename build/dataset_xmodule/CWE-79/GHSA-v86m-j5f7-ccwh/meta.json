@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-v86m-j5f7-ccwh",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "fix_commit":  "00f0ebe37d78815adee26d5e80cf2250fe878647",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Model/Table/UserAgentsTable.php",
+                        "src/Utility/Purifier.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Model/Table/UserAgentsTable.php class extends Table"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

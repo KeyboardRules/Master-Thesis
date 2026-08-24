@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-qrcj-6fjw-3h9h",
+    "cve":  "CVE-2019-3847",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "070f24d006eab6b958eb083530de159b43c538ed",
+    "status":  "ok",
+    "changed_php":  [
+                        "course/loginas.php",
+                        "lang/en/moodle.php",
+                        "lib/moodlelib.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "course/loginas.php includes 2 project file(s)",
+                     "lib/moodlelib.php includes 47 project file(s)"
+                 ],
+    "changed_all":  [
+                        "course/loginas.php",
+                        "lang/en/moodle.php",
+                        "lib/moodlelib.php"
+                    ],
+    "sink_hit":  true
+}

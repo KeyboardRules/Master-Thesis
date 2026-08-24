@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v567-q267-phpg",
+    "cve":  "CVE-2022-0257",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "dfaf78b26fb77990267c0cc05b9fcb9f8de7b66d",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/EcommerceFrameworkBundle/Controller/PricingController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/EcommerceFrameworkBundle/Controller/PricingController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/EcommerceFrameworkBundle/Controller/PricingController.php",
+                        "bundles/EcommerceFrameworkBundle/Resources/public/js/pricing/config/panel.js"
+                    ],
+    "sink_hit":  false
+}

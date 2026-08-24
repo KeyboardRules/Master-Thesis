@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-cjfx-qhwm-hf99",
+    "cve":  "CVE-2026-25513",
+    "cwe":  "CWE-89",
+    "repo":  "NeoRazorX/facturascripts",
+    "fix_commit":  "1b6cdfa9ee1bb3365ea4a4ad753452035a027605",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Core/Base/DataBase/PostgresqlEngine.php",
+                        "Core/DbQuery.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "Core/Base/DataBase/PostgresqlEngine.php class extends DataBaseEngine",
+                     "Test/Core/DbQueryTest.php class extends TestCase",
+                     "Test/Core/DbQueryTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

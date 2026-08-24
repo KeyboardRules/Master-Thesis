@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3r5c-h7g6-cqw7",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "765832f0dc5f6cfb296a82e089b701066f27bcef",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classes/class.js"
+                    ],
+    "sink_hit":  false
+}

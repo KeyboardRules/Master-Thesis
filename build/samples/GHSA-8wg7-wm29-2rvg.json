@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-8wg7-wm29-2rvg",
+    "cve":  "CVE-2026-32261",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/webhooks",
+    "sha":  "88344991a68b07145567c46dfd0ae3328c521f62",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Plugin.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Plugin.php class extends \\craft\\base\\Plugin"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json",
+                        "composer.lock",
+                        "src/Plugin.php"
+                    ],
+    "sink_hit":  false
+}

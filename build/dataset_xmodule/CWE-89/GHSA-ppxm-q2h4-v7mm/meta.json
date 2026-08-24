@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ppxm-q2h4-v7mm",
+    "cve":  "CVE-2023-1545",
+    "cwe":  "CWE-89",
+    "repo":  "nilsteampassnet/teampass",
+    "fix_commit":  "4780252fdb600ef2ec2758f17a37d738570cbe66",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "api/Model/AuthModel.php"
+                    ],
+    "evidence":  [
+                     "api/Model/AuthModel.php includes 4 project file(s)",
+                     "api/Model/AuthModel.php class extends Database"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

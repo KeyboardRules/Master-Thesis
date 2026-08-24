@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rjpm-qmq7-q85w",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "symfony/routing",
+    "fix_commit":  "769e8e6584c5d13e7c6f51aa77a9d5f977fec463",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "evidence":  [
+                     "Loader/XmlFileLoader.php class extends FileLoader"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

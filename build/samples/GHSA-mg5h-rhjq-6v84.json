@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-mg5h-rhjq-6v84",
+    "cve":  "CVE-2022-3766",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "c7904f2236c6c0dd64c2226b90c30af0f7e5a72d",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/search.php",
+                        "phpmyfaq/src/phpMyFAQ/Strings.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "phpmyfaq/index.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/search.php",
+                        "phpmyfaq/src/phpMyFAQ/Strings.php"
+                    ],
+    "sink_hit":  true
+}

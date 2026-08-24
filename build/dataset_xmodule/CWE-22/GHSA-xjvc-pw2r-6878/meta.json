@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-xjvc-pw2r-6878",
+    "cve":  "CVE-2026-41887",
+    "cwe":  "CWE-22",
+    "repo":  "flarum/framework",
+    "fix_commit":  "2d90a1f19f0e46f8c7e1b07c48ba74b5e38f8410",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "framework/core/src/Forum/ValidateCustomLess.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "framework/core/tests/integration/api/settings/SetTest.php class extends TestCase",
+                     "framework/core/tests/integration/api/settings/SetTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

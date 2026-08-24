@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-gjg7-qfvp-9hm4",
+    "cve":  "CVE-2022-4093",
+    "cwe":  "CWE-89",
+    "repo":  "dolibarr/dolibarr",
+    "fix_commit":  "7c1eac9774bd1fed0b7b4594159f2ac2d12a4011",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/contact/list.php",
+                        "htdocs/core/lib/website.lib.php",
+                        "htdocs/core/modules/import/import_csv.modules.php",
+                        "htdocs/core/modules/import/import_xlsx.modules.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "htdocs/contact/list.php includes 16 project file(s)",
+                     "htdocs/core/lib/website.lib.php includes 4 project file(s)",
+                     "htdocs/core/modules/import/import_csv.modules.php includes 2 project file(s)",
+                     "htdocs/core/modules/import/import_csv.modules.php class extends ModeleImports",
+                     "htdocs/core/modules/import/import_xlsx.modules.php includes 5 project file(s)",
+                     "htdocs/core/modules/import/import_xlsx.modules.php class extends ModeleImports"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

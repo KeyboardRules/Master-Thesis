@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-w6x2-jg8h-p6mp",
+    "cve":  "CVE-2023-30451",
+    "cwe":  "CWE-22",
+    "repo":  "TYPO3/typo3",
+    "sha":  "205115cca3d67594a12d0195c937da0e51eb494a",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php",
+                        "typo3/sysext/core/Classes/Utility/GeneralUtility.php",
+                        "typo3/sysext/core/Classes/Utility/PathUtility.php",
+                        "typo3/sysext/core/Tests/Unit/Utility/PathUtilityTest.php",
+                        "typo3/sysext/filelist/Classes/Controller/FileListController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php class extends AbstractHierarchicalFilesystemDriver",
+                     "typo3/sysext/core/Tests/Unit/Utility/PathUtilityTest.php class extends UnitTestCase",
+                     "typo3/sysext/filelist/Classes/Controller/FileListController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Resource/Driver/LocalDriver.php",
+                        "typo3/sysext/core/Classes/Utility/GeneralUtility.php",
+                        "typo3/sysext/core/Classes/Utility/PathUtility.php",
+                        "typo3/sysext/core/Configuration/DefaultConfigurationDescription.yaml",
+                        "typo3/sysext/core/Documentation/Changelog/11.5.x/Important-102800-FileAbstractionLayerEnforcesAbsolutePathsToMatchProjectRootOrLockRootPath.rst",
+                        "typo3/sysext/core/Tests/Unit/Utility/PathUtilityTest.php",
+                        "typo3/sysext/filelist/Classes/Controller/FileListController.php",
+                        "typo3/sysext/filelist/Resources/Private/Language/locallang_mod_file_list.xlf"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,39 @@
+﻿diff --git a/src/Admin/Controllers/AdminBackupController.php b/src/Admin/Controllers/AdminBackupController.php
+index 684a9a7..de7a88d 100644
+--- a/src/Admin/Controllers/AdminBackupController.php
++++ b/src/Admin/Controllers/AdminBackupController.php
+@@ -22,10 +22,11 @@ class AdminBackupController extends RootAdminController
+             ->get()
+             ->toArray();
+ 
++        $listFiles = glob(storage_path() . "/backups/*.sql");
+         $download = request('download') ?? '';
+         if ($download) {
+             $file = storage_path() . "/backups/" . $download;
+-            if (file_exists($file)) {
++            if (file_exists($file) && in_array($file, $listFiles)) {
+                 $headers = array(
+                     'Content-Type' => 'application/octet-stream',
+                 );
+@@ -33,7 +34,7 @@ class AdminBackupController extends RootAdminController
+             }
+         }
+         $arrFiles = [];
+-        foreach (glob(storage_path() . "/backups/*.sql") as $file) {
++        foreach ($listFiles as $file) {
+             if (file_exists($file)) {
+                 $fileInfo         = [];
+                 $fileInfo['path'] = $file;
+diff --git a/src/Config/s-cart.php b/src/Config/s-cart.php
+index c5f13f7..7890176 100644
+--- a/src/Config/s-cart.php
++++ b/src/Config/s-cart.php
+@@ -1,7 +1,7 @@
+ <?php
+ return [
+     'core'             => '6.7',
+-    'core-sub-version' => '6.7.1',
++    'core-sub-version' => '6.7.2',
+     'homepage'         => 'https://s-cart.org',
+     'name'             => 'S-Cart',
+     'github'           => 'https://github.com/s-cart/s-cart',

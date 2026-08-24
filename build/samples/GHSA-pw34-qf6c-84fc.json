@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pw34-qf6c-84fc",
+    "cve":  "CVE-2016-2040",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "75a55824012406a08c4debf5ddb7ae41c32a7dbc",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/DbSearch.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "libraries/DbSearch.class.php"
+                    ],
+    "sink_hit":  false
+}

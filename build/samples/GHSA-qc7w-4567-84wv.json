@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-qc7w-4567-84wv",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zendframework",
+    "sha":  "225a8c9f1c3bc08c0bddf22486a8a39ff7186ac1",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Json/Json.php",
+                        "library/Zend/Xml/Exception/ExceptionInterface.php",
+                        "library/Zend/Xml/Exception/InvalidArgumentException.php",
+                        "library/Zend/Xml/Exception/RuntimeException.php",
+                        "library/Zend/Xml/Security.php",
+                        "library/Zend/XmlRpc/Fault.php",
+                        "library/Zend/XmlRpc/Response.php",
+                        "tests/ZendTest/Xml/SecurityTest.php",
+                        "tests/ZendTest/XmlRpc/FaultTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "tests/ZendTest/XmlRpc/FaultTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "library/Zend/Json/Json.php",
+                        "library/Zend/Xml/Exception/ExceptionInterface.php",
+                        "library/Zend/Xml/Exception/InvalidArgumentException.php",
+                        "library/Zend/Xml/Exception/RuntimeException.php",
+                        "library/Zend/Xml/Security.php",
+                        "library/Zend/XmlRpc/Fault.php",
+                        "library/Zend/XmlRpc/Response.php",
+                        "tests/ZendTest/Xml/SecurityTest.php",
+                        "tests/ZendTest/XmlRpc/FaultTest.php"
+                    ],
+    "sink_hit":  true
+}

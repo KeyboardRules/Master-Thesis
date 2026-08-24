@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-29cq-5w36-x7w3",
+    "cve":  "CVE-2025-54068",
+    "cwe":  "CWE-94",
+    "repo":  "livewire/livewire",
+    "sha":  "ef04be759da41b14d2d129e670533180a44987dc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Mechanisms/HandleComponents/HandleComponents.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Mechanisms/HandleComponents/HandleComponents.php class extends Mechanism"
+                 ],
+    "changed_all":  [
+                        "src/Mechanisms/HandleComponents/HandleComponents.php"
+                    ],
+    "sink_hit":  false
+}

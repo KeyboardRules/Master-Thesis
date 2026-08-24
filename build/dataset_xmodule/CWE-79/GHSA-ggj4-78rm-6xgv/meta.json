@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-ggj4-78rm-6xgv",
+    "cve":  "CVE-2023-43647",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "fix_commit":  "eb5977533d05db4f3bb03bd19630b66052799b2e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Elements/admin/uploader_files/index_list.php",
+                        "app/webroot/theme/admin-third/Elements/admin/uploader_files/index_panel.php",
+                        "app/webroot/theme/admin-third/FeedConfigs/admin/preview.php",
+                        "lib/Baser/Plugin/Feed/View/FeedConfigs/admin/preview.php",
+                        "lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php",
+                        "lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_list.php",
+                        "lib/Baser/Plugin/Uploader/View/Elements/admin/uploader_files/index_panel.php",
+                        "lib/Baser/View/Helper/BcUploadHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "lib/Baser/Plugin/Mail/View/Helper/MaildataHelper.php class extends BcTextHelper",
+                     "lib/Baser/View/Helper/BcUploadHelper.php class extends BcAppHelper"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

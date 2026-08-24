@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5w74-jx7m-x6hv",
+    "cve":  "CVE-2018-8071",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "3add236e9cc00ea9b211b52cccc4660379b2ee8b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Views/Theme/list.html.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Views/Theme/list.html.php"
+                    ],
+    "sink_hit":  true
+}

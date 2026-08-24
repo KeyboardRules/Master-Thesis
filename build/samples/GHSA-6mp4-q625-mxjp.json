@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6mp4-q625-mxjp",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "YOURLS/YOURLS",
+    "sha":  "b1c6100e0aa6fef58c9c1a394ccc19352c3a480a",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/functions-api.php",
+                        "includes/functions-formatting.php",
+                        "tests/tests/format/JsonpCallbackTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "includes/functions-api.php",
+                        "includes/functions-formatting.php",
+                        "tests/tests/format/JsonpCallbackTest.php"
+                    ],
+    "sink_hit":  true
+}

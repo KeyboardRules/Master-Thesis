@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-9hh2-8cw6-hfv7",
+    "cve":  "CVE-2010-5100",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "9bb2fe60d8938048c9049e2d660c0ae8409b21d4",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/install/mod/class.tx_install.php",
+                        "typo3/sysext/install/updates/class.tx_coreupdates_compatversion.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "typo3/sysext/install/mod/class.tx_install.php includes 17 project file(s)",
+                     "typo3/sysext/install/mod/class.tx_install.php class extends t3lib_install"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "typo3/sysext/install/mod/class.tx_install.php",
+                        "typo3/sysext/install/updates/class.tx_coreupdates_compatversion.php"
+                    ],
+    "sink_hit":  true
+}

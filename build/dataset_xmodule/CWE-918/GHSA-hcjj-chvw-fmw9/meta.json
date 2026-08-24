@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hcjj-chvw-fmw9",
+    "cve":  "CVE-2026-42194",
+    "cwe":  "CWE-918",
+    "repo":  "Admidio/admidio",
+    "fix_commit":  "f6b7a966abe4d75e9f707d665d7b4b5570e3185a",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/sso/fetch_metadata.php"
+                    ],
+    "evidence":  [
+                     "modules/sso/fetch_metadata.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

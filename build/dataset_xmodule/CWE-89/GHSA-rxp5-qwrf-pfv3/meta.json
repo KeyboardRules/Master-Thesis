@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-rxp5-qwrf-pfv3",
+    "cve":  "CVE-2023-3673",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "a06ce0abdba19ae0eefc38b035e677f8f0c2bce9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/LogController.php",
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php",
+                        "bundles/AdminBundle/Helper/QueryParams.php",
+                        "models/Search/Backend/Data/Listing.php",
+                        "models/Translation/Listing.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "bundles/AdminBundle/Controller/Admin/LogController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController",
+                     "models/Search/Backend/Data/Listing.php class extends \\Pimcore\\Model\\Listing\\AbstractListing",
+                     "models/Translation/Listing.php class extends Model\\Listing\\AbstractListing"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

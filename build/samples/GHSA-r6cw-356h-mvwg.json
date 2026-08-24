@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r6cw-356h-mvwg",
+    "cve":  "CVE-2023-0788",
+    "cwe":  "CWE-94",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "77b42b9d0be3990ee7389207a71528b304b03039",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/ajaxservice.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "phpmyfaq/ajaxservice.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/ajaxservice.php"
+                    ],
+    "sink_hit":  false
+}

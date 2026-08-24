@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4w6c-3hcx-rfj5",
+    "cve":  "CVE-2017-7309",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "0243375e32bc24878e309f3d6ef6d8cfb3e2f278",
+    "status":  "ok",
+    "changed_php":  [
+                        "adm_config_report.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "adm_config_report.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "adm_config_report.php"
+                    ],
+    "sink_hit":  true
+}

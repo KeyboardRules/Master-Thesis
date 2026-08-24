@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-66q5-cj5g-wrfx",
+    "cve":  "CVE-2026-50183",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "7292129eaee5f609beae103b5cb387d55f17b877",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/YouTubeAPI/gallerySection.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "plugin/YouTubeAPI/gallerySection.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fhcx-f7jg-jx3f",
+    "cve":  "CVE-2022-25774",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "e6d58de241b8c34126042dcb314d60eb5fc7b151",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/DashboardBundle/Controller/DashboardController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/bundles/DashboardBundle/Controller/DashboardController.php class extends AbstractFormController"
+                 ],
+    "changed_all":  [
+                        "app/bundles/DashboardBundle/Controller/DashboardController.php"
+                    ],
+    "sink_hit":  true
+}

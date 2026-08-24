@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-83xq-8jxj-4rxm",
+    "cve":  "CVE-2026-33493",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "sha":  "e110ff542acdd7e3b81bdd02b8402b9f6a61ad78",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/import.json.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "objects/import.json.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "objects/import.json.php"
+                    ],
+    "sink_hit":  true
+}

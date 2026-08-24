@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-3432-fmrf-7vmh",
+    "cve":  "CVE-2025-48883",
+    "cwe":  "CWE-79",
+    "repo":  "chrome-php/chrome",
+    "sha":  "34b2b8d1691f4e3940b1e1e95d388fffe81169c8",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Dom/Selector/CssSelector.php",
+                        "tests/PageTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/PageTest.php class extends BaseTestCase"
+                 ],
+    "changed_all":  [
+                        "src/Dom/Selector/CssSelector.php",
+                        "tests/PageTest.php",
+                        "tests/resources/static-web/elementLoad.html"
+                    ],
+    "sink_hit":  false
+}

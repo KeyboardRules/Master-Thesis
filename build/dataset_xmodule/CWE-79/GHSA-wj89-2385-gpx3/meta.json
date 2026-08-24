@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wj89-2385-gpx3",
+    "cve":  "CVE-2026-29176",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "da143df084563ddf0929d7c261bcc11d312e8004",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/fieldlayoutelements/PurchasableStockField.php"
+                    ],
+    "evidence":  [
+                     "src/fieldlayoutelements/PurchasableStockField.php class extends BaseNativeField"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

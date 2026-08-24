@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q4c2-q63g-62j7",
+    "cve":  "CVE-2018-20755",
+    "cwe":  "CWE-79",
+    "repo":  "modxcms/revolution",
+    "sha":  "a12920f1698d3be8e6ba07d746da46e511b911b6",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/model/modx/moduser.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core/model/modx/moduser.class.php class extends modPrincipal"
+                 ],
+    "changed_all":  [
+                        "core/model/modx/moduser.class.php"
+                    ],
+    "sink_hit":  false
+}

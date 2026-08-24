@@ -1,0 +1,120 @@
+﻿diff --git a/common/class.tx_dlf_helper.php b/common/class.tx_dlf_helper.php
+index 7211979..9b81c53 100644
+--- a/common/class.tx_dlf_helper.php
++++ b/common/class.tx_dlf_helper.php
+@@ -846,6 +846,26 @@ class tx_dlf_helper {
+ 
+     }
+ 
++    /**
++     * Determine whether or not $url is a valid URL using HTTP or HTTPS scheme.
++     *
++     * @param string $url
++     *
++     * @return bool
++     */
++    public static function isValidHttpUrl($url)
++    {
++        if (!\TYPO3\CMS\Core\Utility\GeneralUtility::isValidUrl($url)) {
++            return false;
++        }
++
++        $parsed = parse_url($url);
++        $scheme = isset($parsed['scheme']) ? $parsed['scheme'] : '';
++        $schemeNormalized = strtolower($scheme);
++
++        return $schemeNormalized === 'http' || $schemeNormalized === 'https';
++    }
++
+     /**
+      * Load value from user's session.
+      *
+diff --git a/ext_emconf.php b/ext_emconf.php
+index ce7c858..7b61c29 100644
+--- a/ext_emconf.php
++++ b/ext_emconf.php
+@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = array (
+     'uploadfolder' => TRUE,
+     'createDirs' => '',
+     'clearCacheOnLoad' => FALSE,
+-    'version' => '2.3.1',
++    'version' => '2.3.2',
+     'constraints' => array (
+         'depends' => array (
+             'php' => '7.0.0-',
+diff --git a/ext_localconf.php b/ext_localconf.php
+index 525baf1..7da6461 100644
+--- a/ext_localconf.php
++++ b/ext_localconf.php
+@@ -75,9 +75,10 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array
+ // Register AJAX eID handlers.
+ $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['tx_dlf_search_suggest'] = 'EXT:'.$_EXTKEY.'/plugins/search/class.tx_dlf_search_suggest.php';
+ 
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['tx_dlf_geturl_eid'] = 'EXT:'.$_EXTKEY.'/plugins/pageview/class.tx_dlf_geturl_eid.php';
+-
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['tx_dlf_geturl_eid'] = 'EXT:'.$_EXTKEY.'/plugins/pageview/class.tx_dlf_geturl_eid.php';
++$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['dlf']);
++if (!empty($extConf) && $extConf['enableInternalProxy']) {
++    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['tx_dlf_geturl_eid'] = 'EXT:'.$_EXTKEY.'/plugins/pageview/class.tx_dlf_geturl_eid.php';
++}
+ 
+ $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['tx_dlf_search_in_document_eid'] = 'EXT:'.$_EXTKEY.'/plugins/toolbox/tools/searchindocument/class.tx_dlf_search_in_document_eid.php';
+ 
+diff --git a/plugins/pageview/class.tx_dlf_geturl_eid.php b/plugins/pageview/class.tx_dlf_geturl_eid.php
+index dc2b96e..9c9dc90 100644
+--- a/plugins/pageview/class.tx_dlf_geturl_eid.php
++++ b/plugins/pageview/class.tx_dlf_geturl_eid.php
+@@ -47,22 +47,18 @@ class tx_dlf_geturl_eid extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
+         $this->scriptRelPath = 'plugins/pageview/class.tx_dlf_geturl_eid.php';
+ 
+         $url = GeneralUtility::_GP('url');
++        if (!tx_dlf_helper::isValidHttpUrl($url)) {
++            throw new \InvalidArgumentException('No valid url passed!', 1580482805);
++        }
+ 
+-        $includeHeader = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange(GeneralUtility::_GP('header'), 0, 2, 0);
+-
+-        // first we fetch header separately
+-        $fetchedHeader = GeneralUtility::getUrl($url, 2);
+-
+-        if ($includeHeader == 0) {
+-
+-            $fetchedData = GeneralUtility::getUrl($url, $includeHeader);
+-
+-        } else {
+-
+-            $fetchedData = $fetchedHeader;
+-
++        // get and verify the uHash
++        $uHash = (string) GeneralUtility::_GP('uHash');
++        if (!hash_equals(GeneralUtility::hmac($url, 'PageViewProxy'), $uHash)) {
++            throw new \InvalidArgumentException('No valid uHash passed!', 1643796565);
+         }
+ 
++        $fetchedData = GeneralUtility::getUrl($url);
++
+         // add some self calculated header tags
+         header('Last-Modified: '.gmdate("D, d M Y H:i:s").'GMT');
+         header('Cache-Control: max-age=3600, must-revalidate');
+diff --git a/plugins/pageview/class.tx_dlf_pageview.php b/plugins/pageview/class.tx_dlf_pageview.php
+index 58ada59..30717e0 100644
+--- a/plugins/pageview/class.tx_dlf_pageview.php
++++ b/plugins/pageview/class.tx_dlf_pageview.php
+@@ -250,7 +250,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
+                     // Configure @action URL for form.
+                     $linkConf = array (
+                         'parameter' => $GLOBALS['TSFE']->id,
+-                        'additionalParams' => '&eID=tx_dlf_geturl_eid&url='.urlencode($image['url']),
++                        'additionalParams' => '&eID=tx_dlf_geturl_eid&url='.urlencode($image['url']) . '&uHash=' . \TYPO3\CMS\Core\Utility\GeneralUtility::hmac($image['url'], 'PageViewProxy'),
+                     );
+ 
+                     $image['url'] = $this->cObj->typoLink_URL($linkConf);
+@@ -297,7 +297,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
+             // Configure @action URL for form.
+             $linkConf = array (
+                 'parameter' => $GLOBALS['TSFE']->id,
+-                'additionalParams' => '&eID=tx_dlf_geturl_eid&url='.urlencode($fulltext['url']),
++                'additionalParams' => '&eID=tx_dlf_geturl_eid&url='.urlencode($fulltext['url']) . '&uHash=' . \TYPO3\CMS\Core\Utility\GeneralUtility::hmac($fulltext['url'], 'PageViewProxy'),
+             );
+ 
+             $fulltext['url'] = $this->cObj->typoLink_URL($linkConf);

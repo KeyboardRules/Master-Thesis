@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3fm8-7gpf-p8fm",
+    "cve":  "CVE-2017-7390",
+    "cwe":  "CWE-79",
+    "repo":  "andreas83/SocialNetwork",
+    "sha":  "1b0799d08fda2f3099beaae1234b8b468deb8db1",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/template/pw_forgot.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "app/template/pw_forgot.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "app/template/pw_forgot.php"
+                    ],
+    "sink_hit":  true
+}

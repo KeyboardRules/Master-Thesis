@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fq95-rx4q-qgg2",
+    "cve":  "CVE-2023-2341",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "66f1089fb1b9bcd575bfce9b1d4abb0f0499df11",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/LoginController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/LoginController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

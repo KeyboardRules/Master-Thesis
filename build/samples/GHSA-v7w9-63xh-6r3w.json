@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v7w9-63xh-6r3w",
+    "cve":  "CVE-2024-50351",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "6a14a9bd767c6e452e4df77a24126c3eeb93dcbf",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/functions.php"
+                    ],
+    "sink_hit":  true
+}

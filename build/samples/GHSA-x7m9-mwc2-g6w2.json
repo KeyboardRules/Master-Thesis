@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x7m9-mwc2-g6w2",
+    "cve":  "CVE-2026-45697",
+    "cwe":  "CWE-1336",
+    "repo":  "verbb/formie",
+    "sha":  "f690d5623163ce2a95da305238d6367575486ee3",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/fields/formfields/Hidden.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/fields/formfields/Hidden.php class extends FormField"
+                 ],
+    "changed_all":  [
+                        "src/fields/formfields/Hidden.php"
+                    ],
+    "sink_hit":  false
+}

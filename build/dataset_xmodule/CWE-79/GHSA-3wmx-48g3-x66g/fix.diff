@@ -1,0 +1,42 @@
+﻿diff --git a/core/modules/field/views/field.views.inc b/core/modules/field/views/field.views.inc
+index 42ef6d3..31efa5e 100644
+--- a/core/modules/field/views/field.views.inc
++++ b/core/modules/field/views/field.views.inc
+@@ -193,8 +193,8 @@ function field_views_field_default_views_data($field) {
+     $data[$table][$old_column]['field']['moved to'] = array($table, $column);
+     $data[$table][$column] = array(
+       'group' => $group,
+-      'title' => $label,
+-      'title short' => $label,
++      'title' => check_plain($label),
++      'title short' => check_plain($label),
+       'help' =>  t('Appears in: @bundles.', array('@bundles' => implode(', ', $bundles_names))),
+     );
+ 
+@@ -212,7 +212,7 @@ function field_views_field_default_views_data($field) {
+             $aliases[] = array(
+               'base' => $current_tables[$entity_name],
+               'group' => $groups[$entity_name],
+-              'title' => $label_name,
++              'title' => check_plain($label_name),
+               'help' => t('This is an alias of @group: @field.', array('@group' => $group_name, '@field' => $label)),
+             );
+           }
+diff --git a/core/modules/views/views.api.php b/core/modules/views/views.api.php
+index 69f8fca..a12b464 100644
+--- a/core/modules/views/views.api.php
++++ b/core/modules/views/views.api.php
+@@ -338,9 +338,10 @@ function hook_views_data() {
+   );
+ 
+   // Next, describe each of the individual fields in this table to Views. This
+-  // is done by describing $data['example_table']['FIELD_NAME']. This part of
+-  // the array may then have further entries:
+-  //   - title: The label for the table field, as presented in Views.
++  // is done by describing $data['example_table']['FIELD_NAME']. All text should
++  // both be sanitized and translated or run through t() before being passed to
++  // the views UI. Keys are as follows:
++  //   - title: A sanitized label for the table field, as presented in Views.
+   //   - help: The description text for the table field.
+   //   - relationship: A description of any relationship handler for the table
+   //     field.

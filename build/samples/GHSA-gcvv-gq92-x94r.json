@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gcvv-gq92-x94r",
+    "cve":  "CVE-2021-37711",
+    "cwe":  "CWE-918",
+    "repo":  "shopware/platform",
+    "sha":  "b9f330e652b743dd2374c02bbe68f28b59a3f502",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Content/Media/File/FileUrlValidator.php",
+                        "src/Core/Content/Test/Media/File/FileUrlValidatorTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/Core/Content/Media/File/FileUrlValidator.php",
+                        "src/Core/Content/Test/Media/File/FileUrlValidatorTest.php"
+                    ],
+    "sink_hit":  false
+}

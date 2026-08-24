@@ -1,0 +1,26 @@
+﻿diff --git a/includes/EmbedService/EmbedHtmlFormatter.php b/includes/EmbedService/EmbedHtmlFormatter.php
+index 03993e2..23958b3 100644
+--- a/includes/EmbedService/EmbedHtmlFormatter.php
++++ b/includes/EmbedService/EmbedHtmlFormatter.php
+@@ -101,7 +101,7 @@ final class EmbedHtmlFormatter {
+ 				->get( 'EmbedVideoRequireConsent' );
+ 			if ( $consent === true ) {
+ 				$iframeConfig = sprintf(
+-					"data-iframeconfig='%s'",
++					"data-mw-iframeconfig='%s'",
+ 					$service->getIframeConfig( $width, $height )
+ 				);
+ 			}
+diff --git a/includes/EmbedVideo.php b/includes/EmbedVideo.php
+index 6ba58e6..b5104a1 100644
+--- a/includes/EmbedVideo.php
++++ b/includes/EmbedVideo.php
+@@ -183,7 +183,7 @@ class EmbedVideo {
+ 		}
+ 
+ 		$linkConfig = [
+-			'data-iframeconfig' => $ev->service->getIframeConfig( $ev->args['width'], $ev->args['height'] ),
++			'data-mw-iframeconfig' => $ev->service->getIframeConfig( $ev->args['width'], $ev->args['height'] ),
+ 			'data-service' => $ev->args['service'],
+ 			'data-player' => $ev->args['player'] ?? 'default',
+ 			'class' => 'embedvideo-evl vplink',

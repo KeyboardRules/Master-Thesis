@@ -1,0 +1,42 @@
+﻿diff --git a/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php b/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php
+index 6333c4fd7..2c7391a00 100644
+--- a/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php
++++ b/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerTrait.php
+@@ -83,6 +83,16 @@ class SymfonyTestsListenerTrait
+         }
+     }
+ 
++    public function __sleep()
++    {
++        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
++    }
++
++    public function __wakeup()
++    {
++        throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
++    }
++
+     public function __destruct()
+     {
+         if (0 < $this->state) {
+diff --git a/src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php b/src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php
+index 274eb7325..5510898b8 100644
+--- a/src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php
++++ b/src/Symfony/Component/Cache/Traits/FilesystemCommonTrait.php
+@@ -116,6 +116,16 @@ trait FilesystemCommonTrait
+         throw new \ErrorException($message, 0, $type, $file, $line);
+     }
+ 
++    public function __sleep()
++    {
++        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
++    }
++
++    public function __wakeup()
++    {
++        throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
++    }
++
+     public function __destruct()
+     {
+         if (method_exists(parent::class, '__destruct')) {

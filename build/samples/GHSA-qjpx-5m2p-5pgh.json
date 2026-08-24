@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qjpx-5m2p-5pgh",
+    "cve":  "CVE-2025-27617",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "19a8520895484e68fd254773e32476565d91deea",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition/Data/Extension/RelationFilterConditionParser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "models/DataObject/ClassDefinition/Data/Extension/RelationFilterConditionParser.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-8xfq-7f6m-mpmf",
+    "cve":  "CVE-2025-51489",
+    "cwe":  "CWE-434",
+    "repo":  "moonshine-software/moonshine",
+    "fix_commit":  "7102fb113627870fb1cb7176e1d0d95bb47a7fd4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Laravel/src/Http/Requests/ProfileFormRequest.php",
+                        "src/Laravel/src/Resources/MoonShineUserResource.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Laravel/src/Http/Requests/ProfileFormRequest.php class extends MoonShineFormRequest",
+                     "src/Laravel/src/Resources/MoonShineUserResource.php class extends ModelResource"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

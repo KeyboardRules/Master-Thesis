@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-p4ww-mcp9-j6f2",
+    "cve":  "CVE-2025-66300",
+    "cwe":  "CWE-22",
+    "repo":  "getgrav/grav",
+    "fix_commit":  "ed640a13143c4177af013cf001969ed2c5e197ee",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/src/Grav/Common/Backup/Backups.php",
+                        "system/src/Grav/Common/Language/Language.php",
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "system/src/Grav/Common/Twig/Extension/GravExtension.php class extends AbstractExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

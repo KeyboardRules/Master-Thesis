@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2c67-p4xh-m34w",
+    "cve":  "CVE-2023-2342",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "42a5bbe5f16b97371fdbfdcf2bb3ee759dea8564",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "models/WebsiteSetting.php"
+                    ],
+    "evidence":  [
+                     "models/WebsiteSetting.php class extends AbstractModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

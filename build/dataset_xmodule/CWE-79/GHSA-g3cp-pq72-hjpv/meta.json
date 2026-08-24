@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-g3cp-pq72-hjpv",
+    "cve":  "CVE-2025-49579",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-skins-Citizen",
+    "fix_commit":  "54c8717d45ce1594918f11cb9ce5d0ccd8dfee65",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "includes/Partials/Drawer.php",
+                        "includes/Partials/PageTools.php",
+                        "includes/SkinCitizen.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/Partials/Drawer.php class extends Partial",
+                     "includes/Partials/PageTools.php class extends Partial",
+                     "includes/SkinCitizen.php class extends SkinMustache",
+                     "includes/SkinCitizen.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

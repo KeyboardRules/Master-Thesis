@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-qmp9-2xwj-m6m9",
+    "cve":  "CVE-2024-22406",
+    "cwe":  "CWE-89",
+    "repo":  "shopware/core",
+    "fix_commit":  "e2256ec81e56f792623e90d89786d8a9fcad28bf",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Framework/DataAbstractionLayer/Dbal/EntityAggregator.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/JsonFieldAccessorBuilder.php",
+                        "Framework/DataAbstractionLayer/Dbal/FieldAccessorBuilder/PriceFieldAccessorBuilder.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class extends TestCase",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

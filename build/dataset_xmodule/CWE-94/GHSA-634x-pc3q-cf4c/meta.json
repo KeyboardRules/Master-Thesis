@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-634x-pc3q-cf4c",
+    "cve":  "CVE-2022-29221",
+    "cwe":  "CWE-94",
+    "repo":  "smarty-php/smarty",
+    "fix_commit":  "64ad6442ca1da31cefdab5c9874262b702cccddd",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "libs/sysplugins/smarty_internal_compile_block.php",
+                        "libs/sysplugins/smarty_internal_compile_function.php",
+                        "libs/sysplugins/smarty_internal_compile_include.php",
+                        "libs/sysplugins/smarty_internal_config_file_compiler.php",
+                        "libs/sysplugins/smarty_internal_runtime_codeframe.php",
+                        "libs/sysplugins/smarty_internal_templatecompilerbase.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "libs/sysplugins/smarty_internal_compile_block.php class extends Smarty_Internal_Compile_Shared_Inheritance",
+                     "libs/sysplugins/smarty_internal_compile_function.php class extends Smarty_Internal_CompileBase",
+                     "libs/sysplugins/smarty_internal_compile_include.php class extends Smarty_Internal_CompileBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

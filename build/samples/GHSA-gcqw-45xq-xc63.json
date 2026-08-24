@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gcqw-45xq-xc63",
+    "cve":  "CVE-2018-17783",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "b9453cd7643b7c5b1b8c716b1dbd4d7d9571d1ec",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_filter_edit_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_filter_edit_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_filter_edit_page.php"
+                    ],
+    "sink_hit":  true
+}

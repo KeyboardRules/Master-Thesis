@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-x2j7-6hxm-87p3",
+    "cve":  "CVE-2021-27903",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "sha":  "c17728fa0bec11d3b82c34defe0930ed409aec38",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/volumes/Local.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/volumes/Local.php class extends FlysystemVolume"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/volumes/Local.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fp7q-xhhw-6rj3",
+    "cve":  "CVE-2023-29200",
+    "cwe":  "CWE-22",
+    "repo":  "contao/contao",
+    "sha":  "6f3e705f4ff23f4419563d09d8485793569f31df",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/drivers/DC_Folder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/drivers/DC_Folder.php class extends DataContainer"
+                 ],
+    "changed_all":  [
+                        "core-bundle/src/Resources/contao/drivers/DC_Folder.php"
+                    ],
+    "sink_hit":  true
+}

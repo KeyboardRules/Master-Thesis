@@ -1,0 +1,57 @@
+﻿diff --git a/config/default.php b/config/default.php
+index f1df4b6..6ec5082 100644
+--- a/config/default.php
++++ b/config/default.php
+@@ -173,7 +173,8 @@ return [
+                     'RecoverComplete' => ['complete'],
+                     'SetupComplete' => ['complete'],
+                 ]
+-            ]
++            ],
++            'csp' => env('PASSBOLT_SECURITY_CSP', true)
+         ],
+ 
+         // Should the app be SSL / HTTPS only.
+diff --git a/src/Application.php b/src/Application.php
+index 5b360a9..0c04470 100644
+--- a/src/Application.php
++++ b/src/Application.php
+@@ -14,6 +14,7 @@
+  */
+ namespace App;
+ 
++use App\Middleware\ContentSecurityPolicyMiddleware;
+ use App\Middleware\CsrfProtectionMiddleware;
+ use App\Middleware\GpgAuthHeadersMiddleware;
+ use Cake\Core\Configure;
+@@ -45,6 +46,7 @@ class Application extends BaseApplication
+          * - Apply CSRF protection
+          */
+         $middleware
++            ->add(ContentSecurityPolicyMiddleware::class)
+             ->add(new ErrorHandlerMiddleware(null, Configure::read('Error')))
+             ->add(new AssetMiddleware([
+                 'cacheTime' => Configure::read('Asset.cacheTime')
+diff --git a/src/Template/Setup/start.ctp b/src/Template/Setup/start.ctp
+index 49bce89..93c7fa0 100644
+--- a/src/Template/Setup/start.ctp
++++ b/src/Template/Setup/start.ctp
+@@ -13,6 +13,7 @@
+  * @since         2.0.0
+  */
+ use Cake\Core\Configure;
++use App\Utility\Purifier;
+ 
+ if (!isset($setupCase)) {
+     $setupCase = 'install';
+@@ -29,8 +30,8 @@ if ($browserName == 'firefox' || $browserName == 'chrome') {
+ }
+ ?>
+ <input type="hidden" id="js_setup_user_username" value="<?php echo $user->username; ?>"/>
+-<input type="hidden" id="js_setup_user_first_name" value="<?php echo $user->profile->first_name; ?>"/>
+-<input type="hidden" id="js_setup_user_last_name" value="<?php echo $user->profile->last_name; ?>"/>
++<input type="hidden" id="js_setup_user_first_name" value="<?php echo Purifier::clean($user->profile->first_name); ?>"/>
++<input type="hidden" id="js_setup_user_last_name" value="<?php echo Purifier::clean($user->profile->last_name); ?>"/>
+ 
+ <!-- first header -->
+ <div class="header first">

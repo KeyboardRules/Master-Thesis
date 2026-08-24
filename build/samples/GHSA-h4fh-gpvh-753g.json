@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-h4fh-gpvh-753g",
+    "cve":  "CVE-2018-7274",
+    "cwe":  "CWE-79",
+    "repo":  "GrafiteInc/CMS",
+    "sha":  "dcc1a5ac3c6d48afd3b8b9d8b11a9c6bfeb75f77",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controllers/BlogController.php",
+                        "src/Controllers/FAQController.php",
+                        "src/Repositories/BlogRepository.php",
+                        "src/Repositories/EventRepository.php",
+                        "src/Repositories/FAQRepository.php",
+                        "src/Repositories/MenuRepository.php",
+                        "src/Repositories/PageRepository.php",
+                        "src/Repositories/WidgetRepository.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "src/Controllers/BlogController.php class extends QuarxController",
+                     "src/Controllers/FAQController.php class extends QuarxController"
+                 ],
+    "changed_all":  [
+                        "src/Controllers/BlogController.php",
+                        "src/Controllers/FAQController.php",
+                        "src/Repositories/BlogRepository.php",
+                        "src/Repositories/EventRepository.php",
+                        "src/Repositories/FAQRepository.php",
+                        "src/Repositories/MenuRepository.php",
+                        "src/Repositories/PageRepository.php",
+                        "src/Repositories/WidgetRepository.php"
+                    ],
+    "sink_hit":  true
+}

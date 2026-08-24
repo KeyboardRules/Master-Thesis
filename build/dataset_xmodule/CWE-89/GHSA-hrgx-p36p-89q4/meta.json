@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hrgx-p36p-89q4",
+    "cve":  "CVE-2022-31181",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "b6d96e7c2a4e35a44e96ffbcdfd34439b56af804",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "classes/Smarty/SmartyCacheResourceMysql.php"
+                    ],
+    "evidence":  [
+                     "classes/Smarty/SmartyCacheResourceMysql.php class extends Smarty_CacheResource_Custom"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

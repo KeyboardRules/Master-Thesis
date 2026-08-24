@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-6922-5v25-p8jg",
+    "cve":  "CVE-2015-3275",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "46460a23035ad35caa50c2083ce6327f7723002e",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "mod/scorm/player.php",
+                        "mod/scorm/prereqs.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/scorm/player.php includes 5 project file(s)",
+                     "mod/scorm/prereqs.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

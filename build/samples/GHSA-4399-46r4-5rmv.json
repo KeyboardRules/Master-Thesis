@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-4399-46r4-5rmv",
+    "cve":  "CVE-2017-8762",
+    "cwe":  "CWE-79",
+    "repo":  "semplon/GeniXCMS",
+    "sha":  "5a128e830fa4a830137d03842c8e8bb22107cadf",
+    "status":  "ok",
+    "changed_php":  [
+                        "inc/lib/Menus.class.php",
+                        "inc/lib/Typo.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "inc/lib/Menus.class.php",
+                        "inc/lib/Typo.class.php"
+                    ],
+    "sink_hit":  true
+}

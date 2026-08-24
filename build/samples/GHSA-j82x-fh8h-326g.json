@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-j82x-fh8h-326g",
+    "cve":  "CVE-2017-20158",
+    "cwe":  "CWE-79",
+    "repo":  "vova07/yii2-fileapi-widget",
+    "sha":  "c00d1e4fc912257fca1fce66d7a163bdbb4c8222",
+    "status":  "ok",
+    "changed_php":  [
+                        "actions/UploadAction.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "actions/UploadAction.php class extends Action"
+                 ],
+    "changed_all":  [
+                        ".gitignore",
+                        "actions/UploadAction.php"
+                    ],
+    "sink_hit":  false
+}

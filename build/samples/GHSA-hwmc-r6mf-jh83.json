@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-hwmc-r6mf-jh83",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "spatie/schema-org",
+    "sha":  "be389b4759214c11cc1364a16e34a929c5af5a88",
+    "status":  "ok",
+    "changed_php":  [
+                        "generator/templates/static/BaseType.php",
+                        "src/BaseType.php",
+                        "src/Graph.php",
+                        "src/MultiTypedEntity.php",
+                        "tests/BaseTypeTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/BaseTypeTest.php class extends BaseType"
+                 ],
+    "changed_all":  [
+                        "generator/templates/static/BaseType.php",
+                        "generator/templates/twig/Graph.php.twig",
+                        "generator/templates/twig/MultiTypedEntity.php.twig",
+                        "src/BaseType.php",
+                        "src/Graph.php",
+                        "src/MultiTypedEntity.php",
+                        "tests/BaseTypeTest.php"
+                    ],
+    "sink_hit":  false
+}

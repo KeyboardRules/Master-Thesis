@@ -1,0 +1,16 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/SettingsController.php b/bundles/AdminBundle/Controller/Admin/SettingsController.php
+index b706d5eb1b..99b96aeac2 100644
+--- a/bundles/AdminBundle/Controller/Admin/SettingsController.php
++++ b/bundles/AdminBundle/Controller/Admin/SettingsController.php
+@@ -1331,6 +1331,11 @@ class SettingsController extends AdminController
+         });
+ 
+         foreach ($mediaData as $mediaName => $items) {
++
++            if(preg_match('/["<>]/', $mediaName)) {
++                throw new \Exception('Invalid media query name');
++            }
++
+             foreach ($items as $item) {
+                 $type = $item['type'];
+                 unset($item['type']);

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-cvrm-cr3m-qj92",
+    "cve":  "CVE-2020-35571",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "100c3d58c3f6f12b7a6cf97fba473ede521f20db",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core/project_api.php",
+                        "manage_proj_delete.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "manage_proj_delete.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

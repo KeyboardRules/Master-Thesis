@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-v86m-j5f7-ccwh",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "sha":  "00f0ebe37d78815adee26d5e80cf2250fe878647",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Model/Table/UserAgentsTable.php",
+                        "src/Utility/Purifier.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Model/Table/UserAgentsTable.php class extends Table"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "src/Model/Table/UserAgentsTable.php",
+                        "src/Utility/Purifier.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-pqr6-3j58-9w58",
+    "cve":  "CVE-2022-1411",
+    "cwe":  "CWE-434",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "fix_commit":  "bf69c427260011ffca42f7b6935bb54080c54124",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/Fields/File.php",
+                        "app/Validator.php",
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "app/Fields/File.php includes 1 project file(s)",
+                     "modules/Vtiger/actions/Fields.php class extends \\App\\Controller\\Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

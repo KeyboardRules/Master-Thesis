@@ -1,0 +1,95 @@
+﻿diff --git a/src/Form/Fields/Formatters/UploadFormatter.php b/src/Form/Fields/Formatters/UploadFormatter.php
+index a83171a..3fa53d8 100644
+--- a/src/Form/Fields/Formatters/UploadFormatter.php
++++ b/src/Form/Fields/Formatters/UploadFormatter.php
+@@ -55,6 +55,7 @@ class UploadFormatter extends SharpFieldFormatter implements FormatsAfterUpdate
+                         disk: $field->storageDisk(),
+                         filePath: $formatted['file_name'],
+                         shouldOptimizeImage: $field->isImageOptimize(),
++                        shouldSanitizeSvg: $field->isImageSanitizeSvg(),
+                         transformFilters: $field->isImageTransformOriginal()
+                             ? ($value['filters'] ?? null)
+                             : null,
+diff --git a/src/Form/Fields/SharpFormUploadField.php b/src/Form/Fields/SharpFormUploadField.php
+index cb9d535..c757876 100644
+--- a/src/Form/Fields/SharpFormUploadField.php
++++ b/src/Form/Fields/SharpFormUploadField.php
+@@ -23,6 +23,7 @@ class SharpFormUploadField extends SharpFormField
+     protected ?Dimensions $imageDimensionConstraints = null;
+     protected bool $imageCompactThumbnail = false;
+     protected bool $imageOptimize = false;
++    protected bool $imageSanitizeSvg = true;
+     protected ?array $imageCropRatio = null;
+     protected ?array $imageTransformableFileTypes = null;
+ 
+@@ -93,6 +94,18 @@ class SharpFormUploadField extends SharpFormField
+         return $this->imageOptimize;
+     }
+ 
++    public function setImageSanitizeSvg(bool $imageSanitizeSvg = true): self
++    {
++        $this->imageSanitizeSvg = $imageSanitizeSvg;
++
++        return $this;
++    }
++
++    public function isImageSanitizeSvg(): bool
++    {
++        return $this->imageSanitizeSvg;
++    }
++
+     public function setImageCompactThumbnail(bool $compactThumbnail = true): self
+     {
+         $this->imageCompactThumbnail = $compactThumbnail;
+diff --git a/src/Http/Jobs/HandleUploadedFileJob.php b/src/Http/Jobs/HandleUploadedFileJob.php
+index 1c77b99..7710d6c 100644
+--- a/src/Http/Jobs/HandleUploadedFileJob.php
++++ b/src/Http/Jobs/HandleUploadedFileJob.php
+@@ -21,6 +21,7 @@ class HandleUploadedFileJob implements ShouldQueue
+         public string $disk,
+         public string $filePath,
+         public bool $shouldOptimizeImage = true,
++        public bool $shouldSanitizeSvg = true,
+         public ?array $transformFilters = null,
+         public ?string $instanceId = null,
+     ) {}
+@@ -45,9 +46,16 @@ class HandleUploadedFileJob implements ShouldQueue
+         if ($this->transformFilters) {
+             // There are transformation and field was configured to handle transformation on the source image
+             HandleTransformedFileJob::dispatchSync(
+-                $tmpDisk,
+-                $tmpFilePath,
+-                $this->transformFilters
++                disk: $tmpDisk,
++                filePath: $tmpFilePath,
++                transformFilters: $this->transformFilters
++            );
++        }
++
++        if ($this->shouldSanitizeSvg && Storage::disk($tmpDisk)->mimeType($tmpFilePath) === 'image/svg+xml') {
++            SanitizeSvgJob::dispatchSync(
++                disk: $tmpDisk,
++                filePath: $tmpFilePath
+             );
+         }
+ 
+diff --git a/src/Utils/Uploads/SharpUploadManager.php b/src/Utils/Uploads/SharpUploadManager.php
+index 2b9efae..a245135 100644
+--- a/src/Utils/Uploads/SharpUploadManager.php
++++ b/src/Utils/Uploads/SharpUploadManager.php
+@@ -30,6 +30,7 @@ class SharpUploadManager
+         string $disk,
+         string $filePath,
+         bool $shouldOptimizeImage = true,
++        bool $shouldSanitizeSvg = true,
+         ?array $transformFilters = null,
+     ): void {
+         $this->uploadedFileQueue[] = compact(
+@@ -37,6 +38,7 @@ class SharpUploadManager
+             'disk',
+             'filePath',
+             'shouldOptimizeImage',
++            'shouldSanitizeSvg',
+             'transformFilters',
+         );
+     }

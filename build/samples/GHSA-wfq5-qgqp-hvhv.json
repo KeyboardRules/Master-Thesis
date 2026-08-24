@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-wfq5-qgqp-hvhv",
+    "cve":  "CVE-2026-33035",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "cca6196f4072cb9acc39b1030fb8fb1702b4f69b",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/CustomizeUser/CustomizeUser.php",
+                        "plugin/PlayerSkins/saveThumbnail.php",
+                        "tests/Security/SecurityHardeningRegressionTest.php",
+                        "view/videoNotFound.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "plugin/CustomizeUser/CustomizeUser.php includes 16 project file(s)",
+                     "plugin/CustomizeUser/CustomizeUser.php class extends PluginAbstract",
+                     "view/videoNotFound.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/CustomizeUser/CustomizeUser.php",
+                        "plugin/Live/view/socket.js",
+                        "plugin/PlayerSkins/saveThumbnail.php",
+                        "tests/Security/SecurityHardeningRegressionTest.php",
+                        "view/js/script.js",
+                        "view/videoNotFound.php"
+                    ],
+    "sink_hit":  true
+}

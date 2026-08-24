@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-66cw-h2mj-j39p",
+    "cve":  "CVE-2026-33294",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "4589a3a089baf4ea439481f5088b38a8aa9c82b6",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/BulkEmbed/save.json.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "plugin/BulkEmbed/save.json.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/BulkEmbed/save.json.php"
+                    ],
+    "sink_hit":  false
+}

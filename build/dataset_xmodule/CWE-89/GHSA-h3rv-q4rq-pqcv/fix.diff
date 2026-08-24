@@ -1,0 +1,337 @@
+﻿diff --git a/app/Models/Ipv4Address.php b/app/Models/Ipv4Address.php
+index e96b5684..bdb11c30 100644
+--- a/app/Models/Ipv4Address.php
++++ b/app/Models/Ipv4Address.php
+@@ -29,6 +29,7 @@ namespace App\Models;
+ 
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
+ use Illuminate\Database\Eloquent\Relations\BelongsTo;
++use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+ use LibreNMS\Interfaces\Models\Keyable;
+ 
+ class Ipv4Address extends PortRelatedModel implements Keyable
+@@ -46,13 +47,24 @@ class Ipv4Address extends PortRelatedModel implements Keyable
+     ];
+ 
+     /**
+-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Ipv4Network, $this>
++     * @return BelongsTo<Ipv4Network, $this>
+      */
+     public function network(): BelongsTo
+     {
+         return $this->belongsTo(Ipv4Network::class, 'ipv4_network_id', 'ipv4_network_id');
+     }
+ 
++    /**
++     * This is not a standard relationship it is a shortcut to generate an aggregate for sorting.
++     * Use port.device nested relationship to access device.
++     *
++     * @return HasOneThrough<Device, Port, $this>
++     */
++    public function deviceViaPort(): HasOneThrough
++    {
++        return $this->hasOneThrough(Device::class, Port::class, 'port_id', 'device_id', 'port_id', 'device_id');
++    }
++
+     public function getCompositeKey(): string
+     {
+         return "$this->ipv4_address-$this->ipv4_prefixlen-$this->port_id-$this->context_name";
+diff --git a/app/Models/Ipv6Address.php b/app/Models/Ipv6Address.php
+index 5acae785..e602c6a0 100644
+--- a/app/Models/Ipv6Address.php
++++ b/app/Models/Ipv6Address.php
+@@ -28,6 +28,7 @@
+ namespace App\Models;
+ 
+ use Illuminate\Database\Eloquent\Relations\BelongsTo;
++use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+ use LibreNMS\Interfaces\Models\Keyable;
+ 
+ class Ipv6Address extends PortRelatedModel implements Keyable
+@@ -45,13 +46,24 @@ class Ipv6Address extends PortRelatedModel implements Keyable
+     ];
+ 
+     /**
+-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Ipv6Network, $this>
++     * @return BelongsTo<Ipv6Network, $this>
+      */
+     public function network(): BelongsTo
+     {
+         return $this->belongsTo(Ipv6Network::class, 'ipv6_network_id', 'ipv6_network_id');
+     }
+ 
++    /**
++     * This is not a standard relationship it is a shortcut to generate an aggregate for sorting.
++     * Use port.device nested relationship to access device.
++     *
++     * @return HasOneThrough<Device, Port, $this>
++     */
++    public function deviceViaPort(): HasOneThrough
++    {
++        return $this->hasOneThrough(Device::class, Port::class, 'port_id', 'device_id', 'port_id', 'device_id');
++    }
++
+     public function getCompositeKey(): string
+     {
+         return "$this->ipv6_address-$this->ipv6_prefixlen-$this->port_id-$this->context_name";
+diff --git a/includes/html/pages/search/ipv4.inc.php b/includes/html/pages/search/ipv4.inc.php
+index e927f1f3..2054cc2d 100644
+--- a/includes/html/pages/search/ipv4.inc.php
++++ b/includes/html/pages/search/ipv4.inc.php
+@@ -8,7 +8,7 @@
+                 <th data-column-id="hostname" data-order="asc">Device</th>
+                 <th data-column-id="interface">Interface</th>
+                 <th data-column-id="address" data-formatter="tooltip">Address</th>
+-                <th data-column-id="description" data-sortable="false" data-formatter="tooltip">Description</th>
++                <th data-column-id="description" data-formatter="tooltip">Description</th>
+             </tr>
+         </thead>
+     </table>
+@@ -87,14 +87,12 @@ if ($interface == 'Vlan%') {
+     post: function ()
+     {
+         return {
+-            id: "address-search",
+-            search_type: "ipv4",
+-            device_id: '<?php echo $device_id ?: 'null'; ?>',
++            device_id: '<?php echo $device_id ?: ''; ?>',
+             interface: '<?php echo htmlspecialchars((string) $interface); ?>',
+             address: '<?php echo htmlspecialchars((string) $address); ?>'
+         };
+     },
+-    url: "ajax_table.php",
++    url: "<?php echo route('search.ipv4'); ?>",
+     formatters: {
+         "tooltip": function (column, row) {
+                 var value = row[column.id];
+diff --git a/includes/html/pages/search/ipv6.inc.php b/includes/html/pages/search/ipv6.inc.php
+index 5775d848..3ce81e77 100644
+--- a/includes/html/pages/search/ipv6.inc.php
++++ b/includes/html/pages/search/ipv6.inc.php
+@@ -8,7 +8,7 @@
+                 <th data-column-id="hostname">Device</th>
+                 <th data-column-id="interface">Interface</th>
+                 <th data-column-id="address" data-formatter="tooltip">Address</th>
+-                <th data-column-id="description" data-sortable="false" data-formatter="tooltip">Description</th>
++                <th data-column-id="description" data-formatter="tooltip">Description</th>
+             </tr>
+         <thead>
+     </table>
+@@ -88,14 +88,12 @@ if ($interface == 'Vlan%') {
+     post: function ()
+     {
+         return {
+-            id: "address-search",
+-            search_type: "ipv6",
+-            device_id: '<?php echo $device_id ?: 'null'; ?>',
++            device_id: '<?php echo $device_id ?: ''; ?>',
+             interface: '<?php echo htmlspecialchars((string) $interface); ?>',
+             address: '<?php echo htmlspecialchars((string) $address); ?>'
+         };
+     },
+-    url: "ajax_table.php",
++    url: "<?php echo route('search.ipv6'); ?>",
+     formatters: {
+         "tooltip": function (column, row) {
+                 var value = row[column.id];
+diff --git a/includes/html/pages/search/mac.inc.php b/includes/html/pages/search/mac.inc.php
+index 38ad6ea8..90d1cb33 100644
+--- a/includes/html/pages/search/mac.inc.php
++++ b/includes/html/pages/search/mac.inc.php
+@@ -7,9 +7,9 @@
+             <tr>
+                 <th data-column-id="hostname" data-order="asc">Device</th>
+                 <th data-column-id="interface">Interface</th>
+-                <th data-column-id="address" data-sortable="false" data-formatter="tooltip">MAC Address</th>
++                <th data-column-id="address" data-formatter="tooltip">MAC Address</th>
+                 <th data-column-id="mac_oui" data-sortable="false" data-width="150px" data-visible="<?php echo \App\Facades\LibrenmsConfig::get('mac_oui.enabled') ? 'true' : 'false' ?>" data-formatter="tooltip">Vendor</th>
+-                <th data-column-id="description" data-sortable="false" data-formatter="tooltip">Description</th></tr>
++                <th data-column-id="description" data-formatter="tooltip">Description</th></tr>
+             </tr>
+         </thead>
+     </table>
+@@ -91,14 +91,12 @@ echo '"' . htmlspecialchars((string) $address) . '"+';
+     post: function ()
+     {
+         return {
+-            id: "address-search",
+-            search_type: "mac",
+-            device_id: '<?php echo $device_id ?: 'null'; ?>',
++            device_id: '<?php echo $device_id ?: ''; ?>',
+             interface: '<?php echo htmlspecialchars((string) $interface); ?>',
+             address: '<?php echo htmlspecialchars((string) $address); ?>'
+         };
+     },
+-    url: "ajax_table.php",
++    url: "<?php echo route('search.mac'); ?>",
+     formatters: {
+         "tooltip": function (column, row) {
+                 var value = row[column.id];
+diff --git a/includes/html/table/address-search.inc.php b/includes/html/table/address-search.inc.php
+deleted file mode 100644
+index c318e848..00000000
+--- a/includes/html/table/address-search.inc.php
++++ /dev/null
+@@ -1,148 +0,0 @@
+-<?php
+-
+-use LibreNMS\Util\IP;
+-use LibreNMS\Util\Mac;
+-
+-$param = [];
+-$where = '';
+-
+-if (! Auth::user()->hasGlobalRead()) {
+-    $device_ids = Permissions::devicesForUser()->toArray() ?: [0];
+-    $where .= ' AND `D`.`device_id` IN ' . dbGenPlaceholders(count($device_ids));
+-    $param = array_merge($param, $device_ids);
+-}
+-
+-$search_type = $vars['search_type'] ?? 'ipv4';
+-$address = $vars['address'] ?? '';
+-$prefix = '';
+-$sort = trim((string) $sort);
+-
+-if (str_contains($address, '/')) {
+-    [$address, $prefix] = explode('/', $address, 2);
+-}
+-
+-if ($search_type == 'ipv4') {
+-    $sql = ' FROM `ipv4_addresses` AS A, `ports` AS I, `devices` AS D';
+-    $sql .= ' WHERE I.port_id = A.port_id AND I.device_id = D.device_id ' . $where . ' ';
+-
+-    if (! empty($address)) {
+-        $sql .= ' AND ipv4_address LIKE ?';
+-        $param[] = "%$address%";
+-    }
+-
+-    if (! empty($prefix)) {
+-        $sql .= " AND ipv4_prefixlen='$prefix'";
+-    }
+-
+-    if (str_contains($sort, 'address')) {
+-        $order = explode(' ', $sort)[1];
+-        $sort = 'INET_ATON(ipv4_address) ' . $order;
+-    }
+-} elseif ($search_type == 'ipv6') {
+-    $sql = ' FROM `ipv6_addresses` AS A, `ports` AS I, `devices` AS D';
+-    $sql .= ' WHERE I.port_id = A.port_id AND I.device_id = D.device_id ' . $where . ' ';
+-
+-    if (! empty($address)) {
+-        $sql .= ' AND (ipv6_address LIKE ? OR ipv6_compressed LIKE ?)';
+-        $param[] = "%$address%";
+-        $param[] = "%$address%";
+-    }
+-
+-    if (! empty($prefix)) {
+-        $sql .= " AND ipv6_prefixlen = '$prefix'";
+-    }
+-
+-    if (str_contains($sort, 'address')) {
+-        $order = explode(' ', $sort)[1];
+-        $sort = 'INET6_ATON(ipv6_address) ' . $order;
+-    }
+-} elseif ($search_type == 'mac') {
+-    $sql = ' FROM `ports` AS I, `devices` AS D';
+-    $sql .= " WHERE I.device_id = D.device_id  $where ";
+-    if (! empty($address)) {
+-        $sql .= ' AND `ifPhysAddress` LIKE ?';
+-        $param[] = '%' . trim(str_replace([':', ' ', '-', '.', '0x'], '', $vars['address'])) . '%';
+-    }
+-}//end if
+-if (isset($vars['device_id']) && is_numeric($vars['device_id'])) {
+-    $sql .= ' AND I.device_id = ?';
+-    $param[] = $vars['device_id'];
+-}
+-
+-if (isset($vars['interface']) && $vars['interface']) {
+-    $sql .= ' AND I.ifDescr LIKE ?';
+-    $param[] = $vars['interface'];
+-}
+-
+-if ($search_type == 'ipv4') {
+-    $count_sql = "SELECT COUNT(`ipv4_address_id`) $sql";
+-} elseif ($search_type == 'ipv6') {
+-    $count_sql = "SELECT COUNT(`ipv6_address_id`) $sql";
+-} elseif ($search_type == 'mac') {
+-    $count_sql = "SELECT COUNT(`port_id`) $sql";
+-}
+-
+-$total = dbFetchCell($count_sql, $param);
+-if (empty($total)) {
+-    $total = 0;
+-}
+-
+-if (! isset($sort) || empty($sort)) {
+-    $sort = '`hostname` ASC';
+-}
+-
+-$sql .= " ORDER BY $sort";
+-
+-if (isset($current)) {
+-    $limit_low = (($current * $rowCount) - $rowCount);
+-    $limit_high = $rowCount;
+-}
+-
+-if ($rowCount != -1) {
+-    $sql .= " LIMIT $limit_low,$limit_high";
+-}
+-
+-$sql = "SELECT *,`I`.`ifDescr` AS `interface` $sql";
+-
+-foreach (dbFetchRows($sql, $param) as $interface) {
+-    $speed = \LibreNMS\Util\Number::formatSi($interface['ifSpeed'], 2, 0, 'bps');
+-    $type = \LibreNMS\Util\Rewrite::normalizeIfType($interface['ifType']);
+-
+-    if ($search_type == 'ipv6') {
+-        $address = (string) IP::parse($interface['ipv6_address'], true) . '/' . $interface['ipv6_prefixlen'];
+-    } elseif ($search_type == 'mac') {
+-        $mac = Mac::parse($interface['ifPhysAddress']);
+-        $address = $mac->readable();
+-        $mac_oui = $mac->vendor();
+-    } else {
+-        $address = (string) IP::parse($interface['ipv4_address'], true) . '/' . $interface['ipv4_prefixlen'];
+-    }
+-
+-    if (isset($interface['in_errors'], $interface['out_errors']) && ($interface['in_errors'] > 0 || $interface['out_errors'] > 0)) {
+-        $error_img = generate_port_link($interface, "<i class='fa fa-flag fa-lg' style='color:red' aria-hidden='true'></i>", 'errors');
+-    } else {
+-        $error_img = '';
+-    }
+-
+-    if (port_permitted($interface['port_id'])) {
+-        $interface = cleanPort($interface, $interface);
+-        $row = [
+-            'hostname' => generate_device_link($interface),
+-            'interface' => generate_port_link($interface) . ' ' . $error_img,
+-            'address' => $address,
+-            'description' => $interface['ifAlias'],
+-        ];
+-        if ($search_type == 'mac') {
+-            $row['mac_oui'] = $mac_oui;
+-        }
+-        $response[] = $row;
+-    }
+-}//end foreach
+-
+-$output = [
+-    'current' => $current,
+-    'rowCount' => $rowCount,
+-    'rows' => $response,
+-    'total' => $total,
+-];
+-echo json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+diff --git a/routes/web.php b/routes/web.php
+index 22cdb0c7..1aec98aa 100644
+--- a/routes/web.php
++++ b/routes/web.php
+@@ -287,6 +287,9 @@ Route::middleware(['auth'])->group(function (): void {
+ 
+         // jquery bootgrid data controllers
+         Route::prefix('table')->group(function (): void {
++            Route::any('address-search/ipv4', Table\Ipv4AddressSearchController::class)->name('search.ipv4');
++            Route::any('address-search/ipv6', Table\Ipv6AddressSearchController::class)->name('search.ipv6');
++            Route::any('address-search/mac', Table\MacSearchController::class)->name('search.mac');
+             Route::post('alert-schedule', Table\AlertScheduleController::class);
+             Route::post('customers', Table\CustomersController::class);
+             Route::post('diskio', Table\DiskioController::class)->name('table.diskio');

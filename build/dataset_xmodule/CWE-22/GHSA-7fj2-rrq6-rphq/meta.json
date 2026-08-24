@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7fj2-rrq6-rphq",
+    "cve":  "CVE-2022-39296",
+    "cwe":  "CWE-22",
+    "repo":  "melisplatform/melis-asset-manager",
+    "fix_commit":  "a0f75918c049aff78953a0bc91c585153595d1bd",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Module.php"
+                    ],
+    "evidence":  [
+                     "src/Module.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

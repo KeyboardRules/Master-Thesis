@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cxgw-r5jg-7xwq",
+    "cve":  "CVE-2022-2073",
+    "cwe":  "CWE-94",
+    "repo":  "getgrav/grav",
+    "sha":  "9d6a2dba09fd4e56f5cdfb9a399caea355bfeb83",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "system/src/Grav/Common/Twig/Extension/GravExtension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php"
+                    ],
+    "sink_hit":  true
+}

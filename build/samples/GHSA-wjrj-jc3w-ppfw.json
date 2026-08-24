@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-wjrj-jc3w-ppfw",
+    "cve":  "CVE-2023-0792",
+    "cwe":  "CWE-94",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "d8964568d69488de02f0a0a58acc822eeb5c3cb1",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/tags.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/assets/js/tags.js",
+                        "phpmyfaq/admin/tags.php"
+                    ],
+    "sink_hit":  false
+}

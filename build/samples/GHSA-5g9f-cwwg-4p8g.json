@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-5g9f-cwwg-4p8g",
+    "cve":  "CVE-2026-49358",
+    "cwe":  "CWE-73",
+    "repo":  "pontedilana/php-weasyprint",
+    "sha":  "6d328ffd3bcb800c7c2e8a594b1bff0c099c9391",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/AbstractGenerator.php",
+                        "tests/Unit/AbstractGeneratorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Unit/AbstractGeneratorTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/AbstractGenerator.php",
+                        "tests/Unit/AbstractGeneratorTest.php"
+                    ],
+    "sink_hit":  false
+}

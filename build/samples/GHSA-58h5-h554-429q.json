@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-58h5-h554-429q",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "ezsystems/ezplatform-admin-ui",
+    "sha":  "29e156a7bbecca5abd946c99546a261679587d29",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/lib/Limitation/Mapper/MemberOfLimitationMapper.php",
+                        "src/lib/Limitation/Mapper/RoleLimitationMapper.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/bundle/Resources/config/services.yaml",
+                        "src/bundle/Resources/config/services/role_form_mappers.yaml",
+                        "src/bundle/Resources/translations/ezplatform_content_forms_policies.en.xliff",
+                        "src/bundle/Resources/translations/ezplatform_content_forms_role.en.xliff",
+                        "src/bundle/Resources/views/themes/admin/limitation/limitation_values.html.twig",
+                        "src/lib/Limitation/Mapper/MemberOfLimitationMapper.php",
+                        "src/lib/Limitation/Mapper/RoleLimitationMapper.php"
+                    ],
+    "sink_hit":  false
+}

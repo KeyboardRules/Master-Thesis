@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-r9vp-fp72-xgf7",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "281b0de571fe0ae159ac47891c02acf2214fa619",
+    "status":  "ok",
+    "changed_php":  [
+                        "security/Member.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "security/Member.php includes 1 project file(s)",
+                     "security/Member.php class extends DataObject"
+                 ],
+    "changed_all":  [
+                        "security/Member.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,17 @@
+﻿diff --git a/plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php b/plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php
+index 820a89fd4..7eb428bad 100644
+--- a/plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php
++++ b/plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php
+@@ -31,8 +31,11 @@ class FileManagerController extends AjaxController
+         /** @var FileManager $fileManager */
+         $fileManager = $this->get('grapesjsbuilder.helper.filemanager');
+ 
+-        $fileName = $this->request->get('filename');
++        $fileName = basename($this->request->get('filename'));
+ 
++        if (!exif_imagetype($fileManager->getCompleteFilePath($fileName))) {
++            return $this->sendJsonResponse(['success'=> false]);
++        }
+         $fileManager->deleteFile($fileName);
+ 
+         return $this->sendJsonResponse(['success'=> true]);

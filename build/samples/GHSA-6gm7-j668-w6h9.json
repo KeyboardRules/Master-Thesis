@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6gm7-j668-w6h9",
+    "cve":  "CVE-2022-1219",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "a697830359df06246acca502ee2455614de68017",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/RecyclebinController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/RecyclebinController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/RecyclebinController.php"
+                    ],
+    "sink_hit":  true
+}

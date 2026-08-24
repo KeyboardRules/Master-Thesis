@@ -1,0 +1,41 @@
+﻿{
+    "id":  "GHSA-4h54-vwx9-3vr3",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "1db08bac88f9330dc4e6dda1ae08628f245a5212",
+    "status":  "ok",
+    "changed_php":  [
+                        "forms/FormAction.php",
+                        "forms/TreeDropdownField.php",
+                        "forms/TreeMultiselectField.php",
+                        "forms/gridfield/GridFieldPrintButton.php",
+                        "model/DataDifferencer.php",
+                        "tests/model/DataDifferencerTest.php",
+                        "view/ViewableData.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "forms/FormAction.php class extends FormField",
+                     "forms/TreeDropdownField.php class extends FormField",
+                     "forms/TreeMultiselectField.php class extends TreeDropdownField",
+                     "model/DataDifferencer.php class extends ViewableData",
+                     "tests/model/DataDifferencerTest.php class extends SapphireTest",
+                     "view/ViewableData.php class extends Object"
+                 ],
+    "changed_all":  [
+                        "docs/en/04_Changelogs/rc/3.1.10-rc1.md",
+                        "forms/FormAction.php",
+                        "forms/TreeDropdownField.php",
+                        "forms/TreeMultiselectField.php",
+                        "forms/gridfield/GridFieldPrintButton.php",
+                        "javascript/TreeDropdownField.js",
+                        "model/DataDifferencer.php",
+                        "templates/forms/FormAction.ss",
+                        "templates/forms/TreeDropdownField.ss",
+                        "tests/model/DataDifferencerTest.php",
+                        "view/ViewableData.php"
+                    ],
+    "sink_hit":  true
+}

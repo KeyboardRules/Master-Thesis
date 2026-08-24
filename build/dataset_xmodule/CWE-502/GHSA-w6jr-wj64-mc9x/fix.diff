@@ -1,0 +1,16 @@
+﻿diff --git a/system/Common.php b/system/Common.php
+index 567135b..e132d98 100644
+--- a/system/Common.php
++++ b/system/Common.php
+@@ -810,11 +810,6 @@ if (! function_exists('old')) {
+             return $default;
+         }
+ 
+-        // If the result was serialized array or string, then unserialize it for use...
+-        if (is_string($value) && (strpos($value, 'a:') === 0 || strpos($value, 's:') === 0)) {
+-            $value = unserialize($value);
+-        }
+-
+         return $escape === false ? $value : esc($value, $escape);
+     }
+ }

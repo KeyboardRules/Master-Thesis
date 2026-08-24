@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-vrgp-3ph6-2wwq",
+    "cve":  "CVE-2021-36625",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "abb1ad6bf0469eccd2b58beb20bdabc18fc36e22",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/compta/bank/class/account.class.php",
+                        "htdocs/compta/sociales/class/cchargesociales.class.php",
+                        "htdocs/societe/card.php",
+                        "htdocs/societe/class/societe.class.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "htdocs/compta/bank/class/account.class.php includes 8 project file(s)",
+                     "htdocs/compta/bank/class/account.class.php class extends CommonObject",
+                     "htdocs/compta/sociales/class/cchargesociales.class.php includes 3 project file(s)",
+                     "htdocs/societe/card.php includes 30 project file(s)",
+                     "htdocs/societe/class/societe.class.php includes 24 project file(s)",
+                     "htdocs/societe/class/societe.class.php class extends CommonObject",
+                     "htdocs/societe/class/societe.class.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "htdocs/compta/bank/class/account.class.php",
+                        "htdocs/compta/sociales/class/cchargesociales.class.php",
+                        "htdocs/societe/card.php",
+                        "htdocs/societe/class/societe.class.php"
+                    ],
+    "sink_hit":  true
+}

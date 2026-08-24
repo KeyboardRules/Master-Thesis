@@ -1,0 +1,412 @@
+﻿[
+    {
+        "id":  "GHSA-269w-pqc7-68q9",
+        "reason":  "too_many_files_merge_noise",
+        "n":  69
+    },
+    {
+        "id":  "GHSA-28pv-2j2h-fmhc",
+        "reason":  "too_many_files_merge_noise",
+        "n":  32
+    },
+    {
+        "id":  "GHSA-2f28-69j7-85hf",
+        "reason":  "too_many_files_merge_noise",
+        "n":  14
+    },
+    {
+        "id":  "GHSA-2ppw-6xvg-rwgw",
+        "reason":  "too_many_files_merge_noise",
+        "n":  56
+    },
+    {
+        "id":  "GHSA-2rc5-2755-v422",
+        "reason":  "too_many_files_merge_noise",
+        "n":  21
+    },
+    {
+        "id":  "GHSA-2v3r-gvq5-qqgh",
+        "reason":  "too_many_files_merge_noise",
+        "n":  89
+    },
+    {
+        "id":  "GHSA-2w2x-7qgj-4x78",
+        "reason":  "too_many_files_merge_noise",
+        "n":  173
+    },
+    {
+        "id":  "GHSA-34vw-8cjw-cwjj",
+        "reason":  "too_many_files_merge_noise",
+        "n":  129
+    },
+    {
+        "id":  "GHSA-36pq-cjh9-fv46",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-3cpp-fv95-mpr5",
+        "reason":  "all_files_noise",
+        "n":  4
+    },
+    {
+        "id":  "GHSA-3v7m-2jrh-vc93",
+        "reason":  "too_many_files_merge_noise",
+        "n":  31
+    },
+    {
+        "id":  "GHSA-42qm-c3cf-9wv2",
+        "reason":  "too_many_files_merge_noise",
+        "n":  42
+    },
+    {
+        "id":  "GHSA-47m6-46mj-p235",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-4847-gqxx-v9xp",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-4f7x-gjqc-qqpg",
+        "reason":  "too_many_files_merge_noise",
+        "n":  173
+    },
+    {
+        "id":  "GHSA-4fwh-r866-pvh9",
+        "reason":  "too_many_files_merge_noise",
+        "n":  20
+    },
+    {
+        "id":  "GHSA-4h2q-84w7-4mhx",
+        "reason":  "too_many_files_merge_noise",
+        "n":  206
+    },
+    {
+        "id":  "GHSA-4p38-rc98-cr39",
+        "reason":  "too_many_files_merge_noise",
+        "n":  610
+    },
+    {
+        "id":  "GHSA-4xf9-4r44-86rc",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-52xr-wx26-9rfg",
+        "reason":  "too_many_files_merge_noise",
+        "n":  129
+    },
+    {
+        "id":  "GHSA-5632-wq7m-gfq9",
+        "reason":  "too_many_files_merge_noise",
+        "n":  94
+    },
+    {
+        "id":  "GHSA-5hf2-7xf4-w3j6",
+        "reason":  "too_many_files_merge_noise",
+        "n":  129
+    },
+    {
+        "id":  "GHSA-5hw4-m7f3-hhx8",
+        "reason":  "all_files_noise",
+        "n":  6
+    },
+    {
+        "id":  "GHSA-5m55-g8pv-x8ww",
+        "reason":  "too_many_files_merge_noise",
+        "n":  107
+    },
+    {
+        "id":  "GHSA-67px-r26w-598x",
+        "reason":  "too_many_files_merge_noise",
+        "n":  24
+    },
+    {
+        "id":  "GHSA-6r86-2jm9-9mh4",
+        "reason":  "too_many_files_merge_noise",
+        "n":  43
+    },
+    {
+        "id":  "GHSA-6rj8-9cm9-6gff",
+        "reason":  "too_many_files_merge_noise",
+        "n":  14
+    },
+    {
+        "id":  "GHSA-6wh5-mw9h-5c3w",
+        "reason":  "too_many_files_merge_noise",
+        "n":  17
+    },
+    {
+        "id":  "GHSA-724x-gqhv-9c5x",
+        "reason":  "too_many_files_merge_noise",
+        "n":  173
+    },
+    {
+        "id":  "GHSA-792f-c8mp-2cr5",
+        "reason":  "too_many_files_merge_noise",
+        "n":  69
+    },
+    {
+        "id":  "GHSA-7r32-vfj5-c2jv",
+        "reason":  "too_many_files_merge_noise",
+        "n":  230
+    },
+    {
+        "id":  "GHSA-8jmj-4p32-mc9p",
+        "reason":  "all_files_noise",
+        "n":  10
+    },
+    {
+        "id":  "GHSA-93gj-rg98-h7mm",
+        "reason":  "too_many_files_merge_noise",
+        "n":  13
+    },
+    {
+        "id":  "GHSA-9f9r-w3xq-f722",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-9hgc-wpc5-v8p9",
+        "reason":  "too_many_files_merge_noise",
+        "n":  33
+    },
+    {
+        "id":  "GHSA-9v82-vcjx-m76j",
+        "reason":  "all_files_noise",
+        "n":  2
+    },
+    {
+        "id":  "GHSA-9xxv-q6pp-96wq",
+        "reason":  "too_many_files_merge_noise",
+        "n":  15
+    },
+    {
+        "id":  "GHSA-c78m-c52x-jgwp",
+        "reason":  "too_many_files_merge_noise",
+        "n":  15
+    },
+    {
+        "id":  "GHSA-cj3w-g42v-wcj6",
+        "reason":  "too_many_files_merge_noise",
+        "n":  88
+    },
+    {
+        "id":  "GHSA-cj7w-pm77-hvg6",
+        "reason":  "too_many_files_merge_noise",
+        "n":  107
+    },
+    {
+        "id":  "GHSA-fg89-g389-p346",
+        "reason":  "too_many_files_merge_noise",
+        "n":  24
+    },
+    {
+        "id":  "GHSA-fjhg-96cp-6fcw",
+        "reason":  "too_many_files_merge_noise",
+        "n":  141
+    },
+    {
+        "id":  "GHSA-fr6f-xmfx-rrpq",
+        "reason":  "too_many_files_merge_noise",
+        "n":  175
+    },
+    {
+        "id":  "GHSA-fx9g-g9q6-x3jx",
+        "reason":  "too_many_files_merge_noise",
+        "n":  107
+    },
+    {
+        "id":  "GHSA-g7pc-799q-743f",
+        "reason":  "too_many_files_merge_noise",
+        "n":  175
+    },
+    {
+        "id":  "GHSA-gjcj-fj23-5j5v",
+        "reason":  "too_many_files_merge_noise",
+        "n":  133
+    },
+    {
+        "id":  "GHSA-gp56-f67f-m4px",
+        "reason":  "too_many_files_merge_noise",
+        "n":  16
+    },
+    {
+        "id":  "GHSA-gx4r-fvwg-8678",
+        "reason":  "too_many_files_merge_noise",
+        "n":  16
+    },
+    {
+        "id":  "GHSA-gxcm-36qw-j29v",
+        "reason":  "too_many_files_merge_noise",
+        "n":  592
+    },
+    {
+        "id":  "GHSA-h6jh-cf83-qcq5",
+        "reason":  "too_many_files_merge_noise",
+        "n":  25
+    },
+    {
+        "id":  "GHSA-hhfw-xxhm-pf32",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-hvcf-6324-cjh7",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-jhxh-68jj-68c7",
+        "reason":  "too_many_files_merge_noise",
+        "n":  2199
+    },
+    {
+        "id":  "GHSA-jmqp-r3gg-6jh3",
+        "reason":  "too_many_files_merge_noise",
+        "n":  94
+    },
+    {
+        "id":  "GHSA-jwxh-wj79-ccm6",
+        "reason":  "too_many_files_merge_noise",
+        "n":  69
+    },
+    {
+        "id":  "GHSA-m8cj-3v68-3cxj",
+        "reason":  "too_many_files_merge_noise",
+        "n":  94
+    },
+    {
+        "id":  "GHSA-m9mf-rqx6-2xpc",
+        "reason":  "all_files_noise",
+        "n":  2
+    },
+    {
+        "id":  "GHSA-mjgw-f2c4-f8qj",
+        "reason":  "too_many_files_merge_noise",
+        "n":  163
+    },
+    {
+        "id":  "GHSA-mv3p-7p89-wq9p",
+        "reason":  "too_many_files_merge_noise",
+        "n":  13
+    },
+    {
+        "id":  "GHSA-mwm8-36c5-j5cf",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-p7f6-8mcm-fwv3",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-q5fg-v5p7-r424",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-qmw8-x364-xxxm",
+        "reason":  "too_many_files_merge_noise",
+        "n":  13
+    },
+    {
+        "id":  "GHSA-qpgw-2c72-4c89",
+        "reason":  "all_files_noise",
+        "n":  6
+    },
+    {
+        "id":  "GHSA-qr95-4mq5-r3fh",
+        "reason":  "too_many_files_merge_noise",
+        "n":  46
+    },
+    {
+        "id":  "GHSA-r77c-qv68-j3pp",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-rfvw-5848-gxc5",
+        "reason":  "all_files_noise",
+        "n":  5
+    },
+    {
+        "id":  "GHSA-rg7p-wmgj-f374",
+        "reason":  "too_many_files_merge_noise",
+        "n":  107
+    },
+    {
+        "id":  "GHSA-rgg3-3wh7-w935",
+        "reason":  "too_many_files_merge_noise",
+        "n":  33
+    },
+    {
+        "id":  "GHSA-rhm7-7469-rcpw",
+        "reason":  "all_files_noise",
+        "n":  1
+    },
+    {
+        "id":  "GHSA-rq7f-j68f-mqh3",
+        "reason":  "all_files_noise",
+        "n":  14
+    },
+    {
+        "id":  "GHSA-v47q-jxvr-p68x",
+        "reason":  "too_many_files_merge_noise",
+        "n":  13
+    },
+    {
+        "id":  "GHSA-v6q8-8wgx-8hm7",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-w2p4-2c8c-2g7h",
+        "reason":  "too_many_files_merge_noise",
+        "n":  69
+    },
+    {
+        "id":  "GHSA-w4f3-7f7c-x652",
+        "reason":  "too_many_files_merge_noise",
+        "n":  592
+    },
+    {
+        "id":  "GHSA-w83m-rghh-frxj",
+        "reason":  "too_many_files_merge_noise",
+        "n":  2199
+    },
+    {
+        "id":  "GHSA-wr5c-4f2h-28m6",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-x2h8-4mhh-5hwh",
+        "reason":  "too_many_files_merge_noise",
+        "n":  15
+    },
+    {
+        "id":  "GHSA-x2j8-vjg7-386r",
+        "reason":  "too_many_files_merge_noise",
+        "n":  89
+    },
+    {
+        "id":  "GHSA-x36g-4629-xp9v",
+        "reason":  "too_many_files_merge_noise",
+        "n":  135
+    },
+    {
+        "id":  "GHSA-x577-gcc9-9xjj",
+        "reason":  "too_many_files_merge_noise",
+        "n":  23
+    },
+    {
+        "id":  "GHSA-x8wj-cqmp-3wmm",
+        "reason":  "too_many_files_merge_noise",
+        "n":  33
+    }
+]

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-xhqq-554j-p4x8",
+    "cve":  "CVE-2011-2718",
+    "cwe":  "CWE-22",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "fix_commit":  "3ae58f0cd6b89ad4767920f9b214c38d3f6d4393",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "libraries/schema/User_Schema.class.php",
+                        "schema_export.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libraries/schema/User_Schema.class.php includes 3 project file(s)",
+                     "schema_export.php includes 7 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

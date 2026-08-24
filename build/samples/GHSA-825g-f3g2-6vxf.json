@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-825g-f3g2-6vxf",
+    "cve":  "CVE-2017-1000495",
+    "cwe":  "CWE-79",
+    "repo":  "quickapps/cms",
+    "sha":  "7d648f21bd87af8263dcd6449f0946a2dd31348a",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugins/User/src/Model/Entity/User.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "plugins/User/src/Model/Entity/User.php class extends Entity",
+                     "plugins/User/src/Model/Entity/User.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "plugins/User/src/Model/Entity/User.php"
+                    ],
+    "sink_hit":  false
+}

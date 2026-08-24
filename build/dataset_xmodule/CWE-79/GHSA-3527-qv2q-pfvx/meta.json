@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-3527-qv2q-pfvx",
+    "cve":  "CVE-2025-46734",
+    "cwe":  "CWE-79",
+    "repo":  "thephpleague/commonmark",
+    "fix_commit":  "f0d626cf05ad3e99e6db26ebcb9091b6cd1cd89b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Extension/Attributes/AttributesExtension.php",
+                        "src/Extension/Attributes/Event/AttributesListener.php",
+                        "src/Extension/Attributes/Util/AttributesHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/unit/Extension/Attributes/Util/AttributesHelperTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,49 @@
+﻿diff --git a/redaxo/src/addons/structure/lib/structure_element.php b/redaxo/src/addons/structure/lib/structure_element.php
+index 7aa2cdc..2b1a2ed 100644
+--- a/redaxo/src/addons/structure/lib/structure_element.php
++++ b/redaxo/src/addons/structure/lib/structure_element.php
+@@ -80,8 +80,8 @@ abstract class rex_structure_element
+      * Returns Object Value.
+      *
+      * @param string $value
+-     *
+      * @return string|int|null
++     * @psalm-taint-source input
+      */
+     public function getValue($value)
+     {
+@@ -334,6 +334,7 @@ abstract class rex_structure_element
+      * Returns the name of the article.
+      *
+      * @return string
++     * @psalm-taint-source input
+      */
+     public function getName()
+     {
+diff --git a/redaxo/src/addons/structure/plugins/content/pages/content.php b/redaxo/src/addons/structure/plugins/content/pages/content.php
+index f0c70fc..0ef47b4 100644
+--- a/redaxo/src/addons/structure/plugins/content/pages/content.php
++++ b/redaxo/src/addons/structure/plugins/content/pages/content.php
+@@ -72,7 +72,7 @@ $context = new rex_context([
+ ]);
+ 
+ // ----- Titel anzeigen
+-echo rex_view::title(rex_i18n::msg('content') . ': ' . $OOArt->getName(), '');
++echo rex_view::title(rex_i18n::msg('content') . ': ' . rex_escape($OOArt->getName()), '');
+ 
+ // ----- Languages
+ echo rex_view::clangSwitchAsButtons($context);
+diff --git a/redaxo/src/core/lib/view.php b/redaxo/src/core/lib/view.php
+index 6dbbcc3..d5b7b0f 100644
+--- a/redaxo/src/core/lib/view.php
++++ b/redaxo/src/core/lib/view.php
+@@ -284,6 +284,9 @@ class rex_view
+      * @throws InvalidArgumentException
+      *
+      * @return string
++     *
++     * @psalm-taint-sink html $head
++     * @psalm-taint-sink html $subtitle
+      */
+     public static function title($head, $subtitle = null)
+     {

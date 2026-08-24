@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xv68-rrmw-9xwf",
+    "cve":  "CVE-2024-47058",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "344b908ef690283e7d8d3fc5cc1327396a1c3046",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/bundles/FormBundle/Twig/Extension/FormFieldExtension.php"
+                    ],
+    "evidence":  [
+                     "app/bundles/FormBundle/Twig/Extension/FormFieldExtension.php class extends AbstractExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

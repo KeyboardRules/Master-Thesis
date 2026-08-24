@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-j55w-hjpj-825g",
+    "cve":  "CVE-2024-28234",
+    "cwe":  "CWE-74",
+    "repo":  "contao/contao",
+    "sha":  "55b995d8d35da0d36bc6a22c53fe6423ab0c4ae2",
+    "status":  "ok",
+    "changed_php":  [
+                        "comments-bundle/contao/classes/Comments.php",
+                        "comments-bundle/src/Util/BbCode.php",
+                        "comments-bundle/src/Util/Node.php",
+                        "comments-bundle/tests/Util/BbCodeTest.php",
+                        "comments-bundle/tests/Util/NodeTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "comments-bundle/contao/classes/Comments.php class extends Frontend"
+                 ],
+    "changed_all":  [
+                        "comments-bundle/contao/classes/Comments.php",
+                        "comments-bundle/src/Util/BbCode.php",
+                        "comments-bundle/src/Util/Node.php",
+                        "comments-bundle/tests/Util/BbCodeTest.php",
+                        "comments-bundle/tests/Util/NodeTest.php"
+                    ],
+    "sink_hit":  false
+}

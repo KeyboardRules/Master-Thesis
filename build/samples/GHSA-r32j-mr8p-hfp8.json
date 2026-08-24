@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-r32j-mr8p-hfp8",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "89c14d079d3a130d6c4029af596262528ce53925",
+    "status":  "ok",
+    "changed_php":  [
+                        "forms/TreeDropdownField.php",
+                        "forms/TreeMultiselectField.php",
+                        "forms/gridfield/GridFieldPrintButton.php",
+                        "model/DataDifferencer.php",
+                        "model/DataObject.php",
+                        "security/PermissionCheckboxSetField.php",
+                        "view/ViewableData.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "forms/TreeDropdownField.php class extends FormField",
+                     "forms/TreeMultiselectField.php class extends TreeDropdownField",
+                     "model/DataDifferencer.php class extends ViewableData",
+                     "model/DataObject.php class extends DataObject",
+                     "security/PermissionCheckboxSetField.php class extends FormField",
+                     "view/ViewableData.php class extends Object"
+                 ],
+    "changed_all":  [
+                        "forms/TreeDropdownField.php",
+                        "forms/TreeMultiselectField.php",
+                        "forms/gridfield/GridFieldPrintButton.php",
+                        "javascript/TreeDropdownField.js",
+                        "model/DataDifferencer.php",
+                        "model/DataObject.php",
+                        "security/PermissionCheckboxSetField.php",
+                        "templates/forms/TreeDropdownField.ss",
+                        "view/ViewableData.php"
+                    ],
+    "sink_hit":  true
+}

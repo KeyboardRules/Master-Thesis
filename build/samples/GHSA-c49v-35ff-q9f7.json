@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c49v-35ff-q9f7",
+    "cve":  "CVE-2020-25750",
+    "cwe":  "CWE-611",
+    "repo":  "DevGroup-ru/dotplant2",
+    "sha":  "fee86c7052c227762c7325eb5c2811d9323f8429",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/components/payment/Pay2PayPayment.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/components/payment/Pay2PayPayment.php class extends AbstractPayment",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "application/components/payment/Pay2PayPayment.php"
+                    ],
+    "sink_hit":  true
+}

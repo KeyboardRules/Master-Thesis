@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p3w3-4ppm-c3f6",
+    "cve":  "CVE-2022-1514",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "sha":  "aa9f28cb86467468f43486b77ddef7ff4d3c687e",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/Base/PluginManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Core/Base/PluginManager.php"
+                    ],
+    "sink_hit":  false
+}

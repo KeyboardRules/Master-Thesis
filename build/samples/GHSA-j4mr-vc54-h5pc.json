@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j4mr-vc54-h5pc",
+    "cve":  "CVE-2014-7830",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "7bb6b84cfd308bad89dc0c3f95ad2fa55b7d25f8",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/feedback/mapcourse.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "mod/feedback/mapcourse.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "mod/feedback/mapcourse.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8x6-6r63-qvj2",
+    "cve":  "CVE-2022-24899",
+    "cwe":  "CWE-79",
+    "repo":  "contao/contao",
+    "sha":  "199206849a87ddd0fa5cf674eb3c58292fd8366c",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/pages/PageRegular.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/pages/PageRegular.php class extends Frontend"
+                 ],
+    "changed_all":  [
+                        "core-bundle/src/Resources/contao/pages/PageRegular.php"
+                    ],
+    "sink_hit":  false
+}

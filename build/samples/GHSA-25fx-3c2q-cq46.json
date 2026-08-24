@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-25fx-3c2q-cq46",
+    "cve":  "CVE-2023-2756",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/customer-data-framework",
+    "sha":  "76df151737b7964ce5169fdf9e27a0ad801757fe",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/Admin/SegmentAssignmentController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/Admin/SegmentAssignmentController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/Admin/SegmentAssignmentController.php"
+                    ],
+    "sink_hit":  false
+}

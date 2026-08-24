@@ -1,0 +1,130 @@
+﻿diff --git a/src/controllers/InventoryLocationsController.php b/src/controllers/InventoryLocationsController.php
+index ba887ed..98e1b7d 100644
+--- a/src/controllers/InventoryLocationsController.php
++++ b/src/controllers/InventoryLocationsController.php
+@@ -331,7 +331,7 @@ JS, [
+                 'id' => $inventoryLocation->id,
+                 'title' => $inventoryLocation->getUiLabel(),
+                 'handle' => $inventoryLocation->handle,
+-                'address' => $inventoryLocation->getAddressLine(),
++                'address' => Html::encode($inventoryLocation->getAddressLine()),
+                 'url' => $inventoryLocation->getCpEditUrl(),
+                 'delete' => $inventoryLocations->count() > 1 ? $deleteButton : '',
+             ];
+diff --git a/src/controllers/ShippingCategoriesController.php b/src/controllers/ShippingCategoriesController.php
+index dc8af37..ecec278 100644
+--- a/src/controllers/ShippingCategoriesController.php
++++ b/src/controllers/ShippingCategoriesController.php
+@@ -46,7 +46,7 @@ class ShippingCategoriesController extends BaseShippingSettingsController
+         // Generate table data with chips
+         $tableData = [];
+         foreach ($shippingCategories as $shippingCategory) {
+-            $label = Craft::t('site', $shippingCategory->name);
++            $label = Html::encode(Craft::t('site', $shippingCategory->name));
+             $tableData[] = [
+                 'id' => $shippingCategory->id,
+                 'title' => $label,
+@@ -57,7 +57,7 @@ class ShippingCategoriesController extends BaseShippingSettingsController
+                 ]),
+                 'url' => $shippingCategory->getCpEditUrl(),
+                 'handle' => $shippingCategory->handle,
+-                'description' => Craft::t('site', $shippingCategory->description),
++                'description' => Html::encode(Craft::t('site', $shippingCategory->description)),
+                 'default' => $shippingCategory->default,
+                 '_showDelete' => (count($shippingCategories) > 1 && !$shippingCategory->default),
+             ];
+diff --git a/src/controllers/ShippingMethodsController.php b/src/controllers/ShippingMethodsController.php
+index 78d0343..565c65c 100644
+--- a/src/controllers/ShippingMethodsController.php
++++ b/src/controllers/ShippingMethodsController.php
+@@ -44,7 +44,7 @@ class ShippingMethodsController extends BaseShippingSettingsController
+         // Generate table data with chips
+         $tableData = [];
+         foreach ($shippingMethods as $shippingMethod) {
+-            $label = Craft::t('site', $shippingMethod->name);
++            $label = Html::encode(Craft::t('site', $shippingMethod->name));
+             $tableData[] = [
+                 'id' => $shippingMethod->id,
+                 'title' => $label,
+diff --git a/src/controllers/ShippingZonesController.php b/src/controllers/ShippingZonesController.php
+index f9f07ba..72ab6fd 100644
+--- a/src/controllers/ShippingZonesController.php
++++ b/src/controllers/ShippingZonesController.php
+@@ -41,12 +41,12 @@ class ShippingZonesController extends BaseShippingSettingsController
+         // Generate table data
+         $tableData = [];
+         foreach ($shippingZones as $shippingZone) {
+-            $label = Craft::t('site', $shippingZone->name);
++            $label = Html::encode(Craft::t('site', $shippingZone->name));
+             $tableData[] = [
+                 'id' => $shippingZone->id,
+                 'title' => Html::a($label, $shippingZone->getCpEditUrl()),
+                 'url' => $shippingZone->getCpEditUrl(),
+-                'description' => Craft::t('site', $shippingZone->description),
++                'description' => Html::encode(Craft::t('site', $shippingZone->description)),
+             ];
+         }
+ 
+diff --git a/src/controllers/TaxCategoriesController.php b/src/controllers/TaxCategoriesController.php
+index 08ce85c..10f6c22 100644
+--- a/src/controllers/TaxCategoriesController.php
++++ b/src/controllers/TaxCategoriesController.php
+@@ -48,7 +48,7 @@ class TaxCategoriesController extends BaseTaxSettingsController
+         // Generate table data with chips
+         $tableData = [];
+         foreach ($taxCategories as $taxCategory) {
+-            $label = Craft::t('site', $taxCategory->name);
++            $label = Html::encode(Craft::t('site', $taxCategory->name));
+             $taxRates = $taxCategory->getTaxRates($store->id);
+             $tableData[] = [
+                 'id' => $taxCategory->id,
+@@ -60,7 +60,7 @@ class TaxCategoriesController extends BaseTaxSettingsController
+                 ]),
+                 'url' => $taxCategory->getCpEditUrl($store->id),
+                 'handle' => $taxCategory->handle,
+-                'description' => Craft::t('site', $taxCategory->description),
++                'description' => Html::encode(Craft::t('site', $taxCategory->description)),
+                 'default' => $taxCategory->default,
+                 '_showDelete' => $taxRates->isEmpty() && (count($taxCategories) > 1 && !$taxCategory->default),
+             ];
+diff --git a/src/controllers/TaxRatesController.php b/src/controllers/TaxRatesController.php
+index 50d3dae..7e1da5e 100644
+--- a/src/controllers/TaxRatesController.php
++++ b/src/controllers/TaxRatesController.php
+@@ -57,7 +57,7 @@ class TaxRatesController extends BaseTaxSettingsController
+         // Generate table data
+         $tableData = [];
+         foreach ($taxRates as $taxRate) {
+-            $label = Craft::t('site', $taxRate->name);
++            $label = Html::encode(Craft::t('site', $taxRate->name));
+             $tableData[] = [
+                 'id' => $taxRate->id,
+                 'status' => $taxRate->enabled,
+@@ -67,7 +67,7 @@ class TaxRatesController extends BaseTaxSettingsController
+                 'included' => $taxRate->include,
+                 'removeIncluded' => $taxRate->removeIncluded,
+                 'vat' => $taxRate->isVat,
+-                'zone' => $taxRate->isEverywhere ? Craft::t('commerce', 'Everywhere') : ($taxRate->taxZone ? $taxRate->taxZone->name : ''),
++                'zone' => $taxRate->isEverywhere ? Craft::t('commerce', 'Everywhere') : ($taxRate->taxZone ? Html::encode($taxRate->taxZone->name) : ''),
+                 'category' => $taxRate->taxCategory ? Cp::chipHtml($taxRate->taxCategory) : '',
+             ];
+         }
+diff --git a/src/controllers/TaxZonesController.php b/src/controllers/TaxZonesController.php
+index 21b4fea..9fd2d59 100644
+--- a/src/controllers/TaxZonesController.php
++++ b/src/controllers/TaxZonesController.php
+@@ -49,12 +49,12 @@ class TaxZonesController extends BaseTaxSettingsController
+         // Generate table data
+         $tableData = [];
+         foreach ($taxZones as $taxZone) {
+-            $label = Craft::t('site', $taxZone->name);
++            $label = Html::encode(Craft::t('site', $taxZone->name));
+             $tableData[] = [
+                 'id' => $taxZone->id,
+                 'title' => Html::a($label, $taxZone->getCpEditUrl()),
+                 'url' => $taxZone->getCpEditUrl(),
+-                'description' => Craft::t('site', $taxZone->description),
++                'description' => Html::encode(Craft::t('site', $taxZone->description)),
+                 'default' => $taxZone->default,
+             ];
+         }

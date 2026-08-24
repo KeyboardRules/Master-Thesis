@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-5hfj-r725-wpc4",
+    "cve":  "CVE-2021-32650",
+    "cwe":  "CWE-74",
+    "repo":  "octobercms/october",
+    "fix_commit":  "167b592eed291ae1563c8fcc5b9b34a03a300f26",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "modules/cms/controllers/Themes.php",
+                        "modules/system/twig/SecurityPolicy.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/cms/controllers/Themes.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

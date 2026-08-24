@@ -1,0 +1,46 @@
+﻿{
+    "id":  "GHSA-w7gh-f2fm-9q8r",
+    "cve":  "CVE-2025-43717",
+    "cwe":  "CWE-79",
+    "repo":  "pear/HTTP_Request2",
+    "sha":  "07925aa77e441dba0ff0fa973a09802729cb838f",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/_network/basicauth.php",
+                        "tests/_network/bug19934.php",
+                        "tests/_network/bug20228.php",
+                        "tests/_network/cookies.php",
+                        "tests/_network/digestauth.php",
+                        "tests/_network/download.php",
+                        "tests/_network/getparameters.php",
+                        "tests/_network/incompletebody.php",
+                        "tests/_network/postparameters.php",
+                        "tests/_network/rawpostdata.php",
+                        "tests/_network/redirects.php",
+                        "tests/_network/setcookie.php",
+                        "tests/_network/timeout.php",
+                        "tests/_network/uploads.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 14 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tests/_network/basicauth.php",
+                        "tests/_network/bug19934.php",
+                        "tests/_network/bug20228.php",
+                        "tests/_network/cookies.php",
+                        "tests/_network/digestauth.php",
+                        "tests/_network/download.php",
+                        "tests/_network/getparameters.php",
+                        "tests/_network/incompletebody.php",
+                        "tests/_network/postparameters.php",
+                        "tests/_network/rawpostdata.php",
+                        "tests/_network/redirects.php",
+                        "tests/_network/setcookie.php",
+                        "tests/_network/timeout.php",
+                        "tests/_network/uploads.php"
+                    ],
+    "sink_hit":  true
+}

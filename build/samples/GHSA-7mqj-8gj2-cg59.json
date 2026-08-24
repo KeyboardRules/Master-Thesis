@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7mqj-8gj2-cg59",
+    "cve":  "CVE-2026-44655",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "5cb4b469295889f5d2b01677c9bf82c143e0fdaa",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/move_attachments_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/move_attachments_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/move_attachments_page.php"
+                    ],
+    "sink_hit":  true
+}

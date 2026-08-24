@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mg4c-884j-pcq9",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "Leantime/leantime",
+    "sha":  "d8b1099b0629da64ad30a1c4daee104fadc6c227",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Core/Fileupload.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Core/Fileupload.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Core/Fileupload.php"
+                    ],
+    "sink_hit":  false
+}

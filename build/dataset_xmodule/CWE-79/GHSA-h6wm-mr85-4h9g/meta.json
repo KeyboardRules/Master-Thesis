@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h6wm-mr85-4h9g",
+    "cve":  "CVE-2022-2066",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "fix_commit":  "73a6595ca85984d65f656c6356fabb23d1936c54",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Core/App/AppController.php"
+                    ],
+    "evidence":  [
+                     "Core/App/AppController.php class extends App"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

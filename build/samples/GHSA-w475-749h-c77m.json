@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-w475-749h-c77m",
+    "cve":  "CVE-2023-0308",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "810ee26d25c3d97664532861863099952f0e9a1f",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.user.php",
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "phpmyfaq/ajaxservice.php includes 3 project file(s)",
+                     "phpmyfaq/index.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/ajax.user.php",
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "sink_hit":  true
+}

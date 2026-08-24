@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-x5j3-mq9g-8jc8",
+    "cve":  "CVE-2023-28106",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "c59d0bf1d03a5037b586fe06230694fa3818dbf2",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/document/pages/settings.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/helpers.js"
+                    ],
+    "sink_hit":  false
+}

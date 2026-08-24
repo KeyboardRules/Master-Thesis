@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-35c5-67fm-cpcp",
+    "cve":  "CVE-2025-8678",
+    "cwe":  "CWE-918",
+    "repo":  "johnbillion/wp-crontrol",
+    "sha":  "b085bd306588d7a9baed82de37f9d1818deafc44",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/bootstrap.php",
+                        "src/event-list-table.php",
+                        "src/event.php",
+                        "tests/_support/AcceptanceTester.php",
+                        "tests/acceptance/AddEventCest.php",
+                        "tests/acceptance/DeleteAllWithHookCest.php",
+                        "tests/acceptance/PauseEventCest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/event-list-table.php includes 1 project file(s)",
+                     "src/event-list-table.php class extends \\WP_List_Table",
+                     "tests/_support/AcceptanceTester.php class extends \\Codeception\\Actor"
+                 ],
+    "changed_all":  [
+                        "SECURITY.md",
+                        "phpstan.neon.dist",
+                        "src/bootstrap.php",
+                        "src/event-list-table.php",
+                        "src/event.php",
+                        "tests/_support/AcceptanceTester.php",
+                        "tests/acceptance/AddEventCest.php",
+                        "tests/acceptance/DeleteAllWithHookCest.php",
+                        "tests/acceptance/PauseEventCest.php"
+                    ],
+    "sink_hit":  true
+}

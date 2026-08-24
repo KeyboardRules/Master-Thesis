@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-f5gc-qxf8-mh9g",
+    "cve":  "CVE-2026-49260",
+    "cwe":  "CWE-78",
+    "repo":  "pontedilana/php-weasyprint",
+    "sha":  "9e86a2b317237fc5728f712f5037164530117f7e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/AbstractGenerator.php",
+                        "src/Pdf.php",
+                        "tests/PdfSpy.php",
+                        "tests/Unit/AbstractGeneratorTest.php",
+                        "tests/Unit/PdfTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Pdf.php class extends AbstractGenerator",
+                     "tests/PdfSpy.php class extends Pdf",
+                     "tests/Unit/AbstractGeneratorTest.php class extends TestCase",
+                     "tests/Unit/PdfTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/AbstractGenerator.php",
+                        "src/Pdf.php",
+                        "tests/PdfSpy.php",
+                        "tests/Unit/AbstractGeneratorTest.php",
+                        "tests/Unit/PdfTest.php"
+                    ],
+    "sink_hit":  true
+}

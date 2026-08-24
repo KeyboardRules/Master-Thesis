@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-45ch-hxgr-vx8j",
+    "cve":  "CVE-2010-1618",
+    "cwe":  "CWE-79",
+    "repo":  "apereo/phpCAS",
+    "fix_commit":  "021633112198b37555b35340cde884d1016d9e47",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "source/CAS/client.php"
+                    ],
+    "evidence":  [
+                     "source/CAS/client.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-vxg2-hhgr-37fx",
+    "cve":  "CVE-2026-35540",
+    "cwe":  "CWE-918",
+    "repo":  "roundcube/roundcubemail",
+    "sha":  "27ec6cc9cb25e1ef8b4d4ef39ce76d619caa6870",
+    "status":  "ok",
+    "changed_php":  [
+                        "program/actions/mail/index.php",
+                        "program/actions/utils/modcss.php",
+                        "program/lib/Roundcube/rcube_utils.php",
+                        "program/lib/Roundcube/rcube_washtml.php",
+                        "tests/Framework/Utils.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "program/actions/mail/index.php class extends rcmail_action",
+                     "program/actions/utils/modcss.php class extends rcmail_action",
+                     "tests/Framework/Utils.php class extends PHPUnit\\Framework\\TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json-dist",
+                        "program/actions/mail/index.php",
+                        "program/actions/utils/modcss.php",
+                        "program/lib/Roundcube/rcube_utils.php",
+                        "program/lib/Roundcube/rcube_washtml.php",
+                        "tests/Framework/Utils.php"
+                    ],
+    "sink_hit":  true
+}

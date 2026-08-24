@@ -1,0 +1,80 @@
+﻿diff --git a/config/version.php b/config/version.php
+index f4083a384..71fe910af 100644
+--- a/config/version.php
++++ b/config/version.php
+@@ -1,7 +1,7 @@
+ <?php
+ 
+ return [
+-	'appVersion' => '6.4.13',
++	'appVersion' => '6.4.14',
+ 	'patchVersion' => '2022.08.26',
+ 	'lib_roundcube' => '0.3.1',
+ ];
+diff --git a/modules/Settings/Workflows/actions/TaskAjax.php b/modules/Settings/Workflows/actions/TaskAjax.php
+index 5871ce9e2..a73578400 100644
+--- a/modules/Settings/Workflows/actions/TaskAjax.php
++++ b/modules/Settings/Workflows/actions/TaskAjax.php
+@@ -96,9 +96,9 @@ class Settings_Workflows_TaskAjax_Action extends Settings_Vtiger_Basic_Action
+ 	 */
+ 	public function save(App\Request $request)
+ 	{
+-		$workflowId = $request->get('for_workflow');
++		$workflowId = !$request->isEmpty('for_workflow') ? $request->getInteger('for_workflow') : 0;
+ 		if (!empty($workflowId)) {
+-			$record = $request->get('task_id');
++			$record = !$request->isEmpty('task_id') ? $request->getInteger('task_id') : 0;
+ 			if ($record) {
+ 				$taskRecordModel = Settings_Workflows_TaskRecord_Model::getInstance($record);
+ 				$taskObject = $taskRecordModel->getTaskObject();
+@@ -108,7 +108,7 @@ class Settings_Workflows_TaskAjax_Action extends Settings_Vtiger_Basic_Action
+ 				$taskObject = $taskRecordModel->getTaskObject();
+ 				$taskObject->sequence = $taskRecordModel->getNextSequenceNumber($workflowId);
+ 			}
+-			$taskObject->summary = htmlspecialchars($request->get('summary'));
++			$taskObject->summary = \App\Purifier::decodeHtml($request->getByType('summary', \App\Purifier::TEXT));
+ 
+ 			$active = $request->get('active');
+ 			if ('true' == $active) {
+@@ -121,7 +121,7 @@ class Settings_Workflows_TaskAjax_Action extends Settings_Vtiger_Basic_Action
+ 			if (!empty($checkSelectDate)) {
+ 				$trigger = [
+ 					'days' => ('after' == $request->get('select_date_direction') ? 1 : -1) * (int) $request->get('select_date_days'),
+-					'field' => $request->get('select_date_field'),
++					'field' => $request->getByType('select_date_field', \App\Purifier::ALNUM),
+ 				];
+ 				$taskObject->trigger = $trigger;
+ 			} else {
+@@ -143,7 +143,7 @@ class Settings_Workflows_TaskAjax_Action extends Settings_Vtiger_Basic_Action
+ 
+ 							$taskObject->{$fieldName} = \App\Json::encode($values);
+ 						} else {
+-							$taskObject->{$fieldName} = $request->getRaw($fieldName);
++							$taskObject->{$fieldName} = \App\Purifier::decodeHtml($request->getByType($fieldName, \App\Purifier::TEXT));
+ 						}
+ 					} elseif (isset($fieldNamesRequestMethods[$fieldName])) {
+ 						$taskObject->{$fieldName} = $request->{$fieldNamesRequestMethods[$fieldName]}($fieldName);
+diff --git a/modules/Settings/Workflows/views/EditTask.php b/modules/Settings/Workflows/views/EditTask.php
+index 0e3894d06..b516477f3 100644
+--- a/modules/Settings/Workflows/views/EditTask.php
++++ b/modules/Settings/Workflows/views/EditTask.php
+@@ -129,19 +129,7 @@ class Settings_Workflows_EditTask_View extends Settings_Vtiger_Index_View
+ 		$viewer->assign('WORKFLOW_MODEL', $workflowModel);
+ 		$viewer->assign('TASK_MODEL', $taskModel);
+ 		$viewer->assign('CURRENTDATE', date('Y-n-j'));
+-		// Adding option Line Item block for Individual tax mode
+-		$individualTaxBlockLabel = \App\Language::translate('LBL_LINEITEM_BLOCK_GROUP', $qualifiedModuleName);
+-		$individualTaxBlockValue = $viewer->view('LineItemsGroupTemplate.tpl', $qualifiedModuleName, true);
+ 
+-		// Adding option Line Item block for group tax mode
+-		$groupTaxBlockLabel = \App\Language::translate('LBL_LINEITEM_BLOCK_INDIVIDUAL', $qualifiedModuleName);
+-		$groupTaxBlockValue = $viewer->view('LineItemsIndividualTemplate.tpl', $qualifiedModuleName, true);
+-
+-		$templateVariables = [
+-			$individualTaxBlockValue => $individualTaxBlockLabel,
+-			$groupTaxBlockValue => $groupTaxBlockLabel,
+-		];
+-		$viewer->assign('TEMPLATE_VARIABLES', $templateVariables);
+ 		$viewer->assign('TASK_OBJECT', $taskObject);
+ 		$viewer->assign('FIELD_EXPRESSIONS', Settings_Workflows_Module_Model::getExpressions());
+ 		$userModel = \App\User::getCurrentUserModel();

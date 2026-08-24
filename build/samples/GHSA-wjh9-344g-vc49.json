@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wjh9-344g-vc49",
+    "cve":  "CVE-2022-1997",
+    "cwe":  "CWE-79",
+    "repo":  "francoisjacquet/rosariosis",
+    "sha":  "6b22c0b5b40fad891c8cf9e7eeff3e42a35c0bf8",
+    "status":  "ok",
+    "changed_php":  [
+                        "functions/PreparePHP_SELF.fnc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "functions/PreparePHP_SELF.fnc.php"
+                    ],
+    "sink_hit":  false
+}

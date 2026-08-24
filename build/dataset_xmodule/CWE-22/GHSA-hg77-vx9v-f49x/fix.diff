@@ -1,0 +1,15 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/Asset/AssetController.php b/bundles/AdminBundle/Controller/Admin/Asset/AssetController.php
+index c2a6a90b24..f3ec571ee6 100644
+--- a/bundles/AdminBundle/Controller/Admin/Asset/AssetController.php
++++ b/bundles/AdminBundle/Controller/Admin/Asset/AssetController.php
+@@ -2459,6 +2459,10 @@ class AssetController extends ElementControllerBase implements KernelControllerE
+      */
+     public function importServerFilesAction(Request $request)
+     {
++        if(!Tool\Admin::getCurrentUser()->isAdmin()) {
++            throw $this->createAccessDeniedException('Permission denied. You don\'t have the rights to import files from the server!');
++        }
++
+         $assetFolder = Asset::getById((int) $request->get('parentId'));
+         if (!$assetFolder) {
+             throw $this->createNotFoundException('Parent asset not found');

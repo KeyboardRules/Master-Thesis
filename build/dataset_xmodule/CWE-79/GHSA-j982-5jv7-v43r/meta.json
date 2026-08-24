@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-j982-5jv7-v43r",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "245e0aae2f5f3eb0acba1d198ad8e196bb224462",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "forms/Form.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "forms/Form.php class extends RequestHandler",
+                     "tests/forms/FormTest.php class extends FunctionalTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

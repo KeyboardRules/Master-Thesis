@@ -1,0 +1,168 @@
+﻿diff --git a/src/Sylius/Behat/Context/Setup/AddressContext.php b/src/Sylius/Behat/Context/Setup/AddressContext.php
+index f810565f..82c76296 100644
+--- a/src/Sylius/Behat/Context/Setup/AddressContext.php
++++ b/src/Sylius/Behat/Context/Setup/AddressContext.php
+@@ -66,6 +66,19 @@ final class AddressContext implements Context
+         $customer = $user->getCustomer();
+ 
+         $this->addAddressToCustomer($customer, $address);
++
++        $this->sharedStorage->set('address', $address);
++    }
++
++    /**
++     * @Given this address has province :province
++     */
++    public function thisAddressHasProvince(string $provinceName): void
++    {
++        $address = $this->sharedStorage->get('address');
++        $address->setProvinceName($provinceName);
++
++        $this->customerManager->flush();
+     }
+ 
+     /**
+diff --git a/src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php b/src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php
+index 0c17a02c..5a32b027 100644
+--- a/src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php
++++ b/src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php
+@@ -88,6 +88,7 @@ final class ManagingProductsContext implements Context
+      * @When I do not name it
+      * @When I name it :name in :language
+      * @When I rename it to :name in :language
++     * @When I should be able to name it :name in :language
+      */
+     public function iRenameItToIn(?string $name = null, ?string $language = null): void
+     {
+@@ -747,6 +748,7 @@ final class ManagingProductsContext implements Context
+ 
+     /**
+      * @When /^I choose main (taxon "[^"]+")$/
++     * @Then /^I should be able to choose main (taxon "[^"]+")$/
+      */
+     public function iChooseMainTaxon(TaxonInterface $taxon)
+     {
+@@ -820,6 +822,7 @@ final class ManagingProductsContext implements Context
+     /**
+      * @When I associate as :productAssociationType the :productName product
+      * @When I associate as :productAssociationType the :firstProductName and :secondProductName products
++     * @Then I should be able to associate as :productAssociationType the :productName product
+      */
+     public function iAssociateProductsAsProductAssociation(
+         ProductAssociationTypeInterface $productAssociationType,
+diff --git a/src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php b/src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php
+index 3a193a15..3a31e7fd 100644
+--- a/src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php
++++ b/src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php
+@@ -136,6 +136,7 @@ final class ManagingTaxonsContext implements Context
+     /**
+      * @Given /^I set its (parent taxon to "[^"]+")$/
+      * @Given /^I change its (parent taxon to "[^"]+")$/
++     * @Then /^I should be able to change its (parent taxon to "[^"]+")$/
+      */
+     public function iChangeItsParentTaxonTo(TaxonInterface $taxon)
+     {
+diff --git a/src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php b/src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php
+index dd223762..2b538eea 100644
+--- a/src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php
++++ b/src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php
+@@ -41,8 +41,9 @@ final class AddressBookContext implements Context
+ 
+     /**
+      * @Given I am editing the address of :fullName
++     * @When I want to edit the address of :fullName
+      */
+-    public function iEditAddressOf($fullName)
++    public function iEditAddressOf(string $fullName): void
+     {
+         $this->sharedStorage->set('full_name', $fullName);
+ 
+@@ -350,6 +351,14 @@ final class AddressBookContext implements Context
+         Assert::same($actualFullName, $expectedFullName);
+     }
+ 
++    /**
++     * @Then I should be able to update it without unexpected alert
++     */
++    public function iShouldBeAbleToUpdateItWithoutUnexpectedAlert(): void
++    {
++        $this->addressBookUpdatePage->waitForFormToStopLoading();
++    }
++
+     /**
+      * @param string $fullName
+      *
+diff --git a/src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php b/src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php
+index 05763b94..ee2d9d9f 100644
+--- a/src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php
++++ b/src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php
+@@ -484,6 +484,14 @@ final class CheckoutAddressingContext implements Context
+         Assert::same($availableBillingCountries, $countries);
+     }
+ 
++    /**
++     * @Then I should be able to update the address without unexpected alert
++     */
++    public function iShouldBeAbleToUpdateTheAddressWithoutUnexpectedAlert(): void
++    {
++        $this->addressPage->waitForFormToStopLoading();
++    }
++
+     /**
+      * @return AddressInterface
+      */
+diff --git a/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php b/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php
+index 5cda3d36..5308a0f4 100644
+--- a/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php
++++ b/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php
+@@ -71,6 +71,11 @@ class UpdatePage extends SymfonyPage implements UpdatePageInterface
+         JQueryHelper::waitForFormToStopLoading($this->getDocument());
+     }
+ 
++    public function waitForFormToStopLoading(): void
++    {
++        JQueryHelper::waitForFormToStopLoading($this->getDocument());
++    }
++
+     public function saveChanges(): void
+     {
+         JQueryHelper::waitForFormToStopLoading($this->getDocument());
+diff --git a/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php b/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php
+index 336354ec..5988a1da 100644
+--- a/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php
++++ b/src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php
+@@ -29,5 +29,7 @@ interface UpdatePageInterface extends SymfonyPageInterface
+ 
+     public function selectCountry(string $name): void;
+ 
++    public function waitForFormToStopLoading(): void;
++
+     public function saveChanges(): void;
+ }
+diff --git a/src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php b/src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php
+index 89fea14f..26aea770 100644
+--- a/src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php
++++ b/src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php
+@@ -281,6 +281,11 @@ class AddressPage extends SymfonyPage implements AddressPageInterface
+         return $this->getOptionsFromSelect($this->getElement('billing_country'));
+     }
+ 
++    public function waitForFormToStopLoading(): void
++    {
++        JQueryHelper::waitForFormToStopLoading($this->getDocument());
++    }
++
+     protected function getDefinedElements(): array
+     {
+         return array_merge(parent::getDefinedElements(), [
+diff --git a/src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php b/src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php
+index de0fa8ad..2a787df6 100644
+--- a/src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php
++++ b/src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php
+@@ -81,4 +81,6 @@ interface AddressPageInterface extends SymfonyPageInterface
+     public function isDifferentShippingAddressChecked(): bool;
+ 
+     public function isShippingAddressVisible(): bool;
++
++    public function waitForFormToStopLoading(): void;
+ }

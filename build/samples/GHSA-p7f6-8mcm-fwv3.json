@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-p7f6-8mcm-fwv3",
+    "cve":  "CVE-2024-52600",
+    "cwe":  "CWE-22",
+    "repo":  "statamic/cms",
+    "sha":  "0c07c10009a2439c8ee56c8faefd1319dc6e388d",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/Feature/Assets/StoreAssetTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "tests/Feature/Assets/StoreAssetTest.php class extends TestCase",
+                     "tests/Feature/Assets/StoreAssetTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "tests/Feature/Assets/StoreAssetTest.php"
+                    ],
+    "sink_hit":  false
+}

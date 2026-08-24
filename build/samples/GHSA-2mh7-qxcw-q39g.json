@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2mh7-qxcw-q39g",
+    "cve":  "CVE-2022-3072",
+    "cwe":  "CWE-79",
+    "repo":  "francoisjacquet/rosariosis",
+    "sha":  "dcd3b86156bf9e981944e1a9e01ea23d8ad7c83a",
+    "status":  "ok",
+    "changed_php":  [
+                        "ProgramFunctions/FileUpload.fnc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "ProgramFunctions/FileUpload.fnc.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "CHANGES.md",
+                        "ProgramFunctions/FileUpload.fnc.php"
+                    ],
+    "sink_hit":  false
+}

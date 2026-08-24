@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m3px-vjxr-fx4m",
+    "cve":  "CVE-2024-42485",
+    "cwe":  "CWE-22",
+    "repo":  "pxlrbt/filament-excel",
+    "sha":  "af36f933b032aefccc87d17431b6e74673b04af5",
+    "status":  "ok",
+    "changed_php":  [
+                        "routes/web.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "routes/web.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x82r-6j37-vrgg",
+    "cve":  "CVE-2025-30166",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "sha":  "76b690d4f8fcd9c9d41766bc5238c2513242e60e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/Admin/EmailController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/Admin/EmailController.php class extends AdminAbstractController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/Admin/EmailController.php"
+                    ],
+    "sink_hit":  true
+}

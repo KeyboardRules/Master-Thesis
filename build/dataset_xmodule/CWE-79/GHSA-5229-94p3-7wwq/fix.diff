@@ -1,0 +1,25 @@
+﻿diff --git a/includes/html/pages/tools/oxidized-cfg-check.inc.php b/includes/html/pages/tools/oxidized-cfg-check.inc.php
+index e79c7baa..752d9873 100644
+--- a/includes/html/pages/tools/oxidized-cfg-check.inc.php
++++ b/includes/html/pages/tools/oxidized-cfg-check.inc.php
+@@ -8,6 +8,7 @@ if (isset($_POST['config'])) {
+         $oxidized_cfg = Yaml::parse($_POST['config']);
+         $validate_cfg = validate_oxidized_cfg($oxidized_cfg);
+         foreach ($validate_cfg as $error) {
++            $error = htmlspecialchars($error);
+             echo "<div class='alert alert-danger'>$error</div>";
+         }
+         if (empty($validate_cfg)) {
+diff --git a/includes/html/print-customoid.php b/includes/html/print-customoid.php
+index 1a6329a8..07c744f2 100644
+--- a/includes/html/print-customoid.php
++++ b/includes/html/print-customoid.php
+@@ -74,7 +74,7 @@ if (isset($device['device_id']) && $device['device_id'] > 0) {
+ 
+ $count = dbFetchCell("SELECT COUNT(*) $query $where", $param);
+ if (isset($_POST['page_num']) && $_POST['page_num'] > 0 && $_POST['page_num'] <= $count) {
+-    $page_num = $_POST['page_num'];
++    $page_num = intval($_POST['page_num']);
+ } else {
+     $page_num = 1;
+ }

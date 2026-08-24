@@ -1,0 +1,43 @@
+﻿{
+    "id":  "GHSA-m6pf-cm3f-7876",
+    "cve":  "CVE-2023-4347",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "91c57a1ee54631e071b6b0c952d99c8ee892e824",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/apps/ntp.inc.php",
+                        "includes/html/pages/device/port/realtime.inc.php",
+                        "includes/html/pages/health/mempool.inc.php",
+                        "includes/html/pages/health/processor.inc.php",
+                        "includes/html/pages/health/sensors.inc.php",
+                        "includes/html/pages/health/storage.inc.php",
+                        "includes/html/pages/health/toner.inc.php",
+                        "includes/html/pages/outages.inc.php",
+                        "includes/html/pages/ports/list.inc.php",
+                        "includes/html/pages/search/fdb.inc.php",
+                        "includes/html/pages/syslog.inc.php",
+                        "includes/html/pages/wireless/sensors.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "includes/html/pages/outages.inc.php includes 1 project file(s)",
+                     "includes/html/pages/syslog.inc.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/apps/ntp.inc.php",
+                        "includes/html/pages/device/port/realtime.inc.php",
+                        "includes/html/pages/health/mempool.inc.php",
+                        "includes/html/pages/health/processor.inc.php",
+                        "includes/html/pages/health/sensors.inc.php",
+                        "includes/html/pages/health/storage.inc.php",
+                        "includes/html/pages/health/toner.inc.php",
+                        "includes/html/pages/outages.inc.php",
+                        "includes/html/pages/ports/list.inc.php",
+                        "includes/html/pages/search/fdb.inc.php",
+                        "includes/html/pages/syslog.inc.php",
+                        "includes/html/pages/wireless/sensors.inc.php"
+                    ],
+    "sink_hit":  true
+}

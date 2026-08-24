@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jh57-j3vq-h438",
+    "cve":  "CVE-2024-32480",
+    "cwe":  "CWE-89",
+    "repo":  "librenms/librenms",
+    "sha":  "83fe4b10c440d69a47fe2f8616e290ba2bd3a27c",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/api_functions.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/api_functions.inc.php"
+                    ],
+    "sink_hit":  true
+}

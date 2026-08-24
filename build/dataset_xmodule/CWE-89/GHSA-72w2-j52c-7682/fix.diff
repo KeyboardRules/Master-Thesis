@@ -1,0 +1,110 @@
+﻿diff --git a/availability/condition/profile/classes/condition.php b/availability/condition/profile/classes/condition.php
+index 70b54d71f3..1b14217ef2 100644
+--- a/availability/condition/profile/classes/condition.php
++++ b/availability/condition/profile/classes/condition.php
+@@ -197,7 +197,12 @@ class condition extends \core_availability\condition {
+                         $this->customfield);
+             }
+         } else {
+-            $translatedfieldname = \core_user\fields::get_display_name($this->standardfield);
++            $standardfields = self::get_standard_profile_fields();
++            if (array_key_exists($this->standardfield, $standardfields)) {
++                $translatedfieldname = $standardfields[$this->standardfield];
++            } else {
++                $translatedfieldname = get_string('missing', 'availability_profile', $this->standardfield);
++            }
+         }
+         $a = new \stdClass();
+         // Not safe to call format_string here; use the special function to call it later.
+@@ -321,6 +326,27 @@ class condition extends \core_availability\condition {
+         return $fieldconditionmet;
+     }
+ 
++    /**
++     * Return list of standard user profile fields used by the condition
++     *
++     * @return string[]
++     */
++    public static function get_standard_profile_fields(): array {
++        return [
++            'firstname' => \core_user\fields::get_display_name('firstname'),
++            'lastname' => \core_user\fields::get_display_name('lastname'),
++            'email' => \core_user\fields::get_display_name('email'),
++            'city' => \core_user\fields::get_display_name('city'),
++            'country' => \core_user\fields::get_display_name('country'),
++            'idnumber' => \core_user\fields::get_display_name('idnumber'),
++            'institution' => \core_user\fields::get_display_name('institution'),
++            'department' => \core_user\fields::get_display_name('department'),
++            'phone1' => \core_user\fields::get_display_name('phone1'),
++            'phone2' => \core_user\fields::get_display_name('phone2'),
++            'address' => \core_user\fields::get_display_name('address'),
++        ];
++    }
++
+     /**
+      * Gets data about custom profile fields. Cached statically in current
+      * request.
+@@ -472,6 +498,11 @@ class condition extends \core_availability\condition {
+             $valuefield = 'data';
+             $default = $customfield->defaultdata;
+         } else {
++            $standardfields = self::get_standard_profile_fields();
++            if (!array_key_exists($this->standardfield, $standardfields)) {
++                // If the field isn't found, nobody matches.
++                return [];
++            }
+             $values = $DB->get_records_select('user', 'id ' . $sql, $params,
+                     '', 'id, '. $this->standardfield);
+             $valuefield = $this->standardfield;
+@@ -595,6 +626,11 @@ class condition extends \core_availability\condition {
+                 $where = "(ud.data IS NOT NULL AND $condition)";
+             }
+         } else {
++            $standardfields = self::get_standard_profile_fields();
++            if (!array_key_exists($this->standardfield, $standardfields)) {
++                // If the field isn't found, nobody matches.
++                return ['SELECT id FROM {user} WHERE 0 = 1', []];
++            }
+             $tablesql = "JOIN {user} u ON u.id = userids.id";
+             list ($where, $mainparams) = $this->get_condition_sql(
+                     'u.' . $this->standardfield);
+diff --git a/availability/condition/profile/classes/frontend.php b/availability/condition/profile/classes/frontend.php
+index d6a311d9c1..288ad9e69e 100644
+--- a/availability/condition/profile/classes/frontend.php
++++ b/availability/condition/profile/classes/frontend.php
+@@ -42,20 +42,9 @@ class frontend extends \core_availability\frontend {
+ 
+     protected function get_javascript_init_params($course, \cm_info $cm = null,
+             \section_info $section = null) {
++
+         // Standard user fields.
+-        $standardfields = array(
+-            'firstname' => \core_user\fields::get_display_name('firstname'),
+-            'lastname' => \core_user\fields::get_display_name('lastname'),
+-            'email' => \core_user\fields::get_display_name('email'),
+-            'city' => \core_user\fields::get_display_name('city'),
+-            'country' => \core_user\fields::get_display_name('country'),
+-            'idnumber' => \core_user\fields::get_display_name('idnumber'),
+-            'institution' => \core_user\fields::get_display_name('institution'),
+-            'department' => \core_user\fields::get_display_name('department'),
+-            'phone1' => \core_user\fields::get_display_name('phone1'),
+-            'phone2' => \core_user\fields::get_display_name('phone2'),
+-            'address' => \core_user\fields::get_display_name('address')
+-        );
++        $standardfields = condition::get_standard_profile_fields();
+         \core_collator::asort($standardfields);
+ 
+         // Custom fields.
+diff --git a/availability/condition/profile/lang/en/availability_profile.php b/availability/condition/profile/lang/en/availability_profile.php
+index c78dace0c6..f1535d6361 100644
+--- a/availability/condition/profile/lang/en/availability_profile.php
++++ b/availability/condition/profile/lang/en/availability_profile.php
+@@ -39,7 +39,7 @@ $string['requires_notendswith'] = 'Your <strong>{$a->field}</strong> does not en
+ $string['requires_notisequalto'] = 'Your <strong>{$a->field}</strong> is not <strong>{$a->value}</strong>';
+ $string['requires_notstartswith'] = 'Your <strong>{$a->field}</strong> does not start with <strong>{$a->value}</strong>';
+ $string['requires_startswith'] = 'Your <strong>{$a->field}</strong> starts with <strong>{$a->value}</strong>';
+-$string['missing'] = '(Missing custom field: {$a})';
++$string['missing'] = '(Missing field: {$a})';
+ $string['title'] = 'User profile';
+ $string['op_contains'] = 'contains';
+ $string['op_doesnotcontain'] = 'doesn\'t contain';

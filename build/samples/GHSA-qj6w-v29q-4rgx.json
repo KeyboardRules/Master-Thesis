@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qj6w-v29q-4rgx",
+    "cve":  "CVE-2026-39960",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "5fec0f448b7a7d7d539a6adb6dccceac4e4e4ab7",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/cfdefs/cfdef_standard.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "core/cfdefs/cfdef_standard.php"
+                    ],
+    "sink_hit":  true
+}

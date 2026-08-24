@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-vq59-x6mq-4wgw",
+    "cve":  "CVE-2019-11512",
+    "cwe":  "CWE-89",
+    "repo":  "contao/contao",
+    "sha":  "87d92f823b08b91a0aeb522284537c8afcdb8aba",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/drivers/DC_Folder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/drivers/DC_Folder.php class extends \\DataContainer"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "core-bundle/src/Resources/contao/drivers/DC_Folder.php"
+                    ],
+    "sink_hit":  true
+}

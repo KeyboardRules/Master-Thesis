@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-8h43-xg5g-9cj7",
+    "cve":  "CVE-2022-4732",
+    "cwe":  "CWE-434",
+    "repo":  "microweber/microweber",
+    "sha":  "0d279ac81052ce7ee97c18c811a9b8e912189da0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/App/functions/other.php",
+                        "src/MicroweberPackages/App/functions/plupload.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/MicroweberPackages/App/functions/plupload.php class extends Exception",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/App/functions/other.php",
+                        "src/MicroweberPackages/App/functions/plupload.php"
+                    ],
+    "sink_hit":  false
+}

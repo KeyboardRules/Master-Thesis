@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-wgmf-q9vr-vww6",
+    "cve":  "CVE-2024-45046",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "f7cf378faed2e11cf4825bf8bafea4922ae44667",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php class extends Functional\\AbstractFunctional",
+                     "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php class extends Functional\\AbstractFunctional"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json",
+                        "composer.lock",
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php"
+                    ],
+    "sink_hit":  true
+}

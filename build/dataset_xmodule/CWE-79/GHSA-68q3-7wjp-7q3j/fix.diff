@@ -1,0 +1,64 @@
+﻿diff --git a/src/Config.php b/src/Config.php
+index 887906f..45fae97 100644
+--- a/src/Config.php
++++ b/src/Config.php
+@@ -311,7 +311,7 @@ class Config
+             }
+ 
+             // To remove unacceptable / unwanted extensions from the list of Acceptable File Types
+-            $removeFromAllowedFileTypes = explode('|', 'sh|asp|cgi|php|php3|ph3|php4|ph4|php5|ph5|phtm|phtml');
++            $removeFromAllowedFileTypes = explode('|', 'sh|asp|cgi|php|php3|ph3|php4|ph4|php5|ph5|phtm|phtml|exe');
+ 
+             // Create a bag with lowercased extensions
+             $bag = Bag::from($general['accept_file_types']);
+diff --git a/src/Controller/Async/FilesystemManager.php b/src/Controller/Async/FilesystemManager.php
+index 29bb56f..3735664 100644
+--- a/src/Controller/Async/FilesystemManager.php
++++ b/src/Controller/Async/FilesystemManager.php
+@@ -428,6 +428,7 @@ class FilesystemManager extends AsyncBase
+     private function isExtensionChangedAndIsChangeAllowed($oldName, $newName)
+     {
+         $user = $this->getUser();
++
+         if ($this->users()->hasRole($user['id'], 'root') || $this->users()->hasRole($user['id'], 'admin')) {
+             return true;
+         }
+@@ -465,11 +466,12 @@ class FilesystemManager extends AsyncBase
+         if ($filename[0] === '.') {
+             return false;
+         }
++
+         // only whitelisted extensions
+         $extension = pathinfo($filename, PATHINFO_EXTENSION);
+         $allowedExtensions = $this->getAllowedUploadExtensions();
+ 
+-        return $extension === '' || in_array(mb_strtolower($extension), $allowedExtensions);
++        return in_array(mb_strtolower($extension), $allowedExtensions);
+     }
+ 
+     /**
+diff --git a/src/Controller/Frontend.php b/src/Controller/Frontend.php
+index b5484cf..d969f65 100644
+--- a/src/Controller/Frontend.php
++++ b/src/Controller/Frontend.php
+@@ -17,6 +17,7 @@ use Bolt\Storage\Query\QueryResultset;
+ use Bolt\Storage\Repository\TaxonomyRepository;
+ use Bolt\Translation\Translator as Trans;
+ use Silex\ControllerCollection;
++use Symfony\Component\HttpFoundation\JsonResponse;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+@@ -203,6 +204,12 @@ class Frontend extends ConfigurableBase
+             throw new MethodNotAllowedHttpException(['POST'], 'This route only accepts POST requests.');
+         }
+ 
++        // Only accept requests with a valid token
++        $tokenValue = $request->request->get('content_edit', ['_token' => null])['_token'];
++        if (!$this->isAllowed('dashboard') || !$this->isCsrfTokenValid($tokenValue, 'content_edit')) {
++            return new Response('Not allowed or invalid CSRF token', Response::HTTP_FORBIDDEN);
++        }
++
+         $contenttype = $this->getContentType($contenttypeslug);
+         $formValues = $request->request->all();
+ 

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4wwf-f7w3-94f5",
+    "cve":  "CVE-2026-24788",
+    "cwe":  "CWE-78",
+    "repo":  "RaspAP/raspap-webgui",
+    "sha":  "f514f5a12ef0c34853b5370ef55d630b499f977d",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/locale.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/locale.php"
+                    ],
+    "sink_hit":  false
+}

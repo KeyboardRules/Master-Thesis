@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-hq4p-5mpr-jj9m",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "751d77386c3c6e354b521fa61ff142f95895cca8",
+    "status":  "ok",
+    "changed_php":  [
+                        "model/DatabaseAdmin.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "model/DatabaseAdmin.php includes 1 project file(s)",
+                     "model/DatabaseAdmin.php class extends Controller",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "model/DatabaseAdmin.php"
+                    ],
+    "sink_hit":  true
+}

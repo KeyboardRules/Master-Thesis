@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-74gh-5j33-vg4w",
+    "cve":  "CVE-2018-14504",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "8b5fa243dbf04344a55fe880135ec149fc1f439f",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_filter_edit_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_filter_edit_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_filter_edit_page.php"
+                    ],
+    "sink_hit":  true
+}

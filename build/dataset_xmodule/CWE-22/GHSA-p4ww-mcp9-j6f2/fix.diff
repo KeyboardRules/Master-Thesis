@@ -1,0 +1,113 @@
+﻿diff --git a/system/src/Grav/Common/Backup/Backups.php b/system/src/Grav/Common/Backup/Backups.php
+index d509bf6b..53cc8bec 100644
+--- a/system/src/Grav/Common/Backup/Backups.php
++++ b/system/src/Grav/Common/Backup/Backups.php
+@@ -225,6 +225,25 @@ class Backups
+             throw new RuntimeException("Backup location: {$backup_root} does not exist...");
+         }
+ 
++        // Security: Resolve real path and ensure it's within GRAV_ROOT to prevent path traversal
++        $realBackupRoot = realpath($backup_root);
++        $realGravRoot = realpath(GRAV_ROOT);
++
++        if ($realBackupRoot === false || $realGravRoot === false) {
++            throw new RuntimeException("Invalid backup location: {$backup_root}");
++        }
++
++        // Ensure the backup root is within GRAV_ROOT or a parent thereof (for backing up GRAV itself)
++        // Block access to system directories outside the web root
++        $blockedPaths = ['/etc', '/root', '/home', '/var', '/usr', '/bin', '/sbin', '/tmp', '/proc', '/sys', '/dev'];
++        foreach ($blockedPaths as $blocked) {
++            if (strpos($realBackupRoot, $blocked) === 0) {
++                throw new RuntimeException("Backup location not allowed: {$backup_root}");
++            }
++        }
++
++        $backup_root = $realBackupRoot;
++
+         $options = [
+             'exclude_files' => static::convertExclude($backup->exclude_files ?? ''),
+             'exclude_paths' => static::convertExclude($backup->exclude_paths ?? ''),
+diff --git a/system/src/Grav/Common/Language/Language.php b/system/src/Grav/Common/Language/Language.php
+index 5c06cb39..f5e10caa 100644
+--- a/system/src/Grav/Common/Language/Language.php
++++ b/system/src/Grav/Common/Language/Language.php
+@@ -134,7 +134,17 @@ class Language
+      */
+     public function setLanguages($langs)
+     {
+-        $this->languages = $langs;
++        // Validate and sanitize language codes to prevent regex injection
++        $validLangs = [];
++        foreach ((array)$langs as $lang) {
++            $lang = (string)$lang;
++            // Only allow valid language codes (alphanumeric, hyphens, underscores)
++            // Examples: en, en-US, en_US, zh-Hans, pt-BR
++            if (preg_match('/^[a-zA-Z]{2,3}(?:[-_][a-zA-Z0-9]{2,8})?$/', $lang)) {
++                $validLangs[] = $lang;
++            }
++        }
++        $this->languages = $validLangs;
+ 
+         $this->init();
+     }
+@@ -234,7 +244,8 @@ class Language
+      */
+     public function setActiveFromUri($uri)
+     {
+-        $regex = '/(^\/(' . $this->getAvailable() . '))(?:\/|\?|$)/i';
++        // Pass delimiter '/' to getAvailable() to properly escape language codes for regex
++        $regex = '/(^\/(' . $this->getAvailable('/') . '))(?:\/|\?|$)/i';
+ 
+         // if languages set
+         if ($this->enabled()) {
+diff --git a/system/src/Grav/Common/Twig/Extension/GravExtension.php b/system/src/Grav/Common/Twig/Extension/GravExtension.php
+index 6c29a124..9ad62f9f 100644
+--- a/system/src/Grav/Common/Twig/Extension/GravExtension.php
++++ b/system/src/Grav/Common/Twig/Extension/GravExtension.php
+@@ -1438,11 +1438,42 @@ class GravExtension extends AbstractExtension implements GlobalsInterface
+             $filepath = $locator->findResource($filepath);
+         }
+ 
+-        if ($filepath && file_exists($filepath)) {
+-            return file_get_contents($filepath);
++        if (!$filepath || !file_exists($filepath)) {
++            return false;
+         }
+ 
+-        return false;
++        // Security: Get the real path to prevent path traversal
++        $realpath = realpath($filepath);
++        if ($realpath === false) {
++            return false;
++        }
++
++        // Security: Ensure the file is within GRAV_ROOT
++        $gravRoot = realpath(GRAV_ROOT);
++        if ($gravRoot === false || strpos($realpath, $gravRoot) !== 0) {
++            return false;
++        }
++
++        // Security: Block access to sensitive files and directories
++        $blockedPatterns = [
++            '/\/accounts\/[^\/]+\.yaml$/',      // User account files
++            '/\/config\/security\.yaml$/',       // Security config
++            '/\/\.env/',                         // Environment files
++            '/\/\.git/',                         // Git directory
++            '/\/\.htaccess/',                    // Apache config
++            '/\/\.htpasswd/',                    // Apache passwords
++            '/\/vendor\//',                      // Composer vendor (may contain sensitive info)
++            '/\/logs\//',                        // Log files
++            '/\/backup\//',                      // Backup files
++        ];
++
++        foreach ($blockedPatterns as $pattern) {
++            if (preg_match($pattern, $realpath)) {
++                return false;
++            }
++        }
++
++        return file_get_contents($realpath);
+     }
+ 
+     /**

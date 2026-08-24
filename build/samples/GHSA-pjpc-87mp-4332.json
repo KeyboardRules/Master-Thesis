@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pjpc-87mp-4332",
+    "cve":  "CVE-2022-25772",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "462eb596027fd949efbf9ac5cb2b376805e9d246",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/EmailBundle/Views/SubscribedEvents/Timeline/index.html.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/bundles/EmailBundle/Views/SubscribedEvents/Timeline/index.html.php"
+                    ],
+    "sink_hit":  true
+}

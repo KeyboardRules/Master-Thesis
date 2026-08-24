@@ -1,0 +1,178 @@
+﻿diff --git a/admin/roles/admins.php b/admin/roles/admins.php
+index 4b341b360a..a4b034a8ae 100644
+--- a/admin/roles/admins.php
++++ b/admin/roles/admins.php
+@@ -36,15 +36,12 @@ if (!is_siteadmin()) {
+ }
+ 
+ $admisselector = new core_role_admins_existing_selector();
+-$admisselector->set_extra_fields(array('username', 'email'));
+-
+ $potentialadmisselector = new core_role_admins_potential_selector();
+-$potentialadmisselector->set_extra_fields(array('username', 'email'));
+ 
+ if (optional_param('add', false, PARAM_BOOL) and confirm_sesskey()) {
+     if ($userstoadd = $potentialadmisselector->get_selected_users()) {
+         $user = reset($userstoadd);
+-        $username = fullname($user) . " ($user->username, $user->email)";
++        $username = $potentialadmisselector->output_user($user);
+         echo $OUTPUT->header();
+         $yesurl = new moodle_url('/admin/roles/admins.php', array('confirmadd'=>$user->id, 'sesskey'=>sesskey()));
+         echo $OUTPUT->confirm(get_string('confirmaddadmin', 'core_role', $username), $yesurl, $PAGE->url);
+@@ -58,7 +55,7 @@ if (optional_param('add', false, PARAM_BOOL) and confirm_sesskey()) {
+         if ($USER->id == $user->id) {
+             // Can not remove self.
+         } else {
+-            $username = fullname($user) . " ($user->username, $user->email)";
++            $username = $admisselector->output_user($user);
+             echo $OUTPUT->header();
+             $yesurl = new moodle_url('/admin/roles/admins.php', array('confirmdel'=>$user->id, 'sesskey'=>sesskey()));
+             echo $OUTPUT->confirm(get_string('confirmdeladmin', 'core_role', $username), $yesurl, $PAGE->url);
+diff --git a/admin/tool/dataprivacy/classes/external.php b/admin/tool/dataprivacy/classes/external.php
+index 20c28f9187..6eb6649675 100644
+--- a/admin/tool/dataprivacy/classes/external.php
++++ b/admin/tool/dataprivacy/classes/external.php
+@@ -724,7 +724,7 @@ class external extends external_api {
+             foreach ($extrafields as $extrafield) {
+                 $useroption->extrafields[] = (object)[
+                     'name' => $extrafield,
+-                    'value' => $user->$extrafield
++                    'value' => $user->{$extrafield}
+                 ];
+             }
+             $useroptions[$user->id] = $useroption;
+@@ -748,7 +748,7 @@ class external extends external_api {
+                 'extrafields' => new external_multiple_structure(
+                     new external_single_structure([
+                             'name' => new external_value(PARAM_TEXT, 'Name of the extrafield.'),
+-                            'value' => new external_value(PARAM_TEXT, 'Value of the extrafield.')
++                            'value' => new external_value(PARAM_RAW_TRIMMED, 'Value of the extrafield.')
+                         ]
+                     ), 'List of extra fields', VALUE_OPTIONAL
+                 )
+diff --git a/admin/user.php b/admin/user.php
+index f6ab61f6bf..216906ccf4 100644
+--- a/admin/user.php
++++ b/admin/user.php
+@@ -401,7 +401,7 @@
+             $row = array ();
+             $row[] = "<a href=\"../user/view.php?id=$user->id&amp;course=$site->id\">$fullname</a>";
+             foreach ($extracolumns as $field) {
+-                $row[] = $user->{$field};
++                $row[] = s($user->{$field});
+             }
+             $row[] = $user->city;
+             $row[] = $user->country;
+diff --git a/admin/user/user_bulk_cohortadd.php b/admin/user/user_bulk_cohortadd.php
+index 6ce1d97573..f5e3947583 100644
+--- a/admin/user/user_bulk_cohortadd.php
++++ b/admin/user/user_bulk_cohortadd.php
+@@ -138,7 +138,7 @@ foreach ($users as $user) {
+             '<a href="' . $CFG->wwwroot . '/user/view.php?id=' . $user->id . '&amp;course=' . SITEID . '">' .
+             $user->fullname .
+             '</a>',
+-            $user->email,
++            s($user->email),
+             $user->city,
+             $user->country,
+             $user->lastaccess ? format_time(time() - $user->lastaccess) : $strnever
+diff --git a/admin/user/user_bulk_display.php b/admin/user/user_bulk_display.php
+index dd7956629b..ae6cd8a539 100644
+--- a/admin/user/user_bulk_display.php
++++ b/admin/user/user_bulk_display.php
+@@ -72,7 +72,7 @@ foreach($users as $user) {
+     $table->data[] = array (
+         '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$user->id.'&amp;course='.SITEID.'">'.$user->fullname.'</a>',
+ //        $user->username,
+-        $user->email,
++        s($user->email),
+         $user->city,
+         $user->country,
+         $user->lastaccess ? format_time(time() - $user->lastaccess) : $strnever
+diff --git a/enrol/locallib.php b/enrol/locallib.php
+index bb4c8583fa..0a46f0f02e 100644
+--- a/enrol/locallib.php
++++ b/enrol/locallib.php
+@@ -1220,7 +1220,7 @@ class course_enrolment_manager {
+         );
+ 
+         foreach ($extrafields as $field) {
+-            $details[$field] = $user->{$field};
++            $details[$field] = s($user->{$field});
+         }
+ 
+         // Last time user has accessed the site.
+diff --git a/grade/report/grader/lib.php b/grade/report/grader/lib.php
+index 1b82a20ee6..53741c4256 100644
+--- a/grade/report/grader/lib.php
++++ b/grade/report/grader/lib.php
+@@ -767,7 +767,7 @@ class grade_report_grader extends grade_report {
+                 $fieldcell = new html_table_cell();
+                 $fieldcell->attributes['class'] = 'userfield user' . $field;
+                 $fieldcell->header = false;
+-                $fieldcell->text = $user->{$field};
++                $fieldcell->text = s($user->{$field});
+                 $userrow->cells[] = $fieldcell;
+             }
+ 
+diff --git a/login/index.php b/login/index.php
+index bbf0e70e61..7f6656026a 100644
+--- a/login/index.php
++++ b/login/index.php
+@@ -193,7 +193,7 @@ if ($frm and isset($frm->username)) {                             // Login WITH
+                     echo $OUTPUT->notification(get_string('emailconfirmsentsuccess'), \core\output\notification::NOTIFY_SUCCESS);
+                 }
+             }
+-            echo $OUTPUT->box(get_string("emailconfirmsent", "", $user->email), "generalbox boxaligncenter");
++            echo $OUTPUT->box(get_string("emailconfirmsent", "", s($user->email)), "generalbox boxaligncenter");
+             $resendconfirmurl = new moodle_url('/login/index.php',
+                 [
+                     'username' => $frm->username,
+diff --git a/report/security/locallib.php b/report/security/locallib.php
+index 8358e4a982..9c7d3d127f 100644
+--- a/report/security/locallib.php
++++ b/report/security/locallib.php
+@@ -698,7 +698,7 @@ function report_security_check_riskadmin($detailed=false) {
+     if ($detailed) {
+         foreach ($admins as $uid=>$user) {
+             $url = "$CFG->wwwroot/user/view.php?id=$user->id";
+-            $admins[$uid] = '<li><a href="'.$url.'">'.fullname($user).' ('.$user->email.')</a></li>';
++            $admins[$uid] = '<li><a href="'.$url.'">' . fullname($user, true) . ' (' . s($user->email) . ')</a></li>';
+         }
+         $admins = '<ul>'.implode('', $admins).'</ul>';
+     }
+@@ -824,7 +824,7 @@ function report_security_check_riskbackup($detailed=false) {
+         foreach ($rs as $user) {
+             $context = context::instance_by_id($user->contextid);
+             $url = "$CFG->wwwroot/$CFG->admin/roles/assign.php?contextid=$user->contextid&amp;roleid=$user->roleid";
+-            $a = (object)array('fullname'=>fullname($user), 'url'=>$url, 'email'=>$user->email,
++            $a = (object)array('fullname'=>fullname($user), 'url'=>$url, 'email'=>s($user->email),
+                                'contextname'=>$context->get_context_name());
+             $users[] = '<li>'.get_string('check_riskbackup_unassign', 'report_security', $a).'</li>';
+         }
+diff --git a/user/selector/lib.php b/user/selector/lib.php
+index b8bc9bb0f0..7cf6c2b2f4 100644
+--- a/user/selector/lib.php
++++ b/user/selector/lib.php
+@@ -581,7 +581,7 @@ abstract class user_selector_base {
+         if ($this->extrafields) {
+             $displayfields = array();
+             foreach ($this->extrafields as $field) {
+-                $displayfields[] = $user->{$field};
++                $displayfields[] = s($user->{$field});
+             }
+             $out .= ' (' . implode(', ', $displayfields) . ')';
+         }
+diff --git a/webservice/renderer.php b/webservice/renderer.php
+index 6a751deb26..f97c03c866 100644
+--- a/webservice/renderer.php
++++ b/webservice/renderer.php
+@@ -109,7 +109,7 @@ class core_webservice_renderer extends plugin_renderer_base {
+             $modifiedauthoriseduserurl = new moodle_url('/' . $CFG->admin . '/webservice/service_user_settings.php',
+                             array('userid' => $user->id, 'serviceid' => $serviceid));
+             $html .= html_writer::tag('a', $user->firstname . " "
+-                            . $user->lastname . ", " . $user->email,
++                            . $user->lastname . ", " . s($user->email),
+                             array('href' => $modifiedauthoriseduserurl));
+             //add missing capabilities
+             if (!empty($user->missingcapabilities)) {

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-534c-hcr7-67jg",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "kimai/kimai",
+    "fix_commit":  "3204dcb03e1003dba90178667a4667ce3edb87b5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Invoice/Renderer/AdvancedValueBinder.php"
+                    ],
+    "evidence":  [
+                     "src/Invoice/Renderer/AdvancedValueBinder.php class extends DefaultValueBinder"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-qvrv-2x7x-78x2",
+    "cve":  "CVE-2019-19325",
+    "cwe":  "CWE-78",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "49fda52b12ba59f0a04bcabf78425586a8779e89",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Core/Convert.php",
+                        "src/Forms/Form.php",
+                        "src/Forms/FormField.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Forms/Form.php class extends ViewableData",
+                     "src/Forms/Form.php class uses trait",
+                     "src/Forms/FormField.php class extends RequestHandler",
+                     "src/Forms/FormField.php class uses trait",
+                     "tests/php/Forms/FormFieldTest.php class extends SapphireTest",
+                     "tests/php/Forms/FormTest.php class extends FunctionalTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

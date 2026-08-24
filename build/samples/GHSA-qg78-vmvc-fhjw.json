@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qg78-vmvc-fhjw",
+    "cve":  "CVE-2026-52770",
+    "cwe":  "CWE-89",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "f3b0dd093a7ace47dc29a515faeb02635baceae2",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/services/SearchManager.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "tools/bazar/services/SearchManager.php"
+                    ],
+    "sink_hit":  true
+}

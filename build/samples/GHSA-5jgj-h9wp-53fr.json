@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5jgj-h9wp-53fr",
+    "cve":  "CVE-2022-32115",
+    "cwe":  "CWE-79",
+    "repo":  "idno/known",
+    "sha":  "80b716a8392fb71cfce84d03aaf7c045c62f6350",
+    "status":  "ok",
+    "changed_php":  [
+                        "Idno/Entities/File.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Idno/Entities/File.php"
+                    ],
+    "sink_hit":  true
+}

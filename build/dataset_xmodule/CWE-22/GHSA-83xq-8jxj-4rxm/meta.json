@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-83xq-8jxj-4rxm",
+    "cve":  "CVE-2026-33493",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "e110ff542acdd7e3b81bdd02b8402b9f6a61ad78",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/import.json.php"
+                    ],
+    "evidence":  [
+                     "objects/import.json.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

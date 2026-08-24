@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-553q-hpvp-q8pc",
+    "cve":  "CVE-2021-4075",
+    "cwe":  "CWE-918",
+    "repo":  "snipe/snipe-it",
+    "fix_commit":  "4612b9e711b3ff5d2bcddbec5b18866d25f8e34e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/Http/Controllers/Api/SettingsController.php",
+                        "app/Http/Controllers/SettingsController.php",
+                        "app/Models/Setting.php",
+                        "resources/lang/en/validation.php",
+                        "resources/views/settings/slack.blade.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "app/Http/Controllers/Api/SettingsController.php class extends Controller",
+                     "app/Http/Controllers/SettingsController.php class extends Controller",
+                     "app/Models/Setting.php class extends Model",
+                     "app/Models/Setting.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

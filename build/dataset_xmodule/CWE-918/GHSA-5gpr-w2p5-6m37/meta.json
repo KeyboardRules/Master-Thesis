@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-5gpr-w2p5-6m37",
+    "cve":  "CVE-2024-45290",
+    "cwe":  "CWE-918",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "a9693d1182df6695c14bc5d74315ac71a3398e5a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Reader/Xlsx.php",
+                        "src/PhpSpreadsheet/Worksheet/BaseDrawing.php",
+                        "src/PhpSpreadsheet/Worksheet/Drawing.php",
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "src/PhpSpreadsheet/Writer/Xls.php",
+                        "src/PhpSpreadsheet/Writer/Xlsx.php",
+                        "src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "src/PhpSpreadsheet/Reader/Xlsx.php class extends BaseReader",
+                     "src/PhpSpreadsheet/Worksheet/Drawing.php class extends BaseDrawing",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "src/PhpSpreadsheet/Writer/Xls.php class extends BaseWriter",
+                     "src/PhpSpreadsheet/Writer/Xlsx.php class extends BaseWriter",
+                     "src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php class extends WriterPart",
+                     "tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php class extends TestCase",
+                     "tests/PhpSpreadsheetTests/Writer/Html/ExtendForChartsAndImagesTest.php class extends Functional\\AbstractFunctional"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

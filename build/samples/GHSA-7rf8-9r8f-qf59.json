@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7rf8-9r8f-qf59",
+    "cve":  "CVE-2016-2559",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "3a6a9a807d99371ee126635e1a505fc1fe0df32c",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/sql-parser/src/Utils/Error.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "libraries/sql-parser/src/Utils/Error.php"
+                    ],
+    "sink_hit":  false
+}

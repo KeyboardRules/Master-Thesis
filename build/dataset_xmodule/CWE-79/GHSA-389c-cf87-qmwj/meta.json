@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-389c-cf87-qmwj",
+    "cve":  "CVE-2024-21504",
+    "cwe":  "CWE-79",
+    "repo":  "livewire/livewire",
+    "fix_commit":  "c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Features/SupportQueryString/BrowserTest.php"
+                    ],
+    "evidence":  [
+                     "src/Features/SupportQueryString/BrowserTest.php class extends \\Tests\\BrowserTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

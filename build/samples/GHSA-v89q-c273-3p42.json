@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v89q-c273-3p42",
+    "cve":  "CVE-2023-36259",
+    "cwe":  "CWE-79",
+    "repo":  "sjelfull/craft-audit",
+    "sha":  "c2888aa48457f24696ac0a2ba4f54f39e5c672ed",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/services/AuditService.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/services/AuditService.php class extends Component"
+                 ],
+    "changed_all":  [
+                        "src/services/AuditService.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-97cc-825c-399g",
+    "cve":  "CVE-2021-4050",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "0ce1dd2a13509747c240c8484228a5df8d6e03ec",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/lib/core/lhcore/lhfileupload.php",
+                        "lhc_web/lib/core/lhcore/lhfileuploadadmin.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lhc_web/lib/core/lhcore/lhfileupload.php class extends UploadHandler",
+                     "lhc_web/lib/core/lhcore/lhfileuploadadmin.php class extends erLhcoreClassFileUpload"
+                 ],
+    "changed_all":  [
+                        "lhc_web/lib/core/lhcore/lhfileupload.php",
+                        "lhc_web/lib/core/lhcore/lhfileuploadadmin.php"
+                    ],
+    "sink_hit":  false
+}

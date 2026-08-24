@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fw82-87p8-v6hp",
+    "cve":  "CVE-2025-30159",
+    "cwe":  "CWE-22",
+    "repo":  "getkirby/kirby",
+    "sha":  "90acf7ed6d8d9d0697f938edc0940b4a563ddbe7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Template/Snippet.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Template/Snippet.php class extends Tpl"
+                 ],
+    "changed_all":  [
+                        "src/Template/Snippet.php"
+                    ],
+    "sink_hit":  false
+}

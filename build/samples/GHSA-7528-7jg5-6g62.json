@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-7528-7jg5-6g62",
+    "cve":  "CVE-2022-21715",
+    "cwe":  "CWE-79",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "sha":  "70d881cf5322b7c32e69516aebd2273ac6a1e8dd",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/API/ResponseTrait.php",
+                        "system/CodeIgniter.php",
+                        "tests/system/API/ResponseTraitTest.php",
+                        "tests/system/RESTful/ResourceControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "system/CodeIgniter.php includes 2 project file(s)",
+                     "tests/system/API/ResponseTraitTest.php class extends CIUnitTestCase",
+                     "tests/system/API/ResponseTraitTest.php class uses trait",
+                     "tests/system/RESTful/ResourceControllerTest.php class extends CIUnitTestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "admin/framework/composer.json",
+                        "system/API/ResponseTrait.php",
+                        "system/CodeIgniter.php",
+                        "tests/system/API/ResponseTraitTest.php",
+                        "tests/system/RESTful/ResourceControllerTest.php",
+                        "user_guide_src/source/changelogs/index.rst",
+                        "user_guide_src/source/changelogs/v4.1.8.rst",
+                        "user_guide_src/source/conf.py",
+                        "user_guide_src/source/installation/upgrade_418.rst"
+                    ],
+    "sink_hit":  true
+}

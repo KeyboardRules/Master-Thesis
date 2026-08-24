@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x8h2-255q-jg4x",
+    "cve":  "CVE-2024-7398",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "7c8ed0d1d9db0d7f6df7fa066e0858ea618451a5",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/views/dialogs/event/view_version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "concrete/views/dialogs/event/view_version.php"
+                    ],
+    "sink_hit":  false
+}

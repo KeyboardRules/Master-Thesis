@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-3p5m-j98p-c698",
+    "cve":  "CVE-2022-1173",
+    "cwe":  "CWE-79",
+    "repo":  "getgrav/grav",
+    "sha":  "1c0ed43afa5dc14169e6aa693b38e1a2f7aecad9",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "sink_hit":  false
+}

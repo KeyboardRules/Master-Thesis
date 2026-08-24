@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-r6vw-8v8r-pmp4",
+    "cve":  "CVE-2024-28118",
+    "cwe":  "CWE-94",
+    "repo":  "getgrav/grav",
+    "sha":  "de1ccfa12dbcbf526104d68c1a6bc202a98698fe",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Common/Twig/Twig.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Common/Twig/Twig.php"
+                    ],
+    "sink_hit":  true
+}

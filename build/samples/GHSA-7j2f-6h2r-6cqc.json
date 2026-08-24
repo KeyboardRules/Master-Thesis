@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-7j2f-6h2r-6cqc",
+    "cve":  "CVE-2026-47260",
+    "cwe":  "CWE-918",
+    "repo":  "koel/koel",
+    "sha":  "8708f077efd7d8a332b32e954d65bc837f3a413a",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Ai/Tools/AddRadioStation.php",
+                        "app/Exceptions/UnsafeUrlException.php",
+                        "app/Helpers/Network.php",
+                        "app/Services/Podcast/PodcastService.php",
+                        "app/Values/Podcast/EpisodePlayable.php",
+                        "tests/Feature/KoelPlus/Ai/AddRadioStationToolTest.php",
+                        "tests/Integration/Services/Podcast/PodcastServiceTest.php",
+                        "tests/Integration/Values/EpisodePlayableTest.php",
+                        "tests/Unit/Helpers/NetworkTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "tests/Integration/Services/Podcast/PodcastServiceTest.php class extends TestCase",
+                     "tests/Integration/Values/EpisodePlayableTest.php class extends TestCase",
+                     "tests/Unit/Helpers/NetworkTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "app/Ai/Tools/AddRadioStation.php",
+                        "app/Exceptions/UnsafeUrlException.php",
+                        "app/Helpers/Network.php",
+                        "app/Services/Podcast/PodcastService.php",
+                        "app/Values/Podcast/EpisodePlayable.php",
+                        "tests/Feature/KoelPlus/Ai/AddRadioStationToolTest.php",
+                        "tests/Integration/Services/Podcast/PodcastServiceTest.php",
+                        "tests/Integration/Values/EpisodePlayableTest.php",
+                        "tests/Unit/Helpers/NetworkTest.php",
+                        "tests/fixtures/podcast-with-unsafe-enclosures.xml"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-858q-77wx-hhx6",
+    "cve":  "CVE-2025-66297",
+    "cwe":  "CWE-1336",
+    "repo":  "getgrav/grav",
+    "sha":  "e37259527d9c1deb6200f8967197a9fa587c6458",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php",
+                        "tests/unit/Grav/Common/Security/CleanDangerousTwigTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "system/src/Grav/Common/Security.php",
+                        "tests/unit/Grav/Common/Security/CleanDangerousTwigTest.php"
+                    ],
+    "sink_hit":  false
+}

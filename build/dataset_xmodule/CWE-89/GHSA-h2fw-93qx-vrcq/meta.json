@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-h2fw-93qx-vrcq",
+    "cve":  "CVE-2022-0983",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "c2794752ea3cdda2d64a0651da08b2cdf730d9f1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "badges/criteria/award_criteria_profile.php"
+                    ],
+    "evidence":  [
+                     "badges/criteria/award_criteria_profile.php includes 3 project file(s)",
+                     "badges/criteria/award_criteria_profile.php class extends award_criteria"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f9hr-7cfq-mjg2",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "TYPO3-CMS/core",
+    "sha":  "45c311d120c359d54cc918e962c374e774239899",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Core/SystemEnvironmentBuilder.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "Classes/Core/SystemEnvironmentBuilder.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "Classes/Core/SystemEnvironmentBuilder.php"
+                    ],
+    "sink_hit":  false
+}

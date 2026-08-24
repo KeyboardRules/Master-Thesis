@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w2pm-r78h-4m7v",
+    "cve":  "CVE-2020-19316",
+    "cwe":  "CWE-78",
+    "repo":  "laravel/framework",
+    "sha":  "44c3feb604944599ad1c782a9942981c3991fa31",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Illuminate/Filesystem/Filesystem.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Illuminate/Filesystem/Filesystem.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Illuminate/Filesystem/Filesystem.php"
+                    ],
+    "sink_hit":  true
+}

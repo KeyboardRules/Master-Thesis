@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-c6fv-7vh8-2rhr",
+    "cve":  "CVE-2024-56366",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "700a80346be269af668914172bc6f4521982d0b4",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "samples/Engineering/Convert-Online.php",
+                        "samples/Wizards/NumberFormat/Accounting.php",
+                        "samples/Wizards/NumberFormat/Currency.php",
+                        "src/PhpSpreadsheet/Helper/Downloader.php",
+                        "src/PhpSpreadsheet/Style/NumberFormat/Formatter.php",
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "samples/Engineering/Convert-Online.php includes 1 project file(s)",
+                     "samples/Wizards/NumberFormat/Accounting.php includes 1 project file(s)",
+                     "samples/Wizards/NumberFormat/Currency.php includes 1 project file(s)",
+                     "src/PhpSpreadsheet/Style/NumberFormat/Formatter.php class extends BaseFormatter",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

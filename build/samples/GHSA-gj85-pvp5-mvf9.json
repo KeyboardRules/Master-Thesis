@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-gj85-pvp5-mvf9",
+    "cve":  "CVE-2022-0501",
+    "cwe":  "CWE-79",
+    "repo":  "ptrofimov/beanstalk_console",
+    "sha":  "e351c8260ec1d3718d9e475ee57c7e12c47f19da",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/include.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "lib/include.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/include.php"
+                    ],
+    "sink_hit":  true
+}

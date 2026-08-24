@@ -1,0 +1,111 @@
+﻿diff --git a/core/admin/tables/class-blockedlocations.php b/core/admin/tables/class-blockedlocations.php
+index 4bc3257..43d0801 100644
+--- a/core/admin/tables/class-blockedlocations.php
++++ b/core/admin/tables/class-blockedlocations.php
+@@ -138,7 +138,7 @@ class BlockedLocations extends WP_List_Table {
+ 		$per_page     = 50;
+ 		$current_page = $this->get_pagenum();
+ 		$offset       = $per_page * ( $current_page - 1 );
+-		$order        = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( $_REQUEST['order'] ) : 'desc';
++		$order        = ! empty( $_REQUEST['order'] ) ? sanitize_key( $_REQUEST['order'] ) : 'desc';
+ 		$orderby      = ! empty( $_REQUEST['orderby'] ) ? sanitize_sql_orderby( $_REQUEST['orderby'] ) : 'date_added';
+ 
+ 		$log_type   = ! empty( $_REQUEST['type'] ) ? sanitize_text_field( $_REQUEST['type'] ) : false;
+diff --git a/core/admin/tables/class-blockedtable.php b/core/admin/tables/class-blockedtable.php
+index 6d66a90..153c8e6 100644
+--- a/core/admin/tables/class-blockedtable.php
++++ b/core/admin/tables/class-blockedtable.php
+@@ -130,7 +130,7 @@ class BlockedTable extends WP_List_Table {
+ 		$per_page     = 50;
+ 		$current_page = $this->get_pagenum();
+ 		$offset       = $per_page * ( $current_page - 1 );
+-		$order        = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( $_REQUEST['order'] ) : 'desc';
++		$order        = ! empty( $_REQUEST['order'] ) ? sanitize_key( $_REQUEST['order'] ) : 'desc';
+ 		$orderby      = ! empty( $_REQUEST['orderby'] ) ? sanitize_sql_orderby( $_REQUEST['orderby'] ) : 'date_added';
+ 
+ 		$log_type   = ! empty( $_REQUEST['type'] ) ? sanitize_text_field( $_REQUEST['type'] ) : false;
+diff --git a/core/admin/tables/class-logtable.php b/core/admin/tables/class-logtable.php
+index e2e740b..d6f2644 100644
+--- a/core/admin/tables/class-logtable.php
++++ b/core/admin/tables/class-logtable.php
+@@ -152,9 +152,9 @@ class LogTable extends WP_List_Table {
+ 		$current_page = $this->get_pagenum();
+ 		$offset       = 1 === $current_page ? false : $per_page * $current_page;
+ 		// @codingStandardsIgnoreLine
+-		$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'desc';
++		$order = ! empty( $_REQUEST['order'] ) ? sanitize_key( wp_unslash( $_REQUEST['order'] ) ) : 'desc';
+ 		// @codingStandardsIgnoreLine
+-		$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'date_recorded';
++		$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_sql_orderby( wp_unslash( $_REQUEST['orderby'] ) ) : 'date_recorded';
+ 
+ 		// @codingStandardsIgnoreLine
+ 		$log_type   = ! empty( $_REQUEST['type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['type'] ) ) : false;
+diff --git a/core/class-settings.php b/core/class-settings.php
+index 108f913..ea98160 100644
+--- a/core/class-settings.php
++++ b/core/class-settings.php
+@@ -342,7 +342,7 @@ class Settings {
+ 			'type'    => 'html',
+ 			'html'    => sprintf(
+ 				wp_kses(
+-					/* translators: %s: url */
++					/* translators: %s: admin URL to regenerate the Zero Spam honeypot ID */
+ 					__( '<a href="%s" class="button">Regenerate Honeypot ID</a>', 'zerospam' ),
+ 					array(
+ 						'a' => array(
+diff --git a/includes/class-db.php b/includes/class-db.php
+index 04a9de7..a5fc66b 100644
+--- a/includes/class-db.php
++++ b/includes/class-db.php
+@@ -282,11 +282,12 @@ class DB {
+ 		}
+ 
+ 		if ( ! empty( $args['orderby'] ) ) {
+-			$sql .= ' ORDER BY ' . $args['orderby'];
+-		}
++			$orderby = $args['orderby'];
++			if ( ! empty( $args['order'] ) ) {
++				$orderby = ' ' . $args['order'];
++			}
+ 
+-		if ( ! empty( $args['order'] ) ) {
+-			$sql .= ' ' . $args['order'];
++			$sql .= ' ORDER BY ' . sanitize_sql_orderby( $orderby );
+ 		}
+ 
+ 		if ( ! empty( $args['limit'] ) ) {
+diff --git a/modules/class-zerospam.php b/modules/class-zerospam.php
+index d880911..8a77916 100644
+--- a/modules/class-zerospam.php
++++ b/modules/class-zerospam.php
+@@ -112,7 +112,7 @@ class Zero_Spam {
+ 			'title'       => __( 'License Key', 'zerospam' ),
+ 			'desc'        => sprintf(
+ 				wp_kses(
+-					/* translators: %1$s: Replaced with the Zero Spam URL, %2$s: Replaced with the Zero Spam subscription URL */
++					/* translators: 1: the zerospam.org URL 2: the zerospam.org premium product URL */
+ 					__( 'Enter your <a href="%1$s" target="_blank" rel="noopener noreferrer">Zero Spam</a> license key or define it in <code>wp-config.php</code>, using the constant <code>ZEROSPAM_LICENSE_KEY</code> to enable enhanced protection. Don\'t have an license key? <a href="%2$s" target="_blank" rel="noopener noreferrer"><strong>Get one now!</strong></a>', 'zerospam' ),
+ 					array(
+ 						'strong' => array(),
+diff --git a/wordpress-zero-spam.php b/wordpress-zero-spam.php
+index 54eb27f..a4b4086 100644
+--- a/wordpress-zero-spam.php
++++ b/wordpress-zero-spam.php
+@@ -13,7 +13,7 @@
+  * Plugin Name:       WordPress Zero Spam
+  * Plugin URI:        https://www.highfivery.com/projects/zero-spam/
+  * Description:       Tired of all the worthless and bloated WordPress anti-spam & security plugins? WordPress Zero Spam makes blocking spam &amp; malicious activity a cinch. <strong>Just install, activate, configure, and say goodbye to spam.</strong>
+- * Version:           5.2.10
++ * Version:           5.2.11
+  * Requires at least: 5.2
+  * Requires PHP:      7.3
+  * Author:            Highfivery LLC
+@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || die();
+ define( 'ZEROSPAM', __FILE__ );
+ define( 'ZEROSPAM_PATH', plugin_dir_path( ZEROSPAM ) );
+ define( 'ZEROSPAM_PLUGIN_BASE', plugin_basename( ZEROSPAM ) );
+-define( 'ZEROSPAM_VERSION', '5.2.10' );
++define( 'ZEROSPAM_VERSION', '5.2.11' );
+ 
+ if ( defined( 'ZEROSPAM_DEVELOPMENT_URL' ) ) {
+ 	define( 'ZEROSPAM_URL', ZEROSPAM_DEVELOPMENT_URL );

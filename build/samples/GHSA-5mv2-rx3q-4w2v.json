@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-5mv2-rx3q-4w2v",
+    "cve":  "CVE-2022-23614",
+    "cwe":  "CWE-74",
+    "repo":  "twigphp/Twig",
+    "sha":  "22b9dc3c03ee66d7e21d9ed2ca76052b134cb9e9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Extension/CoreExtension.php",
+                        "tests/Extension/SandboxTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Extension/CoreExtension.php class extends AbstractExtension",
+                     "tests/Extension/SandboxTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG",
+                        "src/Extension/CoreExtension.php",
+                        "tests/Extension/SandboxTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-wv23-pfj7-2mjj",
+    "cve":  "CVE-2021-32649",
+    "cwe":  "CWE-74",
+    "repo":  "octobercms/october",
+    "sha":  "167b592eed291ae1563c8fcc5b9b34a03a300f26",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/cms/controllers/Themes.php",
+                        "modules/system/twig/SecurityPolicy.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/cms/controllers/Themes.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "modules/cms/controllers/Themes.php",
+                        "modules/system/twig/SecurityPolicy.php"
+                    ],
+    "sink_hit":  false
+}

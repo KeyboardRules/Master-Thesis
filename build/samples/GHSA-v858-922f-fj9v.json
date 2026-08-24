@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v858-922f-fj9v",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "simplesamlphp/simplesamlphp",
+    "sha":  "b1af4e47c81bca2bee633b3f84f4fde624f359ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "www/logout.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "www/logout.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "www/logout.php"
+                    ],
+    "sink_hit":  false
+}

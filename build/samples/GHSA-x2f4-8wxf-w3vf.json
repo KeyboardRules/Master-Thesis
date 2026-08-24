@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-x2f4-8wxf-w3vf",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "zendframework/zendframework",
+    "sha":  "0ef63e7db5fa30a79a58eb7c6466c6ab5c0618c5",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Db/Adapter/Platform/Mysql.php",
+                        "library/Zend/Db/Adapter/Platform/Postgresql.php",
+                        "library/Zend/Db/Adapter/Platform/Sql92.php",
+                        "library/Zend/Db/Adapter/Platform/SqlServer.php",
+                        "library/Zend/Db/Adapter/Platform/Sqlite.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 5 php files"
+                 ],
+    "changed_all":  [
+                        "library/Zend/Db/Adapter/Platform/Mysql.php",
+                        "library/Zend/Db/Adapter/Platform/Postgresql.php",
+                        "library/Zend/Db/Adapter/Platform/Sql92.php",
+                        "library/Zend/Db/Adapter/Platform/SqlServer.php",
+                        "library/Zend/Db/Adapter/Platform/Sqlite.php"
+                    ],
+    "sink_hit":  false
+}

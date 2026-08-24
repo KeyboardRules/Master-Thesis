@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-vgwr-773q-7j3c",
+    "cve":  "CVE-2021-26028",
+    "cwe":  "CWE-22",
+    "repo":  "joomla-framework/archive",
+    "sha":  "32c9009a1020d16bc1060c0d06339898b697cf2c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Zip.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Zip.php"
+                    ],
+    "sink_hit":  true
+}

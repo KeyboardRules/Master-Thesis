@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-m298-fh5c-jc66",
+    "cve":  "CVE-2020-36326",
+    "cwe":  "CWE-502",
+    "repo":  "PHPMailer/PHPMailer",
+    "fix_commit":  "e2e07a355ee8ff36aba21d0242c5950c56e4c6f9",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/PHPMailer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/PHPMailerTest.php includes 1 project file(s)",
+                     "test/PHPMailerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

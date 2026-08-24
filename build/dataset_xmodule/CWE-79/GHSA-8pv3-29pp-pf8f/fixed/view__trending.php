@@ -1,0 +1,248 @@
+﻿<?php
+global $global, $config;
+$isChannel = 1; // still workaround, for gallery-functions, please let it there.
+if (!isset($global['systemRootPath'])) {
+    require_once '../videos/configuration.php';
+}
+
+if (!empty($_GET['type'])) {
+    if ($_GET['type'] == 'audio') {
+        $_SESSION['type'] = 'audio';
+    } elseif ($_GET['type'] == 'video') {
+        $_SESSION['type'] = 'video';
+    } else {
+        $_SESSION['type'] = '';
+        unset($_SESSION['type']);
+    }
+} else {
+    unset($_SESSION['type']);
+}
+_session_write_close();
+require_once $global['systemRootPath'] . 'objects/video.php';
+
+$total = Video::getTotalVideos();
+
+$_REQUEST['rowCount'] = 10;
+$_REQUEST['current'] = getCurrentPage();
+
+//$_POST['sort']['likes'] = "DESC";
+$_GET['sort']['trending'] = 1;
+
+$pages = ceil($total / $_REQUEST['rowCount']);
+$videos = Video::getAllVideos();
+unset($_POST['sort']);
+$metaDescription = __("Trending");
+$_page = new Page(array('Trending'));
+$_page->setExtraScripts(
+    array(
+        'plugin/Gallery/script.js',
+        'node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js'
+    )
+);
+$_page->setExtraStyles(
+    array(
+        'plugin/Gallery/style.css',
+    )
+);
+?>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row results gallery">
+                <?php
+                //var_dump($rows);
+                foreach ($videos as $key => $value) {
+                ?>
+                    <div class="col-lg-12 searchResult thumbsImage mb-2 <?php echo getCSSAnimationClassAndStyle('animate__fadeInUp', 'trending', 0.2); ?> overflow: hidden;">
+                        <a class="galleryLink col-sm-4 col-md-4 col-lg-4" videos_id="<?php echo $value['id']; ?>" href="<?php echo Video::getLink($value['id'], $value['clean_title']); ?>" title="<?php echo $value['title']; ?>">
+                            <?php
+                            $images = Video::getImageFromFilename($value['filename'], $value['type']);
+                            $imgGif = $images->thumbsGif;
+                            $poster = $images->thumbsJpg;
+                            ?>
+                            <div class="aspectRatio16_9">
+                                <img src="<?php echo $images->thumbsJpgSmall; ?>" data-src="<?php echo $poster; ?>" alt="<?php echo str_replace('"', '', $value['title']); ?>" class="thumbsJPG img img-responsive <?php echo @$img_portrait; ?>  rotate<?php echo $value['rotation']; ?>  <?php echo ($poster != $images->thumbsJpgSmall) ? "blur" : ""; ?>" id="thumbsJPG<?php echo $value['id']; ?>" />
+                                <?php
+                                if (!empty($imgGif)) {
+                                ?>
+                                    <img src="<?php echo ImagesPlaceHolders::getVideoPlaceholder(ImagesPlaceHolders::$RETURN_URL); ?>" data-src="<?php echo $imgGif; ?>" style="position: absolute; top: 0; display: none;" alt="<?php echo str_replace('"', '', $value['title']); ?>" id="thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive" height="196" />
+                                <?php }
+                                ?>
+                                <time class="duration"><?php echo htmlspecialchars(Video::getCleanDuration($value['duration']), ENT_QUOTES, 'UTF-8'); ?></time>
+                            </div>
+                            <div class="progress" style="height: 3px; margin-bottom: 2px;">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: <?php echo $value['progress']['percent'] ?>%;" aria-valuenow="<?php echo $value['progress']['percent'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </a>
+                        <div class=" col-sm-8 col-md-8 col-lg-8">
+                            <a class="h6 galleryLink col-lg-12" style="font-size: 1.5em;" videos_id="<?php echo $value['id']; ?>" href="<?php echo Video::getLink($value['id'], $value['clean_title']); ?>" title="<?php echo $value['title']; ?>">
+                                <strong><?php echo $value['title']; ?></strong>
+                            </a>
+
+                            <div class="galeryDetails col-lg-12" style="overflow: hidden;">
+                                <div>
+                                    <?php if (empty($_REQUEST['catName'])) { ?>
+                                        <a class="label label-default" href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $value['clean_category']; ?>/">
+                                            <?php
+                                            if (!empty($value['iconClass'])) {
+                                            ?>
+                                                <i class="<?php echo $value['iconClass']; ?>"></i>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php echo $value['category']; ?>
+                                        </a>
+                                    <?php } ?>
+                                    <?php
+                                    if (!empty($obj->showTags)) {
+                                        $value['tags'] = Video::getTags($value['id']);
+                                        foreach ($value['tags'] as $value2) {
+                                            if (!empty($value2->label) && $value2->label === __("Group")) {
+                                    ?><span class="label label-<?php echo $value2->type; ?>"><?php echo $value2->text; ?></span><?php
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                                    ?>
+                                </div>
+
+                                <?php
+                                if (empty($advancedCustom->doNotDisplayViews)) {
+                                ?>
+                                    <div>
+                                        <i class="fa fa-eye"></i>
+                                        <span itemprop="interactionCount">
+                                            <?php echo number_format_short($value['views_count']); ?> <?php echo __("Views"); ?>
+                                        </span>
+                                    </div>
+                                <?php
+                                }
+                                if (!empty($advancedCustom->showCreationTimeOnVideoItem)) {
+                                ?>
+                                    <div>
+                                        <i class="far fa-clock"></i>
+                                        <?php echo humanTiming(strtotime($value['videoCreation']), 0, true, true); ?>
+                                    </div>
+                                <?php
+                                }else{
+                                    echo '<!-- empty showCreationTimeOnVideoItem '.basename(__FILE__).' line='.__LINE__.'-->';
+                                }
+                                if (!empty($advancedCustom->showChannelNameOnVideoItem)) {
+                                ?>
+                                    <div>
+                                        <a href="<?php echo User::getChannelLink($value['users_id']); ?>">
+                                            <i class="fa fa-user"></i>
+                                            <?php echo User::getNameIdentificationById($value['users_id']); ?>
+                                        </a>
+                                        <?php if ((!empty($value['description'])) && !empty($obj->Description)) { ?>
+                                            <button type="button" data-trigger="focus" class="label label-danger" data-toggle="popover" data-placement="top" data-html="true" title="<?php echo $value['title']; ?>" data-content="<div> <?php echo str_replace('"', '&quot;', $value['description']); ?> </div>"><?php echo __("Description"); ?></button>
+                                        <?php } ?>
+                                    </div>
+                                <?php
+                                }
+                                if (Video::canEdit($value['id'])) { ?>
+                                    <div>
+                                        <a href="<?php echo $global['webSiteRootURL']; ?>mvideos?video_id=<?php echo $value['id']; ?>">
+                                            <i class="fa fa-edit"></i> <?php echo __("Edit Video"); ?>
+                                        </a>
+                                    </div>
+                                <?php
+                                }
+                                AVideoPlugin::getgalleryActionButton($value['id']);
+                                ?>
+                            </div>
+                            <div class="mainAreaDescriptionContainer  col-lg-12">
+                                <h4 class="mainAreaDescription" itemprop="description" style="max-height: 7vw; margin: 5px 0;"><?php echo $value['description']; ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+            <?php
+            if (!empty($pages)) {
+            ?>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <?php
+                                                if ($_REQUEST['current'] == 1) {
+                                                    echo "disabled";
+                                                }
+                                                ?>">
+                            <a class="page-link" href="<?php echo "{$global['webSiteRootURL']}trending?current=" . ($_REQUEST['current'] - 1); ?>" tabindex="-1"><?php echo __('Previous') ?></a>
+                        </li>
+                        <?php
+                        $size = 5;
+                        $i = 1;
+                        $end = $pages;
+
+                        if ($_REQUEST['current'] - $size > $i) {
+                            $i = $_REQUEST['current'] - $size;
+                        }
+
+                        if ($_REQUEST['current'] + $size < $end) {
+                            $end = $_REQUEST['current'] + $size;
+                        }
+
+                        for (; $i <= $end; $i++) {
+                        ?>
+                            <li class="page-item  <?php
+                                                    if ($_REQUEST['current'] == $i) {
+                                                        echo "active";
+                                                    }
+                                                    ?>"><a class="page-link" href="<?php echo "{$global['webSiteRootURL']}trending?current={$i}"; ?>"><?php echo $i; ?></a></li>
+                        <?php }
+                        ?>
+                        <li class="page-item <?php
+                                                if ($_REQUEST['current'] == $pages) {
+                                                    echo "disabled";
+                                                }
+                                                ?>">
+                            <a class="page-link" href="<?php echo "{$global['webSiteRootURL']}trending?current=" . ($_REQUEST['current'] + 1); ?>"><?php echo __('Next') ?></a>
+                        </li>
+                    </ul>
+                </nav>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<!-- status elements -->
+<div class="scroller-status">
+    <div class="infinite-scroll-request loader-ellips text-center fa-2x">
+        <i class="fas fa-sync fa-spin"></i>
+    </div>
+    <p class="infinite-scroll-last text-center text-muted"><?php echo __('End of content') ?></p>
+    <p class="infinite-scroll-error text-center text-muted"><?php echo __('No more pages to load') ?></p>
+</div>
+<?php
+if ($_REQUEST['current'] + 1 <= $pages) {
+?>
+    <!-- pagination has path -->
+    <p class="pagination hidden">
+        <a class="pagination__next" href="<?php echo $global['webSiteRootURL']; ?>trending?current=<?php echo $_REQUEST['current'] + 1; ?>"><?php echo __('Next page') ?></a>
+    </p>
+<?php
+}
+?>
+<script>
+    $(document).ready(function() {
+        $container = $('.results').infiniteScroll({
+            path: '.pagination__next',
+            append: '.searchResult',
+            status: '.scroller-status',
+            hideNav: '.pagination',
+        });
+        $container.on('append.infiniteScroll', function(event, response, path, items) {
+            mouseEffect();
+            lazyImage();
+        });
+        mouseEffect();
+        lazyImage();
+    });
+</script>
+<?php
+$_page->print();
+?>

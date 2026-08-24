@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-c7fv-wv9f-cgjw",
+    "cve":  "CVE-2019-10774",
+    "cwe":  "CWE-78",
+    "repo":  "mikehaertl/php-shellcommand",
+    "sha":  "8d98d8536e05abafe76a491da87296d824939076",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Command.php",
+                        "tests/BlockingCommandTest.php",
+                        "tests/CommandTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/BlockingCommandTest.php class extends \\PHPUnit\\Framework\\TestCase",
+                     "tests/CommandTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Command.php",
+                        "tests/BlockingCommandTest.php",
+                        "tests/CommandTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-4mgv-366x-qxvx",
+    "cve":  "CVE-2026-56393",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "67780a778c6ec04e68e64a0b1177c168306144a2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/fields/BaseOptionsField.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/fields/BaseOptionsField.php class extends Field"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG-WIP.md",
+                        "src/fields/BaseOptionsField.php",
+                        "src/templates/_includes/forms/checkbox.twig",
+                        "src/templates/_includes/forms/radio.twig",
+                        "src/web/assets/cp/dist/cp.js",
+                        "src/web/assets/cp/dist/cp.js.map",
+                        "src/web/assets/cp/src/js/BaseElementIndex.js",
+                        "src/web/assets/cp/src/js/CustomizeSourcesModal.js",
+                        "src/web/assets/cp/src/js/GeneratedFieldsTable.js",
+                        "src/web/assets/cp/src/js/UI.js"
+                    ],
+    "sink_hit":  false
+}

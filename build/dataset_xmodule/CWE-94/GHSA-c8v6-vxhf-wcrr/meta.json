@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c8v6-vxhf-wcrr",
+    "cve":  "CVE-2025-3641",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "27b839b5c60389623ca8e3496792b43a44527cd6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "repository/dropbox/lib.php"
+                    ],
+    "evidence":  [
+                     "repository/dropbox/lib.php includes 1 project file(s)",
+                     "repository/dropbox/lib.php class extends repository"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

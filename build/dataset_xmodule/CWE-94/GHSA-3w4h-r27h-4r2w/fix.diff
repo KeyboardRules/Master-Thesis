@@ -1,0 +1,193 @@
+﻿diff --git a/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php b/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
+index 2209d12e11..30c3e12563 100644
+--- a/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
++++ b/typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php
+@@ -2456,8 +2456,11 @@ class GraphicalFunctions
+             return null;
+         }
+ 
+-        $frame = $this->addFrameSelection ? '[0]' : '';
+-        $cmd = CommandUtility::imageMagickCommand('identify', CommandUtility::escapeShellArgument($imagefile) . $frame);
++        $frame = $this->addFrameSelection ? 0 : null;
++        $cmd = CommandUtility::imageMagickCommand(
++            'identify',
++            ImageMagickFile::fromFilePath($imagefile, $frame)
++        );
+         $returnVal = [];
+         CommandUtility::exec($cmd, $returnVal);
+         $splitstring = array_pop($returnVal);
+@@ -2500,8 +2503,13 @@ class GraphicalFunctions
+         }
+         // If addFrameSelection is set in the Install Tool, a frame number is added to
+         // select a specific page of the image (by default this will be the first page)
+-        $frame = $this->addFrameSelection ? '[' . (int)$frame . ']' : '';
+-        $cmd = CommandUtility::imageMagickCommand('convert', $params . ' ' . CommandUtility::escapeShellArgument($input . $frame) . ' ' . CommandUtility::escapeShellArgument($output));
++        $frame = $this->addFrameSelection ? (int)$frame : null;
++        $cmd = CommandUtility::imageMagickCommand(
++            'convert',
++            $params
++                . ' ' . ImageMagickFile::fromFilePath($input, $frame)
++                . ' ' . CommandUtility::escapeShellArgument($output)
++        );
+         $this->IM_commands[] = [$output, $cmd];
+         $ret = CommandUtility::exec($cmd);
+         // Change the permissions of the file
+@@ -2531,9 +2539,9 @@ class GraphicalFunctions
+         $parameters = '-compose over'
+             . ' -quality ' . $this->jpegQuality
+             . ' +matte '
+-            . CommandUtility::escapeShellArgument($input) . ' '
+-            . CommandUtility::escapeShellArgument($overlay) . ' '
+-            . CommandUtility::escapeShellArgument($theMask) . ' '
++            . ImageMagickFile::fromFilePath($input) . ' '
++            . ImageMagickFile::fromFilePath($overlay) . ' '
++            . ImageMagickFile::fromFilePath($theMask) . ' '
+             . CommandUtility::escapeShellArgument($output);
+         $cmd = CommandUtility::imageMagickCommand('combine', $parameters);
+         $this->IM_commands[] = [$output, $cmd];
+@@ -2578,7 +2586,7 @@ class GraphicalFunctions
+             if (@rename($theFile, $temporaryName)) {
+                 $cmd = CommandUtility::imageMagickCommand(
+                     'convert',
+-                    implode(' ', CommandUtility::escapeShellArguments([$temporaryName, $theFile])),
++                    ImageMagickFile::fromFilePath($temporaryName) . ' ' . CommandUtility::escapeShellArgument($theFile),
+                     $gfxConf['processor_path_lzw']
+                 );
+                 CommandUtility::exec($cmd);
+@@ -2628,7 +2636,7 @@ class GraphicalFunctions
+         $newFile = Environment::getPublicPath() . '/typo3temp/assets/images/' . md5($theFile . '|' . filemtime($theFile)) . ($output_png ? '.png' : '.gif');
+         $cmd = CommandUtility::imageMagickCommand(
+             'convert',
+-            implode(' ', CommandUtility::escapeShellArguments([$theFile, $newFile])),
++            ImageMagickFile::fromFilePath($theFile) . ' ' . CommandUtility::escapeShellArgument($newFile),
+             $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor_path']
+         );
+         CommandUtility::exec($cmd);
+diff --git a/typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php b/typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php
+index 0b21f234c9..4994325556 100644
+--- a/typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php
++++ b/typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php
+@@ -16,6 +16,7 @@ namespace TYPO3\CMS\Core\Resource\OnlineMedia\Processing;
+ 
+ use TYPO3\CMS\Core\Core\Environment;
+ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
++use TYPO3\CMS\Core\Imaging\ImageMagickFile;
+ use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
+ use TYPO3\CMS\Core\Resource\File;
+ use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\OnlineMediaHelperRegistry;
+@@ -138,11 +139,10 @@ class PreviewProcessing
+             $arguments = CommandUtility::escapeShellArguments([
+                 'width' => $configuration['width'],
+                 'height' => $configuration['height'],
+-                'originalFileName' => $originalFileName,
+-                'temporaryFileName' => $temporaryFileName,
+             ]);
+-            $parameters = '-sample ' . $arguments['width'] . 'x' . $arguments['height'] . ' '
+-                . $arguments['originalFileName'] . '[0] ' . $arguments['temporaryFileName'];
++            $parameters = '-sample ' . $arguments['width'] . 'x' . $arguments['height']
++                . ' ' . ImageMagickFile::fromFilePath($originalFileName, 0)
++                . ' ' . CommandUtility::escapeShellArgument($temporaryFileName);
+ 
+             $cmd = CommandUtility::imageMagickCommand('convert', $parameters) . ' 2>&1';
+             CommandUtility::exec($cmd);
+diff --git a/typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php b/typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php
+index e395302e39..628775bb0f 100644
+--- a/typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php
++++ b/typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php
+@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Core\Resource\Processing;
+  */
+ 
+ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
++use TYPO3\CMS\Core\Imaging\ImageMagickFile;
+ use TYPO3\CMS\Core\Resource\File;
+ use TYPO3\CMS\Core\Utility\CommandUtility;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+@@ -151,11 +152,10 @@ class LocalPreviewHelper
+                 $arguments = CommandUtility::escapeShellArguments([
+                     'width' => $configuration['width'],
+                     'height' => $configuration['height'],
+-                    'originalFileName' => $originalFileName,
+-                    'targetFilePath' => $targetFilePath,
+                 ]);
+-                $parameters = '-sample ' . $arguments['width'] . 'x' . $arguments['height'] . ' '
+-                    . $arguments['originalFileName'] . '[0] ' . $arguments['targetFilePath'];
++                $parameters = '-sample ' . $arguments['width'] . 'x' . $arguments['height']
++                    . ' ' . ImageMagickFile::fromFilePath($originalFileName, 0)
++                    . ' ' . CommandUtility::escapeShellArgument($targetFilePath);
+ 
+                 $cmd = CommandUtility::imageMagickCommand('convert', $parameters) . ' 2>&1';
+                 CommandUtility::exec($cmd);
+diff --git a/typo3/sysext/core/Classes/Type/File/FileInfo.php b/typo3/sysext/core/Classes/Type/File/FileInfo.php
+index 4608da4bcc..522c6a8094 100644
+--- a/typo3/sysext/core/Classes/Type/File/FileInfo.php
++++ b/typo3/sysext/core/Classes/Type/File/FileInfo.php
+@@ -13,7 +13,9 @@ namespace TYPO3\CMS\Core\Type\File;
+  *
+  * The TYPO3 project - inspiring people to share!
+  */
++
+ use TYPO3\CMS\Core\Type\TypeInterface;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ 
+ /**
+  * A SPL FileInfo class providing general information related to a file.
+@@ -23,6 +25,9 @@ class FileInfo extends \SplFileInfo implements TypeInterface
+     /**
+      * Return the mime type of a file.
+      *
++     * TYPO3 specific settings in $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'] take
++     * precedence over native resolving.
++     *
+      * @return string|bool Returns the mime type or FALSE if the mime type could not be discovered
+      */
+     public function getMimeType()
+@@ -48,7 +53,7 @@ class FileInfo extends \SplFileInfo implements TypeInterface
+                 'mimeType' => &$mimeType
+             ];
+ 
+-            \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction(
++            GeneralUtility::callUserFunction(
+                 $mimeTypeGuesser,
+                 $hookParameters,
+                 $this
+@@ -57,4 +62,40 @@ class FileInfo extends \SplFileInfo implements TypeInterface
+ 
+         return $mimeType;
+     }
++
++    /**
++     * Returns the file extensions appropiate for a the MIME type detected in the file. For types that commonly have
++     * multiple file extensions, such as JPEG images, then the return value is multiple extensions, for instance that
++     * could be ['jpeg', 'jpg', 'jpe', 'jfif']. For unknown types not available in the magic.mime database
++     * (/etc/magic.mime, /etc/mime.types, ...), then return value is an empty array.
++     *
++     * TYPO3 specific settings in $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'] take
++     * precedence over native resolving.
++     *
++     * @return string[]
++     */
++    public function getMimeExtensions(): array
++    {
++        $mimeExtensions = [];
++        if ($this->isFile()) {
++            $fileExtensionToMimeTypeMapping = $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'];
++            $mimeType = $this->getMimeType();
++            if (in_array($mimeType, $fileExtensionToMimeTypeMapping, true)) {
++                $mimeExtensions = array_keys($fileExtensionToMimeTypeMapping, $mimeType, true);
++            } elseif (function_exists('finfo_file')) {
++                $fileInfo = new \finfo();
++                $mimeExtensions = array_filter(
++                    GeneralUtility::trimExplode(
++                        '/',
++                        (string)$fileInfo->file($this->getPathname(), FILEINFO_EXTENSION)
++                    ),
++                    function ($item) {
++                        // filter invalid items ('???' is used if not found in magic.mime database)
++                        return $item !== '' && $item !== '???';
++                    }
++                );
++            }
++        }
++        return $mimeExtensions;
++    }
+ }

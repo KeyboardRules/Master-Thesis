@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v23g-wjvq-2fpf",
+    "cve":  "CVE-2019-15715",
+    "cwe":  "CWE-78",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "5fb979604d88c630343b3eaf2b435cd41918c501",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/graphviz_api.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core/graphviz_api.php class extends Graph"
+                 ],
+    "changed_all":  [
+                        "core/graphviz_api.php"
+                    ],
+    "sink_hit":  true
+}

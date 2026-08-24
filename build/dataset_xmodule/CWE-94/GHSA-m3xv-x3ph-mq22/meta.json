@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m3xv-x3ph-mq22",
+    "cve":  "CVE-2021-44618",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "fix_commit":  "0c5c0c0e0cb61000d12ec55ebf174745a5bf6469",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/helpers/UrlHelper.php"
+                    ],
+    "evidence":  [
+                     "src/helpers/UrlHelper.php class extends CraftUrlHelper"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

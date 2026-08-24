@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-5qj8-6xxj-hp9h",
+    "cve":  "CVE-2022-2400",
+    "cwe":  "CWE-73",
+    "repo":  "dompdf/dompdf",
+    "fix_commit":  "99aeec1efec9213e87098d42eb09439e7ee0bb6a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Css/Stylesheet.php",
+                        "src/Dompdf.php",
+                        "src/FontMetrics.php",
+                        "src/FrameDecorator/Image.php",
+                        "src/Helpers.php",
+                        "src/Image/Cache.php",
+                        "src/Options.php",
+                        "src/Renderer/AbstractRenderer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "src/FrameDecorator/Image.php class extends AbstractFrameDecorator",
+                     "tests/Css/StyleTest.php class extends TestCase",
+                     "tests/HelpersTest.php class extends TestCase",
+                     "tests/OptionsTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

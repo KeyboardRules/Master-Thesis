@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6jhm-4vmx-mr76",
+    "cve":  "CVE-2022-0332",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "c7a62a8c82219b50589257f79021da1df1a76808",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "mod/h5pactivity/classes/external/get_user_attempts.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "mod/h5pactivity/classes/external/get_user_attempts.php includes 1 project file(s)",
+                     "mod/h5pactivity/classes/external/get_user_attempts.php class extends external_api",
+                     "mod/h5pactivity/tests/external/get_user_attempts_test.php includes 1 project file(s)",
+                     "mod/h5pactivity/tests/external/get_user_attempts_test.php class extends externallib_advanced_testcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

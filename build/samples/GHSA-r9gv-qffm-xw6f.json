@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-r9gv-qffm-xw6f",
+    "cve":  "CVE-2025-46549",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "107d43056adebaa0c731230f9fd010898e88f3f5",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/actions/BazarListeAction.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "tools/bazar/actions/BazarListeAction.php includes 1 project file(s)",
+                     "tools/bazar/actions/BazarListeAction.php class extends YesWikiAction",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tools/bazar/actions/BazarListeAction.php"
+                    ],
+    "sink_hit":  true
+}

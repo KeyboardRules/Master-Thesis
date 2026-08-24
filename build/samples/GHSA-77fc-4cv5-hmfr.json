@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-77fc-4cv5-hmfr",
+    "cve":  "CVE-2023-51450",
+    "cwe":  "CWE-78",
+    "repo":  "baserproject/basercms",
+    "sha":  "18f426d63e752b4d22c40e9ea8d1f6e692ef601c",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php class extends BcFormHelper",
+                     "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "plugins/baser-core/src/View/Helper/BcAdminFormHelper.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-29cq-5w36-x7w3",
+    "cve":  "CVE-2025-54068",
+    "cwe":  "CWE-94",
+    "repo":  "livewire/livewire",
+    "fix_commit":  "ef04be759da41b14d2d129e670533180a44987dc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Mechanisms/HandleComponents/HandleComponents.php"
+                    ],
+    "evidence":  [
+                     "src/Mechanisms/HandleComponents/HandleComponents.php class extends Mechanism"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-fwh7-v4gf-xv7w",
+    "cve":  "CVE-2021-4116",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "9cdb012ca64ff1f719f8120d5fd162cd5ef1013f",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Fields/File.php",
+                        "config/version.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Fields/File.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "app/Fields/File.php",
+                        "config/version.php",
+                        "languages/en-US/Other/Exceptions.json"
+                    ],
+    "sink_hit":  false
+}

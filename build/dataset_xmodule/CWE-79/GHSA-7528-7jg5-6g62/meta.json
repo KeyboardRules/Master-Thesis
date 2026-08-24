@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-7528-7jg5-6g62",
+    "cve":  "CVE-2022-21715",
+    "cwe":  "CWE-79",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "fix_commit":  "70d881cf5322b7c32e69516aebd2273ac6a1e8dd",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/API/ResponseTrait.php",
+                        "system/CodeIgniter.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "system/CodeIgniter.php includes 2 project file(s)",
+                     "tests/system/API/ResponseTraitTest.php class extends CIUnitTestCase",
+                     "tests/system/API/ResponseTraitTest.php class uses trait",
+                     "tests/system/RESTful/ResourceControllerTest.php class extends CIUnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

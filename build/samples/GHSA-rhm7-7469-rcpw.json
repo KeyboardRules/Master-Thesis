@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rhm7-7469-rcpw",
+    "cve":  "CVE-2024-43372",
+    "cwe":  "CWE-79",
+    "repo":  "ezsystems/ezplatform-richtext",
+    "sha":  "2c652915625c47b493a2be06924f4c87d1df7d8e",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/lib/eZ/FieldType/RichTextTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "tests/lib/eZ/FieldType/RichTextTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/lib/eZ/RichText/Resources/schemas/docbook/docbook.iso.sch",
+                        "src/lib/eZ/RichText/Resources/schemas/docbook/docbook.iso.sch.xsl",
+                        "tests/lib/eZ/FieldType/RichTextTest.php"
+                    ],
+    "sink_hit":  false
+}

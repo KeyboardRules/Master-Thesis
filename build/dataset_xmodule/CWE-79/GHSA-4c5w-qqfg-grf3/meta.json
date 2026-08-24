@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4c5w-qqfg-grf3",
+    "cve":  "CVE-2015-8766",
+    "cwe":  "CWE-79",
+    "repo":  "symphonycms/symphony-2",
+    "fix_commit":  "651e150091c61fb60ad1dff2bc2166185a83d9d6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "symphony/content/content.systempreferences.php"
+                    ],
+    "evidence":  [
+                     "symphony/content/content.systempreferences.php class extends AdministrationPage",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

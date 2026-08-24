@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8jr8-7hr4-vhfx",
+    "cve":  "CVE-2026-25493",
+    "cwe":  "CWE-918",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "0974055634af68998f67850ab2045d8aaa19fa98",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/gql/resolvers/mutations/Asset.php"
+                    ],
+    "evidence":  [
+                     "src/gql/resolvers/mutations/Asset.php class extends ElementMutationResolver"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

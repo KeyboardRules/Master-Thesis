@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-rgp5-m2pq-3fmg",
+    "cve":  "CVE-2022-0690",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "f7f5d41ba1a08ceed37c00d5f70a3f48b272e9f2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Content/Http/Controllers/Admin/ContentController.php",
+                        "src/MicroweberPackages/Page/Http/Controllers/Admin/PageController.php",
+                        "src/MicroweberPackages/Post/Http/Controllers/Admin/PostController.php",
+                        "src/MicroweberPackages/Product/Http/Controllers/Admin/ProductController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MicroweberPackages/Content/Http/Controllers/Admin/ContentController.php class extends AdminController",
+                     "src/MicroweberPackages/Page/Http/Controllers/Admin/PageController.php class extends AdminController",
+                     "src/MicroweberPackages/Post/Http/Controllers/Admin/PostController.php class extends AdminController",
+                     "src/MicroweberPackages/Product/Http/Controllers/Admin/ProductController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Content/Http/Controllers/Admin/ContentController.php",
+                        "src/MicroweberPackages/Page/Http/Controllers/Admin/PageController.php",
+                        "src/MicroweberPackages/Post/Http/Controllers/Admin/PostController.php",
+                        "src/MicroweberPackages/Product/Http/Controllers/Admin/ProductController.php"
+                    ],
+    "sink_hit":  false
+}

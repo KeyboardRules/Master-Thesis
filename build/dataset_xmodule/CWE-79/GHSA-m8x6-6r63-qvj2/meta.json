@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8x6-6r63-qvj2",
+    "cve":  "CVE-2022-24899",
+    "cwe":  "CWE-79",
+    "repo":  "contao/contao",
+    "fix_commit":  "199206849a87ddd0fa5cf674eb3c58292fd8366c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/pages/PageRegular.php"
+                    ],
+    "evidence":  [
+                     "core-bundle/src/Resources/contao/pages/PageRegular.php class extends Frontend"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

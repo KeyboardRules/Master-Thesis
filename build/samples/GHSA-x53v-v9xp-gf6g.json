@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x53v-v9xp-gf6g",
+    "cve":  "CVE-2017-7241",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "2d55c6476e939db021128b3995c28dcae05b09a4",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/move_attachments_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/move_attachments_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/move_attachments_page.php"
+                    ],
+    "sink_hit":  true
+}

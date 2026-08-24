@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-wvh5-78h5-gmgr",
+    "cve":  "CVE-2022-30596",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "6abe964bbac41b5e40a81b40962f7044b0dc201e",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/assign/classes/output/renderer.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "mod/assign/classes/output/renderer.php includes 3 project file(s)",
+                     "mod/assign/classes/output/renderer.php class extends \\plugin_renderer_base"
+                 ],
+    "changed_all":  [
+                        "mod/assign/classes/output/renderer.php"
+                    ],
+    "sink_hit":  true
+}

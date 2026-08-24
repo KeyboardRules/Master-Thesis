@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5pxr-7m4j-jjc6",
+    "cve":  "CVE-2024-37160",
+    "cwe":  "CWE-79",
+    "repo":  "getformwork/formwork",
+    "sha":  "9d471204f7ebb51c3c27131581c2b834315b5e0b",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/partials/meta.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/partials/meta.php"
+                    ],
+    "sink_hit":  false
+}

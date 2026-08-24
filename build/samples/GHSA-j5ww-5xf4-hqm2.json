@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j5ww-5xf4-hqm2",
+    "cve":  "CVE-2023-5319",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "95ed9b20557ed930d4eed1f3a6db713416f31131",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.user.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/ajax.user.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-85ch-44w7-rf32",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "732c4acfaeaa7fd193674cd4d1ca7e369e21b96f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php class extends AbstractEncodingViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php class extends AbstractViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php class extends AbstractViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/HtmlentitiesViewHelperTest.php class extends ViewHelperBaseTestcase",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/StripTagsViewHelperTest.php class extends ViewHelperBaseTestcase",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/UrlencodeViewHelperTest.php class extends ViewHelperBaseTestcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

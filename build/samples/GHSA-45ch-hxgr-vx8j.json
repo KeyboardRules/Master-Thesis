@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-45ch-hxgr-vx8j",
+    "cve":  "CVE-2010-1618",
+    "cwe":  "CWE-79",
+    "repo":  "apereo/phpCAS",
+    "sha":  "021633112198b37555b35340cde884d1016d9e47",
+    "status":  "ok",
+    "changed_php":  [
+                        "source/CAS/client.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "source/CAS/client.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "source/CAS/client.php"
+                    ],
+    "sink_hit":  true
+}

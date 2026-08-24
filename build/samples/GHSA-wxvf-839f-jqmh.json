@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-wxvf-839f-jqmh",
+    "cve":  "CVE-2022-37248",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "cedeba0609e4b173cd584dae7f33c5f713f19627",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/Cp.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/helpers/Cp.php",
+                        "src/templates/settings/fields/index.twig"
+                    ],
+    "sink_hit":  false
+}

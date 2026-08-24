@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2v82-5746-vwqc",
+    "cve":  "CVE-2021-29625",
+    "cwe":  "CWE-79",
+    "repo":  "vrana/adminer",
+    "sha":  "4043092ec2c0de2258d60a99d0c5958637d051a7",
+    "status":  "ok",
+    "changed_php":  [
+                        "adminer/include/editing.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "adminer/include/editing.inc.php",
+                        "changes.txt"
+                    ],
+    "sink_hit":  true
+}

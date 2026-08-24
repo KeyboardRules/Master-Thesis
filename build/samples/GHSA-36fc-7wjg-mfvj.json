@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-36fc-7wjg-mfvj",
+    "cve":  "CVE-2026-45162",
+    "cwe":  "CWE-502",
+    "repo":  "pimcore/pimcore",
+    "sha":  "4788bf3a3a7f2f760a8fe61e522565941e154e1e",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Tool/Serialize.php",
+                        "models/Asset/WebDAV/Service.php",
+                        "models/Asset/WebDAV/Tree.php",
+                        "models/DataObject/ClassDefinition/CustomLayout/Dao.php",
+                        "models/DataObject/ClassDefinition/Data/Table.php",
+                        "models/DataObject/Service.php",
+                        "models/Site/Dao.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "models/Asset/WebDAV/Tree.php class extends DAV\\Tree",
+                     "models/DataObject/ClassDefinition/CustomLayout/Dao.php class extends Model\\Dao\\PimcoreLocationAwareConfigDao",
+                     "models/DataObject/ClassDefinition/Data/Table.php class extends Data",
+                     "models/DataObject/Service.php class extends Model\\Element\\Service",
+                     "models/Site/Dao.php class extends Model\\Dao\\AbstractDao"
+                 ],
+    "changed_all":  [
+                        "lib/Tool/Serialize.php",
+                        "models/Asset/WebDAV/Service.php",
+                        "models/Asset/WebDAV/Tree.php",
+                        "models/DataObject/ClassDefinition/CustomLayout/Dao.php",
+                        "models/DataObject/ClassDefinition/Data/Table.php",
+                        "models/DataObject/Service.php",
+                        "models/Site/Dao.php"
+                    ],
+    "sink_hit":  true
+}

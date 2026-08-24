@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-x832-r2rj-4g5p",
+    "cve":  "CVE-2022-24980",
+    "cwe":  "CWE-918",
+    "repo":  "kitodo/kitodo-presentation",
+    "fix_commit":  "059be3f82b08c60cbb798986cd3ff22dbf60a5e4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "common/class.tx_dlf_helper.php",
+                        "ext_emconf.php",
+                        "ext_localconf.php",
+                        "plugins/pageview/class.tx_dlf_geturl_eid.php",
+                        "plugins/pageview/class.tx_dlf_pageview.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "plugins/pageview/class.tx_dlf_geturl_eid.php class extends \\TYPO3\\CMS\\Frontend\\Plugin\\AbstractPlugin",
+                     "plugins/pageview/class.tx_dlf_pageview.php class extends tx_dlf_plugin"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

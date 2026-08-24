@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-j4mx-98hw-6rv6",
+    "cve":  "CVE-2023-31144",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "52bd161614620edbab2d24d078ca9ebca2528442",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/fields/Matrix.php",
+                        "src/fields/Table.php",
+                        "src/helpers/Json.php",
+                        "src/web/assets/cp/CpAsset.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/fields/Matrix.php class extends Field",
+                     "src/fields/Table.php class extends Field",
+                     "src/helpers/Json.php class extends \\yii\\helpers\\Json",
+                     "src/web/assets/cp/CpAsset.php class extends AssetBundle"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/fields/Matrix.php",
+                        "src/fields/Table.php",
+                        "src/helpers/Json.php",
+                        "src/web/assets/cp/CpAsset.php"
+                    ],
+    "sink_hit":  false
+}

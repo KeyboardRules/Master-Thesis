@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c9pw-f4wp-22jr",
+    "cve":  "CVE-2015-10030",
+    "cwe":  "CWE-22",
+    "repo":  "SUKOHI/Surpass",
+    "sha":  "d22337d453a2a14194cdb02bf12cdf9d9f827aa7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sukohi/Surpass/Surpass.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/Sukohi/Surpass/Surpass.php"
+                    ],
+    "sink_hit":  true
+}

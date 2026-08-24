@@ -1,0 +1,30 @@
+﻿diff --git a/src/LfmUploadValidator.php b/src/LfmUploadValidator.php
+index fd1e24e..7705541 100644
+--- a/src/LfmUploadValidator.php
++++ b/src/LfmUploadValidator.php
+@@ -9,6 +9,7 @@ use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
+ use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
+ use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
+ use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
++use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
+ use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
+ use UniSharp\LaravelFilemanager\LfmPath;
+ 
+@@ -94,6 +95,17 @@ class LfmUploadValidator
+         return $this;
+     }
+ 
++    public function extensionIsValid()
++    {
++        $extension = strtolower($this->file->getClientOriginalExtension());
++
++        if (preg_match('/[^a-zA-Z0-9]/', $extension) > 0) {
++            throw new InvalidExtensionException();
++        }
++
++        return $this;
++    }
++
+     public function sizeIsLowerThanConfiguredMaximum($max_size_in_kb)
+     {
+         // size to kb unit is needed

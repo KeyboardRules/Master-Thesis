@@ -1,0 +1,13 @@
+﻿diff --git a/src/MediaWiki/Specials/SpecialAsk.php b/src/MediaWiki/Specials/SpecialAsk.php
+index ec266e3..abac989 100644
+--- a/src/MediaWiki/Specials/SpecialAsk.php
++++ b/src/MediaWiki/Specials/SpecialAsk.php
+@@ -545,7 +545,7 @@ class SpecialAsk extends SpecialPage {
+ 		);
+ 
+ 		return [
+-			'query_string' => $this->queryString,
++			'query_string' => htmlspecialchars( $this->queryString ),
+ 			'query_source' => str_replace( '"', '', $querySource ),
+ 			'query_time' => $duration,
+ 			'from_cache' => $isFromCache

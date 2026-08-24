@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-wg8h-gxf4-g4gh",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3-CMS/core",
+    "sha":  "23800859368e2af60604ff27f3eed9971ccd9fbd",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Resource/OnlineMedia/Helpers/VimeoHelper.php",
+                        "Classes/Resource/OnlineMedia/Helpers/YouTubeHelper.php",
+                        "Classes/Resource/Rendering/VimeoRenderer.php",
+                        "Classes/Resource/Rendering/YouTubeRenderer.php",
+                        "Tests/Unit/Resource/Rendering/VimeoRendererTest.php",
+                        "Tests/Unit/Resource/Rendering/YouTubeRendererTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "Classes/Resource/OnlineMedia/Helpers/VimeoHelper.php class extends AbstractOEmbedHelper",
+                     "Classes/Resource/OnlineMedia/Helpers/YouTubeHelper.php class extends AbstractOEmbedHelper",
+                     "Tests/Unit/Resource/Rendering/VimeoRendererTest.php class extends \\TYPO3\\TestingFramework\\Core\\Unit\\UnitTestCase",
+                     "Tests/Unit/Resource/Rendering/YouTubeRendererTest.php class extends \\TYPO3\\TestingFramework\\Core\\Unit\\UnitTestCase"
+                 ],
+    "changed_all":  [
+                        "Classes/Resource/OnlineMedia/Helpers/VimeoHelper.php",
+                        "Classes/Resource/OnlineMedia/Helpers/YouTubeHelper.php",
+                        "Classes/Resource/Rendering/VimeoRenderer.php",
+                        "Classes/Resource/Rendering/YouTubeRenderer.php",
+                        "Tests/Unit/Resource/Rendering/VimeoRendererTest.php",
+                        "Tests/Unit/Resource/Rendering/YouTubeRendererTest.php"
+                    ],
+    "sink_hit":  true
+}

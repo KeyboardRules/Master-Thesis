@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wxjx-r2j2-96fx",
+    "cve":  "",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "c95eafbdfccd5959c546a430c32fb3b6026f39ac",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/test.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/Live/test.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/test.php"
+                    ],
+    "sink_hit":  true
+}

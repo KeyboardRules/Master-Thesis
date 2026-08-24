@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-qv7g-j98v-8pp7",
+    "cve":  "CVE-2021-41236",
+    "cwe":  "CWE-79",
+    "repo":  "oroinc/platform",
+    "sha":  "2a089c971fc70bc63baf8770d29ee515ce5a415a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Oro/Bundle/EmailBundle/Provider/EmailRenderer.php",
+                        "src/Oro/Bundle/EmailBundle/Tests/Unit/Provider/EmailRendererTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Oro/Bundle/EmailBundle/Provider/EmailRenderer.php class extends TemplateRenderer",
+                     "src/Oro/Bundle/EmailBundle/Tests/Unit/Provider/EmailRendererTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Oro/Bundle/EmailBundle/Provider/EmailRenderer.php",
+                        "src/Oro/Bundle/EmailBundle/Resources/config/services.yml",
+                        "src/Oro/Bundle/EmailBundle/Tests/Unit/Provider/EmailRendererTest.php"
+                    ],
+    "sink_hit":  false
+}

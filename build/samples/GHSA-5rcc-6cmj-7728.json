@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-5rcc-6cmj-7728",
+    "cve":  "CVE-2022-0877",
+    "cwe":  "CWE-79",
+    "repo":  "bookstackapp/bookstack",
+    "sha":  "856fca8289b7370cafa033ea21c408e7d4303fd6",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Config/app.php",
+                        "app/Entities/Tools/ExportFormatter.php",
+                        "app/Http/Middleware/ApplyCspRules.php",
+                        "app/Util/CspService.php",
+                        "resources/views/layouts/export.blade.php",
+                        "tests/Entity/ExportTest.php",
+                        "tests/SecurityHeaderTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "tests/Entity/ExportTest.php class extends TestCase",
+                     "tests/SecurityHeaderTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        ".env.example.complete",
+                        "app/Config/app.php",
+                        "app/Entities/Tools/ExportFormatter.php",
+                        "app/Http/Middleware/ApplyCspRules.php",
+                        "app/Util/CspService.php",
+                        "resources/views/layouts/export.blade.php",
+                        "tests/Entity/ExportTest.php",
+                        "tests/SecurityHeaderTest.php"
+                    ],
+    "sink_hit":  false
+}

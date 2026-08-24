@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9722-rr68-rfpg",
+    "cve":  "CVE-2020-5297",
+    "cwe":  "CWE-73",
+    "repo":  "octobercms/october",
+    "sha":  "6711dae8ef70caf0e94cec434498012a2ccd86b8",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/cms/widgets/AssetList.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "modules/cms/widgets/AssetList.php class extends WidgetBase"
+                 ],
+    "changed_all":  [
+                        "modules/cms/widgets/AssetList.php"
+                    ],
+    "sink_hit":  false
+}

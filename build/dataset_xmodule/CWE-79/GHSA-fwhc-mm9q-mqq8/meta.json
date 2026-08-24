@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-fwhc-mm9q-mqq8",
+    "cve":  "CVE-2024-25737",
+    "cwe":  "CWE-79",
+    "repo":  "vufind-org/vufind",
+    "fix_commit":  "345d00f7d7f1c581f46742effdac70e803b3847b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "module/VuFind/src/VuFind/Controller/CoverController.php",
+                        "module/VuFind/src/VuFind/Controller/CoverControllerFactory.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "module/VuFind/src/VuFind/Controller/CoverController.php class extends \\Laminas\\Mvc\\Controller\\AbstractActionController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5m4q-5cvx-36mw",
+    "cve":  "CVE-2026-33648",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "sha":  "99b865413172045fef6a98b5e9bfc7b24da11678",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/standAloneFiles/restreamer.json.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/Live/standAloneFiles/restreamer.json.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/standAloneFiles/restreamer.json.php"
+                    ],
+    "sink_hit":  true
+}

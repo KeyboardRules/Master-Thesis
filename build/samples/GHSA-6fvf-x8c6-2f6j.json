@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-6fvf-x8c6-2f6j",
+    "cve":  "CVE-2023-2339",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "6946f8a5a0a93b516c49f17a5b45044eebd73480",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/Asset/AssetHelperController.php",
+                        "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php",
+                        "lib/DataObject/GridColumnConfig/Operator/AbstractOperator.php",
+                        "lib/DataObject/GridColumnConfig/Operator/AnyGetter.php",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "bundles/AdminBundle/Controller/Admin/Asset/AssetHelperController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php class extends AdminController",
+                     "lib/DataObject/GridColumnConfig/Operator/AnyGetter.php class extends AbstractOperator"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/Asset/AssetHelperController.php",
+                        "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/gridcolumn/operator/AnyGetter.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/metadata/predefined.js",
+                        "lib/DataObject/GridColumnConfig/Operator/AbstractOperator.php",
+                        "lib/DataObject/GridColumnConfig/Operator/AnyGetter.php",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "sink_hit":  false
+}

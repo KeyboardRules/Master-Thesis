@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mw2w-2hj2-fg8q",
+    "cve":  "CVE-2023-47130",
+    "cwe":  "CWE-502",
+    "repo":  "yiisoft/yii",
+    "sha":  "37142be4dc5831114a375392e86d6450d4951c06",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/db/schema/CDbCriteria.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "framework/db/schema/CDbCriteria.php class extends CComponent"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG",
+                        "framework/db/schema/CDbCriteria.php"
+                    ],
+    "sink_hit":  true
+}

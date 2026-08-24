@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-q3q5-qvh5-cmw5",
+    "cve":  "CVE-2020-21174",
+    "cwe":  "CWE-434",
+    "repo":  "liufee/cms",
+    "sha":  "ecbfb0ca77874ead5b6e79b96a5e1f94e67475a9",
+    "status":  "ok",
+    "changed_php":  [
+                        "backend/models/User.php",
+                        "common/models/Article.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "backend/models/User.php class extends \\common\\models\\User",
+                     "common/models/Article.php class extends \\yii\\db\\ActiveRecord"
+                 ],
+    "changed_all":  [
+                        "backend/models/User.php",
+                        "common/models/Article.php"
+                    ],
+    "sink_hit":  false
+}

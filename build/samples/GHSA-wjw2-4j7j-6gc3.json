@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-wjw2-4j7j-6gc3",
+    "cve":  "CVE-2023-37269",
+    "cwe":  "CWE-79",
+    "repo":  "wintercms/storm",
+    "sha":  "186d85d8fea2cae43afc807d39f68553c24e56be",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Database/Attach/File.php",
+                        "src/Filesystem/Definitions.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Database/Attach/File.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "src/Database/Attach/File.php",
+                        "src/Filesystem/Definitions.php"
+                    ],
+    "sink_hit":  false
+}

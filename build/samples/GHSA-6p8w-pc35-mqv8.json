@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6p8w-pc35-mqv8",
+    "cve":  "CVE-2025-48203",
+    "cwe":  "CWE-79",
+    "repo":  "clickstorm/cs_seo",
+    "sha":  "1cf6c40821102b1f1508fe4e76825569340c8f90",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Evaluation/TCA/JsonLdEvaluator.php",
+                        "Classes/UserFunc/StructuredData.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Evaluation/TCA/JsonLdEvaluator.php class extends AbstractEvaluator",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "Classes/Evaluation/TCA/JsonLdEvaluator.php",
+                        "Classes/UserFunc/StructuredData.php",
+                        "Resources/Private/Language/de.locallang.xlf",
+                        "Resources/Private/Language/locallang.xlf"
+                    ],
+    "sink_hit":  false
+}

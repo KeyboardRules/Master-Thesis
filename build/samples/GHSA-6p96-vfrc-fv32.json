@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-6p96-vfrc-fv32",
+    "cve":  "CVE-2022-27115",
+    "cwe":  "CWE-434",
+    "repo":  "Studio-42/elFinder",
+    "sha":  "69be51eea5b484822a29ddd40f1b72845954ba60",
+    "status":  "ok",
+    "changed_php":  [
+                        "php/elFinder.class.php",
+                        "php/elFinderVolumeLocalFileSystem.class.php",
+                        "php/plugins/WinRemoveTailDots/plugin.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "php/elFinder.class.php includes 2 project file(s)",
+                     "php/elFinder.class.php class extends Exception",
+                     "php/elFinderVolumeLocalFileSystem.class.php class extends RecursiveFilterIterator",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "php/elFinder.class.php",
+                        "php/elFinderVolumeLocalFileSystem.class.php",
+                        "php/plugins/WinRemoveTailDots/plugin.php"
+                    ],
+    "sink_hit":  true
+}

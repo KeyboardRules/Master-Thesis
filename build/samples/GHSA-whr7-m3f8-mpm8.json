@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-whr7-m3f8-mpm8",
+    "cve":  "CVE-2023-34448",
+    "cwe":  "CWE-1336",
+    "repo":  "getgrav/grav",
+    "sha":  "244758d4383034fe4cd292d41e477177870b65ec",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "system/src/Grav/Common/Twig/Extension/GravExtension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php"
+                    ],
+    "sink_hit":  false
+}

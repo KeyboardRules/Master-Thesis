@@ -1,0 +1,393 @@
+﻿diff --git a/app/Http/Controllers/Table/CustomersController.php b/app/Http/Controllers/Table/CustomersController.php
+index 5ce5b19a..a61c2f40 100644
+--- a/app/Http/Controllers/Table/CustomersController.php
++++ b/app/Http/Controllers/Table/CustomersController.php
+@@ -27,9 +27,9 @@ namespace App\Http\Controllers\Table;
+ 
+ use App\Models\Port;
+ use Illuminate\Support\Arr;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Config;
+ use LibreNMS\Util\Html;
+-use LibreNMS\Util\Url;
+ 
+ class CustomersController extends TableController
+ {
+@@ -104,8 +104,8 @@ class CustomersController extends TableController
+     {
+         return [
+             'port_descr_descr' => $port->port_descr_descr,
+-            'hostname' => Url::deviceLink($port->device),
+-            'ifDescr' => Url::portLink($port),
++            'hostname' => Blade::render('<x-device-link :device="$device"/>', ['device' => $port->device]),
++            'ifDescr' => Blade::render('<x-port-link :port="$port"/>', ['port' => $port]),
+             'port_descr_speed' => $port->port_descr_speed,
+             'port_descr_circuit' => $port->port_descr_circuit,
+             'port_descr_notes' => $port->port_descr_notes,
+diff --git a/app/Http/Controllers/Table/EventlogController.php b/app/Http/Controllers/Table/EventlogController.php
+index 34624c5e..16032e94 100644
+--- a/app/Http/Controllers/Table/EventlogController.php
++++ b/app/Http/Controllers/Table/EventlogController.php
+@@ -27,6 +27,7 @@ namespace App\Http\Controllers\Table;
+ 
+ use App\Models\Eventlog;
+ use Carbon\Carbon;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Config;
+ use LibreNMS\Enum\Severity;
+ use LibreNMS\Util\Url;
+@@ -82,7 +83,7 @@ class EventlogController extends TableController
+     {
+         return [
+             'datetime' => $this->formatDatetime($eventlog),
+-            'device_id' => $eventlog->device ? Url::deviceLink($eventlog->device, $eventlog->device->shortDisplayName()) : null,
++            'device_id' => Blade::render('<x-device-link :device="$device"/>', ['device' => $eventlog->device]),
+             'type' => $this->formatType($eventlog),
+             'message' => htmlspecialchars($eventlog->message),
+             'username' => $eventlog->username ?: 'System',
+@@ -95,11 +96,11 @@ class EventlogController extends TableController
+             if (is_numeric($eventlog->reference)) {
+                 $port = $eventlog->related;
+                 if (isset($port)) {
+-                    return '<b>' . Url::portLink($port, $port->getShortLabel()) . '</b>';
++                    return Blade::render('<b><x-port-link :port="$port">{{ $port->getShortLabel() }}</x-port-link></b>', ['port' => $port]);
+                 }
+             }
+         } elseif ($eventlog->type == 'stp') {
+-            return Url::deviceLink($eventlog->device, $eventlog->type, ['tab' => 'stp']);
++            return Blade::render('<x-device-link :device="$device" tab="stp">stp</x-device-link>', ['device' => $eventlog->device]);
+         } elseif (in_array($eventlog->type, \App\Models\Sensor::getTypes())) {
+             if (is_numeric($eventlog->reference)) {
+                 $sensor = $eventlog->related;
+diff --git a/app/Http/Controllers/Table/FdbTablesController.php b/app/Http/Controllers/Table/FdbTablesController.php
+index 7f0716fa..537313e2 100755
+--- a/app/Http/Controllers/Table/FdbTablesController.php
++++ b/app/Http/Controllers/Table/FdbTablesController.php
+@@ -32,10 +32,10 @@ use App\Models\Vlan;
+ use Illuminate\Database\Eloquent\Builder;
+ use Illuminate\Http\Request;
+ use Illuminate\Support\Collection;
++use Illuminate\Support\Facades\Blade;
+ use Illuminate\Support\Facades\DB;
+ use LibreNMS\Util\IP;
+ use LibreNMS\Util\Mac;
+-use LibreNMS\Util\Url;
+ 
+ class FdbTablesController extends TableController
+ {
+@@ -164,7 +164,7 @@ class FdbTablesController extends TableController
+         $ips = $fdb_entry->ipv4Addresses->pluck('ipv4_address');
+ 
+         $item = [
+-            'device' => $fdb_entry->device ? Url::deviceLink($fdb_entry->device) : '',
++            'device' => Blade::render('<x-device-link :device="$device"/>', ['device' => $fdb_entry->device]),
+             'mac_address' => $mac->readable(),
+             'mac_oui' => $mac->vendor(),
+             'ipv4_address' => $ips->implode(', '),
+@@ -185,10 +185,10 @@ class FdbTablesController extends TableController
+         }
+ 
+         if ($fdb_entry->port) {
+-            $item['interface'] = Url::portLink($fdb_entry->port, $fdb_entry->port->getShortLabel());
++            $item['interface'] = Blade::render('<x-port-link :port="$port">{{ $port->getShortLabel() }}</x-port-link>', ['port' => $fdb_entry->port]);
+             $item['description'] = $fdb_entry->port->ifAlias;
+             if ($fdb_entry->port->ifInErrors > 0 || $fdb_entry->port->ifOutErrors > 0) {
+-                $item['interface'] .= ' ' . Url::portLink($fdb_entry->port, '<i class="fa fa-flag fa-lg" style="color:red" aria-hidden="true"></i>');
++                $item['interface'] .= Blade::render(' <x-port-link :port="$port"><i class="fa fa-flag fa-lg" style="color:red" aria-hidden="true"></i></x-port-link>', ['port' => $fdb_entry->port]);
+             }
+             if ($this->getMacCount($fdb_entry->port) == 1) {
+                 // only one mac on this port, likely the endpoint
+diff --git a/app/Http/Controllers/Table/GraylogController.php b/app/Http/Controllers/Table/GraylogController.php
+index 98c43b8d..e2947b49 100644
+--- a/app/Http/Controllers/Table/GraylogController.php
++++ b/app/Http/Controllers/Table/GraylogController.php
+@@ -31,13 +31,13 @@ use DateInterval;
+ use DateTime;
+ use DateTimeZone;
+ use Illuminate\Http\Request;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Config;
+-use LibreNMS\Util\Url;
+ 
+ class GraylogController extends SimpleTableController
+ {
+     private $timezone;
+-    private $deviceCache = [];
++    private $deviceLinkCache = [];
+ 
+     public function __construct()
+     {
+@@ -112,16 +112,14 @@ class GraylogController extends SimpleTableController
+             $displayTime = $message['message']['timestamp'];
+         }
+ 
+-        $origin = $this->deviceFromSource($message['message']['gl2_remote_ip']);
+-        $source = $this->deviceFromSource($message['message']['source']);
+         $level = $message['message']['level'] ?? '';
+         $facility = $message['message']['facility'] ?? '';
+ 
+         return [
+-            'origin' => $origin ? Url::deviceLink($origin) : htmlspecialchars($message['message']['gl2_remote_ip']),
++            'origin' => $this->deviceLinkFromSource($message['message']['gl2_remote_ip']),
+             'severity' => $this->severityLabel($level),
+             'timestamp' => $displayTime,
+-            'source' => $source ? Url::deviceLink($source) : htmlspecialchars($message['message']['source']),
++            'source' => $this->deviceLinkFromSource($message['message']['source']),
+             'message' => htmlspecialchars($message['message']['message'] ?? ''),
+             'facility' => is_numeric($facility) ? "($facility) " . __("syslog.facility.$facility") : $facility,
+             'level' => (is_numeric($level) && $level >= 0) ? "($level) " . __("syslog.severity.$level") : $level,
+@@ -150,14 +148,18 @@ class GraylogController extends SimpleTableController
+      * Cache device lookups so we don't lookup for every entry
+      *
+      * @param  mixed  $source
+-     * @return mixed
++     * @return string
+      */
+-    private function deviceFromSource($source)
++    private function deviceLinkFromSource($source): string
+     {
+-        if (! isset($this->deviceCache[$source])) {
+-            $this->deviceCache[$source] = Device::findByIp($source) ?: Device::findByHostname($source);
++        if (! isset($this->deviceLinkCache[$source])) {
++            $device = Device::findByIp($source) ?: Device::findByHostname($source);
++
++            $this->deviceLinkCache[$source] = $device
++                ? Blade::render('<x-device-link :device="$device"/>', ['device' => $device])
++                : htmlspecialchars($source);
+         }
+ 
+-        return $this->deviceCache[$source];
++        return $this->deviceLinkCache[$source];
+     }
+ }
+diff --git a/app/Http/Controllers/Table/InventoryController.php b/app/Http/Controllers/Table/InventoryController.php
+index e7303252..5ff52542 100644
+--- a/app/Http/Controllers/Table/InventoryController.php
++++ b/app/Http/Controllers/Table/InventoryController.php
+@@ -28,7 +28,7 @@ namespace App\Http\Controllers\Table;
+ use App\Models\EntPhysical;
+ use Illuminate\Database\Eloquent\Model;
+ use Illuminate\Support\Collection;
+-use LibreNMS\Util\Url;
++use Illuminate\Support\Facades\Blade;
+ 
+ class InventoryController extends TableController
+ {
+@@ -86,7 +86,7 @@ class InventoryController extends TableController
+     public function formatItem($entPhysical)
+     {
+         return [
+-            'device' => Url::deviceLink($entPhysical->device),
++            'device' => Blade::render('<x-device-link :device="$device"/>', ['device' => $entPhysical->device]),
+             'descr' => htmlspecialchars($entPhysical->entPhysicalDescr),
+             'name' => htmlspecialchars($entPhysical->entPhysicalName),
+             'model' => htmlspecialchars($entPhysical->entPhysicalModelName),
+diff --git a/app/Http/Controllers/Table/MempoolsController.php b/app/Http/Controllers/Table/MempoolsController.php
+index 0db330f0..13499e1d 100644
+--- a/app/Http/Controllers/Table/MempoolsController.php
++++ b/app/Http/Controllers/Table/MempoolsController.php
+@@ -28,6 +28,7 @@ namespace App\Http\Controllers\Table;
+ use App\Models\Device;
+ use App\Models\Mempool;
+ use Illuminate\Support\Arr;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Config;
+ use LibreNMS\Util\Html;
+ use LibreNMS\Util\Number;
+@@ -81,7 +82,7 @@ class MempoolsController extends TableController
+             ]);
+ 
+             return [
+-                'hostname' => Url::deviceLink($device),
++                'hostname' => Blade::render('<x-device-link :device="$device"/>', ['device' => $device]),
+                 'mempool_descr' => $graphs[0],
+                 'graph' => $graphs[1],
+                 'mempool_used' => $graphs[2],
+@@ -91,7 +92,7 @@ class MempoolsController extends TableController
+ 
+         /** @var Mempool $mempool */
+         return [
+-            'hostname' => Url::deviceLink($mempool->device),
++            'hostname' => Blade::render('<x-device-link :device="$device"/>', ['device' => $mempool->device]),
+             'mempool_descr' => $mempool->mempool_descr,
+             'graph' => $this->miniGraph($mempool),
+             'mempool_used' => $this->barLink($mempool),
+diff --git a/app/Http/Controllers/Table/OutagesController.php b/app/Http/Controllers/Table/OutagesController.php
+index 2161d620..d620de00 100644
+--- a/app/Http/Controllers/Table/OutagesController.php
++++ b/app/Http/Controllers/Table/OutagesController.php
+@@ -27,8 +27,8 @@ namespace App\Http\Controllers\Table;
+ 
+ use App\Models\DeviceOutage;
+ use Carbon\Carbon;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Config;
+-use LibreNMS\Util\Url;
+ 
+ class OutagesController extends TableController
+ {
+@@ -84,7 +84,7 @@ class OutagesController extends TableController
+             'status' => $this->statusLabel($outage),
+             'going_down' => $start,
+             'up_again' => $end,
+-            'device_id' => $outage->device ? Url::deviceLink($outage->device, $outage->device->shortDisplayName()) : null,
++            'device_id' => Blade::render('<x-device-link :device="$device"/>', ['device' => $outage->device]),
+             'duration' => $this->formatTime($duration),
+         ];
+     }
+diff --git a/app/Http/Controllers/Table/PortNacController.php b/app/Http/Controllers/Table/PortNacController.php
+index c9d4e0b4..d35232b4 100644
+--- a/app/Http/Controllers/Table/PortNacController.php
++++ b/app/Http/Controllers/Table/PortNacController.php
+@@ -29,9 +29,9 @@ use App\Models\Port;
+ use App\Models\PortsNac;
+ use Illuminate\Database\Eloquent\Builder;
+ use Illuminate\Support\Collection;
++use Illuminate\Support\Facades\Blade;
+ use Illuminate\Support\Facades\DB;
+ use LibreNMS\Util\Mac;
+-use LibreNMS\Util\Url;
+ 
+ class PortNacController extends TableController
+ {
+@@ -136,10 +136,10 @@ class PortNacController extends TableController
+         $mac = Mac::parse($item['mac_address']);
+         $item['updated_at'] = $nac->updated_at ? ($item['historical'] == 0 ? $nac->updated_at->diffForHumans() : $nac->updated_at->toDateTimeString()) : '';
+         $item['created_at'] = $nac->created_at ? $nac->created_at->toDateTimeString() : '';
+-        $item['port_id'] = Url::portLink($nac->port, $nac->port->getShortLabel());
++        $item['port_id'] = Blade::render('<x-port-link :port="$port">{{ $port->getShortLabel() }}</x-port-link>', ['port' => $nac->port]);
+         $item['mac_oui'] = $mac->vendor();
+         $item['mac_address'] = $mac->readable();
+-        $item['device_id'] = Url::deviceLink($nac->device);
++        $item['device_id'] = Blade::render('<x-device-link :device="$device"/>', ['device' => $nac->device]);
+         unset($item['device']); //avoid sending all device data in the JSON reply
+         unset($item['port']); //free some unused data to be sent to the browser
+ 
+diff --git a/app/Http/Controllers/Table/PortStpController.php b/app/Http/Controllers/Table/PortStpController.php
+index 876afac1..a761485d 100644
+--- a/app/Http/Controllers/Table/PortStpController.php
++++ b/app/Http/Controllers/Table/PortStpController.php
+@@ -28,8 +28,8 @@ namespace App\Http\Controllers\Table;
+ use App\Facades\DeviceCache;
+ use App\Models\PortStp;
+ use App\Models\Stp;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Util\Mac;
+-use LibreNMS\Util\Url;
+ 
+ class PortStpController extends TableController
+ {
+@@ -88,8 +88,11 @@ class PortStpController extends TableController
+         $drMac = Mac::parse($stpPort->designatedRoot);
+         $dbMac = Mac::parse($stpPort->designatedBridge);
+ 
++        $dr = DeviceCache::get(Stp::where('bridgeAddress', $stpPort->designatedRoot)->value('device_id'));
++        $db = DeviceCache::get(Stp::where('bridgeAddress', $stpPort->designatedBridge)->value('device_id'));
++
+         return [
+-            'port_id' => Url::portLink($stpPort->port, $stpPort->port->getShortLabel()) . '<br />' . $stpPort->port->getDescription(),
++            'port_id' => Blade::render('<x-port-link :port="$port">{{ $port->getShortLabel() }}</x-port-link><br /> {{ $port->getDescription() }}', ['port' => $stpPort->port]),
+             'vlan' => $stpPort->vlan ?: 1,
+             'priority' => $stpPort->priority,
+             'state' => $stpPort->state,
+@@ -97,11 +100,11 @@ class PortStpController extends TableController
+             'pathCost' => $stpPort->pathCost,
+             'designatedRoot' => $drMac->readable(),
+             'designatedRoot_vendor' => $drMac->vendor(),
+-            'designatedRoot_device' => Url::deviceLink(DeviceCache::get(Stp::where('bridgeAddress', $stpPort->designatedRoot)->value('device_id'))),
++            'designatedRoot_device' => Blade::render('<x-device-link :device="$device"/>', ['device' => $dr]),
+             'designatedCost' => $stpPort->designatedCost,
+             'designatedBridge' => $dbMac->readable(),
+             'designatedBridge_vendor' => $dbMac->vendor(),
+-            'designatedBridge_device' => Url::deviceLink(DeviceCache::get(Stp::where('bridgeAddress', $stpPort->designatedBridge)->value('device_id'))),
++            'designatedBridge_device' => Blade::render('<x-device-link :device="$device"/>', ['device' => $db]),
+             'designatedPort' => $stpPort->designatedPort,
+             'forwardTransitions' => $stpPort->forwardTransitions,
+         ];
+diff --git a/app/Http/Controllers/Table/PortsController.php b/app/Http/Controllers/Table/PortsController.php
+index def81026..87459432 100644
+--- a/app/Http/Controllers/Table/PortsController.php
++++ b/app/Http/Controllers/Table/PortsController.php
+@@ -28,10 +28,10 @@ namespace App\Http\Controllers\Table;
+ use App\Models\Port;
+ use Illuminate\Database\Eloquent\Builder;
+ use Illuminate\Support\Arr;
++use Illuminate\Support\Facades\Blade;
+ use Illuminate\Support\Facades\DB;
+ use LibreNMS\Util\Number;
+ use LibreNMS\Util\Rewrite;
+-use LibreNMS\Util\Url;
+ 
+ class PortsController extends TableController
+ {
+@@ -153,8 +153,8 @@ class PortsController extends TableController
+ 
+         return [
+             'status' => $status,
+-            'device' => Url::deviceLink($port->device),
+-            'port' => Url::portLink($port),
++            'device' => Blade::render('<x-device-link :device="$device" />', ['device' => $port->device]),
++            'port' => Blade::render('<x-port-link :port="$port"/>', ['port' => $port]),
+             'secondsIfLastChange' => ceil($port->device?->uptime - ($port->ifLastChange / 100)),
+             'ifConnectorPresent' => ($port->ifConnectorPresent == 'true') ? 'yes' : 'no',
+             'ifSpeed' => $port->ifSpeed,
+diff --git a/app/Http/Controllers/Table/RoutesTablesController.php b/app/Http/Controllers/Table/RoutesTablesController.php
+index 9e226a59..5b3bf6f9 100644
+--- a/app/Http/Controllers/Table/RoutesTablesController.php
++++ b/app/Http/Controllers/Table/RoutesTablesController.php
+@@ -29,6 +29,7 @@ use App\Models\Device;
+ use App\Models\Route;
+ use Illuminate\Database\Eloquent\Builder;
+ use Illuminate\Http\Request;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Util\IP;
+ use LibreNMS\Util\Url;
+ 
+@@ -186,7 +187,7 @@ class RoutesTablesController extends TableController
+ 
+         $item['inetCidrRouteIfIndex'] = $route_entry->inetCidrRouteIfIndex == 0 ? 'Undefined' : 'IfIndex ' . $route_entry->inetCidrRouteIfIndex;
+         if ($port = $route_entry->port()->first()) {
+-            $item['inetCidrRouteIfIndex'] = Url::portLink($port, htmlspecialchars($port->getShortLabel()));
++            $item['inetCidrRouteIfIndex'] = Blade::render('<x-port-link :port="$port">{{ $port->getShortLabel() }}</x-port-link>', ['port' => $port]);
+         }
+ 
+         try {
+@@ -198,9 +199,9 @@ class RoutesTablesController extends TableController
+         $device = Device::findByIp($route_entry->inetCidrRouteNextHop);
+         if ($device) {
+             if ($device->device_id == $route_entry->device_id || in_array($route_entry->inetCidrRouteNextHop, ['127.0.0.1', '::1'])) {
+-                $item['inetCidrRouteNextHop'] = Url::deviceLink($device, 'localhost');
++                $item['inetCidrRouteNextHop'] = Blade::render('<x-device-link :device="$device">localhost</x-device-link>', ['device' => $device]);
+             } else {
+-                $item['inetCidrRouteNextHop'] = $item['inetCidrRouteNextHop'] . '<br>(' . Url::deviceLink($device) . ')';
++                $item['inetCidrRouteNextHop'] = $item['inetCidrRouteNextHop'] . '<br>(' . Blade::render('<x-device-link :device="$device"/>', ['device' => $device]) . ')';
+             }
+         }
+ 
+diff --git a/app/Http/Controllers/Table/SyslogController.php b/app/Http/Controllers/Table/SyslogController.php
+index e5e44f21..3aa59730 100644
+--- a/app/Http/Controllers/Table/SyslogController.php
++++ b/app/Http/Controllers/Table/SyslogController.php
+@@ -26,6 +26,7 @@
+ namespace App\Http\Controllers\Table;
+ 
+ use App\Models\Syslog;
++use Illuminate\Support\Facades\Blade;
+ use LibreNMS\Enum\SyslogSeverity;
+ 
+ class SyslogController extends TableController
+@@ -96,13 +97,11 @@ class SyslogController extends TableController
+      */
+     public function formatItem($syslog)
+     {
+-        $device = $syslog->device;
+-
+         return [
+             'label' => $this->setLabel($syslog),
+             'timestamp' => $syslog->timestamp,
+             'level' => htmlentities($syslog->level),
+-            'device_id' => $device ? \LibreNMS\Util\Url::deviceLink($device, $device->shortDisplayName()) : '',
++            'device_id' => Blade::render('<x-device-link :device="$device"/>', ['device' => $syslog->device]),
+             'program' => htmlentities($syslog->program),
+             'msg' => htmlentities($syslog->msg),
+             'priority' => htmlentities($syslog->priority),

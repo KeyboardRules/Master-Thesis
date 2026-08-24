@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7gfx-wxfh-7rvm",
+    "cve":  "CVE-2018-13982",
+    "cwe":  "CWE-22",
+    "repo":  "smarty-php/smarty",
+    "fix_commit":  "2e081a51b1effddb23f87952959139ac62654d50",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "libs/Smarty.class.php",
+                        "libs/sysplugins/smarty_security.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libs/Smarty.class.php includes 10 project file(s)",
+                     "libs/Smarty.class.php class extends Smarty_Internal_TemplateBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v567-q267-phpg",
+    "cve":  "CVE-2022-0257",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "dfaf78b26fb77990267c0cc05b9fcb9f8de7b66d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/EcommerceFrameworkBundle/Controller/PricingController.php"
+                    ],
+    "evidence":  [
+                     "bundles/EcommerceFrameworkBundle/Controller/PricingController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

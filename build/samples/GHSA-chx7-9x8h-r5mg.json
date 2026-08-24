@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-chx7-9x8h-r5mg",
+    "cve":  "CVE-2024-32981",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "b8d20dc9d531550e06fd7da7a0eafa551922e2e1",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Forms/HTMLEditor/HTMLEditorSanitiser.php",
+                        "tests/php/Forms/HTMLEditor/HTMLEditorSanitiserTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Forms/HTMLEditor/HTMLEditorSanitiser.php class uses trait",
+                     "tests/php/Forms/HTMLEditor/HTMLEditorSanitiserTest.php class extends FunctionalTest"
+                 ],
+    "changed_all":  [
+                        "src/Forms/HTMLEditor/HTMLEditorSanitiser.php",
+                        "tests/php/Forms/HTMLEditor/HTMLEditorSanitiserTest.php"
+                    ],
+    "sink_hit":  false
+}

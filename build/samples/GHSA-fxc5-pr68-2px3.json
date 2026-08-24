@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-fxc5-pr68-2px3",
+    "cve":  "CVE-2023-4157",
+    "cwe":  "CWE-74",
+    "repo":  "omeka/omeka-s",
+    "sha":  "8b72619d9731b32dd21ab6dcaa01ccc3bbf0db63",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/view/layout/layout-admin.phtml",
+                        "application/view/omeka/admin/index/browse.phtml",
+                        "application/view/omeka/index/index.phtml"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "application/view/layout/layout-admin.phtml",
+                        "application/view/omeka/admin/index/browse.phtml",
+                        "application/view/omeka/index/index.phtml"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-6pjm-hmvf-h4rr",
+    "cve":  "CVE-2024-34515",
+    "cwe":  "CWE-502",
+    "repo":  "spatie/image-optimizer",
+    "sha":  "89847b55fbb44b3bcde0283bff8cc5abb5e51b82",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Image.php",
+                        "src/OptimizerChain.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/Image.php",
+                        "src/OptimizerChain.php"
+                    ],
+    "sink_hit":  false
+}

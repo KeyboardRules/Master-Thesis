@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w6rx-9g2x-mg5g",
+    "cve":  "CVE-2024-55637",
+    "cwe":  "CWE-502",
+    "repo":  "drupal/core",
+    "sha":  "1664030d399c73b4144f410f2ccc68c66a947f8d",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/views/src/ViewExecutable.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "modules/views/src/ViewExecutable.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "modules/views/src/ViewExecutable.php"
+                    ],
+    "sink_hit":  true
+}

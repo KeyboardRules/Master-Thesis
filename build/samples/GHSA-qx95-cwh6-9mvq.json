@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-qx95-cwh6-9mvq",
+    "cve":  "CVE-2024-56527",
+    "cwe":  "CWE-79",
+    "repo":  "tecnickcom/TCPDF",
+    "sha":  "11778aaa2d9e30a9ae1c1ee97ff349344f0ad6e1",
+    "status":  "ok",
+    "changed_php":  [
+                        "tcpdf.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "tcpdf.php includes 8 project file(s)"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.TXT",
+                        "tcpdf.php"
+                    ],
+    "sink_hit":  true
+}

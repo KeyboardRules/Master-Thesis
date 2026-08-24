@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vr7m-r9vm-m4wf",
+    "cve":  "CVE-2024-21628",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "afc45b93b3cc33be0e571559d2838c6960d98856",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/CustomerMessage.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "classes/CustomerMessage.php class extends ObjectModel"
+                 ],
+    "changed_all":  [
+                        "classes/CustomerMessage.php"
+                    ],
+    "sink_hit":  false
+}

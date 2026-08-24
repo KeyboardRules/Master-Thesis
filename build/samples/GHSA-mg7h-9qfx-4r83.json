@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-mg7h-9qfx-4r83",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "zendframework/zendframework",
+    "sha":  "1040acaf70d297ec7214934d8ddc3e811d249b5c",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/View/Helper/ServerUrl.php",
+                        "tests/ZendTest/View/Helper/ServerUrlTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "library/Zend/View/Helper/ServerUrl.php class extends AbstractHelper",
+                     "tests/ZendTest/View/Helper/ServerUrlTest.php class extends \\PHPUnit_Framework_TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "library/Zend/View/Helper/ServerUrl.php",
+                        "tests/ZendTest/View/Helper/ServerUrlTest.php"
+                    ],
+    "sink_hit":  false
+}

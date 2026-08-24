@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-72w2-j52c-7682",
+    "cve":  "CVE-2023-28329",
+    "cwe":  "CWE-89",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "81e74af17f419f7910f81279efecf5c7af09f38d",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "availability/condition/profile/classes/condition.php",
+                        "availability/condition/profile/classes/frontend.php",
+                        "availability/condition/profile/lang/en/availability_profile.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "availability/condition/profile/classes/condition.php includes 2 project file(s)",
+                     "availability/condition/profile/classes/condition.php class extends \\core_availability\\condition",
+                     "availability/condition/profile/classes/frontend.php class extends \\core_availability\\frontend"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

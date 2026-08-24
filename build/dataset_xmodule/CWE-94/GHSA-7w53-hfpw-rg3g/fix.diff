@@ -1,0 +1,357 @@
+﻿diff --git a/src/Symfony/Bridge/Twig/Extension/YamlExtension.php b/src/Symfony/Bridge/Twig/Extension/YamlExtension.php
+index 130575cb6..f88829ee3 100644
+--- a/src/Symfony/Bridge/Twig/Extension/YamlExtension.php
++++ b/src/Symfony/Bridge/Twig/Extension/YamlExtension.php
+@@ -31,7 +31,7 @@ class YamlExtension extends \Twig_Extension
+         );
+     }
+ 
+-    public function encode($input, $inline = 0)
++    public function encode($input, $inline = 0, $dumpObjects = false)
+     {
+         static $dumper;
+ 
+@@ -39,20 +39,20 @@ class YamlExtension extends \Twig_Extension
+             $dumper = new YamlDumper();
+         }
+ 
+-        return $dumper->dump($input, $inline);
++        return $dumper->dump($input, $inline, false, $dumpObjects);
+     }
+ 
+-    public function dump($value)
++    public function dump($value, $inline = 0, $dumpObjects = false)
+     {
+         if (is_resource($value)) {
+             return '%Resource%';
+         }
+ 
+         if (is_array($value) || is_object($value)) {
+-            return '%'.gettype($value).'% '.$this->encode($value);
++            return '%'.gettype($value).'% '.$this->encode($value, $inline, $dumpObjects);
+         }
+ 
+-        return $this->encode($value);
++        return $this->encode($value, $inline, $dumpObjects);
+     }
+ 
+     /**
+diff --git a/src/Symfony/Component/Yaml/Dumper.php b/src/Symfony/Component/Yaml/Dumper.php
+index ec74cfc47..9829a49c9 100644
+--- a/src/Symfony/Component/Yaml/Dumper.php
++++ b/src/Symfony/Component/Yaml/Dumper.php
+@@ -21,19 +21,21 @@ class Dumper
+     /**
+      * Dumps a PHP value to YAML.
+      *
+-     * @param mixed   $input  The PHP value
+-     * @param integer $inline The level where you switch to inline YAML
+-     * @param integer $indent The level of indentation (used internally)
++     * @param mixed   $input                  The PHP value
++     * @param integer $inline                 The level where you switch to inline YAML
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
++     * @param integer $indent                 The level of indentation (used internally)
+      *
+      * @return string  The YAML representation of the PHP value
+      */
+-    public function dump($input, $inline = 0, $indent = 0)
++    public function dump($input, $inline = 0, $exceptionOnInvalidType = false, $objectSupport = false, $indent = 0)
+     {
+         $output = '';
+         $prefix = $indent ? str_repeat(' ', $indent) : '';
+ 
+         if ($inline <= 0 || !is_array($input) || empty($input)) {
+-            $output .= $prefix.Inline::dump($input);
++            $output .= $prefix.Inline::dump($input, $exceptionOnInvalidType, $objectSupport);
+         } else {
+             $isAHash = array_keys($input) !== range(0, count($input) - 1);
+ 
+@@ -42,9 +44,9 @@ class Dumper
+ 
+                 $output .= sprintf('%s%s%s%s',
+                     $prefix,
+-                    $isAHash ? Inline::dump($key).':' : '-',
++                    $isAHash ? Inline::dump($key, $exceptionOnInvalidType, $objectSupport).':' : '-',
+                     $willBeInlined ? ' ' : "\n",
+-                    $this->dump($value, $inline - 1, $willBeInlined ? 0 : $indent + 2)
++                    $this->dump($value, $inline - 1, $exceptionOnInvalidType, $objectSupport, $willBeInlined ? 0 : $indent + 2)
+                 ).($willBeInlined ? "\n" : '');
+             }
+         }
+diff --git a/src/Symfony/Component/Yaml/Inline.php b/src/Symfony/Component/Yaml/Inline.php
+index 02968d15f..2f7855d13 100644
+--- a/src/Symfony/Component/Yaml/Inline.php
++++ b/src/Symfony/Component/Yaml/Inline.php
+@@ -22,15 +22,23 @@ class Inline
+ {
+     const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\']*(?:\'\'[^\']*)*)\')';
+ 
++    private static $exceptionOnInvalidType = false;
++    private static $objectSupport = false;
++
+     /**
+      * Converts a YAML string to a PHP array.
+      *
+-     * @param string $value A YAML string
++     * @param string  $value                  A YAML string
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
+      *
+      * @return array A PHP array representing the YAML string
+      */
+-    public static function parse($value)
++    public static function parse($value, $exceptionOnInvalidType = false, $objectSupport = false)
+     {
++        self::$exceptionOnInvalidType = $exceptionOnInvalidType;
++        self::$objectSupport = $objectSupport;
++
+         $value = trim($value);
+ 
+         if (0 == strlen($value)) {
+@@ -63,21 +71,35 @@ class Inline
+     /**
+      * Dumps a given PHP variable to a YAML string.
+      *
+-     * @param mixed $value The PHP variable to convert
++     * @param mixed   $value                  The PHP variable to convert
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
+      *
+      * @return string The YAML string representing the PHP array
+      *
+      * @throws DumpException When trying to dump PHP resource
+      */
+-    public static function dump($value)
++    public static function dump($value, $exceptionOnInvalidType = false, $objectSupport = false)
+     {
+         switch (true) {
+             case is_resource($value):
+-                throw new DumpException(sprintf('Unable to dump PHP resources in a YAML file ("%s").', get_resource_type($value)));
++                if ($exceptionOnInvalidType) {
++                    throw new DumpException(sprintf('Unable to dump PHP resources in a YAML file ("%s").', get_resource_type($value)));
++                }
++
++                return 'null';
+             case is_object($value):
+-                return '!!php/object:'.serialize($value);
++                if ($objectSupport) {
++                    return '!!php/object:'.serialize($value);
++                }
++
++                if ($exceptionOnInvalidType) {
++                    throw new DumpException('Object support when dumping a YAML file has been disabled.');
++                }
++
++                return 'null';
+             case is_array($value):
+-                return self::dumpArray($value);
++                return self::dumpArray($value, $exceptionOnInvalidType, $objectSupport);
+             case null === $value:
+                 return 'null';
+             case true === $value:
+@@ -115,11 +137,13 @@ class Inline
+     /**
+      * Dumps a PHP array to a YAML string.
+      *
+-     * @param array $value The PHP array to dump
++     * @param array   $value                  The PHP array to dump
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
+      *
+      * @return string The YAML string representing the PHP array
+      */
+-    private static function dumpArray($value)
++    private static function dumpArray($value, $exceptionOnInvalidType, $objectSupport)
+     {
+         // array
+         $keys = array_keys($value);
+@@ -128,7 +152,7 @@ class Inline
+         ) {
+             $output = array();
+             foreach ($value as $val) {
+-                $output[] = self::dump($val);
++                $output[] = self::dump($val, $exceptionOnInvalidType, $objectSupport);
+             }
+ 
+             return sprintf('[%s]', implode(', ', $output));
+@@ -137,7 +161,7 @@ class Inline
+         // mapping
+         $output = array();
+         foreach ($value as $key => $val) {
+-            $output[] = sprintf('%s: %s', self::dump($key), self::dump($val));
++            $output[] = sprintf('%s: %s', self::dump($key, $exceptionOnInvalidType, $objectSupport), self::dump($val, $exceptionOnInvalidType, $objectSupport));
+         }
+ 
+         return sprintf('{ %s }', implode(', ', $output));
+@@ -355,7 +379,15 @@ class Inline
+             case 0 === strpos($scalar, '! '):
+                 return intval(self::parseScalar(substr($scalar, 2)));
+             case 0 === strpos($scalar, '!!php/object:'):
+-                return unserialize(substr($scalar, 13));
++                if (self::$objectSupport) {
++                    return unserialize(substr($scalar, 13));
++                }
++
++                if (self::$exceptionOnInvalidType) {
++                    throw new ParseException('Object support when parsing a YAML file has been disabled.');
++                }
++
++                return null;
+             case ctype_digit($scalar):
+                 $raw = $scalar;
+                 $cast = intval($scalar);
+diff --git a/src/Symfony/Component/Yaml/Parser.php b/src/Symfony/Component/Yaml/Parser.php
+index 0bc425060..1c0fdd828 100644
+--- a/src/Symfony/Component/Yaml/Parser.php
++++ b/src/Symfony/Component/Yaml/Parser.php
+@@ -38,13 +38,15 @@ class Parser
+     /**
+      * Parses a YAML string to a PHP value.
+      *
+-     * @param string $value A YAML string
++     * @param string  $value                  A YAML string
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
+      *
+      * @return mixed  A PHP value
+      *
+      * @throws ParseException If the YAML is not valid
+      */
+-    public function parse($value)
++    public function parse($value, $exceptionOnInvalidType = false, $objectSupport = false)
+     {
+         $this->currentLineNb = -1;
+         $this->currentLine = '';
+@@ -82,7 +84,7 @@ class Parser
+                     $c = $this->getRealCurrentLineNb() + 1;
+                     $parser = new Parser($c);
+                     $parser->refs =& $this->refs;
+-                    $data[] = $parser->parse($this->getNextEmbedBlock());
++                    $data[] = $parser->parse($this->getNextEmbedBlock(), $exceptionOnInvalidType, $objectSupport);
+                 } else {
+                     if (isset($values['leadspaces'])
+                         && ' ' == $values['leadspaces']
+@@ -98,12 +100,14 @@ class Parser
+                             $block .= "\n".$this->getNextEmbedBlock($this->getCurrentLineIndentation() + 2);
+                         }
+ 
+-                        $data[] = $parser->parse($block);
++                        $data[] = $parser->parse($block, $exceptionOnInvalidType, $objectSupport);
+                     } else {
+-                        $data[] = $this->parseValue($values['value']);
++                        $data[] = $this->parseValue($values['value'], $exceptionOnInvalidType, $objectSupport);
+                     }
+                 }
+             } elseif (preg_match('#^(?P<key>'.Inline::REGEX_QUOTED_STRING.'|[^ \'"\[\{].*?) *\:(\s+(?P<value>.+?))?\s*$#u', $this->currentLine, $values)) {
++                // force correct settings
++                Inline::parse(null, $exceptionOnInvalidType, $objectSupport);
+                 try {
+                     $key = Inline::parseScalar($values['key']);
+                 } catch (ParseException $e) {
+@@ -128,7 +132,7 @@ class Parser
+                         $c = $this->getRealCurrentLineNb() + 1;
+                         $parser = new Parser($c);
+                         $parser->refs =& $this->refs;
+-                        $parsed = $parser->parse($value);
++                        $parsed = $parser->parse($value, $exceptionOnInvalidType, $objectSupport);
+ 
+                         $merged = array();
+                         if (!is_array($parsed)) {
+@@ -165,20 +169,20 @@ class Parser
+                         $c = $this->getRealCurrentLineNb() + 1;
+                         $parser = new Parser($c);
+                         $parser->refs =& $this->refs;
+-                        $data[$key] = $parser->parse($this->getNextEmbedBlock());
++                        $data[$key] = $parser->parse($this->getNextEmbedBlock(), $exceptionOnInvalidType, $objectSupport);
+                     }
+                 } else {
+                     if ($isInPlace) {
+                         $data = $this->refs[$isInPlace];
+                     } else {
+-                        $data[$key] = $this->parseValue($values['value']);
++                        $data[$key] = $this->parseValue($values['value'], $exceptionOnInvalidType, $objectSupport);
+                     }
+                 }
+             } else {
+                 // 1-liner followed by newline
+                 if (2 == count($this->lines) && empty($this->lines[1])) {
+                     try {
+-                        $value = Inline::parse($this->lines[0]);
++                        $value = Inline::parse($this->lines[0], $exceptionOnInvalidType, $objectSupport);
+                     } catch (ParseException $e) {
+                         $e->setParsedLine($this->getRealCurrentLineNb() + 1);
+                         $e->setSnippet($this->currentLine);
+@@ -345,7 +349,7 @@ class Parser
+      *
+      * @throws ParseException When reference does not exist
+      */
+-    private function parseValue($value)
++    private function parseValue($value, $exceptionOnInvalidType, $objectSupport)
+     {
+         if (0 === strpos($value, '*')) {
+             if (false !== $pos = strpos($value, '#')) {
+@@ -368,7 +372,7 @@ class Parser
+         }
+ 
+         try {
+-            return Inline::parse($value);
++            return Inline::parse($value, $exceptionOnInvalidType, $objectSupport);
+         } catch (ParseException $e) {
+             $e->setParsedLine($this->getRealCurrentLineNb() + 1);
+             $e->setSnippet($this->currentLine);
+diff --git a/src/Symfony/Component/Yaml/Yaml.php b/src/Symfony/Component/Yaml/Yaml.php
+index f5e3a0e9b..ae175f1b0 100644
+--- a/src/Symfony/Component/Yaml/Yaml.php
++++ b/src/Symfony/Component/Yaml/Yaml.php
+@@ -27,7 +27,7 @@ class Yaml
+      *
+      * @deprecated Deprecated since version 2.0, to be removed in 2.3.
+      */
+-    static public $enablePhpParsing = true;
++    public static $enablePhpParsing = true;
+ 
+     /**
+      * Enables PHP support when parsing YAML files.
+@@ -89,7 +89,7 @@ class Yaml
+      *
+      * @api
+      */
+-    public static function parse($input)
++    public static function parse($input, $exceptionOnInvalidType = false, $objectSupport = false)
+     {
+         // if input is a file, process it
+         $file = '';
+@@ -119,7 +119,7 @@ class Yaml
+         $yaml = new Parser();
+ 
+         try {
+-            return $yaml->parse($input);
++            return $yaml->parse($input, $exceptionOnInvalidType, $objectSupport);
+         } catch (ParseException $e) {
+             if ($file) {
+                 $e->setParsedFile($file);
+@@ -135,17 +135,19 @@ class Yaml
+      * The dump method, when supplied with an array, will do its best
+      * to convert the array into friendly YAML.
+      *
+-     * @param array   $array  PHP array
+-     * @param integer $inline The level where you switch to inline YAML
++     * @param array   $array                  PHP array
++     * @param integer $inline                 The level where you switch to inline YAML
++     * @param Boolean $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
++     * @param Boolean $objectSupport          true if object support is enabled, false otherwise
+      *
+      * @return string A YAML string representing the original PHP array
+      *
+      * @api
+      */
+-    public static function dump($array, $inline = 2)
++    public static function dump($array, $inline = 2, $exceptionOnInvalidType = false, $objectSupport = false)
+     {
+         $yaml = new Dumper();
+ 
+-        return $yaml->dump($array, $inline);
++        return $yaml->dump($array, $inline, $exceptionOnInvalidType, $objectSupport);
+     }
+ }

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-8gfq-c54m-3rf6",
+    "cve":  "CVE-2018-6010",
+    "cwe":  "CWE-79",
+    "repo":  "yiisoft/yii2",
+    "fix_commit":  "6b0be47e0fa9c532e03b07b4369050582fcf5c7a",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "framework/base/ErrorHandler.php",
+                        "framework/log/Dispatcher.php",
+                        "framework/views/errorHandler/exception.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "framework/base/ErrorHandler.php includes 2 project file(s)",
+                     "framework/base/ErrorHandler.php class extends Component",
+                     "framework/log/Dispatcher.php class extends Component",
+                     "tests/framework/log/DispatcherTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

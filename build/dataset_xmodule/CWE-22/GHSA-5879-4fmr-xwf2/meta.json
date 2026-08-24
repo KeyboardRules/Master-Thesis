@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-5879-4fmr-xwf2",
+    "cve":  "CVE-2026-41058",
+    "cwe":  "CWE-22",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "3c729717c26f160014a5c86b0b6accdbd613e7b2",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/CloneSite/cloneServer.json.php"
+                    ],
+    "evidence":  [
+                     "plugin/CloneSite/cloneServer.json.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

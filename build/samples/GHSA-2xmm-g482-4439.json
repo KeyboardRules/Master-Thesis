@@ -1,0 +1,36 @@
+﻿{
+    "id":  "GHSA-2xmm-g482-4439",
+    "cve":  "CVE-2022-24752",
+    "cwe":  "CWE-89",
+    "repo":  "Sylius/SyliusGridBundle",
+    "sha":  "73d0791d0575f955e830a3da4c3345f420d2f784",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Component/Sorting/Sorter.php",
+                        "src/Component/Validation/FieldValidator.php",
+                        "src/Component/Validation/FieldValidatorInterface.php",
+                        "src/Component/Validation/SortingParametersValidator.php",
+                        "src/Component/Validation/SortingParametersValidatorInterface.php",
+                        "src/Component/spec/Sorting/SorterSpec.php",
+                        "src/Component/spec/Validation/FieldValidatorSpec.php",
+                        "src/Component/spec/Validation/SortingParametersValidatorSpec.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "src/Component/spec/Sorting/SorterSpec.php class extends ObjectBehavior"
+                 ],
+    "changed_all":  [
+                        "src/Bundle/Resources/config/services.xml",
+                        "src/Component/Sorting/Sorter.php",
+                        "src/Component/Validation/FieldValidator.php",
+                        "src/Component/Validation/FieldValidatorInterface.php",
+                        "src/Component/Validation/SortingParametersValidator.php",
+                        "src/Component/Validation/SortingParametersValidatorInterface.php",
+                        "src/Component/composer.json",
+                        "src/Component/spec/Sorting/SorterSpec.php",
+                        "src/Component/spec/Validation/FieldValidatorSpec.php",
+                        "src/Component/spec/Validation/SortingParametersValidatorSpec.php"
+                    ],
+    "sink_hit":  false
+}

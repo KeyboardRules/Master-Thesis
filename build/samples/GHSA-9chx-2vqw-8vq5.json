@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-9chx-2vqw-8vq5",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "ethercreative/logs",
+    "sha":  "eb225cc78b1123a10ce2784790f232d71c2066c4",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller.php class extends \\craft\\web\\Controller"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json",
+                        "src/Controller.php",
+                        "src/templates/view.twig"
+                    ],
+    "sink_hit":  true
+}

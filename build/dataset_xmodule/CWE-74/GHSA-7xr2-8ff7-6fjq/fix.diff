@@ -1,0 +1,62 @@
+﻿diff --git a/src/Collection/Doctrine/ORM/EntityRepository.php b/src/Collection/Doctrine/ORM/EntityRepository.php
+index c94bbee..e675446 100644
+--- a/src/Collection/Doctrine/ORM/EntityRepository.php
++++ b/src/Collection/Doctrine/ORM/EntityRepository.php
+@@ -33,7 +33,7 @@ class EntityRepository implements ObjectRepository
+     }
+ 
+     /**
+-     * @param mixed|Criteria|array<string,mixed>|callable(QueryBuilder):void $specification
++     * @param mixed|Criteria|array<string,mixed>|(object&callable(QueryBuilder):void) $specification
+      */
+     public function find(mixed $specification): ?object
+     {
+@@ -46,7 +46,7 @@ class EntityRepository implements ObjectRepository
+                 return $this->em()->getUnitOfWork()->getEntityPersister($this->class)->load($specification, limit: 1); // @phpstan-ignore-line
+             }
+ 
+-            if (\is_callable($specification)) {
++            if (\is_callable($specification) && \is_object($specification)) {
+                 $specification($qb = $this->qb(), 'e');
+ 
+                 return $qb->getQuery()->getSingleResult();
+@@ -59,7 +59,7 @@ class EntityRepository implements ObjectRepository
+     }
+ 
+     /**
+-     * @param Criteria|array<string,mixed>|callable(QueryBuilder):void $specification
++     * @param Criteria|array<string,mixed>|(object&callable(QueryBuilder):void) $specification
+      *
+      * @return EntityResult<V>
+      */
+@@ -71,7 +71,7 @@ class EntityRepository implements ObjectRepository
+             return $qb->addCriteria($specification)->result();
+         }
+ 
+-        if (\is_callable($specification)) {
++        if (\is_callable($specification) && \is_object($specification)) {
+             $specification($qb, 'e');
+ 
+             return $qb->result();
+diff --git a/src/Collection/Doctrine/ORM/EntityRepositoryBridge.php b/src/Collection/Doctrine/ORM/EntityRepositoryBridge.php
+index 66ddc1f..b98a059 100644
+--- a/src/Collection/Doctrine/ORM/EntityRepositoryBridge.php
++++ b/src/Collection/Doctrine/ORM/EntityRepositoryBridge.php
+@@ -25,7 +25,7 @@ trait EntityRepositoryBridge
+     private EntityRepository $collectionRepo;
+ 
+     /**
+-     * @param mixed|Criteria|array<string,mixed>|callable(QueryBuilder):void $specification
++     * @param mixed|Criteria|array<string,mixed>|(object&callable(QueryBuilder):void) $specification
+      */
+     public function find($specification, $lockMode = null, $lockVersion = null): ?object
+     {
+@@ -38,7 +38,7 @@ trait EntityRepositoryBridge
+     }
+ 
+     /**
+-     * @param Criteria|array<string,mixed>|callable(QueryBuilder):void $specification
++     * @param Criteria|array<string,mixed>|(object&callable(QueryBuilder):void) $specification
+      *
+      * @return EntityResult<V>
+      */

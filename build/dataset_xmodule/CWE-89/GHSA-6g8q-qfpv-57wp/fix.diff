@@ -1,0 +1,24 @@
+﻿diff --git a/src/Database/Query.php b/src/Database/Query.php
+index 98f7bbc..e96e246 100644
+--- a/src/Database/Query.php
++++ b/src/Database/Query.php
+@@ -1534,6 +1534,9 @@ class Query implements ExpressionInterface, IteratorAggregate
+      */
+     public function limit($limit)
+     {
++        if (is_string($limit) && !is_numeric($limit)) {
++            throw new InvalidArgumentException('Invalid value for `limit()`');
++        }
+         $this->_dirty();
+         $this->_parts['limit'] = $limit;
+ 
+@@ -1560,6 +1563,9 @@ class Query implements ExpressionInterface, IteratorAggregate
+      */
+     public function offset($offset)
+     {
++        if (is_string($offset) && !is_numeric($offset)) {
++            throw new InvalidArgumentException('Invalid value for `offset()`');
++        }
+         $this->_dirty();
+         $this->_parts['offset'] = $offset;
+ 

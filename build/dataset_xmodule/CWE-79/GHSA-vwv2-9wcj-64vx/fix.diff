@@ -1,0 +1,46 @@
+﻿diff --git a/app/Services/Internal/Update/JournalUpdateService.php b/app/Services/Internal/Update/JournalUpdateService.php
+index b02401c..9d27b12 100644
+--- a/app/Services/Internal/Update/JournalUpdateService.php
++++ b/app/Services/Internal/Update/JournalUpdateService.php
+@@ -25,6 +25,7 @@ namespace FireflyIII\Services\Internal\Update;
+ 
+ use Carbon\Carbon;
+ use Carbon\Exceptions\InvalidDateException;
++use Carbon\Exceptions\InvalidFormatException;
+ use FireflyIII\Events\TriggeredAuditLog;
+ use FireflyIII\Exceptions\FireflyException;
+ use FireflyIII\Factory\TagFactory;
+@@ -662,7 +663,7 @@ class JournalUpdateService
+             if ($this->hasFields([$field])) {
+                 try {
+                     $value = '' === (string)$this->data[$field] ? null : new Carbon($this->data[$field]);
+-                } catch (InvalidDateException $e) { // @phpstan-ignore-line
++                } catch (InvalidDateException|InvalidFormatException $e) { // @phpstan-ignore-line
+                     app('log')->debug(sprintf('%s is not a valid date value: %s', $this->data[$field], $e->getMessage()));
+ 
+                     return;
+diff --git a/app/Support/Binder/Date.php b/app/Support/Binder/Date.php
+index 11f65ee..6afd039 100644
+--- a/app/Support/Binder/Date.php
++++ b/app/Support/Binder/Date.php
+@@ -25,6 +25,7 @@ namespace FireflyIII\Support\Binder;
+ 
+ use Carbon\Carbon;
+ use Carbon\Exceptions\InvalidDateException;
++use Carbon\Exceptions\InvalidFormatException;
+ use FireflyIII\Helpers\Fiscal\FiscalHelperInterface;
+ use Illuminate\Routing\Route;
+ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+@@ -71,10 +72,10 @@ class Date implements BinderInterface
+ 
+         try {
+             $result = new Carbon($value);
+-        } catch (InvalidDateException $e) { // @phpstan-ignore-line
++        } catch (InvalidDateException|InvalidFormatException $e) { // @phpstan-ignore-line
+             $message = sprintf('Could not parse date "%s" for user #%d: %s', $value, auth()->user()->id, $e->getMessage());
+             app('log')->error($message);
+-            throw new NotFoundHttpException($message, $e);
++            throw new NotFoundHttpException('Could not parse value', $e);
+         }
+ 
+         return $result;

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2r5h-6r7v-5m7c",
+    "cve":  "CVE-2013-1348",
+    "cwe":  "CWE-94",
+    "repo":  "symfony/symfony",
+    "sha":  "ac756bf39e646b4e130fad058d10a0228dbd9779",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Component/Yaml/Yaml.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Component/Yaml/Yaml.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mrmx-jfw8-qhgv",
+    "cve":  "CVE-2025-10351",
+    "cwe":  "CWE-89",
+    "repo":  "melisplatform/melis-cms",
+    "fix_commit":  "42d36326d9f6400b91db574483add2747af1db21",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Controller/PageEditionController.php"
+                    ],
+    "evidence":  [
+                     "src/Controller/PageEditionController.php class extends MelisAbstractActionController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

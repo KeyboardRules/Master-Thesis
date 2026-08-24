@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-2pg6-vw9c-qhjv",
+    "cve":  "CVE-2024-33670",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "sha":  "5c537849040990086dcd5013b5bb009e1dad3fb6",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/Error/error400.php",
+                        "templates/Error/error500.php",
+                        "tests/TestCase/Controller/ErrorControllerTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "templates/Error/error400.php",
+                        "templates/Error/error500.php",
+                        "tests/TestCase/Controller/ErrorControllerTest.php"
+                    ],
+    "sink_hit":  true
+}

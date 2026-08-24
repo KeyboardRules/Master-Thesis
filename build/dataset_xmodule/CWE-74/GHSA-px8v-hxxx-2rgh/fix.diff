@@ -1,0 +1,123 @@
+﻿diff --git a/src/base/EmailElement.php b/src/base/EmailElement.php
+index 4430332..f422e3b 100644
+--- a/src/base/EmailElement.php
++++ b/src/base/EmailElement.php
+@@ -196,7 +196,7 @@ abstract class EmailElement extends Element
+                     $emailTemplates = new $settings->emailTemplateId();
+                 } else {
+                     // custom folder on site path
+-                    $templatePath = $sitePath.DIRECTORY_SEPARATOR.$settings->emailTemplateId;
++                    $templatePath = $settings->emailTemplateId;
+ 
+                     $emailTemplates = new CustomTemplates();
+                     $emailTemplates->setPath($templatePath);
+@@ -222,7 +222,7 @@ abstract class EmailElement extends Element
+ 
+         if ($isCustom) {
+             // custom folder on site path
+-            $templatePath = $sitePath.DIRECTORY_SEPARATOR.$emailTemplateId;
++            $templatePath = $emailTemplateId;
+ 
+             $emailTemplates = new CustomTemplates();
+             $emailTemplates->setPath($templatePath);
+diff --git a/src/base/EmailTemplates.php b/src/base/EmailTemplates.php
+index 3c5eb23..f4b99db 100644
+--- a/src/base/EmailTemplates.php
++++ b/src/base/EmailTemplates.php
+@@ -2,7 +2,9 @@
+ 
+ namespace barrelstrength\sproutbaseemail\base;
+ 
++use barrelstrength\sproutbaseemail\emailtemplates\CustomTemplates;
+ use Craft;
++use craft\web\View;
+ use League\HTMLToMarkdown\HtmlConverter;
+ use Twig\Error\LoaderError;
+ use Twig\Error\RuntimeError;
+@@ -37,9 +39,16 @@ abstract class EmailTemplates
+     abstract public function getName(): string;
+ 
+     /**
+-     * The folder path where your email templates exist
++     * The root folder where the Email Templates exist
+      *
+-     * This value should be a folder. Sprout Email will look for a required email.html file and an optional email.txt file within this folder.
++     * @return string
++     */
++    abstract public function getTemplateRoot(): string;
++
++    /**
++     * The folder path where your email templates exist in relation to the folder defined in [[self::getTemplateRoot]]
++     *
++     * This value should also be a folder. Sprout Email will look for a required email.twig file and an optional email.txt file within this folder.
+      *
+      * @return string
+      */
+@@ -103,15 +112,15 @@ abstract class EmailTemplates
+     {
+         $view = Craft::$app->getView();
+         $oldTemplatePath = $view->getTemplatesPath();
+-        $view->setTemplatesPath($this->getPath());
+ 
+-        // @todo - make dynamic
+-        $htmlEmailTemplate = 'email.html';
+-        $textEmailTemplate = 'email.txt';
++        $view->setTemplatesPath($this->getTemplateRoot());
++
++        $htmlEmailTemplate = null;
++        $textEmailTemplate = $this->getPath().'/email.txt';
+ 
+         // Allow other extensions for email.html
+         foreach (Craft::$app->getConfig()->getGeneral()->defaultTemplateExtensions as $extension) {
+-            $templateName = 'email.'.$extension;
++            $templateName = $this->getPath().'/email.'.$extension;
+ 
+             if (Craft::$app->getView()->doesTemplateExist($templateName)) {
+                 $htmlEmailTemplate = $templateName;
+diff --git a/src/emailtemplates/BasicTemplates.php b/src/emailtemplates/BasicTemplates.php
+index c8c6055..a8ed4d7 100644
+--- a/src/emailtemplates/BasicTemplates.php
++++ b/src/emailtemplates/BasicTemplates.php
+@@ -18,12 +18,17 @@ class BasicTemplates extends EmailTemplates
+         return Craft::t('sprout-base-email', 'Basic Notification (Sprout Email)');
+     }
+ 
++    public function getTemplateRoot(): string
++    {
++        return Craft::getAlias('@sproutbaseemail/templates');
++    }
++
+     /**
+      * @return string
+      */
+     public function getPath(): string
+     {
+-        return Craft::getAlias('@sproutbaseemail/templates/_components/emailtemplates/basic');
++        return '_components/emailtemplates/basic';
+     }
+ }
+ 
+diff --git a/src/emailtemplates/CustomTemplates.php b/src/emailtemplates/CustomTemplates.php
+index 9946152..b2f8aaa 100644
+--- a/src/emailtemplates/CustomTemplates.php
++++ b/src/emailtemplates/CustomTemplates.php
+@@ -4,6 +4,7 @@ namespace barrelstrength\sproutbaseemail\emailtemplates;
+ 
+ use barrelstrength\sproutbaseemail\base\EmailTemplates;
+ use Craft;
++use craft\web\View;
+ 
+ /**
+  * The Custom Templates is used to dynamically create an EmailTemplate
+@@ -28,6 +29,11 @@ class CustomTemplates extends EmailTemplates
+         return Craft::t('sprout-base-email', 'Custom Templates');
+     }
+ 
++    public function getTemplateRoot(): string
++    {
++        return Craft::$app->getView()->getTemplatesPath();
++    }
++
+     /**
+      * @return string
+      */

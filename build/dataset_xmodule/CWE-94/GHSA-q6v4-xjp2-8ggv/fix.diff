@@ -1,0 +1,26 @@
+﻿diff --git a/example_form.ajax.php b/example_form.ajax.php
+index b5ff28e..e066f22 100644
+--- a/example_form.ajax.php
++++ b/example_form.ajax.php
+@@ -182,7 +182,7 @@ function process_si_contact_form()
+                      . "<pre>$message</pre>"
+                      . "<br /><br />IP Address: {$_SERVER['REMOTE_ADDR']}<br />"
+                      . "Time: $time<br />"
+-                     . "Browser: {$_SERVER['HTTP_USER_AGENT']}<br />";
++                     . "Browser: " . htmlspecialchars($_SERVER['HTTP_USER_AGENT']) . "<br />";
+ 
+             if (isset($GLOBALS['DEBUG_MODE']) && $GLOBALS['DEBUG_MODE'] == false) {
+                 // send the message with mail()
+diff --git a/example_form.php b/example_form.php
+index 40b12e7..8e726d8 100644
+--- a/example_form.php
++++ b/example_form.php
+@@ -200,7 +200,7 @@ function process_si_contact_form()
+                     . "<pre>$message</pre>"
+                     . "<br /><br /><em>IP Address:</em> {$_SERVER['REMOTE_ADDR']}<br />"
+                     . "<em>Time:</em> $time<br />"
+-                    . "<em>Browser:</em> {$_SERVER['HTTP_USER_AGENT']}<br />";
++                    . "<em>Browser:</em> " . htmlspecialchars($_SERVER['HTTP_USER_AGENT']) . "<br />";
+ 
+       $message = wordwrap($message, 70);
+ 

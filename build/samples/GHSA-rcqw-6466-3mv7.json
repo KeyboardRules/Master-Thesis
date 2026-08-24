@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rcqw-6466-3mv7",
+    "cve":  "CVE-2026-27568",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "ade348ed6d28b3797162c3d9e98054fb09ec51d7",
+    "status":  "ok",
+    "changed_php":  [
+                        "objects/functionsSecurity.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "objects/functionsSecurity.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "objects/functionsSecurity.php"
+                    ],
+    "sink_hit":  false
+}

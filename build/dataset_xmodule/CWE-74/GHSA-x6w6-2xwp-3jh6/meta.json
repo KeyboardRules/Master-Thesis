@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-x6w6-2xwp-3jh6",
+    "cve":  "CVE-2026-30932",
+    "cwe":  "CWE-74",
+    "repo":  "froxlor/froxlor",
+    "fix_commit":  "b34829262dc32818b37f6a1eabb426d0b277a86b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/DomainZones.php",
+                        "lib/Froxlor/Validate/Validate.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "lib/Froxlor/Api/Commands/DomainZones.php class extends ApiCommand"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

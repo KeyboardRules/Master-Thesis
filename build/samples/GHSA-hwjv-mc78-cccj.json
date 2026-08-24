@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hwjv-mc78-cccj",
+    "cve":  "CVE-2014-3547",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "0174a0a57f6d84e240dd0bc0df0ffa63c3cc5a88",
+    "status":  "ok",
+    "changed_php":  [
+                        "badges/renderer.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "badges/renderer.php includes 3 project file(s)",
+                     "badges/renderer.php class extends plugin_renderer_base"
+                 ],
+    "changed_all":  [
+                        "badges/renderer.php"
+                    ],
+    "sink_hit":  true
+}

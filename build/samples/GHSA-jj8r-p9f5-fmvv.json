@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-jj8r-p9f5-fmvv",
+    "cve":  "CVE-2021-36785",
+    "cwe":  "CWE-79",
+    "repo":  "miniOrangeDev/miniorange-saml-typo3-sso",
+    "sha":  "1fe2802267ffe1b48823d9d8b3a496c870a0af48",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Controller/FesamlController.php",
+                        "Helper/Actions/HttpAction.php",
+                        "Helper/Actions/TestResultActions.php",
+                        "Helper/Assertion.php",
+                        "Helper/Utilities.php",
+                        "Helper/lib/XMLSecLibs/Utils/XPath.php",
+                        "Helper/lib/XMLSecLibs/XMLSecEnc.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityDSig.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityKey.php",
+                        "ext_emconf.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "Classes/Controller/FesamlController.php class extends ActionController"
+                 ],
+    "changed_all":  [
+                        "Classes/Controller/FesamlController.php",
+                        "Helper/Actions/HttpAction.php",
+                        "Helper/Actions/TestResultActions.php",
+                        "Helper/Assertion.php",
+                        "Helper/Utilities.php",
+                        "Helper/lib/XMLSecLibs/Utils/XPath.php",
+                        "Helper/lib/XMLSecLibs/XMLSecEnc.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityDSig.php",
+                        "Helper/lib/XMLSecLibs/XMLSecurityKey.php",
+                        "ext_emconf.php"
+                    ],
+    "sink_hit":  true
+}

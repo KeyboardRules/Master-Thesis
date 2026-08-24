@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-484f-743f-6jx2",
+    "cve":  "CVE-2019-16774",
+    "cwe":  "CWE-94",
+    "repo":  "PHPSocialNetwork/phpfastcache",
+    "fix_commit":  "c4527205cb7a402b595790c74310791f5b04a1a4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/phpFastCache/Drivers/Cookie/Driver.php"
+                    ],
+    "evidence":  [
+                     "src/phpFastCache/Drivers/Cookie/Driver.php class extends DriverAbstract",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

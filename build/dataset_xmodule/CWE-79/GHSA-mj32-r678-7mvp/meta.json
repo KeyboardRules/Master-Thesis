@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mj32-r678-7mvp",
+    "cve":  "CVE-2026-29177",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "b0683e04773f16bba6af9df18aab495fc5dde68a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/elements/Order.php"
+                    ],
+    "evidence":  [
+                     "src/elements/Order.php class extends Element",
+                     "src/elements/Order.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

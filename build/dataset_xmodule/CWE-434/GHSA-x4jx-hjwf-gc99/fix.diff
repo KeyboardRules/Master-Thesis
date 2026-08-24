@@ -1,0 +1,18 @@
+﻿diff --git a/php/elFinderVolumeLocalFileSystem.class.php b/php/elFinderVolumeLocalFileSystem.class.php
+index b3bb551..c1a022f 100644
+--- a/php/elFinderVolumeLocalFileSystem.class.php
++++ b/php/elFinderVolumeLocalFileSystem.class.php
+@@ -81,6 +81,13 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver
+         $this->options['keepTimestamp'] = array('copy', 'move'); // keep timestamp at inner filesystem allowed 'copy', 'move' and 'upload'
+         $this->options['substituteImg'] = true;       // support substitute image with dim command
+         $this->options['statCorrector'] = null;       // callable to correct stat data `function(&$stat, $path, $statOwner, $volumeDriveInstance){}`
++        if (DIRECTORY_SEPARATOR === '/') {
++            // Linux
++            $this->options['acceptedName'] = '/^[^\.\/\x00][^\/\x00]*$/';
++        } else {
++            // Windows
++            $this->options['acceptedName'] = '/^[^\.\/\x00\\\:*?"<>|][^\/\x00\\\:*?"<>|]*$/';
++        }
+     }
+ 
+     /*********************************************************************/

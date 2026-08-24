@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x2j7-6hxm-87p3",
+    "cve":  "CVE-2021-27903",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "c17728fa0bec11d3b82c34defe0930ed409aec38",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/volumes/Local.php"
+                    ],
+    "evidence":  [
+                     "src/volumes/Local.php class extends FlysystemVolume"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-86xf-2mgp-gv3g",
+    "cve":  "CVE-2025-49576",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-skins-Citizen",
+    "sha":  "93c36ac778397e0e7c46cf7adb1e5d848265f1bd",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/Components/CitizenComponentUserInfo.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "i18n/en.json",
+                        "includes/Components/CitizenComponentUserInfo.php",
+                        "resources/skins.citizen.commandPalette/components/CommandPaletteFooter.vue",
+                        "resources/skins.citizen.preferences/addPortlet.polyfill.js",
+                        "resources/skins.citizen.search/templates/TypeaheadPlaceholder.mustache",
+                        "skin.json",
+                        "templates/Menu.mustache"
+                    ],
+    "sink_hit":  false
+}

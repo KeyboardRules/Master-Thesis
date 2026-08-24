@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9436-3gmp-4f53",
+    "cve":  "CVE-2023-37897",
+    "cwe":  "CWE-74",
+    "repo":  "getgrav/grav",
+    "sha":  "71bbed12f950de8335006d7f91112263d8504f1b",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Utils.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Utils.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-fqx8-v33p-4qcc",
+    "cve":  "CVE-2022-23638",
+    "cwe":  "CWE-79",
+    "repo":  "darylldoyle/svg-sanitizer",
+    "fix_commit":  "17e12ba9c2881caa6b167d0fbea555c11207fbb0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Sanitizer.php",
+                        "src/data/AllowedTags.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/SanitizerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

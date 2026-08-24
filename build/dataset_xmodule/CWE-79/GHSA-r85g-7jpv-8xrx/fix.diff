@@ -1,0 +1,13 @@
+﻿diff --git a/security/CMSSecurity.php b/security/CMSSecurity.php
+index 545111ed5..e34efb7df 100644
+--- a/security/CMSSecurity.php
++++ b/security/CMSSecurity.php
+@@ -204,7 +204,7 @@ PHP
+ 				'<p>Login success. If you are not automatically redirected '.
+ 				'<a target="_top" href="{link}">click here</a></p>',
+ 				'Login message displayed in the cms popup once a user has re-authenticated themselves',
+-				array('link' => $backURL)
++				array('link' => Convert::raw2att($backURL))
+ 			)
+ 		));
+ 		

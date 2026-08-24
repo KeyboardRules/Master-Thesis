@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-j545-frh3-r9gq",
+    "cve":  "CVE-2022-0224",
+    "cwe":  "CWE-89",
+    "repo":  "dolibarr/dolibarr",
+    "sha":  "b9b45fb50618aa8053961f50bc8604b188d0ea79",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/compta/sociales/list.php",
+                        "test/phpunit/CodingPhpTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "htdocs/compta/sociales/list.php includes 9 project file(s)",
+                     "test/phpunit/CodingPhpTest.php includes 5 project file(s)",
+                     "test/phpunit/CodingPhpTest.php class extends PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "htdocs/compta/sociales/list.php",
+                        "test/phpunit/CodingPhpTest.php"
+                    ],
+    "sink_hit":  true
+}

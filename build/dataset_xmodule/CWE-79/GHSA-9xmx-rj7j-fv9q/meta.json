@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9xmx-rj7j-fv9q",
+    "cve":  "CVE-2019-13644",
+    "cwe":  "CWE-79",
+    "repo":  "firefly-iii/firefly-iii",
+    "fix_commit":  "def307010c388c4e92d7066671ad62e477cc087a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Support/Twig/Extension/Transaction.php",
+                        "config/firefly.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Support/Twig/Extension/Transaction.php class extends Twig_Extension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

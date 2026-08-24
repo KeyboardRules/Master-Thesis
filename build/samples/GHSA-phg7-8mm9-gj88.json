@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-phg7-8mm9-gj88",
+    "cve":  "CVE-2024-40614",
+    "cwe":  "CWE-89",
+    "repo":  "EGroupware/egroupware",
+    "sha":  "553829d30cc2ccdc0e5a8c5a0e16fa03a3399a3f",
+    "status":  "ok",
+    "changed_php":  [
+                        "api/src/Db.php",
+                        "api/src/Etemplate/Widget/Nextmatch.php",
+                        "api/src/Link.php",
+                        "api/src/Storage/Base.php",
+                        "infolog/inc/class.infolog_so.inc.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "api/src/Db.php includes 1 project file(s)",
+                     "api/src/Etemplate/Widget/Nextmatch.php class extends Etemplate\\Widget",
+                     "api/src/Link.php includes 1 project file(s)",
+                     "api/src/Link.php class extends Link\\Storage"
+                 ],
+    "changed_all":  [
+                        "api/src/Db.php",
+                        "api/src/Etemplate/Widget/Nextmatch.php",
+                        "api/src/Link.php",
+                        "api/src/Storage/Base.php",
+                        "infolog/inc/class.infolog_so.inc.php"
+                    ],
+    "sink_hit":  true
+}

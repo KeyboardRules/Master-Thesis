@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-89f3-74m6-g27g",
+    "cve":  "CVE-2013-1833",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "75822af579ec07cca1c6781a7c989625dcdd5463",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/outputrequirementslib.php",
+                        "repository/filepicker.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/outputrequirementslib.php includes 1 project file(s)",
+                     "repository/filepicker.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lib/form/filemanager.js",
+                        "lib/outputrequirementslib.php",
+                        "repository/filepicker.js",
+                        "repository/filepicker.php"
+                    ],
+    "sink_hit":  true
+}

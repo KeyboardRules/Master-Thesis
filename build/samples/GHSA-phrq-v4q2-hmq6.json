@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-phrq-v4q2-hmq6",
+    "cve":  "CVE-2020-13756",
+    "cwe":  "CWE-94",
+    "repo":  "sabberworm/PHP-CSS-Parser",
+    "sha":  "2ebf59e8bfbf6cfc1653a5f0ed743b95062c62a4",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Sabberworm/CSS/CSSList/CSSBlockList.php",
+                        "lib/Sabberworm/CSS/CSSList/Document.php",
+                        "tests/Sabberworm/CSS/ParserTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lib/Sabberworm/CSS/CSSList/CSSBlockList.php class extends CSSList",
+                     "lib/Sabberworm/CSS/CSSList/Document.php class extends CSSBlockList",
+                     "tests/Sabberworm/CSS/ParserTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Sabberworm/CSS/CSSList/CSSBlockList.php",
+                        "lib/Sabberworm/CSS/CSSList/Document.php",
+                        "tests/Sabberworm/CSS/ParserTest.php"
+                    ],
+    "sink_hit":  true
+}

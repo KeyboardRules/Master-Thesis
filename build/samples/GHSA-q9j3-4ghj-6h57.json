@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-q9j3-4ghj-6h57",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "bcit-ci/CodeIgniter",
+    "sha":  "71b1b3f5b2dcc0f4b652e9494e9853b82541ac8c",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/core/Security.php",
+                        "tests/codeigniter/core/Security_test.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/codeigniter/core/Security_test.php class extends CI_TestCase"
+                 ],
+    "changed_all":  [
+                        "system/core/Security.php",
+                        "tests/codeigniter/core/Security_test.php"
+                    ],
+    "sink_hit":  false
+}

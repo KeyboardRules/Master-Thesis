@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-pm3v-qxf6-fgxv",
+    "cve":  "CVE-2022-0285",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "b432225952e2a5ab0268f401b85a14480369b835",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/SettingsController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

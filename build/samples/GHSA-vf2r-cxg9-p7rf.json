@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vf2r-cxg9-p7rf",
+    "cve":  "CVE-2025-54119",
+    "cwe":  "CWE-89",
+    "repo":  "ADOdb/ADOdb",
+    "sha":  "5b8bd52cdcffefb4ecded1b399c98cfa516afe03",
+    "status":  "ok",
+    "changed_php":  [
+                        "drivers/adodb-sqlite3.inc.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "drivers/adodb-sqlite3.inc.php class extends ADOConnection"
+                 ],
+    "changed_all":  [
+                        "drivers/adodb-sqlite3.inc.php"
+                    ],
+    "sink_hit":  true
+}

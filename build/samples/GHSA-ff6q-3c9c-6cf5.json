@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-ff6q-3c9c-6cf5",
+    "cve":  "CVE-2024-53277",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "74904f539347b7d1f8c5b5fb9e28d62ff251ee00",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/XssSanitiser.php",
+                        "src/Forms/FormMessage.php",
+                        "src/Forms/HTMLEditor/HTMLEditorSanitiser.php",
+                        "tests/php/Core/XssSanitiserTest.php",
+                        "tests/php/Forms/FormMessageTest.php",
+                        "tests/php/Forms/FormMessageTest/TestFormMessage.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Forms/HTMLEditor/HTMLEditorSanitiser.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Core/XssSanitiser.php",
+                        "src/Forms/FormMessage.php",
+                        "src/Forms/HTMLEditor/HTMLEditorSanitiser.php",
+                        "tests/php/Core/XssSanitiserTest.php",
+                        "tests/php/Forms/FormMessageTest.php",
+                        "tests/php/Forms/FormMessageTest/TestFormMessage.php"
+                    ],
+    "sink_hit":  false
+}

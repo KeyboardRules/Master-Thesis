@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-7pg4-5233-82jv",
+    "cve":  "CVE-2012-3363",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zf1",
+    "fix_commit":  "281a3251d71ed40a5289ec4afc355eea8e014dc5",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "library/Zend/XmlRpc/Request.php",
+                        "library/Zend/XmlRpc/Response.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "library/Zend/XmlRpc/Request.php includes 2 project file(s)",
+                     "library/Zend/XmlRpc/Response.php includes 2 project file(s)",
+                     "tests/Zend/XmlRpc/ResponseTest.php includes 1 project file(s)",
+                     "tests/Zend/XmlRpc/ResponseTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

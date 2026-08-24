@@ -1,0 +1,142 @@
+﻿diff --git a/src/Sanitizer.php b/src/Sanitizer.php
+index 53acf87..c98d36c 100644
+--- a/src/Sanitizer.php
++++ b/src/Sanitizer.php
+@@ -7,6 +7,8 @@ use enshrined\svgSanitize\data\AttributeInterface;
+ use enshrined\svgSanitize\data\TagInterface;
+ use enshrined\svgSanitize\data\XPath;
+ use enshrined\svgSanitize\ElementReference\Resolver;
++use HTMLPurifier;
++use HTMLPurifier_Config;
+ 
+ /**
+  * Class Sanitizer
+@@ -646,7 +648,9 @@ class Sanitizer
+     protected function cleanUnsafeNodes(\DOMNode $currentElement) {
+         // Replace CDATA node with encoded text node
+         if ($currentElement instanceof \DOMCdataSection) {
+-            $textNode = $currentElement->ownerDocument->createTextNode($currentElement->nodeValue);
++            $purifier = new HTMLPurifier(HTMLPurifier_Config::createDefault());
++            $clean_html = $purifier->purify($currentElement->nodeValue);
++            $textNode = $currentElement->ownerDocument->createTextNode($clean_html);
+             $currentElement->parentNode->replaceChild($textNode, $currentElement);
+         // If the element doesn't have a tagname, remove it and continue with next iteration
+         } elseif (!$currentElement instanceof \DOMElement && !$currentElement instanceof \DOMText) {
+diff --git a/src/data/AllowedTags.php b/src/data/AllowedTags.php
+index 743aafc..bfa9c9a 100644
+--- a/src/data/AllowedTags.php
++++ b/src/data/AllowedTags.php
+@@ -19,75 +19,9 @@ class AllowedTags implements TagInterface
+         return array (
+             // HTML
+             'a',
+-            'abbr',
+-            'acronym',
+-            'address',
+-            'area',
+-            'article',
+-            'aside',
+-            'audio',
+-            'bdi',
+-            'bdo',
+-            'blink',
+-            'button',
+-            'canvas',
+-            'caption',
+-            'cite',
+-            'col',
+-            'colgroup',
+-            'content',
+-            'data',
+-            'datalist',
+-            'decorator',
+-            'del',
+-            'details',
+-            'dfn',
+-            'dir',
+-            'div',
+-            'element',
+-            'fieldset',
+-            'figcaption',
+-            'figure',
+             'font',
+-            'footer',
+-            'form',
+-            'header',
+-            'hgroup',
+-            'html',
+             'image',
+-            'input',
+-            'ins',
+-            'kbd',
+-            'label',
+-            'legend',
+-            'li',
+-            'main',
+-            'map',
+-            'mark',
+-            'marquee',
+-            'meter',
+-            'nav',
+-            'optgroup',
+-            'option',
+-            'output',
+-            'progress',
+-            'q',
+-            'rp',
+-            'rt',
+-            'samp',
+-            'section',
+-            'select',
+-            'shadow',
+-            'source',
+-            'spacer',
+             'style',
+-            'summary',
+-            'template',
+-            'textarea',
+-            'time',
+-            'track',
+-            'video',
+-            'wbr',
+ 
+             // SVG
+             'svg',
+@@ -158,37 +92,6 @@ class AllowedTags implements TagInterface
+             'feTile',
+             'feTurbulence',
+ 
+-            //MathML
+-            'math',
+-            'menclose',
+-            'merror',
+-            'mfenced',
+-            'mfrac',
+-            'mglyph',
+-            'mi',
+-            'mlabeledtr',
+-            'mmuliscripts',
+-            'mn',
+-            'mo',
+-            'mover',
+-            'mpadded',
+-            'mphantom',
+-            'mroot',
+-            'mrow',
+-            'ms',
+-            'mpspace',
+-            'msqrt',
+-            'mystyle',
+-            'msub',
+-            'msup',
+-            'msubsup',
+-            'mtable',
+-            'mtd',
+-            'mtext',
+-            'mtr',
+-            'munder',
+-            'munderover',
+-
+             //text
+             '#text'
+         );

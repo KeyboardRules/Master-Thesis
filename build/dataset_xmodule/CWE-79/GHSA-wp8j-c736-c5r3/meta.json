@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wp8j-c736-c5r3",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "7695d91fca1a96a3a3e7466097ae92c32b1130d8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php"
+                    ],
+    "evidence":  [
+                     "typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php class extends \\TYPO3\\CMS\\Core\\Utility\\File\\BasicFileUtility"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

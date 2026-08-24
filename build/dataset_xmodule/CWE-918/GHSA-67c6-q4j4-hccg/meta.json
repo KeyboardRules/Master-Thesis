@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-67c6-q4j4-hccg",
+    "cve":  "CVE-2023-40033",
+    "cwe":  "CWE-918",
+    "repo":  "flarum/framework",
+    "fix_commit":  "d1059c1cc79fe61f9538f3da55e8f42abbede570",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "framework/core/src/Api/Controller/UploadFaviconController.php",
+                        "framework/core/src/Api/Controller/UploadLogoController.php",
+                        "framework/core/src/User/AvatarValidator.php",
+                        "framework/core/src/User/Command/UploadAvatarHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "framework/core/src/Api/Controller/UploadFaviconController.php class extends UploadImageController",
+                     "framework/core/src/Api/Controller/UploadLogoController.php class extends UploadImageController",
+                     "framework/core/src/User/AvatarValidator.php class extends AbstractValidator",
+                     "framework/core/src/User/Command/UploadAvatarHandler.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

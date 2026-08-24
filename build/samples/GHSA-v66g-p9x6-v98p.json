@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v66g-p9x6-v98p",
+    "cve":  "CVE-2024-45060",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "3990173db1207767139e63d33783beafada57007",
+    "status":  "ok",
+    "changed_php":  [
+                        "samples/Basic4/45_Quadratic_equation_solver.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "samples/Basic4/45_Quadratic_equation_solver.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "samples/Basic4/45_Quadratic_equation_solver.php"
+                    ],
+    "sink_hit":  true
+}

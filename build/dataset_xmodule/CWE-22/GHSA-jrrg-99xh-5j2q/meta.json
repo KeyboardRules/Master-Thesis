@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-jrrg-99xh-5j2q",
+    "cve":  "CVE-2026-46491",
+    "cwe":  "CWE-22",
+    "repo":  "simplesamlphp/simplesamlphp-module-casserver",
+    "fix_commit":  "b84f3e4ed57c4d97e0dc73df102e7eff831a681f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Cas/Ticket/FileSystemTicketStore.php",
+                        "src/Controller/Cas10Controller.php",
+                        "src/Controller/Traits/TicketValidatorTrait.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Cas/Ticket/FileSystemTicketStore.php class extends TicketStore",
+                     "src/Controller/Cas10Controller.php class uses trait",
+                     "tests/src/Controller/Cas10ControllerTest.php class extends TestCase",
+                     "tests/src/Controller/Cas20ControllerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

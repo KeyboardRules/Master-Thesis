@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2fhx-q92v-5fhv",
+    "cve":  "CVE-2026-49279",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "3e0b3ce2bfa766183ff0ae227439394db57b1a23",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/YPTSocket/MessageSQLite.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/YPTSocket/MessageSQLite.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/YPTSocket/MessageSQLite.php"
+                    ],
+    "sink_hit":  true
+}

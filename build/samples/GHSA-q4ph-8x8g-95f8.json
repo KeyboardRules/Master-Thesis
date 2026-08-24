@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-q4ph-8x8g-95f8",
+    "cve":  "",
+    "cwe":  "CWE-94",
+    "repo":  "AzuraCast/AzuraCast",
+    "sha":  "d6b8422fc2c36269df9d1adec89dfbba58828915",
+    "status":  "ok",
+    "changed_php":  [
+                        "backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php"
+                    ],
+    "sink_hit":  true
+}

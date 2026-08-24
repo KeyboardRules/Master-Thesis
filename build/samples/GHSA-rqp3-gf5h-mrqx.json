@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rqp3-gf5h-mrqx",
+    "cve":  "CVE-2026-39367",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "e0212add4aad0f1e97758a4b4fdc57df58ce68e8",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/PlayerSkins/epg.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/PlayerSkins/epg.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/PlayerSkins/epg.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-793q-xgj6-7frp",
+    "cve":  "CVE-2026-41055",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "0e56382921fc71e64829cd1ec35f04e338c70917",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/LiveLinks/proxy.php"
+                    ],
+    "evidence":  [
+                     "plugin/LiveLinks/proxy.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cgr4-c233-h733",
+    "cve":  "CVE-2024-52305",
+    "cwe":  "CWE-79",
+    "repo":  "unopim/unopim",
+    "sha":  "9a0da7a0892c60f58df2351b5a9498dcb4cb8b7a",
+    "status":  "ok",
+    "changed_php":  [
+                        "packages/Webkul/Installer/src/Console/Commands/DefaultUser.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "packages/Webkul/Installer/src/Console/Commands/DefaultUser.php class extends Command"
+                 ],
+    "changed_all":  [
+                        "packages/Webkul/Installer/src/Console/Commands/DefaultUser.php"
+                    ],
+    "sink_hit":  false
+}

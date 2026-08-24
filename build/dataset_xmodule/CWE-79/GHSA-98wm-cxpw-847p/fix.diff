@@ -1,0 +1,193 @@
+﻿diff --git a/app/Http/Requests/Product/StoreProductRequest.php b/app/Http/Requests/Product/StoreProductRequest.php
+index dabee96..f5b224e 100644
+--- a/app/Http/Requests/Product/StoreProductRequest.php
++++ b/app/Http/Requests/Product/StoreProductRequest.php
+@@ -77,6 +77,12 @@ class StoreProductRequest extends Request
+         $input['tax_name2'] ??= '';
+         $input['tax_name3'] ??= '';
+ 
++        foreach (['notes', 'product_key', 'custom_value1', 'custom_value2', 'custom_value3', 'custom_value4'] as $field) {
++            if (isset($input[$field]) && is_string($input[$field]) && (str_contains($input[$field], '<') || str_contains($input[$field], '&lt;') || str_contains($input[$field], '&#'))) {
++                $input[$field] = \App\Services\Pdf\Purify::clean($input[$field], true);
++            }
++        }
++
+         $this->replace($input);
+     }
+ }
+diff --git a/app/Http/Requests/Product/UpdateProductRequest.php b/app/Http/Requests/Product/UpdateProductRequest.php
+index e3febd2..ee1fbd3 100644
+--- a/app/Http/Requests/Product/UpdateProductRequest.php
++++ b/app/Http/Requests/Product/UpdateProductRequest.php
+@@ -75,6 +75,12 @@ class UpdateProductRequest extends Request
+             unset($input['in_stock_quantity']);
+         }
+ 
++        foreach (['notes', 'product_key', 'custom_value1', 'custom_value2', 'custom_value3', 'custom_value4'] as $field) {
++            if (isset($input[$field]) && is_string($input[$field]) && (str_contains($input[$field], '<') || str_contains($input[$field], '&lt;') || str_contains($input[$field], '&#'))) {
++                $input[$field] = \App\Services\Pdf\Purify::clean($input[$field], true);
++            }
++        }
++
+         $this->replace($input);
+     }
+ }
+diff --git a/app/Http/Requests/Request.php b/app/Http/Requests/Request.php
+index 4144343..3b3cb89 100644
+--- a/app/Http/Requests/Request.php
++++ b/app/Http/Requests/Request.php
+@@ -218,21 +218,26 @@ class Request extends FormRequest
+             }
+         }
+ 
+-        if (isset($input['public_notes'])) {
+-            $input['public_notes'] = str_replace("</sc", "<-", $input['public_notes']);
++        foreach (['public_notes', 'footer', 'terms', 'private_notes'] as $field) {
++            if (isset($input[$field]) && is_string($input[$field]) && (str_contains($input[$field], '<') || str_contains($input[$field], '&lt;') || str_contains($input[$field], '&#'))) {
++                $input[$field] = \App\Services\Pdf\Purify::clean($input[$field], true);
++            }
+         }
++        // if (isset($input['public_notes'])) {
++        //     $input['public_notes'] = str_replace("</sc", "<-", $input['public_notes']);
++        // }
+ 
+-        if (isset($input['footer'])) {
+-            $input['footer'] = str_replace("</sc", "<-", $input['footer']);
+-        }
++        // if (isset($input['footer'])) {
++        //     $input['footer'] = str_replace("</sc", "<-", $input['footer']);
++        // }
+ 
+-        if (isset($input['terms'])) {
+-            $input['terms'] = str_replace("</sc", "<-", $input['terms']);
+-        }
++        // if (isset($input['terms'])) {
++        //     $input['terms'] = str_replace("</sc", "<-", $input['terms']);
++        // }
+ 
+-        if (isset($input['private_notes'])) {
+-            $input['private_notes'] = str_replace("</sc", "<-", $input['private_notes']);
+-        }
++        // if (isset($input['private_notes'])) {
++        //     $input['private_notes'] = str_replace("</sc", "<-", $input['private_notes']);
++        // }
+ 
+         return $input;
+     }
+diff --git a/app/Models/Product.php b/app/Models/Product.php
+index 0d2510b..f12f72c 100644
+--- a/app/Models/Product.php
++++ b/app/Models/Product.php
+@@ -230,7 +230,9 @@ class Product extends BaseModel
+             ],
+         ]);
+ 
+-        return $converter->convert($notes ?? '');
++        $markdown_to_html = $converter->convert($notes ?? '');
++
++        return \App\Services\Pdf\Purify::clean($markdown_to_html, true);
+ 
+     }
+ 
+diff --git a/app/Services/Pdf/Purify.php b/app/Services/Pdf/Purify.php
+index f8e2c9a..44e3279 100644
+--- a/app/Services/Pdf/Purify.php
++++ b/app/Services/Pdf/Purify.php
+@@ -18,7 +18,8 @@ class Purify
+ 
+         // Text Elements
+         'span', 'strong', 'em', 'b', 'i', 'u', 'small',
+-        'sub', 'sup', 'del', 'ins',
++        'sub', 'sup', 'del', 'ins', 'code', 's', 'mark',
++        'abbr', 'q', 'cite',
+ 
+         // Line Breaks
+         'br', 'hr',
+@@ -28,10 +29,17 @@ class Purify
+ 
+         // Tables
+         'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td',
++        'caption', 'colgroup', 'col',
+ 
+         // Media & Links
+         'img', 'a',
+ 
++        // Figures
++        'figure', 'figcaption',
++
++        // Address
++        'address',
++
+         // Template specific
+         'ninja',
+ 
+@@ -248,7 +256,7 @@ class Purify
+         return in_array(strtolower($tagName), self::$dangerous_svg_elements);
+     }
+ 
+-    public static function clean(string $html): string
++    public static function clean(string $html, bool $is_fragment = false): string
+     {
+         
+         if (config('ninja.disable_purify_html') || strlen($html) <= 1) {
+@@ -428,7 +436,19 @@ class Purify
+ 
+             $cleanNodes($document->documentElement);
+ 
+-            $html = str_replace('%24', '$', $document->saveHTML());
++            if ($is_fragment) {
++                $body = $document->getElementsByTagName('body')->item(0);
++                $html = '';
++                if ($body) {
++                    foreach ($body->childNodes as $child) {
++                        $html .= $document->saveHTML($child);
++                    }
++                }
++            } else {
++                $html = $document->saveHTML();
++            }
++
++            $html = str_replace('%24', '$', $html);
+ 
+             // nlog("post purify => {$html}");
+             return $html;
+diff --git a/app/Services/Template/TemplateService.php b/app/Services/Template/TemplateService.php
+index 9fcaa01..d785171 100644
+--- a/app/Services/Template/TemplateService.php
++++ b/app/Services/Template/TemplateService.php
+@@ -101,7 +101,7 @@ class TemplateService
+ 
+         $loader = new \Twig\Loader\FilesystemLoader(storage_path());
+         $this->twig = new \Twig\Environment($loader, [
+-            'debug' => true,
++            'debug' => config('ninja.debug_enabled'),
+         ]);
+ 
+         $string_extension = new \Twig\Extension\StringLoaderExtension();
+@@ -162,7 +162,7 @@ class TemplateService
+ 
+         $allowedTags = ['if', 'for', 'set', 'filter'];
+         $allowedFilters = ['url_encode','default', 'groupBy','capitalize', 'abs', 'date_modify', 'keys', 'join', 'reduce', 'format_date','json_decode','date_modify','trim','round','format_spellout_number','split', 'reduce','replace', 'escape', 'e', 'reverse', 'shuffle', 'slice', 'batch', 'title', 'sort', 'split', 'upper', 'lower', 'capitalize', 'filter', 'length', 'merge','format_currency', 'format_number','format_percent_number','map', 'join', 'first', 'date', 'sum', 'number_format','nl2br','striptags','markdown_to_html'];
+-        $allowedFunctions = ['range', 'cycle', 'constant', 'date','img','t'];
++        $allowedFunctions = ['range', 'cycle', 'date', 'img', 't'];
+         $allowedProperties = ['type_id'];
+         // $allowedMethods = ['img','t'];
+         $allowedMethods = [
+diff --git a/app/Utils/Traits/CleanLineItems.php b/app/Utils/Traits/CleanLineItems.php
+index 5503daa..56367ce 100644
+--- a/app/Utils/Traits/CleanLineItems.php
++++ b/app/Utils/Traits/CleanLineItems.php
+@@ -74,10 +74,10 @@ trait CleanLineItems
+             $item['tax_id'] = ($item['type_id'] === '2') ? '2' : '1';
+         }
+ 
+-        $xss_patterns = ["</sc", "onerror", "prompt(", "alert("];
+         foreach (['notes', 'product_key', 'custom_value1', 'custom_value2', 'custom_value3', 'custom_value4'] as $field) {
+-            if (!empty($item[$field]) && is_string($item[$field])) {
+-                $item[$field] = str_replace($xss_patterns, "<-", $item[$field]);
++            if (isset($item[$field]) && is_string($item[$field]) && (str_contains($item[$field], '<') || str_contains($item[$field], '&lt;') || str_contains($item[$field], '&#'))) {
++                $item[$field] = \App\Services\Pdf\Purify::clean($item[$field], true);
++                nlog($item[$field]);
+             }
+         }
+ 

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-prrh-qvhf-x788",
+    "cve":  "CVE-2022-35933",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/productcomments",
+    "sha":  "314456d739155aa71f0b235827e8e0f24b97c26b",
+    "status":  "ok",
+    "changed_php":  [
+                        "productcomments.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "productcomments.php includes 5 project file(s)",
+                     "productcomments.php class extends Module"
+                 ],
+    "changed_all":  [
+                        "productcomments.php"
+                    ],
+    "sink_hit":  true
+}

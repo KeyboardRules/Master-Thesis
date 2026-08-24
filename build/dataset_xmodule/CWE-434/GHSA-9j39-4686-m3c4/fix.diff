@@ -1,0 +1,193 @@
+﻿diff --git a/eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php b/eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php
+index 9acf511..928cb70 100644
+--- a/eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php
++++ b/eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php
+@@ -6,6 +6,8 @@
+  */
+ namespace eZ\Publish\Core\FieldType\BinaryBase;
+ 
++use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
++use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
+ use eZ\Publish\Core\IO\IOServiceInterface;
+ use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
+ use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
+@@ -39,24 +41,21 @@ class BinaryBaseStorage extends GatewayBasedStorage
+     /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway */
+     protected $gateway;
+ 
+-    /**
+-     * Construct from gateways.
+-     *
+-     * @param \eZ\Publish\SPI\FieldType\StorageGateway $gateway
+-     * @param \eZ\Publish\Core\IO\IOServiceInterface $ioService
+-     * @param \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator $pathGenerator
+-     * @param \eZ\Publish\SPI\IO\MimeTypeDetector $mimeTypeDetector
+-     */
++    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator */
++    protected $fileExtensionBlackListValidator;
++
+     public function __construct(
+         StorageGateway $gateway,
+         IOServiceInterface $ioService,
+         PathGenerator $pathGenerator,
+-        MimeTypeDetector $mimeTypeDetector
++        MimeTypeDetector $mimeTypeDetector,
++        FileExtensionBlackListValidator $fileExtensionBlackListValidator
+     ) {
+         parent::__construct($gateway);
+         $this->ioService = $ioService;
+         $this->pathGenerator = $pathGenerator;
+         $this->mimeTypeDetector = $mimeTypeDetector;
++        $this->fileExtensionBlackListValidator = $fileExtensionBlackListValidator;
+     }
+ 
+     /**
+@@ -67,6 +66,10 @@ class BinaryBaseStorage extends GatewayBasedStorage
+         $this->downloadUrlGenerator = $downloadUrlGenerator;
+     }
+ 
++    /**
++     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
++     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
++     */
+     public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context)
+     {
+         if ($field->value->externalData === null) {
+@@ -76,6 +79,17 @@ class BinaryBaseStorage extends GatewayBasedStorage
+         }
+ 
+         if (isset($field->value->externalData['inputUri'])) {
++            $this->fileExtensionBlackListValidator->validateFileExtension($field->value->externalData['fileName']);
++            if (!empty($errors = $this->fileExtensionBlackListValidator->getErrors())) {
++                $preparedErrors = [];
++                $preparedErrors[$field->fieldDefinitionId][$field->languageCode] = $errors;
++
++                throw ContentFieldValidationException::createNewWithMultiline(
++                    $preparedErrors,
++                    $versionInfo->contentInfo->name
++                );
++            }
++
+             $field->value->externalData['mimeType'] = $this->mimeTypeDetector->getFromPath($field->value->externalData['inputUri']);
+             $createStruct = $this->ioService->newBinaryCreateStructFromLocalFile($field->value->externalData['inputUri']);
+             $createStruct->id = $this->pathGenerator->getStoragePathForField($field, $versionInfo);
+diff --git a/eZ/Publish/Core/FieldType/Image/ImageStorage.php b/eZ/Publish/Core/FieldType/Image/ImageStorage.php
+index ded5e0c..92b0dc7 100644
+--- a/eZ/Publish/Core/FieldType/Image/ImageStorage.php
++++ b/eZ/Publish/Core/FieldType/Image/ImageStorage.php
+@@ -6,8 +6,10 @@
+  */
+ namespace eZ\Publish\Core\FieldType\Image;
+ 
++use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
+ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+ use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
++use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
+ use eZ\Publish\Core\IO\FilePathNormalizerInterface;
+ use eZ\Publish\Core\IO\IOServiceInterface;
+ use eZ\Publish\Core\IO\MetadataHandler;
+@@ -42,6 +44,9 @@ class ImageStorage extends GatewayBasedStorage
+     /** @var \eZ\Publish\Core\IO\FilePathNormalizerInterface */
+     protected $filePathNormalizer;
+ 
++    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator */
++    protected $fileExtensionBlackListValidator;
++
+     public function __construct(
+         StorageGateway $gateway,
+         IOServiceInterface $ioService,
+@@ -49,7 +54,8 @@ class ImageStorage extends GatewayBasedStorage
+         MetadataHandler $imageSizeMetadataHandler,
+         DeprecationWarner $deprecationWarner,
+         AliasCleanerInterface $aliasCleaner,
+-        FilePathNormalizerInterface $filePathNormalizer
++        FilePathNormalizerInterface $filePathNormalizer,
++        FileExtensionBlackListValidator $fileExtensionBlackListValidator
+     ) {
+         parent::__construct($gateway);
+         $this->ioService = $ioService;
+@@ -58,8 +64,15 @@ class ImageStorage extends GatewayBasedStorage
+         $this->deprecationWarner = $deprecationWarner;
+         $this->aliasCleaner = $aliasCleaner;
+         $this->filePathNormalizer = $filePathNormalizer;
++        $this->fileExtensionBlackListValidator = $fileExtensionBlackListValidator;
+     }
+ 
++    /**
++     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
++     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
++     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
++     * @throws \eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException
++     */
+     public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context)
+     {
+         $contentMetaData = [
+@@ -70,6 +83,17 @@ class ImageStorage extends GatewayBasedStorage
+ 
+         // new image
+         if (isset($field->value->externalData)) {
++            $this->fileExtensionBlackListValidator->validateFileExtension($field->value->externalData['fileName']);
++            if (!empty($errors = $this->fileExtensionBlackListValidator->getErrors())) {
++                $preparedErrors = [];
++                $preparedErrors[$field->fieldDefinitionId][$field->languageCode] = $errors;
++
++                throw ContentFieldValidationException::createNewWithMultiline(
++                    $preparedErrors,
++                    $versionInfo->contentInfo->name
++                );
++            }
++
+             $targetPath = sprintf(
+                 '%s/%s',
+                 $this->pathGenerator->getStoragePathForField(
+diff --git a/eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php b/eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php
+index 101053c..f2dc6e7 100644
+--- a/eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php
++++ b/eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php
+@@ -46,23 +46,40 @@ class FileExtensionBlackListValidator extends Validator
+      * {@inheritdoc}
+      */
+     public function validate(BaseValue $value)
++    {
++        $this->errors = [];
++
++        $this->validateFileExtension($value->fileName);
++
++        return empty($this->errors);
++    }
++
++    public function validateFileExtension(string $fileName): void
+     {
+         if (
+-            pathinfo($value->fileName, PATHINFO_BASENAME) !== $value->fileName ||
+-            in_array(strtolower(pathinfo($value->fileName, PATHINFO_EXTENSION)), $this->constraints['extensionsBlackList'], true)
++            pathinfo($fileName, PATHINFO_BASENAME) !== $fileName
++            || in_array(
++                strtolower(pathinfo($fileName, PATHINFO_EXTENSION)),
++                $this->constraints['extensionsBlackList'],
++                true
++            )
+         ) {
+             $this->errors[] = new ValidationError(
+-                'A valid file is required. Following file extensions are on the blacklist: %extensionsBlackList%',
++                'A valid file is required. The following file extensions are not allowed: %extensionsBlackList%',
+                 null,
+                 [
+                     '%extensionsBlackList%' => implode(', ', $this->constraints['extensionsBlackList']),
+                 ],
+                 'fileExtensionBlackList'
+             );
+-
+-            return false;
+         }
++    }
+ 
+-        return true;
++    /**
++     * @return array<\eZ\Publish\SPI\FieldType\ValidationError>
++     */
++    public function getErrors(): array
++    {
++        return $this->errors;
+     }
+ }

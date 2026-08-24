@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cf6r-q678-f2p7",
+    "cve":  "CVE-2022-2777",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "60eef7494211d1c458228c321e986edeaa401a58",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Middleware/XSS.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/App/Http/Middleware/XSS.php"
+                    ],
+    "sink_hit":  false
+}

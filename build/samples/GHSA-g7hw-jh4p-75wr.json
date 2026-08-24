@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g7hw-jh4p-75wr",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "044d7dbe28382919c765b6b815d420f480a1ac70",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/filelist/Classes/FileList.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/filelist/Classes/FileList.php"
+                    ],
+    "sink_hit":  false
+}

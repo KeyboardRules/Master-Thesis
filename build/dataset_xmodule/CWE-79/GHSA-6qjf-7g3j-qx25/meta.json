@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6qjf-7g3j-qx25",
+    "cve":  "CVE-2023-37611",
+    "cwe":  "CWE-79",
+    "repo":  "neos/neos-development-collection",
+    "fix_commit":  "4ac0df04d2e44e164e95887b466075dde3f04045",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Neos.Media.Browser/Classes/Controller/AssetController.php"
+                    ],
+    "evidence":  [
+                     "Neos.Media.Browser/Classes/Controller/AssetController.php class extends ActionController",
+                     "Neos.Media.Browser/Classes/Controller/AssetController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,26 @@
+﻿diff --git a/mod/survey/lib.php b/mod/survey/lib.php
+index 9ebae563dc..9405653630 100644
+--- a/mod/survey/lib.php
++++ b/mod/survey/lib.php
+@@ -189,7 +189,7 @@ function survey_user_complete($course, $user, $mod, $survey) {
+                 } else {
+                     $answertext = "No answer";
+                 }
+-                $table->data[] = array("<b>$questiontext</b>", $answertext);
++                $table->data[] = array("<b>$questiontext</b>", s($answertext));
+             }
+             echo html_writer::table($table);
+ 
+diff --git a/mod/survey/report.php b/mod/survey/report.php
+index 47599dcffe..95561682d8 100644
+--- a/mod/survey/report.php
++++ b/mod/survey/report.php
+@@ -358,7 +358,7 @@
+                        $OUTPUT->user_picture($a, array('courseid'=>$course->id)),
+                        "<a href=\"report.php?id=$id&amp;action=student&amp;student=$a->userid\">".fullname($a)."</a>",
+                        userdate($a->time),
+-                       $answer1, $answer2);
++                       s($answer1), s($answer2));
+ 
+             }
+         }

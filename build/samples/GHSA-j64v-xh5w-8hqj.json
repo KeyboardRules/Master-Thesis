@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j64v-xh5w-8hqj",
+    "cve":  "CVE-2025-34076",
+    "cwe":  "CWE-22",
+    "repo":  "microweber/microweber",
+    "sha":  "572bdc36b5b47923790016f6b961c8df53226855",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Backup/Http/Controllers/Admin/BackupController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Backup/Http/Controllers/Admin/BackupController.php"
+                    ],
+    "sink_hit":  true
+}

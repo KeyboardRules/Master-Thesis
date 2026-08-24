@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mj32-r678-7mvp",
+    "cve":  "CVE-2026-29177",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "sha":  "b0683e04773f16bba6af9df18aab495fc5dde68a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/elements/Order.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/elements/Order.php class extends Element",
+                     "src/elements/Order.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/elements/Order.php"
+                    ],
+    "sink_hit":  true
+}

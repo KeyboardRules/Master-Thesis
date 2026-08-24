@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8whc-2wmv-ww35",
+    "cve":  "CVE-2026-54458",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "8be71e53ccbe9b84b30870db386fb4d2b11e1c16",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/YPTSocket/MessageSQLiteV2.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/YPTSocket/MessageSQLiteV2.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/YPTSocket/MessageSQLiteV2.php"
+                    ],
+    "sink_hit":  true
+}

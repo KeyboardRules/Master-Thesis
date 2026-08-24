@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-m8jx-mxf9-2rpw",
+    "cve":  "CVE-2020-21809",
+    "cwe":  "CWE-89",
+    "repo":  "nukeviet/module-shops",
+    "fix_commit":  "742c0e0f74364f7250c2a69f0a957d4e6317be68",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/shops/funcs/detail.php",
+                        "modules/shops/funcs/search_result.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/shops/funcs/detail.php includes 3 project file(s)",
+                     "modules/shops/funcs/search_result.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

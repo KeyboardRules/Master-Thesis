@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4223-qj94-7x9p",
+    "cve":  "CVE-2019-9194",
+    "cwe":  "CWE-78",
+    "repo":  "Studio-42/elFinder",
+    "sha":  "374c88d7030eb92749267e17a4af21cc7520efa5",
+    "status":  "ok",
+    "changed_php":  [
+                        "php/elFinderVolumeDriver.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "php/elFinderVolumeDriver.class.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "php/elFinderVolumeDriver.class.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4xh9-5vh8-3p58",
+    "cve":  "CVE-2017-7271",
+    "cwe":  "CWE-79",
+    "repo":  "yiisoft/yii2",
+    "sha":  "97171a0db7cda0a49931ee0c3b998ef50bd06756",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/web/ErrorHandler.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "framework/web/ErrorHandler.php class extends \\yii\\base\\ErrorHandler"
+                 ],
+    "changed_all":  [
+                        "framework/CHANGELOG.md",
+                        "framework/web/ErrorHandler.php"
+                    ],
+    "sink_hit":  false
+}

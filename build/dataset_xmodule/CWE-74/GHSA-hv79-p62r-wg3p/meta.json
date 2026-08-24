@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-hv79-p62r-wg3p",
+    "cve":  "CVE-2023-43661",
+    "cwe":  "CWE-74",
+    "repo":  "cachethq/cachet",
+    "fix_commit":  "6fb043e109d2a262ce3974e863c54e9e5f5e0587",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Bus/Handlers/Commands/Incident/CreateIncidentCommandHandler.php",
+                        "app/Bus/Handlers/Commands/Incident/UpdateIncidentCommandHandler.php",
+                        "config/cachet.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Bus/Handlers/Commands/Incident/CreateIncidentCommandHandler.php class uses trait",
+                     "app/Bus/Handlers/Commands/Incident/UpdateIncidentCommandHandler.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

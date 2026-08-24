@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-m8q9-7v2f-qjx9",
+    "cve":  "CVE-2023-1880",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "bbc5d4aa4a4375c14e34dd9fcad2042066fe476d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "phpmyfaq/send2friend.php",
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Export/Html5.php class extends Export"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

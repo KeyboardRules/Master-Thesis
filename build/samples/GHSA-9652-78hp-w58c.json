@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-9652-78hp-w58c",
+    "cve":  "CVE-2021-3271",
+    "cwe":  "CWE-79",
+    "repo":  "pressbooks/pressbooks",
+    "sha":  "941a8c5eaeacea5eb211b54ee55bc0348139cbd8",
+    "status":  "ok",
+    "changed_php":  [
+                        "inc/admin/metaboxes/namespace.php",
+                        "inc/sanitize/namespace.php",
+                        "tests/test-book.php",
+                        "tests/test-sanitize.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/test-book.php includes 1 project file(s)",
+                     "tests/test-book.php class extends \\WP_UnitTestCase",
+                     "tests/test-book.php class uses trait",
+                     "tests/test-sanitize.php class extends \\WP_UnitTestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "inc/admin/metaboxes/namespace.php",
+                        "inc/sanitize/namespace.php",
+                        "tests/test-book.php",
+                        "tests/test-sanitize.php"
+                    ],
+    "sink_hit":  true
+}

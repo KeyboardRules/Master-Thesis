@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qxrq-376q-p39h",
+    "cve":  "CVE-2023-4980",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "cfd642be6a1e988453bd63069d17db3664e7de97",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/ports.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/pages/ports.inc.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/ports.inc.php"
+                    ],
+    "sink_hit":  true
+}

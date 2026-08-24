@@ -1,0 +1,25 @@
+﻿diff --git a/src/wp-includes/Requests/Utility/FilteredIterator.php b/src/wp-includes/Requests/Utility/FilteredIterator.php
+index 76a29e7..0e27944 100644
+--- a/src/wp-includes/Requests/Utility/FilteredIterator.php
++++ b/src/wp-includes/Requests/Utility/FilteredIterator.php
+@@ -42,4 +42,20 @@ class Requests_Utility_FilteredIterator extends ArrayIterator {
+ 		$value = call_user_func($this->callback, $value);
+ 		return $value;
+ 	}
++
++	/**
++	 * @inheritdoc
++	 */
++	public function unserialize( $serialized ) {
++	}
++
++	/**
++	 * @inheritdoc
++	 */
++	public function __unserialize( $serialized ) { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.NewMagicMethods.__unserializeFound
++	}
++
++	public function __wakeup() { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.NewMagicMethods.__wakeupFound
++		unset( $this->callback );
++	}
+ }

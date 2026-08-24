@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-x428-565f-8xj2",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "TYPO3-CMS/core",
+    "sha":  "3a99a0877de6ad9cb39ba73146292b90e13294db",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Hooks/PagesTsConfigGuard.php",
+                        "Configuration/TCA/pages.php",
+                        "Tests/Functional/DataHandling/Regular/Hooks/PagesTsConfigGuardTest.php",
+                        "ext_localconf.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 4 php files"
+                 ],
+    "changed_all":  [
+                        "Classes/Hooks/PagesTsConfigGuard.php",
+                        "Configuration/TCA/pages.php",
+                        "Tests/Functional/DataHandling/Regular/Hooks/DataSet/pagesTsConfigIsConsideredForAdminUser.csv",
+                        "Tests/Functional/DataHandling/Regular/Hooks/DataSet/pagesTsConfigIsIgnoredForNonAdminUser.csv",
+                        "Tests/Functional/DataHandling/Regular/Hooks/PagesTsConfigGuardTest.php",
+                        "Tests/Functional/Fixtures/be_groups.xml",
+                        "Tests/Functional/Fixtures/be_users.xml",
+                        "ext_localconf.php"
+                    ],
+    "sink_hit":  false
+}

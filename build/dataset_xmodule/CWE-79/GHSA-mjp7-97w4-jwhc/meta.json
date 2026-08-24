@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mjp7-97w4-jwhc",
+    "cve":  "CVE-2018-13055",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "4efac90ed89a5c009108b641e2e95683791a165a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core/filter_form_api.php"
+                    ],
+    "evidence":  [
+                     "core/filter_form_api.php class extends TableGridLayout",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

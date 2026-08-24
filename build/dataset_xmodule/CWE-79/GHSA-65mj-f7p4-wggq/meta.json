@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-65mj-f7p4-wggq",
+    "cve":  "CVE-2025-66309",
+    "cwe":  "CWE-79",
+    "repo":  "getgrav/grav-plugin-admin",
+    "fix_commit":  "99f653296504f1d6408510dd2f6f20a45a26f9b0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "classes/plugin/Controllers/Login/LoginController.php"
+                    ],
+    "evidence":  [
+                     "classes/plugin/Controllers/Login/LoginController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

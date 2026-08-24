@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-hgjr-632x-qpp3",
+    "cve":  "CVE-2021-39136",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "sha":  "568d4cab5ba1cdee7bbf0133c676d02a98f6d7bc",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/UploaderFiles/admin/ajax_image.php",
+                        "lib/Baser/Plugin/Uploader/View/UploaderFiles/admin/ajax_image.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "app/webroot/theme/admin-third/UploaderFiles/admin/ajax_image.php",
+                        "lib/Baser/Plugin/Uploader/View/UploaderFiles/admin/ajax_image.php"
+                    ],
+    "sink_hit":  true
+}

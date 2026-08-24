@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-93fx-g747-695x",
+    "cve":  "CVE-2026-26992",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "882fe6f90ea504a3732f83caf89bba7850a5699f",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/port-group/index.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/port-group/index.blade.php"
+                    ],
+    "sink_hit":  false
+}

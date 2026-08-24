@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h4cc-fxpp-pgw9",
+    "cve":  "CVE-2023-25654",
+    "cwe":  "CWE-434",
+    "repo":  "baserproject/basercms",
+    "fix_commit":  "002886be0998c74c386e04f0b43688a8a45d7a96",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Baser/Model/BcAppModel.php"
+                    ],
+    "evidence":  [
+                     "lib/Baser/Model/BcAppModel.php class extends Model"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

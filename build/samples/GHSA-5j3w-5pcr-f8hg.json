@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-5j3w-5pcr-f8hg",
+    "cve":  "CVE-2025-47946",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/ux-live-component",
+    "sha":  "7ad44cf56d750b9f56658ed986286a10da132ee7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/DependencyInjection/LiveComponentExtension.php",
+                        "src/EventListener/AddLiveAttributesSubscriber.php",
+                        "src/LiveComponentHydrator.php",
+                        "src/Util/ChildComponentPartialRenderer.php",
+                        "tests/Integration/LiveComponentHydratorTest.php",
+                        "tests/Unit/LiveComponentHydratorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/DependencyInjection/LiveComponentExtension.php class extends Extension",
+                     "tests/Integration/LiveComponentHydratorTest.php class extends KernelTestCase",
+                     "tests/Integration/LiveComponentHydratorTest.php class uses trait",
+                     "tests/Unit/LiveComponentHydratorTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/DependencyInjection/LiveComponentExtension.php",
+                        "src/EventListener/AddLiveAttributesSubscriber.php",
+                        "src/LiveComponentHydrator.php",
+                        "src/Util/ChildComponentPartialRenderer.php",
+                        "tests/Integration/LiveComponentHydratorTest.php",
+                        "tests/Unit/LiveComponentHydratorTest.php"
+                    ],
+    "sink_hit":  false
+}

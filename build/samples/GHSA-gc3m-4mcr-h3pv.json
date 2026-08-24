@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gc3m-4mcr-h3pv",
+    "cve":  "CVE-2026-33295",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "30cdd825fa5778c1d678c2402be2413b84ee4833",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/CDN/downloadButtons.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/CDN/downloadButtons.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/CDN/downloadButtons.php"
+                    ],
+    "sink_hit":  true
+}

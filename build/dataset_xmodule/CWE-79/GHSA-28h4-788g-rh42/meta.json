@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-28h4-788g-rh42",
+    "cve":  "CVE-2024-45406",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "b7348942f8131b3868ec6f46d615baae50151bb8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/base/Element.php"
+                    ],
+    "evidence":  [
+                     "src/base/Element.php class extends Component",
+                     "src/base/Element.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,31 @@
+﻿diff --git a/packages/tables/src/Columns/Summarizers/Range.php b/packages/tables/src/Columns/Summarizers/Range.php
+index a091587..1fa4440 100644
+--- a/packages/tables/src/Columns/Summarizers/Range.php
++++ b/packages/tables/src/Columns/Summarizers/Range.php
+@@ -155,11 +155,11 @@ class Range extends Summarizer
+ 
+             <?php if (filled($from) || filled($to)) { ?>
+                 <span>
+-                    <?= $from ?>
++                    <?= e($from) ?>
+ 
+                     <?= (filled($from) && filled($to)) ? '-' : '' ?>
+ 
+-                    <?= $to ?>
++                    <?= e($to) ?>
+                 </span>
+             <?php } ?>
+         </div>
+diff --git a/packages/tables/src/Columns/Summarizers/Values.php b/packages/tables/src/Columns/Summarizers/Values.php
+index 094684e..ca6b29a 100644
+--- a/packages/tables/src/Columns/Summarizers/Values.php
++++ b/packages/tables/src/Columns/Summarizers/Values.php
+@@ -47,7 +47,7 @@ class Values extends Summarizer
+                 <ul <?= $this->isBulleted() ? 'class="fi-bulleted"' : '' ?>>
+                     <?php foreach ($state as $stateItem) { ?>
+                         <li>
+-                            <?= $this->formatState($stateItem) ?>
++                            <?= e($this->formatState($stateItem)) ?>
+                         </li>
+                     <?php } ?>
+                 </ul>

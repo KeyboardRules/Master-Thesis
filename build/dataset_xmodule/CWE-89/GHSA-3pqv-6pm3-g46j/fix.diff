@@ -1,0 +1,104 @@
+﻿diff --git a/modules/Custom/includes/RegistrationSave.fnc.php b/modules/Custom/includes/RegistrationSave.fnc.php
+index 30b334e..9b32055 100644
+--- a/modules/Custom/includes/RegistrationSave.fnc.php
++++ b/modules/Custom/includes/RegistrationSave.fnc.php
+@@ -407,7 +407,7 @@ function RegistrationSaveContactNameFields( $config, $values )
+ 			if ( ! empty( $value )
+ 				|| $value == '0' )
+ 			{
+-				$fields .= $column . ',';
++				$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 				$values_sql .= "'" . $value . "',";
+ 			}
+diff --git a/modules/School_Setup/Calendar.php b/modules/School_Setup/Calendar.php
+index d84d6ca..1667e7e 100644
+--- a/modules/School_Setup/Calendar.php
++++ b/modules/School_Setup/Calendar.php
+@@ -500,7 +500,7 @@ if ( $_REQUEST['modfunc'] === 'detail' )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 							$values .= "'" . $value . "',";
+ 							$go = true;
+ 						}
+diff --git a/modules/School_Setup/MarkingPeriods.php b/modules/School_Setup/MarkingPeriods.php
+index 0f798c2..bd40b3c 100644
+--- a/modules/School_Setup/MarkingPeriods.php
++++ b/modules/School_Setup/MarkingPeriods.php
+@@ -204,7 +204,7 @@ if ( ! empty( $_POST['tables'] )
+ 				if ( ! empty( $value )
+ 					|| $value === '0' )
+ 				{
+-					$fields .= $column . ',';
++					$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 					$values .= "'" . $value . "',";
+ 
+diff --git a/modules/School_Setup/SchoolFields.php b/modules/School_Setup/SchoolFields.php
+index 6fe7127..f0b85cb 100644
+--- a/modules/School_Setup/SchoolFields.php
++++ b/modules/School_Setup/SchoolFields.php
+@@ -73,7 +73,7 @@ if ( isset( $_POST['tables'] )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 							$values .= "'" . $value . "',";
+ 
+diff --git a/modules/Students/includes/AddressFields.php b/modules/Students/includes/AddressFields.php
+index 47076f8..cf5dd77 100644
+--- a/modules/Students/includes/AddressFields.php
++++ b/modules/Students/includes/AddressFields.php
+@@ -91,7 +91,7 @@ if ( isset( $_POST['tables'] )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 							$values .= "'" . $value . "',";
+ 
+diff --git a/modules/Students/includes/PeopleFields.php b/modules/Students/includes/PeopleFields.php
+index 7598c62..bb6b54a 100644
+--- a/modules/Students/includes/PeopleFields.php
++++ b/modules/Students/includes/PeopleFields.php
+@@ -91,7 +91,7 @@ if ( isset( $_POST['tables'] )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 							$values .= "'" . $value . "',";
+ 
+diff --git a/modules/Students/includes/StudentFields.php b/modules/Students/includes/StudentFields.php
+index ec9124b..5585e94 100644
+--- a/modules/Students/includes/StudentFields.php
++++ b/modules/Students/includes/StudentFields.php
+@@ -125,7 +125,7 @@ if ( isset( $_POST['tables'] )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 							$values .= "'" . $value . "',";
+ 
+diff --git a/modules/Users/UserFields.php b/modules/Users/UserFields.php
+index c359edb..dda5bf5 100644
+--- a/modules/Users/UserFields.php
++++ b/modules/Users/UserFields.php
+@@ -134,7 +134,7 @@ if ( isset( $_POST['tables'] )
+ 						if ( ! empty( $value )
+ 							|| $value == '0' )
+ 						{
+-							$fields .= $column . ',';
++							$fields .= DBEscapeIdentifier( $column ) . ',';
+ 
+ 							$values .= "'" . $value . "',";
+ 

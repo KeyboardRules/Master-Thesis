@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-f2q5-6mx7-q9qq",
+    "cve":  "CVE-2025-1026",
+    "cwe":  "CWE-22",
+    "repo":  "spatie/browsershot",
+    "fix_commit":  "e3273974506865a24fbb5b65b534d8d4b8dfbf72",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Browsershot.php",
+                        "src/Exceptions/FileUrlNotAllowed.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Exceptions/FileUrlNotAllowed.php class extends Exception"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

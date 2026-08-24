@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-8j72-p2wm-6738",
+    "cve":  "CVE-2020-5223",
+    "cwe":  "CWE-79",
+    "repo":  "PrivateBin/PrivateBin",
+    "sha":  "8d0ac336d23cd8c98e71d5f21cdadcae9c8a26e6",
+    "status":  "ok",
+    "changed_php":  [
+                        "tpl/bootstrap.php",
+                        "tpl/page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "js/privatebin.js",
+                        "js/test/AttachmentViewer.js",
+                        "tpl/bootstrap.php",
+                        "tpl/page.php"
+                    ],
+    "sink_hit":  true
+}

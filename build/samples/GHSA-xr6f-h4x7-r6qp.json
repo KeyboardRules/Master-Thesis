@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xr6f-h4x7-r6qp",
+    "cve":  "CVE-2026-41304",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "sha":  "473c609fc2defdea8b937b00e86ce88eba1f15bb",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/CloneSite/cloneClient.json.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "plugin/CloneSite/cloneClient.json.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "plugin/CloneSite/cloneClient.json.php"
+                    ],
+    "sink_hit":  true
+}

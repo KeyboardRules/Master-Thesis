@@ -1,0 +1,38 @@
+﻿diff --git a/application/controllers/admin/Statistics.php b/application/controllers/admin/Statistics.php
+index 170750677..3958f3b23 100644
+--- a/application/controllers/admin/Statistics.php
++++ b/application/controllers/admin/Statistics.php
+@@ -516,6 +516,11 @@ class Statistics extends SurveyCommonAction
+         if (!Permission::model()->hasSurveyPermission($surveyid, 'statistics', 'read')) {
+             throw new CHttpException(403, gT("You do not have permission to access this page."));
+         }
++        // Break for sortmethod bad parameter (mantis #20145)
++        $sortmethod = strtoupper($sortmethod);
++        if ($sortmethod && !in_array($sortmethod, ['ASC', 'DESC'])) {
++            throw new CHttpException(400, gT("Invalid request."));
++        }
+         Yii::app()->loadHelper('admin/statistics');
+         $helper = new statistics_helper();
+         $aData['data'] = $helper->_listcolumn($surveyid, $column, $sortby, $sortmethod, $sorttype);
+diff --git a/application/helpers/admin/statistics_helper.php b/application/helpers/admin/statistics_helper.php
+index df36a56af..3e5975f67 100644
+--- a/application/helpers/admin/statistics_helper.php
++++ b/application/helpers/admin/statistics_helper.php
+@@ -4219,10 +4219,15 @@ class statistics_helper
+             } else {
+                 $sortby = Yii::app()->db->quoteColumnName($sortby);
+             }
+-
++            //Converts text sorting into numerical sorting
+             if ($sorttype == 'N') {
+                 $sortby = "($sortby * 1)";
+-            } //Converts text sorting into numerical sorting
++            }
++            // Avoid bad sortmethod parameter (mantis #20145)
++            $sortmethod = strtoupper($sortmethod);
++            if ($sortmethod && !in_array($sortmethod, ['ASC', 'DESC'])) {
++                $sortmethod = "";
++            }
+             $search['order'] = $sortby . ' ' . $sortmethod;
+         }
+         $results = SurveyDynamic::model($surveyid)->findAll($search);

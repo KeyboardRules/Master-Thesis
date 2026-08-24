@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-36m2-8rhx-f36j",
+    "cve":  "CVE-2022-21648",
+    "cwe":  "CWE-79",
+    "repo":  "nette/latte",
+    "fix_commit":  "9e1b4f7d70f7a9c3fa6753ffa7d7e450a3d4abb0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Latte/Compiler/PhpWriter.php"
+                    ],
+    "evidence":  [
+                     "src/Latte/Compiler/PhpWriter.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

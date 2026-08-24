@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-w59f-67xm-rxx7",
+    "cve":  "CVE-2026-41228",
+    "cwe":  "CWE-98",
+    "repo":  "froxlor/froxlor",
+    "sha":  "bc5e6dbaa90e6f3573129da640595e8c770e1d0c",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/Admins.php",
+                        "lib/Froxlor/Api/Commands/Customers.php",
+                        "lib/Froxlor/Language.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lib/Froxlor/Api/Commands/Admins.php class extends ApiCommand",
+                     "lib/Froxlor/Api/Commands/Customers.php class extends ApiCommand"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Api/Commands/Admins.php",
+                        "lib/Froxlor/Api/Commands/Customers.php",
+                        "lib/Froxlor/Language.php"
+                    ],
+    "sink_hit":  true
+}

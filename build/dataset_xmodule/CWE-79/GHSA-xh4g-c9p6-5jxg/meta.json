@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xh4g-c9p6-5jxg",
+    "cve":  "CVE-2024-50350",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "82a744bfe29017b8b58b5752ab9e1b335bedf0a0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/Table/EditPortsController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/Table/EditPortsController.php class extends TableController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

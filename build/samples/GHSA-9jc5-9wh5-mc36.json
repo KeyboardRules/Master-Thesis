@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9jc5-9wh5-mc36",
+    "cve":  "CVE-2022-43688",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "51f19b377a19c97a8b8f1d4d0f13724ed1c7c7a7",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/elements/header_required.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "concrete/elements/header_required.php"
+                    ],
+    "sink_hit":  true
+}

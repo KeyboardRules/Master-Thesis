@@ -1,0 +1,158 @@
+﻿diff --git a/app/Ai/Tools/AddRadioStation.php b/app/Ai/Tools/AddRadioStation.php
+index 829a2ea..737cae2 100644
+--- a/app/Ai/Tools/AddRadioStation.php
++++ b/app/Ai/Tools/AddRadioStation.php
+@@ -4,9 +4,14 @@ namespace App\Ai\Tools;
+ 
+ use App\Ai\AiAssistantResult;
+ use App\Ai\AiRequestContext;
++use App\Rules\HasAudioContentType;
++use App\Rules\SafeUrl;
+ use App\Services\RadioService;
+ use App\Values\Radio\RadioStationCreateData;
+ use Illuminate\Contracts\JsonSchema\JsonSchema;
++use Illuminate\Database\Query\Builder;
++use Illuminate\Support\Facades\Validator;
++use Illuminate\Validation\Rule;
+ use Laravel\Ai\Contracts\Tool;
+ use Laravel\Ai\Tools\Request;
+ use Stringable;
+@@ -34,6 +39,22 @@ class AddRadioStation implements Tool
+ 
+     public function handle(Request $request): Stringable|string
+     {
++        $userId = $this->context->user->id;
++
++        $validator = Validator::make(['url' => $request['url']], [
++            'url' => [
++                'required',
++                'url',
++                Rule::unique('radio_stations')->where(static fn (Builder $query) => $query->where('user_id', $userId)),
++                new SafeUrl(),
++                new HasAudioContentType(),
++            ],
++        ]);
++
++        if ($validator->fails()) {
++            return sprintf('Cannot add radio station: %s', $validator->errors()->first('url'));
++        }
++
+         $station = $this->radioService->createRadioStation(
+             RadioStationCreateData::make(url: $request['url'], name: $request['name'], description: ''),
+             $this->context->user,
+diff --git a/app/Helpers/Network.php b/app/Helpers/Network.php
+index c636528..9bb974c 100644
+--- a/app/Helpers/Network.php
++++ b/app/Helpers/Network.php
+@@ -2,10 +2,35 @@
+ 
+ namespace App\Helpers;
+ 
++use Illuminate\Support\Uri;
+ use Throwable;
+ 
+ class Network
+ {
++    private const array SAFE_URL_SCHEMES = ['http', 'https'];
++
++    /**
++     * Check if a URL is safe to reach: HTTP/HTTPS scheme + a public host.
++     * Does NOT perform any network calls beyond DNS resolution.
++     * For full validation including effective-URL-after-redirect, use the SafeUrl validation rule.
++     */
++    public static function isSafeUrl(string $url): bool
++    {
++        try {
++            $uri = Uri::of($url);
++        } catch (Throwable) {
++            return false;
++        }
++
++        if (!in_array($uri->scheme(), self::SAFE_URL_SCHEMES, true)) {
++            return false;
++        }
++
++        $host = $uri->host();
++
++        return $host !== '' && self::isPublicHost($host);
++    }
++
+     /**
+      * Check if a host resolves only to public (non-private, non-reserved) IP addresses.
+      * Validates both A (IPv4) and AAAA (IPv6) records. All resolved IPs must be public.
+diff --git a/app/Services/Podcast/PodcastService.php b/app/Services/Podcast/PodcastService.php
+index 0ab1772..d1f24b4 100644
+--- a/app/Services/Podcast/PodcastService.php
++++ b/app/Services/Podcast/PodcastService.php
+@@ -5,6 +5,7 @@ namespace App\Services\Podcast;
+ use App\Events\UserUnsubscribedFromPodcast;
+ use App\Exceptions\FailedToParsePodcastFeedException;
+ use App\Exceptions\UserAlreadySubscribedToPodcastException;
++use App\Helpers\Network;
+ use App\Helpers\Uuid;
+ use App\Models\Podcast;
+ use App\Models\PodcastUserPivot;
+@@ -136,6 +137,18 @@ class PodcastService
+                 continue;
+             }
+ 
++            $enclosureUrl = (string) $episodeValue->enclosure->url;
++
++            if (!Network::isSafeUrl($enclosureUrl)) {
++                Log::warning(sprintf(
++                    'Skipping podcast episode "%s" with unsafe enclosure URL: %s',
++                    $episodeValue->title,
++                    $enclosureUrl,
++                ));
++
++                continue;
++            }
++
+             $id = Uuid::generate();
+             $ids[] = $id;
+             $records[] = [
+@@ -143,7 +156,7 @@ class PodcastService
+                 'podcast_id' => $podcast->id,
+                 'title' => $episodeValue->title,
+                 'lyrics' => '',
+-                'path' => $episodeValue->enclosure->url,
++                'path' => $enclosureUrl,
+                 'created_at' => $episodeValue->metadata->pubDate ?: now(),
+                 'updated_at' => $episodeValue->metadata->pubDate ?: now(),
+                 'episode_metadata' => $episodeValue->metadata->toJson(),
+@@ -226,6 +239,11 @@ class PodcastService
+     public function getStreamableUrl(string|Episode $url, ?Client $client = null, string $method = 'OPTIONS'): ?string
+     {
+         $url = $url instanceof Episode ? $url->path : $url;
++
++        if (!Network::isSafeUrl($url)) {
++            return null;
++        }
++
+         $client ??= new Client();
+ 
+         try {
+diff --git a/app/Values/Podcast/EpisodePlayable.php b/app/Values/Podcast/EpisodePlayable.php
+index c70ea8a..47ca370 100644
+--- a/app/Values/Podcast/EpisodePlayable.php
++++ b/app/Values/Podcast/EpisodePlayable.php
+@@ -2,6 +2,8 @@
+ 
+ namespace App\Values\Podcast;
+ 
++use App\Exceptions\UnsafeUrlException;
++use App\Helpers\Network;
+ use App\Models\Song as Episode;
+ use Illuminate\Contracts\Support\Arrayable;
+ use Illuminate\Contracts\Support\Jsonable;
+@@ -39,6 +41,10 @@ final class EpisodePlayable implements Arrayable, Jsonable
+         $file = artifact_path("episodes/{$episode->id}.mp3");
+ 
+         if (!File::exists($file)) {
++            if (!Network::isSafeUrl((string) $episode->path)) {
++                throw UnsafeUrlException::forUrl((string) $episode->path);
++            }
++
+             Http::sink($file)->get($episode->path)->throw();
+         }
+ 

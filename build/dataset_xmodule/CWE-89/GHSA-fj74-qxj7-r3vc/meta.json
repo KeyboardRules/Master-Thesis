@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-fj74-qxj7-r3vc",
+    "cve":  "CVE-2026-33767",
+    "cwe":  "CWE-89",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "0215d3c4f1ee748b8880254967b51784b8ac4080",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "objects/functions.php",
+                        "objects/like.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "objects/functions.php includes 26 project file(s)",
+                     "objects/like.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

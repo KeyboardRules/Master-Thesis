@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-j878-43hm-8gr5",
+    "cve":  "CVE-2022-0921",
+    "cwe":  "CWE-434",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "867bdda1b4660b0795ad7f87ab5abe9e44b2b318",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/MicroweberPackages/Backup/Loggers/DefaultLogger.php",
+                        "src/MicroweberPackages/Import/DatabaseWriter.php",
+                        "src/MicroweberPackages/Import/Formats/ZipReader.php",
+                        "userfiles/modules/admin/backup/backup_modal.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/MicroweberPackages/Import/DatabaseWriter.php class uses trait",
+                     "src/MicroweberPackages/Import/Formats/ZipReader.php class extends DefaultReader"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

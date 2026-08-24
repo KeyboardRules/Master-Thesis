@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xv5f-2997-qhrq",
+    "cve":  "CVE-2017-8052",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "f7e57018ff487d1ebbe375f6cb1852f4d79767ff",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/controllers/TemplatesController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/TemplatesController.php class extends BaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

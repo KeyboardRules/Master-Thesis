@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-jh46-85jr-6ph9",
+    "cve":  "CVE-2026-32279",
+    "cwe":  "CWE-918",
+    "repo":  "opensource-workshop/connect-cms",
+    "fix_commit":  "4a1a64a8f768a53e06a4239e25782d9e2e88fc63",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/Plugins/Manage/PageManage/PageManage.php",
+                        "app/Traits/Migration/MigrationExportHtmlPageTrait.php",
+                        "app/Traits/Migration/MigrationExportNc3PageTrait.php",
+                        "app/Utilities/Url/UrlUtils.php",
+                        "resources/views/plugins/manage/page/migration_order.blade.php"
+                    ],
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "app/Plugins/Manage/PageManage/PageManage.php class extends ManagePluginBase",
+                     "app/Plugins/Manage/PageManage/PageManage.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

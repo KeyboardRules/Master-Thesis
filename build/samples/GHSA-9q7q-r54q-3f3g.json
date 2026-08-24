@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-9q7q-r54q-3f3g",
+    "cve":  "CVE-2023-2343",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "f1d904094700b513c4756904fa2b1e19d08d890e",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/helpers.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/collectionsPanel.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/groupsPanel.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/propertiesPanel.js",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "sink_hit":  false
+}

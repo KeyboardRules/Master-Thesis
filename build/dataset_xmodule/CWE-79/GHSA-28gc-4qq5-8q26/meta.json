@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-28gc-4qq5-8q26",
+    "cve":  "CVE-2023-5541",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "f5f6ce375e37da902afb043c6b506129fc433233",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "grade/import/csv/classes/output/renderer.php"
+                    ],
+    "evidence":  [
+                     "grade/import/csv/classes/output/renderer.php class extends plugin_renderer_base"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

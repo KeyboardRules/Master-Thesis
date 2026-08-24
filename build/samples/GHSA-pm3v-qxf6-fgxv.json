@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-pm3v-qxf6-fgxv",
+    "cve":  "CVE-2022-0285",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "b432225952e2a5ab0268f401b85a14480369b835",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/SettingsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/SettingsController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/SettingsController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/thumbnail/item.js"
+                    ],
+    "sink_hit":  true
+}

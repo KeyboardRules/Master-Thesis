@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-rh74-5835-jpxp",
+    "cve":  "CVE-2016-5701",
+    "cwe":  "CWE-74",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "1dca386505f396f0c2035112a403cc80768a141f",
+    "status":  "ok",
+    "changed_php":  [
+                        "setup/frames/index.inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "setup/frames/index.inc.php includes 5 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "setup/frames/index.inc.php"
+                    ],
+    "sink_hit":  false
+}

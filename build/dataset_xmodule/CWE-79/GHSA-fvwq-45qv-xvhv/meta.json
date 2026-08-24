@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fvwq-45qv-xvhv",
+    "cve":  "CVE-2026-31859",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "cc9921c14897ee2b592a431c2356af8a04ce4cfe",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/web/User.php"
+                    ],
+    "evidence":  [
+                     "src/web/User.php class extends \\yii\\web\\User"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

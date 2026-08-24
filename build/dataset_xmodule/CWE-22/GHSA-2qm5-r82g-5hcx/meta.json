@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-2qm5-r82g-5hcx",
+    "cve":  "CVE-2020-25540",
+    "cwe":  "CWE-22",
+    "repo":  "zoujingli/ThinkAdmin",
+    "fix_commit":  "ff2ab47cfabd4784effbf72a2a386c5d25c43a9a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/admin/controller/api/Update.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "app/admin/controller/api/Update.php class extends Controller",
+                     "vendor/zoujingli/think-library/src/Library.php class extends Service",
+                     "vendor/zoujingli/think-library/src/service/ModuleService.php class extends Service",
+                     "vendor/zoujingli/think-library/src/service/NodeService.php class extends Service"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

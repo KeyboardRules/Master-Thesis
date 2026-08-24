@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-rv57-479x-x4qv",
+    "cve":  "CVE-2016-5734",
+    "cwe":  "CWE-94",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "fix_commit":  "1cc7466db3a05e95fe57a6702f41773e6829d54b",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "import.php",
+                        "libraries/Tracker.php",
+                        "libraries/plugins/export/ExportSql.php",
+                        "templates/columns_definitions/transformation.phtml"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "import.php includes 10 project file(s)",
+                     "libraries/Tracker.php includes 2 project file(s)",
+                     "libraries/plugins/export/ExportSql.php class extends ExportPlugin",
+                     "test/libraries/core/PMA_warnMissingExtension_test.php includes 3 project file(s)",
+                     "test/libraries/core/PMA_warnMissingExtension_test.php class extends PHPUnit_Framework_TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

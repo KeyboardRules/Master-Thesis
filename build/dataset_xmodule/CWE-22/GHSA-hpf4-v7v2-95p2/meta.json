@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hpf4-v7v2-95p2",
+    "cve":  "CVE-2023-39528",
+    "cwe":  "CWE-22",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "11de3a84322fa4ecd0995ac40d575db61804724c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "controllers/admin/AdminTranslationsController.php"
+                    ],
+    "evidence":  [
+                     "controllers/admin/AdminTranslationsController.php includes 1 project file(s)",
+                     "controllers/admin/AdminTranslationsController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

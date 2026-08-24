@@ -1,0 +1,86 @@
+﻿diff --git a/ProgramFunctions/PortalPollsNotes.fnc.php b/ProgramFunctions/PortalPollsNotes.fnc.php
+index bf070ae..358ec8d 100644
+--- a/ProgramFunctions/PortalPollsNotes.fnc.php
++++ b/ProgramFunctions/PortalPollsNotes.fnc.php
+@@ -2,8 +2,6 @@
+ /**
+  * Portal Polls and Portal Notes functions.
+  *
+- * @todo Format code!
+- *
+  * @package RosarioSIS
+  * @subpackage ProgramFunctions
+  */
+@@ -241,7 +239,7 @@ function PortalPollForm( $poll_id, $poll_questions_RET )
+ 	}
+ 
+ 	$poll_form .= '<form method="POST" id="formPortalPoll' . $poll_id . '"
+-		action="ProgramFunctions/PortalPollsNotes.fnc.php"
++		action="Modules.php?modname=misc/Portal.php&modfunc=poll_vote"
+ 		target="divPortalPoll' . $poll_id . '">
+ 	<table class="width-100p widefat">';
+ 
+@@ -364,33 +362,6 @@ function PortalPollsVotesDisplay( $poll_id, $display_votes, $poll_questions_RET,
+ 	return $votes_display;
+ }
+ 
+-// AJAX vote call:
+-
+-if ( isset( $_POST['votes'] )
+-	&& is_array( $_POST['votes'] ) )
+-{
+-	if ( empty( $_SERVER['HTTP_X_REQUESTED_WITH'] )
+-		|| $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest' )
+-	{
+-		die( 'Error: no AJAX' );
+-	}
+-
+-	chdir( '../' );
+-
+-	require_once 'Warehouse.php';
+-
+-	foreach ( (array) $_POST['votes'] as $poll_id => $votes_array )
+-	{
+-		if ( ! empty( $votes_array ) )
+-		{
+-			echo PortalPollsVote( $poll_id, $votes_array );
+-			break;
+-		}
+-	}
+-
+-	exit();
+-}
+-
+ /**
+  * @param $value
+  * @param $name
+diff --git a/modules/misc/Portal.php b/modules/misc/Portal.php
+index bb7b952..6239bd7 100644
+--- a/modules/misc/Portal.php
++++ b/modules/misc/Portal.php
+@@ -19,6 +19,25 @@ if ( $_REQUEST['modfunc'] === 'redirect_take_attendance' )
+ 	_redirectTakeAttendance();
+ }
+ 
++// AJAX poll vote call.
++
++if ( $_REQUEST['modfunc'] === 'poll_vote'
++	&& ! empty( $_POST['votes'] ) )
++{
++	// Fix #308 Unauthenticated SQL injection. Use sanitized $_REQUEST.
++	foreach ( (array) $_REQUEST['votes'] as $poll_id => $votes_array )
++	{
++		if ( ! empty( $votes_array ) )
++		{
++			// Result is displayed inside "divPortalPoll[id]" target div.
++			echo PortalPollsVote( $poll_id, $votes_array );
++
++			// Do not go further.
++			exit();
++		}
++	}
++}
++
+ DrawHeader( ProgramTitle() );
+ 
+ DrawHeader( '<span id="salute"></span>' );

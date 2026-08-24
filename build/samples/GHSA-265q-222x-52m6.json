@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-265q-222x-52m6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "48bd335648188df9dae72be1e5f9c808f3fe1e77",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/ORM/DataObjectSchema.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/ORM/DataObjectSchema.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/ORM/DataObjectSchema.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jph3-3j24-pg3j",
+    "cve":  "CVE-2023-1882",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "49db615c300ae0f87795f20570f6f5bdccb1d2f2",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpmyfaq/contact.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/request-removal.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "phpmyfaq/index.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

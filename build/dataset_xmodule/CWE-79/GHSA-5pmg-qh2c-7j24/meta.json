@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-5pmg-qh2c-7j24",
+    "cve":  "CVE-2015-7873",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "fix_commit":  "2b31866fe0b30b867aaf5b5fedb11adb354e037f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "url.php"
+                    ],
+    "evidence":  [
+                     "url.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fp76-f299-v3hj",
+    "cve":  "CVE-2022-2065",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "sha":  "1d1edb40b40016d7fd2893b410b98569d7facca1",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/App/AppRouter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Core/App/AppRouter.php"
+                    ],
+    "sink_hit":  false
+}

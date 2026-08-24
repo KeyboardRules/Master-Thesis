@@ -1,0 +1,47 @@
+﻿{
+    "id":  "GHSA-8jmj-4p32-mc9p",
+    "cve":  "CVE-2017-6216",
+    "cwe":  "CWE-79",
+    "repo":  "novaksolutions/infusionsoft-php-sdk",
+    "sha":  "110c06ffe0cdff3d8eb3ad2080eb2a5b83a916a5",
+    "status":  "ok",
+    "changed_php":  [
+                        "Infusionsoft/examples/contact_tree.php",
+                        "Infusionsoft/examples/create_order.php",
+                        "Infusionsoft/examples/exporter.php",
+                        "Infusionsoft/examples/generate-code.php",
+                        "Infusionsoft/examples/get_invoices_for_contact.php",
+                        "Infusionsoft/examples/leadscoring.php",
+                        "Infusionsoft/examples/list_objects.php",
+                        "Infusionsoft/examples/object_editor.php",
+                        "Infusionsoft/examples/subscription_tree.php",
+                        "Infusionsoft/examples/view_incomplete_orders.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "Infusionsoft/examples/contact_tree.php includes 3 project file(s)",
+                     "Infusionsoft/examples/create_order.php includes 3 project file(s)",
+                     "Infusionsoft/examples/exporter.php includes 3 project file(s)",
+                     "Infusionsoft/examples/get_invoices_for_contact.php includes 2 project file(s)",
+                     "Infusionsoft/examples/leadscoring.php includes 1 project file(s)",
+                     "Infusionsoft/examples/list_objects.php includes 3 project file(s)",
+                     "Infusionsoft/examples/object_editor.php includes 3 project file(s)",
+                     "Infusionsoft/examples/subscription_tree.php includes 3 project file(s)",
+                     "Infusionsoft/examples/view_incomplete_orders.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "Infusionsoft/examples/contact_tree.php",
+                        "Infusionsoft/examples/create_order.php",
+                        "Infusionsoft/examples/exporter.php",
+                        "Infusionsoft/examples/generate-code.php",
+                        "Infusionsoft/examples/get_invoices_for_contact.php",
+                        "Infusionsoft/examples/leadscoring.php",
+                        "Infusionsoft/examples/list_objects.php",
+                        "Infusionsoft/examples/object_editor.php",
+                        "Infusionsoft/examples/subscription_tree.php",
+                        "Infusionsoft/examples/view_incomplete_orders.php"
+                    ],
+    "sink_hit":  true
+}

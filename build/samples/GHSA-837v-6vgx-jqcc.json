@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-837v-6vgx-jqcc",
+    "cve":  "CVE-2021-4244",
+    "cwe":  "CWE-79",
+    "repo":  "EvanHerman/yikes-inc-easy-mailchimp-extender",
+    "sha":  "3662c6593aa1bb4286781214891d26de2e947695",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/partials/ajax/add_field_to_form.php",
+                        "yikes-inc-easy-mailchimp-extender.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "yikes-inc-easy-mailchimp-extender.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "admin/partials/ajax/add_field_to_form.php",
+                        "package-lock.json",
+                        "package.json",
+                        "readme.txt",
+                        "yikes-inc-easy-mailchimp-extender.php"
+                    ],
+    "sink_hit":  true
+}

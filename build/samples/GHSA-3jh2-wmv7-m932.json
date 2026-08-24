@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3jh2-wmv7-m932",
+    "cve":  "CVE-2022-3231",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "08050020861230ff96a6507b309cc172a9e70af8",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Table/AlertScheduleController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/Table/AlertScheduleController.php class extends TableController"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Table/AlertScheduleController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-26rr-v2j2-25fh",
+    "cve":  "CVE-2021-32758",
+    "cwe":  "CWE-91",
+    "repo":  "OpenMage/magento-lts",
+    "sha":  "b99307d00b59c4a226a1e3e4083f02cf2fc8fce7",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/code/core/Mage/Core/Helper/Security.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/code/core/Mage/Core/Helper/Security.php"
+                    ],
+    "sink_hit":  false
+}

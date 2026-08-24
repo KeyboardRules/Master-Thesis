@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5pg2-qg87-vmj7",
+    "cve":  "CVE-2022-2280",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "9ebbb4dd35da74025ab6965f722829a7f8f86566",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/functions/plupload.php"
+                    ],
+    "evidence":  [
+                     "src/MicroweberPackages/App/functions/plupload.php class extends Exception"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

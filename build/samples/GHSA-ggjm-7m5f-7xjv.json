@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-ggjm-7m5f-7xjv",
+    "cve":  "CVE-2018-17782",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "72ab020a42a35fd341e983a25849f8277bb34044",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_filter_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_filter_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_filter_page.php"
+                    ],
+    "sink_hit":  true
+}

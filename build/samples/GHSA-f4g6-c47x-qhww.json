@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f4g6-c47x-qhww",
+    "cve":  "CVE-2023-2014",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "1a9b904722b35b00653c6ae72dca2969149159b3",
+    "status":  "ok",
+    "changed_php":  [
+                        "userfiles/modules/settings/group/template.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "userfiles/modules/settings/group/template.php"
+                    ],
+    "sink_hit":  true
+}

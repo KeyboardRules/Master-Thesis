@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r5f2-4wf4-cv66",
+    "cve":  "CVE-2019-16173",
+    "cwe":  "CWE-79",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "fix_commit":  "f1c1ad2d24eb262363511fcca2e96ce737064006",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "application/core/Survey_Common_Action.php"
+                    ],
+    "evidence":  [
+                     "application/core/Survey_Common_Action.php class extends CAction"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

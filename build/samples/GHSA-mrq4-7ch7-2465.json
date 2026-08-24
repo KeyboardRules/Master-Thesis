@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mrq4-7ch7-2465",
+    "cve":  "CVE-2022-21686",
+    "cwe":  "CWE-94",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "d02b469ec365822e6a9f017e57f588966248bf21",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PrestaShopBundle/Twig/LayoutExtension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/PrestaShopBundle/Twig/LayoutExtension.php class extends \\Twig_Extension"
+                 ],
+    "changed_all":  [
+                        "src/PrestaShopBundle/Twig/LayoutExtension.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-277f-37gw-9gmq",
+    "cve":  "CVE-2025-44163",
+    "cwe":  "CWE-22",
+    "repo":  "RaspAP/raspap-webgui",
+    "fix_commit":  "eb53c46c336384d78336b021adea94d9257e1d67",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "ajax/networking/get_wgkey.php"
+                    ],
+    "evidence":  [
+                     "ajax/networking/get_wgkey.php includes 5 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

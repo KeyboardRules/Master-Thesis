@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rr5c-69c9-gj9f",
+    "cve":  "CVE-2023-5452",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "eea2eabaeef16fc8f3a1d61b19c06e9fc8ed942a",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Transformers/ActionlogsTransformer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Http/Transformers/ActionlogsTransformer.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-m6m8-6gq8-c9fj",
+    "cve":  "CVE-2023-32692",
+    "cwe":  "CWE-94",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "fix_commit":  "6af677177fa1d9ad62f7a793bc96cba3068632ba",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "system/Validation/Validation.php",
+                        "user_guide_src/source/libraries/validation/020.php",
+                        "user_guide_src/source/libraries/validation/022.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php class extends CIUnitTestCase",
+                     "tests/system/Validation/StrictRules/DatabaseRelatedRulesTest.php class uses trait",
+                     "tests/system/Validation/ValidationTest.php class extends CIUnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

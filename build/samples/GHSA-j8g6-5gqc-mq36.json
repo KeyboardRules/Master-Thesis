@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j8g6-5gqc-mq36",
+    "cve":  "CVE-2025-67509",
+    "cwe":  "CWE-94",
+    "repo":  "neuron-core/neuron-ai",
+    "sha":  "72735d0ea133266cf2f5d5d195d41e9dd865289a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Tools/Toolkits/MySQL/MySQLSelectTool.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Tools/Toolkits/MySQL/MySQLSelectTool.php class extends Tool"
+                 ],
+    "changed_all":  [
+                        "src/Tools/Toolkits/MySQL/MySQLSelectTool.php"
+                    ],
+    "sink_hit":  true
+}

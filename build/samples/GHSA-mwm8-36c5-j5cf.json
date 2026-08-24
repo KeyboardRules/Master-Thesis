@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mwm8-36c5-j5cf",
+    "cve":  "CVE-2016-5731",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "418aeea3d83b0b6021bac311d849570acfc6e48c",
+    "status":  "ok",
+    "changed_php":  [
+                        "examples/openid.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "examples/openid.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "examples/openid.php"
+                    ],
+    "sink_hit":  true
+}

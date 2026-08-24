@@ -1,0 +1,42 @@
+﻿diff --git a/view/SSTemplateParser.php b/view/SSTemplateParser.php
+index 3c11980dc..bd87a31af 100644
+--- a/view/SSTemplateParser.php
++++ b/view/SSTemplateParser.php
+@@ -4684,7 +4684,7 @@ class SSTemplateParser extends Parser implements TemplateParser {
+ 		$text = preg_replace(
+ 			'/(<a[^>]+href *= *)"#/i',
+ 			'\\1"\' . (Config::inst()->get(\'SSViewer\', \'rewrite_hash_links\') ?' .
+-			' strip_tags( $_SERVER[\'REQUEST_URI\'] ) : "") . 
++			' Convert::raw2att( $_SERVER[\'REQUEST_URI\'] ) : "") .
+ 				\'#',
+ 			$text
+ 		);
+diff --git a/view/SSTemplateParser.php.inc b/view/SSTemplateParser.php.inc
+index 74fc27bbe..6bb7c550d 100644
+--- a/view/SSTemplateParser.php.inc
++++ b/view/SSTemplateParser.php.inc
+@@ -1138,7 +1138,7 @@ class SSTemplateParser extends Parser implements TemplateParser {
+ 		$text = preg_replace(
+ 			'/(<a[^>]+href *= *)"#/i',
+ 			'\\1"\' . (Config::inst()->get(\'SSViewer\', \'rewrite_hash_links\') ?' .
+-			' strip_tags( $_SERVER[\'REQUEST_URI\'] ) : "") . 
++			' Convert::raw2att( $_SERVER[\'REQUEST_URI\'] ) : "") .
+ 				\'#',
+ 			$text
+ 		);
+diff --git a/view/SSViewer.php b/view/SSViewer.php
+index 8a4ebf052..d5fdb68bb 100644
+--- a/view/SSViewer.php
++++ b/view/SSViewer.php
+@@ -1109,9 +1109,9 @@ class SSViewer implements Flushable {
+ 		if($this->rewriteHashlinks && $rewrite) {
+ 			if(strpos($output, '<base') !== false) {
+ 				if($rewrite === 'php') { 
+-					$thisURLRelativeToBase = "<?php echo strip_tags(\$_SERVER['REQUEST_URI']); ?>"; 
++					$thisURLRelativeToBase = "<?php echo Convert::raw2att(\$_SERVER['REQUEST_URI']); ?>";
+ 				} else { 
+-					$thisURLRelativeToBase = strip_tags($_SERVER['REQUEST_URI']); 
++					$thisURLRelativeToBase = Convert::raw2att($_SERVER['REQUEST_URI']);
+ 				}
+ 
+ 				$output = preg_replace('/(<a[^>]+href *= *)"#/i', '\\1"' . $thisURLRelativeToBase . '#', $output);

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-48vw-jpf8-hwqh",
+    "cve":  "CVE-2024-28108",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpMyFAQ",
+    "sha":  "4fed1d9602f0635260f789fe85995789d94d6634",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/api.service.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "phpmyfaq/api.service.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/api.service.php"
+                    ],
+    "sink_hit":  false
+}

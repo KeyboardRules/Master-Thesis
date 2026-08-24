@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-3xxm-3g3c-w579",
+    "cve":  "CVE-2023-5539",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "ba974a4add981743b5a37c5bcc4714c62f6052ce",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/lesson/locallib.php",
+                        "mod/lesson/mod_form.php",
+                        "mod/lesson/pagetypes/essay.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "mod/lesson/locallib.php includes 10 project file(s)",
+                     "mod/lesson/locallib.php class extends moodleform",
+                     "mod/lesson/mod_form.php includes 2 project file(s)",
+                     "mod/lesson/mod_form.php class extends moodleform_mod",
+                     "mod/lesson/pagetypes/essay.php class extends lesson_page"
+                 ],
+    "changed_all":  [
+                        "mod/lesson/locallib.php",
+                        "mod/lesson/mod_form.php",
+                        "mod/lesson/pagetypes/essay.php"
+                    ],
+    "sink_hit":  false
+}

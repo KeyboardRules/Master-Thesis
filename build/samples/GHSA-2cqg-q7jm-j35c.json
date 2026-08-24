@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2cqg-q7jm-j35c",
+    "cve":  "CVE-2021-3938",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "9ed1442bd124710f4178992cc4eca5236c7396b9",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Api/AssetsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/Api/AssetsController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Api/AssetsController.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-93fx-5qgc-wr38",
+    "cve":  "",
+    "cwe":  "CWE-94",
+    "repo":  "AzuraCast/AzuraCast",
+    "fix_commit":  "d04b5c55ce0d867bcb87f49f7082bf8edbcd360c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php"
+                    ],
+    "evidence":  [
+                     "backend/src/Radio/Backend/Liquidsoap/ConfigWriter.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

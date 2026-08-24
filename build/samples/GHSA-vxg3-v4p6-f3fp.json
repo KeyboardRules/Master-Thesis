@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vxg3-v4p6-f3fp",
+    "cve":  "CVE-2026-27461",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "1c3925fbec4895abeb21e5c244a83679c4e4a6f4",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/Dependency/Dao.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "models/Dependency/Dao.php class extends Model\\Dao\\AbstractDao"
+                 ],
+    "changed_all":  [
+                        "models/Dependency/Dao.php"
+                    ],
+    "sink_hit":  true
+}

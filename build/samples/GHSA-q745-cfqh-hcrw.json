@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-q745-cfqh-hcrw",
+    "cve":  "CVE-2025-52994",
+    "cwe":  "CWE-78",
+    "repo":  "JamesHeinrich/phpThumb",
+    "sha":  "cdcbc206ae601b15fd17e7aadf59df51149a0e82",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpthumb.class.php",
+                        "phpthumb.gif.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpthumb.class.php includes 14 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpthumb.class.php",
+                        "phpthumb.gif.php"
+                    ],
+    "sink_hit":  true
+}

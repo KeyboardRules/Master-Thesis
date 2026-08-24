@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7mg5-rw39-q67f",
+    "cve":  "CVE-2014-125051",
+    "cwe":  "CWE-89",
+    "repo":  "himiklab/yii2-jqgrid-widget",
+    "fix_commit":  "a117e0f2df729e3ff726968794d9a5ac40e660b9",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "JqGridAction.php"
+                    ],
+    "evidence":  [
+                     "JqGridAction.php class extends Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6j87-m5qx-9fqp",
+    "cve":  "CVE-2026-56383",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "sha":  "7b372de262b8d9d2ce859f32780c3715719b6f5a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/fields/Table.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/fields/Table.php class extends Field"
+                 ],
+    "changed_all":  [
+                        "src/fields/Table.php"
+                    ],
+    "sink_hit":  false
+}

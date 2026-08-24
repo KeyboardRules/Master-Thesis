@@ -1,0 +1,33 @@
+﻿diff --git a/Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php b/Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php
+index 9a6d42f..773b90a 100644
+--- a/Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php
++++ b/Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php
+@@ -129,10 +129,10 @@ class SaveFormToDatabaseFinisher extends AbstractFinisher
+             foreach ($page->getElementsRecursively() as $pageElem) {
+                 if ($pageElem->getType() !== 'Honeypot') {
+                 	if($pageElem->getType() !== 'FileUpload' && $pageElem->getType() !== 'ImageUpload'){
+-		                $values[$pageElem->getIdentifier()]['value'] = $valuesWithPages[$pageElem->getIdentifier()];
++		                $values[$pageElem->getIdentifier()]['value'] = htmlspecialchars($valuesWithPages[$pageElem->getIdentifier()]);
+ 	                }else{
+                 		if($valuesWithPages[$pageElem->getIdentifier()]){
+-			                $values[$pageElem->getIdentifier()]['value'] = $valuesWithPages[$pageElem->getIdentifier()]->getOriginalResource()->getName();
++			                $values[$pageElem->getIdentifier()]['value'] = htmlspecialchars($valuesWithPages[$pageElem->getIdentifier()]->getOriginalResource()->getName());
+ 		                }
+ 	                }
+                     $values[$pageElem->getIdentifier()]['conf']['label'] = $pageElem->getLabel();
+diff --git a/Classes/Form/FormAnswersJsonElement.php b/Classes/Form/FormAnswersJsonElement.php
+index 0d73fee..60fa2fc 100644
+--- a/Classes/Form/FormAnswersJsonElement.php
++++ b/Classes/Form/FormAnswersJsonElement.php
+@@ -19,9 +19,9 @@ class FormAnswersJsonElement extends AbstractFormElement
+         if (is_array($fieldValues)) {
+             foreach ($fieldValues as $fieldKey => $fieldValue) {
+                 if ($fieldValue['conf']['label']) {
+-                    $out .= '<li>'.$fieldValue['conf']['label'].' - '.(is_array($fieldValue['value']) ? implode(",", $fieldValue['value']) : $fieldValue['value']).'</li>';
++                    $out .= '<li>'.$fieldValue['conf']['label'].' - '.(is_array($fieldValue['value']) ? implode(",", htmlspecialchars($fieldValue['value'])) : htmlspecialchars($fieldValue['value'])).'</li>';
+                 } else {
+-                    $out .= '<li>'.$fieldKey.' - '.(is_array($fieldValue['value']) ? implode(",", $fieldValue['value']) : $fieldValue['value']).'</li>';
++                    $out .= '<li>'.$fieldKey.' - '.(is_array($fieldValue['value']) ? implode(",", htmlspecialchars($fieldValue['value'])) : htmlspecialchars($fieldValue['value'])).'</li>';
+                 }
+             }
+         }

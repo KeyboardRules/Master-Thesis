@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gjq4-69wj-p6pr",
+    "cve":  "CVE-2022-0665",
+    "cwe":  "CWE-22",
+    "repo":  "pimcore/pimcore",
+    "sha":  "28945649a6234ccaa8c94c6cd83d1954603baf3e",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/TranslationController.php class extends AdminController",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/TranslationController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/translation.js"
+                    ],
+    "sink_hit":  true
+}

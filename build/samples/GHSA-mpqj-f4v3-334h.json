@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mpqj-f4v3-334h",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "3fa84cf0c64a539d78600c36364817a8e38411d8",
+    "status":  "ok",
+    "changed_php":  [
+                        "control/VersionedRequestFilter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "control/VersionedRequestFilter.php"
+                    ],
+    "sink_hit":  false
+}

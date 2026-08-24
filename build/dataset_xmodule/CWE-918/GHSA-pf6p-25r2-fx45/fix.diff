@@ -1,0 +1,23 @@
+﻿diff --git a/src/Options.php b/src/Options.php
+index 478503f..69c43bd 100644
+--- a/src/Options.php
++++ b/src/Options.php
+@@ -298,6 +298,18 @@ class Options
+         $this->setFontDir($rootDir . "/lib/fonts");
+         $this->setFontCache($this->getFontDir());
+ 
++        $ver = "";
++        $versionFile = realpath(__DIR__ . "/../VERSION");
++        if (file_exists($versionFile) && ($version = trim(file_get_contents($versionFile))) !== false && $version !== '$Format:<%h>$') {
++            $ver = "/$version";
++        }
++        $this->setHttpContext([
++            "http" => [
++                "follow_location" => false,
++                "user_agent" => "Dompdf$ver https://github.com/dompdf/dompdf"
++            ]
++        ]);
++
+         if (null !== $attributes) {
+             $this->set($attributes);
+         }

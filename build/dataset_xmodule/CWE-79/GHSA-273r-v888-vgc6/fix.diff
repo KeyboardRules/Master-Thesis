@@ -1,0 +1,13 @@
+﻿diff --git a/lib/internal/Magento/Framework/Escaper.php b/lib/internal/Magento/Framework/Escaper.php
+index bee28736f2..c34c4a9fbb 100644
+--- a/lib/internal/Magento/Framework/Escaper.php
++++ b/lib/internal/Magento/Framework/Escaper.php
+@@ -320,7 +320,7 @@ class Escaper
+     public function escapeXssInUrl($data)
+     {
+         return htmlspecialchars(
+-            $this->escapeScriptIdentifiers((string)$data),
++            $this->escapeScriptIdentifiers(html_entity_decode((string)$data)),
+             $this->htmlSpecialCharsFlag | ENT_HTML5 | ENT_HTML401,
+             'UTF-8',
+             false

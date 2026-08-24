@@ -1,0 +1,15 @@
+﻿diff --git a/src/web/User.php b/src/web/User.php
+index 9558d9c..b38c130 100644
+--- a/src/web/User.php
++++ b/src/web/User.php
+@@ -472,6 +472,10 @@ class User extends \yii\web\User
+      */
+     public function setReturnUrl($url): void
+     {
++        $scheme = parse_url($url, PHP_URL_SCHEME);
++        if ($scheme && !in_array($scheme, ['http', 'https'])) {
++            $url = '/';
++        }
+         parent::setReturnUrl(strip_tags($url));
+     }
+ 

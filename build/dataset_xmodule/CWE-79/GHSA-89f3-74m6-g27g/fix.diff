@@ -1,0 +1,65 @@
+﻿diff --git a/lib/outputrequirementslib.php b/lib/outputrequirementslib.php
+index d4eff1ccc2..1ebae6d387 100644
+--- a/lib/outputrequirementslib.php
++++ b/lib/outputrequirementslib.php
+@@ -377,7 +377,7 @@ class page_requirements_manager {
+                 case 'core_filepicker':
+                     $module = array('name'     => 'core_filepicker',
+                                     'fullpath' => '/repository/filepicker.js',
+-                                    'requires' => array('base', 'node', 'node-event-simulate', 'json', 'async-queue', 'io-base', 'io-upload-iframe', 'io-form', 'yui2-treeview', 'panel', 'cookie', 'datatable', 'datatable-sort', 'resize-plugin', 'dd-plugin', 'moodle-core_filepicker'),
++                                    'requires' => array('base', 'node', 'node-event-simulate', 'json', 'async-queue', 'io-base', 'io-upload-iframe', 'io-form', 'yui2-treeview', 'panel', 'cookie', 'datatable', 'datatable-sort', 'resize-plugin', 'dd-plugin', 'escape', 'moodle-core_filepicker'),
+                                     'strings'  => array(array('lastmodified', 'moodle'), array('name', 'moodle'), array('type', 'repository'), array('size', 'repository'),
+                                                         array('invalidjson', 'repository'), array('error', 'moodle'), array('info', 'moodle'),
+                                                         array('nofilesattached', 'repository'), array('filepicker', 'repository'), array('logout', 'repository'),
+diff --git a/repository/filepicker.php b/repository/filepicker.php
+index 781f77b586..bd19ef7f73 100644
+--- a/repository/filepicker.php
++++ b/repository/filepicker.php
+@@ -142,12 +142,12 @@ case 'search':
+             if (isset($item['thumbnail_width'])) {
+                 $style .= 'max-width:'.$item['thumbnail_width'].'px;';
+             }
+-            echo html_writer::empty_tag('img', array('src' => $item['thumbnail'], 'style' => $style));
++            echo html_writer::empty_tag('img', array('src' => $item['thumbnail'], 'alt' => '', 'style' => $style));
+             echo '</td><td>';
+             if (!empty($item['url'])) {
+-                echo html_writer::link($item['url'], $item['title'], array('target'=>'_blank'));
++                echo html_writer::link($item['url'], s($item['title']), array('target'=>'_blank'));
+             } else {
+-                echo $item['title'];
++                echo s($item['title']);
+             }
+             echo '</td>';
+             echo '<td>';
+@@ -204,7 +204,7 @@ case 'sign':
+                         'draftpath'=>$draftpath,
+                         'savepath'=>$savepath
+                         ));
+-                    echo '<strong>' . html_writer::link($pathurl, $p['name']) . '</strong>';
++                    echo '<strong>' . html_writer::link($pathurl, s($p['name'])) . '</strong>';
+                     echo '<span> / </span>';
+                 }
+             }
+@@ -241,9 +241,9 @@ case 'sign':
+                 echo html_writer::empty_tag('img', array('src' => $item['thumbnail'], 'style' => $style));
+                 echo '</td><td>';
+                 if (!empty($item['url'])) {
+-                    echo html_writer::link($item['url'], $item['title'], array('target'=>'_blank'));
++                    echo html_writer::link($item['url'], s($item['title']), array('target'=>'_blank'));
+                 } else {
+-                    echo $item['title'];
++                    echo s($item['title']);
+                 }
+                 echo '</td>';
+                 echo '<td>';
+@@ -393,8 +393,8 @@ case 'plugins':
+         $aurl->params(array('savepath'=>$savepath, 'action' => 'list', 'repo_id' => $info->id, 'draftpath'=>$draftpath));
+ 
+         echo '<li>';
+-        echo '<img src="'.$info->icon.'" alt="'.$info->name.'" width="16" height="16" /> ';
+-        echo html_writer::link($aurl, $info->name);
++        echo html_writer::empty_tag('img', array('src'=>$info->icon, 'alt'=>$info->name, 'class'=>'icon icon-pre'));
++        echo html_writer::link($aurl, s($info->name));
+         echo '</li>';
+     }
+     echo '</ul>';

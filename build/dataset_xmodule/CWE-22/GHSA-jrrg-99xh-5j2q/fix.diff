@@ -1,0 +1,123 @@
+﻿diff --git a/src/Cas/Ticket/FileSystemTicketStore.php b/src/Cas/Ticket/FileSystemTicketStore.php
+index 5d28c80..72ff0c5 100644
+--- a/src/Cas/Ticket/FileSystemTicketStore.php
++++ b/src/Cas/Ticket/FileSystemTicketStore.php
+@@ -27,6 +27,7 @@ namespace SimpleSAML\Module\casserver\Cas\Ticket;
+ 
+ use Exception;
+ use SimpleSAML\Configuration;
++use SimpleSAML\XML\Assert\Assert;
+ 
+ class FileSystemTicketStore extends TicketStore
+ {
+@@ -66,12 +67,15 @@ class FileSystemTicketStore extends TicketStore
+      */
+     public function getTicket(string $ticketId): ?array
+     {
+-        $filename = $this->pathToTicketDirectory . '/' . $ticketId;
++        $filename = $this->validateTicketPath($ticketId);
+ 
+         if (file_exists($filename)) {
+             $content = file_get_contents($filename);
+ 
+-            return unserialize($content);
++            $result = unserialize($content, ['allowed_classes' => false]);
++            Assert::isArray($result, "Failed to unserialize ticket.");
++
++            return $result;
+         } else {
+             return null;
+         }
+@@ -83,7 +87,7 @@ class FileSystemTicketStore extends TicketStore
+      */
+     public function addTicket(array $ticket): void
+     {
+-        $filename = $this->pathToTicketDirectory . '/' . $ticket['id'];
++        $filename = $this->validateTicketPath($ticket['id']);
+         file_put_contents($filename, serialize($ticket));
+     }
+ 
+@@ -93,10 +97,42 @@ class FileSystemTicketStore extends TicketStore
+      */
+     public function deleteTicket(string $ticketId): void
+     {
+-        $filename = $this->pathToTicketDirectory . '/' . $ticketId;
++        $filename = $this->validateTicketPath($ticketId);
+ 
+         if (file_exists($filename)) {
+             unlink($filename);
+         }
+     }
++
++
++    /**
++     * @param string $ticketId
++     * @return string
++     * @throws \Exception
++     */
++    private function validateTicketPath(string $ticketId): string
++    {
++        if ($ticketId === '') {
++            throw new Exception('Invalid ticketId provided.');
++        }
++
++        // Prevent directory traversal and path separators.
++        // CAS tickets are typically like: ST-..., PT-..., PGT-..., etc. Hyphens are ok.
++        if (
++            str_contains($ticketId, '/')
++            || str_contains($ticketId, '\\')
++            || str_contains($ticketId, '..')
++        ) {
++            throw new Exception('Invalid ticketId provided.');
++        }
++
++        $baseDir = realpath($this->pathToTicketDirectory);
++        if ($baseDir === false) {
++            throw new Exception('Ticket storage directory is not accessible.');
++        }
++
++        // Store tickets as hashed filenames inside the ticket directory.
++        // (Avoids issues with special chars / very long filenames.)
++        return $baseDir . '/' . sha1($ticketId);
++    }
+ }
+diff --git a/src/Controller/Cas10Controller.php b/src/Controller/Cas10Controller.php
+index 340238c..3810968 100644
+--- a/src/Controller/Cas10Controller.php
++++ b/src/Controller/Cas10Controller.php
+@@ -101,6 +101,14 @@ class Cas10Controller
+             );
+         }
+ 
++        if ($ticket === '' || str_contains($ticket, "\0")) {
++            Logger::debug('casserver: Illegal value for ticket parameter.');
++            return new Response(
++                $this->cas10Protocol->getValidateFailureResponse(),
++                Response::HTTP_BAD_REQUEST,
++            );
++        }
++
+         try {
+             // Get the service ticket
+             // `getTicket` uses the unserializable method and Objects may throw Throwables in their
+diff --git a/src/Controller/Traits/TicketValidatorTrait.php b/src/Controller/Traits/TicketValidatorTrait.php
+index 14fdfcd..e031802 100644
+--- a/src/Controller/Traits/TicketValidatorTrait.php
++++ b/src/Controller/Traits/TicketValidatorTrait.php
+@@ -51,6 +51,16 @@ trait TicketValidatorTrait
+             );
+         }
+ 
++        if ($ticket === '' || str_contains($ticket, "\0")) {
++            $message = 'Illegal value for ticket parameter.';
++            Logger::debug($message);
++
++            return new XmlResponse(
++                (string) $this->cas20Protocol->getValidateFailureResponse(C::ERR_INVALID_REQUEST, $message),
++                Response::HTTP_BAD_REQUEST,
++            );
++        }
++
+         try {
+             // Get the service ticket
+             // `getTicket` uses the unserializable method and Objects may throw "Throwables" in their

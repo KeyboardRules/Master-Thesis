@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-9369-69wj-7m2f",
+    "cve":  "CVE-2026-52777",
+    "cwe":  "CWE-502",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "8f70a8d6b8befa0e644d03c785701dbbc55b8fd0",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/actions/BazarImportAction.php",
+                        "tools/bazar/services/CSVManager.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tools/bazar/actions/BazarImportAction.php class extends YesWikiAction"
+                 ],
+    "changed_all":  [
+                        "tools/bazar/actions/BazarImportAction.php",
+                        "tools/bazar/services/CSVManager.php",
+                        "tools/bazar/templates/bazar-import.twig"
+                    ],
+    "sink_hit":  true
+}

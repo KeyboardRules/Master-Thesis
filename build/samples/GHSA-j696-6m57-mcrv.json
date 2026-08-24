@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j696-6m57-mcrv",
+    "cve":  "CVE-2017-14498",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "25b77a2ff8deabe8e8894002b9a5647eaec27b0a",
+    "status":  "ok",
+    "changed_php":  [
+                        "filesystem/File.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "filesystem/File.php class extends DataObject"
+                 ],
+    "changed_all":  [
+                        "filesystem/File.php"
+                    ],
+    "sink_hit":  false
+}

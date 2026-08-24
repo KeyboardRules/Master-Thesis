@@ -1,0 +1,328 @@
+﻿diff --git a/src/Core/Parser/Configuration.php b/src/Core/Parser/Configuration.php
+index 49850cf..33e0953 100644
+--- a/src/Core/Parser/Configuration.php
++++ b/src/Core/Parser/Configuration.php
+@@ -12,6 +12,10 @@ namespace TYPO3Fluid\Fluid\Core\Parser;
+  */
+ class Configuration
+ {
++    /**
++     * @var bool
++     */
++    protected $viewHelperArgumentEscapingEnabled = true;
+ 
+     /**
+      * Generic interceptors registered with the configuration.
+@@ -27,6 +31,22 @@ class Configuration
+      */
+     protected $escapingInterceptors = [];
+ 
++    /**
++     * @return bool
++     */
++    public function isViewHelperArgumentEscapingEnabled()
++    {
++        return $this->viewHelperArgumentEscapingEnabled;
++    }
++
++    /**
++     * @param bool $viewHelperArgumentEscapingEnabled
++     */
++    public function setViewHelperArgumentEscapingEnabled($viewHelperArgumentEscapingEnabled): void
++    {
++        $this->viewHelperArgumentEscapingEnabled = (bool) $viewHelperArgumentEscapingEnabled;
++    }
++
+     /**
+      * Adds an interceptor to apply to values coming from object accessors.
+      *
+diff --git a/src/Core/Parser/TemplateParser.php b/src/Core/Parser/TemplateParser.php
+index aee1c21..22be29c 100644
+--- a/src/Core/Parser/TemplateParser.php
++++ b/src/Core/Parser/TemplateParser.php
+@@ -489,7 +489,7 @@ class TemplateParser
+                 }
+                 $viewHelper = $viewHelperResolver->createViewHelperInstance($singleMatch['NamespaceIdentifier'], $singleMatch['MethodIdentifier']);
+                 if (strlen($singleMatch['ViewHelperArguments']) > 0) {
+-                    $arguments = $this->recursiveArrayHandler($singleMatch['ViewHelperArguments'], $viewHelper);
++                    $arguments = $this->recursiveArrayHandler($state, $singleMatch['ViewHelperArguments'], $viewHelper);
+                 } else {
+                     $arguments = [];
+                 }
+@@ -563,28 +563,43 @@ class TemplateParser
+         $undeclaredArguments = [];
+         $matches = [];
+         if (preg_match_all(Patterns::$SPLIT_PATTERN_TAGARGUMENTS, $argumentsString, $matches, PREG_SET_ORDER) > 0) {
+-            $escapingEnabledBackup = $this->escapingEnabled;
+-            $this->escapingEnabled = false;
+             foreach ($matches as $singleMatch) {
+                 $argument = $singleMatch['Argument'];
+                 $value = $this->unquoteString($singleMatch['ValueQuoted']);
+-                $argumentsObjectTree[$argument] = $this->buildArgumentObjectTree($value);
++                $escapingEnabledBackup = $this->escapingEnabled;
+                 if (isset($argumentDefinitions[$argument])) {
+                     $argumentDefinition = $argumentDefinitions[$argument];
+-                    if ($argumentDefinition->getType() === 'boolean' || $argumentDefinition->getType() === 'bool') {
++                    $this->escapingEnabled = $this->escapingEnabled && $this->isArgumentEscaped($viewHelper, $argumentDefinition);
++                    $isBoolean = $argumentDefinition->getType() === 'boolean' || $argumentDefinition->getType() === 'bool';
++                    $argumentsObjectTree[$argument] = $this->buildArgumentObjectTree($value);
++                    if ($isBoolean) {
+                         $argumentsObjectTree[$argument] = new BooleanNode($argumentsObjectTree[$argument]);
+                     }
+                 } else {
+-                    $undeclaredArguments[$argument] = $argumentsObjectTree[$argument];
++                    $this->escapingEnabled = false;
++                    $undeclaredArguments[$argument] = $this->buildArgumentObjectTree($value);
+                 }
++                $this->escapingEnabled = $escapingEnabledBackup;
+             }
+-            $this->escapingEnabled = $escapingEnabledBackup;
+         }
+         $this->abortIfRequiredArgumentsAreMissing($argumentDefinitions, $argumentsObjectTree);
+         $viewHelper->validateAdditionalArguments($undeclaredArguments);
+         return $argumentsObjectTree + $undeclaredArguments;
+     }
+ 
++    protected function isArgumentEscaped(ViewHelperInterface $viewHelper, ArgumentDefinition $argumentDefinition = null)
++    {
++        $hasDefinition = $argumentDefinition instanceof ArgumentDefinition;
++        $isBoolean = $hasDefinition && ($argumentDefinition->getType() === 'boolean' || $argumentDefinition->getType() === 'bool');
++        $escapingEnabled = $this->configuration->isViewHelperArgumentEscapingEnabled();
++        $isArgumentEscaped = $hasDefinition && $argumentDefinition->getEscape() === true;
++        $isContentArgument = $hasDefinition && method_exists($viewHelper, 'resolveContentArgumentName') && $argumentDefinition->getName() === $viewHelper->resolveContentArgumentName();
++        if ($isContentArgument) {
++            return !$isBoolean && ($viewHelper->isChildrenEscapingEnabled() || $isArgumentEscaped);
++        }
++        return !$isBoolean && $escapingEnabled && $isArgumentEscaped;
++    }
++
+     /**
+      * Build up an argument object tree for the string in $argumentString.
+      * This builds up the tree for a single argument value.
+@@ -664,7 +679,7 @@ class TemplateParser
+                 && preg_match(Patterns::$SCAN_PATTERN_SHORTHANDSYNTAX_ARRAYS, $section, $matchedVariables) > 0
+             ) {
+                 // We only match arrays if we are INSIDE viewhelper arguments
+-                $this->arrayHandler($state, $this->recursiveArrayHandler($matchedVariables['Array']));
++                $this->arrayHandler($state, $this->recursiveArrayHandler($state, $matchedVariables['Array']));
+             } else {
+                 // We ask custom ExpressionNode instances from ViewHelperResolver
+                 // if any match our expression:
+@@ -737,12 +752,13 @@ class TemplateParser
+      * - Variables
+      * - sub-arrays
+      *
++     * @param ParsingState $state
+      * @param string $arrayText Array text
+      * @param ViewHelperInterface|null $viewHelper ViewHelper instance - passed only if the array is a collection of arguments for an inline ViewHelper
+      * @return NodeInterface[] the array node built up
+      * @throws Exception
+      */
+-    protected function recursiveArrayHandler($arrayText, ViewHelperInterface $viewHelper = null)
++    protected function recursiveArrayHandler(ParsingState $state, $arrayText, ViewHelperInterface $viewHelper = null)
+     {
+         $undeclaredArguments = [];
+         $argumentDefinitions = [];
+@@ -755,14 +771,25 @@ class TemplateParser
+             foreach ($matches as $singleMatch) {
+                 $arrayKey = $this->unquoteString($singleMatch['Key']);
+                 $assignInto = &$arrayToBuild;
+-                if (!isset($argumentDefinitions[$arrayKey])) {
++                $isBoolean = false;
++                $argumentDefinition = null;
++                if (isset($argumentDefinitions[$arrayKey])) {
++                    $argumentDefinition = $argumentDefinitions[$arrayKey];
++                    $isBoolean = $argumentDefinitions[$arrayKey]->getType() === 'boolean' || $argumentDefinitions[$arrayKey]->getType() === 'bool';
++                } else {
+                     $assignInto = &$undeclaredArguments;
+                 }
+ 
++                $escapingEnabledBackup = $this->escapingEnabled;
++                $this->escapingEnabled = $this->escapingEnabled && $viewHelper instanceof ViewHelperInterface && $this->isArgumentEscaped($viewHelper, $argumentDefinition);
++
+                 if (array_key_exists('Subarray', $singleMatch) && !empty($singleMatch['Subarray'])) {
+-                    $assignInto[$arrayKey] = new ArrayNode($this->recursiveArrayHandler($singleMatch['Subarray']));
++                    $assignInto[$arrayKey] = new ArrayNode($this->recursiveArrayHandler($state, $singleMatch['Subarray']));
+                 } elseif (!empty($singleMatch['VariableIdentifier'])) {
+                     $assignInto[$arrayKey] = new ObjectAccessorNode($singleMatch['VariableIdentifier']);
++                    if ($viewHelper instanceof ViewHelperInterface && !$isBoolean) {
++                        $this->callInterceptor($assignInto[$arrayKey], InterceptorInterface::INTERCEPT_OBJECTACCESSOR, $state);
++                    }
+                 } elseif (array_key_exists('Number', $singleMatch) && (!empty($singleMatch['Number']) || $singleMatch['Number'] === '0')) {
+                     // Note: this method of casting picks "int" when value is a natural number and "float" if any decimals are found. See also NumericNode.
+                     $assignInto[$arrayKey] = $singleMatch['Number'] + 0;
+@@ -771,9 +798,11 @@ class TemplateParser
+                     $assignInto[$arrayKey] = $this->buildArgumentObjectTree($argumentString);
+                 }
+ 
+-                if (isset($argumentDefinitions[$arrayKey]) && ($argumentDefinitions[$arrayKey]->getType() === 'boolean' || $argumentDefinitions[$arrayKey]->getType() === 'bool')) {
++                if ($isBoolean) {
+                     $assignInto[$arrayKey] = new BooleanNode($assignInto[$arrayKey]);
+                 }
++
++                $this->escapingEnabled = $escapingEnabledBackup;
+             }
+         }
+         if ($viewHelper instanceof ViewHelperInterface) {
+diff --git a/src/Core/ViewHelper/AbstractConditionViewHelper.php b/src/Core/ViewHelper/AbstractConditionViewHelper.php
+index debffb7..54fe132 100644
+--- a/src/Core/ViewHelper/AbstractConditionViewHelper.php
++++ b/src/Core/ViewHelper/AbstractConditionViewHelper.php
+@@ -42,8 +42,8 @@ abstract class AbstractConditionViewHelper extends AbstractViewHelper
+      */
+     public function initializeArguments()
+     {
+-        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition if met.', false);
+-        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition if not met.', false);
++        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition if met.', false, null, true);
++        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition if not met.', false, null, true);
+     }
+ 
+     /**
+diff --git a/src/Core/ViewHelper/AbstractViewHelper.php b/src/Core/ViewHelper/AbstractViewHelper.php
+index 975ecc2..8edd703 100644
+--- a/src/Core/ViewHelper/AbstractViewHelper.php
++++ b/src/Core/ViewHelper/AbstractViewHelper.php
+@@ -158,11 +158,12 @@ abstract class AbstractViewHelper implements ViewHelperInterface
+      * @param string $description Description of the argument
+      * @param boolean $required If TRUE, argument is required. Defaults to FALSE.
+      * @param mixed $defaultValue Default value of argument
++     * @param bool|null $escape Can be toggled to TRUE to force escaping of variables and inline syntax passed as argument value.
+      * @return \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper $this, to allow chaining.
+      * @throws Exception
+      * @api
+      */
+-    protected function registerArgument($name, $type, $description, $required = false, $defaultValue = null)
++    protected function registerArgument($name, $type, $description, $required = false, $defaultValue = null, $escape = null)
+     {
+         if (array_key_exists($name, $this->argumentDefinitions)) {
+             throw new Exception(
+@@ -170,7 +171,7 @@ abstract class AbstractViewHelper implements ViewHelperInterface
+                 1253036401
+             );
+         }
+-        $this->argumentDefinitions[$name] = new ArgumentDefinition($name, $type, $description, $required, $defaultValue);
++        $this->argumentDefinitions[$name] = new ArgumentDefinition($name, $type, $description, $required, $defaultValue, $escape);
+         return $this;
+     }
+ 
+@@ -184,11 +185,12 @@ abstract class AbstractViewHelper implements ViewHelperInterface
+      * @param string $description Description of the argument
+      * @param boolean $required If TRUE, argument is required. Defaults to FALSE.
+      * @param mixed $defaultValue Default value of argument
++     * @param bool|null $escape Can be toggled to TRUE to force escaping of variables and inline syntax passed as argument value.
+      * @return \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper $this, to allow chaining.
+      * @throws Exception
+      * @api
+      */
+-    protected function overrideArgument($name, $type, $description, $required = false, $defaultValue = null)
++    protected function overrideArgument($name, $type, $description, $required = false, $defaultValue = null, $escape = null)
+     {
+         if (!array_key_exists($name, $this->argumentDefinitions)) {
+             throw new Exception(
+@@ -196,7 +198,7 @@ abstract class AbstractViewHelper implements ViewHelperInterface
+                 1279212461
+             );
+         }
+-        $this->argumentDefinitions[$name] = new ArgumentDefinition($name, $type, $description, $required, $defaultValue);
++        $this->argumentDefinitions[$name] = new ArgumentDefinition($name, $type, $description, $required, $defaultValue, $escape);
+         return $this;
+     }
+ 
+diff --git a/src/Core/ViewHelper/ArgumentDefinition.php b/src/Core/ViewHelper/ArgumentDefinition.php
+index 13933b8..2f85b02 100644
+--- a/src/Core/ViewHelper/ArgumentDefinition.php
++++ b/src/Core/ViewHelper/ArgumentDefinition.php
+@@ -47,6 +47,21 @@ class ArgumentDefinition
+      */
+     protected $defaultValue = null;
+ 
++    /**
++     * Escaping instruction, in line with $this->escapeOutput / $this->escapeChildren on ViewHelpers.
++     *
++     * A value of NULL means "use default behavior" (which is to escape nodes contained in the value).
++     *
++     * A value of TRUE means "escape unless escaping is disabled" (e.g. if argument is used in a ViewHelper nested
++     * within f:format.raw which disables escaping, the argument will not be escaped).
++     *
++     * A value of FALSE means "never escape argument" (as in behavior of f:format.raw, which supports both passing
++     * argument as actual argument or as tag content, but wants neither to be escaped).
++     *
++     * @var bool|null
++     */
++    protected $escape = null;
++
+     /**
+      * Constructor for this argument definition.
+      *
+@@ -55,14 +70,16 @@ class ArgumentDefinition
+      * @param string $description Description of argument
+      * @param boolean $required TRUE if argument is required
+      * @param mixed $defaultValue Default value
++     * @param bool|null $escape Whether or not argument is escaped, or uses default escaping behavior (see class var comment)
+      */
+-    public function __construct($name, $type, $description, $required, $defaultValue = null)
++    public function __construct($name, $type, $description, $required, $defaultValue = null, $escape = null)
+     {
+         $this->name = $name;
+         $this->type = $type;
+         $this->description = $description;
+         $this->required = $required;
+         $this->defaultValue = $defaultValue;
++        $this->escape = $escape;
+     }
+ 
+     /**
+@@ -114,4 +131,12 @@ class ArgumentDefinition
+     {
+         return $this->defaultValue;
+     }
++
++    /**
++     * @return bool|null
++     */
++    public function getEscape()
++    {
++        return $this->escape;
++    }
+ }
+diff --git a/src/Core/ViewHelper/TagBuilder.php b/src/Core/ViewHelper/TagBuilder.php
+index 6916696..2c845ed 100644
+--- a/src/Core/ViewHelper/TagBuilder.php
++++ b/src/Core/ViewHelper/TagBuilder.php
+@@ -191,6 +191,9 @@ class TagBuilder
+      */
+     public function addAttribute($attributeName, $attributeValue, $escapeSpecialCharacters = true)
+     {
++        if ($escapeSpecialCharacters) {
++            $attributeName = htmlspecialchars($attributeName);
++        }
+         if ($attributeName === 'data' && (is_array($attributeValue) || $attributeValue instanceof \Traversable)) {
+             foreach ($attributeValue as $name => $value) {
+                 $this->addAttribute('data-' . $name, $value, $escapeSpecialCharacters);
+diff --git a/src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php b/src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php
+index b5567db..d379578 100644
+--- a/src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php
++++ b/src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php
+@@ -116,7 +116,7 @@ trait CompileWithContentArgumentAndRenderStatic
+     /**
+      * @return string
+      */
+-    protected function resolveContentArgumentName()
++    public function resolveContentArgumentName()
+     {
+         if (empty($this->contentArgumentName)) {
+             $registeredArguments = call_user_func_array([$this, 'prepareArguments'], []);
+diff --git a/src/ViewHelpers/Format/RawViewHelper.php b/src/ViewHelpers/Format/RawViewHelper.php
+index 812a519..b80c082 100644
+--- a/src/ViewHelpers/Format/RawViewHelper.php
++++ b/src/ViewHelpers/Format/RawViewHelper.php
+@@ -64,7 +64,7 @@ class RawViewHelper extends AbstractViewHelper
+      */
+     public function initializeArguments()
+     {
+-        $this->registerArgument('value', 'mixed', 'The value to output');
++        $this->registerArgument('value', 'mixed', 'The value to output', false, null, false);
+     }
+ 
+     /**

@@ -1,0 +1,31 @@
+﻿diff --git a/ext/RunProcess.php b/ext/RunProcess.php
+index 7227e88..f30b3d7 100644
+--- a/ext/RunProcess.php
++++ b/ext/RunProcess.php
+@@ -102,4 +102,26 @@ class RunProcess extends Extension
+         }
+         $this->processes = [];
+     }
++
++    /**
++     * Disable the deserialization of the class to prevent attacker executing
++     * code by leveraging the __destruct method.
++     *
++     * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
++     */
++    public function __sleep()
++    {
++        throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
++    }
++
++    /**
++     * Disable the deserialization of the class to prevent attacker executing
++     * code by leveraging the __destruct method.
++     *
++     * @see https://owasp.org/www-community/vulnerabilities/PHP_Object_Injection
++     */
++    public function __wakeup()
++    {
++        throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
++    }
+ }

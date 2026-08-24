@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-gvpp-6jrj-5pqc",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "zendframework/zend-form",
+    "fix_commit":  "6fe40314e8e3477494aadd03d62573bd1c212bd1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/View/Helper/AbstractHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 16 php files",
+                     "src/View/Helper/AbstractHelper.php class extends BaseAbstractHelper",
+                     "test/View/Helper/Captcha/DumbTest.php class extends CommonTestCase",
+                     "test/View/Helper/Captcha/FigletTest.php class extends CommonTestCase",
+                     "test/View/Helper/Captcha/ImageTest.php class extends CommonTestCase",
+                     "test/View/Helper/CommonTestCase.php class extends TestCase",
+                     "test/View/Helper/FormCaptchaTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormCollectionTest.php class extends TestCase",
+                     "test/View/Helper/FormFileTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormInputTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormMultiCheckboxTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormResetTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormRowTest.php class extends TestCase",
+                     "test/View/Helper/FormSelectTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormSubmitTest.php class extends CommonTestCase",
+                     "test/View/Helper/FormTest.php class extends CommonTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

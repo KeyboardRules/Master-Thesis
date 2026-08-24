@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9952-gv64-x94c",
+    "cve":  "CVE-2025-54418",
+    "cwe":  "CWE-78",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "fix_commit":  "e18120bff1da691e1d15ffc1bf553ae7411762c0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/Images/Handlers/ImageMagickHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "system/Images/Handlers/ImageMagickHandler.php class extends BaseHandler",
+                     "tests/system/Images/ImageMagickHandlerTest.php class extends CIUnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

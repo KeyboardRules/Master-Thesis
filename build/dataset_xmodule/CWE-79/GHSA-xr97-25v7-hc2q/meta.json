@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-xr97-25v7-hc2q",
+    "cve":  "CVE-2025-55742",
+    "cwe":  "CWE-79",
+    "repo":  "unopim/unopim",
+    "fix_commit":  "49d5f6ac4d5d9ef7d9cdfe01853234d531c55f75",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php",
+                        "packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php",
+                        "packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php",
+                        "packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "packages/Webkul/Admin/src/Http/Controllers/Settings/DataTransfer/ImportController.php class extends Controller",
+                     "packages/Webkul/Admin/src/Http/Controllers/Settings/UserController.php class extends Controller",
+                     "packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/CategoryJobValidator.php class extends JobValidator",
+                     "packages/Webkul/DataTransfer/src/Validators/JobInstances/Import/ProductJobValidator.php class extends JobValidator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

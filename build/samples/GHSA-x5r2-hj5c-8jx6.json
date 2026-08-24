@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-x5r2-hj5c-8jx6",
+    "cve":  "CVE-2021-21311",
+    "cwe":  "CWE-918",
+    "repo":  "vrana/adminer",
+    "sha":  "ccd2374b0b12bd547417bf0dacdf153826c83351",
+    "status":  "ok",
+    "changed_php":  [
+                        "adminer/drivers/clickhouse.inc.php",
+                        "adminer/drivers/elastic.inc.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "adminer/drivers/clickhouse.inc.php class extends Min_SQL",
+                     "adminer/drivers/elastic.inc.php class extends Min_SQL",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "adminer/drivers/clickhouse.inc.php",
+                        "adminer/drivers/elastic.inc.php",
+                        "changes.txt"
+                    ],
+    "sink_hit":  true
+}

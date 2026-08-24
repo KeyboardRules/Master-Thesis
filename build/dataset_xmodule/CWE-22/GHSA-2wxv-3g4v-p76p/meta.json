@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2wxv-3g4v-p76p",
+    "cve":  "CVE-2006-3360",
+    "cwe":  "CWE-22",
+    "repo":  "phpsysinfo/phpsysinfo",
+    "fix_commit":  "60b5bbb5d1cc17f44050e99a3e746f55a4fd4e18",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "language/language.php"
+                    ],
+    "evidence":  [
+                     "language/language.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

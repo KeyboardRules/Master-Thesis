@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-w8cj-mvf9-mpc9",
+    "cve":  "CVE-2020-28925",
+    "cwe":  "CWE-78",
+    "repo":  "bolt/bolt",
+    "fix_commit":  "c0cd530e78c2a8c6d71ceb75b10c251b39fb923a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Twig/ArrayAccessSecurityProxy.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/Twig/ArrayAccessSecurityProxy.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

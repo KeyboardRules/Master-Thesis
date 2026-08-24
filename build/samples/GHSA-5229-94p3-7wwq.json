@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-5229-94p3-7wwq",
+    "cve":  "CVE-2022-36745",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "e5c91a0f835d59e058d9d3e4956e079476d59ee6",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/tools/oxidized-cfg-check.inc.php",
+                        "includes/html/print-customoid.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/html/print-customoid.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/tools/oxidized-cfg-check.inc.php",
+                        "includes/html/print-customoid.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-q7g6-xfh2-vhpx",
+    "cve":  "CVE-2024-27300",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpMyFAQ",
+    "fix_commit":  "09336b0ff0e0a04aa0c97c5975651af4769d2459",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpmyfaq/admin/user.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/admin/user.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

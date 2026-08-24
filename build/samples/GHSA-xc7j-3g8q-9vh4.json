@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-xc7j-3g8q-9vh4",
+    "cve":  "CVE-2026-52772",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "5d1a4d07fecb0706f33e5dfbbe6ff5ef1892b2a7",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/bazar/fields/BazarField.php",
+                        "tools/bazar/fields/BookmarkletField.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tools/bazar/fields/BookmarkletField.php class extends BazarField"
+                 ],
+    "changed_all":  [
+                        "tools/bazar/fields/BazarField.php",
+                        "tools/bazar/fields/BookmarkletField.php",
+                        "tools/bazar/templates/entries/index/_export_buttons.twig",
+                        "tools/bazar/templates/inputs/bookmarklet.twig",
+                        "tools/bazar/templates/inputs/email.twig",
+                        "tools/bazar/templates/inputs/range.twig",
+                        "tools/bazar/templates/inputs/textarea.twig",
+                        "tools/bazar/templates/inputs/user.twig",
+                        "tools/bazar/templates/layouts/input.twig",
+                        "tools/bazar/templates/trombinoscope.twig"
+                    ],
+    "sink_hit":  true
+}

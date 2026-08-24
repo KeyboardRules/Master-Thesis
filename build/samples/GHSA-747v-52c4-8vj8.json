@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-747v-52c4-8vj8",
+    "cve":  "CVE-2024-28191",
+    "cwe":  "CWE-74",
+    "repo":  "contao/contao",
+    "sha":  "388859dcf110ca70e0fae68a2a5579ab6a702919",
+    "status":  "ok",
+    "changed_php":  [
+                        "core-bundle/src/Resources/contao/library/Contao/Input.php",
+                        "core-bundle/src/String/SimpleTokenParser.php",
+                        "core-bundle/tests/String/SimpleTokenParserTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "core-bundle/src/String/SimpleTokenParser.php class uses trait",
+                     "core-bundle/tests/String/SimpleTokenParserTest.php class extends TestCase",
+                     "core-bundle/tests/String/SimpleTokenParserTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "core-bundle/src/Resources/contao/library/Contao/Input.php",
+                        "core-bundle/src/String/SimpleTokenParser.php",
+                        "core-bundle/tests/String/SimpleTokenParserTest.php"
+                    ],
+    "sink_hit":  false
+}

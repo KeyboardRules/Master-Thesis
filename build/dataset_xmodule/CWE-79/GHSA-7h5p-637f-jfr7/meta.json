@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-7h5p-637f-jfr7",
+    "cve":  "CVE-2026-55691",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenWiki/mediawiki-extensions-EmbedVideo",
+    "fix_commit":  "370156335b325bb81d14d89edf0a1f2643d50a84",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "includes/EmbedService/EmbedHtmlFormatter.php",
+                        "includes/EmbedVideo.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "tests/phpunit/EmbedService/EmbedHtmlFormatterTest.php class extends MediaWikiIntegrationTestCase",
+                     "tests/phpunit/EmbedService/VkTest.php class extends MediaWikiIntegrationTestCase",
+                     "tests/phpunit/EmbedVideoTest.php class extends MediaWikiIntegrationTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

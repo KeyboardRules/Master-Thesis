@@ -1,0 +1,16 @@
+﻿diff --git a/src/Loader/FilesystemLoader.php b/src/Loader/FilesystemLoader.php
+index 1912e05..7bcdae4 100644
+--- a/src/Loader/FilesystemLoader.php
++++ b/src/Loader/FilesystemLoader.php
+@@ -221,9 +221,9 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
+         }
+ 
+         try {
+-            $this->validateName($name);
+-
+             list($namespace, $shortname) = $this->parseName($name);
++
++            $this->validateName($shortname);
+         } catch (LoaderError $e) {
+             if (!$throw) {
+                 return false;

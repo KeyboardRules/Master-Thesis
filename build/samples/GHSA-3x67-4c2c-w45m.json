@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-3x67-4c2c-w45m",
+    "cve":  "CVE-2026-32813",
+    "cwe":  "CWE-89",
+    "repo":  "Admidio/admidio",
+    "sha":  "3473bf5a7aa1bfc5043e73979719396276f4189f",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/groups-roles/mylist.php",
+                        "src/Roles/Entity/ListConfiguration.php",
+                        "src/Roles/ValueObject/ConditionParser.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/groups-roles/mylist.php includes 2 project file(s)",
+                     "src/Roles/Entity/ListConfiguration.php class extends Entity"
+                 ],
+    "changed_all":  [
+                        "modules/groups-roles/mylist.php",
+                        "src/Roles/Entity/ListConfiguration.php",
+                        "src/Roles/ValueObject/ConditionParser.php"
+                    ],
+    "sink_hit":  true
+}

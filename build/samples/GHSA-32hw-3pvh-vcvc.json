@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-32hw-3pvh-vcvc",
+    "cve":  "CVE-2021-27909",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "942cb6992df619fdf1c181bfad9e25d5d4178b6f",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Controller/CommonController.php",
+                        "app/bundles/UserBundle/Tests/Functional/Controller/PublicControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/CoreBundle/Controller/CommonController.php class extends Controller",
+                     "app/bundles/CoreBundle/Controller/CommonController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Controller/CommonController.php",
+                        "app/bundles/UserBundle/Tests/Functional/Controller/PublicControllerTest.php"
+                    ],
+    "sink_hit":  true
+}

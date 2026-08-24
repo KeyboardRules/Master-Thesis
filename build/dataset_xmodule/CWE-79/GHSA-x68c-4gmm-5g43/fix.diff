@@ -1,0 +1,48 @@
+﻿diff --git a/src/Twig/Runtime/MarkdownExtension.php b/src/Twig/Runtime/MarkdownExtension.php
+index c73e8ee..3187796 100644
+--- a/src/Twig/Runtime/MarkdownExtension.php
++++ b/src/Twig/Runtime/MarkdownExtension.php
+@@ -61,7 +61,7 @@ final class MarkdownExtension implements RuntimeExtensionInterface
+         }
+ 
+         if ($this->isMarkdownEnabled()) {
+-            $content = $this->markdown->toHtml($content, false);
++            $content = $this->markdown->toHtml($content);
+         } elseif ($fullLength) {
+             $content = '<p>' . nl2br($content) . '</p>';
+         }
+@@ -112,7 +112,7 @@ final class MarkdownExtension implements RuntimeExtensionInterface
+         }
+ 
+         if ($this->isMarkdownEnabled()) {
+-            return $this->markdown->toHtml($content, false);
++            return $this->markdown->toHtml($content);
+         }
+ 
+         return nl2br($content);
+@@ -126,6 +126,6 @@ final class MarkdownExtension implements RuntimeExtensionInterface
+      */
+     public function markdownToHtml(string $content): string
+     {
+-        return $this->markdown->toHtml($content, false);
++        return $this->markdown->toHtml($content);
+     }
+ }
+diff --git a/src/Utils/Markdown.php b/src/Utils/Markdown.php
+index 0988e7c..5f21a10 100644
+--- a/src/Utils/Markdown.php
++++ b/src/Utils/Markdown.php
+@@ -33,7 +33,12 @@ final class Markdown
+      */
+     public function toHtml(string $text, bool $safe = true): string
+     {
+-        $this->parser->setSafeMode($safe);
++        if ($safe !== true) {
++            @trigger_error('Only safe mode is supported in Markdown since 1.16.3 to prevent XSS attacks. Parameter $safe will be removed with 2.0', E_USER_DEPRECATED);
++        }
++
++        $this->parser->setSafeMode(true);
++        $this->parser->setMarkupEscaped(true);
+ 
+         return $this->parser->text($text);
+     }

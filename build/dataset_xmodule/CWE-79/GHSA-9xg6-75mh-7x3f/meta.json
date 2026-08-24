@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9xg6-75mh-7x3f",
+    "cve":  "CVE-2023-2361",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "6970649f5d3790a1db9ef4324bece0d4cb95366a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/Security/SecurityHelper.php",
+                        "models/Document/Editable/Link.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "models/Document/Editable/Link.php class extends Model\\Document\\Editable"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

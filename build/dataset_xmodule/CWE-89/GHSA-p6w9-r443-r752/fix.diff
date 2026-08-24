@@ -1,0 +1,17 @@
+﻿diff --git a/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php b/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
+index 3abf5284..3994a479 100644
+--- a/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
++++ b/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
+@@ -199,6 +199,12 @@ class AggregationParser
+             return null;
+         }
+ 
++        if (str_contains($name, '?') || str_contains($name, ':')) {
++            $exceptions->add(new InvalidAggregationQueryException('The aggregation name should not contain a question mark or colon.'), '/aggregations/' . $index);
++
++            return null;
++        }
++
+         $type = $aggregation['type'] ?? null;
+ 
+         if (!\is_string($type) || empty($type) || is_numeric($type)) {

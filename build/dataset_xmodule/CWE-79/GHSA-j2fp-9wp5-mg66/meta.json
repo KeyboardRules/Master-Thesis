@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-j2fp-9wp5-mg66",
+    "cve":  "CVE-2017-1000442",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "fix_commit":  "f5eb93485a90195439e12aa8072f45ceb37b19c3",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Console/Command/Task/ModelTask.php",
+                        "app/Plugin/DataTests/Console/Command/Task/ResourceTask.php",
+                        "app/tmp/swagger/info.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Console/Command/Task/ModelTask.php class extends AppShell",
+                     "app/Plugin/DataTests/Console/Command/Task/ResourceTask.php includes 1 project file(s)",
+                     "app/Plugin/DataTests/Console/Command/Task/ResourceTask.php class extends ModelTask"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-7cvr-xhm5-x998",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "fabpot/Twig",
+    "fix_commit":  "3d19a2eed53570776af313593aaeb5ad62cf4980",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/Twig/Loader/Filesystem.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/Twig/Tests/Loader/FilesystemTest.php class extends PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

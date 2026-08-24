@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-mm79-jhqm-9j54",
+    "cve":  "CVE-2023-47125",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "sha":  "b8f90717251d968c49dc77f8c1e5912e2fbe0dff",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Behavior.php",
+                        "src/Builder/CommonBuilder.php",
+                        "src/Visitor/CommonVisitor.php",
+                        "tests/CommonBuilderTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Visitor/CommonVisitor.php class extends AbstractVisitor",
+                     "src/Visitor/CommonVisitor.php class uses trait",
+                     "tests/CommonBuilderTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Behavior.php",
+                        "src/Builder/CommonBuilder.php",
+                        "src/Visitor/CommonVisitor.php",
+                        "tests/CommonBuilderTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2gr4-ppc7-7mhx",
+    "cve":  "CVE-2026-48062",
+    "cwe":  "CWE-434",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "fix_commit":  "29299349e7d232e9532767c7cefaed30957309be",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "system/Validation/StrictRules/FileRules.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/system/Validation/StrictRules/FileRulesTest.php class extends CIUnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

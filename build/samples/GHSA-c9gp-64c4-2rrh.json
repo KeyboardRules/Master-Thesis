@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c9gp-64c4-2rrh",
+    "cve":  "CVE-2024-28116",
+    "cwe":  "CWE-1336",
+    "repo":  "getgrav/grav",
+    "sha":  "4149c81339274130742831422de2685f298f3a6e",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "sink_hit":  false
+}

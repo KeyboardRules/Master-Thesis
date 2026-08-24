@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-x8g9-h984-pc36",
+    "cve":  "CVE-2026-49359",
+    "cwe":  "CWE-918",
+    "repo":  "pontedilana/php-weasyprint",
+    "sha":  "9582dcf119a405276cf55e9e10bc577a887792cb",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Pdf.php",
+                        "tests/Unit/PdfTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Pdf.php class extends AbstractGenerator",
+                     "tests/Unit/PdfTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "README.md",
+                        "src/Pdf.php",
+                        "tests/Unit/PdfTest.php"
+                    ],
+    "sink_hit":  true
+}

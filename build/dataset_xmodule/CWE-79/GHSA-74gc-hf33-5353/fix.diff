@@ -1,0 +1,113 @@
+﻿diff --git a/src/Backend/Modules/Pages/Actions/Edit.php b/src/Backend/Modules/Pages/Actions/Edit.php
+index 5fadc0c3..d5302ed0 100644
+--- a/src/Backend/Modules/Pages/Actions/Edit.php
++++ b/src/Backend/Modules/Pages/Actions/Edit.php
+@@ -195,6 +195,7 @@ class Edit extends BackendBaseActionEdit
+             ['[edited_on]'],
+             'edited_on'
+         );
++        $this->dgDrafts->setColumnFunction('htmlspecialchars', ['[title]'], 'title');
+ 
+         // our JS needs to know an id, so we can highlight it
+         $this->dgDrafts->setRowAttributes(['id' => 'row-[revision_id]']);
+@@ -600,6 +601,7 @@ class Edit extends BackendBaseActionEdit
+             ['[edited_on]'],
+             'edited_on'
+         );
++        $this->dgRevisions->setColumnFunction('htmlspecialchars', ['[title]'], 'title');
+ 
+         // check if this action is allowed
+         if (BackendAuthentication::isAllowedAction('Edit')) {
+diff --git a/src/Backend/Modules/Pages/Engine/Model.php b/src/Backend/Modules/Pages/Engine/Model.php
+index 189b6b23..6cdc70e9 100644
+--- a/src/Backend/Modules/Pages/Engine/Model.php
++++ b/src/Backend/Modules/Pages/Engine/Model.php
+@@ -310,7 +310,7 @@ class Model
+             // loop elements
+             foreach ($navigation[$navigationType][$depth][$parentId] as $key => $aValue) {
+                 $html .= "\t<li>" . "\n";
+-                $html .= "\t\t" . '<a href="#">' . $aValue['navigation_title'] . '</a>' . "\n";
++                $html .= "\t\t" . '<a href="#">' . htmlspecialchars($aValue['navigation_title']) . '</a>' . "\n";
+ 
+                 // insert recursive here!
+                 if (isset($navigation[$navigationType][$depth + 1][$key])) {
+@@ -676,7 +676,7 @@ class Model
+                 $sequences[$page['type'] === 'footer' ? 'footer' : 'pages'][$keys[$pageID]] = $pageID;
+ 
+                 $parentTitle = str_replace([$homepageTitle . ' → ', $homepageTitle], '', $titles[$parentID] ?? '');
+-                $titles[$pageID] = trim($parentTitle . ' → ' . $page['title'], ' → ');
++                $titles[$pageID] = htmlspecialchars(trim($parentTitle . ' → ' . $page['title'], ' → '));
+             }
+         }
+ 
+@@ -706,7 +706,7 @@ class Model
+ 
+         foreach ($navigation['page'][$parentId] as $page) {
+             $pageId = $page['page_id'];
+-            $pageTitle = $parentTitle . ' → ' . $page['navigation_title'];
++            $pageTitle = htmlspecialchars($parentTitle . ' → ' . $page['navigation_title']);
+             $tree['pages'][$pageId] = $pageTitle;
+             $tree['attributes'][$pageId] = $attributesFunction($page);
+ 
+@@ -844,7 +844,7 @@ class Model
+                     null,
+                     null,
+                     ['id' => $page['page_id']]
+-                ) . '"><ins>&#160;</ins>' . $page['navigation_title'] . '</a>' . "\n";
++                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+ 
+                 // get childs
+                 $html .= self::getSubtree($navigation, $page['page_id']);
+@@ -971,7 +971,7 @@ class Model
+                         null,
+                         null,
+                         ['id' => $page['page_id']]
+-                    ) . '"><ins>&#160;</ins>' . $page['navigation_title'] . '</a>' . "\n";
++                    ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+ 
+                     // insert subtree
+                     $html .= self::getSubtree($navigation, $page['page_id']);
+@@ -1006,7 +1006,7 @@ class Model
+                     null,
+                     null,
+                     ['id' => $page['page_id']]
+-                ) . '"><ins>&#160;</ins>' . $page['navigation_title'] . '</a>' . "\n";
++                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+ 
+                 // insert subtree
+                 $html .= self::getSubtree($navigation, $page['page_id']);
+@@ -1040,7 +1040,7 @@ class Model
+                     null,
+                     null,
+                     ['id' => $page['page_id']]
+-                ) . '"><ins>&#160;</ins>' . $page['navigation_title'] . '</a>' . "\n";
++                ) . '"><ins>&#160;</ins>' . htmlspecialchars($page['navigation_title']) . '</a>' . "\n";
+ 
+                 // insert subtree
+                 $html .= self::getSubtree($navigation, $page['page_id']);
+diff --git a/src/Frontend/Core/Header/MetaData.php b/src/Frontend/Core/Header/MetaData.php
+index d1a16538..7d09f505 100644
+--- a/src/Frontend/Core/Header/MetaData.php
++++ b/src/Frontend/Core/Header/MetaData.php
+@@ -116,7 +116,7 @@ final class MetaData
+             ' ',
+             array_map(
+                 function (string $parameterKey, string $parameterValue) {
+-                    return $parameterKey . '="' . $parameterValue . '"';
++                    return $parameterKey . '="' . htmlspecialchars($parameterValue) . '"';
+                 },
+                 array_keys($this->attributes),
+                 $this->attributes
+diff --git a/src/Frontend/Core/Header/MetaLink.php b/src/Frontend/Core/Header/MetaLink.php
+index 29eb994a..c5d1eb59 100644
+--- a/src/Frontend/Core/Header/MetaLink.php
++++ b/src/Frontend/Core/Header/MetaLink.php
+@@ -110,7 +110,7 @@ final class MetaLink
+             ' ',
+             array_map(
+                 function (string $parameterKey, string $parameterValue) {
+-                    return $parameterKey . '="' . $parameterValue . '"';
++                    return $parameterKey . '="' . htmlspecialchars($parameterValue) . '"';
+                 },
+                 array_keys($this->attributes),
+                 $this->attributes

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-m7v2-7gxm-vc2v",
+    "cve":  "CVE-2026-45077",
+    "cwe":  "CWE-502",
+    "repo":  "symfony/symfony",
+    "fix_commit":  "0891b2f293896c488e26943dc034334364b77fc4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+                        "src/Symfony/Bridge/Monolog/Handler/ServerLogHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php class extends Command",
+                     "src/Symfony/Bridge/Monolog/Handler/ServerLogHandler.php class extends AbstractProcessingHandler",
+                     "src/Symfony/Bridge/Monolog/Handler/ServerLogHandler.php class uses trait",
+                     "src/Symfony/Bridge/Monolog/Tests/Formatter/ConsoleFormatterTest.php class extends TestCase",
+                     "src/Symfony/Bridge/Monolog/Tests/Handler/ServerLogHandlerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

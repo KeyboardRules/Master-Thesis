@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9278-6hcj-2p4j",
+    "cve":  "CVE-2019-25317",
+    "cwe":  "CWE-79",
+    "repo":  "kimai/kimai",
+    "fix_commit":  "a0e8aa3a435717187fb12210242dab1b7c97ff3f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Twig/MarkdownExtension.php"
+                    ],
+    "evidence":  [
+                     "src/Twig/MarkdownExtension.php class extends AbstractExtension"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

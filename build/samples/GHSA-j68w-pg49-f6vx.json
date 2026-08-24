@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j68w-pg49-f6vx",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "symfony/serializer",
+    "sha":  "0943a06a663b573d7319fc1acd56d3484eaaa430",
+    "status":  "ok",
+    "changed_php":  [
+                        "Encoder/XmlEncoder.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Encoder/XmlEncoder.php class extends SerializerAwareEncoder"
+                 ],
+    "changed_all":  [
+                        "Encoder/XmlEncoder.php"
+                    ],
+    "sink_hit":  true
+}

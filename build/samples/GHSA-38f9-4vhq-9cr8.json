@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-38f9-4vhq-9cr8",
+    "cve":  "CVE-2021-3291",
+    "cwe":  "CWE-78",
+    "repo":  "zencart/zencart",
+    "sha":  "7447627f7148b11c614f89dab4a09d3f102b58af",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/modules.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/modules.php includes 7 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/modules.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-952p-fqcp-g8pc",
+    "cve":  "CVE-2022-24746",
+    "cwe":  "CWE-79",
+    "repo":  "shopware/platform",
+    "fix_commit":  "651598a61073cbe59368e311817bdc6e7fb349c6",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Core/Checkout/Cart/LineItemFactoryHandler/PromotionLineItemFactory.php",
+                        "src/Core/Checkout/Promotion/Cart/PromotionCollector.php",
+                        "src/Storefront/Controller/CartLineItemController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Core/Checkout/Promotion/Cart/PromotionCollector.php class uses trait",
+                     "src/Storefront/Controller/CartLineItemController.php class extends StorefrontController",
+                     "src/Storefront/Test/Controller/CartLineItemControllerTest.php class extends TestCase",
+                     "src/Storefront/Test/Controller/CartLineItemControllerTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

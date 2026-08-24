@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-g996-q5r8-w7g2",
+    "cve":  "CVE-2019-10909",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/symfony",
+    "sha":  "ab4d05358c3d0dd1a36fc8c306829f68e3dd84e2",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/choice_widget_collapsed.html.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_errors.html.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_start.html.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/choice_widget_collapsed.html.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_errors.html.php",
+                        "src/Symfony/Bundle/FrameworkBundle/Resources/views/Form/form_start.html.php"
+                    ],
+    "sink_hit":  true
+}

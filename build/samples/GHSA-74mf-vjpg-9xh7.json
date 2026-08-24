@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-74mf-vjpg-9xh7",
+    "cve":  "CVE-2015-2171",
+    "cwe":  "CWE-94",
+    "repo":  "slimphp/Slim",
+    "sha":  "9fa651474eb4d3bb0ce40dd5a55c51bb861c2658",
+    "status":  "ok",
+    "changed_php":  [
+                        "Slim/Middleware/SessionCookie.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Slim/Middleware/SessionCookie.php class extends \\Slim\\Middleware",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "Slim/Middleware/SessionCookie.php"
+                    ],
+    "sink_hit":  false
+}

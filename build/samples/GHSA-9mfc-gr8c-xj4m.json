@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9mfc-gr8c-xj4m",
+    "cve":  "CVE-2018-16638",
+    "cwe":  "CWE-79",
+    "repo":  "evolution-cms/evolution",
+    "sha":  "b59d1f57be37ab752d65be4bc4d3546c36b69415",
+    "status":  "ok",
+    "changed_php":  [
+                        "manager/actions/search.static.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "manager/actions/search.static.php"
+                    ],
+    "sink_hit":  true
+}

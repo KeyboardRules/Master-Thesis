@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-43c9-gw4x-pcx6",
+    "cve":  "CVE-2025-24019",
+    "cwe":  "CWE-22",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "3ddd833d22703caf9025659eb174f7765df7147c",
+    "status":  "ok",
+    "changed_php":  [
+                        "tools/attach/libs/attach.lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "tools/attach/libs/attach.lib.php"
+                    ],
+    "sink_hit":  true
+}

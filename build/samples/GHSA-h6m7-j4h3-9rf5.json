@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-h6m7-j4h3-9rf5",
+    "cve":  "CVE-2020-15146",
+    "cwe":  "CWE-74",
+    "repo":  "Sylius/SyliusResourceBundle",
+    "sha":  "73d9aba182947473a5935b31caf65ca263091e00",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Bundle/Grid/Parser/OptionsParser.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Bundle/Grid/Parser/OptionsParser.php"
+                    ],
+    "sink_hit":  false
+}

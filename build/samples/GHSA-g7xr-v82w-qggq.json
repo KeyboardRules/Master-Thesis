@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g7xr-v82w-qggq",
+    "cve":  "CVE-2021-41749",
+    "cwe":  "CWE-94",
+    "repo":  "nystudio107/craft-seomatic",
+    "sha":  "3fee7d50147cdf3f999cfc1e04cbc3fb3d9f2f7d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/services/Helper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/services/Helper.php class extends Component"
+                 ],
+    "changed_all":  [
+                        "src/services/Helper.php"
+                    ],
+    "sink_hit":  false
+}

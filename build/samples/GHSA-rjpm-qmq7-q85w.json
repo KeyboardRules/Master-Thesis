@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-rjpm-qmq7-q85w",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "symfony/routing",
+    "sha":  "769e8e6584c5d13e7c6f51aa77a9d5f977fec463",
+    "status":  "ok",
+    "changed_php":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "Loader/XmlFileLoader.php class extends FileLoader"
+                 ],
+    "changed_all":  [
+                        "Loader/XmlFileLoader.php"
+                    ],
+    "sink_hit":  true
+}

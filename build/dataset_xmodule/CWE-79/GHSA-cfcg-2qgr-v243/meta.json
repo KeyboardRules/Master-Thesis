@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-cfcg-2qgr-v243",
+    "cve":  "CVE-2022-2470",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "d28655183800b833abb20ccd55e1628f16ff65e4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php",
+                        "src/MicroweberPackages/Module/ModuleManager.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/MicroweberPackages/App/Http/Controllers/ApiController.php class extends FrontendController",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-hj6f-7hp7-xg69",
+    "cve":  "CVE-2025-9821",
+    "cwe":  "CWE-918",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "6084f6de4c88d1aeb5f6c73ea4fe1b09c98ea52b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/bundles/WebhookBundle/Config/config.php",
+                        "app/bundles/WebhookBundle/Controller/AjaxController.php",
+                        "app/bundles/WebhookBundle/Form/Type/ConfigType.php",
+                        "app/bundles/WebhookBundle/Http/Client.php"
+                    ],
+    "evidence":  [
+                     "fix touches 10 php files",
+                     "app/bundles/WebhookBundle/Controller/AjaxController.php class extends CommonAjaxController",
+                     "app/bundles/WebhookBundle/Form/Type/ConfigType.php class extends AbstractType",
+                     "app/bundles/WebhookBundle/Tests/Functional/Command/ProcessWebhookQueuesCommandTest.php class extends MauticMysqlTestCase",
+                     "app/bundles/WebhookBundle/Tests/Functional/WebhookFunctionalTest.php class extends MauticMysqlTestCase",
+                     "app/bundles/WebhookBundle/Tests/Unit/Http/ClientTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

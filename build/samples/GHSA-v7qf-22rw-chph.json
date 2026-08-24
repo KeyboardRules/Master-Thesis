@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-v7qf-22rw-chph",
+    "cve":  "CVE-2017-6973",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "034cd07b47af37366fc7b726cb4a4f971d3d3fb9",
+    "status":  "ok",
+    "changed_php":  [
+                        "adm_config_report.php",
+                        "adm_config_set.php",
+                        "core/constant_inc.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "adm_config_report.php includes 1 project file(s)",
+                     "adm_config_set.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "adm_config_report.php",
+                        "adm_config_set.php",
+                        "core/constant_inc.php"
+                    ],
+    "sink_hit":  true
+}

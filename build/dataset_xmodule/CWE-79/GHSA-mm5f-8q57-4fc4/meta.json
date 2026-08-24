@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-mm5f-8q57-4fc4",
+    "cve":  "CVE-2026-43878",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "3298ced2bcf92e4f3acff6ce9bde14edf42ecb5b",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/user.php",
+                        "plugin/Meet/iframe.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "objects/user.php includes 14 project file(s)",
+                     "plugin/Meet/iframe.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-xwqr-rcqg-22mr",
+    "cve":  "CVE-2026-42550",
+    "cwe":  "CWE-89",
+    "repo":  "flightphp/core",
+    "sha":  "b8dd23aaa828cb289fa3c84e75b2a3717cab50b0",
+    "status":  "ok",
+    "changed_php":  [
+                        "flight/Engine.php",
+                        "flight/commands/ControllerCommand.php",
+                        "flight/database/SimplePdo.php",
+                        "flight/net/Request.php",
+                        "tests/EngineTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "flight/commands/ControllerCommand.php class extends AbstractBaseCommand",
+                     "flight/database/SimplePdo.php class extends PdoWrapper",
+                     "tests/EngineTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "flight/Engine.php",
+                        "flight/commands/ControllerCommand.php",
+                        "flight/database/SimplePdo.php",
+                        "flight/net/Request.php",
+                        "tests/EngineTest.php"
+                    ],
+    "sink_hit":  true
+}

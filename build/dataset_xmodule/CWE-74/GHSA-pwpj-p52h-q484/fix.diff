@@ -1,0 +1,132 @@
+﻿diff --git a/app/Http/Controllers/Api/AccessoriesController.php b/app/Http/Controllers/Api/AccessoriesController.php
+index 78382b54..2dab3f87 100644
+--- a/app/Http/Controllers/Api/AccessoriesController.php
++++ b/app/Http/Controllers/Api/AccessoriesController.php
+@@ -14,6 +14,7 @@ use App\Http\Transformers\ActionlogsTransformer;
+ use App\Http\Transformers\SelectlistTransformer;
+ use App\Models\Accessory;
+ use App\Models\AccessoryCheckout;
++use App\Models\Company;
+ use App\Models\User;
+ use Carbon\Carbon;
+ use Illuminate\Http\JsonResponse;
+@@ -155,6 +156,7 @@ class AccessoriesController extends Controller
+     {
+         $accessory = new Accessory;
+         $accessory->fill($request->all());
++        $accessory->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $accessory = $request->handleImages($accessory);
+ 
+         if ($accessory->save()) {
+@@ -248,6 +250,7 @@ class AccessoriesController extends Controller
+         $this->authorize('update', Accessory::class);
+         $accessory = Accessory::findOrFail($id);
+         $accessory->fill($request->all());
++        $accessory->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $accessory = $request->handleImages($accessory);
+ 
+         if ($accessory->save()) {
+diff --git a/app/Http/Controllers/Api/ComponentsController.php b/app/Http/Controllers/Api/ComponentsController.php
+index 2f3ea7c9..653dcd74 100644
+--- a/app/Http/Controllers/Api/ComponentsController.php
++++ b/app/Http/Controllers/Api/ComponentsController.php
+@@ -9,6 +9,7 @@ use App\Http\Requests\ImageUploadRequest;
+ use App\Http\Transformers\ActionlogsTransformer;
+ use App\Http\Transformers\ComponentsTransformer;
+ use App\Models\Asset;
++use App\Models\Company;
+ use App\Models\Component;
+ use Carbon\Carbon;
+ use Illuminate\Database\Query\Builder;
+@@ -165,6 +166,7 @@ class ComponentsController extends Controller
+         $this->authorize('create', Component::class);
+         $component = new Component;
+         $component->fill($request->all());
++        $component->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $component = $request->handleImages($component);
+ 
+         if ($component->save()) {
+@@ -205,6 +207,7 @@ class ComponentsController extends Controller
+         $this->authorize('update', Component::class);
+         $component = Component::findOrFail($id);
+         $component->fill($request->all());
++        $component->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $component = $request->handleImages($component);
+ 
+         if ($component->save()) {
+diff --git a/app/Http/Controllers/Api/ConsumablesController.php b/app/Http/Controllers/Api/ConsumablesController.php
+index 82aa1feb..58f15f51 100644
+--- a/app/Http/Controllers/Api/ConsumablesController.php
++++ b/app/Http/Controllers/Api/ConsumablesController.php
+@@ -155,6 +155,7 @@ class ConsumablesController extends Controller
+         $this->authorize('create', Consumable::class);
+         $consumable = new Consumable;
+         $consumable->fill($request->all());
++        $consumable->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $consumable = $request->handleImages($consumable);
+ 
+         if ($consumable->save()) {
+@@ -194,6 +195,7 @@ class ConsumablesController extends Controller
+         $this->authorize('update', Consumable::class);
+         $consumable = Consumable::findOrFail($id);
+         $consumable->fill($request->all());
++        $consumable->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $consumable = $request->handleImages($consumable);
+ 
+         if ($consumable->save()) {
+diff --git a/app/Http/Controllers/Api/DepartmentsController.php b/app/Http/Controllers/Api/DepartmentsController.php
+index f95cdacf..01b815b3 100644
+--- a/app/Http/Controllers/Api/DepartmentsController.php
++++ b/app/Http/Controllers/Api/DepartmentsController.php
+@@ -9,6 +9,7 @@ use App\Http\Requests\ImageUploadRequest;
+ use App\Http\Requests\StoreDepartmentRequest;
+ use App\Http\Transformers\DepartmentsTransformer;
+ use App\Http\Transformers\SelectlistTransformer;
++use App\Models\Company;
+ use App\Models\Department;
+ use Illuminate\Http\JsonResponse;
+ use Illuminate\Http\Request;
+@@ -111,6 +112,7 @@ class DepartmentsController extends Controller
+     {
+         $department = new Department;
+         $department->fill($request->validated());
++        $department->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $department = $request->handleImages($department);
+ 
+         $department->created_by = auth()->id();
+@@ -155,6 +157,7 @@ class DepartmentsController extends Controller
+         $this->authorize('update', Department::class);
+         $department = Department::findOrFail($id);
+         $department->fill($request->all());
++        $department->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+         $department = $request->handleImages($department);
+ 
+         if ($department->save()) {
+diff --git a/app/Http/Controllers/Api/LicensesController.php b/app/Http/Controllers/Api/LicensesController.php
+index d7a647fc..f5b2cf11 100644
+--- a/app/Http/Controllers/Api/LicensesController.php
++++ b/app/Http/Controllers/Api/LicensesController.php
+@@ -8,6 +8,7 @@ use App\Http\Requests\FilterRequest;
+ use App\Http\Transformers\ActionlogsTransformer;
+ use App\Http\Transformers\LicensesTransformer;
+ use App\Http\Transformers\SelectlistTransformer;
++use App\Models\Company;
+ use App\Models\License;
+ use App\Models\Setting;
+ use Illuminate\Http\JsonResponse;
+@@ -179,6 +180,7 @@ class LicensesController extends Controller
+         $this->authorize('create', License::class);
+         $license = new License;
+         $license->fill($request->all());
++        $license->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+ 
+         if ($license->save()) {
+             return response()->json(Helper::formatStandardApiResponse('success', $license, trans('admin/licenses/message.create.success')));
+@@ -219,6 +221,7 @@ class LicensesController extends Controller
+ 
+         $license = License::findOrFail($id);
+         $license->fill($request->all());
++        $license->company_id = Company::getIdForCurrentUser($request->input('company_id'));
+ 
+         if ($license->save()) {
+             return response()->json(Helper::formatStandardApiResponse('success', $license, trans('admin/licenses/message.update.success')));

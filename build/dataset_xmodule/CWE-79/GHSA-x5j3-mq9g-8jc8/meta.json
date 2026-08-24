@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-x5j3-mq9g-8jc8",
+    "cve":  "CVE-2023-28106",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "c59d0bf1d03a5037b586fe06230694fa3818dbf2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php class extends AdminController",
+                     "bundles/AdminBundle/Controller/Admin/Document/DocumentControllerBase.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

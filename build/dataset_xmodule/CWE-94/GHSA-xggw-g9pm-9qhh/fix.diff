@@ -1,0 +1,137 @@
+﻿diff --git a/plugin/Gallery/view/saveSort.json.php b/plugin/Gallery/view/saveSort.json.php
+index 8fd29659b..44dc4c897 100644
+--- a/plugin/Gallery/view/saveSort.json.php
++++ b/plugin/Gallery/view/saveSort.json.php
+@@ -1,37 +1,60 @@
+-<?php
+-
+-require_once '../../../videos/configuration.php';
+-
+-header('Content-Type: application/json');
+-
+-$obj = new stdClass();
+-$obj->error = true;
+-$obj->msg = "";
+-$obj->sectionsSaved = array();
+-$obj->namesSaved = array();
+-
+-if(!User::isAdmin()){
+-    $obj->msg = "Must be admin";
+-    die(json_encode($obj));
+-}
+-
+-$gallery = AVideoPlugin::loadPlugin('Gallery', true);
+-
+-if(!empty($_REQUEST['sections'])){
+-    $object = $gallery->getDataObject();
+-    foreach ($_REQUEST['sections'] as $key => $value) {
+-        $obj->sectionsSaved[] = array($key=>$value);
+-        eval("\$object->{$value}Order = \$key;");
+-    }
+-    $obj->error = !$gallery->setDataObject($object);
+-}else if(!empty ($_REQUEST['name'])){
+-    $isChecked = true;
+-    if(empty($_REQUEST['isChecked']) || $_REQUEST['isChecked'] == 'false'){
+-        $isChecked = false;
+-    }
+-    $obj->namesSaved[] = array($_REQUEST['name']=>$isChecked);
+-    $gallery->setDataObjectParameter($_REQUEST['name'], $isChecked);
+-}
+-
+-$obj->error = false;
+-die(json_encode($obj));
+\ No newline at end of file
++<?php
++
++require_once '../../../videos/configuration.php';
++
++header('Content-Type: application/json');
++
++$obj = new stdClass();
++$obj->error = true;
++$obj->msg = "";
++$obj->sectionsSaved = array();
++$obj->namesSaved = array();
++
++if(!User::isAdmin()){
++    $obj->msg = "Must be admin";
++    die(json_encode($obj));
++}
++
++// CSRF protection: this endpoint mutates plugin configuration.
++// SameSite=None on session cookies (required for cross-origin iframe embeds)
++// means a cross-site POST will carry the admin session; a token is required.
++if (!isGlobalTokenValid()) {
++    http_response_code(403);
++    $obj->msg = "Invalid or missing CSRF token";
++    die(json_encode($obj));
++}
++
++$gallery = AVideoPlugin::loadPlugin('Gallery', true);
++
++if(!empty($_REQUEST['sections'])){
++    $object = $gallery->getDataObject();
++    foreach ($_REQUEST['sections'] as $key => $value) {
++        // Security: section names must be alphanumeric/underscore only (e.g. 'Shorts',
++        // 'Channel_123_'). Reject anything else to prevent code injection via eval()
++        // in the old implementation and to guard setDataObject() property names.
++        if (!preg_match('/^[a-zA-Z0-9_]+$/', $value)) {
++            continue;
++        }
++        $obj->sectionsSaved[] = array($key => $value);
++        // Use safe dynamic property access instead of eval()
++        $property = $value . 'Order';
++        $object->$property = intval($key);
++    }
++    $obj->error = !$gallery->setDataObject($object);
++}else if(!empty ($_REQUEST['name'])){
++    // Security: validate name before passing to setDataObjectParameter() which
++    // internally uses eval(); an unsanitized name would allow code injection.
++    if (!preg_match('/^[a-zA-Z0-9_]+$/', $_REQUEST['name'])) {
++        $obj->msg = "Invalid section name";
++        die(json_encode($obj));
++    }
++    $isChecked = true;
++    if(empty($_REQUEST['isChecked']) || $_REQUEST['isChecked'] == 'false'){
++        $isChecked = false;
++    }
++    $obj->namesSaved[] = array($_REQUEST['name']=>$isChecked);
++    $gallery->setDataObjectParameter($_REQUEST['name'], $isChecked);
++}
++
++$obj->error = false;
++die(json_encode($obj));
+diff --git a/plugin/Gallery/view/sections.php b/plugin/Gallery/view/sections.php
+index 57d786191..5382904dc 100644
+--- a/plugin/Gallery/view/sections.php
++++ b/plugin/Gallery/view/sections.php
+@@ -9,6 +9,7 @@ $_page->setExtraScripts(array('plugin/Gallery/view/sections.js'));
+     <div class="panel panel-default">
+         <div class="panel-heading"><?php echo __('Sort Gallery Sections') ?> </div>
+         <div class="panel-body">
++            <input type="hidden" id="galleryToken" value="<?php echo getToken(300); ?>">
+             <ul class="list-group" id="sortable">
+                 <?php
+                 $sections = Gallery::getSectionsOrder(false);
+@@ -44,4 +45,4 @@ $_page->setExtraScripts(array('plugin/Gallery/view/sections.js'));
+ 
+ <?php
+ $_page->print();
+-?>
+\ No newline at end of file
++?>
+diff --git a/plugin/Plugin.abstract.php b/plugin/Plugin.abstract.php
+index 9c611ef19..be822003c 100644
+--- a/plugin/Plugin.abstract.php
++++ b/plugin/Plugin.abstract.php
+@@ -271,6 +271,10 @@ abstract class PluginAbstract {
+     }
+ 
+     public function setDataObjectParameter($parameterName, $value) {
++        // Security: $parameterName is passed to eval(). Callers MUST validate it
++        // before calling this method — restrict to alphanumeric/underscore unless
++        // nested access (e.g. "server->value") is truly required, in which case
++        // sanitize with a strict regex before passing.
+         $object = $this->getDataObject();
+         eval("\$object->$parameterName = \$value;");
+         return $this->setDataObject($object);

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-35pq-7pv2-2rfw",
+    "cve":  "CVE-2025-24027",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/ps_contactinfo",
+    "sha":  "d60f9a5634b4fc2d3a8831fb08fe2e1f23cbfa39",
+    "status":  "ok",
+    "changed_php":  [
+                        "ps_contactinfo.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "ps_contactinfo.php class extends Module"
+                 ],
+    "changed_all":  [
+                        "ps_contactinfo.php"
+                    ],
+    "sink_hit":  true
+}

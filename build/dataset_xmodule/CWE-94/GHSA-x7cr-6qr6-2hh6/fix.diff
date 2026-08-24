@@ -1,0 +1,58 @@
+﻿diff --git a/src/Composer/Repository/Vcs/GitDriver.php b/src/Composer/Repository/Vcs/GitDriver.php
+index b91508a..039f905 100644
+--- a/src/Composer/Repository/Vcs/GitDriver.php
++++ b/src/Composer/Repository/Vcs/GitDriver.php
+@@ -138,6 +138,10 @@ class GitDriver extends VcsDriver
+      */
+     public function getFileContent($file, $identifier)
+     {
++        if (isset($identifier[0]) && $identifier[0] === '-') {
++            throw new \RuntimeException('Invalid git identifier detected. Identifier must not start with a -, given: ' . $identifier);
++        }
++
+         $resource = sprintf('%s:%s', ProcessExecutor::escape($identifier), ProcessExecutor::escape($file));
+         $this->process->execute(sprintf('git show %s', $resource), $content, $this->repoDir);
+ 
+@@ -191,7 +195,7 @@ class GitDriver extends VcsDriver
+             $this->process->execute('git branch --no-color --no-abbrev -v', $output, $this->repoDir);
+             foreach ($this->process->splitLines($output) as $branch) {
+                 if ($branch && !Preg::isMatch('{^ *[^/]+/HEAD }', $branch)) {
+-                    if (Preg::isMatch('{^(?:\* )? *(\S+) *([a-f0-9]+)(?: .*)?$}', $branch, $match)) {
++                    if (Preg::isMatch('{^(?:\* )? *(\S+) *([a-f0-9]+)(?: .*)?$}', $branch, $match) && $match[1][0] !== '-') {
+                         $branches[$match[1]] = $match[2];
+                     }
+                 }
+diff --git a/src/Composer/Repository/Vcs/HgDriver.php b/src/Composer/Repository/Vcs/HgDriver.php
+index 73bc426..f9f8064 100644
+--- a/src/Composer/Repository/Vcs/HgDriver.php
++++ b/src/Composer/Repository/Vcs/HgDriver.php
+@@ -126,7 +126,11 @@ class HgDriver extends VcsDriver
+      */
+     public function getFileContent($file, $identifier)
+     {
+-        $resource = sprintf('hg cat -r %s %s', ProcessExecutor::escape($identifier), ProcessExecutor::escape($file));
++        if (isset($identifier[0]) && $identifier[0] === '-') {
++            throw new \RuntimeException('Invalid hg identifier detected. Identifier must not start with a -, given: ' . $identifier);
++        }
++
++        $resource = sprintf('hg cat -r %s -- %s', ProcessExecutor::escape($identifier), ProcessExecutor::escape($file));
+         $this->process->execute($resource, $content, $this->repoDir);
+ 
+         if (!trim($content)) {
+@@ -186,14 +190,14 @@ class HgDriver extends VcsDriver
+ 
+             $this->process->execute('hg branches', $output, $this->repoDir);
+             foreach ($this->process->splitLines($output) as $branch) {
+-                if ($branch && Preg::isMatch('(^([^\s]+)\s+\d+:([a-f0-9]+))', $branch, $match)) {
++                if ($branch && Preg::isMatch('(^([^\s]+)\s+\d+:([a-f0-9]+))', $branch, $match) && $match[1][0] !== '-') {
+                     $branches[$match[1]] = $match[2];
+                 }
+             }
+ 
+             $this->process->execute('hg bookmarks', $output, $this->repoDir);
+             foreach ($this->process->splitLines($output) as $branch) {
+-                if ($branch && Preg::isMatch('(^(?:[\s*]*)([^\s]+)\s+\d+:(.*)$)', $branch, $match)) {
++                if ($branch && Preg::isMatch('(^(?:[\s*]*)([^\s]+)\s+\d+:(.*)$)', $branch, $match) && $match[1][0] !== '-') {
+                     $bookmarks[$match[1]] = $match[2];
+                 }
+             }

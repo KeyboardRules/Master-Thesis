@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-rfpg-2fp8-2fph",
+    "cve":  "CVE-2012-5339",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "6ea8fad3f999bfdf79eb6fe31309592bca54d611",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/rte/rte_list.lib.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "js/rte/common.js",
+                        "libraries/rte/rte_list.lib.php"
+                    ],
+    "sink_hit":  false
+}

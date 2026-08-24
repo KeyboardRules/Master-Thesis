@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jr37-66pj-36v7",
+    "cve":  "CVE-2022-22109",
+    "cwe":  "CWE-79",
+    "repo":  "Bottelet/DaybydayCRM",
+    "sha":  "002dc75f400cf307bd00b71a5a93f1e26e52cee2",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/TasksController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "app/Http/Controllers/TasksController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/TasksController.php"
+                    ],
+    "sink_hit":  false
+}

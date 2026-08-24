@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-jjgq-jq8g-24w4",
+    "cve":  "CVE-2017-14242",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "33e2179b65331d9d9179b59d746817c5be1fecdb",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/don/card.php",
+                        "htdocs/don/document.php",
+                        "htdocs/don/info.php",
+                        "htdocs/don/list.php",
+                        "htdocs/don/note.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "htdocs/core/lib/functions.lib.php includes 16 project file(s)",
+                     "htdocs/don/card.php includes 13 project file(s)",
+                     "htdocs/don/document.php includes 9 project file(s)",
+                     "htdocs/don/info.php includes 6 project file(s)",
+                     "htdocs/don/list.php includes 3 project file(s)",
+                     "htdocs/don/note.php includes 8 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

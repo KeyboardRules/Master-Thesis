@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4ppr-jw47-9qm5",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3-CMS/core",
+    "sha":  "280908c9472aa5e1d9ee005327bbb9aed53f613a",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/LinkHandling/UrlLinkHandler.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Classes/LinkHandling/UrlLinkHandler.php"
+                    ],
+    "sink_hit":  false
+}

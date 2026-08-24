@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j696-6m57-mcrv",
+    "cve":  "CVE-2017-14498",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "25b77a2ff8deabe8e8894002b9a5647eaec27b0a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "filesystem/File.php"
+                    ],
+    "evidence":  [
+                     "filesystem/File.php class extends DataObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

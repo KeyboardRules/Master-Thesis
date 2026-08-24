@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-7cmp-cgg8-4c82",
+    "cve":  "CVE-2024-47605",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "09b5052c86932f273e0d733428c9aade70ff2a4a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/View/Shortcodes/EmbedShortcodeProvider.php",
+                        "tests/php/View/Shortcodes/EmbedShortcodeProviderTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/View/Shortcodes/EmbedShortcodeProvider.php class uses trait",
+                     "tests/php/View/Shortcodes/EmbedShortcodeProviderTest.php class extends EmbedUnitTest"
+                 ],
+    "changed_all":  [
+                        "src/View/Shortcodes/EmbedShortcodeProvider.php",
+                        "tests/php/View/Shortcodes/EmbedShortcodeProviderTest.php"
+                    ],
+    "sink_hit":  false
+}

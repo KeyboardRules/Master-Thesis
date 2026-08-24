@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vf2r-cxg9-p7rf",
+    "cve":  "CVE-2025-54119",
+    "cwe":  "CWE-89",
+    "repo":  "ADOdb/ADOdb",
+    "fix_commit":  "5b8bd52cdcffefb4ecded1b399c98cfa516afe03",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "drivers/adodb-sqlite3.inc.php"
+                    ],
+    "evidence":  [
+                     "drivers/adodb-sqlite3.inc.php class extends ADOConnection"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

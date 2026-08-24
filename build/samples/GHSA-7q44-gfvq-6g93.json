@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7q44-gfvq-6g93",
+    "cve":  "CVE-2020-18155",
+    "cwe":  "CWE-89",
+    "repo":  "intelliants/subrion",
+    "sha":  "c29cd72d07ca8cf6eba6f6d4496ad97d0c4d2be9",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/classes/ia.core.pdo.php",
+                        "includes/classes/ia.core.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "includes/classes/ia.core.pdo.php class extends PDO"
+                 ],
+    "changed_all":  [
+                        "includes/classes/ia.core.pdo.php",
+                        "includes/classes/ia.core.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,167 @@
+﻿diff --git a/src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php b/src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php
+index 1705c1ac0..0f99f6428 100644
+--- a/src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php
++++ b/src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php
+@@ -97,8 +97,10 @@ class Translator extends BaseTranslator
+ 
+             $fallbackContent = '';
+             $current = '';
++            $replacementPattern = '/[^a-z0-9_]/i';
+             foreach ($this->computeFallbackLocales($locale) as $fallback) {
+-                $fallbackSuffix = ucfirst(str_replace('-', '_', $fallback));
++                $fallbackSuffix = ucfirst(preg_replace($replacementPattern, '_', $fallback));
++                $currentSuffix = ucfirst(preg_replace($replacementPattern, '_', $current));
+ 
+                 $fallbackContent .= sprintf(<<<EOF
+ \$catalogue%s = new MessageCatalogue('%s', %s);
+@@ -110,7 +112,7 @@ EOF
+                     $fallbackSuffix,
+                     $fallback,
+                     var_export($this->catalogues[$fallback]->all(), true),
+-                    ucfirst(str_replace('-', '_', $current)),
++                    $currentSuffix,
+                     $fallbackSuffix
+                 );
+                 $current = $fallback;
+diff --git a/src/Symfony/Component/Translation/Translator.php b/src/Symfony/Component/Translation/Translator.php
+index 8e74b79f6..e54b300ff 100644
+--- a/src/Symfony/Component/Translation/Translator.php
++++ b/src/Symfony/Component/Translation/Translator.php
+@@ -59,11 +59,13 @@ class Translator implements TranslatorInterface
+      * @param string               $locale   The locale
+      * @param MessageSelector|null $selector The message selector for pluralization
+      *
++     * @throws \InvalidArgumentException If a locale contains invalid characters
++     *
+      * @api
+      */
+     public function __construct($locale, MessageSelector $selector = null)
+     {
+-        $this->locale = $locale;
++        $this->setLocale($locale);
+         $this->selector = $selector ?: new MessageSelector();
+     }
+ 
+@@ -88,6 +90,8 @@ class Translator implements TranslatorInterface
+      * @param string $locale   The locale
+      * @param string $domain   The domain
+      *
++     * @throws \InvalidArgumentException If the locale contains invalid characters
++     *
+      * @api
+      */
+     public function addResource($format, $resource, $locale, $domain = null)
+@@ -96,6 +100,8 @@ class Translator implements TranslatorInterface
+             $domain = 'messages';
+         }
+ 
++        $this->assertValidLocale($locale);
++
+         $this->resources[$locale][] = array($format, $resource, $domain);
+ 
+         if (in_array($locale, $this->fallbackLocales)) {
+@@ -112,6 +118,7 @@ class Translator implements TranslatorInterface
+      */
+     public function setLocale($locale)
+     {
++        $this->assertValidLocale($locale);
+         $this->locale = $locale;
+     }
+ 
+@@ -130,6 +137,8 @@ class Translator implements TranslatorInterface
+      *
+      * @param string|array $locales The fallback locale(s)
+      *
++     * @throws \InvalidArgumentException If a locale contains invalid characters
++     *
+      * @deprecated since 2.3, to be removed in 3.0. Use setFallbackLocales() instead.
+      *
+      * @api
+@@ -144,6 +153,8 @@ class Translator implements TranslatorInterface
+      *
+      * @param array $locales The fallback locales
+      *
++     * @throws \InvalidArgumentException If a locale contains invalid characters
++     *
+      * @api
+      */
+     public function setFallbackLocales(array $locales)
+@@ -151,6 +162,10 @@ class Translator implements TranslatorInterface
+         // needed as the fallback locales are linked to the already loaded catalogues
+         $this->catalogues = array();
+ 
++        foreach ($locales as $locale) {
++            $this->assertValidLocale($locale);
++        }
++
+         $this->fallbackLocales = $locales;
+     }
+ 
+@@ -175,6 +190,8 @@ class Translator implements TranslatorInterface
+     {
+         if (null === $locale) {
+             $locale = $this->getLocale();
++        } else {
++            $this->assertValidLocale($locale);
+         }
+ 
+         if (null === $domain) {
+@@ -197,6 +214,8 @@ class Translator implements TranslatorInterface
+     {
+         if (null === $locale) {
+             $locale = $this->getLocale();
++        } else {
++            $this->assertValidLocale($locale);
+         }
+ 
+         if (null === $domain) {
+@@ -279,4 +298,18 @@ class Translator implements TranslatorInterface
+ 
+         return array_unique($locales);
+     }
++
++    /**
++     * Asserts that the locale is valid, throws an Exception if not.
++     *
++     * @param string $locale Locale to tests
++     *
++     * @throws \InvalidArgumentException If the locale contains invalid characters
++     */
++    private function assertValidLocale($locale)
++    {
++        if (0 !== preg_match('/[^a-z0-9_\\.\\-]+/i', $locale, $match)) {
++            throw new \InvalidArgumentException(sprintf('Invalid locale: %s.', $locale));
++        }
++    }
+ }
+diff --git a/src/Symfony/Component/Translation/TranslatorInterface.php b/src/Symfony/Component/Translation/TranslatorInterface.php
+index a97fd10b8..436d48872 100644
+--- a/src/Symfony/Component/Translation/TranslatorInterface.php
++++ b/src/Symfony/Component/Translation/TranslatorInterface.php
+@@ -28,6 +28,8 @@ interface TranslatorInterface
+      * @param string $domain     The domain for the message
+      * @param string $locale     The locale
+      *
++     * @throws \InvalidArgumentException If the locale contains invalid characters
++     *
+      * @return string The translated string
+      *
+      * @api
+@@ -43,6 +45,8 @@ interface TranslatorInterface
+      * @param string  $domain     The domain for the message
+      * @param string  $locale     The locale
+      *
++     * @throws \InvalidArgumentException If the locale contains invalid characters
++     *
+      * @return string The translated string
+      *
+      * @api
+@@ -54,6 +58,8 @@ interface TranslatorInterface
+      *
+      * @param string $locale The locale
+      *
++     * @throws \InvalidArgumentException If the locale contains invalid characters
++     *
+      * @api
+      */
+     public function setLocale($locale);

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-fccf-p8fx-vjj4",
+    "cve":  "CVE-2014-3541",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "sha":  "3fe105953d14766393e24372806fcf0a2b77c96d",
+    "status":  "ok",
+    "changed_php":  [
+                        "repository/filepicker.php",
+                        "repository/lib.php",
+                        "repository/repository_ajax.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "repository/filepicker.php includes 3 project file(s)",
+                     "repository/lib.php includes 8 project file(s)",
+                     "repository/lib.php class extends moodle_exception",
+                     "repository/repository_ajax.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "repository/filepicker.php",
+                        "repository/lib.php",
+                        "repository/repository_ajax.php"
+                    ],
+    "sink_hit":  true
+}

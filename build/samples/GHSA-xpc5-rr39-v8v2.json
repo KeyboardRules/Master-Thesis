@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-xpc5-rr39-v8v2",
+    "cve":  "CVE-2021-27917",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "550e33562d03363f7592fa9354259787a23a1d98",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/PageBundle/Tests/Controller/PublicControllerFunctionalTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Assets/js/1a.content.js",
+                        "app/bundles/CoreBundle/Assets/js/9.modals.js",
+                        "app/bundles/LeadBundle/Resources/views/Auditlog/details.html.twig",
+                        "app/bundles/PageBundle/Tests/Controller/PublicControllerFunctionalTest.php"
+                    ],
+    "sink_hit":  false
+}

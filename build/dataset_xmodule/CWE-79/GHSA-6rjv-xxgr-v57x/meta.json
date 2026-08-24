@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6rjv-xxgr-v57x",
+    "cve":  "CVE-2022-3869",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "fix_commit":  "3f10a4adede9df83408d60ded78b51b812a763a8",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "index.php",
+                        "lng/english.lng.php",
+                        "lng/german.lng.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "index.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

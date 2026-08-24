@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-59x8-cvxh-3mm4",
+    "cve":  "CVE-2025-46346",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "fix_commit":  "0d4efc880a727599fa4f6d7a64cc967afe475530",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/YesWikiInit.php",
+                        "includes/controllers/ApiController.php",
+                        "tools/templates/controllers/ApiController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "includes/YesWikiInit.php includes 3 project file(s)",
+                     "includes/YesWikiInit.php class extends AnnotationClassLoader",
+                     "includes/controllers/ApiController.php includes 1 project file(s)",
+                     "includes/controllers/ApiController.php class extends YesWikiController",
+                     "tools/templates/controllers/ApiController.php class extends YesWikiController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

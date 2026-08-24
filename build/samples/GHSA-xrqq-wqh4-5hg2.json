@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-xrqq-wqh4-5hg2",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "darylldoyle/svg-sanitizer",
+    "sha":  "cce18bc237c05c6e093e9672db7926788da9b322",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sanitizer.php",
+                        "src/data/AllowedTags.php",
+                        "tests/SanitizerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/SanitizerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Sanitizer.php",
+                        "src/data/AllowedTags.php",
+                        "tests/SanitizerTest.php",
+                        "tests/data/cdataClean.svg",
+                        "tests/data/cdataTwoClean.svg",
+                        "tests/data/cdataTwoTest.svg",
+                        "tests/data/formDataClean.svg",
+                        "tests/data/formDataTest.svg",
+                        "tests/data/htmlClean.svg"
+                    ],
+    "sink_hit":  false
+}

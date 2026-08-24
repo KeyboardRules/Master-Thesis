@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fv4m-5j2c-787r",
+    "cve":  "CVE-2017-15367",
+    "cwe":  "CWE-89",
+    "repo":  "bacula-web/bacula-web",
+    "sha":  "90d4c44a0dd0d65c6fb3ab2417b83d700c8413ae",
+    "status":  "ok",
+    "changed_php":  [
+                        "client-report.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "client-report.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "client-report.php"
+                    ],
+    "sink_hit":  false
+}

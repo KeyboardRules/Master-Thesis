@@ -1,0 +1,57 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php b/bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php
+index 6a3ba048b1..7089b28d53 100644
+--- a/bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php
++++ b/bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php
+@@ -346,14 +346,14 @@ class DataObjectHelperController extends AdminController
+                 $gridConfigId = $savedGridConfig->getId();
+                 $gridConfig = $savedGridConfig->getConfig();
+                 $gridConfig = json_decode($gridConfig, true);
+-                $gridConfigName = $savedGridConfig->getName();
++                $gridConfigName = SecurityHelper::convertHtmlSpecialChars($savedGridConfig->getName());
+                 $owner = $savedGridConfig->getOwnerId();
+                 $ownerObject = User::getById($owner);
+                 if ($ownerObject instanceof User) {
+                     $owner = $ownerObject->getName();
+                 }
+                 $modificationDate = $savedGridConfig->getModificationDate();
+-                $gridConfigDescription = $savedGridConfig->getDescription();
++                $gridConfigDescription = SecurityHelper::convertHtmlSpecialChars($savedGridConfig->getDescription());
+                 $sharedGlobally = $savedGridConfig->isShareGlobally();
+                 $setAsFavourite = $savedGridConfig->isSetAsFavourite();
+ 
+@@ -951,8 +951,8 @@ class DataObjectHelperController extends AdminController
+                 }
+ 
+                 if ($metadata) {
+-                    $gridConfig->setName($metadata['gridConfigName']);
+-                    $gridConfig->setDescription($metadata['gridConfigDescription']);
++                    $gridConfig->setName(SecurityHelper::convertHtmlSpecialChars($metadata['gridConfigName']));
++                    $gridConfig->setDescription(SecurityHelper::convertHtmlSpecialChars($metadata['gridConfigDescription']));
+                     $gridConfig->setShareGlobally($metadata['shareGlobally'] && $this->getAdminUser()->isAdmin());
+                     $gridConfig->setSetAsFavourite($metadata['setAsFavourite'] && $this->getAdminUser()->isAdmin());
+                 }
+@@ -968,8 +968,8 @@ class DataObjectHelperController extends AdminController
+ 
+                 $settings = $this->getShareSettings($gridConfig->getId());
+                 $settings['gridConfigId'] = (int)$gridConfig->getId();
+-                $settings['gridConfigName'] = $gridConfig->getName();
+-                $settings['gridConfigDescription'] = $gridConfig->getDescription();
++                $settings['gridConfigName'] = SecurityHelper::convertHtmlSpecialChars($gridConfig->getName());
++                $settings['gridConfigDescription'] = SecurityHelper::convertHtmlSpecialChars($gridConfig->getDescription());
+                 $settings['shareGlobally'] = $gridConfig->isShareGlobally();
+                 $settings['setAsFavourite'] = $gridConfig->isSetAsFavourite();
+                 $settings['isShared'] = $gridConfig->getOwnerId() != $this->getAdminUser()->getId() && !$this->getAdminUser()->isAdmin();
+diff --git a/lib/Security/SecurityHelper.php b/lib/Security/SecurityHelper.php
+index 4ba989380a..bc1f9f537c 100644
+--- a/lib/Security/SecurityHelper.php
++++ b/lib/Security/SecurityHelper.php
+@@ -15,6 +15,9 @@
+ 
+ namespace Pimcore\Security;
+ 
++/**
++ * @internal
++ */
+ class SecurityHelper
+ {
+     public static function convertHtmlSpecialChars(?string $text): ?string

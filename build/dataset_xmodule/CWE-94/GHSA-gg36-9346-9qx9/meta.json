@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gg36-9346-9qx9",
+    "cve":  "CVE-2013-3239",
+    "cwe":  "CWE-94",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "fix_commit":  "1f6bc0b707002e26cab216b9e57b4d5de764de48",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "export.php",
+                        "libraries/sanitizing.lib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "export.php includes 24 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

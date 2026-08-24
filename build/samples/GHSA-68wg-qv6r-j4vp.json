@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-68wg-qv6r-j4vp",
+    "cve":  "CVE-2019-10766",
+    "cwe":  "CWE-89",
+    "repo":  "usmanhalalit/pixie",
+    "sha":  "9bd991021abbcbfb19347a07dca8b7e518b8abc9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Pixie/QueryBuilder/Adapters/BaseAdapter.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "src/Pixie/QueryBuilder/Adapters/BaseAdapter.php"
+                    ],
+    "sink_hit":  false
+}

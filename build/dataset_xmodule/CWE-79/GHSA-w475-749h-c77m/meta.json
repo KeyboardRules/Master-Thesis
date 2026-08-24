@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-w475-749h-c77m",
+    "cve":  "CVE-2023-0308",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "810ee26d25c3d97664532861863099952f0e9a1f",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.user.php",
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/ucp.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "phpmyfaq/ajaxservice.php includes 3 project file(s)",
+                     "phpmyfaq/index.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

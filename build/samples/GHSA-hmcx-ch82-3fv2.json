@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-hmcx-ch82-3fv2",
+    "cve":  "CVE-2026-42608",
+    "cwe":  "CWE-22",
+    "repo":  "getgrav/grav",
+    "sha":  "c66dfeb5ff679a1667678c6335eb9ff3255dfc47",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Scheduler/JobQueue.php",
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Common/Session.php",
+                        "system/src/Grav/Console/Cli/InstallCommand.php",
+                        "system/src/Grav/Framework/Cache/Adapter/FileCache.php",
+                        "tests/unit/Grav/Common/Security/CleanDangerousTwigTest.php",
+                        "tests/unit/Grav/Common/Security/FileCacheSecurityTest.php",
+                        "tests/unit/Grav/Common/Security/UnserializeIntegritySecurityTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "system/src/Grav/Common/Session.php class extends \\Grav\\Framework\\Session\\Session",
+                     "system/src/Grav/Console/Cli/InstallCommand.php class extends GravCommand",
+                     "system/src/Grav/Framework/Cache/Adapter/FileCache.php class extends AbstractCache",
+                     "tests/unit/Grav/Common/Security/CleanDangerousTwigTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Scheduler/JobQueue.php",
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Common/Session.php",
+                        "system/src/Grav/Console/Cli/InstallCommand.php",
+                        "system/src/Grav/Framework/Cache/Adapter/FileCache.php",
+                        "tests/unit/Grav/Common/Security/CleanDangerousTwigTest.php",
+                        "tests/unit/Grav/Common/Security/FileCacheSecurityTest.php",
+                        "tests/unit/Grav/Common/Security/UnserializeIntegritySecurityTest.php"
+                    ],
+    "sink_hit":  true
+}

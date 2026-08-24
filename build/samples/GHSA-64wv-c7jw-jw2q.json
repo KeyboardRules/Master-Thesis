@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-64wv-c7jw-jw2q",
+    "cve":  "CVE-2021-4303",
+    "cwe":  "CWE-79",
+    "repo":  "shannah/xataface",
+    "sha":  "94143a4299e386f33bf582139cd4702571d93bde",
+    "status":  "ok",
+    "changed_php":  [
+                        "install/install_form.js.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "install/install_form.js.php"
+                    ],
+    "sink_hit":  false
+}

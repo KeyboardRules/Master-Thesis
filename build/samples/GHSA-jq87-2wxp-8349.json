@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jq87-2wxp-8349",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "zendframework/zendframework",
+    "sha":  "0a7ec3407f02db29ea2ffd6daa71ead6fd151cfe",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Mvc/Router/Http/Query.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "README.md",
+                        "library/Zend/Mvc/Router/Http/Query.php"
+                    ],
+    "sink_hit":  false
+}

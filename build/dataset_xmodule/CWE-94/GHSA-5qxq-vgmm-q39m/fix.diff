@@ -1,0 +1,247 @@
+﻿diff --git a/bundles/CoreBundle/DependencyInjection/Configuration.php b/bundles/CoreBundle/DependencyInjection/Configuration.php
+index c0a8a8a603..4ca2f9a4f4 100644
+--- a/bundles/CoreBundle/DependencyInjection/Configuration.php
++++ b/bundles/CoreBundle/DependencyInjection/Configuration.php
+@@ -180,6 +180,7 @@ final class Configuration implements ConfigurationInterface
+         $this->addCustomViewsNode($rootNode);
+         $this->addGlossaryNode($rootNode);
+         $this->buildRedirectsStatusCodes($rootNode);
++        $this->addTemplatingEngineNode($rootNode);
+ 
+         return $treeBuilder;
+     }
+@@ -2276,4 +2277,34 @@ final class Configuration implements ConfigurationInterface
+                             ->useAttributeAsKey('name')
+                             ->prototype('scalar');
+     }
++
++    private function addTemplatingEngineNode(ArrayNodeDefinition $rootNode): void
++    {
++        $rootNode
++            ->children()
++            ->arrayNode('templating_engine')
++            ->addDefaultsIfNotSet()
++            ->children()
++                ->arrayNode('twig')
++                ->addDefaultsIfNotSet()
++                ->children()
++                    ->arrayNode('sandbox_security_policy')
++                        ->info('Whitelist tags, filters & functions for evaluating twig 
++                        templates in a sandbox environment e.g. used by Mailer & Text layout component.')
++                        ->children()
++                            ->arrayNode('tags')
++                                ->scalarPrototype()->end()
++                            ->end()
++                            ->arrayNode('filters')
++                                ->scalarPrototype()->end()
++                            ->end()
++                            ->arrayNode('functions')
++                                ->scalarPrototype()->end()
++                            ->end()
++                        ->end()
++                    ->end()
++                ->end()
++            ->end()
++        ->end();
++    }
+ }
+diff --git a/bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php b/bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php
+index 3432636547..7fffc7dcfb 100644
+--- a/bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php
++++ b/bundles/CoreBundle/DependencyInjection/PimcoreCoreExtension.php
+@@ -95,6 +95,11 @@ final class PimcoreCoreExtension extends ConfigurableExtension implements Prepen
+         $container->setParameter('pimcore.documents.web_to_print.default_controller_print_page', $config['documents']['web_to_print']['default_controller_print_page']);
+         $container->setParameter('pimcore.documents.web_to_print.default_controller_print_container', $config['documents']['web_to_print']['default_controller_print_container']);
+ 
++        //twig security policy whitelist config
++        $container->setParameter('pimcore.templating.twig.sandbox_security_policy.tags', $config['templating_engine']['twig']['sandbox_security_policy']['tags']);
++        $container->setParameter('pimcore.templating.twig.sandbox_security_policy.filters', $config['templating_engine']['twig']['sandbox_security_policy']['filters']);
++        $container->setParameter('pimcore.templating.twig.sandbox_security_policy.functions', $config['templating_engine']['twig']['sandbox_security_policy']['functions']);
++
+         // register pimcore config on container
+         // TODO is this bad practice?
+         // TODO only extract what we need as parameter?
+diff --git a/lib/Mail.php b/lib/Mail.php
+index 561a881401..6228ca0ed9 100644
+--- a/lib/Mail.php
++++ b/lib/Mail.php
+@@ -28,6 +28,7 @@ use Symfony\Component\Mime\Email;
+ use Symfony\Component\Mime\Header\Headers;
+ use Symfony\Component\Mime\Header\MailboxListHeader;
+ use Symfony\Component\Mime\Part\AbstractPart;
++use Twig\Sandbox\SecurityError;
+ 
+ class Mail extends Email
+ {
+@@ -651,13 +652,22 @@ class Mail extends Email
+      *
+      * @return string
+      */
+-    private function renderParams(string $string): string
++    private function renderParams(string $string, string $context): string
+     {
+         $templatingEngine = \Pimcore::getContainer()->get('pimcore.templating.engine.delegating');
+-        $twig = $templatingEngine->getTwigEnvironment();
+-        $template = $twig->createTemplate($string);
+-
+-        return $template->render($this->getParams());
++        try {
++            $twig = $templatingEngine->getTwigEnvironment(true);
++            $template = $twig->createTemplate($string);
++
++            return $template->render($this->getParams());
++        } catch (SecurityError $e) {
++            Logger::err((string) $e);
++
++            throw new \Exception(sprintf("Failed rendering the %s: %s. Please check your twig sandbox security policy or contact the administrator.",
++            $context, substr($e->getMessage(),0, strpos($e->getMessage(), ' in "__string'))));
++        } finally {
++            $templatingEngine->disableSandboxExtensionFromTwigEnvironment();
++        }
+     }
+ 
+     /**
+@@ -676,7 +686,7 @@ class Mail extends Email
+         }
+ 
+         if ($subject) {
+-            return $this->renderParams($subject);
++            return $this->renderParams($subject, 'subject');
+         }
+ 
+         return '';
+@@ -707,7 +717,7 @@ class Mail extends Email
+ 
+         $content = null;
+         if ($html) {
+-            $content = $this->renderParams($html);
++            $content = $this->renderParams($html, 'body');
+ 
+             // modifying the content e.g set absolute urls...
+             $content = MailHelper::embedAndModifyCss($content, $this->getDocument());
+@@ -731,7 +741,7 @@ class Mail extends Email
+ 
+         //if the content was manually set with $obj->text(); this content will be used
+         if ($text) {
+-            $content = $this->renderParams($text);
++            $content = $this->renderParams($text, 'body');
+         } else {
+             //creating text version from html email
+             try {
+diff --git a/lib/Templating/TwigDefaultDelegatingEngine.php b/lib/Templating/TwigDefaultDelegatingEngine.php
+index a313ac6245..4abd7b3808 100644
+--- a/lib/Templating/TwigDefaultDelegatingEngine.php
++++ b/lib/Templating/TwigDefaultDelegatingEngine.php
+@@ -15,34 +15,28 @@
+ 
+ namespace Pimcore\Templating;
+ 
++use Pimcore\Config;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Templating\DelegatingEngine as BaseDelegatingEngine;
+ use Symfony\Component\Templating\EngineInterface;
+ use Twig\Environment;
++use Twig\Extension\SandboxExtension;
+ 
+ /**
+  * @internal
+  */
+ class TwigDefaultDelegatingEngine extends BaseDelegatingEngine
+ {
+-    /**
+-     * @var Environment
+-     */
+-    protected $twig;
+-
+     /**
+      * @var bool
+      */
+     protected $delegate = false;
+ 
+     /**
+-     * @param Environment $twig
+      * @param EngineInterface[] $engines
+      */
+-    public function __construct(Environment $twig, array $engines = [])
++    public function __construct(protected Environment $twig, protected Config $config, array $engines = [])
+     {
+-        $this->twig = $twig;
+-
+         parent::__construct($engines);
+     }
+ 
+@@ -100,14 +94,24 @@ class TwigDefaultDelegatingEngine extends BaseDelegatingEngine
+         return $this->delegate;
+     }
+ 
+-    /**
+-     * @return Environment
+-     */
+-    public function getTwigEnvironment(): Environment
++    public function getTwigEnvironment(bool $sandboxed = false): Environment
+     {
++        if ($sandboxed) {
++            /** @var SandboxExtension $sandboxExtension */
++            $sandboxExtension = $this->twig->getExtension(SandboxExtension::class);
++            $sandboxExtension->enableSandbox();
++        }
++
+         return $this->twig;
+     }
+ 
++    public function disableSandboxExtensionFromTwigEnvironment(): void
++    {
++        /** @var SandboxExtension $sandboxExtension */
++        $sandboxExtension = $this->twig->getExtension(SandboxExtension::class);
++        $sandboxExtension->disableSandbox();
++    }
++
+     /**
+      * @param string $view
+      * @param array $parameters
+diff --git a/models/DataObject/ClassDefinition/Layout/Text.php b/models/DataObject/ClassDefinition/Layout/Text.php
+index c0c51dc427..5887afb336 100644
+--- a/models/DataObject/ClassDefinition/Layout/Text.php
++++ b/models/DataObject/ClassDefinition/Layout/Text.php
+@@ -15,8 +15,10 @@
+ 
+ namespace Pimcore\Model\DataObject\ClassDefinition\Layout;
+ 
++use Pimcore\Logger;
+ use Pimcore\Model;
+ use Pimcore\Model\DataObject\Concrete;
++use Twig\Sandbox\SecurityError;
+ 
+ class Text extends Model\DataObject\ClassDefinition\Layout implements Model\DataObject\ClassDefinition\Data\LayoutDefinitionEnrichmentInterface
+ {
+@@ -143,13 +145,23 @@ class Text extends Model\DataObject\ClassDefinition\Layout implements Model\Data
+         }
+ 
+         $templatingEngine = \Pimcore::getContainer()->get('pimcore.templating.engine.delegating');
+-        $twig = $templatingEngine->getTwigEnvironment();
+-        $template = $twig->createTemplate($this->html);
+-        $this->html = $template->render(array_merge($context,
+-            [
+-                'object' => $object,
+-            ]
+-        ));
++        try {
++            $twig = $templatingEngine->getTwigEnvironment(true);
++            $template = $twig->createTemplate($this->html);
++            $this->html = $template->render(array_merge($context,
++                [
++                    'object' => $object,
++                ]
++            ));
++        } catch (SecurityError $e) {
++            Logger::err((string) $e);
++
++            $this->html = sprintf("<h2>Error</h2>Failed rendering the template: <b>%s</b>.
++                Please check your twig sandbox security policy or contact the administrator.",
++                substr($e->getMessage(),0, strpos($e->getMessage(), ' in "__string')));
++        } finally {
++            $templatingEngine->disableSandboxExtensionFromTwigEnvironment();
++        }
+ 
+         return $this;
+     }

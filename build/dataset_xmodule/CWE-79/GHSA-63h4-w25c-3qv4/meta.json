@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-63h4-w25c-3qv4",
+    "cve":  "CVE-2024-27087",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "fix_commit":  "cda3dd9a15228d35e62ff86cfa87a67e7c687437",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/fields/link.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Form/Fields/LinkFieldTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

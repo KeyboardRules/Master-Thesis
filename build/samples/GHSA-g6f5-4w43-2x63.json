@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g6f5-4w43-2x63",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "SocalNick/ScnSocialAuth",
+    "sha":  "4a00966c41bc37251586d007564c5c891eba3700",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/ScnSocialAuth/View/Helper/SocialSignInButton.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/ScnSocialAuth/View/Helper/SocialSignInButton.php class extends AbstractHelper"
+                 ],
+    "changed_all":  [
+                        "src/ScnSocialAuth/View/Helper/SocialSignInButton.php"
+                    ],
+    "sink_hit":  true
+}

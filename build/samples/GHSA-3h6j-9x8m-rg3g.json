@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3h6j-9x8m-rg3g",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "j0k3r/graby",
+    "sha":  "0295d828822f7a59c5751a8199973a4f965a99b0",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Graby.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Graby.php"
+                    ],
+    "sink_hit":  false
+}

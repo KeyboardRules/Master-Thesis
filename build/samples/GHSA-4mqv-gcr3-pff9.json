@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-4mqv-gcr3-pff9",
+    "cve":  "CVE-2020-7776",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "sha":  "0ed5b800be2136bcb8fa9c1bdf59abc957a98845",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "composer.json",
+                        "composer.lock",
+                        "src/PhpSpreadsheet/Writer/Html.php",
+                        "tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php"
+                    ],
+    "sink_hit":  true
+}

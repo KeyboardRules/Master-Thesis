@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jr37-66pj-36v7",
+    "cve":  "CVE-2022-22109",
+    "cwe":  "CWE-79",
+    "repo":  "Bottelet/DaybydayCRM",
+    "fix_commit":  "002dc75f400cf307bd00b71a5a93f1e26e52cee2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/TasksController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/TasksController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

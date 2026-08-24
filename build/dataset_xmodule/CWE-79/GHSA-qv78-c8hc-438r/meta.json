@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-qv78-c8hc-438r",
+    "cve":  "CVE-2025-64174",
+    "cwe":  "CWE-79",
+    "repo":  "OpenMage/magento-lts",
+    "fix_commit":  "9d604f5489851c54a96fca31b0e13c414b0fb20a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Actions.php",
+                        "app/design/adminhtml/default/default/template/widget/grid/massaction.phtml"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Actions.php class extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-w6j6-w6jx-vf2r",
+    "cve":  "CVE-2024-7394",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "3a5974e94892c43388c3529e57a140bf2967c734",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/elements/attribute/key/list.php",
+                        "concrete/single_pages/dashboard/system/attributes/sets.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "concrete/elements/attribute/key/list.php",
+                        "concrete/single_pages/dashboard/system/attributes/sets.php"
+                    ],
+    "sink_hit":  true
+}

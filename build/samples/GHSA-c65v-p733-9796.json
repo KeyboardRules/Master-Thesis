@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c65v-p733-9796",
+    "cve":  "CVE-2021-3961",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "7ce5993f5ae9d713a0955c2fd8e2dff7a7ce886e",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Transformers/AssetsTransformer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Http/Transformers/AssetsTransformer.php"
+                    ],
+    "sink_hit":  false
+}

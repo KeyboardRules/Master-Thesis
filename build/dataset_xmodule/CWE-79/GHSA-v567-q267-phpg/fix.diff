@@ -1,0 +1,13 @@
+﻿diff --git a/bundles/EcommerceFrameworkBundle/Controller/PricingController.php b/bundles/EcommerceFrameworkBundle/Controller/PricingController.php
+index 657e710dd1..ba9af6150c 100644
+--- a/bundles/EcommerceFrameworkBundle/Controller/PricingController.php
++++ b/bundles/EcommerceFrameworkBundle/Controller/PricingController.php
+@@ -264,7 +264,7 @@ class PricingController extends AdminController implements KernelControllerEvent
+         $ruleNewName = $request->get('name');
+ 
+         try {
+-            if ($ruleId && $ruleNewName) {
++            if ($ruleId && $ruleNewName && preg_match('/^[a-zA-Z0-9_\-]+$/', $ruleNewName)) {
+                 $renameRule = Rule::getById($ruleId);
+ 
+                 if ($renameRule->getName() != $ruleNewName) {

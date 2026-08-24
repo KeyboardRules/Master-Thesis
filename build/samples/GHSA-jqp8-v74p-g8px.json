@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-jqp8-v74p-g8px",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "ee9bddb808df6d27db4d56bb5d522dcfe6788715",
+    "status":  "ok",
+    "changed_php":  [
+                        "control/Director.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "control/Director.php"
+                    ],
+    "sink_hit":  false
+}

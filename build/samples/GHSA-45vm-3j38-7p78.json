@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-45vm-3j38-7p78",
+    "cve":  "CVE-2024-34716",
+    "cwe":  "CWE-79",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "a248898655e56cbcc6c308a5f1c8752231624bae",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Domain/CustomerService/QueryHandler/GetCustomerThreadForViewingHandler.php",
+                        "src/PrestaShopBundle/Controller/Admin/SecuredFileReaderController.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/Core/Domain/CustomerService/QueryHandler/GetCustomerThreadForViewingHandler.php",
+                        "src/PrestaShopBundle/Controller/Admin/SecuredFileReaderController.php",
+                        "src/PrestaShopBundle/Resources/config/routing/admin/_common.yml",
+                        "src/PrestaShopBundle/Resources/config/services/bundle/controller.yml",
+                        "src/PrestaShopBundle/Resources/views/Admin/Sell/CustomerService/CustomerThread/Block/thread_messages.html.twig"
+                    ],
+    "sink_hit":  false
+}

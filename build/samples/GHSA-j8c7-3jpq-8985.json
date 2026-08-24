@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-j8c7-3jpq-8985",
+    "cve":  "CVE-2022-2016",
+    "cwe":  "CWE-79",
+    "repo":  "neorazorx/facturascripts",
+    "sha":  "7b4ddb9269a230e2dd07c6a8d3211c9a88f4f09f",
+    "status":  "ok",
+    "changed_php":  [
+                        "Core/Model/Balance.php",
+                        "Test/Core/Model/BalanceTest.php",
+                        "Test/Core/Model/IdentificadorFiscalTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "Core/Model/Balance.php class extends Base\\ModelClass",
+                     "Test/Core/Model/IdentificadorFiscalTest.php class extends TestCase",
+                     "Test/Core/Model/IdentificadorFiscalTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Core/Model/Balance.php",
+                        "Test/Core/Model/BalanceTest.php",
+                        "Test/Core/Model/IdentificadorFiscalTest.php"
+                    ],
+    "sink_hit":  false
+}

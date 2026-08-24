@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-hr2r-w6wc-25pv",
+    "cve":  "CVE-2024-34461",
+    "cwe":  "CWE-94",
+    "repo":  "TribalSystems/Zenario",
+    "fix_commit":  "72afb59da34bace812bffb195d01168a357ff664",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/fun/syncInlineFileContentLink.php",
+                        "zenario/autoload/phi.php",
+                        "zenario/autoload/twig.php",
+                        "zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "zenario/autoload/phi.php includes 2 project file(s)",
+                     "zenario/autoload/twig.php includes 2 project file(s)",
+                     "zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php class extends ze\\moduleBaseClass",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

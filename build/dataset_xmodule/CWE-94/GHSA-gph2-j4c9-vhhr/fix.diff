@@ -1,0 +1,154 @@
+﻿diff --git a/plugin/YPTSocket/Message.php b/plugin/YPTSocket/Message.php
+index 8c44b631f..b7f1ee7b3 100644
+--- a/plugin/YPTSocket/Message.php
++++ b/plugin/YPTSocket/Message.php
+@@ -233,6 +233,18 @@ class Message implements MessageComponentInterface {
+                 if (isset($json['from_identification'])) {
+                     $json['from_identification'] = strip_tags((string)($msgObj->user_name ?? ''));
+                 }
++                // Strip eval-able fields from browser/guest messages.
++                // autoEvalCodeOnHTML is a server-to-client feature (e.g. Live/getImage.php);
++                // browser clients must not inject it into broadcasts.
++                // callback must be a valid JS identifier to prevent eval injection on clients.
++                if (empty($msgObj->isCommandLineInterface) && ($msgObj->sentFrom ?? '') !== 'php') {
++                    if (is_array($json['msg'] ?? null)) {
++                        unset($json['msg']['autoEvalCodeOnHTML']);
++                    }
++                    if (isset($json['callback']) && !preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', (string)$json['callback'])) {
++                        unset($json['callback']);
++                    }
++                }
+                 if (!empty($msgObj->send_to_uri_pattern)) {
+                     $this->msgToSelfURI($json, $msgObj->send_to_uri_pattern);
+                 } else if (!empty($json['resourceId'])) {
+diff --git a/plugin/YPTSocket/MessageSQLite.php b/plugin/YPTSocket/MessageSQLite.php
+index 122fea33e..9a169b3b5 100644
+--- a/plugin/YPTSocket/MessageSQLite.php
++++ b/plugin/YPTSocket/MessageSQLite.php
+@@ -117,7 +117,7 @@ class Message implements MessageComponentInterface {
+         }
+         //var_dump($client, $json, $wsocketGetVars);
+         //var_dump($client['liveLink'], $live_key);
+-        
++
+         $this->setClient($conn, $client);
+         dbInsertConnection($client);
+ 
+@@ -126,17 +126,17 @@ class Message implements MessageComponentInterface {
+             $this->msgToResourceId($json, $conn->resourceId, \SocketMessageType::TESTING);
+         } else if ($this->shouldPropagateInfo($client)) {
+             $this->msgToAll(
+-                $conn, 
++                $conn,
+                 array(
+-                    'users_id' => $client['users_id'], 
+-                    'yptDeviceId' => $client['yptDeviceId'], 
+-                    'live_key_servers_id' => $client['live_key_servers_id'], 
+-                    'identification' => $client['identification'], 
+-                    'videos_id' => $client['videos_id'], 
+-                    'room_users_id' => $client['room_users_id'], 
+-                    'chat_is_banned' => $client['chat_is_banned'], 
+-                    'resourceId' => $client['resourceId']), 
+-                    \SocketMessageType::NEW_CONNECTION, 
++                    'users_id' => $client['users_id'],
++                    'yptDeviceId' => $client['yptDeviceId'],
++                    'live_key_servers_id' => $client['live_key_servers_id'],
++                    'identification' => $client['identification'],
++                    'videos_id' => $client['videos_id'],
++                    'room_users_id' => $client['room_users_id'],
++                    'chat_is_banned' => $client['chat_is_banned'],
++                    'resourceId' => $client['resourceId']),
++                    \SocketMessageType::NEW_CONNECTION,
+                     true);
+         } else {
+             //_log_message("NOT shouldPropagateInfo ");
+@@ -162,7 +162,7 @@ class Message implements MessageComponentInterface {
+         dbDeleteConnection($conn->resourceId);
+         _log_message("onClose {$conn->resourceId} has deleted");
+         $this->unsetClient($conn, $client);
+-        if ($this->shouldPropagateInfo($client)) {            
++        if ($this->shouldPropagateInfo($client)) {
+             $this->msgToAllLogged($conn, array('users_id' => $client['users_id'], 'disconnected'=>$conn->resourceId), \SocketMessageType::NEW_DISCONNECTION);
+         }
+         _log_message("Connection {$conn->resourceId} has disconnected");
+@@ -203,7 +203,7 @@ class Message implements MessageComponentInterface {
+ 
+     function getTotalFromVars() {
+         $totals = array();
+-        
++
+         foreach ($this->itemsToCheck as $value) {
+             if(!empty($value['class_prefix'])){
+                 foreach ($this->{$value['parameter']} as $key2 => $value2) {
+@@ -215,7 +215,7 @@ class Message implements MessageComponentInterface {
+                 }
+             }
+         }
+-        
++
+         return $totals;
+     }
+ 
+@@ -264,6 +264,15 @@ class Message implements MessageComponentInterface {
+             default:
+                 $this->msgToArray($json);
+                 //_log_message("onMessage:msgObj: " . json_encode($json));
++                // Strip eval-able fields from browser/guest messages.
++                if (empty($msgObj->isCommandLineInterface) && ($msgObj->sentFrom ?? '') !== 'php') {
++                    if (is_array($json['msg'] ?? null)) {
++                        unset($json['msg']['autoEvalCodeOnHTML']);
++                    }
++                    if (isset($json['callback']) && !preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', (string)$json['callback'])) {
++                        unset($json['callback']);
++                    }
++                }
+                 if (!empty($msgObj->send_to_uri_pattern)) {
+                     $this->msgToSelfURI($json, $msgObj->send_to_uri_pattern);
+                 } else if (!empty($json['resourceId'])) {
+@@ -290,7 +299,7 @@ class Message implements MessageComponentInterface {
+         return true;
+     }
+ 
+-    
++
+     private function getShouldPropagateInfoLastMessage() {
+         global $_shouldPropagateInfoLastMessage;
+         return $_shouldPropagateInfoLastMessage;
+@@ -492,7 +501,7 @@ class Message implements MessageComponentInterface {
+         _log_message("msgToAll FROM ({$from->resourceId}) {$type} Total Clients: " . count($rows) . " in {$end} seconds");
+     }
+ 
+-    
++
+     public function msgToAllLogged(ConnectionInterface $from, $msg, $type = "", $includeMe = false) {
+         $start = microtime(true);
+         $rows = dbGetAll();
+@@ -542,7 +551,7 @@ class Message implements MessageComponentInterface {
+ 
+         $rows = dbGetAllResourcesIdFromLive($live_key, $live_servers_id);
+         $totals = $this->getTotals();
+-        
++
+         foreach ($rows as $value) {
+             if($value['isCommandLine']){
+                 continue;
+diff --git a/plugin/YPTSocket/MessageSQLiteV2.php b/plugin/YPTSocket/MessageSQLiteV2.php
+index cf99e3be4..67dc43fb4 100644
+--- a/plugin/YPTSocket/MessageSQLiteV2.php
++++ b/plugin/YPTSocket/MessageSQLiteV2.php
+@@ -282,6 +282,15 @@ class Message implements MessageComponentInterface
+             default:
+                 $this->msgToArray($json);
+                 //_log_message("onMessage:msgObj: " . json_encode($json));
++                // Strip eval-able fields from browser/guest messages.
++                if (empty($msgObj->isCommandLineInterface) && ($msgObj->sentFrom ?? '') !== 'php') {
++                    if (is_array($json['msg'] ?? null)) {
++                        unset($json['msg']['autoEvalCodeOnHTML']);
++                    }
++                    if (isset($json['callback']) && !preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', (string)$json['callback'])) {
++                        unset($json['callback']);
++                    }
++                }
+                 if (!empty($msgObj->send_to_uri_pattern)) {
+                     $this->msgToSelfURI($json, $msgObj->send_to_uri_pattern);
+                 } else if (!empty($json['resourceId'])) {

@@ -1,0 +1,41 @@
+﻿{
+    "id":  "GHSA-98wm-cxpw-847p",
+    "cve":  "CVE-2026-33628",
+    "cwe":  "CWE-79",
+    "repo":  "invoiceninja/invoiceninja",
+    "sha":  "b81a3fc302573fc4a53d61e8537dd19154ce1091",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Requests/Product/StoreProductRequest.php",
+                        "app/Http/Requests/Product/UpdateProductRequest.php",
+                        "app/Http/Requests/Request.php",
+                        "app/Models/Product.php",
+                        "app/Services/Pdf/Purify.php",
+                        "app/Services/Template/TemplateService.php",
+                        "app/Utils/Traits/CleanLineItems.php",
+                        "tests/Unit/XssSanitizationTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "app/Http/Requests/Product/StoreProductRequest.php class extends Request",
+                     "app/Http/Requests/Product/UpdateProductRequest.php class extends Request",
+                     "app/Http/Requests/Product/UpdateProductRequest.php class uses trait",
+                     "app/Http/Requests/Request.php class extends FormRequest",
+                     "app/Http/Requests/Request.php class uses trait",
+                     "app/Models/Product.php class extends BaseModel",
+                     "app/Models/Product.php class uses trait",
+                     "app/Services/Template/TemplateService.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Http/Requests/Product/StoreProductRequest.php",
+                        "app/Http/Requests/Product/UpdateProductRequest.php",
+                        "app/Http/Requests/Request.php",
+                        "app/Models/Product.php",
+                        "app/Services/Pdf/Purify.php",
+                        "app/Services/Template/TemplateService.php",
+                        "app/Utils/Traits/CleanLineItems.php",
+                        "tests/Unit/XssSanitizationTest.php"
+                    ],
+    "sink_hit":  true
+}

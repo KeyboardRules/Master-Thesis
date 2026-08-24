@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-35c5-67fm-cpcp",
+    "cve":  "CVE-2025-8678",
+    "cwe":  "CWE-918",
+    "repo":  "johnbillion/wp-crontrol",
+    "fix_commit":  "b085bd306588d7a9baed82de37f9d1818deafc44",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/bootstrap.php",
+                        "src/event-list-table.php",
+                        "src/event.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/event-list-table.php includes 1 project file(s)",
+                     "src/event-list-table.php class extends \\WP_List_Table",
+                     "tests/_support/AcceptanceTester.php class extends \\Codeception\\Actor"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-6rgh-r6j3-3223",
+    "cve":  "CVE-2024-47049",
+    "cwe":  "CWE-22",
+    "repo":  "czim/file-handling",
+    "fix_commit":  "95dfda850536bf35e684619598b9d02f4c97680d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Storage/File/StorableFileFactory.php",
+                        "src/Support/Content/UploadedContentInterpreter.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "tests/Unit/Storage/File/StorableFileFactoryTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

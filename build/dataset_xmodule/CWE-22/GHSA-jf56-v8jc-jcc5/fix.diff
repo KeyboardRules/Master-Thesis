@@ -1,0 +1,18 @@
+﻿diff --git a/typo3/sysext/core/Classes/Utility/GeneralUtility.php b/typo3/sysext/core/Classes/Utility/GeneralUtility.php
+index 971c7b13a7..682eaec701 100644
+--- a/typo3/sysext/core/Classes/Utility/GeneralUtility.php
++++ b/typo3/sysext/core/Classes/Utility/GeneralUtility.php
+@@ -2541,10 +2541,11 @@ class GeneralUtility
+         if (substr($path, 0, 6) === 'vfs://') {
+             return true;
+         }
++        $path = PathUtility::sanitizeTrailingSeparator($path);
+         return PathUtility::isAbsolutePath($path) && static::validPathStr($path)
+             && (
+-                str_starts_with($path, Environment::getProjectPath())
+-                || str_starts_with($path, Environment::getPublicPath())
++                str_starts_with($path, Environment::getProjectPath() . '/')
++                || str_starts_with($path, Environment::getPublicPath() . '/')
+                 || PathUtility::isAllowedAdditionalPath($path)
+             );
+     }

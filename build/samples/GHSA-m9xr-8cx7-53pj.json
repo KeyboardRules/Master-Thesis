@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-m9xr-8cx7-53pj",
+    "cve":  "CVE-2023-0314",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "3872e7eac2ddeac182fc1335cc312d1392d56f98",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/index.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "phpmyfaq/admin/index.php includes 75 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/index.php"
+                    ],
+    "sink_hit":  true
+}

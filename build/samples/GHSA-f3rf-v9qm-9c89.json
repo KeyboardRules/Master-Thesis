@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-f3rf-v9qm-9c89",
+    "cve":  "CVE-2021-36787",
+    "cwe":  "CWE-79",
+    "repo":  "in2code-de/femanager",
+    "sha":  "70f873c60f0e40ffd6a1300218ca368156fc1bf2",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Domain/Service/FileService.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Classes/Domain/Service/FileService.php",
+                        "Configuration/TypoScript/Main/setup.typoscript"
+                    ],
+    "sink_hit":  false
+}

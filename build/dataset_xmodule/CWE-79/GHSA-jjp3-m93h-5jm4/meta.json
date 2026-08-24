@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jjp3-m93h-5jm4",
+    "cve":  "CVE-2022-0928",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "fc9137c031f7edec5f50d73b300919fb519c924a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/MicroweberPackages/App/functions/api_callbacks.php",
+                        "src/MicroweberPackages/Tax/TaxManager.php",
+                        "src/MicroweberPackages/Tax/TaxManagerServiceProvider.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/MicroweberPackages/Tax/TaxManagerServiceProvider.php class extends ServiceProvider"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

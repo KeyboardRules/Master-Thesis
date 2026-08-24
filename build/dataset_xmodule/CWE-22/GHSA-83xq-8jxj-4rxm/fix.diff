@@ -1,0 +1,171 @@
+﻿diff --git a/objects/import.json.php b/objects/import.json.php
+index 04f83af0f..affd7c8a0 100644
+--- a/objects/import.json.php
++++ b/objects/import.json.php
+@@ -1,75 +1,91 @@
+-<?php
+-global $global, $config;
+-if (!isset($global['systemRootPath'])) {
+-    require_once '../videos/configuration.php';
+-}
+-header('Content-Type: application/json');
+-
+-if (!User::canUpload() || !empty($advancedCustom->doNotShowImportMP4Button)) {
+-    return false;
+-}
+-
+-if (!preg_match("/.*\\.mp4$/i", $_POST['fileURI'])) {
+-    return false;
+-}
+-
+-$obj = new stdClass();
+-
+-$obj->error = true;
+-
+-$obj->fileURI = pathinfo($_POST['fileURI']);
+-
+-//get description
+-$filename = $obj->fileURI['dirname'] . DIRECTORY_SEPARATOR . $obj->fileURI['filename'];
+-$extensions = ['txt', 'html', 'htm'];
+-
+-$length = intval($_POST['length']);
+-if (empty($length) || $length>100) {
+-    $length = 100;
+-}
+-
+-foreach ($extensions as $value) {
+-    $_POST['description'] = '';
+-    $_POST['title'] = '';
+-    if (file_exists("{$filename}.{$value}")) {
+-        $html = file_get_contents("{$filename}.{$value}");
+-        $breaks = ["<br />","<br>","<br/>"];
+-        $html = str_ireplace($breaks, "\r\n", $html);
+-        $_POST['description'] = $html;
+-        $cleanHTML = strip_tags($html);
+-        $_POST['title'] = substr($cleanHTML, 0, $length);
+-        break;
+-    }
+-}
+-
+-$tmpDir = sys_get_temp_dir();
+-$tmpFileName = $tmpDir.DIRECTORY_SEPARATOR.$obj->fileURI['filename'];
+-$source = $obj->fileURI['dirname'] . DIRECTORY_SEPARATOR . $obj->fileURI['basename'];
+-
+-if (!copy($source, $tmpFileName)) {
+-    $obj->msg = "failed to copy $filename...\n";
+-    die(json_encode($obj));
+-}
+-
+-if (!empty($_POST['delete']) && $_POST['delete'] !== 'false') {
+-    if (is_writable($source)) {
+-        unlink($source);
+-        foreach ($extensions as $value) {
+-            if (file_exists("{$filename}.{$value}")) {
+-                unlink("{$filename}.{$value}");
+-            }
+-        }
+-    } else {
+-        $obj->msg = "Could not delete $source...\n";
+-    }
+-}
+-
+-$_FILES['upl']['error'] = 0;
+-$_FILES['upl']['name'] = $obj->fileURI['basename'];
+-$_FILES['upl']['tmp_name'] = $tmpFileName;
+-$_FILES['upl']['type'] = 'video/mp4';
+-$_FILES['upl']['size'] = filesize($tmpFileName);
+-
+-require_once $global['systemRootPath'] . 'view/mini-upload-form/upload.php';
+-
+-echo json_encode($obj);
++<?php
++global $global, $config;
++if (!isset($global['systemRootPath'])) {
++    require_once '../videos/configuration.php';
++}
++header('Content-Type: application/json');
++
++if (!User::canUpload() || !empty($advancedCustom->doNotShowImportMP4Button)) {
++    return false;
++}
++
++if (!preg_match("/.*\\.mp4$/i", $_POST['fileURI'])) {
++    return false;
++}
++
++// Restrict fileURI to the videos directory to prevent path traversal:
++// an authenticated user with upload permission must not be able to read,
++// copy, or delete files outside of the videos/ tree.
++$allowedBase = realpath($global['systemRootPath'] . 'videos');
++if ($allowedBase === false) {
++    http_response_code(500);
++    die(json_encode(['error' => true, 'msg' => 'Configuration error']));
++}
++$resolvedDir = realpath(dirname($_POST['fileURI']));
++if ($resolvedDir === false || strpos($resolvedDir . DIRECTORY_SEPARATOR, $allowedBase . DIRECTORY_SEPARATOR) !== 0) {
++    http_response_code(403);
++    die(json_encode(['error' => true, 'msg' => 'Path not allowed']));
++}
++// Reconstruct from resolved path + basename to eliminate any symlink tricks.
++$_POST['fileURI'] = $resolvedDir . DIRECTORY_SEPARATOR . basename($_POST['fileURI']);
++
++$obj = new stdClass();
++
++$obj->error = true;
++
++$obj->fileURI = pathinfo($_POST['fileURI']);
++
++//get description
++$filename = $obj->fileURI['dirname'] . DIRECTORY_SEPARATOR . $obj->fileURI['filename'];
++$extensions = ['txt', 'html', 'htm'];
++
++$length = intval($_POST['length']);
++if (empty($length) || $length>100) {
++    $length = 100;
++}
++
++foreach ($extensions as $value) {
++    $_POST['description'] = '';
++    $_POST['title'] = '';
++    if (file_exists("{$filename}.{$value}")) {
++        $html = file_get_contents("{$filename}.{$value}");
++        $breaks = ["<br />","<br>","<br/>"];
++        $html = str_ireplace($breaks, "\r\n", $html);
++        $_POST['description'] = $html;
++        $cleanHTML = strip_tags($html);
++        $_POST['title'] = substr($cleanHTML, 0, $length);
++        break;
++    }
++}
++
++$tmpDir = sys_get_temp_dir();
++$tmpFileName = $tmpDir.DIRECTORY_SEPARATOR.$obj->fileURI['filename'];
++$source = $obj->fileURI['dirname'] . DIRECTORY_SEPARATOR . $obj->fileURI['basename'];
++
++if (!copy($source, $tmpFileName)) {
++    $obj->msg = "failed to copy $filename...\n";
++    die(json_encode($obj));
++}
++
++if (!empty($_POST['delete']) && $_POST['delete'] !== 'false') {
++    if (is_writable($source)) {
++        unlink($source);
++        foreach ($extensions as $value) {
++            if (file_exists("{$filename}.{$value}")) {
++                unlink("{$filename}.{$value}");
++            }
++        }
++    } else {
++        $obj->msg = "Could not delete $source...\n";
++    }
++}
++
++$_FILES['upl']['error'] = 0;
++$_FILES['upl']['name'] = $obj->fileURI['basename'];
++$_FILES['upl']['tmp_name'] = $tmpFileName;
++$_FILES['upl']['type'] = 'video/mp4';
++$_FILES['upl']['size'] = filesize($tmpFileName);
++
++require_once $global['systemRootPath'] . 'view/mini-upload-form/upload.php';
++
++echo json_encode($obj);

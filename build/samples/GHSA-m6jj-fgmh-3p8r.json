@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m6jj-fgmh-3p8r",
+    "cve":  "CVE-2023-4982",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "2c5960631c49f7414f61b6d4dcd305b07da05769",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/search/fdb.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/search/fdb.inc.php"
+                    ],
+    "sink_hit":  true
+}

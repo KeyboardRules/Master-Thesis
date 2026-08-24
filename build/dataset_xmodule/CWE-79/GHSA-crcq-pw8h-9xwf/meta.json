@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-crcq-pw8h-9xwf",
+    "cve":  "CVE-2014-9059",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "0a0145c5e8041aadeff303a9f9984c86706b4e42",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/setup.php"
+                    ],
+    "evidence":  [
+                     "lib/setup.php includes 28 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

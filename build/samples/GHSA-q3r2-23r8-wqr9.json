@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-q3r2-23r8-wqr9",
+    "cve":  "CVE-2023-26091",
+    "cwe":  "CWE-79",
+    "repo":  "frappant/frp_form_answers",
+    "sha":  "39fa16c8c792abdfc33e38bae17847364ff6a71d",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php",
+                        "Classes/Form/FormAnswersJsonElement.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php class extends AbstractFinisher",
+                     "Classes/Form/FormAnswersJsonElement.php class extends AbstractFormElement"
+                 ],
+    "changed_all":  [
+                        "Classes/Domain/Finishers/SaveFormToDatabaseFinisher.php",
+                        "Classes/Form/FormAnswersJsonElement.php",
+                        "Resources/Private/Backend/Partials/FormEntry/Properties.html",
+                        "Resources/Private/CommandTask/Partials/FormEntries/InMail.html"
+                    ],
+    "sink_hit":  false
+}

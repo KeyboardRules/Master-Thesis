@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-w48r-jppp-rcfw",
+    "cve":  "CVE-2026-42607",
+    "cwe":  "CWE-94",
+    "repo":  "getgrav/grav",
+    "fix_commit":  "5a12f9be8314682c8713e569e330f11805d0a663",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/src/Grav/Common/GPM/Installer.php",
+                        "system/src/Grav/Common/Media/Traits/MediaObjectTrait.php",
+                        "system/src/Grav/Common/Page/Medium/VectorImageMedium.php",
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "system/src/Grav/Common/Page/Medium/VectorImageMedium.php class extends StaticImageMedium"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

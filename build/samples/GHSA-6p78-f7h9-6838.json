@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-6p78-f7h9-6838",
+    "cve":  "CVE-2023-36260",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/feed-me",
+    "sha":  "b5d6ede51848349bd91bc95fec288b6793f15e28",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/FeedsController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/FeedsController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/FeedsController.php"
+                    ],
+    "sink_hit":  false
+}

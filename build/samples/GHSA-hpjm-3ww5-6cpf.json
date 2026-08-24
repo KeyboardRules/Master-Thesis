@@ -1,0 +1,48 @@
+﻿{
+    "id":  "GHSA-hpjm-3ww5-6cpf",
+    "cve":  "CVE-2020-26216",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/Fluid",
+    "sha":  "f20db4e74cf9803c6cffca2ed2f03e1b0b89d0dc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Parser/Configuration.php",
+                        "src/Core/Parser/TemplateParser.php",
+                        "src/Core/ViewHelper/AbstractConditionViewHelper.php",
+                        "src/Core/ViewHelper/AbstractViewHelper.php",
+                        "src/Core/ViewHelper/ArgumentDefinition.php",
+                        "src/Core/ViewHelper/TagBuilder.php",
+                        "src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php",
+                        "src/ViewHelpers/Format/RawViewHelper.php",
+                        "tests/Functional/Cases/Escaping/EscapingTest.php",
+                        "tests/Functional/Fixtures/ViewHelpers/MutableTestViewHelper.php",
+                        "tests/Functional/Fixtures/ViewHelpers/TagBasedTestViewHelper.php",
+                        "tests/Unit/Core/Parser/TemplateParserTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "src/Core/ViewHelper/AbstractConditionViewHelper.php class extends AbstractViewHelper",
+                     "src/ViewHelpers/Format/RawViewHelper.php class extends AbstractViewHelper",
+                     "src/ViewHelpers/Format/RawViewHelper.php class uses trait",
+                     "tests/Functional/Cases/Escaping/EscapingTest.php class extends BaseFunctionalTestCase",
+                     "tests/Functional/Fixtures/ViewHelpers/MutableTestViewHelper.php class extends AbstractViewHelper",
+                     "tests/Unit/Core/Parser/TemplateParserTest.php includes 1 project file(s)",
+                     "tests/Unit/Core/Parser/TemplateParserTest.php class extends UnitTestCase"
+                 ],
+    "changed_all":  [
+                        "src/Core/Parser/Configuration.php",
+                        "src/Core/Parser/TemplateParser.php",
+                        "src/Core/ViewHelper/AbstractConditionViewHelper.php",
+                        "src/Core/ViewHelper/AbstractViewHelper.php",
+                        "src/Core/ViewHelper/ArgumentDefinition.php",
+                        "src/Core/ViewHelper/TagBuilder.php",
+                        "src/Core/ViewHelper/Traits/CompileWithContentArgumentAndRenderStatic.php",
+                        "src/ViewHelpers/Format/RawViewHelper.php",
+                        "tests/Functional/Cases/Escaping/EscapingTest.php",
+                        "tests/Functional/Fixtures/ViewHelpers/MutableTestViewHelper.php",
+                        "tests/Functional/Fixtures/ViewHelpers/TagBasedTestViewHelper.php",
+                        "tests/Unit/Core/Parser/TemplateParserTest.php"
+                    ],
+    "sink_hit":  true
+}

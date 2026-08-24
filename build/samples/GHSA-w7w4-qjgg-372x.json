@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-w7w4-qjgg-372x",
+    "cve":  "CVE-2023-0566",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/froxlor",
+    "sha":  "bd5b99dc1c06f594b9563d459a50bf3b32504876",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Froxlor/Api/Commands/Cronjobs.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lib/Froxlor/Api/Commands/Cronjobs.php class extends ApiCommand"
+                 ],
+    "changed_all":  [
+                        "lib/Froxlor/Api/Commands/Cronjobs.php",
+                        "lng/de.lng.php",
+                        "lng/en.lng.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-38cx-cq6f-5755",
+    "cve":  "CVE-2026-48736",
+    "cwe":  "CWE-918",
+    "repo":  "symfony/symfony",
+    "fix_commit":  "82765368cf74177c36613575182f168a2eb765b2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php class uses trait",
+                     "src/Symfony/Component/HttpClient/Tests/NoPrivateNetworkHttpClientTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

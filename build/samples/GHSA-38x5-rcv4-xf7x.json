@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-38x5-rcv4-xf7x",
+    "cve":  "CVE-2026-49210",
+    "cwe":  "CWE-79",
+    "repo":  "symfony/ux",
+    "sha":  "fbc5e9a1bda7e4556be21bb1d970f382760ed9a9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/LiveComponent/src/Util/ChildComponentPartialRenderer.php",
+                        "src/LiveComponent/tests/Functional/EventListener/InterceptChildComponentRenderSubscriberTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/LiveComponent/tests/Functional/EventListener/InterceptChildComponentRenderSubscriberTest.php class extends KernelTestCase",
+                     "src/LiveComponent/tests/Functional/EventListener/InterceptChildComponentRenderSubscriberTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/LiveComponent/src/Util/ChildComponentPartialRenderer.php",
+                        "src/LiveComponent/tests/Functional/EventListener/InterceptChildComponentRenderSubscriberTest.php"
+                    ],
+    "sink_hit":  false
+}

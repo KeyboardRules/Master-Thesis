@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-46rx-6jg9-4fh8",
+    "cve":  "CVE-2021-43324",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "99d2462b80435b91a35236639b909eebee432126",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/OverviewController.php",
+                        "app/Http/Controllers/Widgets/WidgetController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Http/Controllers/OverviewController.php class extends Controller",
+                     "app/Http/Controllers/Widgets/WidgetController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

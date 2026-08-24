@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-3cpf-jmmc-8jm3",
+    "cve":  "CVE-2024-4353",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "ff5a2aba7fbc1ff0368202a2c0afddea47136daf",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/blocks/board/edit.php",
+                        "concrete/single_pages/dashboard/boards/instances.php",
+                        "concrete/single_pages/dashboard/boards/instances/details.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "concrete/blocks/board/edit.php",
+                        "concrete/single_pages/dashboard/boards/instances.php",
+                        "concrete/single_pages/dashboard/boards/instances/details.php"
+                    ],
+    "sink_hit":  true
+}

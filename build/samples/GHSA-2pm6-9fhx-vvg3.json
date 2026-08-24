@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2pm6-9fhx-vvg3",
+    "cve":  "CVE-2026-1323",
+    "cwe":  "CWE-502",
+    "repo":  "CPS-IT/mailqueue",
+    "sha":  "0f7a1376bbbd8c7658030d02e51c10a85b1dfdf7",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Mail/TransportFailure.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Classes/Mail/TransportFailure.php"
+                    ],
+    "sink_hit":  true
+}

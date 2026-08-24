@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xx95-62h6-h7v3",
+    "cve":  "CVE-2024-56361",
+    "cwe":  "CWE-79",
+    "repo":  "tltneon/lgsl",
+    "sha":  "3fbd3bb581b636f7fd3ea0592c5f8df87d3a2843",
+    "status":  "ok",
+    "changed_php":  [
+                        "lgsl_files/lgsl_details.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "lgsl_files/lgsl_details.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lgsl_files/lgsl_details.php"
+                    ],
+    "sink_hit":  true
+}

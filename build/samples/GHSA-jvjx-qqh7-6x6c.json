@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-jvjx-qqh7-6x6c",
+    "cve":  "CVE-2023-1757",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "5061e5841be6c218ebb0de0cbf7b7f195dc46d19",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/news.php",
+                        "phpmyfaq/src/phpMyFAQ/News.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/news.php",
+                        "phpmyfaq/src/phpMyFAQ/News.php"
+                    ],
+    "sink_hit":  true
+}

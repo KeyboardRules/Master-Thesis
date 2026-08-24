@@ -1,0 +1,15 @@
+﻿diff --git a/src/Knp/Snappy/AbstractGenerator.php b/src/Knp/Snappy/AbstractGenerator.php
+index dba9873..643376f 100644
+--- a/src/Knp/Snappy/AbstractGenerator.php
++++ b/src/Knp/Snappy/AbstractGenerator.php
+@@ -625,6 +625,10 @@ abstract class AbstractGenerator implements GeneratorInterface, LoggerAwareInter
+      */
+     protected function prepareOutput($filename, $overwrite)
+     {
++        if (\strpos($filename, 'phar://') === 0) {
++            throw new InvalidArgumentException('The output file cannot be a phar archive.');
++        }
++
+         $directory = \dirname($filename);
+ 
+         if ($this->fileExists($filename)) {

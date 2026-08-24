@@ -1,0 +1,89 @@
+﻿diff --git a/htdocs/core/lib/website2.lib.php b/htdocs/core/lib/website2.lib.php
+index 8124152d2d..68f6c48053 100644
+--- a/htdocs/core/lib/website2.lib.php
++++ b/htdocs/core/lib/website2.lib.php
+@@ -958,6 +958,11 @@ function checkPHPCode(&$phpfullcodestringold, &$phpfullcodestring)
+ 
+ 	// First check permission
+ 	if ($phpfullcodestringold != $phpfullcodestring) {
++		global $dolibarr_website_allow_custom_php;
++		if (empty($dolibarr_website_allow_custom_php)) {
++			$error++;
++			setEventMessages($langs->trans("NotAllowedToAddDynamicContentDisabledGlobaly", 'dolibarr_website_allow_custom_php'), null, 'errors');
++		}
+ 		if (!$error && !$user->hasRight('website', 'writephp')) {
+ 			$error++;
+ 			setEventMessages($langs->trans("NotAllowedToAddDynamicContent"), null, 'errors');
+diff --git a/htdocs/core/website.inc.php b/htdocs/core/website.inc.php
+index a0e9eec4ba..b7d6635abc 100644
+--- a/htdocs/core/website.inc.php
++++ b/htdocs/core/website.inc.php
+@@ -307,6 +307,8 @@ $_COOKIE[$sessionname] = 'obfuscatedcookie';
+ unset($conf->file->instance_unique_id);
+ 
+ unset($dolibarr_main_instance_unique_id);
++//unset($dolibarr_main_dolcrypt_key);  // TODO Test if we can uncomment this
++
+ unset($dolibarr_main_db_host);
+ unset($dolibarr_main_db_port);
+ unset($dolibarr_main_db_name);
+diff --git a/htdocs/theme/eldy/global.inc.php b/htdocs/theme/eldy/global.inc.php
+index c9fe2725b6..5aff560653 100644
+--- a/htdocs/theme/eldy/global.inc.php
++++ b/htdocs/theme/eldy/global.inc.php
+@@ -1346,6 +1346,9 @@ div.urllink {
+ 	align-items: center;
+ 	height: 2em;
+ }
++div.urllink.unsetheight {
++	height: unset;
++}
+ div.urllink span.fa, div.urllink span.fas, div.urllink span.far {
+ 	width: 22px;
+ }
+diff --git a/htdocs/website/index.php b/htdocs/website/index.php
+index 55b2b44e72..2d39abbe13 100644
+--- a/htdocs/website/index.php
++++ b/htdocs/website/index.php
+@@ -3446,14 +3446,17 @@ if (!GETPOST('hide_websitemenu')) {
+ 	}
+ 
+ 	if (in_array($action, array('editcss', 'editmenu', 'file_manager', 'replacesiteconfirm', 'editsecurity')) || in_array($mode, array('replacesite'))) {
++		if (!$user->hasRight('website', 'write')) {
++			$disabled = ' disabled';
++		}
+ 		if ($action == 'editcss' || $action == 'editsecurity') {
+-			print '<input type="submit" accesskey="s" title="'.dol_escape_htmltag($conf->browser->stringforfirstkey.' s').'" id="savefileandstay" class="button buttonforacesave hideonsmartphone small" value="'.dol_escape_htmltag($langs->trans("SaveAndStay")).'" name="updateandstay">';
++			print '<input type="submit" accesskey="s" title="'.dol_escape_htmltag($conf->browser->stringforfirstkey.' s').'" id="savefileandstay" class="button buttonforacesave hideonsmartphone small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("SaveAndStay")).'" name="updateandstay">';
+ 		}
+ 		if (preg_match('/^create/', $action) && $action != 'file_manager' && $action != 'replacesite' && $action != 'replacesiteconfirm') {
+-			print '<input type="submit" id="savefile" class="button buttonforacesave button-save small" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
++			print '<input type="submit" id="savefile" class="button buttonforacesave button-save small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
+ 		}
+ 		if (preg_match('/^edit/', $action) && $action != 'file_manager' && $action != 'replacesite' && $action != 'replacesiteconfirm') {
+-			print '<input type="submit" id="savefile" class="button buttonforacesave button-save small" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
++			print '<input type="submit" id="savefile" class="button buttonforacesave button-save small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
+ 		}
+ 		if ($action != 'preview') {
+ 			print '<input type="submit" class="button button-cancel small" value="'.dol_escape_htmltag($langs->trans("Cancel")).'" name="cancel">';
+@@ -3945,14 +3948,17 @@ if (!GETPOST('hide_websitemenu')) {
+ 			// TODO Add js to save alias like we save virtual host name and use dynamic virtual host for url of id=previewpageext
+ 		}
+ 		if (!in_array($mode, array('replacesite')) && !in_array($action, array('editcss', 'editmenu', 'file_manager', 'replacesiteconfirm', 'createsite', 'createcontainer', 'createfromclone', 'createpagefromclone', 'deletesite', 'editsecurity'))) {
++			if (!$user->hasRight('website', 'write')) {
++				$disabled = ' disabled';
++			}
+ 			if ($action == 'editsource' || $action == 'editmeta') {
+-				print '<input type="submit" accesskey="s" title="'.dol_escape_htmltag($conf->browser->stringforfirstkey.' s').'" id="savefileandstay" class="button buttonforacesave hideonsmartphone small" value="'.dol_escape_htmltag($langs->trans("SaveAndStay")).'" name="updateandstay">';
++				print '<input type="submit" accesskey="s" title="'.dol_escape_htmltag($conf->browser->stringforfirstkey.' s').'" id="savefileandstay" class="button buttonforacesave hideonsmartphone small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("SaveAndStay")).'" name="updateandstay">';
+ 			}
+ 			if (preg_match('/^create/', $action)) {
+-				print '<input type="submit" id="savefile" class="button buttonforacesave button-save small" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
++				print '<input type="submit" id="savefile" class="button buttonforacesave button-save small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
+ 			}
+ 			if (preg_match('/^edit/', $action)) {
+-				print '<input type="submit" id="savefile" class="button buttonforacesave button-save small" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
++				print '<input type="submit" id="savefile" class="button buttonforacesave button-save small'.$disabled.'" value="'.dol_escape_htmltag($langs->trans("Save")).'" name="update">';
+ 			}
+ 			if ($action != 'preview') {
+ 				print '<input type="submit" class="button button-cancel small" value="'.dol_escape_htmltag($langs->trans("Cancel")).'" name="cancel">';

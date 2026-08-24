@@ -1,0 +1,80 @@
+﻿diff --git a/lib/Froxlor/Api/Commands/Admins.php b/lib/Froxlor/Api/Commands/Admins.php
+index fdb6f38..4174f09 100644
+--- a/lib/Froxlor/Api/Commands/Admins.php
++++ b/lib/Froxlor/Api/Commands/Admins.php
+@@ -31,6 +31,7 @@ use Froxlor\Api\ResourceEntity;
+ use Froxlor\Database\Database;
+ use Froxlor\FroxlorLogger;
+ use Froxlor\Idna\IdnaWrapper;
++use Froxlor\Language;
+ use Froxlor\Settings;
+ use Froxlor\System\Crypt;
+ use Froxlor\UI\Response;
+@@ -254,6 +255,9 @@ class Admins extends ApiCommand implements ResourceEntity
+ 			$idna_convert = new IdnaWrapper();
+ 			$email = $idna_convert->encode(Validate::validate($email, 'email', '', '', [], true));
+ 			$def_language = Validate::validate($def_language, 'default language', '', '', [], true);
++			if (!empty($def_language) && !isset(Language::getLanguages()[$def_language])) {
++				$def_language = Settings::Get('panel.standardlanguage');
++			}
+ 			$custom_notes = Validate::validate(str_replace("\r\n", "\n", $custom_notes), 'custom_notes', Validate::REGEX_CONF_TEXT, '', [], true);
+ 
+ 			if (Settings::Get('system.mail_quota_enabled') != '1') {
+@@ -598,6 +602,9 @@ class Admins extends ApiCommand implements ResourceEntity
+ 				$idna_convert = new IdnaWrapper();
+ 				$email = $idna_convert->encode(Validate::validate($email, 'email', '', '', [], true));
+ 				$def_language = Validate::validate($def_language, 'default language', '', '', [], true);
++				if (!empty($def_language) && !isset(Language::getLanguages()[$def_language])) {
++					$def_language = Settings::Get('panel.standardlanguage');
++				}
+ 				$custom_notes = Validate::validate(str_replace("\r\n", "\n", $custom_notes ?? ""), 'custom_notes', Validate::REGEX_CONF_TEXT, '', [], true);
+ 				$theme = Validate::validate($theme, 'theme', '', '', [], true);
+ 				$password = Validate::validate($password, 'password', '', '', [], true);
+diff --git a/lib/Froxlor/Api/Commands/Customers.php b/lib/Froxlor/Api/Commands/Customers.php
+index 55f123d..d35edbd 100644
+--- a/lib/Froxlor/Api/Commands/Customers.php
++++ b/lib/Froxlor/Api/Commands/Customers.php
+@@ -34,6 +34,7 @@ use Froxlor\Database\DbManager;
+ use Froxlor\FileDir;
+ use Froxlor\FroxlorLogger;
+ use Froxlor\Idna\IdnaWrapper;
++use Froxlor\Language;
+ use Froxlor\Settings;
+ use Froxlor\System\Cronjob;
+ use Froxlor\System\Crypt;
+@@ -382,6 +383,9 @@ class Customers extends ApiCommand implements ResourceEntity
+ 				$email = $idna_convert->encode(Validate::validate($email, 'email', '', '', [], true));
+ 				$customernumber = Validate::validate($customernumber, 'customer number', '/^[A-Za-z0-9 \-]*$/Di', '', [], true);
+ 				$def_language = Validate::validate($def_language, 'default language', '', '', [], true);
++				if (!empty($def_language) && !isset(Language::getLanguages()[$def_language])) {
++					$def_language = Settings::Get('panel.standardlanguage');
++				}
+ 				$custom_notes = Validate::validate(str_replace("\r\n", "\n", $custom_notes), 'custom_notes', Validate::REGEX_CONF_TEXT, '', [], true);
+ 
+ 				if (Settings::Get('system.mail_quota_enabled') != '1') {
+@@ -1205,6 +1209,10 @@ class Customers extends ApiCommand implements ResourceEntity
+ 
+ 		}
+ 		$def_language = Validate::validate($def_language, 'default language', '', '', [], true);
++		if (!empty($def_language) && !isset(Language::getLanguages()[$def_language])) {
++			$def_language = Settings::Get('panel.standardlanguage');
++		}
++
+ 		$theme = Validate::validate($theme, 'theme', '', '', [], true);
+ 
+ 		if (Settings::Get('system.mail_quota_enabled') != '1') {
+diff --git a/lib/Froxlor/Language.php b/lib/Froxlor/Language.php
+index aed5ed1..f16dcaa 100644
+--- a/lib/Froxlor/Language.php
++++ b/lib/Froxlor/Language.php
+@@ -88,6 +88,10 @@ class Language
+ 	 */
+ 	private static function loadLanguage($iso): array
+ 	{
++		// Reject path traversal attempts
++		if ($iso !== basename($iso) || str_contains($iso, '..')) {
++			return [];
++		}
+ 		$languageFile = dirname(__DIR__, 2) . sprintf('/lng/%s.lng.php', $iso);
+ 
+ 		if (!file_exists($languageFile)) {

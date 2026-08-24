@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-gf46-prm4-56pc",
+    "cve":  "CVE-2023-39526",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "817847e2347844a9b6add017581f1932bcd28c09",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "classes/RequestSql.php",
+                        "classes/db/Db.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "classes/RequestSql.php class extends ObjectModel",
+                     "classes/db/Db.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

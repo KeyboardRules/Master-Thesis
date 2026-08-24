@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9gqp-3g28-w9xc",
+    "cve":  "CVE-2023-5547",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "833e818f022cce8373922afaa0cc6c8726b6b079",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/tool/uploadcourse/classes/tracker.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/tool/uploadcourse/classes/tracker.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/tool/uploadcourse/classes/tracker.php"
+                    ],
+    "sink_hit":  true
+}

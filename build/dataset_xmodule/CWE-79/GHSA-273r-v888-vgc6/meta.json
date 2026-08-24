@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-273r-v888-vgc6",
+    "cve":  "CVE-2019-8153",
+    "cwe":  "CWE-79",
+    "repo":  "magento/magento2",
+    "fix_commit":  "c6ab7ac38f25309318e5819d4bdd936b2a0cf6bd",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "lib/internal/Magento/Framework/Escaper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/internal/Magento/Framework/Test/Unit/EscaperTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

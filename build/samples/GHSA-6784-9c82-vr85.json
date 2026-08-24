@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6784-9c82-vr85",
+    "cve":  "CVE-2024-47617",
+    "cwe":  "CWE-79",
+    "repo":  "sulu/sulu",
+    "sha":  "a5a5ae555d282e88ff8559d38cfb46dea7939bda",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaControllerTest.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaStreamControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaControllerTest.php class extends SuluTestCase",
+                     "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaStreamControllerTest.php class extends WebsiteTestCase"
+                 ],
+    "changed_all":  [
+                        "src/Sulu/Bundle/MediaBundle/Controller/MediaStreamController.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaControllerTest.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Functional/Controller/MediaStreamControllerTest.php"
+                    ],
+    "sink_hit":  false
+}

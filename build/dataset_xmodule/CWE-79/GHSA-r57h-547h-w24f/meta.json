@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-r57h-547h-w24f",
+    "cve":  "CVE-2025-23210",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "cde2926a9e2baf146783f8fd1771bbed7d1dc7b3",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Worksheet/Drawing.php",
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/PhpSpreadsheet/Worksheet/Drawing.php class extends BaseDrawing",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter",
+                     "tests/PhpSpreadsheetTests/Reader/Html/HtmlImage2Test.php class extends TestCase",
+                     "tests/PhpSpreadsheetTests/Writer/Html/BadHyperlinkTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

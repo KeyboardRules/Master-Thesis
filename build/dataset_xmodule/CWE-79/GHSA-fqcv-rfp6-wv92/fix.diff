@@ -1,0 +1,89 @@
+﻿diff --git a/src/MicroweberPackages/Content/ContentManagerHelpers.php b/src/MicroweberPackages/Content/ContentManagerHelpers.php
+index 0a720e324c..db6a26acd5 100644
+--- a/src/MicroweberPackages/Content/ContentManagerHelpers.php
++++ b/src/MicroweberPackages/Content/ContentManagerHelpers.php
+@@ -659,6 +659,7 @@ class ContentManagerHelpers extends ContentManagerCrud
+         $ref_page_url = false;
+         if (isset($_SERVER['HTTP_REFERER'])) {
+             $ref_page_url = $_SERVER['HTTP_REFERER'];
++            $ref_page_url = xss_clean($ref_page_url);
+         }
+ 
+         if (isset($post_data['id']) and intval($post_data['id']) > 0) {
+diff --git a/src/MicroweberPackages/Database/DatabaseManager.php b/src/MicroweberPackages/Database/DatabaseManager.php
+index 7f4bc13af7..76381946b8 100644
+--- a/src/MicroweberPackages/Database/DatabaseManager.php
++++ b/src/MicroweberPackages/Database/DatabaseManager.php
+@@ -668,16 +668,32 @@ class DatabaseManager extends DbUtils
+                     $criteria['id'] = $next_id;
+                 }
+             }
+-            $id_to_return = $this->table($table_assoc_name)->insert($criteria);
++
++            if(method_exists($this->table($table),'create')){
++                $id_to_return = $this->table($table)->create($criteria);
++            } else {
++                $id_to_return = $this->table($table)->insert($criteria);
++            }
++             //$id_to_return = $this->table($table_assoc_name)->insert($criteria);
++         //   $id_to_return = $this->table($table_assoc_name)->create($criteria);
+             $id_to_return = $this->last_id($table);
+ 
+         } else {
++
+             $insert_or_update = $highestId = $this->table($table)->where('id', $criteria['id'])->count();
+             if ($insert_or_update != 0) {
+                 $insert_or_update = 'update';
+             } else {
+-                $insert_or_update = 'insert';
++              $insert_or_update = 'insert';
++              if(method_exists($this->table($table),'create')){
++                    $insert_or_update = 'create';
++              }
++          //  $insert_or_update = 'create';
+             }
++
++
++
++
+             $id_to_return = $this->table($table_assoc_name)->where('id', $criteria['id'])->$insert_or_update($criteria);
+             $id_to_return = $criteria['id'];
+         }
+@@ -965,8 +981,8 @@ class DatabaseManager extends DbUtils
+             $this->use_model_cache[$table]= true;
+ 
+             if ($table == 'content') {
+-              //  $model = new Content($params);
+-                 $model = app()->make(Content::class);
++                 $model = new Content($params);
++              //   $model = app()->make(Content::class);
+ 
+                 //    $model::boot();
+             } else if ($table == 'categories') {
+diff --git a/src/MicroweberPackages/Module/Models/Module.php b/src/MicroweberPackages/Module/Models/Module.php
+index e84774e691..6601e53191 100644
+--- a/src/MicroweberPackages/Module/Models/Module.php
++++ b/src/MicroweberPackages/Module/Models/Module.php
+@@ -46,13 +46,15 @@ class Module extends Model
+ 
+     public function getIconInline()
+     {
+-        $icon = str_replace( '{SITE_URL}', '', $this->icon);
+-        if (get_file_extension($icon) == 'svg') {
+-            $content =  file_get_contents($icon);
+-            $content = str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $content);
+-            return $content;
+-        } else {
+-            return '<img src="' . $icon . '" />';
++        $icon = str_replace('{SITE_URL}', '', $this->icon);
++        if (file_exists($icon)) {
++            if (get_file_extension($icon) == 'svg') {
++                $content = file_get_contents($icon);
++                $content = str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $content);
++                return $content;
++            } else {
++                return '<img src="' . $icon . '" />';
++            }
+         }
+     }
+ 

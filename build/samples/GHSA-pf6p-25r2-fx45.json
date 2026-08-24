@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-pf6p-25r2-fx45",
+    "cve":  "CVE-2022-0085",
+    "cwe":  "CWE-918",
+    "repo":  "dompdf/dompdf",
+    "sha":  "bb1ef65011a14730b7cfbe73506b4bb8a03704bd",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Options.php",
+                        "tests/DompdfTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/DompdfTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Options.php",
+                        "tests/DompdfTest.php"
+                    ],
+    "sink_hit":  true
+}

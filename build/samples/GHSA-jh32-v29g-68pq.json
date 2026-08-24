@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-jh32-v29g-68pq",
+    "cve":  "CVE-2026-49741",
+    "cwe":  "CWE-89",
+    "repo":  "TYPO3/typo3",
+    "sha":  "c90493c13b633f328cf2c066182c90a1655ff0fc",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/form/Classes/Domain/Repository/FormDefinitionRepository.php",
+                        "typo3/sysext/form/Classes/Hooks/FormDefinitionDataHandlerHook.php",
+                        "typo3/sysext/form/Classes/Storage/Security/FormDefinitionPersistenceCommand.php",
+                        "typo3/sysext/form/Classes/Storage/Security/FormDefinitionPersistenceGuard.php",
+                        "typo3/sysext/form/Tests/Functional/Storage/FormDefinitionDataHandlerHookTest.php",
+                        "typo3/sysext/form/Tests/Functional/Storage/FormDefinitionRepositoryTest.php",
+                        "typo3/sysext/form/ext_localconf.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 7 php files"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/form/Classes/Domain/Repository/FormDefinitionRepository.php",
+                        "typo3/sysext/form/Classes/Hooks/FormDefinitionDataHandlerHook.php",
+                        "typo3/sysext/form/Classes/Storage/Security/FormDefinitionPersistenceCommand.php",
+                        "typo3/sysext/form/Classes/Storage/Security/FormDefinitionPersistenceGuard.php",
+                        "typo3/sysext/form/Tests/Functional/Storage/FormDefinitionDataHandlerHookTest.php",
+                        "typo3/sysext/form/Tests/Functional/Storage/FormDefinitionRepositoryTest.php",
+                        "typo3/sysext/form/ext_localconf.php"
+                    ],
+    "sink_hit":  true
+}

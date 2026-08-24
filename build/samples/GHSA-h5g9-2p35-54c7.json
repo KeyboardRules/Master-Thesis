@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-h5g9-2p35-54c7",
+    "cve":  "CVE-2023-3009",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "6ba8cf1f4b89d62a08d122d533ccf4cb4e26a4ee",
+    "status":  "ok",
+    "changed_php":  [
+                        "pages/items.js.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "pages/items.js.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/js/functions.js",
+                        "pages/items.js.php"
+                    ],
+    "sink_hit":  true
+}

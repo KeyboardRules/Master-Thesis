@@ -1,0 +1,38 @@
+﻿{
+    "id":  "GHSA-85ch-44w7-rf32",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "732c4acfaeaa7fd193674cd4d1ca7e369e21b96f",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/HtmlentitiesViewHelperTest.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/StripTagsViewHelperTest.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/UrlencodeViewHelperTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php class extends AbstractEncodingViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php class extends AbstractViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php class extends AbstractViewHelper",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php class uses trait",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/HtmlentitiesViewHelperTest.php class extends ViewHelperBaseTestcase",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/StripTagsViewHelperTest.php class extends ViewHelperBaseTestcase",
+                     "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/UrlencodeViewHelperTest.php class extends ViewHelperBaseTestcase"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/HtmlentitiesViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/StripTagsViewHelper.php",
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Format/UrlencodeViewHelper.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/HtmlentitiesViewHelperTest.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/StripTagsViewHelperTest.php",
+                        "typo3/sysext/fluid/Tests/Unit/ViewHelpers/Format/UrlencodeViewHelperTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-wq2m-r96q-crrf",
+    "cve":  "CVE-2026-25490",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "fix_commit":  "fa273330807807d05b564d37c88654cd772839ee",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/controllers/InventoryLocationsController.php",
+                        "src/controllers/ShippingCategoriesController.php",
+                        "src/controllers/ShippingMethodsController.php",
+                        "src/controllers/ShippingZonesController.php",
+                        "src/controllers/TaxCategoriesController.php",
+                        "src/controllers/TaxRatesController.php",
+                        "src/controllers/TaxZonesController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/controllers/InventoryLocationsController.php class extends Controller",
+                     "src/controllers/ShippingCategoriesController.php class extends BaseShippingSettingsController",
+                     "src/controllers/ShippingMethodsController.php class extends BaseShippingSettingsController",
+                     "src/controllers/ShippingZonesController.php class extends BaseShippingSettingsController",
+                     "src/controllers/TaxCategoriesController.php class extends BaseTaxSettingsController",
+                     "src/controllers/TaxRatesController.php class extends BaseTaxSettingsController",
+                     "src/controllers/TaxZonesController.php class extends BaseTaxSettingsController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

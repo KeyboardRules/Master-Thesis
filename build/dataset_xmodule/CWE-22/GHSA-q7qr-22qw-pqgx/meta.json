@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-q7qr-22qw-pqgx",
+    "cve":  "CVE-2024-8291",
+    "cwe":  "CWE-22",
+    "repo":  "concretecms/concretecms",
+    "fix_commit":  "d97b43b8dd0b5578b41d2ffb5b2186a44c2c772c",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "concrete/config/concrete.php",
+                        "concrete/single_pages/dashboard/system/files/thumbnails.php",
+                        "concrete/views/dialogs/event/view_version.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "concrete/config/concrete.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

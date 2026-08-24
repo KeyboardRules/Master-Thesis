@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-qm8m-7626-762h",
+    "cve":  "CVE-2017-14238",
+    "cwe":  "CWE-89",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "d26b2a694de30f95e46ea54ea72cc54f0d38e548",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/admin/company.php",
+                        "htdocs/admin/menus/edit.php",
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/document.php",
+                        "htdocs/main.inc.php",
+                        "htdocs/viewimage.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "htdocs/admin/company.php includes 10 project file(s)",
+                     "htdocs/admin/menus/edit.php includes 3 project file(s)",
+                     "htdocs/core/lib/functions.lib.php includes 16 project file(s)",
+                     "htdocs/document.php includes 2 project file(s)",
+                     "htdocs/main.inc.php includes 15 project file(s)",
+                     "htdocs/viewimage.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

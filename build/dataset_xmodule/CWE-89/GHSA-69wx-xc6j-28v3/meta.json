@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-69wx-xc6j-28v3",
+    "cve":  "CVE-2024-37906",
+    "cwe":  "CWE-89",
+    "repo":  "Admidio/admidio",
+    "fix_commit":  "3ff02b0c64a6911ab3e81cd61077f392c0b25248",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "adm_program/modules/ecards/ecard_send.php"
+                    ],
+    "evidence":  [
+                     "adm_program/modules/ecards/ecard_send.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

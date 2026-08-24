@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-296q-rj83-g9rq",
+    "cve":  "CVE-2024-47069",
+    "cwe":  "CWE-79",
+    "repo":  "oveleon/contao-cookiebar",
+    "sha":  "1d57470be5878f66d5e1e23f624dd387564b9b8d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/CookiebarController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/CookiebarController.php class extends AbstractController"
+                 ],
+    "changed_all":  [
+                        "src/Controller/CookiebarController.php"
+                    ],
+    "sink_hit":  false
+}

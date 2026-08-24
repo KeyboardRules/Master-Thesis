@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-f3hw-3h74-wr98",
+    "cve":  "CVE-2022-4068",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "09a2977adb8bc4b1db116c725d661160c930d3a1",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/UserController.php",
+                        "app/Http/Requests/UpdateUserRequest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Http/Controllers/UserController.php class extends Controller",
+                     "app/Http/Requests/UpdateUserRequest.php class extends FormRequest"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/UserController.php",
+                        "app/Http/Requests/UpdateUserRequest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-xp8p-9rq5-4wgv",
+    "cve":  "CVE-2015-5161",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/ZendXml",
+    "sha":  "79f478fa2af85ce1fc18ac132dee5aa714c3b532",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/ZendXml/Security.php",
+                        "tests/ZendXmlTest/MultibyteTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "library/ZendXml/Security.php",
+                        "tests/ZendXmlTest/MultibyteTest.php"
+                    ],
+    "sink_hit":  true
+}

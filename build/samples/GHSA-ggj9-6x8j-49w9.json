@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-ggj9-6x8j-49w9",
+    "cve":  "CVE-2010-10002",
+    "cwe":  "CWE-79",
+    "repo":  "simplesamlphp/simplesamlphp-module-openid",
+    "sha":  "d652d41ccaf8c45d5707e741c0c5d82a2365a9a3",
+    "status":  "ok",
+    "changed_php":  [
+                        "templates/consumer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "templates/consumer.php"
+                    ],
+    "sink_hit":  true
+}

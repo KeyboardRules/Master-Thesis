@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x275-h9j4-7p4h",
+    "cve":  "CVE-2025-31493",
+    "cwe":  "CWE-22",
+    "repo":  "getkirby/kirby",
+    "sha":  "95a51480a426a8ed0df799cc017403be9b987ced",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Cms/Collections.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Cms/Collections.php"
+                    ],
+    "sink_hit":  false
+}

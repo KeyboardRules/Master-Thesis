@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-4wfc-ghv5-2v7j",
+    "cve":  "CVE-2023-1759",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "ecbd8107fe954b6be95dab315862d1caa0b94efa",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/record.add.php",
+                        "phpmyfaq/admin/record.edit.php",
+                        "phpmyfaq/admin/record.save.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/record.add.php",
+                        "phpmyfaq/admin/record.edit.php",
+                        "phpmyfaq/admin/record.save.php"
+                    ],
+    "sink_hit":  true
+}

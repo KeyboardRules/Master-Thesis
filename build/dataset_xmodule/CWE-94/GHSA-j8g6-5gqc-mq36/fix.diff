@@ -1,0 +1,13 @@
+﻿diff --git a/src/Tools/Toolkits/MySQL/MySQLSelectTool.php b/src/Tools/Toolkits/MySQL/MySQLSelectTool.php
+index 5c60092..99751af 100644
+--- a/src/Tools/Toolkits/MySQL/MySQLSelectTool.php
++++ b/src/Tools/Toolkits/MySQL/MySQLSelectTool.php
+@@ -23,7 +23,7 @@ class MySQLSelectTool extends Tool
+     protected array $forbiddenStatements = [
+         'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE', 'ALTER',
+         'TRUNCATE', 'REPLACE', 'MERGE', 'CALL', 'EXECUTE',
+-        'INTO', 'OUTFILE', 'DUMPFILE', 'LOAD_FILE'
++        'INTO', 'OUTFILE', 'DUMPFILE', 'LOAD_FILE',
+     ];
+ 
+     public function __construct(protected PDO $pdo)

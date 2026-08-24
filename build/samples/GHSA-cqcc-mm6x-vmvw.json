@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-cqcc-mm6x-vmvw",
+    "cve":  "CVE-2022-24833",
+    "cwe":  "CWE-79",
+    "repo":  "PrivateBin/PrivateBin",
+    "sha":  "2a4d572c1e9eb9b608d32b0cc0cb3b6c3b684eab",
+    "status":  "ok",
+    "changed_php":  [
+                        "tpl/bootstrap.php",
+                        "tpl/page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "js/privatebin.js",
+                        "tpl/bootstrap.php",
+                        "tpl/page.php"
+                    ],
+    "sink_hit":  true
+}

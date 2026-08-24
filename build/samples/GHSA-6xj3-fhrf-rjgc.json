@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-6xj3-fhrf-rjgc",
+    "cve":  "CVE-2022-1504",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "1f6a4de416a85e626dc643bb5ceb916e4802223e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php",
+                        "src/MicroweberPackages/App/Http/Controllers/FrontendController.php",
+                        "src/MicroweberPackages/Comment/Models/CommentsCrud.php",
+                        "src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php",
+                        "src/MicroweberPackages/Helper/HTMLClean.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php",
+                        "src/MicroweberPackages/Helper/tests/SecurityTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "src/MicroweberPackages/App/Http/Controllers/ApiController.php class extends FrontendController",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php includes 3 project file(s)",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php class extends Controller",
+                     "src/MicroweberPackages/App/Http/Controllers/FrontendController.php class uses trait",
+                     "src/MicroweberPackages/Comment/Models/CommentsCrud.php class extends Crud",
+                     "src/MicroweberPackages/Helper/tests/SecurityTest.php class extends BaseTest"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/App/Http/Controllers/ApiController.php",
+                        "src/MicroweberPackages/App/Http/Controllers/FrontendController.php",
+                        "src/MicroweberPackages/Comment/Models/CommentsCrud.php",
+                        "src/MicroweberPackages/Content/Models/ModelFilters/Traits/FilterByKeywordTrait.php",
+                        "src/MicroweberPackages/Helper/HTMLClean.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php",
+                        "src/MicroweberPackages/Helper/tests/SecurityTest.php"
+                    ],
+    "sink_hit":  true
+}

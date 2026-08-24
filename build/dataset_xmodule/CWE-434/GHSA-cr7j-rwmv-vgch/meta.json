@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cr7j-rwmv-vgch",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "aimeos/aimeos-core",
+    "fix_commit":  "13e163126adff48f987b3b6faca28551effe0205",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/MShop/Media/Manager/Standard.php"
+                    ],
+    "evidence":  [
+                     "src/MShop/Media/Manager/Standard.php class extends Base",
+                     "src/MShop/Media/Manager/Standard.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

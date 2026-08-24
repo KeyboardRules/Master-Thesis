@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-2r53-9295-3m86",
+    "cve":  "CVE-2023-48217",
+    "cwe":  "CWE-434",
+    "repo":  "statamic/cms",
+    "fix_commit":  "4c6fe041e2203a8033e5949ce4a5d9d6c0ad2411",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php",
+                        "src/Http/Controllers/FormController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/Http/Controllers/CP/Assets/AssetsController.php class extends CpController",
+                     "src/Http/Controllers/CP/Assets/AssetsController.php class uses trait",
+                     "src/Http/Controllers/CP/Fieldtypes/FilesFieldtypeController.php class extends CpController",
+                     "src/Http/Controllers/FormController.php class extends Controller",
+                     "src/Http/Controllers/FormController.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

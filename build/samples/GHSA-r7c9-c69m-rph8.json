@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-r7c9-c69m-rph8",
+    "cve":  "CVE-2017-9841",
+    "cwe":  "CWE-94",
+    "repo":  "sebastianbergmann/phpunit",
+    "sha":  "284a69fb88a2d0845d23f42974a583d8f59bf5a5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Util/PHP/eval-stdin.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Util/PHP/Template/TestCaseMethod.tpl.dist",
+                        "src/Util/PHP/eval-stdin.php"
+                    ],
+    "sink_hit":  true
+}

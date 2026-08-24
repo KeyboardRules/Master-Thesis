@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-jpwx-ffjq-wr4w",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "ezsystems/ezpublish-legacy",
+    "sha":  "f8e3a97afd92efb9148134a4bacb35a875777a42",
+    "status":  "ok",
+    "changed_php":  [
+                        "kernel/private/classes/ezcontentobjectstate.php",
+                        "kernel/private/classes/ezcontentobjectstategroup.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "kernel/private/classes/ezcontentobjectstate.php class extends eZPersistentObject",
+                     "kernel/private/classes/ezcontentobjectstategroup.php class extends eZPersistentObject"
+                 ],
+    "changed_all":  [
+                        "kernel/private/classes/ezcontentobjectstate.php",
+                        "kernel/private/classes/ezcontentobjectstategroup.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4qwp-7c67-jmcc",
+    "cve":  "CVE-2021-3129",
+    "cwe":  "CWE-94",
+    "repo":  "facade/ignition",
+    "sha":  "11ffca14abd22db779d90b12e193f8000f6d184b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Solutions/MakeViewVariableOptionalSolution.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Solutions/MakeViewVariableOptionalSolution.php"
+                    ],
+    "sink_hit":  false
+}

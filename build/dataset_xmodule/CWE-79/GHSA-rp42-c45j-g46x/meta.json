@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rp42-c45j-g46x",
+    "cve":  "CVE-2021-4107",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "fix_commit":  "a062d3d5fecb000db207a2ad8a446db97ad96b89",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/Vtiger/actions/Fields.php class extends \\App\\Controller\\Action"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

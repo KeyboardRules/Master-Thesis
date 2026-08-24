@@ -1,0 +1,25 @@
+﻿diff --git a/src/Laravel/src/Http/Requests/ProfileFormRequest.php b/src/Laravel/src/Http/Requests/ProfileFormRequest.php
+index 31b930e..9662b6f 100644
+--- a/src/Laravel/src/Http/Requests/ProfileFormRequest.php
++++ b/src/Laravel/src/Http/Requests/ProfileFormRequest.php
+@@ -33,7 +33,7 @@ class ProfileFormRequest extends MoonShineFormRequest
+                     moonshineConfig()->getUserField('username')
+                 )->ignore(MoonShineAuth::getGuard()->id()),
+             ],
+-            $avatar => blank($avatar) ? null : ['image'],
++            $avatar => blank($avatar) ? null : ['image', 'mimes:jpeg,jpg,png,gif'],
+             $password => blank($password) ? null : 'sometimes|nullable|min:6|required_with:password_repeat|same:password_repeat',
+         ]);
+     }
+diff --git a/src/Laravel/src/Resources/MoonShineUserResource.php b/src/Laravel/src/Resources/MoonShineUserResource.php
+index 19fae27..7dd8e4f 100644
+--- a/src/Laravel/src/Resources/MoonShineUserResource.php
++++ b/src/Laravel/src/Resources/MoonShineUserResource.php
+@@ -155,6 +155,7 @@ class MoonShineUserResource extends ModelResource
+                 'email',
+                 Rule::unique('moonshine_users')->ignoreModel($item),
+             ],
++            'avatar' => ['image', 'mimes:jpeg,jpg,png,gif'],
+             'password' => $item->exists
+                 ? 'sometimes|nullable|min:6|required_with:password_repeat|same:password_repeat'
+                 : 'required|min:6|required_with:password_repeat|same:password_repeat',

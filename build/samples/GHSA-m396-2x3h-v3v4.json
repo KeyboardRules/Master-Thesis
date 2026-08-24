@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m396-2x3h-v3v4",
+    "cve":  "CVE-2020-14475",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "22ca5e067189bffe8066df26df923a386f044c08",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/public/notice.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/public/notice.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/public/notice.php"
+                    ],
+    "sink_hit":  true
+}

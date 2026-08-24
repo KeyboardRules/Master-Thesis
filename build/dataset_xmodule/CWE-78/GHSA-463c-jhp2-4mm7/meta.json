@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-463c-jhp2-4mm7",
+    "cve":  "CVE-2025-48204",
+    "cwe":  "CWE-78",
+    "repo":  "nitsan-technologies/ns_backup",
+    "fix_commit":  "67b8102a19e8e516dc4228f5c42f9e4fba5046cb",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Classes/Controller/BackupBaseController.php",
+                        "Classes/Controller/BackupglobalController.php",
+                        "Classes/Controller/BackupsController.php",
+                        "Classes/Domain/Model/Backupglobal.php",
+                        "Configuration/Backend/Modules.php",
+                        "Configuration/TCA/tx_nsbackup_domain_model_backupglobal.php",
+                        "ext_emconf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "Classes/Controller/BackupBaseController.php class extends ActionController",
+                     "Classes/Controller/BackupglobalController.php class extends ActionController",
+                     "Classes/Controller/BackupsController.php class extends ActionController",
+                     "Classes/Domain/Model/Backupglobal.php class extends AbstractEntity"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

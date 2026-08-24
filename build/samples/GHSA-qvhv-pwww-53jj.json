@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-qvhv-pwww-53jj",
+    "cve":  "CVE-2020-8091",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "482e2e992f80f5e38cb48fcaea40fd9812a5252c",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Page/PageRenderer.php",
+                        "typo3/sysext/frontend/Classes/ContentObject/ScalableVectorGraphicsContentObject.php",
+                        "typo3/sysext/frontend/Classes/Page/PageGenerator.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "typo3/sysext/frontend/Classes/ContentObject/ScalableVectorGraphicsContentObject.php class extends AbstractContentObject"
+                 ],
+    "changed_all":  [
+                        "typo3/contrib/websvg/svg.htc",
+                        "typo3/contrib/websvg/svg.js",
+                        "typo3/contrib/websvg/svg.swf",
+                        "typo3/sysext/core/Classes/Page/PageRenderer.php",
+                        "typo3/sysext/core/Documentation/Changelog/master/Breaking-65962-WebSVGLibraryAndAPIRemoved.rst",
+                        "typo3/sysext/frontend/Classes/ContentObject/ScalableVectorGraphicsContentObject.php",
+                        "typo3/sysext/frontend/Classes/Page/PageGenerator.php",
+                        "typo3/sysext/t3editor/res/tsref/tsref.xml"
+                    ],
+    "sink_hit":  true
+}

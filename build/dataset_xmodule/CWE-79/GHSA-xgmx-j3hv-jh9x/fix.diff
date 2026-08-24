@@ -1,0 +1,130 @@
+﻿diff --git a/typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php b/typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php
+index aa9e05cbc1..f8008fcbdf 100644
+--- a/typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php
++++ b/typo3/sysext/core/Classes/LinkHandling/UrlLinkHandler.php
+@@ -54,6 +54,7 @@ class UrlLinkHandler implements LinkHandlingInterface
+             $scheme = parse_url($url, PHP_URL_SCHEME);
+             if (empty($scheme)) {
+                 $url = 'http://' . $url;
++            // 'java{TAB}script:' is parsed as empty URL scheme, thus not ending up here
+             } elseif (in_array(strtolower($scheme), ['javascript', 'data'], true)) {
+                 // deny using insecure scheme's like `javascript:` or `data:` as URL scheme
+                 $url = '';
+diff --git a/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php b/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
+index eb30a7373e..334b4b601f 100644
+--- a/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
++++ b/typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
+@@ -4923,7 +4923,7 @@ class ContentObjectRenderer implements LoggerAwareInterface
+                 // Resource was not found
+                 return $linkText;
+             }
+-        } elseif (in_array(strtolower(trim($linkHandlerKeyword)), ['javascript', 'data'], true)) {
++        } elseif (in_array(strtolower(preg_replace('#\s|[[:cntrl:]]#', '', $linkHandlerKeyword)), ['javascript', 'data'], true)) {
+             // Disallow insecure scheme's like javascript: or data:
+             return $linkText;
+         } else {
+diff --git a/typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php b/typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php
+index 061e570dad..fdd147a33e 100644
+--- a/typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php
++++ b/typo3/sysext/frontend/Classes/Typolink/AbstractTypolinkBuilder.php
+@@ -116,6 +116,20 @@ abstract class AbstractTypolinkBuilder
+         return $url;
+     }
+ 
++    /**
++     * Determines whether lib.parseFunc is defined.
++     *
++     * @return bool
++     */
++    protected function isLibParseFuncDefined(): bool
++    {
++        $configuration = $this->contentObjectRenderer->mergeTSRef(
++            ['parseFunc' => '< lib.parseFunc'],
++            'parseFunc'
++        );
++        return !empty($configuration['parseFunc.']) && is_array($configuration['parseFunc.']);
++    }
++
+     /**
+      * Helper method to a fallback method parsing HTML out of it
+      *
+@@ -125,10 +139,29 @@ abstract class AbstractTypolinkBuilder
+      */
+     protected function parseFallbackLinkTextIfLinkTextIsEmpty(string $originalLinkText, string $fallbackLinkText): string
+     {
+-        if ($originalLinkText === '') {
++        if ($originalLinkText !== '') {
++            return $originalLinkText;
++        }
++        if ($this->isLibParseFuncDefined()) {
+             return $this->contentObjectRenderer->parseFunc($fallbackLinkText, ['makelinks' => 0], '< lib.parseFunc');
+         }
+-        return $originalLinkText;
++        // encode in case `lib.parseFunc` is not configured
++        return $this->encodeFallbackLinkTextIfLinkTextIsEmpty($originalLinkText, $fallbackLinkText);
++    }
++
++    /**
++     * Helper method to a fallback method properly encoding HTML.
++     *
++     * @param string $originalLinkText the original string, if empty, the fallback link text
++     * @param string $fallbackLinkText the string to be used.
++     * @return string the final text
++     */
++    protected function encodeFallbackLinkTextIfLinkTextIsEmpty(string $originalLinkText, string $fallbackLinkText): string
++    {
++        if ($originalLinkText !== '') {
++            return $originalLinkText;
++        }
++        return htmlspecialchars($fallbackLinkText, ENT_QUOTES);
+     }
+ 
+     /**
+diff --git a/typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php b/typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php
+index a20d11f0a8..9b03bb9657 100644
+--- a/typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php
++++ b/typo3/sysext/frontend/Classes/Typolink/ExternalUrlLinkBuilder.php
+@@ -28,7 +28,7 @@ class ExternalUrlLinkBuilder extends AbstractTypolinkBuilder
+     {
+         return [
+             $this->processUrl(UrlProcessorInterface::CONTEXT_EXTERNAL, $linkDetails['url'], $conf),
+-            $this->parseFallbackLinkTextIfLinkTextIsEmpty($linkText, $linkDetails['url']),
++            $this->encodeFallbackLinkTextIfLinkTextIsEmpty($linkText, $linkDetails['url']),
+             $target ?: $this->resolveTargetAttribute($conf, 'extTarget', true, $this->getTypoScriptFrontendController()->extTarget)
+         ];
+     }
+diff --git a/typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php b/typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php
+index 91458eacb5..846dd4655e 100644
+--- a/typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php
++++ b/typo3/sysext/frontend/Classes/Typolink/FileOrFolderLinkBuilder.php
+@@ -47,7 +47,7 @@ class FileOrFolderLinkBuilder extends AbstractTypolinkBuilder
+             $linkLocation = '';
+         }
+         // Setting title if blank value to link
+-        $linkText = $this->parseFallbackLinkTextIfLinkTextIsEmpty($linkText, rawurldecode($linkLocation));
++        $linkText = $this->encodeFallbackLinkTextIfLinkTextIsEmpty($linkText, rawurldecode($linkLocation));
+         if (strpos($linkLocation, '/') !== 0
+             && parse_url($linkLocation, PHP_URL_SCHEME) === null
+         ) {
+diff --git a/typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php b/typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php
+index 12c2b1a622..c3dcfd300a 100644
+--- a/typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php
++++ b/typo3/sysext/frontend/Classes/Typolink/LegacyLinkBuilder.php
+@@ -33,7 +33,7 @@ class LegacyLinkBuilder extends AbstractTypolinkBuilder
+             $linkDetails['type'] = LinkService::TYPE_FILE;
+             $linkLocation = $linkDetails['file'];
+             // Setting title if blank value to link
+-            $linkText = $this->parseFallbackLinkTextIfLinkTextIsEmpty($linkText, rawurldecode($linkLocation));
++            $linkText = $this->encodeFallbackLinkTextIfLinkTextIsEmpty($linkText, rawurldecode($linkLocation));
+             $linkLocation = (strpos($linkLocation, '/') !== 0 ? $tsfe->absRefPrefix : '') . $linkLocation;
+             $url = $this->processUrl(UrlProcessorInterface::CONTEXT_FILE, $linkLocation, $conf);
+             $url = $this->forceAbsoluteUrl($url, $conf);
+@@ -41,7 +41,7 @@ class LegacyLinkBuilder extends AbstractTypolinkBuilder
+         } elseif ($linkDetails['url']) {
+             $linkDetails['type'] = LinkService::TYPE_URL;
+             $target = $target ?: $this->resolveTargetAttribute($conf, 'extTarget', true, $tsfe->extTarget);
+-            $linkText = $this->parseFallbackLinkTextIfLinkTextIsEmpty($linkText, $linkDetails['url']);
++            $linkText = $this->encodeFallbackLinkTextIfLinkTextIsEmpty($linkText, $linkDetails['url']);
+             $url = $this->processUrl(UrlProcessorInterface::CONTEXT_EXTERNAL, $linkDetails['url'], $conf);
+         } else {
+             throw new UnableToLinkException('Unknown link detected, so ' . $linkText . ' was not linked.', 1490990031, null, $linkText);

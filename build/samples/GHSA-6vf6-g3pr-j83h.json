@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6vf6-g3pr-j83h",
+    "cve":  "CVE-2023-0323",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "746fac1a342841624f63ab13edcd340358e1bc04",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition/Service.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "models/DataObject/ClassDefinition/Service.php"
+                    ],
+    "sink_hit":  false
+}

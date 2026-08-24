@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-f4m6-x2xj-jc7w",
+    "cve":  "CVE-2023-35783",
+    "cwe":  "CWE-79",
+    "repo":  "tpwd/ke_search",
+    "sha":  "14fa0703c2469e04eb398be4ae6268ec6ad6e720",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/Indexer/Types/File.php",
+                        "Classes/Indexer/Types/News.php",
+                        "Classes/Indexer/Types/TtAddress.php",
+                        "Classes/Indexer/Types/TtNews.php",
+                        "Classes/Lib/Searchresult.php",
+                        "ext_emconf.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "Classes/Indexer/Types/File.php class extends IndexerBase",
+                     "Classes/Indexer/Types/News.php class extends IndexerBase",
+                     "Classes/Indexer/Types/TtAddress.php class extends IndexerBase",
+                     "Classes/Indexer/Types/TtNews.php class extends IndexerBase"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "Classes/Indexer/Types/File.php",
+                        "Classes/Indexer/Types/News.php",
+                        "Classes/Indexer/Types/TtAddress.php",
+                        "Classes/Indexer/Types/TtNews.php",
+                        "Classes/Lib/Searchresult.php",
+                        "ext_emconf.php"
+                    ],
+    "sink_hit":  false
+}

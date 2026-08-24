@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-x7m9-mwc2-g6w2",
+    "cve":  "CVE-2026-45697",
+    "cwe":  "CWE-1336",
+    "repo":  "verbb/formie",
+    "fix_commit":  "f690d5623163ce2a95da305238d6367575486ee3",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/fields/formfields/Hidden.php"
+                    ],
+    "evidence":  [
+                     "src/fields/formfields/Hidden.php class extends FormField"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

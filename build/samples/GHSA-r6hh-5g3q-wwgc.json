@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-r6hh-5g3q-wwgc",
+    "cve":  "CVE-2022-0970",
+    "cwe":  "CWE-79",
+    "repo":  "getgrav/grav",
+    "sha":  "f19297d5f70476e7bedae9f2acef6b43615538b8",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Media/Traits/MediaUploadTrait.php",
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Framework/Form/FormFlashFile.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Media/Traits/MediaUploadTrait.php",
+                        "system/src/Grav/Common/Security.php",
+                        "system/src/Grav/Framework/Form/FormFlashFile.php"
+                    ],
+    "sink_hit":  false
+}

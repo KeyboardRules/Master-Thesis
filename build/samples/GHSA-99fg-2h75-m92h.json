@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-99fg-2h75-m92h",
+    "cve":  "CVE-2023-39062",
+    "cwe":  "CWE-79",
+    "repo":  "spipu/html2pdf",
+    "sha":  "92afd81823d62ad95eb9d034858311bb63aeb4ac",
+    "status":  "ok",
+    "changed_php":  [
+                        "examples/example09.php",
+                        "examples/forms.php",
+                        "examples/res/forms.php",
+                        "src/Html2Pdf.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "examples/example09.php includes 1 project file(s)",
+                     "examples/forms.php includes 2 project file(s)",
+                     "src/Html2Pdf.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "examples/example09.php",
+                        "examples/forms.php",
+                        "examples/res/forms.php",
+                        "src/Html2Pdf.php"
+                    ],
+    "sink_hit":  true
+}

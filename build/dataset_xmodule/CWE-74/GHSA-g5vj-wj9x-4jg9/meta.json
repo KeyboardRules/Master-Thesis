@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-g5vj-wj9x-4jg9",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "symbiote/silverstripe-multivaluefield",
+    "fix_commit":  "31fbc8c208431fc7d7e96da6fa39ca057d978953",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "code/fields/MultiValueField.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "code/fields/MultiValueField.php class extends DBField",
+                     "tests/MultiValueFieldTest.php class extends SapphireTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

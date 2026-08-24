@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cv25-3gmg-c6m8",
+    "cve":  "CVE-2021-25994",
+    "cwe":  "CWE-74",
+    "repo":  "userfrosting/UserFrosting",
+    "sha":  "796dd78757902435d1bd286415feea78098e45ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/sprinkles/core/config/production.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "app/sprinkles/core/config/production.php"
+                    ],
+    "sink_hit":  false
+}

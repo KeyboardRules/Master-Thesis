@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-7q88-jxvp-9gp2",
+    "cve":  "CVE-2022-26960",
+    "cwe":  "CWE-22",
+    "repo":  "Studio-42/elFinder",
+    "fix_commit":  "3b758495538a448ac8830ee3559e7fb2c260c6db",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "php/elFinderVolumeDriver.class.php",
+                        "php/elFinderVolumeLocalFileSystem.class.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "php/elFinderVolumeDriver.class.php includes 1 project file(s)",
+                     "php/elFinderVolumeLocalFileSystem.class.php class extends RecursiveFilterIterator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

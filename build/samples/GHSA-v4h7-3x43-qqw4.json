@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v4h7-3x43-qqw4",
+    "cve":  "CVE-2026-34396",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "a93ba83eb9f3aa47cd16af0a0dc13da3bf8ac4d1",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "admin/functions.php"
+                    ],
+    "sink_hit":  true
+}

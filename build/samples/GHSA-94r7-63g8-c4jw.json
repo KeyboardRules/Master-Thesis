@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-94r7-63g8-c4jw",
+    "cve":  "CVE-2023-2999",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "937913948cab382a38f681e0bd29c152e2f383cd",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/faq.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php class extends Helper"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "composer.lock",
+                        "phpmyfaq/faq.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-384w-wffr-x63q",
+    "cve":  "CVE-2024-34067",
+    "cwe":  "CWE-79",
+    "repo":  "pterodactyl/panel",
+    "sha":  "0dad4c5a488661f9adc27dd311542516d9bfa0f2",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/admin/nodes/view/index.blade.php",
+                        "resources/views/admin/servers/view/startup.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "public/themes/pterodactyl/js/admin/new-server.js",
+                        "resources/views/admin/nodes/view/index.blade.php",
+                        "resources/views/admin/servers/view/startup.blade.php"
+                    ],
+    "sink_hit":  false
+}

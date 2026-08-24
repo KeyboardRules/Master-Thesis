@@ -1,0 +1,13 @@
+﻿diff --git a/src/Illuminate/Filesystem/Filesystem.php b/src/Illuminate/Filesystem/Filesystem.php
+index d9e3cf7..1f99029 100644
+--- a/src/Illuminate/Filesystem/Filesystem.php
++++ b/src/Illuminate/Filesystem/Filesystem.php
+@@ -254,7 +254,7 @@ class Filesystem
+ 
+         $mode = $this->isDirectory($target) ? 'J' : 'H';
+ 
+-        exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
++        exec("mklink /{$mode} ".escapeshellarg($link)." ".escapeshellarg($target));
+     }
+ 
+     /**

@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-qg5r-95m4-mjgj",
+    "cve":  "CVE-2024-32877",
+    "cwe":  "CWE-79",
+    "repo":  "yiisoft/yii2",
+    "sha":  "62d081f18c3602d09e7d075bba3a0ca5c313f0b4",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/base/Component.php",
+                        "framework/web/ErrorHandler.php",
+                        "tests/framework/web/ErrorHandlerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "framework/base/Component.php class extends BaseObject",
+                     "framework/web/ErrorHandler.php class extends \\yii\\base\\ErrorHandler",
+                     "tests/framework/web/ErrorHandlerTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "framework/CHANGELOG.md",
+                        "framework/base/Component.php",
+                        "framework/web/ErrorHandler.php",
+                        "tests/framework/web/ErrorHandlerTest.php"
+                    ],
+    "sink_hit":  false
+}

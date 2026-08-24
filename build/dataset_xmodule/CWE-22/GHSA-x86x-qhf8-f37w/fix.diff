@@ -1,0 +1,15 @@
+﻿diff --git a/Controller/Controller.php b/Controller/Controller.php
+index 9c4a564..034f2ca 100644
+--- a/Controller/Controller.php
++++ b/Controller/Controller.php
+@@ -173,6 +173,10 @@ class Controller
+             $locales = array($request->getLocale());
+         }
+ 
++        $locales = array_filter($locales, function ($locale) {
++            return strcasecmp(\Locale::getDisplayLanguage($locale), $locale) !== 0;
++        });
++
+         return array_unique(array_map(function ($locale) {
+             return trim($locale);
+         }, $locales));

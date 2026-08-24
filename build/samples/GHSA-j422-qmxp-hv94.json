@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-j422-qmxp-hv94",
+    "cve":  "CVE-2025-66302",
+    "cwe":  "CWE-22",
+    "repo":  "getgrav/grav",
+    "sha":  "ed640a13143c4177af013cf001969ed2c5e197ee",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Backup/Backups.php",
+                        "system/src/Grav/Common/Language/Language.php",
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php",
+                        "tests/unit/Grav/Common/Security/FilePathSecurityTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "system/src/Grav/Common/Twig/Extension/GravExtension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "system/src/Grav/Common/Backup/Backups.php",
+                        "system/src/Grav/Common/Language/Language.php",
+                        "system/src/Grav/Common/Twig/Extension/GravExtension.php",
+                        "tests/unit/Grav/Common/Security/FilePathSecurityTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-78fm-qhh8-8858",
+    "cve":  "CVE-2021-32478",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "752ad3d8eb4f9ac22dbf1461aa69d6e0baee503e",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/lti/auth.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "mod/lti/auth.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "mod/lti/auth.php"
+                    ],
+    "sink_hit":  true
+}

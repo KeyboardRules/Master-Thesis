@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-chm7-4vch-h8vr",
+    "cve":  "CVE-2026-49742",
+    "cwe":  "CWE-22",
+    "repo":  "TYPO3/typo3",
+    "sha":  "ad636b6183843b57c758a1e12174a75093ac93c3",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/filelist/Classes/Controller/FileDownloadController.php",
+                        "typo3/sysext/filelist/Tests/Functional/Controller/FileDownloadControllerTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/filelist/Classes/Controller/FileDownloadController.php",
+                        "typo3/sysext/filelist/Tests/Functional/Controller/FileDownloadControllerTest.php",
+                        "typo3/sysext/filelist/Tests/Functional/Fixtures/be_users.csv",
+                        "typo3/sysext/filelist/Tests/Functional/Fixtures/textfile.txt"
+                    ],
+    "sink_hit":  true
+}

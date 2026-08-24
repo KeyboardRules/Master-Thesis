@@ -1,0 +1,13 @@
+﻿diff --git a/src/web/twig/Extension.php b/src/web/twig/Extension.php
+index 5efdd4a..b6ae8e5 100644
+--- a/src/web/twig/Extension.php
++++ b/src/web/twig/Extension.php
+@@ -1221,6 +1221,8 @@ class Extension extends AbstractExtension implements GlobalsInterface
+      */
+     public function groupFilter(iterable $arr, callable|string $arrow): array
+     {
++        self::checkArrowFunction($arrow, 'group', 'filter');
++
+         $groups = [];
+ 
+         if (!is_string($arrow) && is_callable($arrow)) {

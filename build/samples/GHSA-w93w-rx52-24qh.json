@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-w93w-rx52-24qh",
+    "cve":  "CVE-2017-12062",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "9b5b71dadbeeeec27efea59f562ac5bd6d2673b7",
+    "status":  "ok",
+    "changed_php":  [
+                        "manage_user_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "manage_user_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "manage_user_page.php"
+                    ],
+    "sink_hit":  true
+}

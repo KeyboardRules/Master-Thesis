@@ -1,0 +1,93 @@
+﻿diff --git a/src/Illuminate/View/Compilers/Compiler.php b/src/Illuminate/View/Compilers/Compiler.php
+index 08648ad..d2a9f26 100755
+--- a/src/Illuminate/View/Compilers/Compiler.php
++++ b/src/Illuminate/View/Compilers/Compiler.php
+@@ -48,7 +48,7 @@ abstract class Compiler
+      */
+     public function getCompiledPath($path)
+     {
+-        return $this->cachePath.'/'.sha1($path).'.php';
++        return $this->cachePath.'/'.sha1('v2'.$path).'.php';
+     }
+ 
+     /**
+diff --git a/src/Illuminate/View/Compilers/Concerns/CompilesLayouts.php b/src/Illuminate/View/Compilers/Concerns/CompilesLayouts.php
+index aaef617..fc6a63a 100644
+--- a/src/Illuminate/View/Compilers/Concerns/CompilesLayouts.php
++++ b/src/Illuminate/View/Compilers/Concerns/CompilesLayouts.php
+@@ -2,8 +2,6 @@
+ 
+ namespace Illuminate\View\Compilers\Concerns;
+ 
+-use Illuminate\View\Factory as ViewFactory;
+-
+ trait CompilesLayouts
+ {
+     /**
+@@ -50,7 +48,9 @@ trait CompilesLayouts
+      */
+     protected function compileParent()
+     {
+-        return ViewFactory::parentPlaceholder($this->lastSection ?: '');
++        $escapedLastSection = strtr($this->lastSection, ['\\' => '\\\\', "'" => "\\'"]);
++
++        return "<?php echo \Illuminate\View\Factory::parentPlaceholder('{$escapedLastSection}'); ?>";
+     }
+ 
+     /**
+diff --git a/src/Illuminate/View/Concerns/ManagesLayouts.php b/src/Illuminate/View/Concerns/ManagesLayouts.php
+index 29d7155..82fb77b 100644
+--- a/src/Illuminate/View/Concerns/ManagesLayouts.php
++++ b/src/Illuminate/View/Concerns/ManagesLayouts.php
+@@ -3,6 +3,7 @@
+ namespace Illuminate\View\Concerns;
+ 
+ use Illuminate\Contracts\View\View;
++use Illuminate\Support\Str;
+ use InvalidArgumentException;
+ 
+ trait ManagesLayouts
+@@ -28,6 +29,13 @@ trait ManagesLayouts
+      */
+     protected static $parentPlaceholder = [];
+ 
++    /**
++     * The parent placeholder salt for the request.
++     *
++     * @var string
++     */
++    protected static $parentPlaceholderSalt;
++
+     /**
+      * Start injecting content into a section.
+      *
+@@ -168,12 +176,28 @@ trait ManagesLayouts
+     public static function parentPlaceholder($section = '')
+     {
+         if (! isset(static::$parentPlaceholder[$section])) {
+-            static::$parentPlaceholder[$section] = '##parent-placeholder-'.sha1($section).'##';
++            $salt = static::parentPlaceholderSalt();
++
++            static::$parentPlaceholder[$section] = '##parent-placeholder-'.sha1($salt.$section).'##';
+         }
+ 
+         return static::$parentPlaceholder[$section];
+     }
+ 
++    /**
++     * Get the parent placeholder salt.
++     *
++     * @return string
++     */
++    protected static function parentPlaceholderSalt()
++    {
++        if (! static::$parentPlaceholderSalt) {
++            return static::$parentPlaceholderSalt = Str::random(40);
++        }
++
++        return static::$parentPlaceholderSalt;
++    }
++
+     /**
+      * Check if section exists.
+      *

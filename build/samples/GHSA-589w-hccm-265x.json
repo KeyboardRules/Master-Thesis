@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-589w-hccm-265x",
+    "cve":  "CVE-2020-15263",
+    "cwe":  "CWE-79",
+    "repo":  "orchidsoftware/platform",
+    "sha":  "03f9a113b1a70bc5075ce86a918707f0e7d82169",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Platform/Dashboard.php",
+                        "src/Screen/Field.php",
+                        "src/Screen/Fields/Upload.php",
+                        "tests/Unit/Screen/Fields/InputTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Platform/Dashboard.php class uses trait",
+                     "src/Screen/Field.php class uses trait",
+                     "src/Screen/Fields/Upload.php class extends Field",
+                     "tests/Unit/Screen/Fields/InputTest.php class extends TestFieldsUnitCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/Platform/Dashboard.php",
+                        "src/Screen/Field.php",
+                        "src/Screen/Fields/Upload.php",
+                        "tests/Unit/Screen/Fields/InputTest.php"
+                    ],
+    "sink_hit":  true
+}

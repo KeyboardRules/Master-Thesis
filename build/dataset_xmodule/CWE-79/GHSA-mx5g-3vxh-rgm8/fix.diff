@@ -1,0 +1,20 @@
+﻿diff --git a/lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php b/lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php
+index 6b45037c34..c27b2aa066 100644
+--- a/lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php
++++ b/lib/spikephpcoverage/src/phpcoverage.remote.bottom.inc.php
+@@ -1,4 +1,5 @@
+ <?php
++    die(); // This (unsecure MDL-26237) stuff isn't used by moodle at all
+ /*
+  *  $Id$
+  *  
+diff --git a/lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php b/lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php
+index 4a2617647f..73f241e866 100644
+--- a/lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php
++++ b/lib/spikephpcoverage/src/phpcoverage.remote.top.inc.php
+@@ -1,4 +1,5 @@
+ <?php
++    die(); // This (unsecure MDL-26237) stuff isn't used by moodle at all
+ /*
+  *  $Id$
+  *  

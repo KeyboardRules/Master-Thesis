@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-f3gw-9ww9-jmc3",
+    "cve":  "CVE-2025-32432",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "e1c85441fa47eeb7c688c2053f25419bc0547b47",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/controllers/AssetsController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/AssetsController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

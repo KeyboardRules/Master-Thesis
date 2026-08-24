@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-fcpw-vqh5-6qwj",
+    "cve":  "CVE-2020-14320",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "c6ffe9588ebb02b73c33a09e5d8061f58acc1701",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/tasklogs.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "admin/tasklogs.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "admin/tasklogs.php"
+                    ],
+    "sink_hit":  true
+}

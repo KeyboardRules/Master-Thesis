@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-73vx-49mv-v8w5",
+    "cve":  "CVE-2026-33548",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "f32787c14d4518476fe7f05f992dbfe6eaccd815",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "core/classes/IssueTagTimelineEvent.class.php"
+                    ],
+    "evidence":  [
+                     "core/classes/IssueTagTimelineEvent.class.php class extends TimelineEvent"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

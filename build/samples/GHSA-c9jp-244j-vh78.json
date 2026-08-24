@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c9jp-244j-vh78",
+    "cve":  "CVE-2014-3544",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "0207466e778baebff21c7b72bc688761f9c5b0d9",
+    "status":  "ok",
+    "changed_php":  [
+                        "user/profile.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "user/profile.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "user/profile.php"
+                    ],
+    "sink_hit":  true
+}

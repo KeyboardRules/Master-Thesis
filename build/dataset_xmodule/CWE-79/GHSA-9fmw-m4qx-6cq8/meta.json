@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9fmw-m4qx-6cq8",
+    "cve":  "CVE-2015-3178",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "28947c1d7d9c53781989b9da7ceb2cafdd144749",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/externallib.php"
+                    ],
+    "evidence":  [
+                     "lib/externallib.php includes 2 project file(s)",
+                     "lib/externallib.php class extends moodle_exception",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

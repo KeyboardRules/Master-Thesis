@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jf56-v8jc-jcc5",
+    "cve":  "CVE-2026-49738",
+    "cwe":  "CWE-22",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "150a983a5d687cedcfc33bbe9c335d9a13fd05e5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Utility/GeneralUtility.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "typo3/sysext/core/Tests/Unit/Utility/PathUtilityTest.php class extends UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

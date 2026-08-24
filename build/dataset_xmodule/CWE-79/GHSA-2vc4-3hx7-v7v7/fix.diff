@@ -1,0 +1,436 @@
+﻿diff --git a/system/backend/php/lib/HAXCMS.php b/system/backend/php/lib/HAXCMS.php
+index 694c205..0de475a 100755
+--- a/system/backend/php/lib/HAXCMS.php
++++ b/system/backend/php/lib/HAXCMS.php
+@@ -787,40 +787,6 @@ class HAXCMS
+             json_encode($this->config, JSON_PRETTY_PRINT)
+         );
+     }
+-    /**
+-     * get SSH Key that was created during install
+-     */
+-    private function getSSHKey()
+-    {
+-        if (file_exists($this->configDirectory . '/.ssh/haxyourweb.pub')) {
+-            return @file_get_contents(
+-                $this->configDirectory . '/.ssh/haxyourweb.pub'
+-            );
+-        } else {
+-            // try to build it dynamically
+-            shell_exec(
+-                'ssh-keygen -f ' .
+-                    $this->configDirectory .
+-                    '/.ssh/haxyourweb -t rsa -N "" -C "' .
+-                    $this->config->site->git->email .
+-                    '"'
+-            );
+-            // check if it exists now
+-            if (file_exists($this->configDirectory . '/.ssh/haxyourweb.pub')) {
+-                $git = new GitRepo();
+-                // establish this new key location as the one to use for all git calls
+-                $git->run(
+-                    "config core.sshCommand " .
+-                        $this->configDirectory .
+-                        "/.ssh/haxyourweb"
+-                );
+-                return @file_get_contents(
+-                    $this->configDirectory . '/.ssh/haxyourweb.pub'
+-                );
+-            }
+-        }
+-        return false;
+-    }
+     // russia strikes again
+     // https://stackoverflow.com/questions/3872423/php-problem-with-russian-language
+     public function html_to_obj($html) {
+@@ -1224,6 +1190,9 @@ class HAXCMS
+                 str_replace('/index.html', '', $cleanTitle)
+             );
+         }
++        // remove path slashes as title cleaning is commonly used for filename purposes
++        $cleanTitle = str_replace('./', '', $cleanTitle);
++        $cleanTitle = str_replace('../', '', $cleanTitle);
+         $cleanTitle = strtolower(str_replace(' ', '-', $cleanTitle));
+         $cleanTitle = preg_replace('/[^\w\-\/]+/u', '-', $cleanTitle);
+         $cleanTitle = mb_strtolower(
+diff --git a/system/backend/php/lib/HAXCMSSite.php b/system/backend/php/lib/HAXCMSSite.php
+index 2be022b..ed9a378 100644
+--- a/system/backend/php/lib/HAXCMSSite.php
++++ b/system/backend/php/lib/HAXCMSSite.php
+@@ -615,6 +615,21 @@ class HAXCMSSite
+         $repo->set_remote("origin", $gitDetails->url);
+         return true;
+     }
++    /**
++     * Validate that a page's location is in a valid space (aka pages/whatever/index.html)
++     * and not outside the current site directory.
++     */
++    public function validatePageLocation($location)
++    {
++      // ensure the path to the new folder is valid
++      $siteDirectoryPath = $this->directory . '/' . $this->manifest->metadata->site->name;
++      // force removal of anything that might try to move out of the location of pages
++      $location = str_replace('./', '', str_replace('../', '', $location));
++      if (file_exists($siteDirectoryPath . '/' . $location)) {
++        return true;
++      }
++      return false;
++    }
+     /**
+      * Add a page to the site's file system and reflect it in the outine schema.
+      *
+@@ -879,14 +894,20 @@ class HAXCMSSite
+             $slug = str_replace('pages/', '', str_replace('/index.html', '', $item->location));
+           }
+           // may seem silly but IDs in lunr have a size limit for some reason in our context..
+-          $data["items"][] = array(
++          $jsonFeed = array(
+             "guid" => substr(str_replace('-', '', str_replace('item-', '', $item->id)), 0, 29),
+             "url" => $domain . $slug,
+             "title" => $item->title,
+             "summary" => $item->description,
+-            "content_html" => @file_get_contents($this->directory . '/' . $this->manifest->metadata->site->name . '/' . $item->location),
++            "content_html" => '',
+             "date_published" => date('c', $created),
+           );
++          // test location is valid prior to adding it
++          if ($this->validatePageLocation($item->location)) {
++            $locationPath = str_replace('./', '', str_replace('../', '', $this->directory . '/' . $this->manifest->metadata->site->name . '/' . $item->location));
++            $jsonFeed['content_html'] = @file_get_contents($locationPath);
++          }
++          $data["items"][] = $jsonFeed;
+         }
+         $count++;
+       }
+@@ -904,18 +925,26 @@ class HAXCMSSite
+         }
+         // slug is now the URL canonical
+         $slug = str_replace('pages/', '', str_replace('/index.html', '', $item->location));
++        // if the item has a slug, use that instead of the location
+         if (isset($item->slug)) {
+           $slug = $item->slug;
+         }
+         // may seem silly but IDs in lunr have a size limit for some reason in our context..
+-        $data[] = array(
++        $lunrSearchItem = array(
+           "id" => substr(str_replace('-', '', str_replace('item-', '', $item->id)), 0, 29),
+           "title" => $item->title,
+           "created" => $created,
+           "location" => $slug,
+-          "description" => $item->description,
+-          "text" => $this->cleanSearchData(@file_get_contents($this->directory . '/' . $this->manifest->metadata->site->name . '/' . $item->location)),
++          "description" => strip_tags($item->description),
++          "text" => '',
+         );
++        // test location is valid prior to adding it
++        if ($this->validatePageLocation($item->location)) {
++          $locationPath = str_replace('./', '', str_replace('../', '', $this->directory . '/' . $this->manifest->metadata->site->name . '/' . $item->location));
++          $lunrSearchItem['text'] = $this->cleanSearchData(@file_get_contents($locationPath));
++        }
++
++        $data[] = $lunrSearchItem;
+       }
+       return $data;
+     }
+@@ -1076,7 +1105,7 @@ class HAXCMSSite
+         }
+         // look for the theme banner
+         if (isset($this->manifest->metadata->theme->variables->image)) {
+-          $fileName = $this->manifest->metadata->theme->variables->image;
++          $fileName = filter_var($this->manifest->metadata->theme->variables->image, FILTER_SANITIZE_STRING);
+         }
+       }
+       return $fileName;
+@@ -1245,10 +1274,16 @@ class HAXCMSSite
+       if (isset($page->location) && $page->location != '') {
+         $content = &$GLOBALS['HAXCMS']->staticCache(__FUNCTION__ . $page->location);
+         if (!isset($content)) {
+-          $content = filter_var(file_get_contents(HAXCMS_ROOT . '/' . $GLOBALS['HAXCMS']->sitesDirectory . '/' . $this->manifest->metadata->site->name . '/' . $page->location));
++          // ensure path is not trying to escape the site directory
++          $content = '';
++          if ($this->validatePageLocation($page->location)) {
++            $locationPath = str_replace('./', '', str_replace('../', '', HAXCMS_ROOT . '/' . $GLOBALS['HAXCMS']->sitesDirectory . '/' . $this->manifest->metadata->site->name . '/' . $page->location));
++            $content = filter_var(@file_get_contents($locationPath));
++          }
+         }
+         return $content;
+       }
++      return '';
+     }
+     /**
+      * Return accurate, rendered site metadata
+@@ -1311,14 +1346,14 @@ class HAXCMSSite
+   <link rel="modulepreload" href="' . $base . 'build/es6/node_modules/' . str_replace("@lrnwebcomponents/", "@haxtheweb/", $this->manifest->metadata->theme->path) . '" />';
+       }
+       if ($description == '') {
+-        $description = $this->manifest->description;
++        $description = filter_var($this->manifest->description, FILTER_SANITIZE_STRING);
+       }
+       if ($title == '' || $title == 'New item') {
+-        $title = $this->manifest->title;
+-        $siteTitle = $this->manifest->title;
++        $title = filter_var($this->manifest->title, FILTER_SANITIZE_STRING);
++        $siteTitle = $title;
+       }
+       if (isset($this->manifest->metadata->theme->variables->hexCode)) {
+-          $hexCode = $this->manifest->metadata->theme->variables->hexCode;
++          $hexCode = filter_var($this->manifest->metadata->theme->variables->hexCode, FILTER_SANITIZE_STRING);
+       }
+       $metadata = '
+   <meta charset="utf-8">' . $preconnect . '
+@@ -1354,14 +1389,14 @@ class HAXCMSSite
+   <meta name="msapplication-TileColor" content="' . $hexCode . '">
+   <meta name="msapplication-tap-highlight" content="no">
+   <meta name="description" content="' . $description . '" />
+-  <meta name="og:sitename" property="og:sitename" content="' . $this->manifest->title . '" />
++  <meta name="og:sitename" property="og:sitename" content="' . filter_var($this->manifest->title, FILTER_SANITIZE_STRING) . '" />
+   <meta name="og:title" property="og:title" content="' . $title . '" />
+   <meta name="og:type" property="og:type" content="article" />
+-  <meta name="og:url" property="og:url" content="' . $domain . '" />
++  <meta name="og:url" property="og:url" content="' . filter_var($domain, FILTER_SANITIZE_URL) . '" />
+   <meta name="og:description" property="og:description" content="' . $description . '" />
+   <meta name="og:image" property="og:image" content="' . $this->getSocialShareImage($page) . '" />
+   <meta name="twitter:card" property="twitter:card" content="summary_large_image" />
+-  <meta name="twitter:site" property="twitter:site" content="' . $domain . '" />
++  <meta name="twitter:site" property="twitter:site" content="' . filter_var($domain, FILTER_SANITIZE_URL) . '" />
+   <meta name="twitter:title" property="twitter:title" content="' . $title . '" />
+   <meta name="twitter:description" property="twitter:description" content="' . $description . '" />
+   <meta name="twitter:image" property="twitter:image" content="' . $this->getSocialShareImage($page) . '" />';  
+@@ -1371,8 +1406,10 @@ class HAXCMSSite
+           $metadata .= "\n" . '  <meta rel="cc:license" href="' . $licenseData[$this->manifest->license]['link'] . '" content="License: ' . $licenseData[$this->manifest->license]['name'] . '"/>' . "\n";
+       }
+       // add in twitter link if they provided one
+-      if (isset($this->manifest->metadata->author->socialLink) && strpos($this->manifest->metadata->author->socialLink, 'https://twitter.com/') === 0) {
+-          $metadata .= '  <meta name="twitter:creator" content="' . str_replace('https://twitter.com/', '@', $this->manifest->metadata->author->socialLink) . '" />';
++      if (isset($this->manifest->metadata->author->socialLink) && (strpos($this->manifest->metadata->author->socialLink, 'https://twitter.com/') === 0 || strpos($this->manifest->metadata->author->socialLink, 'https://x.com/') === 0)) {
++        $socialLink = str_replace('https://twitter.com/', '@', $this->manifest->metadata->author->socialLink);
++        $socialLink = str_replace('https://x.com/', '@', $socialLink);  
++        $metadata .= '  <meta name="twitter:creator" content="' . filter_var($socialLink, FILTER_SANITIZE_STRING) . '" />';
+       }
+       $GLOBALS['HAXCMS']->dispatchEvent('haxcms-site-metadata', $metadata);
+       return $metadata;
+@@ -1450,7 +1487,7 @@ class HAXCMSSite
+           }
+         }
+       }
+-      return $fileName;
++      return filter_var($fileName, FILTER_SANITIZE_URL);
+     }
+     /**
+      * License data for common open license
+diff --git a/system/backend/php/lib/JSONOutlineSchema.php b/system/backend/php/lib/JSONOutlineSchema.php
+index 0666f0b..f7bc979 100644
+--- a/system/backend/php/lib/JSONOutlineSchema.php
++++ b/system/backend/php/lib/JSONOutlineSchema.php
+@@ -186,6 +186,7 @@ class JSONOutlineSchema
+                     $newItem->id = $item->id;
+                     $newItem->indent = $item->indent;
+                     $newItem->location = $item->location;
++                    // support for legacy spec prior to slug existing
+                     $newItem->slug = (isset($item->slug) ? $item->slug : str_replace('pages/', '', str_replace('/index.html','', $item->location)));
+                     $newItem->order = $item->order;
+                     $newItem->parent = $item->parent;
+diff --git a/system/backend/php/lib/JSONOutlineSchemaItem.php b/system/backend/php/lib/JSONOutlineSchemaItem.php
+index 70fafcb..034f3a0 100644
+--- a/system/backend/php/lib/JSONOutlineSchemaItem.php
++++ b/system/backend/php/lib/JSONOutlineSchemaItem.php
+@@ -34,8 +34,10 @@ class JSONOutlineSchemaItem
+      */
+     public function readLocation($basePath = '')
+     {
+-        if (file_exists($basePath . $this->location)) {
+-            return file_get_contents($basePath . $this->location);
++        // ensure we don't have slashes that would allow to escape the current directory tree
++        $tmpLoc = str_replace('./', '', str_replace('../','', $this->location));
++        if (file_exists($basePath . $tmpLoc)) {
++            return @file_get_contents($basePath . $tmpLoc);
+         }
+         return false;
+     }
+@@ -48,8 +50,11 @@ class JSONOutlineSchemaItem
+         if ($body == '') {
+             $body = '<p></p>';
+         }
+-        if (file_exists($basePath . $this->location)) {
+-            return @file_put_contents($basePath . $this->location, $body);
++        // ensure we don't have slashes that would allow to escape the current directory tree
++        // so you can't write outside of the current directory tree
++        $tmpLoc = str_replace('./', '', str_replace('../','', $this->location));
++        if (file_exists($basePath . $tmpLoc)) {
++            return @file_put_contents($basePath . $tmpLoc, $body);
+         }
+         return false;
+     }
+diff --git a/system/backend/php/lib/Operations.php b/system/backend/php/lib/Operations.php
+index 49e81af..ba848ac 100644
+--- a/system/backend/php/lib/Operations.php
++++ b/system/backend/php/lib/Operations.php
+@@ -297,15 +297,15 @@ class Operations {
+       $site->manifest->metadata->site->version = $GLOBALS['HAXCMS']->getHAXCMSVersion();
+       $site->manifest->metadata->site->domain = filter_var(
+           $this->params['manifest']['site']['manifest-metadata-site-domain'],
+-          FILTER_UNSAFE_RAW
++          FILTER_SANITIZE_URL
+       );
+       $site->manifest->metadata->site->logo = filter_var(
+           $this->params['manifest']['site']['manifest-metadata-site-logo'],
+-          FILTER_UNSAFE_RAW
++          FILTER_SANITIZE_URL
+       );
+       $site->manifest->metadata->site->tags = filter_var(
+         $this->params['manifest']['site']['manifest-metadata-site-tags'],
+-        FILTER_UNSAFE_RAW
++        FILTER_SANITIZE_STRING
+       );
+       if (!isset($site->manifest->metadata->site->static)) {
+         $site->manifest->metadata->site->static = new stdClass();
+@@ -316,7 +316,7 @@ class Operations {
+       if (isset($this->params['manifest']['site']['manifest-domain'])) {
+           $domain = filter_var(
+               $this->params['manifest']['site']['manifest-domain'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_URL
+           );
+           // support updating the domain CNAME value
+           if ($site->manifest->metadata->site->domain != $domain) {
+@@ -333,7 +333,7 @@ class Operations {
+       // look for a match so we can set the correct data
+       foreach ($GLOBALS['HAXCMS']->getThemes() as $key => $theme) {
+         if (
+-            filter_var($this->params['manifest']['theme']['manifest-metadata-theme-element'], FILTER_UNSAFE_RAW) ==
++            filter_var($this->params['manifest']['theme']['manifest-metadata-theme-element'], FILTER_SANITIZE_STRING) ==
+             $key
+         ) {
+             $site->manifest->metadata->theme = $theme;
+@@ -344,17 +344,17 @@ class Operations {
+       }
+       if (isset($this->params['manifest']['theme']['manifest-metadata-theme-variables-image'])) {
+         $site->manifest->metadata->theme->variables->image = filter_var(
+-          $this->params['manifest']['theme']['manifest-metadata-theme-variables-image'],FILTER_UNSAFE_RAW
++          $this->params['manifest']['theme']['manifest-metadata-theme-variables-image'],FILTER_SANITIZE_URL
+         );
+       }
+       if (isset($this->params['manifest']['theme']['manifest-metadata-theme-variables-imageAlt'])) {
+         $site->manifest->metadata->theme->variables->imageAlt = filter_var(
+-          $this->params['manifest']['theme']['manifest-metadata-theme-variables-imageAlt'], FILTER_UNSAFE_RAW
++          $this->params['manifest']['theme']['manifest-metadata-theme-variables-imageAlt'], FILTER_SANITIZE_STRING
+         );
+       }
+       if (isset($this->params['manifest']['theme']['manifest-metadata-theme-variables-imageLink'])) {
+         $site->manifest->metadata->theme->variables->imageLink = filter_var(
+-          $this->params['manifest']['theme']['manifest-metadata-theme-variables-imageLink'], FILTER_UNSAFE_RAW
++          $this->params['manifest']['theme']['manifest-metadata-theme-variables-imageLink'], FILTER_SANITIZE_URL
+         );
+       }
+       // REGIONS SUPPORT
+@@ -374,51 +374,51 @@ class Operations {
+       foreach ($validRegions as $i => $value) {
+         if (isset($this->params['manifest']['theme']['manifest-metadata-theme-regions-' . $value])) {
+           foreach ($this->params['manifest']['theme']['manifest-metadata-theme-regions-' . $value] as $j => $id) {
+-            $this->params['manifest']['theme']['manifest-metadata-theme-regions-' . $value][$j] = filter_var($id, FILTER_UNSAFE_RAW);
++            $this->params['manifest']['theme']['manifest-metadata-theme-regions-' . $value][$j] = filter_var($id, FILTER_SANITIZE_STRING);
+           }
+           $site->manifest->metadata->theme->regions->{$value} = $this->params['manifest']['theme']['manifest-metadata-theme-regions-' . $value];
+         }
+       }
+       if (isset($this->params['manifest']['theme']['manifest-metadata-theme-variables-hexCode'])) {
+         $site->manifest->metadata->theme->variables->hexCode = filter_var(
+-          $this->params['manifest']['theme']['manifest-metadata-theme-variables-hexCode'],FILTER_UNSAFE_RAW
++          $this->params['manifest']['theme']['manifest-metadata-theme-variables-hexCode'],FILTER_SANITIZE_STRING
+         );
+       }
+       $site->manifest->metadata->theme->variables->cssVariable = "--simple-colors-default-theme-" . filter_var(
+-        $this->params['manifest']['theme']['manifest-metadata-theme-variables-cssVariable'], FILTER_UNSAFE_RAW
++        $this->params['manifest']['theme']['manifest-metadata-theme-variables-cssVariable'], FILTER_SANITIZE_STRING
+       ). "-7";
+       $site->manifest->metadata->theme->variables->icon = filter_var(
+-        $this->params['manifest']['theme']['manifest-metadata-theme-variables-icon'],FILTER_UNSAFE_RAW
++        $this->params['manifest']['theme']['manifest-metadata-theme-variables-icon'],FILTER_SANITIZE_STRING
+       );
+       if (isset($this->params['manifest']['author']['manifest-license'])) {
+           $site->manifest->license = filter_var(
+               $this->params['manifest']['author']['manifest-license'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_STRING
+           );
+           if (!isset($site->manifest->metadata->author)) {
+             $site->manifest->metadata->author = new stdClass();
+           }
+           $site->manifest->metadata->author->image = filter_var(
+               $this->params['manifest']['author']['manifest-metadata-author-image'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_URL
+           );
+           $site->manifest->metadata->author->name = filter_var(
+               $this->params['manifest']['author']['manifest-metadata-author-name'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_STRING
+           );
+           $site->manifest->metadata->author->email = filter_var(
+               $this->params['manifest']['author']['manifest-metadata-author-email'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_EMAIL
+           );
+           $site->manifest->metadata->author->socialLink = filter_var(
+               $this->params['manifest']['author']['manifest-metadata-author-socialLink'],
+-              FILTER_UNSAFE_RAW
++              FILTER_SANITIZE_URL
+           );
+       }
+       if (isset($this->params['manifest']['seo']['manifest-metadata-site-settings-lang'])) {
+         $site->manifest->metadata->site->settings->lang = filter_var(
+         $this->params['manifest']['seo']['manifest-metadata-site-settings-lang'],
+-        FILTER_UNSAFE_RAW
++        FILTER_SANITIZE_STRING
+         );
+     }
+       if (isset($this->params['manifest']['seo']['manifest-metadata-site-settings-pathauto'])) {
+@@ -448,7 +448,7 @@ class Operations {
+       if (isset($this->params['manifest']['seo']['manifest-metadata-site-settings-gaID'])) {
+         $site->manifest->metadata->site->settings->gaID = filter_var(
+         $this->params['manifest']['seo']['manifest-metadata-site-settings-gaID'],
+-        FILTER_UNSAFE_RAW
++        FILTER_SANITIZE_STRING
+         );
+       }
+       $site->manifest->metadata->site->updated = time();
+@@ -989,7 +989,7 @@ class Operations {
+               // allow setting theme via page break
+               if (isset($data["attributes"]["developer-theme"]) && $data["attributes"]["developer-theme"] != '') {
+                 $themes = $GLOBALS['HAXCMS']->getThemes();
+-                $value = filter_var($data["attributes"]["developer-theme"], FILTER_UNSAFE_RAW);
++                $value = filter_var($data["attributes"]["developer-theme"], FILTER_SANITIZE_STRING);
+                 // support for removing the custom theme or applying none
+                 if ($value == '_none_' || $value == '' || !$value || !isset($themes->{$value})) {
+                   unset($page->metadata->theme);
+@@ -1094,7 +1094,7 @@ class Operations {
+               // auto generate a text only description from first 200 chars
+               // unless we were sent one to use
+               if (isset($data["attributes"]["description"]) && $data["attributes"]["description"] != '') {
+-                $page->description = $data["attributes"]["description"];
++                $page->description = strip_tags($data["attributes"]["description"]);
+               }
+               else {
+                 $page->description = str_replace(
+diff --git a/system/backend/php/lib/RSS.php b/system/backend/php/lib/RSS.php
+index 0a8ae33..46c3e74 100644
+--- a/system/backend/php/lib/RSS.php
++++ b/system/backend/php/lib/RSS.php
+@@ -70,7 +70,7 @@ class FeedMe
+                 '</link>
+       <description>
+           <![CDATA[ ' .
+-                file_get_contents($siteDirectory . '/' . $item->location) .
++                file_get_contents($siteDirectory . '/' . str_replace('./', '', str_replace('../', '', $item->location))) .
+                 ' ]]>
+       </description>
+       <category>' .
+@@ -167,7 +167,7 @@ class FeedMe
+                 '
+     <content type="html">
+       <![CDATA[ ' .
+-                file_get_contents($siteDirectory . '/' . $item->location) .
++                file_get_contents($siteDirectory . '/' . str_replace('./', '', str_replace('../', '', $item->location))) .
+                 ' ]]>
+     </content>
+   </entry>';

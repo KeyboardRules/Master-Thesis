@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-w4hp-pcp8-qhf3",
+    "cve":  "CVE-2022-0387",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "fix_commit":  "ff70c7dd641b68b9afb170b89ec1ef003a4e3444",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhdepartment/editgroup.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhdepartment/editlimitgroup.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhdepartment/newgroup.tpl.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhdepartment/editgroup.tpl.php includes 4 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhdepartment/editlimitgroup.tpl.php includes 4 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhdepartment/newgroup.tpl.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

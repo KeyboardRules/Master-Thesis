@@ -1,0 +1,27 @@
+﻿diff --git a/src/controllers/UpdaterController.php b/src/controllers/UpdaterController.php
+index 7348030..140ddcc 100644
+--- a/src/controllers/UpdaterController.php
++++ b/src/controllers/UpdaterController.php
+@@ -12,6 +12,7 @@ use Composer\Semver\Comparator;
+ use Composer\Semver\VersionParser;
+ use Craft;
+ use craft\errors\InvalidPluginException;
++use craft\helpers\FileHelper;
+ use RequirementsChecker;
+ use Throwable;
+ use yii\web\BadRequestHttpException;
+@@ -99,8 +100,13 @@ class UpdaterController extends BaseUpdaterController
+      */
+     public function actionRestoreDb(): Response
+     {
++        $backupPath = $this->data['dbBackupPath'];
++        if (!file_exists($backupPath) || !FileHelper::isWithin($backupPath, Craft::$app->getPath()->getDbBackupPath())) {
++            throw new BadRequestHttpException("Invalid backup path: $backupPath");
++        }
++
+         try {
+-            Craft::$app->getDb()->restore($this->data['dbBackupPath']);
++            Craft::$app->getDb()->restore($backupPath);
+         } catch (Throwable $e) {
+             Craft::error('Error restoring up the database: ' . $e->getMessage(), __METHOD__);
+             return $this->send([

@@ -1,0 +1,34 @@
+﻿{
+    "id":  "GHSA-2qf8-h7pr-x2r8",
+    "cve":  "CVE-2022-2924",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "b716ecea340783b842498425faa029800bd30420",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "layouts/basic/modules/Vtiger/dashboards/Calendar.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/CalendarActivitiesContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/CalendarContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/ChartFilter.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/ChartFilterContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/DashBoardContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/DashBoardPreProcessAjax.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/DashBoardWidgetsList.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/DashboardHeaderIcons.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/ListUpdatedRecordContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/MailsList.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/MiniListWizard.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/ProductsSoldToRenew.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/ProductsSoldToRenewContents.tpl",
+                        "layouts/basic/modules/Vtiger/dashboards/SelectAccessibleTemplate.tpl"
+                    ],
+    "sink_hit":  false
+}

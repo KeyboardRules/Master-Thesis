@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hxmh-2xc4-c894",
+    "cve":  "CVE-2018-25357",
+    "cwe":  "CWE-94",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "41709f07d0aef384723164877395ed081b44b810",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/install/step1.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/install/step1.php includes 5 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/install/step1.php"
+                    ],
+    "sink_hit":  false
+}

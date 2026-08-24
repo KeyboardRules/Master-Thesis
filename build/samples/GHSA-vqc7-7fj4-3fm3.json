@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-vqc7-7fj4-3fm3",
+    "cve":  "CVE-2025-64049",
+    "cwe":  "CWE-79",
+    "repo":  "redaxo/redaxo",
+    "sha":  "58929062312cf03e344ab04067a365e6b6ee66aa",
+    "status":  "ok",
+    "changed_php":  [
+                        "redaxo/src/addons/mediapool/lib/service_media.php",
+                        "redaxo/src/addons/mediapool/pages/media.list.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        ".tools/psalm/baseline.xml",
+                        "redaxo/src/addons/mediapool/lib/service_media.php",
+                        "redaxo/src/addons/mediapool/pages/media.list.php"
+                    ],
+    "sink_hit":  true
+}

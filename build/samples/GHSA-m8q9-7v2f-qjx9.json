@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-m8q9-7v2f-qjx9",
+    "cve":  "CVE-2023-1880",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "bbc5d4aa4a4375c14e34dd9fcad2042066fe476d",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/send2friend.php",
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "phpmyfaq/src/phpMyFAQ/Export/Html5.php class extends Export"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/send2friend.php",
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "sink_hit":  false
+}

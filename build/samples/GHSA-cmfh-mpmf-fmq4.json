@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cmfh-mpmf-fmq4",
+    "cve":  "CVE-2026-32277",
+    "cwe":  "CWE-79",
+    "repo":  "opensource-workshop/connect-cms",
+    "sha":  "c04dc40f814eff891915752ef1ec00ba6612441c",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/plugins/user/cabinets/default/index.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/plugins/user/cabinets/default/index.blade.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-gxxh-8vcj-w2mh",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "mckenziearts/livewire-markdown-editor",
+    "fix_commit":  "1e60eaa5781e89704e112425f832774be85cd71f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/livewire-markdown-editor.php",
+                        "resources/views/livewire/markdown-editor.blade.php",
+                        "src/Livewire/MarkdownEditor.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Livewire/MarkdownEditor.php class extends Component",
+                     "src/Livewire/MarkdownEditor.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

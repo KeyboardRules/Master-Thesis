@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-j6qq-9939-9jv8",
+    "cve":  "CVE-2023-2102",
+    "cwe":  "CWE-79",
+    "repo":  "alextselegidis/easyappointments",
+    "sha":  "bddc5cbeb7ff237a72943b304dcb01c653781767",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/views/components/backend_header.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "application/views/components/backend_header.php"
+                    ],
+    "sink_hit":  false
+}

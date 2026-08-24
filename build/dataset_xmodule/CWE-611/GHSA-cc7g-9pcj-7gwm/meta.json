@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cc7g-9pcj-7gwm",
+    "cve":  "CVE-2015-3907",
+    "cwe":  "CWE-611",
+    "repo":  "chriskacerguis/codeigniter-restserver",
+    "fix_commit":  "852740e7c636e4f44b3a8e3afc15155795e22c9b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "application/libraries/REST_Controller.php"
+                    ],
+    "evidence":  [
+                     "application/libraries/REST_Controller.php class extends CI_Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

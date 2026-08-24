@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hf9p-9r39-r2h3",
+    "cve":  "CVE-2020-11476",
+    "cwe":  "CWE-434",
+    "repo":  "concretecms/concretecms",
+    "sha":  "d296f4ba4f6ad94b199c21c1b16f0d185adab343",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/config/concrete.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "concrete/config/concrete.php"
+                    ],
+    "sink_hit":  false
+}

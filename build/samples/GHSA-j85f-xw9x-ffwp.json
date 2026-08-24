@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-j85f-xw9x-ffwp",
+    "cve":  "CVE-2021-4121",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "6b5967198e43b6fbb3b2715b49c6cd5b12ce08c3",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "layouts/basic/modules/Vtiger/Modals/MeetingModal.tpl"
+                    ],
+    "sink_hit":  false
+}

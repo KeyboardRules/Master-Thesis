@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-86hp-xrhj-fhpq",
+    "cve":  "CVE-2019-12747",
+    "cwe":  "CWE-502",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "647aa7afa582983cddc547fa106d31e2b1ef34fe",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseLanguageRows.php",
+                        "typo3/sysext/core/Classes/DataHandling/DataHandler.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "typo3/sysext/core/Classes/DataHandling/DataHandler.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

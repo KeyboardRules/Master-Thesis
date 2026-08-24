@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-fggg-964j-3j7h",
+    "cve":  "CVE-2026-48555",
+    "cwe":  "CWE-918",
+    "repo":  "spatie/laravel-medialibrary",
+    "fix_commit":  "608ea03703d3887c46434f5dda6af56de6346aba",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/media-library.php",
+                        "src/MediaCollections/Exceptions/FileNameNotAllowed.php",
+                        "src/MediaCollections/FileAdder.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/MediaCollections/Exceptions/FileNameNotAllowed.php class extends FileCannotBeAdded",
+                     "src/MediaCollections/FileAdder.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

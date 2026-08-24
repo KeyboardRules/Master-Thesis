@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-wgx7-jp56-65mq",
+    "cve":  "CVE-2024-34081",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "447a521aae0f82f791b8116a14a20e276df739be",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bug_change_status_page.php",
+                        "core/print_api.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "bug_change_status_page.php includes 2 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-h2fj-77wh-fh5w",
+    "cve":  "CVE-2022-0612",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "4d4f1db1701f09177896a38e43fd0c693835f03b",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/pagelayouts/parts/page_head_logo.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/pagelayouts/parts/page_head_logo_back_office.tpl.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "lhc_web/design/defaulttheme/tpl/pagelayouts/parts/page_head_logo.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/pagelayouts/parts/page_head_logo_back_office.tpl.php"
+                    ],
+    "sink_hit":  true
+}

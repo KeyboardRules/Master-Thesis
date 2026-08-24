@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8p48-ghv5-7qq7",
+    "cve":  "CVE-2023-1756",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "ca75f4688a8b0f14d5d0697b9f4b6ea66088f726",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Export/Html5.php"
+                    ],
+    "evidence":  [
+                     "phpmyfaq/src/phpMyFAQ/Export/Html5.php class extends Export"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

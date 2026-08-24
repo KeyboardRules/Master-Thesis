@@ -1,0 +1,54 @@
+﻿diff --git a/src/Core/Framework/Api/Controller/SalesChannelProxyController.php b/src/Core/Framework/Api/Controller/SalesChannelProxyController.php
+index 049eca71a..0110b1573 100644
+--- a/src/Core/Framework/Api/Controller/SalesChannelProxyController.php
++++ b/src/Core/Framework/Api/Controller/SalesChannelProxyController.php
+@@ -198,6 +198,7 @@ class SalesChannelProxyController extends AbstractController
+             PlatformRequest::HEADER_CONTEXT_TOKEN => $salesChannelContext->getToken(),
+         ], \JSON_THROW_ON_ERROR);
+         $response = new Response();
++        $response->headers->set('content-type', 'application/json');
+         $response->setContent($content ?: null);
+ 
+         return $response;
+diff --git a/src/Core/System/SalesChannel/Context/CartRestorer.php b/src/Core/System/SalesChannel/Context/CartRestorer.php
+index fcb335572..a69781110 100644
+--- a/src/Core/System/SalesChannel/Context/CartRestorer.php
++++ b/src/Core/System/SalesChannel/Context/CartRestorer.php
+@@ -46,7 +46,7 @@ class CartRestorer
+             $customerId
+         );
+ 
+-        if (empty($customerPayload) || !($customerPayload['expired'] ?? false) && $customerPayload['token'] === $currentContext->getToken()) {
++        if (empty($customerPayload) || !empty($customerPayload['permissions']) || !($customerPayload['expired'] ?? false) && $customerPayload['token'] === $currentContext->getToken()) {
+             return $this->replaceContextToken($customerId, $currentContext);
+         }
+ 
+@@ -114,6 +114,7 @@ class CartRestorer
+                 'customerId' => $customerId,
+                 'billingAddressId' => null,
+                 'shippingAddressId' => null,
++                'permissions' => [],
+             ],
+             $currentContext->getSalesChannel()->getId(),
+             $customerId
+diff --git a/src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php b/src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php
+index 1205f87af..1e2f2469a 100644
+--- a/src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php
++++ b/src/Core/System/SalesChannel/Context/SalesChannelContextPersister.php
+@@ -32,11 +32,14 @@ class SalesChannelContextPersister
+         $this->lifetimeInterval = $lifetimeInterval ?? 'P1D';
+     }
+ 
+-    public function save(string $token, array $parameters, string $salesChannelId, ?string $customerId = null): void
++    public function save(string $token, array $newParameters, string $salesChannelId, ?string $customerId = null): void
+     {
+         $existing = $this->load($token, $salesChannelId, $customerId);
+ 
+-        $parameters = array_replace_recursive($existing, $parameters);
++        $parameters = array_replace_recursive($existing, $newParameters);
++        if (isset($newParameters['permissions']) && $newParameters['permissions'] === []) {
++            $parameters['permissions'] = [];
++        }
+ 
+         unset($parameters['token']);
+ 

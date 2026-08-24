@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2xmm-g482-4439",
+    "cve":  "CVE-2022-24752",
+    "cwe":  "CWE-89",
+    "repo":  "Sylius/SyliusGridBundle",
+    "fix_commit":  "73d0791d0575f955e830a3da4c3345f420d2f784",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Component/Sorting/Sorter.php"
+                    ],
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "src/Component/spec/Sorting/SorterSpec.php class extends ObjectBehavior"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

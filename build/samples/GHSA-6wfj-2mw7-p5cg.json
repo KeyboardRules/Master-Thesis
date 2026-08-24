@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-6wfj-2mw7-p5cg",
+    "cve":  "CVE-2014-6300",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "33b39f9f1dd9a4d27856530e5ac004e23b30e8ac",
+    "status":  "ok",
+    "changed_php":  [
+                        "js/whitelist.php",
+                        "libraries/Header.class.php",
+                        "libraries/Scripts.class.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "libraries/Header.class.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "js/ajax.js",
+                        "js/whitelist.php",
+                        "libraries/Header.class.php",
+                        "libraries/Scripts.class.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-w77v-xpxr-c6pv",
+    "cve":  "CVE-2015-2273",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "71aeb8a9cb4cf06f0b4aa49daf527e5c866db30e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "mod/quiz/report/statistics/statistics_question_table.php"
+                    ],
+    "evidence":  [
+                     "mod/quiz/report/statistics/statistics_question_table.php includes 1 project file(s)",
+                     "mod/quiz/report/statistics/statistics_question_table.php class extends flexible_table"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

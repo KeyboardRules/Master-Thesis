@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-5cvx-cwpx-9rjh",
+    "cve":  "CVE-2023-5550",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "77766f9c8af8fc8d861d7ac09ce4e1f6e72faca7",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "message/externallib.php",
+                        "message/lib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "message/externallib.php includes 3 project file(s)",
+                     "message/externallib.php class extends external_api",
+                     "message/lib.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

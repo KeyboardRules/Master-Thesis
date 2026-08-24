@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-4r6g-xhx7-fm36",
+    "cve":  "CVE-2015-0269",
+    "cwe":  "CWE-22",
+    "repo":  "contao/core",
+    "fix_commit":  "0229e839b4849e402256b972eb62f89f2c29674d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/modules/core/classes/Backend.php",
+                        "system/modules/core/dca/tl_templates.php",
+                        "system/modules/core/library/Contao/Validator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "system/modules/core/classes/Backend.php class extends \\Controller",
+                     "system/modules/core/dca/tl_templates.php class extends Backend",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

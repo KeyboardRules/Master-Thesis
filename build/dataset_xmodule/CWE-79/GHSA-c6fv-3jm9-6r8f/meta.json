@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-c6fv-3jm9-6r8f",
+    "cve":  "CVE-2023-3083",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "fix_commit":  "79731553fa305d45dabb7a227f3074d56d7c94c1",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/core/load.js.php",
+                        "includes/core/logout.php",
+                        "index.php",
+                        "pages/users.js.php",
+                        "sources/main.queries.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "includes/core/logout.php includes 7 project file(s)",
+                     "index.php includes 47 project file(s)",
+                     "pages/users.js.php includes 4 project file(s)",
+                     "sources/main.queries.php includes 19 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

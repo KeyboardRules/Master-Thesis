@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-qc7w-4567-84wv",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "zendframework/zendframework",
+    "fix_commit":  "225a8c9f1c3bc08c0bddf22486a8a39ff7186ac1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "library/Zend/Json/Json.php",
+                        "library/Zend/XmlRpc/Fault.php",
+                        "library/Zend/XmlRpc/Response.php"
+                    ],
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "tests/ZendTest/XmlRpc/FaultTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9x67-f2v7-63rw",
+    "cve":  "CVE-2026-33039",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "0e56382921fc71e64829cd1ec35f04e338c70917",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/LiveLinks/proxy.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "plugin/LiveLinks/proxy.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/LiveLinks/proxy.php"
+                    ],
+    "sink_hit":  true
+}

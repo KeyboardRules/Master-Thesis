@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-w6jr-wj64-mc9x",
+    "cve":  "CVE-2022-21647",
+    "cwe":  "CWE-502",
+    "repo":  "codeigniter4/CodeIgniter4",
+    "fix_commit":  "ce95ed5765256e2f09f3513e7d42790e0d6948f5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "system/Common.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "tests/system/CommonFunctionsTest.php class extends CIUnitTestCase",
+                     "tests/system/HTTP/IncomingRequestTest.php class extends CIUnitTestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

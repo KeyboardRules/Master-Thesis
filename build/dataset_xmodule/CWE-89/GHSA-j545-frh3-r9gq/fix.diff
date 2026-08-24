@@ -1,0 +1,13 @@
+﻿diff --git a/htdocs/compta/sociales/list.php b/htdocs/compta/sociales/list.php
+index ce379774e0..578c765084 100644
+--- a/htdocs/compta/sociales/list.php
++++ b/htdocs/compta/sociales/list.php
+@@ -206,7 +206,7 @@ if (!empty($conf->projet->enabled)) {
+ 	}
+ }
+ if (!empty($search_users)) {
+-	$sql .= ' AND cs.fk_user IN('.implode(', ', $search_users).')';
++	$sql .= ' AND cs.fk_user IN ('.$db->sanitize(implode(', ', $search_users)).')';
+ }
+ if (!empty($search_type) && $search_type > 0) {
+ 	$sql .= ' AND cs.fk_mode_reglement='.$search_type;

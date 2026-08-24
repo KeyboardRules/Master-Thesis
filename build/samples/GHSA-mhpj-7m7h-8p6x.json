@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-mhpj-7m7h-8p6x",
+    "cve":  "CVE-2023-2616",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "07a2c95be524c7e20105cef58c5767d4ebb06091",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "lib/Security/SecurityHelper.php",
+                        "models/Staticroute.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController",
+                     "models/Staticroute.php class extends AbstractModel"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/helpers.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/settings/staticroutes.js",
+                        "lib/Security/SecurityHelper.php",
+                        "models/Staticroute.php"
+                    ],
+    "sink_hit":  false
+}

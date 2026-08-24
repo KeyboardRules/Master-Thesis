@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-95j3-435g-vjcp",
+    "cve":  "CVE-2025-28254",
+    "cwe":  "CWE-79",
+    "repo":  "Leantime/leantime",
+    "sha":  "ce1d2073e4601183e1bdd90f4b433d16aee46a50",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Domain/Notifications/Services/Notifications.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Domain/Notifications/Services/Notifications.php"
+                    ],
+    "sink_hit":  false
+}

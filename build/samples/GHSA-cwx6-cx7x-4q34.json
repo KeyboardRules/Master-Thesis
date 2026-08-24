@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cwx6-cx7x-4q34",
+    "cve":  "CVE-2024-32461",
+    "cwe":  "CWE-89",
+    "repo":  "librenms/librenms",
+    "sha":  "d29201fce134347f891102699fbde7070debee33",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/search/packages.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/search/packages.inc.php"
+                    ],
+    "sink_hit":  false
+}

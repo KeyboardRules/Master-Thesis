@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jccv-3h4x-35mv",
+    "cve":  "CVE-2017-11366",
+    "cwe":  "CWE-78",
+    "repo":  "Codiad/Codiad",
+    "sha":  "ca5089eeba42d16ce3a7f86be628ac7750780111",
+    "status":  "ok",
+    "changed_php":  [
+                        "components/filemanager/class.filemanager.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "components/filemanager/class.filemanager.php includes 2 project file(s)",
+                     "components/filemanager/class.filemanager.php class extends Common"
+                 ],
+    "changed_all":  [
+                        "components/filemanager/class.filemanager.php"
+                    ],
+    "sink_hit":  true
+}

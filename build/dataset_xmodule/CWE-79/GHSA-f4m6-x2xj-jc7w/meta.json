@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-f4m6-x2xj-jc7w",
+    "cve":  "CVE-2023-35783",
+    "cwe":  "CWE-79",
+    "repo":  "tpwd/ke_search",
+    "fix_commit":  "14fa0703c2469e04eb398be4ae6268ec6ad6e720",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "Classes/Indexer/Types/File.php",
+                        "Classes/Indexer/Types/News.php",
+                        "Classes/Indexer/Types/TtAddress.php",
+                        "Classes/Indexer/Types/TtNews.php",
+                        "Classes/Lib/Searchresult.php",
+                        "ext_emconf.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "Classes/Indexer/Types/File.php class extends IndexerBase",
+                     "Classes/Indexer/Types/News.php class extends IndexerBase",
+                     "Classes/Indexer/Types/TtAddress.php class extends IndexerBase",
+                     "Classes/Indexer/Types/TtNews.php class extends IndexerBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

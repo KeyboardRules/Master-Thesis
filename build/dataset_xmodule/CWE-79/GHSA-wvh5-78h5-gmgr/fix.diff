@@ -1,0 +1,13 @@
+﻿diff --git a/mod/assign/classes/output/renderer.php b/mod/assign/classes/output/renderer.php
+index 45e60caf34..098fd15c41 100644
+--- a/mod/assign/classes/output/renderer.php
++++ b/mod/assign/classes/output/renderer.php
+@@ -168,7 +168,7 @@ class renderer extends \plugin_renderer_base {
+             $fullname = fullname($summary->user, $summary->viewfullnames);
+             $extrainfo = array();
+             foreach ($summary->extrauserfields as $extrafield) {
+-                $extrainfo[] = $summary->user->$extrafield;
++                $extrainfo[] = s($summary->user->$extrafield);
+             }
+             if (count($extrainfo)) {
+                 $fullname .= ' (' . implode(', ', $extrainfo) . ')';

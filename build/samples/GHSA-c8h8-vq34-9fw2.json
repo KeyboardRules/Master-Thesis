@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-c8h8-vq34-9fw2",
+    "cve":  "CVE-2026-47694",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "6a6ff1f5bff1904f91f612db9f0da083295392b1",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Gallery/view/Category.php",
+                        "plugin/Gallery/view/mainAreaCategory.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "plugin/Gallery/view/Category.php includes 1 project file(s)",
+                     "plugin/Gallery/view/mainAreaCategory.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/Gallery/view/Category.php",
+                        "plugin/Gallery/view/mainAreaCategory.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-73vx-49mv-v8w5",
+    "cve":  "CVE-2026-33548",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "f32787c14d4518476fe7f05f992dbfe6eaccd815",
+    "status":  "ok",
+    "changed_php":  [
+                        "core/classes/IssueTagTimelineEvent.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "core/classes/IssueTagTimelineEvent.class.php class extends TimelineEvent"
+                 ],
+    "changed_all":  [
+                        "core/classes/IssueTagTimelineEvent.class.php"
+                    ],
+    "sink_hit":  false
+}

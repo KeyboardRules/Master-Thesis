@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-c43v-4cr8-6mvp",
+    "cve":  "CVE-2026-56394",
+    "cwe":  "CWE-22",
+    "repo":  "craftcms/cms",
+    "sha":  "30f5f1a8d6edf0f3a00be72c42c78d9dc7d72d5c",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/Assets.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/helpers/Assets.php"
+                    ],
+    "sink_hit":  true
+}

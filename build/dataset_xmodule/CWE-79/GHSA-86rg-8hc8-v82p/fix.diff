@@ -1,0 +1,76 @@
+﻿diff --git a/includes/functions.php b/includes/functions.php
+index 7f934f99..ef6d1bf4 100755
+--- a/includes/functions.php
++++ b/includes/functions.php
+@@ -439,11 +439,6 @@ function delta_to_bits($delta, $period)
+     return round($delta * 8 / $period, 2);
+ }
+ 
+-function report_this($message)
+-{
+-    return '<h2>' . htmlentities($message) . ' Please <a href="' . htmlentities(Config::get('project_issues')) . '">report this</a> to the ' . htmlentities(Config::get('project_name')) . ' developers.</h2>';
+-}//end report_this()
+-
+ function hytera_h2f($number, $nd)
+ {
+     if (strlen(str_replace(' ', '', $number)) == 4) {
+diff --git a/includes/html/pages/device/alerts.inc.php b/includes/html/pages/device/alerts.inc.php
+index 3d3e88eb..18426d78 100644
+--- a/includes/html/pages/device/alerts.inc.php
++++ b/includes/html/pages/device/alerts.inc.php
+@@ -64,7 +64,7 @@ switch ($vars['section']) {
+ 
+     default:
+         echo '</div>';
+-        echo report_this('Unknown section ' . $vars['section']);
++        echo 'Unknown section';
+         break;
+ }
+ 
+diff --git a/includes/html/pages/device/logs.inc.php b/includes/html/pages/device/logs.inc.php
+index 99813294..3124db6e 100644
+--- a/includes/html/pages/device/logs.inc.php
++++ b/includes/html/pages/device/logs.inc.php
+@@ -91,7 +91,7 @@ switch ($vars['section']) {
+ 
+     default:
+         echo '</div>';
+-        echo report_this('Unknown section ' . $vars['section']);
++        echo 'Unknown section';
+         break;
+ }
+ 
+diff --git a/includes/html/pages/routing.inc.php b/includes/html/pages/routing.inc.php
+index 1a28dce5..225e7a13 100644
+--- a/includes/html/pages/routing.inc.php
++++ b/includes/html/pages/routing.inc.php
+@@ -76,6 +76,6 @@ switch ($vars['protocol']) {
+         break;
+ 
+     default:
+-        echo report_this('Unknown protocol ' . $vars['protocol']);
++        echo 'Unknown protocol';
+         break;
+ }
+diff --git a/includes/html/pages/search.inc.php b/includes/html/pages/search.inc.php
+index 1b0052f0..2368a091 100644
+--- a/includes/html/pages/search.inc.php
++++ b/includes/html/pages/search.inc.php
+@@ -44,5 +44,5 @@ print_optionbar_end();
+ if (file_exists("includes/html/pages/search/$search_type.inc.php")) {
+     include "includes/html/pages/search/$search_type.inc.php";
+ } else {
+-    echo report_this('Unknown search type ' . htmlspecialchars($search_type));
++    echo 'Unknown search type';
+ }
+diff --git a/includes/html/pages/tools.inc.php b/includes/html/pages/tools.inc.php
+index 9c4ba6d0..dfd70ae3 100644
+--- a/includes/html/pages/tools.inc.php
++++ b/includes/html/pages/tools.inc.php
+@@ -36,5 +36,5 @@ $tools_type = basename($vars['tool']);
+ if (file_exists("includes/html/pages/tools/$tools_type.inc.php")) {
+     include "includes/html/pages/tools/$tools_type.inc.php";
+ } else {
+-    echo report_this("Unknown tool type $tools_type");
++    echo 'Unknown tool type';
+ }

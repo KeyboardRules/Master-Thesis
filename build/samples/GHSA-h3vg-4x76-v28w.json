@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-h3vg-4x76-v28w",
+    "cve":  "CVE-2017-14241",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "d26b2a694de30f95e46ea54ea72cc54f0d38e548",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/admin/company.php",
+                        "htdocs/admin/menus/edit.php",
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/document.php",
+                        "htdocs/main.inc.php",
+                        "htdocs/viewimage.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "htdocs/admin/company.php includes 10 project file(s)",
+                     "htdocs/admin/menus/edit.php includes 3 project file(s)",
+                     "htdocs/core/lib/functions.lib.php includes 16 project file(s)",
+                     "htdocs/document.php includes 2 project file(s)",
+                     "htdocs/main.inc.php includes 15 project file(s)",
+                     "htdocs/viewimage.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "htdocs/admin/company.php",
+                        "htdocs/admin/menus/edit.php",
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/document.php",
+                        "htdocs/langs/en_US/main.lang",
+                        "htdocs/main.inc.php",
+                        "htdocs/viewimage.php"
+                    ],
+    "sink_hit":  true
+}

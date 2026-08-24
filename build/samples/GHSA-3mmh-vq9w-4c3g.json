@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3mmh-vq9w-4c3g",
+    "cve":  "CVE-2022-4617",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "df8add930ecfa7f5b18c67c3f748c137fe890906",
+    "status":  "ok",
+    "changed_php":  [
+                        "userfiles/modules/settings/group/language_import.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "userfiles/modules/settings/group/language_import.php"
+                    ],
+    "sink_hit":  true
+}

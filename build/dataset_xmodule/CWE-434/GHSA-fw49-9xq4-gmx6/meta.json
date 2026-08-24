@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-fw49-9xq4-gmx6",
+    "cve":  "CVE-2026-41587",
+    "cwe":  "CWE-434",
+    "repo":  "ci4-cms-erp/ci4ms",
+    "fix_commit":  "b969465e71eacd9eb57014ad1fce1fc34fa7bca0",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "modules/Theme/Controllers/Theme.php",
+                        "modules/Theme/Helpers/themes_helper.php",
+                        "modules/Theme/Language/en/Theme.php",
+                        "modules/Theme/Language/tr/Theme.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "modules/Theme/Controllers/Theme.php class extends \\Modules\\Backend\\Controllers\\BaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

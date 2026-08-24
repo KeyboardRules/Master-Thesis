@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-j226-63j7-qrqh",
+    "cve":  "CVE-2025-49130",
+    "cwe":  "CWE-79",
+    "repo":  "barryvdh/laravel-translation-manager",
+    "fix_commit":  "527446ed419f90f2319675fc5211cb8f851d7a1f",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "resources/views/index.php",
+                        "src/Controller.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Controller.php class extends BaseController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

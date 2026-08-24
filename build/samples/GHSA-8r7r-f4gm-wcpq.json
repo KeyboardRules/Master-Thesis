@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-8r7r-f4gm-wcpq",
+    "cve":  "CVE-2026-27196",
+    "cwe":  "CWE-79",
+    "repo":  "statamic/cms",
+    "sha":  "11ae40e62edd3da044d37ebf264757a09cc2347b",
+    "status":  "ok",
+    "changed_php":  [
+                        "lang/en/fieldtypes.php",
+                        "src/Fieldtypes/Html.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Fieldtypes/Html.php class extends Fieldtype"
+                 ],
+    "changed_all":  [
+                        "lang/en/fieldtypes.php",
+                        "package-lock.json",
+                        "package.json",
+                        "resources/js/components/fieldtypes/HtmlFieldtype.vue",
+                        "src/Fieldtypes/Html.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-9278-6hcj-2p4j",
+    "cve":  "CVE-2019-25317",
+    "cwe":  "CWE-79",
+    "repo":  "kimai/kimai",
+    "sha":  "a0e8aa3a435717187fb12210242dab1b7c97ff3f",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Twig/MarkdownExtension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Twig/MarkdownExtension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "src/Twig/MarkdownExtension.php",
+                        "templates/export/renderer/default.html.twig",
+                        "templates/export/renderer/pdf.html.twig",
+                        "templates/invoice/index.html.twig",
+                        "templates/timesheet-team/export.html.twig",
+                        "templates/timesheet/export.html.twig",
+                        "templates/timesheet/index.html.twig"
+                    ],
+    "sink_hit":  false
+}

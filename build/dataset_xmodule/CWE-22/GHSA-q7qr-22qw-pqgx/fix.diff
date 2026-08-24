@@ -1,0 +1,41 @@
+﻿diff --git a/concrete/config/concrete.php b/concrete/config/concrete.php
+index 40e1d0da8..e08783465 100644
+--- a/concrete/config/concrete.php
++++ b/concrete/config/concrete.php
+@@ -6,8 +6,8 @@ return [
+      *
+      * @var string
+      */
+-    'version' => '9.3.3',
+-    'version_installed' => '9.3.3',
++    'version' => '9.3.4',
++    'version_installed' => '9.3.4',
+     'version_db' => '20240711000000', // the key of the latest database migration
+ 
+     /*
+diff --git a/concrete/single_pages/dashboard/system/files/thumbnails.php b/concrete/single_pages/dashboard/system/files/thumbnails.php
+index ca1935ade..31c5d0c2e 100644
+--- a/concrete/single_pages/dashboard/system/files/thumbnails.php
++++ b/concrete/single_pages/dashboard/system/files/thumbnails.php
+@@ -120,7 +120,7 @@ if (isset($type)) {
+         <div class="form-group">
+             <?= $form->label('ftSaveAreaBackgroundColor', t('Image Editor Background Color')); ?>
+             <div>
+-                <?= $form_color->output('ftSaveAreaBackgroundColor', $type->getSaveAreaBackgroundColor(), ['preferredFormat' => 'hex']); ?>
++                <?= $form_color->output('ftSaveAreaBackgroundColor', h($type->getSaveAreaBackgroundColor()), ['preferredFormat' => 'hex']); ?>
+             </div>
+             <p class="help-block"><?= t('Leave this empty to use a transparent background.'); ?></p>
+         </div>
+diff --git a/concrete/views/dialogs/event/view_version.php b/concrete/views/dialogs/event/view_version.php
+index a1a976649..c7dbf037b 100644
+--- a/concrete/views/dialogs/event/view_version.php
++++ b/concrete/views/dialogs/event/view_version.php
+@@ -12,7 +12,7 @@ $attributes = \Concrete\Core\Attribute\Key\EventKey::getList();
+     <?php if (!$version->isApproved()) { ?>
+         <div class="alert alert-info"><?=t('This occurrence belongs to an event version that is not yet approved.')?></div>
+     <?php } ?>
+-    <h3><?=$version->getName()?></h3>
++    <h3><?=h($version->getName())?></h3>
+ 
+     <?php
+     $repetitions = $version->getRepetitions();

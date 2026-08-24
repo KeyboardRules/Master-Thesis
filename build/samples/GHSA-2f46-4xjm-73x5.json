@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-2f46-4xjm-73x5",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "passbolt/passbolt_api",
+    "sha":  "6135b483f72c6853e6085e329f5f8d7be60c9933",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/default.php",
+                        "src/Application.php",
+                        "src/Middleware/ContentSecurityPolicyMiddleware.php",
+                        "src/Template/Setup/start.ctp"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Application.php class extends BaseApplication"
+                 ],
+    "changed_all":  [
+                        "config/default.php",
+                        "src/Application.php",
+                        "src/Middleware/ContentSecurityPolicyMiddleware.php",
+                        "src/Template/Setup/start.ctp",
+                        "webroot/js/jquery-3.3.1.min.js"
+                    ],
+    "sink_hit":  true
+}

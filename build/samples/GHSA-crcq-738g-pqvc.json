@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-crcq-738g-pqvc",
+    "cve":  "CVE-2025-57811",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/cms",
+    "sha":  "e77f8a287dcdda41f1724f525d03542f18566cbc",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/web/twig/Extension.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/web/twig/Extension.php class extends AbstractExtension"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/web/twig/Extension.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-h39h-7cvg-q7j6",
+    "cve":  "CVE-2026-27732",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "384ef2548093f4cbb1bfac00f1f429fe57fab853",
+    "status":  "ok",
+    "changed_php":  [
+                        "install/checkConfiguration.php",
+                        "objects/aVideoEncoder.json.php",
+                        "objects/aVideoEncoderReceiveImage.json.php",
+                        "objects/functions.php",
+                        "plugin/AI/receiveAsync.json.php",
+                        "plugin/LiveLinks/proxy.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "install/checkConfiguration.php includes 2 project file(s)",
+                     "objects/aVideoEncoder.json.php includes 1 project file(s)",
+                     "objects/aVideoEncoderReceiveImage.json.php includes 1 project file(s)",
+                     "objects/functions.php includes 26 project file(s)",
+                     "plugin/AI/receiveAsync.json.php includes 2 project file(s)",
+                     "plugin/LiveLinks/proxy.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "install/checkConfiguration.php",
+                        "objects/aVideoEncoder.json.php",
+                        "objects/aVideoEncoderReceiveImage.json.php",
+                        "objects/functions.php",
+                        "plugin/AI/receiveAsync.json.php",
+                        "plugin/LiveLinks/proxy.php",
+                        "updatedb/updateDb.v22.0.sql"
+                    ],
+    "sink_hit":  true
+}

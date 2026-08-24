@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-5xmg-w578-gq5j",
+    "cve":  "CVE-2013-5583",
+    "cwe":  "CWE-79",
+    "repo":  "joomla/joomla-cms",
+    "sha":  "c00c033d33d901e1ca6be9061a44e55acd041b1f",
+    "status":  "ok",
+    "changed_php":  [
+                        "administrator/components/com_admin/script.php",
+                        "libraries/idna_convert/example.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "libraries/idna_convert/example.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "administrator/components/com_admin/script.php",
+                        "libraries/idna_convert/example.php"
+                    ],
+    "sink_hit":  true
+}

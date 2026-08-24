@@ -1,0 +1,13 @@
+﻿diff --git a/framework/web/ErrorHandler.php b/framework/web/ErrorHandler.php
+index 0f45277..b43d235 100644
+--- a/framework/web/ErrorHandler.php
++++ b/framework/web/ErrorHandler.php
+@@ -323,7 +323,7 @@ class ErrorHandler extends \yii\base\ErrorHandler
+             }
+         }
+ 
+-        return '<pre>' . rtrim($request, "\n") . '</pre>';
++        return '<pre>' . $this->htmlEncode(rtrim($request, "\n")) . '</pre>';
+     }
+ 
+     /**

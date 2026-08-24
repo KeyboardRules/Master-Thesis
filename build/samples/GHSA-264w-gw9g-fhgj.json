@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-264w-gw9g-fhgj",
+    "cve":  "CVE-2022-3561",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "d86cbcd96d684e4de8dfa50b4490e4e02782d242",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "includes/html/print-alert-rules.php includes 6 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/html/print-alert-rules.php"
+                    ],
+    "sink_hit":  true
+}

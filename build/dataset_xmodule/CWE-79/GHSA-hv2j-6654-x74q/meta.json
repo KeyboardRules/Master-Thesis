@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-hv2j-6654-x74q",
+    "cve":  "CVE-2024-34051",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "3a3ccc253b8eceddee84f158b2c262a4033b9402",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/accountancy/admin/categories_list.php",
+                        "htdocs/accountancy/admin/journals_list.php",
+                        "htdocs/compta/paiement/card.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "htdocs/accountancy/admin/categories_list.php includes 9 project file(s)",
+                     "htdocs/accountancy/admin/journals_list.php includes 8 project file(s)",
+                     "htdocs/compta/paiement/card.php includes 10 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

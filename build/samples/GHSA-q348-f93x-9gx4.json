@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q348-f93x-9gx4",
+    "cve":  "CVE-2021-30492",
+    "cwe":  "CWE-918",
+    "repo":  "zendesk/zendesk_api_client_php",
+    "sha":  "b451b743d9d6d81a9abf7cb86e70ec9c5332123e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Zendesk/API/Utilities/OAuth.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Zendesk/API/Utilities/OAuth.php"
+                    ],
+    "sink_hit":  false
+}

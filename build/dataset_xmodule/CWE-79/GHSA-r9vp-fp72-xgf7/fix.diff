@@ -1,0 +1,29 @@
+﻿diff --git a/security/Member.php b/security/Member.php
+index f779f00cc..7a80e1343 100644
+--- a/security/Member.php
++++ b/security/Member.php
+@@ -118,12 +118,24 @@ class Member extends DataObject implements TemplateGlobalProvider {
+ 		'Email',
+ 	);
+ 
++	/**
++	 * @config
++	 * @var array
++	 */
+ 	private static $summary_fields = array(
+ 		'FirstName',
+ 		'Surname',
+ 		'Email',
+ 	);
+ 
++	/**
++	 * @config
++	 * @var array
++	 */
++	private static $casting = array(
++		'Name' => 'Varchar',
++	);
++
+ 	/**
+ 	 * Internal-use only fields
+ 	 *

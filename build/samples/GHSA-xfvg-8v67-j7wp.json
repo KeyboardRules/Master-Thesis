@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xfvg-8v67-j7wp",
+    "cve":  "CVE-2026-27621",
+    "cwe":  "CWE-79",
+    "repo":  "TypiCMS/Core",
+    "sha":  "d480a0be1e8e7c0600bb9a325bb11920ee66497d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Services/FileUploader.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Services/FileUploader.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3x4w-mxpf-fhqq",
+    "cve":  "CVE-2026-33051",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "f634a9d21edcafd83a6716047d275f985aba6be1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/controllers/ElementsController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/ElementsController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

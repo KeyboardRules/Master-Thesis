@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-2jqj-5qv2-xvcg",
+    "cve":  "",
+    "cwe":  "CWE-611",
+    "repo":  "ezsystems/ezplatform-richtext",
+    "fix_commit":  "5ba2a82cc3aa6235ecfe87278e20c1451d9df913",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/lib/eZ/RichText/DOMDocumentFactory.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php includes 1 project file(s)",
+                     "tests/integration/eZ/SPI/RichTextFieldTypeIntegrationTest.php class extends BaseIntegrationTest",
+                     "tests/lib/Form/DataTransformer/RichTextTransformerTest.php class extends TestCase",
+                     "tests/lib/eZ/FieldType/RichTextTest.php class extends TestCase",
+                     "tests/lib/eZ/RichText/DOMDocumentFactoryTest.php class extends TestCase",
+                     "tests/lib/eZ/RichText/InputHandlerTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

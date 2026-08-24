@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-pm37-62g7-p768",
+    "cve":  "CVE-2026-34375",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "fa0bc102493a15d79fe03f86c07ab7ca1b5b63e2",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/YPTWallet/plugins/YPTWalletStripe/confirmButton.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/YPTWallet/plugins/YPTWalletStripe/confirmButton.php"
+                    ],
+    "sink_hit":  true
+}

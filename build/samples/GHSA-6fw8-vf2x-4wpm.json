@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-6fw8-vf2x-4wpm",
+    "cve":  "CVE-2015-3935",
+    "cwe":  "CWE-79",
+    "repo":  "dolibarr/dolibarr",
+    "sha":  "a7f6bbd316e9b96216e9b2c7a065c9251c9a8907",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/adherents/liste.php",
+                        "htdocs/contact/list.php",
+                        "htdocs/contrat/liste.php",
+                        "htdocs/product/liste.php",
+                        "htdocs/societe/societe.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "htdocs/adherents/liste.php includes 4 project file(s)",
+                     "htdocs/contact/list.php includes 3 project file(s)",
+                     "htdocs/contrat/liste.php includes 2 project file(s)",
+                     "htdocs/product/liste.php includes 7 project file(s)",
+                     "htdocs/societe/societe.php includes 3 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "htdocs/adherents/liste.php",
+                        "htdocs/contact/list.php",
+                        "htdocs/contrat/liste.php",
+                        "htdocs/product/liste.php",
+                        "htdocs/societe/societe.php"
+                    ],
+    "sink_hit":  true
+}

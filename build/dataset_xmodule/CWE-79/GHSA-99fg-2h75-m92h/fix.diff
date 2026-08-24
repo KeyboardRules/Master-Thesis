@@ -1,0 +1,13 @@
+﻿diff --git a/src/Html2Pdf.php b/src/Html2Pdf.php
+index 889d541..16079ad 100755
+--- a/src/Html2Pdf.php
++++ b/src/Html2Pdf.php
+@@ -247,7 +247,7 @@ class Html2Pdf
+         return array(
+             'major'     => 5,
+             'minor'     => 2,
+-            'revision'  => 7
++            'revision'  => 8
+         );
+     }
+ 

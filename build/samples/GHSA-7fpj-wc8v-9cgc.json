@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7fpj-wc8v-9cgc",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "terminal42/contao-tablelookupwizard",
+    "sha":  "a5e723a28f110b7df8ffc4175cef9b061d3cc717",
+    "status":  "ok",
+    "changed_php":  [
+                        "TableLookupWizard.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "TableLookupWizard.php class extends Widget"
+                 ],
+    "changed_all":  [
+                        "TableLookupWizard.php"
+                    ],
+    "sink_hit":  true
+}

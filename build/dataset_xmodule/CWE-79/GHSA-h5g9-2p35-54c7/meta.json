@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-h5g9-2p35-54c7",
+    "cve":  "CVE-2023-3009",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "fix_commit":  "6ba8cf1f4b89d62a08d122d533ccf4cb4e26a4ee",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "pages/items.js.php"
+                    ],
+    "evidence":  [
+                     "pages/items.js.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

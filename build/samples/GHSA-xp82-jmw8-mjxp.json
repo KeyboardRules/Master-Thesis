@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xp82-jmw8-mjxp",
+    "cve":  "CVE-2022-1034",
+    "cwe":  "CWE-434",
+    "repo":  "star7th/showdoc",
+    "sha":  "bd792a89c0325836fbd64784f4c4117c0171416b",
+    "status":  "ok",
+    "changed_php":  [
+                        "server/Application/Api/Controller/AdminUpdateController.class.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "server/Application/Api/Controller/AdminUpdateController.class.php class extends BaseController"
+                 ],
+    "changed_all":  [
+                        "server/Application/Api/Controller/AdminUpdateController.class.php",
+                        "web_src/src/components/admin/about/Index.vue"
+                    ],
+    "sink_hit":  false
+}

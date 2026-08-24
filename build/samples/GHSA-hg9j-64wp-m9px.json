@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hg9j-64wp-m9px",
+    "cve":  "CVE-2025-27794",
+    "cwe":  "CWE-74",
+    "repo":  "flarum/framework",
+    "sha":  "a05aaea3ee1e0a8b870935183193cd6052f1d402",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/core/src/Http/Middleware/RememberFromCookie.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "framework/core/src/Http/Middleware/RememberFromCookie.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-gphj-63h8-r9vq",
+    "cve":  "CVE-2015-1493",
+    "cwe":  "CWE-22",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "0289be1321babfa588fb5b18ebb08a296eed9eee",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/configonlylib.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/tests/configonlylib_test.php includes 1 project file(s)",
+                     "lib/tests/configonlylib_test.php class extends advanced_testcase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

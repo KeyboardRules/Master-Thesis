@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-72hh-xf79-429p",
+    "cve":  "CVE-2023-47637",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "sha":  "d164d99c90f098d0ccd6b72929c48b727e2953a0",
+    "status":  "ok",
+    "changed_php":  [
+                        "models/DataObject/ClassDefinition/Data/Multiselect.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "models/DataObject/ClassDefinition/Data/Multiselect.php"
+                    ],
+    "sink_hit":  false
+}

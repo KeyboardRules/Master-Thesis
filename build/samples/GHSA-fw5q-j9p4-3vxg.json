@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-fw5q-j9p4-3vxg",
+    "cve":  "CVE-2020-15276",
+    "cwe":  "CWE-79",
+    "repo":  "baserproject/basercms",
+    "sha":  "d14f506385f21d67d5ff3462f204d4c2321b7c54",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Baser/Config/theme/bc_sample/Elements/blog_comment.php",
+                        "lib/Baser/Plugin/Blog/View/Elements/blog_comments_scripts.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "lib/Baser/Config/theme/bc_sample/Elements/blog_comment.php",
+                        "lib/Baser/Plugin/Blog/View/Elements/blog_comments_scripts.php"
+                    ],
+    "sink_hit":  true
+}

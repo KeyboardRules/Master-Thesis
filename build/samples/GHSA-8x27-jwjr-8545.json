@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8x27-jwjr-8545",
+    "cve":  "CVE-2025-46337",
+    "cwe":  "CWE-89",
+    "repo":  "ADOdb/ADOdb",
+    "sha":  "11107d6d6e5160b62e05dff8a3a2678cf0e3a426",
+    "status":  "ok",
+    "changed_php":  [
+                        "drivers/adodb-postgres64.inc.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "drivers/adodb-postgres64.inc.php class extends ADOConnection"
+                 ],
+    "changed_all":  [
+                        "drivers/adodb-postgres64.inc.php"
+                    ],
+    "sink_hit":  true
+}

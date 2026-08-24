@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-x684-96hh-833x",
+    "cve":  "CVE-2025-23209",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "sha":  "e59e22b30c9dd39e5e2c7fe02c147bcbd004e603",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/UpdaterController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/UpdaterController.php class extends BaseUpdaterController"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/UpdaterController.php"
+                    ],
+    "sink_hit":  false
+}

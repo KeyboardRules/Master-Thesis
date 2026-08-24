@@ -1,0 +1,47 @@
+﻿{
+    "id":  "GHSA-7prj-9ccr-hr3q",
+    "cve":  "CVE-2024-29376",
+    "cwe":  "CWE-79",
+    "repo":  "Sylius/Sylius",
+    "sha":  "fb0ecb275747e364f1d4744ed8605c57f9bd8a80",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sylius/Behat/Context/Setup/AddressContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php class extends SymfonyPage",
+                     "src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php class extends SymfonyPage"
+                 ],
+    "changed_all":  [
+                        "features/account/customer_account/address_book/preventing_xss_attack_during_updating_address.feature",
+                        "features/checkout/addressing_order/preventing_xss_attack_during_checkout.feature",
+                        "features/product/managing_products/preventing_xss_attack_while_adding_new_product.feature",
+                        "features/product/managing_products/preventing_xss_attack_while_editing_product.feature",
+                        "features/taxonomy/managing_taxons/preventing_xss_attack_while_adding_new_taxon.feature",
+                        "src/Sylius/Behat/Context/Setup/AddressContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingProductsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/ManagingTaxonsContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/AddressBookContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/Checkout/CheckoutAddressingContext.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePage.php",
+                        "src/Sylius/Behat/Page/Shop/Account/AddressBook/UpdatePageInterface.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPage.php",
+                        "src/Sylius/Behat/Page/Shop/Checkout/AddressPageInterface.php",
+                        "src/Sylius/Bundle/AdminBundle/Resources/private/js/sylius-lazy-choice-tree.js",
+                        "src/Sylius/Bundle/ShopBundle/Resources/private/js/sylius-province-field.js",
+                        "src/Sylius/Bundle/UiBundle/Resources/private/js/sylius-auto-complete.js",
+                        "src/Sylius/Bundle/UiBundle/Resources/private/js/sylius-product-auto-complete.js",
+                        "src/Sylius/Bundle/UiBundle/Resources/private/js/sylius-sanitizer.js"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-wppf-gqj5-fc4f",
+    "cve":  "CVE-2025-27411",
+    "cwe":  "CWE-434",
+    "repo":  "redaxo/redaxo",
+    "sha":  "3b2159bb45da0ab6cfaef5c8cf8b602ee5e2fb37",
+    "status":  "ok",
+    "changed_php":  [
+                        "redaxo/src/addons/mediapool/lib/mediapool.php",
+                        "redaxo/src/addons/mediapool/lib/service_media.php",
+                        "redaxo/src/addons/mediapool/tests/mediapool_test.php",
+                        "redaxo/src/addons/project/boot.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "redaxo/src/addons/mediapool/tests/mediapool_test.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        ".tools/psalm/baseline.xml",
+                        "redaxo/src/addons/mediapool/lib/mediapool.php",
+                        "redaxo/src/addons/mediapool/lib/service_media.php",
+                        "redaxo/src/addons/mediapool/package.yml",
+                        "redaxo/src/addons/mediapool/tests/mediapool_test.php",
+                        "redaxo/src/addons/project/boot.php"
+                    ],
+    "sink_hit":  false
+}

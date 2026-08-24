@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hgjh-6wj8-gcgf",
+    "cve":  "CVE-2026-50182",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "f50fc033b7adb36f1ffd6640e7826468bdafdec3",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/YouTubeAPI/gallerySection.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/YouTubeAPI/gallerySection.php"
+                    ],
+    "sink_hit":  true
+}

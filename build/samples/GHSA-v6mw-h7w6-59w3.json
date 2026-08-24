@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-v6mw-h7w6-59w3",
+    "cve":  "CVE-2024-34356",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "2832e2f51f929aeddb5de7d667538a33ceda8156",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/form/Classes/Controller/FormManagerController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "typo3/sysext/form/Classes/Controller/FormManagerController.php class extends AbstractBackendController"
+                 ],
+    "changed_all":  [
+                        "Build/Sources/TypeScript/form/backend/form-manager/view-model.ts",
+                        "typo3/sysext/form/Classes/Controller/FormManagerController.php",
+                        "typo3/sysext/form/Resources/Public/JavaScript/backend/form-manager/view-model.js"
+                    ],
+    "sink_hit":  true
+}

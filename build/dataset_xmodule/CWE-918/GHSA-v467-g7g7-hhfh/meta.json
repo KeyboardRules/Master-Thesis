@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-v467-g7g7-hhfh",
+    "cve":  "CVE-2026-33237",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "df926e500580c2a1e3c70351f0c30f4e15c0fd83",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "plugin/Scheduler/Scheduler.php"
+                    ],
+    "evidence":  [
+                     "plugin/Scheduler/Scheduler.php includes 6 project file(s)",
+                     "plugin/Scheduler/Scheduler.php class extends PluginAbstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

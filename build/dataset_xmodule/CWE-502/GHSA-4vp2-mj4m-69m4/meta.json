@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4vp2-mj4m-69m4",
+    "cve":  "CVE-2020-23653",
+    "cwe":  "CWE-502",
+    "repo":  "zoujingli/ThinkAdmin",
+    "fix_commit":  "640a61ae0772dcd5209d74dff8ad373e61e8ad8c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/admin/controller/api/Update.php"
+                    ],
+    "evidence":  [
+                     "app/admin/controller/api/Update.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

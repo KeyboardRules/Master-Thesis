@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-8xx9-rxrj-2m2w",
+    "cve":  "CVE-2021-4139",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "d5c3e876d910784000335061c3bd24d301351245",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/helpers/generic-grid.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/collectionsPanel.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/groupsPanel.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/propertiesPanel.js",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/object/classificationstore/storeTree.js"
+                    ],
+    "sink_hit":  false
+}

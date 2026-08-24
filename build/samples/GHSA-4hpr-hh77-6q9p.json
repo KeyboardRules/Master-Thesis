@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4hpr-hh77-6q9p",
+    "cve":  "CVE-2022-2036",
+    "cwe":  "CWE-79",
+    "repo":  "francoisjacquet/rosariosis",
+    "sha":  "6e213b17e6ac3a3961e1eabcdaba1c892844398a",
+    "status":  "ok",
+    "changed_php":  [
+                        "functions/PreparePHP_SELF.fnc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGES.md",
+                        "functions/PreparePHP_SELF.fnc.php"
+                    ],
+    "sink_hit":  false
+}

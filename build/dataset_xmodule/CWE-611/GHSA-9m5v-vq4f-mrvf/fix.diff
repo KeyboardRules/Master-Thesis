@@ -1,0 +1,181 @@
+﻿diff --git a/library/Zend/Feed.php b/library/Zend/Feed.php
+index 363e542f..c12efd28 100644
+--- a/library/Zend/Feed.php
++++ b/library/Zend/Feed.php
+@@ -191,7 +191,8 @@ class Zend_Feed
+     public static function importString($string)
+     {
+         // Load the feed as an XML DOMDocument object
+-        $libxml_errflag = libxml_use_internal_errors(true);
++        $libxml_errflag       = libxml_use_internal_errors(true);
++        $libxml_entity_loader = libxml_disable_entity_loader(true);
+         $doc = new DOMDocument;
+         if (trim($string) == '') {
+             require_once 'Zend/Feed/Exception.php';
+@@ -199,9 +200,9 @@ class Zend_Feed
+             . ' is an Empty string or comes from an empty HTTP response');
+         }
+         $status = $doc->loadXML($string);
++        libxml_disable_entity_loader($libxml_entity_loader);
+         libxml_use_internal_errors($libxml_errflag);
+ 
+-
+         if (!$status) {
+             // prevent the class to generate an undefined variable notice (ZF-2590)
+             // Build error message
+diff --git a/library/Zend/Feed/Abstract.php b/library/Zend/Feed/Abstract.php
+index 3f79d087..d3802c7f 100644
+--- a/library/Zend/Feed/Abstract.php
++++ b/library/Zend/Feed/Abstract.php
+@@ -81,9 +81,9 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
+                  * @see Zend_Feed_Exception
+                  */
+                 require_once 'Zend/Feed/Exception.php';
+-                throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus());
++                throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus() . '; request: ' . $client->getLastRequest() . "\nresponse: " . $response->asString());
+             }
+-            $this->_element = $response->getBody();
++            $this->_element = $this->_importFeedFromString($response->getBody());
+             $this->__wakeup();
+         } elseif ($string !== null) {
+             // Retrieve the feed from $string
+@@ -256,4 +256,49 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
+      * @return void
+      */
+     abstract public function send();
++
++    /**
++     * Import a feed from a string
++     *
++     * Protects against XXE attack vectors.
++     * 
++     * @param  string $feed 
++     * @return string
++     * @throws Zend_Feed_Exception on detection of an XXE vector
++     */
++    protected function _importFeedFromString($feed)
++    {
++        // Load the feed as an XML DOMDocument object
++        $libxml_errflag       = libxml_use_internal_errors(true);
++        $libxml_entity_loader = libxml_disable_entity_loader(true);
++        $doc = new DOMDocument;
++        if (trim($feed) == '') {
++            require_once 'Zend/Feed/Exception.php';
++            throw new Zend_Feed_Exception('Remote feed being imported'
++            . ' is an Empty string or comes from an empty HTTP response');
++        }
++        $status = $doc->loadXML($feed);
++        libxml_disable_entity_loader($libxml_entity_loader);
++        libxml_use_internal_errors($libxml_errflag);
++
++        if (!$status) {
++            // prevent the class to generate an undefined variable notice (ZF-2590)
++            // Build error message
++            $error = libxml_get_last_error();
++            if ($error && $error->message) {
++                $errormsg = "DOMDocument cannot parse XML: {$error->message}";
++            } else {
++                $errormsg = "DOMDocument cannot parse XML";
++            }
++
++
++            /**
++             * @see Zend_Feed_Exception
++             */
++            require_once 'Zend/Feed/Exception.php';
++            throw new Zend_Feed_Exception($errormsg);
++        }
++
++        return $doc->saveXML($doc->documentElement);
++    }
+ }
+diff --git a/library/Zend/Feed/Writer/Deleted.php b/library/Zend/Feed/Writer/Deleted.php
+index c1ecb5cc..75f7c711 100644
+--- a/library/Zend/Feed/Writer/Deleted.php
++++ b/library/Zend/Feed/Writer/Deleted.php
+@@ -128,10 +128,10 @@ class Zend_Feed_Writer_Deleted
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+diff --git a/library/Zend/Feed/Writer/Entry.php b/library/Zend/Feed/Writer/Entry.php
+index 7af714c7..05a00f28 100644
+--- a/library/Zend/Feed/Writer/Entry.php
++++ b/library/Zend/Feed/Writer/Entry.php
+@@ -214,10 +214,10 @@ class Zend_Feed_Writer_Entry
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+@@ -235,10 +235,10 @@ class Zend_Feed_Writer_Entry
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+diff --git a/library/Zend/Feed/Writer/Feed/FeedAbstract.php b/library/Zend/Feed/Writer/Feed/FeedAbstract.php
+index 437b20d6..9bf6fcb4 100644
+--- a/library/Zend/Feed/Writer/Feed/FeedAbstract.php
++++ b/library/Zend/Feed/Writer/Feed/FeedAbstract.php
+@@ -176,10 +176,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+@@ -197,10 +197,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+@@ -218,10 +218,10 @@ class Zend_Feed_Writer_Feed_FeedAbstract
+         $zdate = null;
+         if ($date === null) {
+             $zdate = new Zend_Date;
+-        } elseif (ctype_digit((string)$date)) {
+-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } elseif ($date instanceof Zend_Date) {
+             $zdate = $date;
++        } elseif (ctype_digit((string)$date)) {
++            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+         } else {
+             require_once 'Zend/Feed/Exception.php';
+             throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');

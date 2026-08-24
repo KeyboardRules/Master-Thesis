@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p6fr-rxq7-xcg8",
+    "cve":  "CVE-2026-44657",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "26647b2e68ba30b9d7987d4e03d7a16416684bc2",
+    "status":  "ok",
+    "changed_php":  [
+                        "file_download.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "file_download.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "file_download.php"
+                    ],
+    "sink_hit":  true
+}

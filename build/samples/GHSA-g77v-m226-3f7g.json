@@ -1,0 +1,47 @@
+﻿{
+    "id":  "GHSA-g77v-m226-3f7g",
+    "cve":  "CVE-2018-1000527",
+    "cwe":  "CWE-502",
+    "repo":  "Froxlor/Froxlor",
+    "sha":  "c1e62e6be719affc003774a639de5c952ffd8ffc",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin_domains.php",
+                        "customer_extras.php",
+                        "dns_editor.php",
+                        "install/lib/class.FroxlorInstall.php",
+                        "install/lng/english.lng.php",
+                        "install/lng/german.lng.php",
+                        "install/updates/froxlor/0.9/update_0.9.inc.php",
+                        "lib/classes/output/class.paging.php",
+                        "lib/functions/froxlor/function.CronjobFunctions.php",
+                        "lib/functions/froxlor/function.inserttask.php",
+                        "scripts/jobs/cron_backup.php",
+                        "scripts/jobs/cron_tasks.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "admin_domains.php includes 6 project file(s)",
+                     "customer_extras.php includes 6 project file(s)",
+                     "install/lib/class.FroxlorInstall.php includes 3 project file(s)",
+                     "scripts/jobs/cron_tasks.php includes 9 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "admin_domains.php",
+                        "customer_extras.php",
+                        "dns_editor.php",
+                        "install/froxlor.sql",
+                        "install/lib/class.FroxlorInstall.php",
+                        "install/lng/english.lng.php",
+                        "install/lng/german.lng.php",
+                        "install/updates/froxlor/0.9/update_0.9.inc.php",
+                        "lib/classes/output/class.paging.php",
+                        "lib/functions/froxlor/function.CronjobFunctions.php",
+                        "lib/functions/froxlor/function.inserttask.php",
+                        "scripts/jobs/cron_backup.php",
+                        "scripts/jobs/cron_tasks.php"
+                    ],
+    "sink_hit":  true
+}

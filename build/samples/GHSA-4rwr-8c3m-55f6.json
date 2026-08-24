@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4rwr-8c3m-55f6",
+    "cve":  "CVE-2025-64519",
+    "cwe":  "CWE-89",
+    "repo":  "torrentpier/torrentpier",
+    "sha":  "6a0f6499d89fa5d6e2afa8ee53802a1ad11ece80",
+    "status":  "ok",
+    "changed_php":  [
+                        "modcp.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "modcp.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "modcp.php"
+                    ],
+    "sink_hit":  true
+}

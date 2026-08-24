@@ -1,0 +1,28 @@
+﻿{
+    "id":  "GHSA-r7cj-8hjg-x622",
+    "cve":  "CVE-2021-43608",
+    "cwe":  "CWE-89",
+    "repo":  "doctrine/dbal",
+    "sha":  "9dcfa4cb6c03250b78a84737ba7ceb82f4b7ba4d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Platforms/AbstractPlatform.php",
+                        "tests/Platforms/AbstractPlatformTestCase.php",
+                        "tests/Platforms/DB2PlatformTest.php",
+                        "tests/Platforms/OraclePlatformTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/Platforms/AbstractPlatformTestCase.php class extends TestCase",
+                     "tests/Platforms/DB2PlatformTest.php class extends AbstractPlatformTestCase",
+                     "tests/Platforms/OraclePlatformTest.php class extends AbstractPlatformTestCase"
+                 ],
+    "changed_all":  [
+                        "src/Platforms/AbstractPlatform.php",
+                        "tests/Platforms/AbstractPlatformTestCase.php",
+                        "tests/Platforms/DB2PlatformTest.php",
+                        "tests/Platforms/OraclePlatformTest.php"
+                    ],
+    "sink_hit":  false
+}

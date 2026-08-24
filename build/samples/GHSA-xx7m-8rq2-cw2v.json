@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-xx7m-8rq2-cw2v",
+    "cve":  "CVE-2015-8756",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "7e4bdf48988191043a65880c72190c4130c1f0e0",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/indexed_search/Classes/Controller/SearchFormController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "typo3/sysext/indexed_search/Classes/Controller/SearchFormController.php class extends \\TYPO3\\CMS\\Frontend\\Plugin\\AbstractPlugin"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/indexed_search/Classes/Controller/SearchFormController.php"
+                    ],
+    "sink_hit":  true
+}

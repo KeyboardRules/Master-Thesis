@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-x7j7-qp7j-hw3q",
+    "cve":  "CVE-2021-41252",
+    "cwe":  "CWE-79",
+    "repo":  "getkirby/kirby",
+    "fix_commit":  "25fc5c6b330442e6433c99befc688f3698c5d1fc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/blocks/image/image.php",
+                        "config/fields/writer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 13 php files",
+                     "tests/Sane/TestCase.php class extends BaseTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-ch7p-mpv4-4vg4",
+    "cve":  "CVE-2026-22242",
+    "cwe":  "CWE-89",
+    "repo":  "coreshop/CoreShop",
+    "sha":  "59e84fec59d113952b6d28a9b30c6317f9e6e5dd",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/CoreShop/Bundle/CoreBundle/Report/AbandonedCartsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CarriersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CartsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CategoriesReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CustomersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/ManufacturerReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/PaymentProvidersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/ProductsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/SalesReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/VouchersReport.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 10 php files"
+                 ],
+    "changed_all":  [
+                        "src/CoreShop/Bundle/CoreBundle/Report/AbandonedCartsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CarriersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CartsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CategoriesReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/CustomersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/ManufacturerReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/PaymentProvidersReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/ProductsReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/SalesReport.php",
+                        "src/CoreShop/Bundle/CoreBundle/Report/VouchersReport.php"
+                    ],
+    "sink_hit":  false
+}

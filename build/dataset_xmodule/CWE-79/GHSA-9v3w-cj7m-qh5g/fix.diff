@@ -1,0 +1,93 @@
+﻿diff --git a/concrete/controllers/backend/file.php b/concrete/controllers/backend/file.php
+index 7f2b62b5d..94fa737c9 100644
+--- a/concrete/controllers/backend/file.php
++++ b/concrete/controllers/backend/file.php
+@@ -790,15 +790,15 @@ class File extends Controller
+             try {
+                 $url = Url::createFromUrl($u);
+             } catch (RuntimeException $x) {
+-                throw new UserMessageException(t('The URL "%s" is not valid: %s', $u, $x->getMessage()));
++                throw new UserMessageException(h(t('The URL "%s" is not valid: %s', $u, $x->getMessage())));
+             }
+             $scheme = (string)$url->getScheme();
+             if ($scheme === '') {
+-                throw new UserMessageException(t('The URL "%s" is not valid.', $u));
++                throw new UserMessageException(h(t('The URL "%s" is not valid.', $u)));
+             }
+             $host = trim((string)$url->getHost());
+             if (in_array(strtolower($host), ['', '0', 'localhost'], true)) {
+-                throw new UserMessageException(t('The URL "%s" is not valid.', $u));
++                throw new UserMessageException(h(t('The URL "%s" is not valid.', $u)));
+             }
+ 
+             // If we've already validated this hostname just skip it.
+@@ -813,7 +813,7 @@ class File extends Controller
+ 
+             foreach ($ipFormatBlocks as $block) {
+                 if (preg_match($block, $host) !== 0) {
+-                    throw new UserMessageException(t('The URL "%s" is not valid.', $u));
++                    throw new UserMessageException(h(t('The URL "%s" is not valid.', $u)));
+                 }
+             }
+ 
+@@ -828,7 +828,7 @@ class File extends Controller
+             }
+ 
+             if ($ip !== null && $ip->getRangeType() !== IPRangeType::T_PUBLIC) {
+-                throw new UserMessageException(t('The URL "%s" is not valid.', $u));
++                throw new UserMessageException(h(t('The URL "%s" is not valid.', $u)));
+             }
+ 
+             $validIps[$host] = $ip->toString();
+diff --git a/concrete/elements/groups/roles_list.php b/concrete/elements/groups/roles_list.php
+index 7b10e8b78..051f2eccd 100644
+--- a/concrete/elements/groups/roles_list.php
++++ b/concrete/elements/groups/roles_list.php
+@@ -81,7 +81,7 @@ $id = "ccm-role-list-" . $idHelper->getString();
+         <input type="hidden" name="roles[<%=id%>][id]" value="<%=id%>" />
+ 
+         <td>
+-            <input type="text" name="roles[<%=id%>][name]" value="<%=name%>" class="form-control ccm-role-name"
++            <input type="text" name="roles[<%=id%>][name]" value="<%-name%>" class="form-control ccm-role-name"
+                    placeholder="<?php echo t("Please enter a role name..."); ?>"/>
+         </td>
+ 
+@@ -162,13 +162,13 @@ $id = "ccm-role-list-" . $idHelper->getString();
+ 
+                 var addRole = function (role) {
+                     $rolesContainer.find("tbody").append(_.template($("#ccm-roles-row").html())(role));
+-                    $rolesContainer.find("select[name=defaultRole]").append($("<option/>").attr("value", role.id).html(role.name));
++                    $rolesContainer.find("select[name=defaultRole]").append($("<option/>").attr("value", role.id).text(role.name));
+ 
+                     var $row = $("#ccm-row-" + role.id);
+ 
+                     $row.find(".ccm-role-name").change(function () {
+                         var $option = $rolesContainer.find("select[name=defaultRole] option[value=" + role.id + "]");
+-                        $option.html($(this).val());
++                        $option.text($(this).val());
+                     });
+ 
+                     $row.find(".ccm-remove-role").click(function () {
+diff --git a/concrete/views/dialogs/file/properties.php b/concrete/views/dialogs/file/properties.php
+index 3f9cb0dda..2fa326df2 100644
+--- a/concrete/views/dialogs/file/properties.php
++++ b/concrete/views/dialogs/file/properties.php
+@@ -10,15 +10,15 @@ defined('C5_EXECUTE') or die("Access Denied.");
+             <legend><?= t('Basic Information'); ?></legend>
+                 <div class="form-group">
+                     <?= $form->label('title', t('Title')); ?>
+-                    <?= $form->text('title', $file->getTitle()); ?>
++                    <?= $form->text('title', h($file->getTitle())); ?>
+                 </div>
+                 <div class="form-group">
+                     <?= $form->label('description', t('Description')); ?>
+-                    <?= $form->textarea('description', $file->getDescription()); ?>
++                    <?= $form->textarea('description', h($file->getDescription())); ?>
+                 </div>
+             <div class="form-group">
+                 <?= $form->label('tags', t('Tags')); ?>
+-                <?= $form->textarea('tags', $file->getTags()); ?>
++                <?= $form->textarea('tags', h($file->getTags())); ?>
+             </div>
+         </fieldset>
+         <fieldset>

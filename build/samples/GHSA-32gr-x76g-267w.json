@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-32gr-x76g-267w",
+    "cve":  "CVE-2015-10077",
+    "cwe":  "CWE-89",
+    "repo":  "webbuilders-group/silverstripe-kapost-bridge",
+    "sha":  "2e14b0fd0ea35034f90890f364b130fb4645ff35",
+    "status":  "ok",
+    "changed_php":  [
+                        "code/control/KapostService.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "code/control/KapostService.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "code/control/KapostService.php"
+                    ],
+    "sink_hit":  false
+}

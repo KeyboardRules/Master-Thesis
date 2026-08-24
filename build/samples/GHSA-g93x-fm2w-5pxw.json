@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-g93x-fm2w-5pxw",
+    "cve":  "CVE-2023-2340",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "aa38319e353cc3cdfac12e03e21ed7a8f3628d3e",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php class extends AdminController"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/Controller/Admin/DataObject/DataObjectHelperController.php",
+                        "bundles/AdminBundle/Resources/public/js/pimcore/element/helpers/gridColumnConfig.js",
+                        "lib/Security/SecurityHelper.php"
+                    ],
+    "sink_hit":  false
+}

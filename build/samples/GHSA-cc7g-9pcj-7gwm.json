@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cc7g-9pcj-7gwm",
+    "cve":  "CVE-2015-3907",
+    "cwe":  "CWE-611",
+    "repo":  "chriskacerguis/codeigniter-restserver",
+    "sha":  "852740e7c636e4f44b3a8e3afc15155795e22c9b",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/libraries/REST_Controller.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/libraries/REST_Controller.php class extends CI_Controller"
+                 ],
+    "changed_all":  [
+                        "application/libraries/REST_Controller.php"
+                    ],
+    "sink_hit":  false
+}

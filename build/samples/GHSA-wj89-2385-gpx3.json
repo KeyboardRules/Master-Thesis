@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wj89-2385-gpx3",
+    "cve":  "CVE-2026-29176",
+    "cwe":  "CWE-79",
+    "repo":  "craftcms/commerce",
+    "sha":  "da143df084563ddf0929d7c261bcc11d312e8004",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/fieldlayoutelements/PurchasableStockField.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/fieldlayoutelements/PurchasableStockField.php class extends BaseNativeField"
+                 ],
+    "changed_all":  [
+                        "src/fieldlayoutelements/PurchasableStockField.php"
+                    ],
+    "sink_hit":  false
+}

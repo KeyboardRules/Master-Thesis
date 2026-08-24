@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5xq3-7mw9-wj5p",
+    "cve":  "CVE-2023-2427",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "514f4df2ad918e69575028d58b2e33aaf536e59b",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/src/phpMyFAQ/Tags.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/src/phpMyFAQ/Tags.php"
+                    ],
+    "sink_hit":  false
+}

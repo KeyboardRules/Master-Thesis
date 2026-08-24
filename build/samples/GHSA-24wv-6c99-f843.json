@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-24wv-6c99-f843",
+    "cve":  "CVE-2025-49132",
+    "cwe":  "CWE-94",
+    "repo":  "pterodactyl/panel",
+    "sha":  "24c82b0e335fb5d7a844226b08abf9f176e592f0",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Base/LocaleController.php",
+                        "app/Http/Requests/Base/LocaleRequest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Http/Controllers/Base/LocaleController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Base/LocaleController.php",
+                        "app/Http/Requests/Base/LocaleRequest.php"
+                    ],
+    "sink_hit":  true
+}

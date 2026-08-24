@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-p4qr-vq2g-22wp",
+    "cve":  "CVE-2022-47945",
+    "cwe":  "CWE-22",
+    "repo":  "top-think/framework",
+    "sha":  "c4acb8b4001b98a0078eda25840d33e295a7f099",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/think/Lang.php",
+                        "src/think/middleware/LoadLangPack.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "src/think/Lang.php",
+                        "src/think/middleware/LoadLangPack.php"
+                    ],
+    "sink_hit":  true
+}

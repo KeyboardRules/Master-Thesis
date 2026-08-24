@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-fccf-p8fx-vjj4",
+    "cve":  "CVE-2014-3541",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "3fe105953d14766393e24372806fcf0a2b77c96d",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "repository/filepicker.php",
+                        "repository/lib.php",
+                        "repository/repository_ajax.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "repository/filepicker.php includes 3 project file(s)",
+                     "repository/lib.php includes 8 project file(s)",
+                     "repository/lib.php class extends moodle_exception",
+                     "repository/repository_ajax.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

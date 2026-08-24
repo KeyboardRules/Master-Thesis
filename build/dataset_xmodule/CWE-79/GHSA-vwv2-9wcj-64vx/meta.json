@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-vwv2-9wcj-64vx",
+    "cve":  "CVE-2024-22075",
+    "cwe":  "CWE-79",
+    "repo":  "firefly-iii/firefly-iii",
+    "fix_commit":  "28021aa711500bbada649de8fab9e72b4084ab21",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Services/Internal/Update/JournalUpdateService.php",
+                        "app/Support/Binder/Date.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/Services/Internal/Update/JournalUpdateService.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

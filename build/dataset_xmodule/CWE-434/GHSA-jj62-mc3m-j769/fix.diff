@@ -1,0 +1,70 @@
+﻿diff --git a/backend/models/User.php b/backend/models/User.php
+index 7c9edff..4fc4e37 100644
+--- a/backend/models/User.php
++++ b/backend/models/User.php
+@@ -13,6 +13,7 @@ use backend\components\CustomLog;
+ use common\helpers\Util;
+ use yii\base\Event;
+ use yii\web\ForbiddenHttpException;
++use yii\web\UploadedFile;
+ 
+ /**
+  * User model
+@@ -23,6 +24,7 @@ use yii\web\ForbiddenHttpException;
+  * @property string $password_reset_token
+  * @property string $email
+  * @property string $auth_key
++ * @property string $avatar
+  * @property integer $status
+  * @property integer $created_at
+  * @property integer $updated_at
+@@ -96,6 +98,14 @@ class User extends \common\models\User
+         ];
+     }
+ 
++    public function beforeValidate()
++    {
++        if($this->avatar !== "0") {//为0表示需要删除图片，Util::handleModelSingleFileUpload()会有判断删除图片
++            $this->avatar = UploadedFile::getInstance($this, "avatar");
++        }
++        return parent::beforeValidate();
++    }
++
+     public function beforeSave($insert)
+     {
+         Util::handleModelSingleFileUpload($this, 'avatar', $insert, '@admin/uploads/avatar/');
+diff --git a/common/models/Article.php b/common/models/Article.php
+index bbf3bd4..45852d6 100644
+--- a/common/models/Article.php
++++ b/common/models/Article.php
+@@ -15,6 +15,7 @@ use feehi\cdn\TargetAbstract;
+ use Yii;
+ use common\libs\Constants;
+ use yii\behaviors\TimestampBehavior;
++use yii\web\UploadedFile;
+ 
+ /**
+  * This is the model class for table "{{%article}}".
+@@ -109,7 +110,6 @@ class Article extends \yii\db\ActiveRecord
+                     'title',
+                     'sub_title',
+                     'summary',
+-                    'thumb',
+                     'seo_title',
+                     'seo_keywords',
+                     'seo_description',
+@@ -295,6 +295,14 @@ class Article extends \yii\db\ActiveRecord
+         parent::afterFind();
+     }
+ 
++    public function beforeValidate()
++    {
++        if ($this->thumb !== "0") {//为0表示需要删除图片，Util::handleModelSingleFileUpload()会有判断删除图片
++            $this->thumb = UploadedFile::getInstance($this, "thumb");
++        }
++        return parent::beforeValidate();
++    }
++
+     public function beforeSave($insert)
+     {
+         if ($this->thumb) {

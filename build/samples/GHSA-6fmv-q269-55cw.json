@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-6fmv-q269-55cw",
+    "cve":  "CVE-2020-15277",
+    "cwe":  "CWE-434",
+    "repo":  "baserproject/basercms",
+    "sha":  "bb027c3967b0430adcff2d2fedbc23d39077563b",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/webroot/theme/admin-third/Elements/admin/feed_details/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/sites/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/uploader_categories/index_row.php",
+                        "app/webroot/theme/admin-third/WidgetAreas/admin/form.php",
+                        "lib/Baser/Plugin/Feed/View/Elements/admin/feed_details/index_row.php",
+                        "lib/Baser/View/Elements/admin/sites/index_row.php",
+                        "lib/Baser/View/Elements/admin/widget_areas/index_row.php",
+                        "lib/Baser/View/WidgetAreas/admin/form.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 8 php files"
+                 ],
+    "changed_all":  [
+                        "app/webroot/theme/admin-third/Elements/admin/feed_details/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/sites/index_row.php",
+                        "app/webroot/theme/admin-third/Elements/admin/uploader_categories/index_row.php",
+                        "app/webroot/theme/admin-third/WidgetAreas/admin/form.php",
+                        "lib/Baser/Plugin/Feed/View/Elements/admin/feed_details/index_row.php",
+                        "lib/Baser/View/Elements/admin/sites/index_row.php",
+                        "lib/Baser/View/Elements/admin/widget_areas/index_row.php",
+                        "lib/Baser/View/WidgetAreas/admin/form.php"
+                    ],
+    "sink_hit":  false
+}

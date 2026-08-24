@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-rjf6-wj7r-5fj2",
+    "cve":  "CVE-2022-4408",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "fix_commit":  "e2ea332a2b5e798f2c39203b2489a2dabe831751",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "phpmyfaq/admin/record.questions.php",
+                        "phpmyfaq/ajaxservice.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/QuestionHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "phpmyfaq/ajaxservice.php includes 3 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

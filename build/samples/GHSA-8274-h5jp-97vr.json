@@ -1,0 +1,52 @@
+﻿{
+    "id":  "GHSA-8274-h5jp-97vr",
+    "cve":  "CVE-2022-31109",
+    "cwe":  "CWE-79",
+    "repo":  "laminas/laminas-diactoros",
+    "sha":  "25b11d422c2e5dad868f68619888763b30f91e2d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/ConfigProvider.php",
+                        "src/Exception/InvalidForwardedHeaderNameException.php",
+                        "src/Exception/InvalidProxyAddressException.php",
+                        "src/ServerRequestFactory.php",
+                        "src/ServerRequestFilter/DoNotFilter.php",
+                        "src/ServerRequestFilter/FilterServerRequestInterface.php",
+                        "src/ServerRequestFilter/FilterUsingXForwardedHeaders.php",
+                        "src/ServerRequestFilter/IPRange.php",
+                        "src/functions/marshal_uri_from_sapi.php",
+                        "test/ServerRequestFactoryTest.php",
+                        "test/ServerRequestFilter/DoNotFilterTest.php",
+                        "test/ServerRequestFilter/FilterUsingXForwardedHeadersTest.php",
+                        "test/ServerRequestFilter/IPRangeTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 13 php files",
+                     "test/ServerRequestFactoryTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "composer.lock",
+                        "docs/book/v2/api.md",
+                        "docs/book/v2/forward-migration.md",
+                        "docs/book/v2/server-request-filters.md",
+                        "mkdocs.yml",
+                        "psalm-baseline.xml",
+                        "psalm.xml.dist",
+                        "src/ConfigProvider.php",
+                        "src/Exception/InvalidForwardedHeaderNameException.php",
+                        "src/Exception/InvalidProxyAddressException.php",
+                        "src/ServerRequestFactory.php",
+                        "src/ServerRequestFilter/DoNotFilter.php",
+                        "src/ServerRequestFilter/FilterServerRequestInterface.php",
+                        "src/ServerRequestFilter/FilterUsingXForwardedHeaders.php",
+                        "src/ServerRequestFilter/IPRange.php",
+                        "src/functions/marshal_uri_from_sapi.php",
+                        "test/ServerRequestFactoryTest.php",
+                        "test/ServerRequestFilter/DoNotFilterTest.php",
+                        "test/ServerRequestFilter/FilterUsingXForwardedHeadersTest.php",
+                        "test/ServerRequestFilter/IPRangeTest.php"
+                    ],
+    "sink_hit":  false
+}

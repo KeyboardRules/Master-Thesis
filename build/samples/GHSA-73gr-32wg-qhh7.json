@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-73gr-32wg-qhh7",
+    "cve":  "CVE-2024-47050",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "0f21a3aa9c896788e1986fae0d7f166fc7a14c30",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/CoreBundle/Templating/Helper/FormatterHelper.php",
+                        "app/bundles/CoreBundle/Tests/Unit/Templating/Helper/FormatterHelperTest.php",
+                        "app/bundles/ReportBundle/Tests/Controller/ReportControllerFunctionalTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/bundles/CoreBundle/Templating/Helper/FormatterHelper.php class extends Helper",
+                     "app/bundles/CoreBundle/Tests/Unit/Templating/Helper/FormatterHelperTest.php class extends \\PHPUnit\\Framework\\TestCase",
+                     "app/bundles/ReportBundle/Tests/Controller/ReportControllerFunctionalTest.php class extends MauticMysqlTestCase"
+                 ],
+    "changed_all":  [
+                        "app/bundles/CoreBundle/Templating/Helper/FormatterHelper.php",
+                        "app/bundles/CoreBundle/Tests/Unit/Templating/Helper/FormatterHelperTest.php",
+                        "app/bundles/ReportBundle/Tests/Controller/ReportControllerFunctionalTest.php"
+                    ],
+    "sink_hit":  false
+}

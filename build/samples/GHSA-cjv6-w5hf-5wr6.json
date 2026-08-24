@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cjv6-w5hf-5wr6",
+    "cve":  "CVE-2023-2323",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "e88fa79de7b5903fb58ddbc231130b04d937d79e",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/EcommerceFrameworkBundle/PricingManager/Rule.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "bundles/EcommerceFrameworkBundle/PricingManager/Rule.php class extends AbstractModel"
+                 ],
+    "changed_all":  [
+                        "bundles/EcommerceFrameworkBundle/PricingManager/Rule.php",
+                        "bundles/EcommerceFrameworkBundle/Resources/public/js/pricing/config/panel.js"
+                    ],
+    "sink_hit":  false
+}

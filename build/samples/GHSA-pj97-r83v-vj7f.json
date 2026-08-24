@@ -1,0 +1,47 @@
+﻿{
+    "id":  "GHSA-pj97-r83v-vj7f",
+    "cve":  "CVE-2023-0608",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "20df56615e61624f5fff149849753869e4b3b936",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/App/Utils/Parser.php",
+                        "src/MicroweberPackages/App/Utils/lib/phpQuery.php",
+                        "src/MicroweberPackages/Content/ContentManagerCrud.php",
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php",
+                        "src/MicroweberPackages/Content/tests/ContentApiControllerLiveEditSaveTest.php",
+                        "src/MicroweberPackages/Database/DatabaseManager.php",
+                        "src/MicroweberPackages/Database/Utils.php",
+                        "src/MicroweberPackages/Helper/Format.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 9 php files",
+                     "src/MicroweberPackages/App/Utils/Parser.php includes 12 project file(s)",
+                     "src/MicroweberPackages/App/Utils/lib/phpQuery.php includes 4 project file(s)",
+                     "src/MicroweberPackages/App/Utils/lib/phpQuery.php class extends Callback",
+                     "src/MicroweberPackages/Content/ContentManagerCrud.php class extends Crud",
+                     "src/MicroweberPackages/Content/ContentManagerHelpers.php class extends ContentManagerCrud",
+                     "src/MicroweberPackages/Content/tests/ContentApiControllerLiveEditSaveTest.php class extends TestCase",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class extends DbUtils",
+                     "src/MicroweberPackages/Database/DatabaseManager.php class uses trait",
+                     "src/MicroweberPackages/Helper/Format.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/App/Utils/Parser.php",
+                        "src/MicroweberPackages/App/Utils/lib/phpQuery.php",
+                        "src/MicroweberPackages/Content/ContentManagerCrud.php",
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php",
+                        "src/MicroweberPackages/Content/tests/ContentApiControllerLiveEditSaveTest.php",
+                        "src/MicroweberPackages/Database/DatabaseManager.php",
+                        "src/MicroweberPackages/Database/Utils.php",
+                        "src/MicroweberPackages/Helper/Format.php",
+                        "src/MicroweberPackages/Helper/XSSClean.php",
+                        "src/MicroweberPackages/Helper/tests/misc/bootstrap-5.0.2-examples.zip",
+                        "src/MicroweberPackages/Helper/tests/misc/edit-fields-other-html.zip"
+                    ],
+    "sink_hit":  true
+}

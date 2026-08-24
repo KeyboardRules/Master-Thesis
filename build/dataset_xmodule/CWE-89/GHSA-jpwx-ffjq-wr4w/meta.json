@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jpwx-ffjq-wr4w",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "ezsystems/ezpublish-legacy",
+    "fix_commit":  "f8e3a97afd92efb9148134a4bacb35a875777a42",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "kernel/private/classes/ezcontentobjectstate.php",
+                        "kernel/private/classes/ezcontentobjectstategroup.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "kernel/private/classes/ezcontentobjectstate.php class extends eZPersistentObject",
+                     "kernel/private/classes/ezcontentobjectstategroup.php class extends eZPersistentObject"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-rqgj-rqfr-5j6f",
+    "cve":  "CVE-2022-26144",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "fix_commit":  "a7751c3e318011ca1314bc1cfea200d53e0dfff6",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "manage_plugin_page.php",
+                        "manage_plugin_uninstall.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "manage_plugin_page.php includes 1 project file(s)",
+                     "manage_plugin_page.php class extends PluginForDisplay",
+                     "manage_plugin_uninstall.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

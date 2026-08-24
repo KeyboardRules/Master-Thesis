@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-p6h7-29r2-g88f",
+    "cve":  "CVE-2011-2506",
+    "cwe":  "CWE-94",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "0fbedaf5fd7a771d0885c6b7385d934fc90d0d7f",
+    "status":  "ok",
+    "changed_php":  [
+                        "setup/lib/ConfigGenerator.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "setup/lib/ConfigGenerator.class.php"
+                    ],
+    "sink_hit":  true
+}

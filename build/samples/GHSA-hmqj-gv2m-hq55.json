@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-hmqj-gv2m-hq55",
+    "cve":  "CVE-2023-43648",
+    "cwe":  "CWE-22",
+    "repo":  "baserproject/basercms",
+    "sha":  "7555a5cf0006755dc0223fffc2d882b50a97758b",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Baser/Plugin/Mail/Controller/MailMessagesController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "lib/Baser/Plugin/Mail/Controller/MailMessagesController.php class extends MailAppController"
+                 ],
+    "changed_all":  [
+                        "lib/Baser/Plugin/Mail/Controller/MailMessagesController.php"
+                    ],
+    "sink_hit":  true
+}

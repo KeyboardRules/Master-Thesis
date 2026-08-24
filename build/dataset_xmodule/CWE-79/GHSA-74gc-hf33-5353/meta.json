@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-74gc-hf33-5353",
+    "cve":  "CVE-2020-13633",
+    "cwe":  "CWE-79",
+    "repo":  "forkcms/forkcms",
+    "fix_commit":  "b88f8a2033a4b9b4cbfce96c85691aafb021819d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Backend/Modules/Pages/Actions/Edit.php",
+                        "src/Backend/Modules/Pages/Engine/Model.php",
+                        "src/Frontend/Core/Header/MetaData.php",
+                        "src/Frontend/Core/Header/MetaLink.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Backend/Modules/Pages/Actions/Edit.php class extends BackendBaseActionEdit"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

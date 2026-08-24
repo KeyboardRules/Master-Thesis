@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-hvcf-6324-cjh7",
+    "cve":  "CVE-2024-43369",
+    "cwe":  "CWE-79",
+    "repo":  "ibexa/fieldtype-richtext",
+    "sha":  "0a3b830e8806d5169f697351fdc48ffd95a25c67",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/lib/FieldType/RichTextTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "tests/lib/FieldType/RichTextTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/bundle/Resources/richtext/schemas/docbook/docbook.iso.sch",
+                        "src/bundle/Resources/richtext/schemas/docbook/docbook.iso.sch.xsl",
+                        "tests/lib/FieldType/RichTextTest.php"
+                    ],
+    "sink_hit":  false
+}

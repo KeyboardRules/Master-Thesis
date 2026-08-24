@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-7292-w8qp-mhq2",
+    "cve":  "CVE-2026-33499",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "f154167251c9cf183ce09cd018d07e9352310457",
+    "status":  "ok",
+    "changed_php":  [
+                        "view/forbiddenPage.php",
+                        "view/warningPage.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "view/forbiddenPage.php includes 5 project file(s)",
+                     "view/warningPage.php includes 5 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "view/forbiddenPage.php",
+                        "view/warningPage.php"
+                    ],
+    "sink_hit":  true
+}

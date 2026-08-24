@@ -1,0 +1,15 @@
+﻿diff --git a/plugin/Scheduler/Scheduler.php b/plugin/Scheduler/Scheduler.php
+index 015d83056..969b69ef5 100644
+--- a/plugin/Scheduler/Scheduler.php
++++ b/plugin/Scheduler/Scheduler.php
+@@ -159,6 +159,10 @@ class Scheduler extends PluginAbstract
+         if (!isValidURL($callBackURL)) {
+             return false;
+         }
++        if (!isSSRFSafeURL($callBackURL)) {
++            _error_log("Scheduler::run SSRF protection blocked callbackURL: " . $callBackURL);
++            return false;
++        }
+         if (empty($_executeSchelude[$callBackURL])) {
+             $callBackURL = addQueryStringParameter($callBackURL, 'token', getToken(60));
+             $callBackURL = addQueryStringParameter($callBackURL, 'scheduler_commands_id', $scheduler_commands_id);

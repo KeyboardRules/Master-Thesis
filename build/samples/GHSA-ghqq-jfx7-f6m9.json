@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-ghqq-jfx7-f6m9",
+    "cve":  "CVE-2023-3172",
+    "cwe":  "CWE-22",
+    "repo":  "froxlor/froxlor",
+    "sha":  "da810ea95393dfaec68a70e30b7c887c50563a7e",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin_autoupdate.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "admin_autoupdate.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "admin_autoupdate.php"
+                    ],
+    "sink_hit":  true
+}

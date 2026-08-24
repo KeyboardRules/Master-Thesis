@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-p632-58pp-c9xg",
+    "cve":  "CVE-2025-51487",
+    "cwe":  "CWE-79",
+    "repo":  "moonshine-software/moonshine",
+    "sha":  "f108f4ea5c0d66e8172c2dc397c1d9a6f466d9c6",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Laravel/src/Fields/Relationships/BelongsTo.php",
+                        "src/Laravel/src/Fields/Relationships/MorphTo.php",
+                        "src/Support/src/DTOs/Select/Option.php",
+                        "src/UI/src/Components/Link.php",
+                        "src/UI/src/Fields/Url.php",
+                        "src/UI/src/Traits/Fields/WithLink.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Laravel/src/Fields/Relationships/MorphTo.php class extends BelongsTo",
+                     "src/UI/src/Components/Link.php class extends MoonShineComponent",
+                     "src/UI/src/Components/Link.php class uses trait",
+                     "src/UI/src/Fields/Url.php class extends Text"
+                 ],
+    "changed_all":  [
+                        "src/Laravel/src/Fields/Relationships/BelongsTo.php",
+                        "src/Laravel/src/Fields/Relationships/MorphTo.php",
+                        "src/Support/src/DTOs/Select/Option.php",
+                        "src/UI/src/Components/Link.php",
+                        "src/UI/src/Fields/Url.php",
+                        "src/UI/src/Traits/Fields/WithLink.php"
+                    ],
+    "sink_hit":  false
+}

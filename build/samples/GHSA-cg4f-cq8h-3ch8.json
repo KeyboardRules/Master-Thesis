@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cg4f-cq8h-3ch8",
+    "cve":  "CVE-2025-46350",
+    "cwe":  "CWE-79",
+    "repo":  "YesWiki/yeswiki",
+    "sha":  "e2603176a4607b83659635a0c517550d4a171cb9",
+    "status":  "ok",
+    "changed_php":  [
+                        "handlers/page/deletepage.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "handlers/page/deletepage.php"
+                    ],
+    "sink_hit":  true
+}

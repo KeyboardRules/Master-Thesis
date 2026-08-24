@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-6r5g-cq4q-327g",
+    "cve":  "CVE-2023-36828",
+    "cwe":  "CWE-79",
+    "repo":  "statamic/cms",
+    "sha":  "c714893ad92de6e5ede17b501003441af505b30d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Tags/Svg.php",
+                        "tests/Tags/SvgTagTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Tags/Svg.php class extends Tags",
+                     "tests/Tags/SvgTagTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Tags/Svg.php",
+                        "tests/Tags/SvgTagTest.php"
+                    ],
+    "sink_hit":  false
+}

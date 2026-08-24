@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-x832-r2rj-4g5p",
+    "cve":  "CVE-2022-24980",
+    "cwe":  "CWE-918",
+    "repo":  "kitodo/kitodo-presentation",
+    "sha":  "059be3f82b08c60cbb798986cd3ff22dbf60a5e4",
+    "status":  "ok",
+    "changed_php":  [
+                        "common/class.tx_dlf_helper.php",
+                        "ext_emconf.php",
+                        "ext_localconf.php",
+                        "plugins/pageview/class.tx_dlf_geturl_eid.php",
+                        "plugins/pageview/class.tx_dlf_pageview.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "plugins/pageview/class.tx_dlf_geturl_eid.php class extends \\TYPO3\\CMS\\Frontend\\Plugin\\AbstractPlugin",
+                     "plugins/pageview/class.tx_dlf_pageview.php class extends tx_dlf_plugin"
+                 ],
+    "changed_all":  [
+                        "Documentation/Settings.yml",
+                        "common/class.tx_dlf_helper.php",
+                        "ext_conf_template.txt",
+                        "ext_emconf.php",
+                        "ext_localconf.php",
+                        "locallang.xml",
+                        "plugins/pageview/class.tx_dlf_geturl_eid.php",
+                        "plugins/pageview/class.tx_dlf_pageview.php",
+                        "plugins/pageview/tx_dlf_pageview.js",
+                        "plugins/pageview/tx_dlf_pageview_imagemanipulation_control.js",
+                        "plugins/pageview/tx_dlf_utils.js"
+                    ],
+    "sink_hit":  false
+}

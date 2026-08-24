@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r85g-7jpv-8xrx",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "6b123fe1c93d3ac976f484192abc31cad4f81d47",
+    "status":  "ok",
+    "changed_php":  [
+                        "security/CMSSecurity.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "security/CMSSecurity.php class extends Security"
+                 ],
+    "changed_all":  [
+                        "security/CMSSecurity.php"
+                    ],
+    "sink_hit":  false
+}

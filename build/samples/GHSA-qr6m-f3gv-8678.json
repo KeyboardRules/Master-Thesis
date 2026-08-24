@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-qr6m-f3gv-8678",
+    "cve":  "CVE-2022-23896",
+    "cwe":  "CWE-79",
+    "repo":  "admidio/admidio",
+    "sha":  "1ff30f7cc7159bfa0235a7df3f60c0771a0e22a9",
+    "status":  "ok",
+    "changed_php":  [
+                        "adm_program/modules/photos/photo_album_new.php",
+                        "adm_program/system/classes/TableAccess.php",
+                        "adm_program/system/classes/TablePhotos.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "adm_program/modules/photos/photo_album_new.php includes 2 project file(s)",
+                     "adm_program/system/classes/TablePhotos.php class extends TableAccess"
+                 ],
+    "changed_all":  [
+                        "adm_program/modules/photos/photo_album_new.php",
+                        "adm_program/system/classes/TableAccess.php",
+                        "adm_program/system/classes/TablePhotos.php"
+                    ],
+    "sink_hit":  false
+}

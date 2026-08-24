@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-hv79-p62r-wg3p",
+    "cve":  "CVE-2023-43661",
+    "cwe":  "CWE-74",
+    "repo":  "cachethq/cachet",
+    "sha":  "6fb043e109d2a262ce3974e863c54e9e5f5e0587",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Bus/Handlers/Commands/Incident/CreateIncidentCommandHandler.php",
+                        "app/Bus/Handlers/Commands/Incident/UpdateIncidentCommandHandler.php",
+                        "config/cachet.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "app/Bus/Handlers/Commands/Incident/CreateIncidentCommandHandler.php class uses trait",
+                     "app/Bus/Handlers/Commands/Incident/UpdateIncidentCommandHandler.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "app/Bus/Handlers/Commands/Incident/CreateIncidentCommandHandler.php",
+                        "app/Bus/Handlers/Commands/Incident/UpdateIncidentCommandHandler.php",
+                        "composer.json",
+                        "config/cachet.php"
+                    ],
+    "sink_hit":  false
+}

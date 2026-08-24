@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-3w4h-r27h-4r2w",
+    "cve":  "CVE-2019-11832",
+    "cwe":  "CWE-94",
+    "repo":  "TYPO3/typo3",
+    "sha":  "2c04eeac44733fda491f92c697f88c1337d19c79",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php",
+                        "typo3/sysext/core/Classes/Imaging/ImageMagickFile.php",
+                        "typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php",
+                        "typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php",
+                        "typo3/sysext/core/Classes/Type/File/FileInfo.php",
+                        "typo3/sysext/core/Tests/Functional/Imaging/ImageMagickFileTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "typo3/sysext/core/Classes/Type/File/FileInfo.php class extends \\SplFileInfo"
+                 ],
+    "changed_all":  [
+                        "typo3/sysext/core/Classes/Imaging/GraphicalFunctions.php",
+                        "typo3/sysext/core/Classes/Imaging/ImageMagickFile.php",
+                        "typo3/sysext/core/Classes/Resource/OnlineMedia/Processing/PreviewProcessing.php",
+                        "typo3/sysext/core/Classes/Resource/Processing/LocalPreviewHelper.php",
+                        "typo3/sysext/core/Classes/Type/File/FileInfo.php",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.ai",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.bmp",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.eps",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.fax",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.gif",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.jpg",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.pdf",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.png",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.ps",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.svg",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.tif",
+                        "typo3/sysext/core/Tests/Functional/Imaging/Fixtures/file.webp",
+                        "typo3/sysext/core/Tests/Functional/Imaging/ImageMagickFileTest.php"
+                    ],
+    "sink_hit":  true
+}

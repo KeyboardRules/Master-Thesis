@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-gcmq-7652-x98j",
+    "cve":  "CVE-2023-1878",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "e018823f8e3bca103c11e5a98b0dd469e41ed417",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/stat.adminlog.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/stat.adminlog.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,25 @@
+﻿diff --git a/src/View/Helper/FormElementErrors.php b/src/View/Helper/FormElementErrors.php
+index 6dc63bd..add4dd9 100644
+--- a/src/View/Helper/FormElementErrors.php
++++ b/src/View/Helper/FormElementErrors.php
+@@ -9,6 +9,7 @@ use Laminas\Form\Exception;
+ 
+ use function array_merge;
+ use function array_walk_recursive;
++use function count;
+ use function implode;
+ use function sprintf;
+ 
+@@ -77,6 +78,12 @@ class FormElementErrors extends AbstractHelper
+             $attributes = ' ' . $attributes;
+         }
+ 
++        $count   = count($messages);
++        $escaper = $this->getEscapeHtmlHelper();
++        for ($i = 0; $i < $count; $i += 1) {
++            $messages[$i] = $escaper($messages[$i]);
++        }
++
+         // Generate markup
+         $markup  = sprintf($this->getMessageOpenFormat(), $attributes);
+         $markup .= implode($this->getMessageSeparatorString(), $messages);

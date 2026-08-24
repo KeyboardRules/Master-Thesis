@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-jph3-3j24-pg3j",
+    "cve":  "CVE-2023-1882",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "49db615c300ae0f87795f20570f6f5bdccb1d2f2",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/contact.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/request-removal.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "phpmyfaq/index.php includes 2 project file(s)"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/contact.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/request-removal.php"
+                    ],
+    "sink_hit":  true
+}

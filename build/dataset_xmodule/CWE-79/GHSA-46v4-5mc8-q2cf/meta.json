@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-46v4-5mc8-q2cf",
+    "cve":  "CVE-2025-57407",
+    "cwe":  "CWE-79",
+    "repo":  "gp247net/core",
+    "fix_commit":  "e9848706b41d835ca3d668cb1554650403e86da1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Controllers/AdminLogController.php",
+                        "src/Middleware/LogOperation.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Controllers/AdminLogController.php class extends RootAdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-cpv8-6xgr-rmf6",
+    "cve":  "CVE-2021-25955",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "fix_commit":  "796b2d201acb9938b903fb2afa297db289ecc93e",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "htdocs/core/lib/functions.lib.php",
+                        "htdocs/main.inc.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "htdocs/core/lib/functions.lib.php includes 23 project file(s)",
+                     "htdocs/main.inc.php includes 17 project file(s)",
+                     "test/phpunit/SecurityTest.php includes 7 project file(s)",
+                     "test/phpunit/SecurityTest.php class extends PHPUnit\\Framework\\TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

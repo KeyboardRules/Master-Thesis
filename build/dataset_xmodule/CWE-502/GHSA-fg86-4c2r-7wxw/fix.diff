@@ -1,0 +1,53 @@
+﻿diff --git a/library/includes/functions.php b/library/includes/functions.php
+index a916f40..0188bcd 100644
+--- a/library/includes/functions.php
++++ b/library/includes/functions.php
+@@ -40,8 +40,6 @@ function delete_avatar($user_id, $avatar_ext_id)
+ 
+ function get_tracks($type)
+ {
+-    static $pattern = '#^a:\d+:{[i:;\d]+}$#';
+-
+     switch ($type) {
+         case 'topic':
+             $c_name = COOKIE_TOPIC;
+@@ -55,7 +53,7 @@ function get_tracks($type)
+         default:
+             trigger_error(__FUNCTION__ . ": invalid type '$type'", E_USER_ERROR);
+     }
+-    $tracks = !empty($_COOKIE[$c_name]) ? @unserialize($_COOKIE[$c_name]) : false;
++    $tracks = !empty($_COOKIE[$c_name]) ? json_decode($_COOKIE[$c_name], true) : false;
+     return $tracks ?: [];
+ }
+ 
+@@ -113,7 +111,7 @@ function set_tracks($cookie_name, &$tracking_ary, $tracks = null, $val = TIMENOW
+     }
+ 
+     if (array_diff($tracking_ary, $prev_tracking_ary)) {
+-        bb_setcookie($cookie_name, serialize($tracking_ary));
++        bb_setcookie($cookie_name, json_encode($tracking_ary));
+     }
+ }
+ 
+diff --git a/src/Legacy/Common/User.php b/src/Legacy/Common/User.php
+index cb085a6..8fffaaf 100644
+--- a/src/Legacy/Common/User.php
++++ b/src/Legacy/Common/User.php
+@@ -453,7 +453,7 @@ class User
+      */
+     public function get_sessiondata()
+     {
+-        $sd_resv = !empty($_COOKIE[COOKIE_DATA]) ? unserialize($_COOKIE[COOKIE_DATA], ['allowed_classes' => false]) : [];
++        $sd_resv = !empty($_COOKIE[COOKIE_DATA]) ? json_decode($_COOKIE[COOKIE_DATA], true) : [];
+ 
+         // autologin_id
+         if (!empty($sd_resv['uk']) && verify_id($sd_resv['uk'], LOGIN_KEY_LENGTH)) {
+@@ -486,7 +486,7 @@ class User
+             }
+         } else {
+             $c_sdata_resv = !empty($_COOKIE[COOKIE_DATA]) ? $_COOKIE[COOKIE_DATA] : null;
+-            $c_sdata_curr = ($this->sessiondata) ? serialize($this->sessiondata) : '';
++            $c_sdata_curr = ($this->sessiondata) ? json_encode($this->sessiondata) : '';
+ 
+             if ($c_sdata_curr !== $c_sdata_resv) {
+                 bb_setcookie(COOKIE_DATA, $c_sdata_curr, httponly: true);

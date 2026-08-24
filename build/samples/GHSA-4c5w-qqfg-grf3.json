@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4c5w-qqfg-grf3",
+    "cve":  "CVE-2015-8766",
+    "cwe":  "CWE-79",
+    "repo":  "symphonycms/symphony-2",
+    "sha":  "651e150091c61fb60ad1dff2bc2166185a83d9d6",
+    "status":  "ok",
+    "changed_php":  [
+                        "symphony/content/content.systempreferences.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "symphony/content/content.systempreferences.php class extends AdministrationPage",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "symphony/content/content.systempreferences.php"
+                    ],
+    "sink_hit":  false
+}

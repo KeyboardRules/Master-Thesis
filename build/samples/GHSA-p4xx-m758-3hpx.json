@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-p4xx-m758-3hpx",
+    "cve":  "CVE-2025-47936",
+    "cwe":  "CWE-918",
+    "repo":  "TYPO3-CMS/webhooks",
+    "sha":  "0df8b8adae577876fa253679c9ef3fe2a7ee64fd",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/MessageHandler/WebhookMessageHandler.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Classes/MessageHandler/WebhookMessageHandler.php"
+                    ],
+    "sink_hit":  false
+}

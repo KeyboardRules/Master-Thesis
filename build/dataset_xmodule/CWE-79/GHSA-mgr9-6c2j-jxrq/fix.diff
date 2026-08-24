@@ -1,0 +1,26 @@
+﻿diff --git a/app/Models/DatabaseHost.php b/app/Models/DatabaseHost.php
+index 4cc9641..ad90f11 100644
+--- a/app/Models/DatabaseHost.php
++++ b/app/Models/DatabaseHost.php
+@@ -62,7 +62,7 @@ class DatabaseHost extends Model
+      */
+     public static array $validationRules = [
+         'name' => 'required|string|max:191',
+-        'host' => 'required|string',
++        'host' => 'required|string|regex:/^[\w\-\.]+$/',
+         'port' => 'required|numeric|between:1,65535',
+         'username' => 'required|string|max:32',
+         'password' => 'nullable|string',
+diff --git a/resources/views/layouts/admin.blade.php b/resources/views/layouts/admin.blade.php
+index 1543ddf..20ca084 100644
+--- a/resources/views/layouts/admin.blade.php
++++ b/resources/views/layouts/admin.blade.php
+@@ -145,7 +145,7 @@
+                             @foreach (Alert::getMessages() as $type => $messages)
+                                 @foreach ($messages as $message)
+                                     <div class="alert alert-{{ $type }} alert-dismissable" role="alert">
+-                                        {!! $message !!}
++                                        {{ $message }}
+                                     </div>
+                                 @endforeach
+                             @endforeach

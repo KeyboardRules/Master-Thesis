@@ -1,0 +1,13 @@
+﻿diff --git a/app/bundles/AssetBundle/EventListener/UploadSubscriber.php b/app/bundles/AssetBundle/EventListener/UploadSubscriber.php
+index b56908014..b67b9bb60 100644
+--- a/app/bundles/AssetBundle/EventListener/UploadSubscriber.php
++++ b/app/bundles/AssetBundle/EventListener/UploadSubscriber.php
+@@ -39,7 +39,7 @@ class UploadSubscriber implements EventSubscriberInterface
+     {
+         $request   = $event->getRequest()->request;
+         $response  = $event->getResponse();
+-        $tempId    = $request->get('tempId');
++        $tempId    = basename($request->get('tempId'));
+         $file      = $event->getFile();
+         $config    = $event->getConfig();
+         $uploadDir = $config['storage']['directory'];

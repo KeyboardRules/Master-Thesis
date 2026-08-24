@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6gm7-j668-w6h9",
+    "cve":  "CVE-2022-1219",
+    "cwe":  "CWE-89",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "a697830359df06246acca502ee2455614de68017",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "bundles/AdminBundle/Controller/Admin/RecyclebinController.php"
+                    ],
+    "evidence":  [
+                     "bundles/AdminBundle/Controller/Admin/RecyclebinController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

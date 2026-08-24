@@ -1,0 +1,25 @@
+﻿{
+    "id":  "GHSA-6w82-v552-wjw2",
+    "cve":  "CVE-2025-67648",
+    "cwe":  "CWE-79",
+    "repo":  "shopware/shopware",
+    "sha":  "c9242c02c84595d9fa3e2adf6a264bc90a657b58",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Storefront/Controller/AuthController.php",
+                        "tests/integration/Storefront/Controller/AuthControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Storefront/Controller/AuthController.php class extends StorefrontController",
+                     "tests/integration/Storefront/Controller/AuthControllerTest.php class extends TestCase",
+                     "tests/integration/Storefront/Controller/AuthControllerTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Storefront/Controller/AuthController.php",
+                        "src/Storefront/Resources/views/storefront/component/account/login.html.twig",
+                        "tests/integration/Storefront/Controller/AuthControllerTest.php"
+                    ],
+    "sink_hit":  false
+}

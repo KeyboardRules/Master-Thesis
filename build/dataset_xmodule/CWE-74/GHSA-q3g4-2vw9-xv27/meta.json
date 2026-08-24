@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-q3g4-2vw9-xv27",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "shopware5/shopware",
+    "fix_commit":  "14299e9ee9f7d93f687b4ec838e0873afbc84fec",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "engine/Shopware/Controllers/Frontend/Forms.php"
+                    ],
+    "evidence":  [
+                     "engine/Shopware/Controllers/Frontend/Forms.php class extends Enlight_Controller_Action",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

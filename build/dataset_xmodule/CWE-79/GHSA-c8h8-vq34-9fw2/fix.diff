@@ -1,0 +1,124 @@
+﻿diff --git a/plugin/Gallery/view/Category.php b/plugin/Gallery/view/Category.php
+index 0e821a8df..2f4d164d1 100644
+--- a/plugin/Gallery/view/Category.php
++++ b/plugin/Gallery/view/Category.php
+@@ -1,11 +1,11 @@
+ <?php
+ //var_dump($videos, debug_backtrace());exit;
+ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+-    if (($obj->CategoryDescription) && (!empty($_REQUEST['catName']))) { 
++    if (($obj->CategoryDescription) && (!empty($_REQUEST['catName']))) {
+         $category = Category::getCategoryByName($_REQUEST['catName']);
+         ?>
+         <h1 style="text-align: center;" class="categories_id_<?php echo $category['id']; ?>"><?php echo __($category['name']); ?></h1>
+-        <p style="margin-left: 10%; margin-right: 10%; max-height: 200px; overflow-x: auto;"><?php echo __($category['description']); ?></p>
++        <p style="margin-left: 10%; margin-right: 10%; max-height: 200px; overflow-x: auto;"><?php echo $category['description_html']; ?></p>
+         <?php
+     }
+     if (($obj->SubCategorys) && (!empty($_REQUEST['catName']))) {
+@@ -15,7 +15,7 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+             $parentCat = Category::getCategory($currentCat['parentId']);
+             // -1 is a personal workaround only
+             if ((empty($parentCat)) && (($currentCat['parentId'] == "0") || ($currentCat['parentId'] == "-1"))) {
+-                if (!empty($_REQUEST['catName'])) { 
++                if (!empty($_REQUEST['catName'])) {
+                     $backURL = getBackURL();
+                     if(!empty($_REQUEST['getBackURL'])){
+                         $backURL = $_REQUEST['getBackURL'];
+@@ -24,7 +24,7 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+                     <div class="clearfix" style="margin: 10px 0;">
+                         <a class="btn btn-default btn-sm pull-left"  href="<?php echo $backURL; ?>">
+                             <i class="fa fa-backward"></i>
+-                            <?php echo __("Back"); ?> 
++                            <?php echo __("Back"); ?>
+                         </a>
+                     </div>
+                     <?php
+@@ -38,7 +38,7 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+                 <div class="clearfix" style="margin: 10px 0;">
+                     <a class="btn btn-default btn-sm pull-left" href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $parentCat['clean_name']; ?>?getBackURL=<?php echo urlencode($backURL); ?>">
+                         <i class="fa fa-backward"></i>
+-                        <?php echo __("Back to") . " " . $parentCat['name']; ?> 
++                        <?php echo __("Back to") . " " . $parentCat['name']; ?>
+                     </a>
+                 </div>
+                 <?php
+@@ -53,7 +53,7 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+         //var_dump(!empty($childCategories) ,($currentCat['parentId'] != "0") , ($currentCat['parentId'] != "-1"));exit;
+         if ((!empty($childCategories)) && ((($currentCat['parentId'] != "0") || ($currentCat['parentId'] != "-1")))) {
+             $obj->BigVideo = false;
+-            
++
+             include_once $global['systemRootPath'] . 'view/include/categoryTop.php';
+             ?>
+             <!-- category.php -->
+@@ -76,14 +76,14 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+ 
+                         $_GET['limitOnceToOne'] = "1";
+                         $videos = Video::getAllVideos();
+-                        
++
+                         // make a row each 6 cols
+                         if ($countCols % 6 === 0) {
+                             echo '</div><div class="clearfix">';
+                         }
+                         $countCols++;
+                         unset($_REQUEST['catName']);
+-                        
++
+                         $backURL = getBackURL();
+                         if(!empty($_REQUEST['getBackURL'])){
+                             $backURL = $_REQUEST['getBackURL'];
+@@ -136,11 +136,11 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+                                         <?php echo $cat['name']; ?>
+                                     </div>
+                                 </a>
+-                            </div>          
+-    
++                            </div>
++
+                             <?php
+                         }
+-                    } // end of foreach-cat       
++                    } // end of foreach-cat
+                     unset($_POST['sort']);
+                     if (!empty($originalCat)) {
+                         $_REQUEST['catName'] = $originalCat;
+@@ -151,4 +151,4 @@ if ((!empty($videos)) || (!empty($obj) && $obj->SubCategorys)) {
+             <?php
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/plugin/Gallery/view/mainAreaCategory.php b/plugin/Gallery/view/mainAreaCategory.php
+index 822763ac6..cb4d836e2 100644
+--- a/plugin/Gallery/view/mainAreaCategory.php
++++ b/plugin/Gallery/view/mainAreaCategory.php
+@@ -9,7 +9,7 @@ if (!empty($currentCat) && empty($_GET['showOnly'])) {
+     if (empty($_GET['page'])) {
+         unsetCurrentPage();
+     }
+-    
++
+     if(!empty($_GET['catName'])){
+         resetCurrentPage();
+     }
+@@ -53,7 +53,7 @@ if (!empty($currentCat) && empty($_GET['showOnly'])) {
+         $_REQUEST['doNotShowCatChilds'] = 0;
+         $videos = Video::getAllVideos(Video::SORT_TYPE_VIEWABLENOTUNLISTED, false, !$obj->hidePrivateVideos);
+         createCategorySection($videos);
+-    } 
++    }
+     $_POST['sort'] = $sort;
+ }
+ 
+@@ -83,7 +83,7 @@ function createCategorySection($videos)
+                     $titleAlert = str_replace(array('"', "'"), array('``', "`"), $videos[0]['category']);
+                 ?>
+                     <a href="#" class="pull-right" onclick='avideoAlert("<?php echo $titleAlert; ?>", "<div style=\"max-height: 300px; overflow-y: scroll;overflow-x: hidden;\" id=\"categoryDescriptionAlertContent<?php echo $duid; ?>\" ></div>", "");$("#categoryDescriptionAlertContent<?php echo $duid; ?>").html($("#categoryDescription<?php echo $duid; ?>").html());return false;'><i class="far fa-file-alt"></i> <?php echo __("Description"); ?></a>
+-                    <div id="categoryDescription<?php echo $duid; ?>" style="display: none;"><?php echo $videos[0]['category_description']; ?></div>
++                    <div id="categoryDescription<?php echo $duid; ?>" style="display: none;"><?php echo textToLink(htmlentities($videos[0]['category_description'])); ?></div>
+                 <?php
+                 }
+                 ?>

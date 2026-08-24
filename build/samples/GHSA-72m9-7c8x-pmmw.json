@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-72m9-7c8x-pmmw",
+    "cve":  "CVE-2024-32479",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "19344f0584d4d6d4526fdf331adc60530e3f685b",
+    "status":  "ok",
+    "changed_php":  [
+                        "resources/views/service-template/index.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "resources/views/service-template/index.blade.php"
+                    ],
+    "sink_hit":  false
+}

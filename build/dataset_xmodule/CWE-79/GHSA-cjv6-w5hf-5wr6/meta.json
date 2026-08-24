@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-cjv6-w5hf-5wr6",
+    "cve":  "CVE-2023-2323",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "fix_commit":  "e88fa79de7b5903fb58ddbc231130b04d937d79e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "bundles/EcommerceFrameworkBundle/PricingManager/Rule.php"
+                    ],
+    "evidence":  [
+                     "bundles/EcommerceFrameworkBundle/PricingManager/Rule.php class extends AbstractModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

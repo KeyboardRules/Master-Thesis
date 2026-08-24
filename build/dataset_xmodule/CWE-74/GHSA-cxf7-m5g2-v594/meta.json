@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-cxf7-m5g2-v594",
+    "cve":  "",
+    "cwe":  "CWE-74",
+    "repo":  "zendframework/zend-mail",
+    "fix_commit":  "0a92d0b3a8b7d7c7659aa569f1a66a23d4ad51af",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Transport/Sendmail.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "test/Transport/SendmailTest.php class extends \\PHPUnit_Framework_TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

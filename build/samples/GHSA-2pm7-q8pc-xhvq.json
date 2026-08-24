@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-2pm7-q8pc-xhvq",
+    "cve":  "CVE-2020-25830",
+    "cwe":  "CWE-79",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "8c6f4d8859785b67fb80ac65100ac5259ed9237d",
+    "status":  "ok",
+    "changed_php":  [
+                        "bug_actiongroup_page.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "bug_actiongroup_page.php includes 1 project file(s)"
+                 ],
+    "changed_all":  [
+                        "bug_actiongroup_page.php"
+                    ],
+    "sink_hit":  true
+}

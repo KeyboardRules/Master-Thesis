@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mv37-xrmc-hf64",
+    "cve":  "CVE-2021-32856",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "f3b86d59ab674dbf514f9f9948ddfa091739ab75",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/MicroweberPackages/Content/ContentManagerHelpers.php class extends ContentManagerCrud"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Content/ContentManagerHelpers.php"
+                    ],
+    "sink_hit":  true
+}

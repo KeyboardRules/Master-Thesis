@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-q9qc-pp5x-mc8c",
+    "cve":  "CVE-2022-0896",
+    "cwe":  "CWE-1336",
+    "repo":  "microweber/microweber",
+    "fix_commit":  "e0224462b3dd6b1f7c6ec1197413afc6019bc3b5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/MicroweberPackages/Comment/Http/Controllers/Admin/AdminCommentController.php"
+                    ],
+    "evidence":  [
+                     "src/MicroweberPackages/Comment/Http/Controllers/Admin/AdminCommentController.php class extends AdminController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

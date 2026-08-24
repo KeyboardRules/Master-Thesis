@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-2p89-ppc2-mrq4",
+    "cve":  "CVE-2022-0743",
+    "cwe":  "CWE-79",
+    "repo":  "getgrav/grav",
+    "sha":  "3dd0cabeac9835fe64dcb4b68c658b39f1f6be2f",
+    "status":  "ok",
+    "changed_php":  [
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "system/src/Grav/Common/Security.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-68hv-8926-j34c",
+    "cve":  "CVE-2015-10018",
+    "cwe":  "CWE-89",
+    "repo":  "DBRisinajumi/d2files",
+    "fix_commit":  "b5767f2ec9d0f3cbfda7f13c84740e2179c90574",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "controllers/D2filesController.php"
+                    ],
+    "evidence":  [
+                     "controllers/D2filesController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

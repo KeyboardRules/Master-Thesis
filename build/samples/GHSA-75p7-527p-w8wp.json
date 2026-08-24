@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-75p7-527p-w8wp",
+    "cve":  "CVE-2022-24739",
+    "cwe":  "CWE-918",
+    "repo":  "Rudloff/alltube",
+    "sha":  "3a4f09dda0a466662a4e52cde674749e0c668e8d",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/Controller/BaseController.php",
+                        "classes/Controller/DownloadController.php",
+                        "classes/Controller/FrontController.php",
+                        "classes/Controller/JsonController.php",
+                        "tests/FrontControllerTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "classes/Controller/DownloadController.php class extends BaseController",
+                     "classes/Controller/FrontController.php class extends BaseController",
+                     "classes/Controller/JsonController.php class extends BaseController",
+                     "tests/FrontControllerTest.php class extends ControllerTest"
+                 ],
+    "changed_all":  [
+                        "classes/Controller/BaseController.php",
+                        "classes/Controller/DownloadController.php",
+                        "classes/Controller/FrontController.php",
+                        "classes/Controller/JsonController.php",
+                        "composer.json",
+                        "composer.lock",
+                        "tests/FrontControllerTest.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-5gmf-3c43-q73v",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "zendframework/zendframework",
+    "sha":  "07d847b705911da6a15257f64895f69cab7ad50c",
+    "status":  "ok",
+    "changed_php":  [
+                        "library/Zend/Feed/PubSubHubbub/PubSubHubbub.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "library/Zend/Feed/PubSubHubbub/PubSubHubbub.php",
+                        "library/Zend/Feed/composer.json"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xcrg-29h7-h4cj",
+    "cve":  "CVE-2018-19277",
+    "cwe":  "CWE-91",
+    "repo":  "PHPOffice/PHPExcel",
+    "sha":  "2b601574975acfb9d4378a788ed5f2b747958095",
+    "status":  "ok",
+    "changed_php":  [
+                        "Classes/PHPExcel/Reader/Abstract.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Classes/PHPExcel/Reader/Abstract.php",
+                        "changelog.txt"
+                    ],
+    "sink_hit":  false
+}

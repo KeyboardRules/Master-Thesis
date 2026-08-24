@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-r77c-qv68-j3pp",
+    "cve":  "CVE-2018-25080",
+    "cwe":  "CWE-79",
+    "repo":  "serbanghita/Mobile-Detect",
+    "sha":  "31818a441b095bdc4838602dbb17b8377d1e5cce",
+    "status":  "ok",
+    "changed_php":  [
+                        "examples/session_example.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "examples/session_example.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "examples/session_example.php"
+                    ],
+    "sink_hit":  true
+}

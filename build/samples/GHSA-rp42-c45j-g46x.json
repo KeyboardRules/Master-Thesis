@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-rp42-c45j-g46x",
+    "cve":  "CVE-2021-4107",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "a062d3d5fecb000db207a2ad8a446db97ad96b89",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/Vtiger/actions/Fields.php class extends \\App\\Controller\\Action"
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "modules/Vtiger/actions/Fields.php",
+                        "public_html/layouts/resources/Fields.js"
+                    ],
+    "sink_hit":  false
+}

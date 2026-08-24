@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-44wr-rmwq-3phw",
+    "cve":  "CVE-2023-40035",
+    "cwe":  "CWE-74",
+    "repo":  "craftcms/cms",
+    "sha":  "0bd33861abdc60c93209cff03eeee54504d3d3b5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/helpers/FileHelper.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/helpers/FileHelper.php class extends \\yii\\helpers\\FileHelper"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/helpers/FileHelper.php"
+                    ],
+    "sink_hit":  false
+}

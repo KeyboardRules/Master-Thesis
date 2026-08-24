@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-jccv-3h4x-35mv",
+    "cve":  "CVE-2017-11366",
+    "cwe":  "CWE-78",
+    "repo":  "Codiad/Codiad",
+    "fix_commit":  "ca5089eeba42d16ce3a7f86be628ac7750780111",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "components/filemanager/class.filemanager.php"
+                    ],
+    "evidence":  [
+                     "components/filemanager/class.filemanager.php includes 2 project file(s)",
+                     "components/filemanager/class.filemanager.php class extends Common"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

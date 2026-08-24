@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-4pcg-pjp5-3mc6",
+    "cve":  "CVE-2025-8571",
+    "cwe":  "CWE-79",
+    "repo":  "concretecms/concretecms",
+    "sha":  "4b39dcc17c309dc82eb8398e8cdb146942f62f92",
+    "status":  "ok",
+    "changed_php":  [
+                        "concrete/config/concrete.php",
+                        "concrete/src/Utility/Service/Url.php",
+                        "tests/tests/Utility/Service/UrlTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "build/tasks/build-release/download.js",
+                        "composer.lock",
+                        "concrete/composer.json",
+                        "concrete/config/concrete.php",
+                        "concrete/src/Utility/Service/Url.php",
+                        "tests/tests/Utility/Service/UrlTest.php"
+                    ],
+    "sink_hit":  false
+}

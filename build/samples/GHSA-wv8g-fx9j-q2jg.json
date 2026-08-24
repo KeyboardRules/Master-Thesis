@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wv8g-fx9j-q2jg",
+    "cve":  "CVE-2014-7217",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "304fb2b645b36a39e03b954fdbd567173ebe6448",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/TableSearch.class.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "libraries/TableSearch.class.php"
+                    ],
+    "sink_hit":  false
+}

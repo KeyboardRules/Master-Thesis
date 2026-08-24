@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-xpxp-v33m-5jp9",
+    "cve":  "CVE-2012-5368",
+    "cwe":  "CWE-79",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "50edafc0884aa15d0a1aa178089ac6a1ad2eb18a",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/header_http.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "js/functions.js",
+                        "libraries/header_http.inc.php"
+                    ],
+    "sink_hit":  false
+}

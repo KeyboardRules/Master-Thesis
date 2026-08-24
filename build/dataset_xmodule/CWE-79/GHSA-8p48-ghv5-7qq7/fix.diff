@@ -1,0 +1,15 @@
+﻿diff --git a/phpmyfaq/src/phpMyFAQ/Export/Html5.php b/phpmyfaq/src/phpMyFAQ/Export/Html5.php
+index 947122a6..3de635a7 100644
+--- a/phpmyfaq/src/phpMyFAQ/Export/Html5.php
++++ b/phpmyfaq/src/phpMyFAQ/Export/Html5.php
+@@ -93,6 +93,10 @@ class Html5 extends Export
+         $this->xml->startElement('meta');
+         $this->xml->writeAttribute('charset', 'utf-8');
+         $this->xml->endElement();
++        $this->xml->startElement('meta');
++        $this->xml->writeAttribute('http-equiv', 'Content-Security-Policy');
++        $this->xml->writeAttribute('content', 'default-src \'self\'; img-src https://*; child-src \'none\';');
++        $this->xml->endElement();
+         $this->xml->endElement(); // </head>
+ 
+         $this->xml->startElement('body');

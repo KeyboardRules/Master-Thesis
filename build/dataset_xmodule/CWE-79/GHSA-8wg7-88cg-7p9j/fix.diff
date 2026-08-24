@@ -1,0 +1,195 @@
+﻿diff --git a/bundles/AdminBundle/src/Controller/Admin/Document/PageController.php b/bundles/AdminBundle/src/Controller/Admin/Document/PageController.php
+index 5fafb21a67..809c3772af 100644
+--- a/bundles/AdminBundle/src/Controller/Admin/Document/PageController.php
++++ b/bundles/AdminBundle/src/Controller/Admin/Document/PageController.php
+@@ -148,17 +148,6 @@ class PageController extends DocumentControllerBase
+             }
+         }
+ 
+-        // check if settings exist, before saving meta data
+-        if ($request->get('settings') && is_array($settings)) {
+-            $metaData = [];
+-            for ($i = 1; $i < 30; $i++) {
+-                if (array_key_exists('metadata_' . $i, $settings)) {
+-                    $metaData[] = $settings['metadata_' . $i];
+-                }
+-            }
+-            $page->setMetaData($metaData);
+-        }
+-
+         list($task, $page, $version) = $this->saveDocument($page, $request);
+         $arguments = [
+             'oldPage' => $oldPage,
+diff --git a/bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php b/bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php
+deleted file mode 100644
+index d032fccec6..0000000000
+--- a/bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php
++++ /dev/null
+@@ -1,82 +0,0 @@
+-<?php
+-declare(strict_types=1);
+-
+-/**
+- * Pimcore
+- *
+- * This source file is available under two different licenses:
+- * - GNU General Public License version 3 (GPLv3)
+- * - Pimcore Commercial License (PCL)
+- * Full copyright and license information is available in
+- * LICENSE.md which is distributed with this source code.
+- *
+- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
+- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+- */
+-
+-namespace Pimcore\Bundle\CoreBundle\EventListener\Frontend;
+-
+-use Pimcore\Bundle\CoreBundle\EventListener\Traits\PimcoreContextAwareTrait;
+-use Pimcore\Http\Request\Resolver\DocumentResolver as DocumentResolverService;
+-use Pimcore\Http\Request\Resolver\PimcoreContextResolver;
+-use Pimcore\Model\Document\Page;
+-use Pimcore\Twig\Extension\Templating\HeadMeta;
+-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+-use Symfony\Component\HttpKernel\Event\RequestEvent;
+-use Symfony\Component\HttpKernel\KernelEvents;
+-
+-/**
+- * Adds Meta Data entries of document to HeadMeta view helper
+- *
+- * @internal
+- */
+-class DocumentMetaDataListener implements EventSubscriberInterface
+-{
+-    use PimcoreContextAwareTrait;
+-
+-    public const FORCE_INJECTION = '_pimcore_force_document_meta_data_injection';
+-
+-    public function __construct(protected DocumentResolverService $documentResolverService, protected HeadMeta $headMeta)
+-    {
+-    }
+-
+-    /**
+-     * {@inheritdoc}
+-     */
+-    public static function getSubscribedEvents(): array
+-    {
+-        return [
+-            KernelEvents::REQUEST => ['onKernelRequest'],
+-        ];
+-    }
+-
+-    /**
+-     * Finds the nearest document for the current request if the routing/document router didn't (e.g. static routes)
+-     *
+-     * @param RequestEvent $event
+-     */
+-    public function onKernelRequest(RequestEvent $event): void
+-    {
+-        $request = $event->getRequest();
+-
+-        // just add meta data on master request
+-        if (!$event->isMainRequest() && !$event->getRequest()->attributes->get(self::FORCE_INJECTION)) {
+-            return;
+-        }
+-
+-        if (!$this->matchesPimcoreContext($request, PimcoreContextResolver::CONTEXT_DEFAULT)) {
+-            return;
+-        }
+-
+-        $document = $this->documentResolverService->getDocument($request);
+-
+-        //check if document is set and if route is a document route for exactly that document
+-        if ($document && $request->get('_route') == 'document_' . $document->getId()) {
+-            if ($document instanceof Page && is_array($document->getMetaData())) {
+-                foreach ($document->getMetaData() as $meta) {
+-                    $this->headMeta->addRaw($meta);
+-                }
+-            }
+-        }
+-    }
+-}
+diff --git a/bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php b/bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php
+index 774e41bc6f..e4de95959a 100644
+--- a/bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php
++++ b/bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php
+@@ -27,4 +27,5 @@ use Pimcore\Model;
+ class Dao extends Model\Document\Page\Dao implements TargetingDocumentDaoInterface
+ {
+     use TargetingDocumentDaoTrait;
++
+ }
+diff --git a/models/Document/Page.php b/models/Document/Page.php
+index 35932cda86..caad2e1e3d 100644
+--- a/models/Document/Page.php
++++ b/models/Document/Page.php
+@@ -41,13 +41,6 @@ class Page extends PageSnippet
+      */
+     protected string $description = '';
+ 
+-    /**
+-     * @internal
+-     *
+-     * @var array
+-     */
+-    protected array $metaData = [];
+-
+     /**
+      * {@inheritdoc}
+      */
+@@ -84,38 +77,6 @@ class Page extends PageSnippet
+         return $this;
+     }
+ 
+-    /**
+-     * @deprecated
+-     *
+-     * @return $this
+-     */
+-    public function setMetaData(array $metaData): static
+-    {
+-        trigger_deprecation(
+-            'pimcore/pimcore',
+-            '10.6.0',
+-            sprintf('%s is deprecated and will be removed in Pimcore 11.', __METHOD__)
+-        );
+-
+-        $this->metaData = $metaData;
+-
+-        return $this;
+-    }
+-
+-    /**
+-     * @deprecated
+-     */
+-    public function getMetaData(): array
+-    {
+-        trigger_deprecation(
+-            'pimcore/pimcore',
+-            '10.6.0',
+-            sprintf('%s is deprecated and will be removed in Pimcore 11.', __METHOD__)
+-        );
+-
+-        return $this->metaData;
+-    }
+-
+     public function getFullPath(bool $force = false): string
+     {
+         $path = parent::getFullPath($force);
+diff --git a/models/Document/Page/Dao.php b/models/Document/Page/Dao.php
+index 622dbeaed2..68f11ec8fb 100644
+--- a/models/Document/Page/Dao.php
++++ b/models/Document/Page/Dao.php
+@@ -43,12 +43,7 @@ class Dao extends Model\Document\PageSnippet\Dao
+                 WHERE documents.id = ?", [$this->model->getId()]);
+ 
+         if (!empty($data['id'])) {
+-            if (is_string($data['metaData'])) {
+-                $data['metaData'] = @unserialize($data['metaData']);
+-            }
+-            if (!is_array($data['metaData'])) {
+-                $data['metaData'] = [];
+-            }
++
+             $this->assignVariablesToModel($data);
+         } else {
+             throw new Model\Exception\NotFoundException('Page with the ID ' . $this->model->getId() . " doesn't exists");

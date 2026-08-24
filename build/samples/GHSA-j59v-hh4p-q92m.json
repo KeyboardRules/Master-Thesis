@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-j59v-hh4p-q92m",
+    "cve":  "CVE-2023-5873",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "757375677dc83a44c6c22f26d97452cc5cda5d7c",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/CoreBundle/src/DependencyInjection/Configuration.php",
+                        "lib/Messenger/Handler/AssetUpdateTasksHandler.php",
+                        "models/Asset/Document.php",
+                        "models/Asset/Enum/PdfScanStatus.php",
+                        "models/Element/Service.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "models/Asset/Document.php class extends Model\\Asset",
+                     "models/Element/Service.php class extends Model\\AbstractModel"
+                 ],
+    "changed_all":  [
+                        "bundles/CoreBundle/src/DependencyInjection/Configuration.php",
+                        "doc/04_Assets/README.md",
+                        "doc/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md",
+                        "lib/Messenger/Handler/AssetUpdateTasksHandler.php",
+                        "models/Asset/Document.php",
+                        "models/Asset/Enum/PdfScanStatus.php",
+                        "models/Element/Service.php"
+                    ],
+    "sink_hit":  false
+}

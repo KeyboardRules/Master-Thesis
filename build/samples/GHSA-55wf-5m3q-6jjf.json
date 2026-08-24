@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-55wf-5m3q-6jjf",
+    "cve":  "CVE-2026-42224",
+    "cwe":  "CWE-79",
+    "repo":  "Icinga/ipl-web",
+    "sha":  "f387e92504d7a03bb857d1aee9b7410e06dd065d",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Compat/CompatController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Compat/CompatController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "src/Compat/CompatController.php"
+                    ],
+    "sink_hit":  false
+}

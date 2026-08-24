@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-x3g3-jh26-76cf",
+    "cve":  "CVE-2022-0375",
+    "cwe":  "CWE-79",
+    "repo":  "livehelperchat/livehelperchat",
+    "sha":  "bbfaa26ce54a2a86ce1a42a16496038f5bdfc102",
+    "status":  "ok",
+    "changed_php":  [
+                        "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list_admin.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhchat/messagelist/plain.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhform/collected.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/admincss.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/adminthemeedit.tpl.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list.tpl.php includes 2 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list_admin.tpl.php includes 2 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhform/collected.tpl.php includes 2 project file(s)",
+                     "lhc_web/design/defaulttheme/tpl/lhtheme/adminthemeedit.tpl.php includes 3 project file(s)"
+                 ],
+    "changed_all":  [
+                        "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhchat/lists/msg_obj_list_admin.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhchat/messagelist/plain.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhform/collected.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/admincss.tpl.php",
+                        "lhc_web/design/defaulttheme/tpl/lhtheme/adminthemeedit.tpl.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-3m99-h3hp-w9j7",
+    "cve":  "CVE-2014-3545",
+    "cwe":  "CWE-94",
+    "repo":  "moodle/moodle",
+    "fix_commit":  "155bc7547227dc2047cfc8630cbfe121888b359b",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "question/type/calculated/question.php",
+                        "question/type/calculated/questiontype.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "question/type/calculated/question.php includes 1 project file(s)",
+                     "question/type/calculated/question.php class extends qtype_numerical_question",
+                     "question/type/calculated/questiontype.php includes 6 project file(s)",
+                     "question/type/calculated/questiontype.php class extends question_type",
+                     "question/type/calculated/tests/formula_validation_test.php includes 1 project file(s)",
+                     "question/type/calculated/tests/formula_validation_test.php class extends basic_testcase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

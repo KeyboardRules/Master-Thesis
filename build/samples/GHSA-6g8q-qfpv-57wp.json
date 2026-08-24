@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-6g8q-qfpv-57wp",
+    "cve":  "CVE-2023-22727",
+    "cwe":  "CWE-89",
+    "repo":  "cakephp/cakephp",
+    "sha":  "3f463e7084b5a15e67205ced3a622577cca7a239",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Database/Query.php",
+                        "tests/TestCase/Database/QueryTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Database/Query.php class uses trait",
+                     "tests/TestCase/Database/QueryTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Database/Query.php",
+                        "tests/TestCase/Database/QueryTest.php"
+                    ],
+    "sink_hit":  true
+}

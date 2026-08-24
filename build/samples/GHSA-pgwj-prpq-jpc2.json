@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-pgwj-prpq-jpc2",
+    "cve":  "CVE-2019-10910",
+    "cwe":  "CWE-89",
+    "repo":  "symfony/symfony",
+    "sha":  "3876c75f858d5d82e2c309698d21af2f1d721afb",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php",
+                        "src/Symfony/Component/DependencyInjection/ContainerBuilder.php",
+                        "src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php",
+                        "src/Symfony/Component/DependencyInjection/Tests/ContainerBuilderTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "src/Symfony/Component/DependencyInjection/ContainerBuilder.php class extends Container",
+                     "src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php class extends Dumper",
+                     "src/Symfony/Component/DependencyInjection/Tests/ContainerBuilderTest.php includes 2 project file(s)",
+                     "src/Symfony/Component/DependencyInjection/Tests/ContainerBuilderTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Symfony/Bridge/ProxyManager/LazyProxy/PhpDumper/ProxyDumper.php",
+                        "src/Symfony/Component/DependencyInjection/ContainerBuilder.php",
+                        "src/Symfony/Component/DependencyInjection/Dumper/PhpDumper.php",
+                        "src/Symfony/Component/DependencyInjection/Tests/ContainerBuilderTest.php"
+                    ],
+    "sink_hit":  false
+}

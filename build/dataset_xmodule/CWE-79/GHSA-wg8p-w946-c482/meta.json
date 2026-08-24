@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wg8p-w946-c482",
+    "cve":  "CVE-2022-0956",
+    "cwe":  "CWE-79",
+    "repo":  "star7th/showdoc",
+    "fix_commit":  "56e450c3adf75c707500d7231a78c9fc894c7f13",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "server/Application/Api/Model/AttachmentModel.class.php"
+                    ],
+    "evidence":  [
+                     "server/Application/Api/Model/AttachmentModel.class.php class extends BaseModel"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

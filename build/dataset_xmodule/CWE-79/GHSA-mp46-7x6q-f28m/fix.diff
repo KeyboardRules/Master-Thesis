@@ -1,0 +1,181 @@
+﻿diff --git a/includes/admin/settings/class-wc-settings-page.php b/includes/admin/settings/class-wc-settings-page.php
+index b652182..ca359ac 100644
+--- a/includes/admin/settings/class-wc-settings-page.php
++++ b/includes/admin/settings/class-wc-settings-page.php
+@@ -2,14 +2,12 @@
+ /**
+  * WooCommerce Settings Page/Tab
+  *
+- * @author      WooThemes
+- * @category    Admin
+  * @package     WooCommerce\Admin
+  * @version     2.1.0
+  */
+ 
+ if ( ! defined( 'ABSPATH' ) ) {
+-	exit; // Exit if accessed directly
++	exit; // Exit if accessed directly.
+ }
+ 
+ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
+@@ -66,7 +64,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
+ 		/**
+ 		 * Add this page to settings.
+ 		 *
+-		 * @param array $pages
++		 * @param array $pages The pages array to add this page to.
+ 		 *
+ 		 * @return mixed
+ 		 */
+@@ -102,7 +100,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
+ 
+ 			$sections = $this->get_sections();
+ 
+-			if ( empty( $sections ) || 1 === sizeof( $sections ) ) {
++			if ( empty( $sections ) || 1 === count( $sections ) ) {
+ 				return;
+ 			}
+ 
+@@ -111,7 +109,8 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
+ 			$array_keys = array_keys( $sections );
+ 
+ 			foreach ( $sections as $id => $label ) {
+-				echo '<li><a href="' . admin_url( 'admin.php?page=wc-settings&tab=' . $this->id . '&section=' . sanitize_title( $id ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
++				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
++				echo '<li><a href="' . admin_url( 'admin.php?page=wc-settings&tab=' . $this->id . '&section=' . sanitize_title( $id ) ) . '" class="' . ( $current_section === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a> ' . ( end( $array_keys ) === $id ? '' : '|' ) . ' </li>';
+ 			}
+ 
+ 			echo '</ul><br class="clear" />';
+diff --git a/includes/admin/settings/class-wc-settings-tax.php b/includes/admin/settings/class-wc-settings-tax.php
+index a80f266..0c45245 100644
+--- a/includes/admin/settings/class-wc-settings-tax.php
++++ b/includes/admin/settings/class-wc-settings-tax.php
+@@ -2,8 +2,6 @@
+ /**
+  * WooCommerce Tax Settings
+  *
+- * @author      WooThemes
+- * @category    Admin
+  * @package     WooCommerce\Admin
+  * @version     2.1.0
+  */
+@@ -66,6 +64,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 		$tax_classes = WC_Tax::get_tax_classes();
+ 
+ 		foreach ( $tax_classes as $class ) {
++			/* translators: $s tax rate section name */
+ 			$sections[ sanitize_title( $class ) ] = sprintf( __( '%s rates', 'woocommerce' ), $class );
+ 		}
+ 
+@@ -95,7 +94,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 
+ 		$tax_classes = WC_Tax::get_tax_class_slugs();
+ 
+-		if ( 'standard' === $current_section || in_array( $current_section, $tax_classes, true ) ) {
++		if ( 'standard' === $current_section || in_array( $current_section, array_filter( $tax_classes ), true ) ) {
+ 			$this->output_tax_rates();
+ 		} else {
+ 			$settings = $this->get_settings();
+@@ -149,7 +148,19 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 		}
+ 
+ 		foreach ( $added as $name ) {
+-			WC_Tax::create_tax_class( $name );
++			$tax_class = WC_Tax::create_tax_class( $name );
++
++			// Display any error that could be triggered while creating tax classes.
++			if ( is_wp_error( $tax_class ) ) {
++				WC_Admin_Settings::add_error(
++					sprintf(
++						/* translators: 1: tax class name 2: error message */
++						esc_html__( 'Additional tax class "%1$s" couldn\'t be saved. %2$s.', 'woocommerce' ),
++						esc_html( $name ),
++						$tax_class->get_error_message()
++					)
++				);
++			}
+ 		}
+ 
+ 		return null;
+@@ -201,6 +212,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 				'wc_tax_nonce'  => wp_create_nonce( 'wc_tax_nonce-class:' . $current_class ),
+ 				'base_url'      => $base_url,
+ 				'rates'         => array_values( WC_Tax::get_rates_for_tax_class( $current_class ) ),
++				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+ 				'page'          => ! empty( $_GET['p'] ) ? absint( $_GET['p'] ) : 1,
+ 				'limit'         => 100,
+ 				'countries'     => $countries,
+@@ -278,6 +290,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 			'tax_rate_priority',
+ 		);
+ 
++		// phpcs:disable WordPress.Security.NonceVerification.Missing
+ 		foreach ( $tax_rate_keys as $tax_rate_key ) {
+ 			if ( isset( $_POST[ $tax_rate_key ], $_POST[ $tax_rate_key ][ $key ] ) ) {
+ 				$tax_rate[ $tax_rate_key ] = wc_clean( wp_unslash( $_POST[ $tax_rate_key ][ $key ] ) );
+@@ -288,6 +301,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 		$tax_rate['tax_rate_shipping'] = isset( $_POST['tax_rate_shipping'][ $key ] ) ? 1 : 0;
+ 		$tax_rate['tax_rate_order']    = $order;
+ 		$tax_rate['tax_rate_class']    = $class;
++		// phpcs:enable WordPress.Security.NonceVerification.Missing
+ 
+ 		return $tax_rate;
+ 	}
+@@ -298,7 +312,8 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 	public function save_tax_rates() {
+ 		global $wpdb;
+ 
+-		$current_class    = sanitize_title( $this->get_current_tax_class() );
++		$current_class = sanitize_title( $this->get_current_tax_class() );
++		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.NonceVerification.Missing
+ 		$posted_countries = wc_clean( wp_unslash( $_POST['tax_rate_country'] ) );
+ 
+ 		// get the tax rate id of the first submited row.
+@@ -310,13 +325,14 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 		$index = isset( $tax_rate_order ) ? $tax_rate_order : 0;
+ 
+ 		// Loop posted fields.
++		// phpcs:disable WordPress.Security.NonceVerification.Missing
+ 		foreach ( $posted_countries as $key => $value ) {
+ 			$mode     = ( 0 === strpos( $key, 'new-' ) ) ? 'insert' : 'update';
+ 			$tax_rate = $this->get_posted_tax_rate( $key, $index ++, $current_class );
+ 
+ 			if ( 'insert' === $mode ) {
+ 				$tax_rate_id = WC_Tax::_insert_tax_rate( $tax_rate );
+-			} elseif ( 1 === absint( $_POST['remove_tax_rate'][ $key ] ) ) {
++			} elseif ( isset( $_POST['remove_tax_rate'][ $key ] ) && 1 === absint( $_POST['remove_tax_rate'][ $key ] ) ) {
+ 				$tax_rate_id = absint( $key );
+ 				WC_Tax::_delete_tax_rate( $tax_rate_id );
+ 				continue;
+@@ -332,6 +348,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
+ 				WC_Tax::_update_tax_rate_cities( $tax_rate_id, wc_clean( wp_unslash( $_POST['tax_rate_city'][ $key ] ) ) );
+ 			}
+ 		}
++		// phpcs:enable WordPress.Security.NonceVerification.Missing
+ 	}
+ }
+ 
+diff --git a/includes/class-wc-tax.php b/includes/class-wc-tax.php
+index 65a4978..a59f60c 100644
+--- a/includes/class-wc-tax.php
++++ b/includes/class-wc-tax.php
+@@ -815,6 +815,7 @@ class WC_Tax {
+ 
+ 		$existing       = self::get_tax_classes();
+ 		$existing_slugs = self::get_tax_class_slugs();
++		$name           = wc_clean( $name );
+ 
+ 		if ( in_array( $name, $existing, true ) ) {
+ 			return new WP_Error( 'tax_class_exists', __( 'Tax class already exists', 'woocommerce' ) );
+@@ -824,6 +825,11 @@ class WC_Tax {
+ 			$slug = sanitize_title( $name );
+ 		}
+ 
++		// Stop if there's no slug.
++		if ( ! $slug ) {
++			return new WP_Error( 'tax_class_slug_invalid', __( 'Tax class slug is invalid', 'woocommerce' ) );
++		}
++
+ 		if ( in_array( $slug, $existing_slugs, true ) ) {
+ 			return new WP_Error( 'tax_class_slug_exists', __( 'Tax class slug already exists', 'woocommerce' ) );
+ 		}

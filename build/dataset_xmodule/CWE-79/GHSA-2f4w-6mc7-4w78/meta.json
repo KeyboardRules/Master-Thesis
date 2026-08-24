@@ -1,0 +1,42 @@
+﻿{
+    "id":  "GHSA-2f4w-6mc7-4w78",
+    "cve":  "CVE-2024-56144",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "c63c912d86098bcefd52a28328482b94632eadf8",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/Table/CustomersController.php",
+                        "app/Http/Controllers/Table/EventlogController.php",
+                        "app/Http/Controllers/Table/FdbTablesController.php",
+                        "app/Http/Controllers/Table/GraylogController.php",
+                        "app/Http/Controllers/Table/InventoryController.php",
+                        "app/Http/Controllers/Table/MempoolsController.php",
+                        "app/Http/Controllers/Table/OutagesController.php",
+                        "app/Http/Controllers/Table/PortNacController.php",
+                        "app/Http/Controllers/Table/PortStpController.php",
+                        "app/Http/Controllers/Table/PortsController.php",
+                        "app/Http/Controllers/Table/RoutesTablesController.php",
+                        "app/Http/Controllers/Table/SyslogController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 12 php files",
+                     "app/Http/Controllers/Table/CustomersController.php class extends TableController",
+                     "app/Http/Controllers/Table/EventlogController.php class extends TableController",
+                     "app/Http/Controllers/Table/FdbTablesController.php class extends TableController",
+                     "app/Http/Controllers/Table/GraylogController.php class extends SimpleTableController",
+                     "app/Http/Controllers/Table/InventoryController.php class extends TableController",
+                     "app/Http/Controllers/Table/MempoolsController.php class extends TableController",
+                     "app/Http/Controllers/Table/OutagesController.php class extends TableController",
+                     "app/Http/Controllers/Table/PortNacController.php class extends TableController",
+                     "app/Http/Controllers/Table/PortStpController.php class extends TableController",
+                     "app/Http/Controllers/Table/PortsController.php class extends TableController",
+                     "app/Http/Controllers/Table/RoutesTablesController.php class extends TableController",
+                     "app/Http/Controllers/Table/SyslogController.php class extends TableController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-r5f2-4wf4-cv66",
+    "cve":  "CVE-2019-16173",
+    "cwe":  "CWE-79",
+    "repo":  "LimeSurvey/LimeSurvey",
+    "sha":  "f1c1ad2d24eb262363511fcca2e96ce737064006",
+    "status":  "ok",
+    "changed_php":  [
+                        "application/core/Survey_Common_Action.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "application/core/Survey_Common_Action.php class extends CAction"
+                 ],
+    "changed_all":  [
+                        "application/core/Survey_Common_Action.php"
+                    ],
+    "sink_hit":  true
+}

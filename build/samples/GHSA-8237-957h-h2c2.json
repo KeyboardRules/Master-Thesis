@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-8237-957h-h2c2",
+    "cve":  "CVE-2024-52306",
+    "cwe":  "CWE-502",
+    "repo":  "Laravel-Backpack/FileManager",
+    "sha":  "2830498b85e05fb3c92179053b4d7c4a0fdb880b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/BackpackElfinderController.php",
+                        "src/FileManagerServiceProvider.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/FileManagerServiceProvider.php class extends ServiceProvider"
+                 ],
+    "changed_all":  [
+                        "src/BackpackElfinderController.php",
+                        "src/FileManagerServiceProvider.php"
+                    ],
+    "sink_hit":  false
+}

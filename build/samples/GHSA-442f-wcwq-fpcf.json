@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-442f-wcwq-fpcf",
+    "cve":  "CVE-2022-41922",
+    "cwe":  "CWE-502",
+    "repo":  "yiisoft/yii",
+    "sha":  "ed67b7cc57216557c5c595c6650cdd2d3aa41c52",
+    "status":  "ok",
+    "changed_php":  [
+                        "framework/db/schema/CDbCriteria.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "framework/db/schema/CDbCriteria.php class extends CComponent"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG",
+                        "framework/db/schema/CDbCriteria.php"
+                    ],
+    "sink_hit":  true
+}

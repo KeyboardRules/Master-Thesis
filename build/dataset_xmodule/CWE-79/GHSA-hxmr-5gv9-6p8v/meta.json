@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-hxmr-5gv9-6p8v",
+    "cve":  "CVE-2022-0575",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "4f86915866703e2fcd1e34b3fc1181ec2ad78e54",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "includes/html/pages/addhost.inc.php"
+                    ],
+    "evidence":  [
+                     "includes/html/pages/addhost.inc.php includes 1 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

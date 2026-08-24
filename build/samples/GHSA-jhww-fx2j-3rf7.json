@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-jhww-fx2j-3rf7",
+    "cve":  "CVE-2023-46725",
+    "cwe":  "CWE-918",
+    "repo":  "foodcoopshop/foodcoopshop",
+    "sha":  "0d5bec5c4c22e1affe7fd321a30e3f3a4d99e808",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugins/Admin/tests/TestCase/src/Model/Table/ProductsTableTest.php",
+                        "src/Lib/RemoteFile/RemoteFile.php",
+                        "src/Model/Table/ProductsTable.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "plugins/Admin/tests/TestCase/src/Model/Table/ProductsTableTest.php class extends AppCakeTestCase",
+                     "plugins/Admin/tests/TestCase/src/Model/Table/ProductsTableTest.php class uses trait",
+                     "src/Model/Table/ProductsTable.php class extends AppTable",
+                     "src/Model/Table/ProductsTable.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "VERSION.txt",
+                        "plugins/Admin/tests/TestCase/src/Model/Table/ProductsTableTest.php",
+                        "src/Lib/RemoteFile/RemoteFile.php",
+                        "src/Model/Table/ProductsTable.php"
+                    ],
+    "sink_hit":  true
+}

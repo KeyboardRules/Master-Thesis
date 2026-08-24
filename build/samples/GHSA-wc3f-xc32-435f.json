@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-wc3f-xc32-435f",
+    "cve":  "CVE-2026-55173",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "sha":  "c1cfa2bea8a351a1d07f5758f82887403e3abf1f",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/API/standAlone/functions.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "plugin/API/standAlone/functions.php"
+                    ],
+    "sink_hit":  true
+}

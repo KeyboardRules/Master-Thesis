@@ -1,0 +1,69 @@
+﻿diff --git a/src/fields/Matrix.php b/src/fields/Matrix.php
+index b554c2c..f98caa7 100644
+--- a/src/fields/Matrix.php
++++ b/src/fields/Matrix.php
+@@ -399,8 +399,8 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
+         $placeholderKey = StringHelper::randomString(10);
+         $view->registerJs(
+             'new Craft.MatrixConfigurator(' .
+-            Json::encode($fieldTypeInfo, JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($view->getNamespace(), JSON_UNESCAPED_UNICODE) . ', ' .
++            Json::encode($fieldTypeInfo) . ', ' .
++            Json::encode($view->getNamespace()) . ', ' .
+             Json::encode($view->namespaceInputName("blockTypes[__BLOCK_TYPE_{$placeholderKey}__][fields][__FIELD_{$placeholderKey}__][typesettings]")) . ', ' .
+             Json::encode($placeholderKey) .
+             ');'
+@@ -721,7 +721,7 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
+ 
+         $js = 'var matrixInput = new Craft.MatrixInput(' .
+             '"' . $view->namespaceInputId($id) . '", ' .
+-            Json::encode($blockTypeInfo, JSON_UNESCAPED_UNICODE) . ', ' .
++            Json::encode($blockTypeInfo) . ', ' .
+             '"' . $view->namespaceInputName($this->handle) . '", ' .
+             Json::encode($settings) .
+             ');';
+diff --git a/src/fields/Table.php b/src/fields/Table.php
+index f783d45..bf30775 100644
+--- a/src/fields/Table.php
++++ b/src/fields/Table.php
+@@ -310,13 +310,13 @@ class Table extends Field
+         $view->registerAssetBundle(TimepickerAsset::class);
+         $view->registerAssetBundle(TableSettingsAsset::class);
+         $view->registerJs('new Craft.TableFieldSettings(' .
+-            Json::encode($view->namespaceInputName('columns'), JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($view->namespaceInputName('defaults'), JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($this->columns, JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($this->defaults ?? [], JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($columnSettings, JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($dropdownSettingsHtml, JSON_UNESCAPED_UNICODE) . ', ' .
+-            Json::encode($dropdownSettingsCols, JSON_UNESCAPED_UNICODE) .
++            Json::encode($view->namespaceInputName('columns')) . ', ' .
++            Json::encode($view->namespaceInputName('defaults')) . ', ' .
++            Json::encode($this->columns) . ', ' .
++            Json::encode($this->defaults ?? []) . ', ' .
++            Json::encode($columnSettings) . ', ' .
++            Json::encode($dropdownSettingsHtml) . ', ' .
++            Json::encode($dropdownSettingsCols) .
+             ');');
+ 
+         $columnsField = $view->renderTemplate('_components/fieldtypes/Table/columntable.twig', [
+diff --git a/src/helpers/Json.php b/src/helpers/Json.php
+index 37b259d..a62dff7 100644
+--- a/src/helpers/Json.php
++++ b/src/helpers/Json.php
+@@ -30,6 +30,15 @@ class Json extends \yii\helpers\Json
+         return (bool)preg_match('/^(?:\{.*\}|\[.*\])$/s', $str);
+     }
+ 
++    /**
++     * @inheritdoc
++     * @param int $options The encoding options. `JSON_UNESCAPED_UNICODE` is used by default.
++     */
++    public static function encode($value, $options = JSON_UNESCAPED_UNICODE)
++    {
++        return parent::encode($value, $options);
++    }
++
+     /**
+      * Decodes the given JSON string into a PHP data structure, only if the string is valid JSON.
+      *

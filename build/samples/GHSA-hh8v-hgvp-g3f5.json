@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-hh8v-hgvp-g3f5",
+    "cve":  "CVE-2026-33347",
+    "cwe":  "CWE-79",
+    "repo":  "thephpleague/commonmark",
+    "sha":  "59fb075d2101740c337c7216e3f32b36c204218b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Extension/Embed/DomainFilteringAdapter.php",
+                        "tests/unit/Extension/Embed/DomainFilteringAdapterTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/unit/Extension/Embed/DomainFilteringAdapterTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/Extension/Embed/DomainFilteringAdapter.php",
+                        "tests/unit/Extension/Embed/DomainFilteringAdapterTest.php"
+                    ],
+    "sink_hit":  false
+}

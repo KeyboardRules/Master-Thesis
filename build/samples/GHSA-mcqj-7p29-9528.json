@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-mcqj-7p29-9528",
+    "cve":  "CVE-2024-23830",
+    "cwe":  "CWE-74",
+    "repo":  "mantisbt/mantisbt",
+    "sha":  "7055731d09ff12b2781410a372f790172e279744",
+    "status":  "ok",
+    "changed_php":  [
+                        "admin/check/check_paths_inc.php",
+                        "admin/install.php",
+                        "config_defaults_inc.php",
+                        "core.php",
+                        "login_page.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "admin/check/check_paths_inc.php includes 1 project file(s)",
+                     "admin/install.php includes 2 project file(s)",
+                     "core.php includes 7 project file(s)",
+                     "login_page.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "admin/check/check_paths_inc.php",
+                        "admin/install.php",
+                        "config_defaults_inc.php",
+                        "core.php",
+                        "docbook/Admin_Guide/en-US/config/path.xml",
+                        "js/install.js",
+                        "lang/strings_english.txt",
+                        "login_page.php"
+                    ],
+    "sink_hit":  false
+}

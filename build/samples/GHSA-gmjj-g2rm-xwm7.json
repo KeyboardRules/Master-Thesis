@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-gmjj-g2rm-xwm7",
+    "cve":  "CVE-2023-1884",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "7f0f921de74c88038826c46bbd2a123518d9d611",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/stopwords.php",
+                        "phpmyfaq/src/phpMyFAQ/Stopwords.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/stopwords.php",
+                        "phpmyfaq/src/phpMyFAQ/Stopwords.php"
+                    ],
+    "sink_hit":  true
+}

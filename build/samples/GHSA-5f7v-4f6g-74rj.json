@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-5f7v-4f6g-74rj",
+    "cve":  "CVE-2026-33351",
+    "cwe":  "CWE-918",
+    "repo":  "WWBN/AVideo",
+    "sha":  "d0c54960389eeb85e76caed5a257ae90e6a739f2",
+    "status":  "ok",
+    "changed_php":  [
+                        "plugin/Live/standAloneFiles/saveDVR.json.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "plugin/Live/standAloneFiles/saveDVR.json.php"
+                    ],
+    "sink_hit":  true
+}

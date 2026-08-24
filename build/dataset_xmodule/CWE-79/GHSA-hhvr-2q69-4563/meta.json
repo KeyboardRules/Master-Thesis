@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-hhvr-2q69-4563",
+    "cve":  "CVE-2021-3841",
+    "cwe":  "CWE-79",
+    "repo":  "sylius/sylius",
+    "fix_commit":  "3da169e0c23e752974d74223cc536c29a2a82edc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Sylius/Behat/Context/Ui/Admin/DashboardContext.php",
+                        "src/Sylius/Behat/Context/Ui/Admin/LoginContext.php",
+                        "src/Sylius/Behat/Context/Ui/Shop/AccountContext.php",
+                        "src/Sylius/Bundle/ShopBundle/SectionResolver/ShopUriBasedSectionResolver.php",
+                        "src/Sylius/Component/Core/Uploader/ImageUploader.php"
+                    ],
+    "evidence":  [
+                     "fix touches 19 php files",
+                     "src/Sylius/Bundle/ShopBundle/spec/SectionResolver/ShopUriBasedSectionResolverSpec.php class extends ObjectBehavior"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

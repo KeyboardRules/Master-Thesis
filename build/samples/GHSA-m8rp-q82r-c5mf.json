@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m8rp-q82r-c5mf",
+    "cve":  "CVE-2022-0278",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "b64ef574b82dbf89a908e1569d790c7012d1ccd7",
+    "status":  "ok",
+    "changed_php":  [
+                        "userfiles/modules/admin/notifications/notif_form_entry.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "userfiles/modules/admin/notifications/notif_form_entry.php"
+                    ],
+    "sink_hit":  true
+}

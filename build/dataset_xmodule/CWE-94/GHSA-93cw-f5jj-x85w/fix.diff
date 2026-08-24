@@ -1,0 +1,148 @@
+﻿diff --git a/src/Core/Content/Seo/SeoUrlTwigFactory.php b/src/Core/Content/Seo/SeoUrlTwigFactory.php
+index b08fd3fe0..9d2976ef4 100644
+--- a/src/Core/Content/Seo/SeoUrlTwigFactory.php
++++ b/src/Core/Content/Seo/SeoUrlTwigFactory.php
+@@ -5,13 +5,18 @@ namespace Shopware\Core\Content\Seo;
+ use Cocur\Slugify\Bridge\Twig\SlugifyExtension;
+ use Cocur\Slugify\SlugifyInterface;
+ use Shopware\Core\Framework\Adapter\Twig\Extension\PhpSyntaxExtension;
++use Shopware\Core\Framework\Adapter\Twig\SecurityExtension;
+ use Shopware\Core\Framework\Adapter\Twig\TwigEnvironment;
+ use Twig\Environment;
+ use Twig\Extension\EscaperExtension;
++use Twig\Extension\ExtensionInterface;
+ use Twig\Loader\ArrayLoader;
+ 
+ class SeoUrlTwigFactory
+ {
++    /**
++     * @param ExtensionInterface[] $twigExtensions
++     */
+     public function createTwigEnvironment(SlugifyInterface $slugify, iterable $twigExtensions = []): Environment
+     {
+         $twig = new TwigEnvironment(new ArrayLoader());
+@@ -19,6 +24,7 @@ class SeoUrlTwigFactory
+         $twig->enableStrictVariables();
+         $twig->addExtension(new SlugifyExtension($slugify));
+         $twig->addExtension(new PhpSyntaxExtension());
++        $twig->addExtension(new SecurityExtension([]));
+ 
+         /** @var EscaperExtension $coreExtension */
+         $coreExtension = $twig->getExtension(EscaperExtension::class);
+diff --git a/src/Core/Framework/DependencyInjection/Configuration.php b/src/Core/Framework/DependencyInjection/Configuration.php
+index 1d591ac9a..25076d5b6 100644
+--- a/src/Core/Framework/DependencyInjection/Configuration.php
++++ b/src/Core/Framework/DependencyInjection/Configuration.php
+@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
+                 ->append($this->createCacheSection())
+                 ->append($this->createHtmlSanitizerSection())
+                 ->append($this->createIncrementSection())
++                ->append($this->createTwigSection())
+             ->end();
+ 
+         return $treeBuilder;
+@@ -597,4 +598,20 @@ class Configuration implements ConfigurationInterface
+ 
+         return $rootNode;
+     }
++
++    private function createTwigSection(): ArrayNodeDefinition
++    {
++        $treeBuilder = new TreeBuilder('twig');
++
++        $rootNode = $treeBuilder->getRootNode();
++        $rootNode
++            ->children()
++                ->arrayNode('allowed_php_functions')
++                    ->performNoDeepMerging()
++                    ->scalarPrototype()
++                ->end()
++            ->end();
++
++        return $rootNode;
++    }
+ }
+diff --git a/src/Core/Framework/Rule/ScriptRule.php b/src/Core/Framework/Rule/ScriptRule.php
+index b5078ea82..68736267b 100644
+--- a/src/Core/Framework/Rule/ScriptRule.php
++++ b/src/Core/Framework/Rule/ScriptRule.php
+@@ -4,6 +4,7 @@ namespace Shopware\Core\Framework\Rule;
+ 
+ use Shopware\Core\Framework\Adapter\Twig\Extension\ComparisonExtension;
+ use Shopware\Core\Framework\Adapter\Twig\Extension\PhpSyntaxExtension;
++use Shopware\Core\Framework\Adapter\Twig\SecurityExtension;
+ use Shopware\Core\Framework\Adapter\Twig\TwigEnvironment;
+ use Shopware\Core\Framework\App\Event\Hooks\AppScriptConditionHook;
+ use Shopware\Core\Framework\Script\Debugging\Debug;
+@@ -24,8 +25,14 @@ class ScriptRule extends Rule
+ {
+     protected string $script = '';
+ 
++    /**
++     * @var array<mixed>
++     */
+     protected array $constraints = [];
+ 
++    /**
++     * @var array<mixed>
++     */
+     protected array $values = [];
+ 
+     protected ?\DateTimeInterface $lastModified = null;
+@@ -79,6 +86,8 @@ class ScriptRule extends Rule
+             $twig->addExtension(new DebugExtension());
+         }
+ 
++        $twig->addExtension(new SecurityExtension([]));
++
+         $hook = new AppScriptConditionHook($scope->getContext());
+ 
+         try {
+@@ -88,11 +97,17 @@ class ScriptRule extends Rule
+         }
+     }
+ 
++    /**
++     * @return array<mixed>
++     */
+     public function getConstraints(): array
+     {
+         return $this->constraints;
+     }
+ 
++    /**
++     * @param array<mixed> $constraints
++     */
+     public function setConstraints(array $constraints): void
+     {
+         $this->constraints = $constraints;
+@@ -103,6 +118,9 @@ class ScriptRule extends Rule
+         return 'scriptRule';
+     }
+ 
++    /**
++     * @param array<mixed> $context
++     */
+     private function render(TwigEnvironment $twig, Script $script, Hook $hook, string $name, array $context): bool
+     {
+         if (!$this->traces) {
+diff --git a/src/Core/Framework/Script/Execution/ScriptExecutor.php b/src/Core/Framework/Script/Execution/ScriptExecutor.php
+index 2c358bed7..6ad4c0f8f 100644
+--- a/src/Core/Framework/Script/Execution/ScriptExecutor.php
++++ b/src/Core/Framework/Script/Execution/ScriptExecutor.php
+@@ -5,6 +5,7 @@ namespace Shopware\Core\Framework\Script\Execution;
+ use Psr\Log\LoggerInterface;
+ use Shopware\Core\DevOps\Environment\EnvironmentHelper;
+ use Shopware\Core\Framework\Adapter\Twig\Extension\PhpSyntaxExtension;
++use Shopware\Core\Framework\Adapter\Twig\SecurityExtension;
+ use Shopware\Core\Framework\Adapter\Twig\TwigEnvironment;
+ use Shopware\Core\Framework\App\Event\Hooks\AppLifecycleHook;
+ use Shopware\Core\Framework\Script\Debugging\Debug;
+@@ -161,6 +162,7 @@ class ScriptExecutor
+ 
+         $twig->addExtension(new PhpSyntaxExtension());
+         $twig->addExtension($this->translationExtension);
++        $twig->addExtension(new SecurityExtension([]));
+ 
+         if ($script->getTwigOptions()['debug'] ?? false) {
+             $twig->addExtension(new DebugExtension());

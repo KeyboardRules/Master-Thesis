@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-mwqv-jff6-5v62",
+    "cve":  "CVE-2010-3715",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "sha":  "38ec239a35d50746a2f95eef004227acd1932b81",
+    "status":  "ok",
+    "changed_php":  [
+                        "typo3/contrib/RemoveXSS/RemoveXSS.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "ChangeLog",
+                        "typo3/contrib/RemoveXSS/RemoveXSS.php"
+                    ],
+    "sink_hit":  false
+}

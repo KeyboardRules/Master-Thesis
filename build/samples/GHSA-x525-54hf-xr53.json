@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-x525-54hf-xr53",
+    "cve":  "CVE-2024-34070",
+    "cwe":  "CWE-79",
+    "repo":  "froxlor/Froxlor",
+    "sha":  "a862307bce5cdfb1c208b835f3e8faddd23046e6",
+    "status":  "ok",
+    "changed_php":  [
+                        "index.php",
+                        "lib/Froxlor/Api/Commands/SysLog.php",
+                        "lib/Froxlor/FroxlorLogger.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "index.php includes 1 project file(s)",
+                     "lib/Froxlor/Api/Commands/SysLog.php class extends ApiCommand",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "index.php",
+                        "lib/Froxlor/Api/Commands/SysLog.php",
+                        "lib/Froxlor/FroxlorLogger.php"
+                    ],
+    "sink_hit":  true
+}

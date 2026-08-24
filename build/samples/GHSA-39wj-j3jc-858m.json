@@ -1,0 +1,39 @@
+﻿{
+    "id":  "GHSA-39wj-j3jc-858m",
+    "cve":  "CVE-2020-35124",
+    "cwe":  "CWE-79",
+    "repo":  "mautic/mautic",
+    "sha":  "20c5dc39b62164f6922ce53ea42cbb4ccec64e57",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/bundles/ApiBundle/Form/Type/ClientType.php",
+                        "app/bundles/CategoryBundle/Form/Type/CategoryType.php",
+                        "app/bundles/LeadBundle/Form/Type/CompanyType.php",
+                        "app/bundles/UserBundle/Form/Type/PasswordResetConfirmType.php",
+                        "app/bundles/UserBundle/Form/Type/PasswordResetType.php",
+                        "app/bundles/UserBundle/Form/Type/UserType.php",
+                        "plugins/MauticSocialBundle/Form/Type/MonitoringType.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/bundles/ApiBundle/Form/Type/ClientType.php class extends AbstractType",
+                     "app/bundles/CategoryBundle/Form/Type/CategoryType.php class extends AbstractType",
+                     "app/bundles/LeadBundle/Form/Type/CompanyType.php class extends AbstractType",
+                     "app/bundles/LeadBundle/Form/Type/CompanyType.php class uses trait",
+                     "app/bundles/UserBundle/Form/Type/PasswordResetConfirmType.php class extends AbstractType",
+                     "app/bundles/UserBundle/Form/Type/PasswordResetType.php class extends AbstractType",
+                     "app/bundles/UserBundle/Form/Type/UserType.php class extends AbstractType",
+                     "plugins/MauticSocialBundle/Form/Type/MonitoringType.php class extends AbstractType"
+                 ],
+    "changed_all":  [
+                        "app/bundles/ApiBundle/Form/Type/ClientType.php",
+                        "app/bundles/CategoryBundle/Form/Type/CategoryType.php",
+                        "app/bundles/LeadBundle/Form/Type/CompanyType.php",
+                        "app/bundles/UserBundle/Form/Type/PasswordResetConfirmType.php",
+                        "app/bundles/UserBundle/Form/Type/PasswordResetType.php",
+                        "app/bundles/UserBundle/Form/Type/UserType.php",
+                        "plugins/MauticSocialBundle/Form/Type/MonitoringType.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-vc4f-2g7f-pmqr",
+    "cve":  "CVE-2020-15885",
+    "cwe":  "CWE-79",
+    "repo":  "munkireport/comment",
+    "fix_commit":  "ee4c1cd28fdcb42eb24c0cfea24ddf02478f9869",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "comment_controller.php"
+                    ],
+    "evidence":  [
+                     "comment_controller.php class extends Module_controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

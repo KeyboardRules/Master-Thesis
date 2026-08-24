@@ -1,0 +1,568 @@
+﻿diff --git a/app/Plugins/Manage/PageManage/PageManage.php b/app/Plugins/Manage/PageManage/PageManage.php
+index 0663713..a35c1fd 100644
+--- a/app/Plugins/Manage/PageManage/PageManage.php
++++ b/app/Plugins/Manage/PageManage/PageManage.php
+@@ -1050,14 +1050,27 @@ class PageManage extends ManagePluginBase
+                     }
+                 },
+             ],
++            'use_proxy'           => 'sometimes|accepted',
+             'destination_page_id' => 'required',
+         ]);
+         $validator->setAttributeNames([
+             'source_system'       => '移行元システム',
+             'url'                 => '移行元URL',
++            'use_proxy'           => 'プロキシ使用',
+             'destination_page_id' => '移行先ページ',
+         ]);
+ 
++        $use_proxy = $request->boolean('use_proxy');
++        if ($use_proxy) {
++            $proxy_tunnel_enabled = (bool) config('connect.HTTPPROXYTUNNEL');
++            $proxy_host = trim((string) config('connect.PROXY'));
++            if (!$proxy_tunnel_enabled || $proxy_host === '') {
++                $validator->after(function ($validator) {
++                    $validator->errors()->add('use_proxy', 'プロキシを使用する場合は、プロキシ設定（HTTPPROXYTUNNEL / PROXY）を設定してください。');
++                });
++            }
++        }
++
+         // エラーがあった場合は入力画面に戻る。
+         if ($validator->fails()) {
+             return redirect('manage/page/migrationOrder/' . $page_id)
+@@ -1083,14 +1096,15 @@ class PageManage extends ManagePluginBase
+         }
+ 
+         // 移行元システムによって処理を分岐
++        $migration_http_options = ['use_proxy' => $use_proxy];
+         if ($request->source_system == WebsiteType::netcommons2) {
+             // TODO: netcommons2 からの移行
+         } elseif ($request->source_system == WebsiteType::netcommons3) {
+             // netcommons3 からの移行
+-            $this->migrationNC3Page($request->url, $request->destination_page_id);
++            $this->migrationNC3Page($request->url, $request->destination_page_id, $migration_http_options);
+         } elseif ($request->source_system == WebsiteType::html) {
+             // html からの移行
+-            $this->migrationHtmlPage($request->url, $request->destination_page_id);
++            $this->migrationHtmlPage($request->url, $request->destination_page_id, $migration_http_options);
+         }
+ 
+         // リクエストを送信した時間をファイルに書き込む
+diff --git a/app/Traits/Migration/MigrationExportHtmlPageTrait.php b/app/Traits/Migration/MigrationExportHtmlPageTrait.php
+index 994db37..013da4a 100644
+--- a/app/Traits/Migration/MigrationExportHtmlPageTrait.php
++++ b/app/Traits/Migration/MigrationExportHtmlPageTrait.php
+@@ -3,12 +3,12 @@
+ namespace App\Traits\Migration;
+ 
+ use GuzzleHttp\Client;
+-use GuzzleHttp\Exception\GuzzleException;
+ use GuzzleHttp\Psr7\Uri;
+ use GuzzleHttp\Psr7\UriResolver;
+ use Illuminate\Support\Facades\Storage;
+ use Illuminate\Support\Facades\Log;
+ 
++use App\Utilities\Migration\MigrationHttpClientUtils;
+ use App\Utilities\Migration\MigrationUtils;
+ use App\Utilities\Url\UrlUtils;
+ 
+@@ -36,7 +36,7 @@ trait MigrationExportHtmlPageTrait
+      * @param integer $page_id
+      * @return void
+      */
+-    private function migrationHtmlPage(string $url, int $page_id) : void
++    private function migrationHtmlPage(string $url, int $page_id, array $http_options = []) : void
+     {
+         if (!UrlUtils::isGlobalHttpUrl($url)) {
+             Log::warning('[migrationHtmlPage] Rejected non-global URL: ' . $url);
+@@ -53,7 +53,7 @@ trait MigrationExportHtmlPageTrait
+         Storage::makeDirectory('migration/import/pages/' . $page_id);
+ 
+         // 指定されたページのHTML を取得（リダイレクト先URLも都度検証する）
+-        $result_array = $this->executeMigrationHtmlRequest($url);
++        $result_array = $this->executeMigrationHtmlRequest($url, $http_options);
+         if ($result_array === null) {
+             return;
+         }
+@@ -68,8 +68,9 @@ trait MigrationExportHtmlPageTrait
+         // HTMLドキュメントの解析準備
+         $dom = new \DOMDocument;
+ 
+-        // DOMDocument が返ってくる。
+-        @$dom->loadHTML($html);
++        // 外部ページには非標準タグ/壊れたEntityが含まれることがあるため、
++        // libxml警告は内部エラーとして扱い、取り込み処理は継続する。
++        $this->loadHtmlDocument($dom, $html);
+         $xpath = new \DOMXPath($dom);
+ 
+         // bodyタグ配下を抽出する
+@@ -117,6 +118,8 @@ trait MigrationExportHtmlPageTrait
+ 
+         // 画像ファイルのダウンロード
+         if ($image_paths) {
++            $http_client = $this->migrationHttpCreateClient($http_options);
++
+             // HTML 中の画像ファイルをループで処理
+             $frame_ini .= "\n[image_names]\n";
+             $image_index = 0;
+@@ -143,30 +146,21 @@ trait MigrationExportHtmlPageTrait
+                 $save_path = 'migration/import/pages/' . $page_id . "/" . $file_name;
+                 $save_storage_path = storage_path() . '/app/' . $save_path;
+ 
+-                // CURL 設定、ファイル取得
+-                $ch = curl_init($download_img_path);
+-                $fp = fopen($save_storage_path, 'w');
+-                curl_setopt($ch, CURLOPT_FILE, $fp);
+-                curl_setopt($ch, CURLOPT_HEADER, false);
+-                curl_setopt($ch, CURLOPT_HEADERFUNCTION, array(&$this,'callbackHtmlHeader'));
+-                $result = curl_exec($ch);
+-
+-                // エラーがあった場合はスキップ
+-                if (!empty(curl_errno($ch))) {
+-                    Log::debug('curl_errno: ' . curl_errno($ch));
++                try {
++                    $download_response = $this->migrationHttpDownloadToFile($http_client, $download_img_path, $save_storage_path, $http_options);
++                } catch (\RuntimeException $e) {
++                    Storage::delete($save_path);
+                     continue;
+                 }
++
+                 // ステータス404はスキップ
+-                Log::debug('curl_getinfo: ' . curl_getinfo($ch, CURLINFO_HTTP_CODE));
+-                if (trim(curl_getinfo($ch, CURLINFO_HTTP_CODE)) == '404') {
++                Log::debug('http_code: ' . $download_response['http_code']);
++                if ((int) $download_response['http_code'] === 404) {
+                     Log::debug('File deleted.');
+                     Storage::delete($save_path);
+                     continue;
+                 }
+ 
+-                curl_close($ch);
+-                fclose($fp);
+-
+                 //@getimagesize関数で画像情報を取得する
+                 list($img_width, $img_height, $mime_type, $attr) = @getimagesize($save_storage_path);
+ 
+@@ -222,14 +216,14 @@ trait MigrationExportHtmlPageTrait
+      * @param string $url
+      * @return array|null ['body' => string, 'effective_url' => string]
+      */
+-    private function executeMigrationHtmlRequest(string $url): ?array
++    private function executeMigrationHtmlRequest(string $url, array $http_options = []): ?array
+     {
+         $current_url = $url;
+         $max_redirects = 5;
+-        $http_client = $this->createMigrationHttpClient();
++        $http_client = $this->migrationHttpCreateClient($http_options);
+ 
+         for ($redirect_count = 0; $redirect_count <= $max_redirects; $redirect_count++) {
+-            $response = $this->executeSingleMigrationRequest($http_client, $current_url);
++            $response = $this->executeSingleMigrationRequest($http_client, $current_url, $http_options);
+ 
+             if (!$this->isRedirectHttpCode($response['http_code'])) {
+                 return [
+@@ -267,125 +261,60 @@ trait MigrationExportHtmlPageTrait
+      * @param string $url
+      * @return array ['body' => string, 'http_code' => int, 'location' => string]
+      */
+-    private function executeSingleMigrationRequest(Client $http_client, string $url): array
++    private function executeSingleMigrationRequest(Client $http_client, string $url, array $http_options = []): array
+     {
+         if (!UrlUtils::isGlobalHttpUrl($url)) {
+             Log::warning('[migrationHtmlPage] Rejected non-global URL: ' . $url);
+             throw new \RuntimeException('[migrationHtmlPage] Rejected non-global URL: ' . $url);
+         }
+ 
+-        try {
+-            $response = $http_client->request('GET', $url);
+-        } catch (GuzzleException $e) {
+-            $error_message = "HTTP [GET] {$url} : failed. " . $e->getMessage();
+-            Log::error($error_message);
+-            throw new \RuntimeException($error_message, 0, $e);
+-        }
+-
+-        $body = (string) $response->getBody();
+-        $http_code = (int) $response->getStatusCode();
+-        $location = trim($response->getHeaderLine('Location'));
+-
+-        return [
+-            'body' => $body,
+-            'http_code' => $http_code,
+-            'location' => $location,
+-        ];
++        return $this->migrationHttpGet($http_client, $url, $http_options);
+     }
+ 
+     /**
+-     * HTTPステータスコードがリダイレクトかどうかを判定する
++     * 移行処理用HTTPクライアントを生成する
+      *
+-     * @param int $http_code
+-     * @return bool
++     * @return Client
+      */
+-    private function isRedirectHttpCode(int $http_code): bool
++    protected function migrationHttpCreateClient(array $http_options = []): Client
+     {
+-        return in_array($http_code, [301, 302, 303, 307, 308], true);
++        return MigrationHttpClientUtils::createClient($http_options);
+     }
+ 
+     /**
+-     * マイグレーションHTML取得用のHTTPクライアントを生成する
++     * 移行処理用HTTP GET（文字列レスポンス）
+      *
+-     * @return Client
++     * @param Client $http_client
++     * @param string $url
++     * @return array
+      */
+-    private function createMigrationHttpClient(): Client
++    protected function migrationHttpGet(Client $http_client, string $url, array $http_options = []): array
+     {
+-        $http_client_options = [
+-            'http_errors' => false,
+-            'allow_redirects' => false,
+-        ];
+-
+-        $timeout = config('connect.CURL_TIMEOUT');
+-        if (!empty($timeout)) {
+-            $http_client_options['timeout'] = (float) $timeout;
+-        }
+-
+-        if (config('connect.HTTPPROXYTUNNEL')) {
+-            $proxy = $this->buildMigrationProxyOption();
+-            if ($proxy !== null) {
+-                $http_client_options['proxy'] = $proxy;
+-            }
+-        }
+-
+-        return new Client($http_client_options);
++        return MigrationHttpClientUtils::get($http_client, $url, $http_options);
+     }
+ 
+     /**
+-     * connect設定からGuzzle用のプロキシURLを生成する
++     * 移行処理用HTTP GET（ファイル保存）
+      *
+-     * @return string|null
++     * @param Client $http_client
++     * @param string $url
++     * @param string $sink_path
++     * @return array
+      */
+-    private function buildMigrationProxyOption(): ?string
++    protected function migrationHttpDownloadToFile(Client $http_client, string $url, string $sink_path, array $http_options = []): array
+     {
+-        $proxy = trim((string) config('connect.PROXY'));
+-        if ($proxy === '') {
+-            return null;
+-        }
+-
+-        if (strpos($proxy, '://') === false) {
+-            $proxy = 'http://' . $proxy;
+-        }
+-
+-        $proxy_parts = parse_url($proxy);
+-        if ($proxy_parts === false || !isset($proxy_parts['host'])) {
+-            return null;
+-        }
+-
+-        $scheme = $proxy_parts['scheme'] ?? 'http';
+-        $host = $proxy_parts['host'];
+-        if (strpos($host, ':') !== false && strpos($host, '[') !== 0) {
+-            $host = '[' . $host . ']';
+-        }
+-
+-        $port = $proxy_parts['port'] ?? null;
+-        $config_proxy_port = trim((string) config('connect.PROXYPORT'));
+-        if ($config_proxy_port !== '') {
+-            $port = $config_proxy_port;
+-        }
+-
+-        $user = $proxy_parts['user'] ?? null;
+-        $pass = $proxy_parts['pass'] ?? null;
+-        $proxy_user_pwd = trim((string) config('connect.PROXYUSERPWD'));
+-        if ($proxy_user_pwd !== '') {
+-            list($user, $pass) = array_pad(explode(':', $proxy_user_pwd, 2), 2, '');
+-        }
+-
+-        $auth = '';
+-        if (!empty($user)) {
+-            $auth = rawurlencode($user);
+-            if (!empty($pass)) {
+-                $auth .= ':' . rawurlencode($pass);
+-            }
+-            $auth .= '@';
+-        }
+-
+-        $proxy_url = $scheme . '://' . $auth . $host;
+-        if (!empty($port)) {
+-            $proxy_url .= ':' . $port;
+-        }
++        return MigrationHttpClientUtils::downloadToFile($http_client, $url, $sink_path, $http_options);
++    }
+ 
+-        return $proxy_url;
++    /**
++     * HTTPステータスコードがリダイレクトかどうかを判定する
++     *
++     * @param int $http_code
++     * @return bool
++     */
++    private function isRedirectHttpCode(int $http_code): bool
++    {
++        return in_array($http_code, [301, 302, 303, 307, 308], true);
+     }
+ 
+     /**
+@@ -421,6 +350,26 @@ trait MigrationExportHtmlPageTrait
+         return $node->ownerDocument->saveHTML($node);
+     }
+ 
++    /**
++     * HTMLをDOMへ読み込む（libxml警告は内部で処理）
++     *
++     * @param \DOMDocument $dom
++     * @param string $html
++     * @return void
++     */
++    private function loadHtmlDocument(\DOMDocument $dom, string $html): void
++    {
++        $previous_internal_errors = libxml_use_internal_errors(true);
++        libxml_clear_errors();
++
++        try {
++            $dom->loadHTML($html);
++        } finally {
++            libxml_clear_errors();
++            libxml_use_internal_errors($previous_internal_errors);
++        }
++    }
++
+     /**
+      * CURL のhttp ヘッダー処理コールバック関数
+      */
+diff --git a/app/Traits/Migration/MigrationExportNc3PageTrait.php b/app/Traits/Migration/MigrationExportNc3PageTrait.php
+index 6a9cc3e..fb24320 100644
+--- a/app/Traits/Migration/MigrationExportNc3PageTrait.php
++++ b/app/Traits/Migration/MigrationExportNc3PageTrait.php
+@@ -5,6 +5,7 @@ namespace App\Traits\Migration;
+ use Illuminate\Support\Facades\Log;
+ use Illuminate\Support\Facades\Storage;
+ 
++use App\Utilities\Migration\MigrationHttpClientUtils;
+ use App\Utilities\Migration\MigrationUtils;
+ use App\Utilities\Url\UrlUtils;
+ 
+@@ -29,7 +30,7 @@ trait MigrationExportNc3PageTrait
+     /**
+      * ページのHTML取得
+      */
+-    private function migrationNC3Page($url, $page_id)
++    private function migrationNC3Page($url, $page_id, array $http_options = [])
+     {
+         if (!UrlUtils::isGlobalHttpUrl((string) $url)) {
+             Log::warning('[migrationNC3Page] Rejected non-global URL: ' . $url);
+@@ -55,19 +56,28 @@ trait MigrationExportNc3PageTrait
+         // 画像ファイルや添付ファイルを取得する場合のテンポラリ・ディレクトリ
+         Storage::makeDirectory('migration/import/pages/' . $page_id);
+ 
++        $http_client = $this->migrationHttpCreateClientForNc3($http_options);
++
+         // 指定されたページのHTML を取得
+         // $html = $this->getHTMLPage($url);
+-        $ch = curl_init();
+-        curl_setopt($ch, CURLOPT_URL, $url);
+-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+-        $html =  curl_exec($ch);
+-        curl_close($ch);
++        try {
++            $page_response = $this->migrationHttpGetForNc3($http_client, (string) $url, $http_options);
++        } catch (\RuntimeException $e) {
++            Log::error('[migrationNC3Page] Failed to fetch page HTML.', [
++                'page_id' => $page_id,
++                'url' => (string) $url,
++                'exception' => $e,
++            ]);
++            return;
++        }
++        $html = $page_response['body'];
+ 
+         // HTMLドキュメントの解析準備
+         $dom = new \DOMDocument;
+ 
+-        // DOMDocument が返ってくる。
+-        @$dom->loadHTML($html);
++        // 外部HTMLには非標準タグ/壊れたEntityが含まれることがあるため、
++        // libxml警告は内部エラーとして扱い、取り込み処理は継続する。
++        $this->loadNc3HtmlDocument($dom, $html);
+         $xpath = new \DOMXPath($dom);
+ 
+         // NC3 のメイン部分を抜き出します。
+@@ -151,18 +161,18 @@ trait MigrationExportNc3PageTrait
+                     $savePath = 'migration/import/pages/' . $page_id . "/" . $file_name;
+                     $saveStragePath = storage_path() . '/app/' . $savePath;
+ 
+-                    // CURL 設定、ファイル取得
+-                    $ch = curl_init($downloadPath);
+-                    $fp = fopen($saveStragePath, 'w');
+-                    curl_setopt($ch, CURLOPT_FILE, $fp);
+-                    curl_setopt($ch, CURLOPT_HEADER, false);
+-                    curl_setopt($ch, CURLOPT_HEADERFUNCTION, array(&$this,'callbackNc3Header'));
+-                    $result = curl_exec($ch);
+-                    if (!empty(curl_errno($ch))) {
++                    try {
++                        $download_response = $this->migrationHttpDownloadToFileForNc3($http_client, (string) $downloadPath, $saveStragePath, $http_options);
++                    } catch (\RuntimeException $e) {
++                        Log::error('[migrationNC3Page] Failed to download image.', [
++                            'page_id' => $page_id,
++                            'url' => (string) $downloadPath,
++                            'exception' => $e,
++                        ]);
++                        Storage::delete($savePath);
+                         continue;
+                     }
+-                    curl_close($ch);
+-                    fclose($fp);
++                    $this->content_disposition = $download_response['content_disposition'];
+                     //echo $this->content_disposition;
+ 
+                     //@getimagesize関数で画像情報を取得する
+@@ -227,15 +237,18 @@ trait MigrationExportNc3PageTrait
+                         $savePath = 'migration/import/pages/' . $page_id . "/" . $file_name;
+                         $saveStragePath = storage_path() . '/app/' . $savePath;
+ 
+-                        // CURL 設定、ファイル取得
+-                        $ch = curl_init($downloadPath);
+-                        $fp = fopen($saveStragePath, 'w');
+-                        curl_setopt($ch, CURLOPT_FILE, $fp);
+-                        curl_setopt($ch, CURLOPT_HEADER, false);
+-                        curl_setopt($ch, CURLOPT_HEADERFUNCTION, array(&$this,'callbackNc3Header'));
+-                        $result = curl_exec($ch);
+-                        curl_close($ch);
+-                        fclose($fp);
++                        try {
++                            $download_response = $this->migrationHttpDownloadToFileForNc3($http_client, (string) $downloadPath, $saveStragePath, $http_options);
++                        } catch (\RuntimeException $e) {
++                            Log::error('[migrationNC3Page] Failed to download file.', [
++                                'page_id' => $page_id,
++                                'url' => (string) $downloadPath,
++                                'exception' => $e,
++                            ]);
++                            Storage::delete($savePath);
++                            continue;
++                        }
++                        $this->content_disposition = $download_response['content_disposition'];
+ 
+                         //echo $this->content_disposition;
+ 
+@@ -275,6 +288,41 @@ trait MigrationExportNc3PageTrait
+         }
+     }
+ 
++    /**
++     * NC3移行処理用HTTPクライアントを生成する
++     *
++     * @return \GuzzleHttp\Client
++     */
++    protected function migrationHttpCreateClientForNc3(array $http_options = [])
++    {
++        return MigrationHttpClientUtils::createClient($http_options);
++    }
++
++    /**
++     * NC3移行処理用HTTP GET（文字列レスポンス）
++     *
++     * @param \GuzzleHttp\Client $http_client
++     * @param string $url
++     * @return array
++     */
++    protected function migrationHttpGetForNc3($http_client, string $url, array $http_options = []): array
++    {
++        return MigrationHttpClientUtils::get($http_client, $url, $http_options);
++    }
++
++    /**
++     * NC3移行処理用HTTP GET（ファイル保存）
++     *
++     * @param \GuzzleHttp\Client $http_client
++     * @param string $url
++     * @param string $sink_path
++     * @return array
++     */
++    protected function migrationHttpDownloadToFileForNc3($http_client, string $url, string $sink_path, array $http_options = []): array
++    {
++        return MigrationHttpClientUtils::downloadToFile($http_client, $url, $sink_path, $http_options);
++    }
++
+     /**
+      * nodeをHTMLとして取り出す
+      */
+@@ -293,6 +341,26 @@ trait MigrationExportNc3PageTrait
+         return $html;
+     }
+ 
++    /**
++     * HTMLをDOMへ読み込む（libxml警告は内部で処理）
++     *
++     * @param \DOMDocument $dom
++     * @param string $html
++     * @return void
++     */
++    private function loadNc3HtmlDocument(\DOMDocument $dom, string $html): void
++    {
++        $previous_internal_errors = libxml_use_internal_errors(true);
++        libxml_clear_errors();
++
++        try {
++            $dom->loadHTML($html);
++        } finally {
++            libxml_clear_errors();
++            libxml_use_internal_errors($previous_internal_errors);
++        }
++    }
++
+     /**
+      * フレームデザインの取得
+      */
+diff --git a/app/Utilities/Url/UrlUtils.php b/app/Utilities/Url/UrlUtils.php
+index a53a8a5..8368c6d 100644
+--- a/app/Utilities/Url/UrlUtils.php
++++ b/app/Utilities/Url/UrlUtils.php
+@@ -137,7 +137,7 @@ class UrlUtils
+      * @param string $ip
+      * @return bool
+      */
+-    private static function isGlobalIp(string $ip): bool
++    public static function isGlobalIp(string $ip): bool
+     {
+         if (self::isIpv4MappedIpv6($ip)) {
+             return false;
+diff --git a/resources/views/plugins/manage/page/migration_order.blade.php b/resources/views/plugins/manage/page/migration_order.blade.php
+index 5dc00c8..a4ff3bd 100644
+--- a/resources/views/plugins/manage/page/migration_order.blade.php
++++ b/resources/views/plugins/manage/page/migration_order.blade.php
+@@ -73,6 +73,22 @@
+                 </div>
+             </div>
+ 
++            @if (config('connect.HTTPPROXYTUNNEL'))
++                <div class="form-group row">
++                    <label for="use_proxy" class="col-md-3 col-form-label text-md-right">プロキシ使用</label>
++                    <div class="col-md-9">
++                        <div class="custom-control custom-checkbox">
++                            <input type="checkbox" id="use_proxy" name="use_proxy" class="custom-control-input" @if(old('use_proxy')) checked @endif>
++                            <label class="custom-control-label" for="use_proxy">プロキシを使う</label>
++                        </div>
++                        <div class="alert alert-warning mt-2 mb-0 py-2">
++                            プロキシ使用時は、接続先IP固定（DNS pinning）および接続先IP検証（primary_ip）を行いません。SSRF対策が弱くなるため、必要時のみ使用してください。
++                        </div>
++                        @include('plugins.common.errors_inline', ['name' => 'use_proxy'])
++                    </div>
++                </div>
++            @endif
++
+             {{-- UI的に、セレクトボックスは不要だったのでとりあえず、コメントアウト
+             <div class="form-group row">
+                 <label for="page_name" class="col-md-3 col-form-label text-md-right">移行先ページ</label>

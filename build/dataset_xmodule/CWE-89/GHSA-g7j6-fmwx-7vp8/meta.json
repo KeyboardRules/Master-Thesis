@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g7j6-fmwx-7vp8",
+    "cve":  "CVE-2026-31858",
+    "cwe":  "CWE-89",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "e1a3dd669ae31491b86ad996e88a1d30d33d9a42",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/controllers/ElementSearchController.php"
+                    ],
+    "evidence":  [
+                     "src/controllers/ElementSearchController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

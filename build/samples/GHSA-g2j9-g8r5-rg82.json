@@ -1,0 +1,35 @@
+﻿{
+    "id":  "GHSA-g2j9-g8r5-rg82",
+    "cve":  "CVE-2025-64714",
+    "cwe":  "CWE-73",
+    "repo":  "PrivateBin/PrivateBin",
+    "sha":  "4434dbf73ac53217fda0f90d8cf9b6110f8acc4f",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Controller.php",
+                        "lib/TemplateSwitcher.php",
+                        "lib/View.php",
+                        "tst/Bootstrap.php",
+                        "tst/TemplateSwitcherTest.php",
+                        "tst/ViewTest.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "tst/Bootstrap.php includes 1 project file(s)",
+                     "tst/Bootstrap.php class extends Bucket",
+                     "tst/TemplateSwitcherTest.php class extends TestCase",
+                     "tst/ViewTest.php class extends TestCase",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "lib/Controller.php",
+                        "lib/TemplateSwitcher.php",
+                        "lib/View.php",
+                        "tst/Bootstrap.php",
+                        "tst/TemplateSwitcherTest.php",
+                        "tst/ViewTest.php"
+                    ],
+    "sink_hit":  false
+}

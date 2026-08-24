@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-7q5f-29gx-57ff",
+    "cve":  "CVE-2023-5861",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "6ed7ebf1631dd8f0780caa4151a5538f3b227d26",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/Cart/CartManager.php",
+                        "src/MicroweberPackages/Customer/tests/CustomerCheckoutTest.php",
+                        "src/MicroweberPackages/Order/OrderManager.php",
+                        "src/MicroweberPackages/Shop/tests/CheckoutClientTest.php",
+                        "src/MicroweberPackages/Shop/tests/CheckoutTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "src/MicroweberPackages/Cart/CartManager.php class extends Crud",
+                     "src/MicroweberPackages/Customer/tests/CustomerCheckoutTest.php class extends TestCase",
+                     "src/MicroweberPackages/Shop/tests/CheckoutTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/Cart/CartManager.php",
+                        "src/MicroweberPackages/Customer/tests/CustomerCheckoutTest.php",
+                        "src/MicroweberPackages/Order/OrderManager.php",
+                        "src/MicroweberPackages/Shop/tests/CheckoutClientTest.php",
+                        "src/MicroweberPackages/Shop/tests/CheckoutTest.php"
+                    ],
+    "sink_hit":  false
+}

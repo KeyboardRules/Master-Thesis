@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-6hjc-m38h-7jhh",
+    "cve":  "CVE-2021-41750",
+    "cwe":  "CWE-79",
+    "repo":  "nystudio107/craft-seomatic",
+    "sha":  "4e46b792ce973ac0c652fb330055f41aca1981c8",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/FileController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/controllers/FileController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "src/controllers/FileController.php"
+                    ],
+    "sink_hit":  false
+}

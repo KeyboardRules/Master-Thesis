@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-5pxh-89cx-4668",
+    "cve":  "CVE-2025-27400",
+    "cwe":  "CWE-79",
+    "repo":  "OpenMage/magento-lts",
+    "sha":  "d307e5bf75729a2347dde0952fe9fd9fcd9c6aea",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/code/core/Mage/Core/Model/Design/Package.php",
+                        "app/design/adminhtml/default/default/template/oauth/authorize/head-simple.phtml",
+                        "app/design/adminhtml/default/default/template/page/head.phtml"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "app/code/core/Mage/Core/Model/Design/Package.php",
+                        "app/code/core/Mage/Core/etc/system.xml",
+                        "app/design/adminhtml/default/default/template/oauth/authorize/head-simple.phtml",
+                        "app/design/adminhtml/default/default/template/page/head.phtml"
+                    ],
+    "sink_hit":  true
+}

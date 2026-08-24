@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-22wq-q86m-83fh",
+    "cve":  "CVE-2025-55166",
+    "cwe":  "CWE-79",
+    "repo":  "darylldoyle/svg-sanitizer",
+    "sha":  "0afa95ea74be155a7bcd6c6fb60c276c39984500",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sanitizer.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "src/Sanitizer.php",
+                        "tests/data/hrefCleanOne.svg",
+                        "tests/data/hrefTestOne.svg",
+                        "tests/data/svgCleanOne.svg",
+                        "tests/data/svgTestOne.svg"
+                    ],
+    "sink_hit":  true
+}

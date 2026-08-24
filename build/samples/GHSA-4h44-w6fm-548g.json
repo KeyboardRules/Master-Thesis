@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-4h44-w6fm-548g",
+    "cve":  "CVE-2020-15086",
+    "cwe":  "CWE-502",
+    "repo":  "FriendsOfTYPO3/mediace",
+    "sha":  "fa29ffd3e8b275782a8600d2406e1b1e5e16ae75",
+    "status":  "ok",
+    "changed_php":  [
+                        "Resources/PHP/ValidateHashEID.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "Resources/PHP/ValidateHashEID.php"
+                    ],
+    "sink_hit":  false
+}

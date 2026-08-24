@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-26hp-cgjj-m2j3",
+    "cve":  "",
+    "cwe":  "CWE-78",
+    "repo":  "fuel/core",
+    "fix_commit":  "95c134e9e087f3c4523fe6cd86ed4e9e1e7af91c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "classes/image/imagemagick.php"
+                    ],
+    "evidence":  [
+                     "classes/image/imagemagick.php class extends \\Image_Driver"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-5v43-55m5-qr8f",
+    "cve":  "CVE-2014-2053",
+    "cwe":  "CWE-611",
+    "repo":  "JamesHeinrich/getID3",
+    "fix_commit":  "afbdaa044a9a0a9dff2f800bd670e231b3ec99b2",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "getid3/getid3.lib.php"
+                    ],
+    "evidence":  [
+                     "getid3/getid3.lib.php includes 2 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

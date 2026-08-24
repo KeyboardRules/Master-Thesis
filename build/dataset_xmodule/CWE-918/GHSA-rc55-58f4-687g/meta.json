@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rc55-58f4-687g",
+    "cve":  "CVE-2026-33486",
+    "cwe":  "CWE-918",
+    "repo":  "roadiz/core-bundle-dev-app",
+    "fix_commit":  "7904f690a51b88b1c72c02149ebdf85fa81f19f2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "lib/Documents/src/DownloadedFile.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/Documents/src/DownloadedFile.php class extends File",
+                     "lib/Documents/tests/DownloadedFileTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

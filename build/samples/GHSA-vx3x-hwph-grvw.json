@@ -1,0 +1,31 @@
+﻿{
+    "id":  "GHSA-vx3x-hwph-grvw",
+    "cve":  "CVE-2022-3005",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "sha":  "e55886781509fe39951fc7528347696474a17884",
+    "status":  "ok",
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/ServiceContracts/actions/PolicyTemplatesAjax.php",
+                        "modules/ServiceContracts/views/PolicyTemplatesAjax.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/ServiceContracts/actions/PolicyTemplatesAjax.php class extends \\App\\Controller\\Action"
+                 ],
+    "changed_all":  [
+                        "config/version.php",
+                        "languages/en-US/ServiceContracts.json",
+                        "layouts/basic/modules/ServiceContracts/CustomConditions.tpl",
+                        "layouts/basic/modules/ServiceContracts/SlaPolicy.tpl",
+                        "layouts/basic/modules/ServiceContracts/SlaPolicyCustom.tpl",
+                        "layouts/basic/modules/ServiceContracts/SlaPolicyTemplate.tpl",
+                        "layouts/basic/modules/Settings/SlaPolicy/EditViewBlocks.tpl",
+                        "modules/ServiceContracts/actions/PolicyTemplatesAjax.php",
+                        "modules/ServiceContracts/views/PolicyTemplatesAjax.php",
+                        "public_html/layouts/basic/modules/ServiceContracts/resources/Detail.js"
+                    ],
+    "sink_hit":  false
+}

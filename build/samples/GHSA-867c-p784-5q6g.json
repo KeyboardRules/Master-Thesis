@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-867c-p784-5q6g",
+    "cve":  "CVE-2025-62796",
+    "cwe":  "CWE-79",
+    "repo":  "PrivateBin/PrivateBin",
+    "sha":  "c4f8482b3072be7ae012cace1b3f5658dcc3b42e",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Configuration.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "js/privatebin.js",
+                        "lib/Configuration.php"
+                    ],
+    "sink_hit":  false
+}

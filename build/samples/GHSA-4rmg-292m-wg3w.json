@@ -1,0 +1,40 @@
+﻿{
+    "id":  "GHSA-4rmg-292m-wg3w",
+    "cve":  "CVE-2024-35226",
+    "cwe":  "CWE-94",
+    "repo":  "smarty-php/smarty",
+    "sha":  "0be92bc8a6fb83e6e0d883946f7e7c09ba4e857a",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Compile/Tag/ExtendsTag.php",
+                        "src/Compiler/Template.php",
+                        "src/Smarty.php",
+                        "tests/UnitTests/TemplateSource/TagTests/BockExtend/CompileBlockExtendsTest.php",
+                        "tests/UnitTests/TemplateSource/TagTests/Include/CompileIncludeTest.php",
+                        "tests/UnitTests/TemplateSource/_Issues/419/ExtendsIssue419Test.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "src/Compile/Tag/ExtendsTag.php class extends Inheritance",
+                     "src/Compiler/Template.php class extends BaseCompiler",
+                     "src/Smarty.php class extends \\Smarty\\TemplateBase",
+                     "tests/UnitTests/TemplateSource/TagTests/BockExtend/CompileBlockExtendsTest.php class extends PHPUnit_Smarty",
+                     "tests/UnitTests/TemplateSource/TagTests/Include/CompileIncludeTest.php class extends PHPUnit_Smarty",
+                     "tests/UnitTests/TemplateSource/_Issues/419/ExtendsIssue419Test.php class extends PHPUnit_Smarty"
+                 ],
+    "changed_all":  [
+                        "changelog/GHSA-4rmg-292m-wg3w.md",
+                        "src/Compile/Tag/ExtendsTag.php",
+                        "src/Compiler/Template.php",
+                        "src/Smarty.php",
+                        "tests/UnitTests/TemplateSource/TagTests/BockExtend/CompileBlockExtendsTest.php",
+                        "tests/UnitTests/TemplateSource/TagTests/BockExtend/templates/escaping.tpl",
+                        "tests/UnitTests/TemplateSource/TagTests/BockExtend/templates/escaping2.tpl",
+                        "tests/UnitTests/TemplateSource/TagTests/BockExtend/templates/escaping3.tpl",
+                        "tests/UnitTests/TemplateSource/TagTests/Include/CompileIncludeTest.php",
+                        "tests/UnitTests/TemplateSource/TagTests/Include/templates/test_include_security.tpl",
+                        "tests/UnitTests/TemplateSource/_Issues/419/ExtendsIssue419Test.php"
+                    ],
+    "sink_hit":  true
+}

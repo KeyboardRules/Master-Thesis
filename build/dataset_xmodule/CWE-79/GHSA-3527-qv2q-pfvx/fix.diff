@@ -1,0 +1,114 @@
+﻿diff --git a/src/Extension/Attributes/AttributesExtension.php b/src/Extension/Attributes/AttributesExtension.php
+index 2ef3d85..b29606d 100644
+--- a/src/Extension/Attributes/AttributesExtension.php
++++ b/src/Extension/Attributes/AttributesExtension.php
+@@ -19,14 +19,26 @@ use League\CommonMark\Event\DocumentParsedEvent;
+ use League\CommonMark\Extension\Attributes\Event\AttributesListener;
+ use League\CommonMark\Extension\Attributes\Parser\AttributesBlockStartParser;
+ use League\CommonMark\Extension\Attributes\Parser\AttributesInlineParser;
+-use League\CommonMark\Extension\ExtensionInterface;
++use League\CommonMark\Extension\ConfigurableExtensionInterface;
++use League\Config\ConfigurationBuilderInterface;
++use Nette\Schema\Expect;
+ 
+-final class AttributesExtension implements ExtensionInterface
++final class AttributesExtension implements ConfigurableExtensionInterface
+ {
++    public function configureSchema(ConfigurationBuilderInterface $builder): void
++    {
++        $builder->addSchema('attributes', Expect::structure([
++            'allow' => Expect::arrayOf('string')->default([]),
++        ]));
++    }
++
+     public function register(EnvironmentBuilderInterface $environment): void
+     {
++        $allowList        = $environment->getConfiguration()->get('attributes.allow');
++        $allowUnsafeLinks = $environment->getConfiguration()->get('allow_unsafe_links');
++
+         $environment->addBlockStartParser(new AttributesBlockStartParser());
+         $environment->addInlineParser(new AttributesInlineParser());
+-        $environment->addEventListener(DocumentParsedEvent::class, [new AttributesListener(), 'processDocument']);
++        $environment->addEventListener(DocumentParsedEvent::class, [new AttributesListener($allowList, $allowUnsafeLinks), 'processDocument']);
+     }
+ }
+diff --git a/src/Extension/Attributes/Event/AttributesListener.php b/src/Extension/Attributes/Event/AttributesListener.php
+index feec8cc..fa068f4 100644
+--- a/src/Extension/Attributes/Event/AttributesListener.php
++++ b/src/Extension/Attributes/Event/AttributesListener.php
+@@ -29,6 +29,19 @@ final class AttributesListener
+     private const DIRECTION_PREFIX = 'prefix';
+     private const DIRECTION_SUFFIX = 'suffix';
+ 
++    /** @var list<string> */
++    private array $allowList;
++    private bool $allowUnsafeLinks;
++
++    /**
++     * @param list<string> $allowList
++     */
++    public function __construct(array $allowList = [], bool $allowUnsafeLinks = true)
++    {
++        $this->allowList        = $allowList;
++        $this->allowUnsafeLinks = $allowUnsafeLinks;
++    }
++
+     public function processDocument(DocumentParsedEvent $event): void
+     {
+         foreach ($event->getDocument()->iterator() as $node) {
+@@ -50,7 +63,7 @@ final class AttributesListener
+                     $attributes = AttributesHelper::mergeAttributes($node->getAttributes(), $target);
+                 }
+ 
+-                $target->data->set('attributes', $attributes);
++                $target->data->set('attributes', AttributesHelper::filterAttributes($attributes, $this->allowList, $this->allowUnsafeLinks));
+             }
+ 
+             $node->detach();
+diff --git a/src/Extension/Attributes/Util/AttributesHelper.php b/src/Extension/Attributes/Util/AttributesHelper.php
+index dd5b4b2..53a8287 100644
+--- a/src/Extension/Attributes/Util/AttributesHelper.php
++++ b/src/Extension/Attributes/Util/AttributesHelper.php
+@@ -139,4 +139,42 @@ final class AttributesHelper
+ 
+         return $attributes;
+     }
++
++    /**
++     * @param array<string, mixed> $attributes
++     * @param list<string>         $allowList
++     *
++     * @return array<string, mixed>
++     */
++    public static function filterAttributes(array $attributes, array $allowList, bool $allowUnsafeLinks): array
++    {
++        $allowList = \array_fill_keys($allowList, true);
++
++        foreach ($attributes as $name => $value) {
++            $attrNameLower = \strtolower($name);
++
++            // Remove any unsafe links
++            if (! $allowUnsafeLinks && ($attrNameLower === 'href' || $attrNameLower === 'src') && \is_string($value) && RegexHelper::isLinkPotentiallyUnsafe($value)) {
++                unset($attributes[$name]);
++                continue;
++            }
++
++            // No allowlist?
++            if ($allowList === []) {
++                // Just remove JS event handlers
++                if (\str_starts_with($attrNameLower, 'on')) {
++                    unset($attributes[$name]);
++                }
++
++                continue;
++            }
++
++            // Remove any attributes not in that allowlist (case-sensitive)
++            if (! isset($allowList[$name])) {
++                unset($attributes[$name]);
++            }
++        }
++
++        return $attributes;
++    }
+ }

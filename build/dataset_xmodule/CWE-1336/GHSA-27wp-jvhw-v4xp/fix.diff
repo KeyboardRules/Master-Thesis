@@ -1,0 +1,186 @@
+﻿diff --git a/Framework/Adapter/Twig/Node/FeatureCallSilentToken.php b/Framework/Adapter/Twig/Node/FeatureCallSilentToken.php
+index 1aaf2c1a..f4d4ff64 100644
+--- a/Framework/Adapter/Twig/Node/FeatureCallSilentToken.php
++++ b/Framework/Adapter/Twig/Node/FeatureCallSilentToken.php
+@@ -24,7 +24,9 @@ class FeatureCallSilentToken extends Node
+     {
+         $compiler
+             ->addDebugInfo($this)
+-            ->raw('\Shopware\Core\Framework\Feature::callSilentIfInactive(\'' . $this->flag . '\', function () use(&$context) { ')
++            ->raw('\Shopware\Core\Framework\Feature::callSilentIfInactive(')
++            ->string($this->flag)
++            ->raw(', function () use(&$context) { ')
+             ->subcompile($this->getNode('body'))
+             ->raw('});');
+     }
+diff --git a/Framework/Context.php b/Framework/Context.php
+index 4477be39..8dc08953 100644
+--- a/Framework/Context.php
++++ b/Framework/Context.php
+@@ -149,11 +149,11 @@ class Context extends Struct
+     /**
+      * @template TReturn of mixed
+      *
+-     * @param callable(Context): TReturn $callback
++     * @param \Closure(Context): TReturn $callback
+      *
+      * @return TReturn the return value of the provided callback function
+      */
+-    public function scope(string $scope, callable $callback)
++    public function scope(string $scope, \Closure $callback)
+     {
+         $currentScope = $this->getScope();
+         $this->scope = $scope;
+@@ -216,11 +216,11 @@ class Context extends Struct
+     /**
+      * @template TReturn of mixed
+      *
+-     * @param callable(Context): TReturn $function
++     * @param \Closure(Context): TReturn $function
+      *
+      * @return TReturn
+      */
+-    public function enableInheritance(callable $function)
++    public function enableInheritance(\Closure $function)
+     {
+         $previous = $this->considerInheritance;
+         $this->considerInheritance = true;
+@@ -233,11 +233,11 @@ class Context extends Struct
+     /**
+      * @template TReturn of mixed
+      *
+-     * @param callable(Context): TReturn $function
++     * @param \Closure(Context): TReturn $function
+      *
+      * @return TReturn
+      */
+-    public function disableInheritance(callable $function)
++    public function disableInheritance(\Closure $function)
+     {
+         $previous = $this->considerInheritance;
+         $this->considerInheritance = false;
+diff --git a/Framework/DataAbstractionLayer/DataAbstractionLayerException.php b/Framework/DataAbstractionLayer/DataAbstractionLayerException.php
+index 5ea43b3d..31dd38d6 100644
+--- a/Framework/DataAbstractionLayer/DataAbstractionLayerException.php
++++ b/Framework/DataAbstractionLayer/DataAbstractionLayerException.php
+@@ -44,6 +44,7 @@ class DataAbstractionLayerException extends HttpException
+     public const INVALID_WRITE_INPUT = 'FRAMEWORK__INVALID_WRITE_INPUT';
+     public const DECODE_HANDLED_BY_HYDRATOR = 'FRAMEWORK__DECODE_HANDLED_BY_HYDRATOR';
+     public const ATTRIBUTE_NOT_FOUND = 'FRAMEWORK__ATTRIBUTE_NOT_FOUND';
++    public const INVALID_AGGREGATION_NAME = 'FRAMEWORK__INVALID_AGGREGATION_NAME';
+ 
+     public static function invalidSerializerField(string $expectedClass, Field $field): self
+     {
+@@ -402,4 +403,14 @@ class DataAbstractionLayerException extends HttpException
+             ['attribute' => $attribute, 'property' => $property]
+         );
+     }
++
++    public static function invalidAggregationName(string $name): self
++    {
++        return new self(
++            Response::HTTP_BAD_REQUEST,
++            self::INVALID_AGGREGATION_NAME,
++            'Invalid aggregation name "{{ name }}", cannot contain question marks und colon.',
++            ['name' => $name]
++        );
++    }
+ }
+diff --git a/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php b/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
+index 498a09c7..4517191f 100644
+--- a/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
++++ b/Framework/DataAbstractionLayer/Dbal/EntityAggregator.php
+@@ -4,6 +4,7 @@ namespace Shopware\Core\Framework\DataAbstractionLayer\Dbal;
+ 
+ use Doctrine\DBAL\Connection;
+ use Shopware\Core\Framework\Context;
++use Shopware\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
+ use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
+ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
+ use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
+@@ -116,6 +117,10 @@ class EntityAggregator implements EntityAggregatorInterface
+         Criteria $criteria,
+         Context $context
+     ): AggregationResult {
++        if (str_contains($aggregation->getName(), '?') || str_contains($aggregation->getName(), ':')) {
++            throw DataAbstractionLayerException::invalidAggregationName($aggregation->getName());
++        }
++
+         $clone = clone $criteria;
+         $clone->resetAggregations();
+         $clone->resetSorting();
+diff --git a/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php b/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
+index 3ed39008..1828f801 100644
+--- a/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
++++ b/Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php
+@@ -199,6 +199,12 @@ class AggregationParser
+             return null;
+         }
+ 
++        if (str_contains($name, '?') || str_contains($name, ':')) {
++            $exceptions->add(new InvalidAggregationQueryException('The aggregation name should not contain a question mark or colon.'), '/aggregations/' . $index);
++
++            return null;
++        }
++
+         $type = $aggregation['type'] ?? null;
+ 
+         if (!\is_string($type) || empty($type) || is_numeric($type)) {
+diff --git a/System/SalesChannel/Entity/SalesChannelRepository.php b/System/SalesChannel/Entity/SalesChannelRepository.php
+index d10ddc4f..b7c0652c 100644
+--- a/System/SalesChannel/Entity/SalesChannelRepository.php
++++ b/System/SalesChannel/Entity/SalesChannelRepository.php
+@@ -9,6 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEventFactory;
+ use Shopware\Core\Framework\DataAbstractionLayer\Event\EntitySearchResultLoadedEvent;
+ use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
+ use Shopware\Core\Framework\DataAbstractionLayer\Field\AssociationField;
++use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
+ use Shopware\Core\Framework\DataAbstractionLayer\Read\EntityReaderInterface;
+ use Shopware\Core\Framework\DataAbstractionLayer\RepositorySearchDetector;
+ use Shopware\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResultCollection;
+@@ -203,7 +204,7 @@ class SalesChannelRepository
+         }
+ 
+         $queue = [
+-            ['definition' => $this->definition, 'criteria' => $topCriteria],
++            ['definition' => $this->definition, 'criteria' => $topCriteria, 'path' => ''],
+         ];
+ 
+         $maxCount = 100;
+@@ -216,8 +217,10 @@ class SalesChannelRepository
+ 
+             $definition = $cur['definition'];
+             $criteria = $cur['criteria'];
++            $path = $cur['path'];
++            $processedKey = $path . $definition::class;
+ 
+-            if (isset($processed[$definition::class])) {
++            if (isset($processed[$processedKey])) {
+                 continue;
+             }
+ 
+@@ -230,7 +233,7 @@ class SalesChannelRepository
+                 $this->eventDispatcher->dispatch($event, $eventName);
+             }
+ 
+-            $processed[$definition::class] = true;
++            $processed[$processedKey] = true;
+ 
+             foreach ($criteria->getAssociations() as $associationName => $associationCriteria) {
+                 // find definition
+@@ -240,7 +243,14 @@ class SalesChannelRepository
+                 }
+ 
+                 $referenceDefinition = $field->getReferenceDefinition();
+-                $queue[] = ['definition' => $referenceDefinition, 'criteria' => $associationCriteria];
++                $queue[] = ['definition' => $referenceDefinition, 'criteria' => $associationCriteria, 'path' => $path . '.' . $associationName];
++
++                if (!$field instanceof ManyToManyAssociationField) {
++                    continue;
++                }
++
++                $referenceDefinition = $field->getToManyReferenceDefinition();
++                $queue[] = ['definition' => $referenceDefinition, 'criteria' => $associationCriteria, 'path' => $path . '.' . $associationName];
+             }
+         }
+     }

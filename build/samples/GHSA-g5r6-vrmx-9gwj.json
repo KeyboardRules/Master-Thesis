@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-g5r6-vrmx-9gwj",
+    "cve":  "CVE-2020-15873",
+    "cwe":  "CWE-89",
+    "repo":  "librenms/librenms",
+    "sha":  "8f3a29cde5bbd8608f9b42923a7d7e2598bcac4e",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/forms/customoid.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "includes/html/forms/customoid.inc.php"
+                    ],
+    "sink_hit":  false
+}

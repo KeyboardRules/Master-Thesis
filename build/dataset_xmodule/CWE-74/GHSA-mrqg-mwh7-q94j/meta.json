@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-mrqg-mwh7-q94j",
+    "cve":  "CVE-2024-23648",
+    "cwe":  "CWE-74",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "fix_commit":  "70f2205b5a5ea9584721d4f3e803f4d0dd5e4655",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Controller/Admin/LoginController.php"
+                    ],
+    "evidence":  [
+                     "src/Controller/Admin/LoginController.php class extends AdminAbstractController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

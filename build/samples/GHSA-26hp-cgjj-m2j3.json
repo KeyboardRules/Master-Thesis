@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-26hp-cgjj-m2j3",
+    "cve":  "",
+    "cwe":  "CWE-78",
+    "repo":  "fuel/core",
+    "sha":  "95c134e9e087f3c4523fe6cd86ed4e9e1e7af91c",
+    "status":  "ok",
+    "changed_php":  [
+                        "classes/image/imagemagick.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "classes/image/imagemagick.php class extends \\Image_Driver"
+                 ],
+    "changed_all":  [
+                        "classes/image/imagemagick.php"
+                    ],
+    "sink_hit":  true
+}

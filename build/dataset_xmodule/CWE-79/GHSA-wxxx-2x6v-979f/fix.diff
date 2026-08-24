@@ -1,0 +1,90 @@
+﻿diff --git a/includes/templates/responsive_classic/common/html_header.php b/includes/templates/responsive_classic/common/html_header.php
+index 938c977..f646a6b 100644
+--- a/includes/templates/responsive_classic/common/html_header.php
++++ b/includes/templates/responsive_classic/common/html_header.php
+@@ -11,6 +11,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+ $zco_notifier->notify('NOTIFY_HTML_HEAD_START', $current_page_base, $template_dir);
+ 
+ // Prevent clickjacking risks by setting X-Frame-Options:SAMEORIGIN
+diff --git a/includes/templates/responsive_classic/common/main_template_vars.php b/includes/templates/responsive_classic/common/main_template_vars.php
+index caf19b7..8b1ca6f 100644
+--- a/includes/templates/responsive_classic/common/main_template_vars.php
++++ b/includes/templates/responsive_classic/common/main_template_vars.php
+@@ -15,6 +15,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+   $zco_notifier->notify('NOTIFY_MAIN_TEMPLATE_VARS_START', $template_dir);
+ 
+ /**
+diff --git a/includes/templates/responsive_classic/common/tpl_main_page.php b/includes/templates/responsive_classic/common/tpl_main_page.php
+index a010bf7..a302f2b 100644
+--- a/includes/templates/responsive_classic/common/tpl_main_page.php
++++ b/includes/templates/responsive_classic/common/tpl_main_page.php
+@@ -38,6 +38,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+ /** bof DESIGNER TESTING ONLY: */
+ // $messageStack->add('header', 'this is a sample error message', 'error');
+ // $messageStack->add('header', 'this is a sample caution message', 'caution');
+diff --git a/includes/templates/template_default/common/html_header.php b/includes/templates/template_default/common/html_header.php
+index c5ba9c1..e501a7d 100644
+--- a/includes/templates/template_default/common/html_header.php
++++ b/includes/templates/template_default/common/html_header.php
+@@ -11,6 +11,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+ $zco_notifier->notify('NOTIFY_HTML_HEAD_START', $current_page_base, $template_dir);
+ 
+ // Prevent clickjacking risks by setting X-Frame-Options:SAMEORIGIN
+diff --git a/includes/templates/template_default/common/main_template_vars.php b/includes/templates/template_default/common/main_template_vars.php
+index e9e9ce6..149cdd3 100644
+--- a/includes/templates/template_default/common/main_template_vars.php
++++ b/includes/templates/template_default/common/main_template_vars.php
+@@ -15,6 +15,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+   $zco_notifier->notify('NOTIFY_MAIN_TEMPLATE_VARS_START', $template_dir);
+ 
+ /**
+diff --git a/includes/templates/template_default/common/tpl_main_page.php b/includes/templates/template_default/common/tpl_main_page.php
+index d603d4b..95b73ff 100644
+--- a/includes/templates/template_default/common/tpl_main_page.php
++++ b/includes/templates/template_default/common/tpl_main_page.php
+@@ -38,6 +38,10 @@
+  * @version $Id: DrByte 09-Jan-2020  Modified in v1.5.7 $
+  */
+ 
++if (!defined('IS_ADMIN_FLAG')) {
++    die('Illegal Access');
++}
++
+ /** bof DESIGNER TESTING ONLY: */
+ // $messageStack->add('header', 'this is a sample error message', 'error');
+ // $messageStack->add('header', 'this is a sample caution message', 'caution');

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qjq9-wx5j-jrg6",
+    "cve":  "CVE-2017-17971",
+    "cwe":  "CWE-79",
+    "repo":  "Dolibarr/dolibarr",
+    "sha":  "b2feac9d90f2ecfd5916c4d49176ff1a138744c8",
+    "status":  "ok",
+    "changed_php":  [
+                        "htdocs/main.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "htdocs/main.inc.php includes 15 project file(s)"
+                 ],
+    "changed_all":  [
+                        "htdocs/main.inc.php"
+                    ],
+    "sink_hit":  true
+}

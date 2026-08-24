@@ -1,0 +1,40 @@
+﻿{
+    "id":  "GHSA-8wg7-88cg-7p9j",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/pimcore",
+    "sha":  "da2af2d413b144b9a742118124457d13232d31fd",
+    "status":  "ok",
+    "changed_php":  [
+                        "bundles/AdminBundle/src/Controller/Admin/Document/PageController.php",
+                        "bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php",
+                        "bundles/CoreBundle/src/Migrations/Version20230222174636.php",
+                        "bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php",
+                        "models/Document/Page.php",
+                        "models/Document/Page/Dao.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "bundles/AdminBundle/src/Controller/Admin/Document/PageController.php class extends DocumentControllerBase",
+                     "bundles/AdminBundle/src/Controller/Admin/Document/PageController.php class uses trait",
+                     "bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php class uses trait",
+                     "bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php class extends Model\\Document\\Page\\Dao",
+                     "bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php class uses trait",
+                     "models/Document/Page.php class extends PageSnippet",
+                     "models/Document/Page/Dao.php class extends Model\\Document\\PageSnippet\\Dao"
+                 ],
+    "changed_all":  [
+                        "bundles/AdminBundle/public/js/pimcore/document/pages/settings.js",
+                        "bundles/AdminBundle/src/Controller/Admin/Document/PageController.php",
+                        "bundles/CoreBundle/config/event_listeners.yaml",
+                        "bundles/CoreBundle/src/EventListener/Frontend/DocumentMetaDataListener.php",
+                        "bundles/CoreBundle/src/Migrations/Version20230222174636.php",
+                        "bundles/InstallBundle/dump/install.sql",
+                        "bundles/PersonalizationBundle/src/Model/Document/Page/Dao.php",
+                        "doc/Development_Documentation/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md",
+                        "models/Document/Page.php",
+                        "models/Document/Page/Dao.php"
+                    ],
+    "sink_hit":  false
+}

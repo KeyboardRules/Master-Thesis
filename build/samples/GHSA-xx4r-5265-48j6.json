@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-xx4r-5265-48j6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-framework",
+    "sha":  "099a5a3c2d99ed39bdd8815e1e2790bb9351770b",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/ORM/Connect/MySQLDatabase.php",
+                        "src/ORM/PaginatedList.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/ORM/Connect/MySQLDatabase.php class extends Database",
+                     "src/ORM/Connect/MySQLDatabase.php class uses trait",
+                     "src/ORM/PaginatedList.php class extends ListDecorator"
+                 ],
+    "changed_all":  [
+                        "src/ORM/Connect/MySQLDatabase.php",
+                        "src/ORM/PaginatedList.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-fv2m-9249-qx85",
+    "cve":  "CVE-2022-36108",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "6863f73818c36b0b88c677ba533765c8074907b4",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "typo3/sysext/fluid/Classes/ViewHelpers/Asset/CssViewHelper.php class extends AbstractTagBasedViewHelper",
+                     "typo3/sysext/fluid/Tests/Functional/ViewHelpers/Asset/CssViewHelperTest.php class extends FunctionalTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

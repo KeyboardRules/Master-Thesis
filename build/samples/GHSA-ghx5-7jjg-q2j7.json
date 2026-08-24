@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-ghx5-7jjg-q2j7",
+    "cve":  "CVE-2026-33683",
+    "cwe":  "CWE-79",
+    "repo":  "WWBN/AVideo",
+    "sha":  "7cfdc380dae1e56bbb5de581470d9e9957445df0",
+    "status":  "ok",
+    "changed_php":  [
+                        "view/channelBody.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "view/channelBody.php includes 5 project file(s)"
+                 ],
+    "changed_all":  [
+                        "view/channelBody.php"
+                    ],
+    "sink_hit":  true
+}

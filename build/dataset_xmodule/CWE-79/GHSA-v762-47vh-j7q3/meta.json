@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v762-47vh-j7q3",
+    "cve":  "CVE-2020-21146",
+    "cwe":  "CWE-79",
+    "repo":  "liufee/cms",
+    "fix_commit":  "e92f6877d96e53498101d0664174956e94223d6e",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "frontend/models/User.php"
+                    ],
+    "evidence":  [
+                     "frontend/models/User.php class extends \\common\\models\\User"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

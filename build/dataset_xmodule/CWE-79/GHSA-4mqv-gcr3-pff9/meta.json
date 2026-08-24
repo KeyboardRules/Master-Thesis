@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-4mqv-gcr3-pff9",
+    "cve":  "CVE-2020-7776",
+    "cwe":  "CWE-79",
+    "repo":  "PHPOffice/PhpSpreadsheet",
+    "fix_commit":  "0ed5b800be2136bcb8fa9c1bdf59abc957a98845",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/PhpSpreadsheet/Writer/Html.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/PhpSpreadsheet/Writer/Html.php class extends BaseWriter"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

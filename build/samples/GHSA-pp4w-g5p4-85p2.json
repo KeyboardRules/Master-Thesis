@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-pp4w-g5p4-85p2",
+    "cve":  "CVE-2023-5320",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "e92369543959772adcdab4f36c837faa27490346",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/ajax.config_list.php",
+                        "phpmyfaq/admin/configuration.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/ajax.config_list.php",
+                        "phpmyfaq/admin/configuration.php"
+                    ],
+    "sink_hit":  true
+}

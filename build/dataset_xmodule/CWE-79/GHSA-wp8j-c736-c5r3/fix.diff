@@ -1,0 +1,13 @@
+﻿diff --git a/typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php b/typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php
+index 5ae3ddd14c..a073c6918e 100644
+--- a/typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php
++++ b/typo3/sysext/core/Classes/Utility/File/ExtendedFileUtility.php
+@@ -302,7 +302,7 @@ class ExtendedFileUtility extends \TYPO3\CMS\Core\Utility\File\BasicFileUtility
+ 		foreach ($this->getErrorMessages() as $msg) {
+ 			$flashMessage = GeneralUtility::makeInstance(
+ 				'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+-				$msg,
++				htmlspecialchars($msg),
+ 				'',
+ 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
+ 				TRUE

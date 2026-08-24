@@ -1,0 +1,52 @@
+﻿{
+    "id":  "GHSA-x2h8-4mhh-5hwh",
+    "cve":  "CVE-2023-0313",
+    "cwe":  "CWE-79",
+    "repo":  "thorsten/phpmyfaq",
+    "sha":  "1123c0872314fa68d7d0d8136939f62270fb4b7b",
+    "status":  "ok",
+    "changed_php":  [
+                        "phpmyfaq/admin/category.main.php",
+                        "phpmyfaq/admin/news.php",
+                        "phpmyfaq/faq.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/news.php",
+                        "phpmyfaq/src/Bootstrap.php",
+                        "phpmyfaq/src/phpMyFAQ/Category.php",
+                        "phpmyfaq/src/phpMyFAQ/Database/DatabaseHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/CategoryHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/QuestionHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/TagsHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/News.php",
+                        "phpmyfaq/src/phpMyFAQ/Utils.php",
+                        "phpmyfaq/startpage.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 15 php files",
+                     "phpmyfaq/index.php includes 2 project file(s)",
+                     "phpmyfaq/src/Bootstrap.php includes 8 project file(s)",
+                     "phpmyfaq/src/phpMyFAQ/Helper/CategoryHelper.php class extends Helper",
+                     "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php class extends Helper",
+                     "phpmyfaq/src/phpMyFAQ/Helper/TagsHelper.php class extends Helper"
+                 ],
+    "changed_all":  [
+                        "phpmyfaq/admin/category.main.php",
+                        "phpmyfaq/admin/news.php",
+                        "phpmyfaq/faq.php",
+                        "phpmyfaq/index.php",
+                        "phpmyfaq/news.php",
+                        "phpmyfaq/src/Bootstrap.php",
+                        "phpmyfaq/src/phpMyFAQ/Category.php",
+                        "phpmyfaq/src/phpMyFAQ/Database/DatabaseHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/CategoryHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/FaqHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/QuestionHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/Helper/TagsHelper.php",
+                        "phpmyfaq/src/phpMyFAQ/News.php",
+                        "phpmyfaq/src/phpMyFAQ/Utils.php",
+                        "phpmyfaq/startpage.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-4w2w-36vm-c8hf",
+    "cve":  "CVE-2022-25773",
+    "cwe":  "CWE-22",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "e6aaad99f399c5df1ce6273609920098e5c2564a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/bundles/AssetBundle/EventListener/UploadSubscriber.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php class extends AbstractAssetTest",
+                     "app/bundles/AssetBundle/Tests/Controller/AssetControllerFunctionalTest.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

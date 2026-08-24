@@ -1,0 +1,56 @@
+﻿diff --git a/src/Core/Parser/Interceptor/Escape.php b/src/Core/Parser/Interceptor/Escape.php
+index e5ce840..59e3cfd 100644
+--- a/src/Core/Parser/Interceptor/Escape.php
++++ b/src/Core/Parser/Interceptor/Escape.php
+@@ -9,6 +9,7 @@ namespace TYPO3Fluid\Fluid\Core\Parser\Interceptor;
+ use TYPO3Fluid\Fluid\Core\Parser\InterceptorInterface;
+ use TYPO3Fluid\Fluid\Core\Parser\ParsingState;
+ use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\EscapingNode;
++use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\Expression\ExpressionNodeInterface;
+ use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\NodeInterface;
+ use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ObjectAccessorNode;
+ use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ViewHelperNode;
+@@ -62,7 +63,7 @@ class Escape implements InterceptorInterface
+             if ($this->childrenEscapingEnabled && $node->getUninitializedViewHelper()->isOutputEscapingEnabled()) {
+                 $node = new EscapingNode($node);
+             }
+-        } elseif ($this->childrenEscapingEnabled && $node instanceof ObjectAccessorNode) {
++        } elseif ($this->childrenEscapingEnabled && ($node instanceof ObjectAccessorNode || $node instanceof ExpressionNodeInterface)) {
+             $node = new EscapingNode($node);
+         }
+         return $node;
+@@ -78,7 +79,8 @@ class Escape implements InterceptorInterface
+         return [
+             InterceptorInterface::INTERCEPT_OPENING_VIEWHELPER,
+             InterceptorInterface::INTERCEPT_CLOSING_VIEWHELPER,
+-            InterceptorInterface::INTERCEPT_OBJECTACCESSOR
++            InterceptorInterface::INTERCEPT_OBJECTACCESSOR,
++            InterceptorInterface::INTERCEPT_EXPRESSION,
+         ];
+     }
+ }
+diff --git a/src/Core/Parser/InterceptorInterface.php b/src/Core/Parser/InterceptorInterface.php
+index c38cd46..eda05e6 100644
+--- a/src/Core/Parser/InterceptorInterface.php
++++ b/src/Core/Parser/InterceptorInterface.php
+@@ -19,6 +19,7 @@ interface InterceptorInterface
+     const INTERCEPT_CLOSING_VIEWHELPER = 2;
+     const INTERCEPT_TEXT = 3;
+     const INTERCEPT_OBJECTACCESSOR = 4;
++    const INTERCEPT_EXPRESSION = 5;
+ 
+     /**
+      * The interceptor can process the given node at will and must return a node
+diff --git a/src/Core/Parser/TemplateParser.php b/src/Core/Parser/TemplateParser.php
+index 3d94f2a..90ab10e 100644
+--- a/src/Core/Parser/TemplateParser.php
++++ b/src/Core/Parser/TemplateParser.php
+@@ -625,6 +625,8 @@ class TemplateParser
+                                 if ($expressionStartPosition > 0) {
+                                     $state->getNodeFromStack()->addChildNode(new TextNode(substr($section, 0, $expressionStartPosition)));
+                                 }
++
++                                $this->callInterceptor($expressionNode, InterceptorInterface::INTERCEPT_EXPRESSION, $state);
+                                 $state->getNodeFromStack()->addChildNode($expressionNode);
+ 
+                                 $expressionEndPosition = $expressionStartPosition + strlen($matchedVariableSet[0]);

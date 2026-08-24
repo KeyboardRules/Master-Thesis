@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-524r-w8fx-hqg3",
+    "cve":  "CVE-2023-3565",
+    "cwe":  "CWE-79",
+    "repo":  "nilsteampassnet/teampass",
+    "sha":  "820bb49a362a566c9038e4a3048b26d654babb0e",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/core/load.js.php",
+                        "pages/options.php"
+                    ],
+    "xmodule":  "xmodule_include",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "pages/options.php includes 5 project file(s)"
+                 ],
+    "changed_all":  [
+                        "includes/core/load.js.php",
+                        "pages/options.php"
+                    ],
+    "sink_hit":  true
+}

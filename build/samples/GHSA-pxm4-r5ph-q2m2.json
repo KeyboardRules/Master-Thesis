@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-pxm4-r5ph-q2m2",
+    "cve":  "CVE-2024-52806",
+    "cwe":  "CWE-611",
+    "repo":  "simplesamlphp/saml2",
+    "sha":  "5fd4ce4596656fb0c1278f15b8305825412e89f7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/SAML2/DOMDocumentFactory.php",
+                        "tests/SAML2/DOMDocumentFactoryTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/SAML2/DOMDocumentFactoryTest.php class extends \\PHPUnit\\Framework\\TestCase"
+                 ],
+    "changed_all":  [
+                        "src/SAML2/DOMDocumentFactory.php",
+                        "tests/SAML2/DOMDocumentFactoryTest.php"
+                    ],
+    "sink_hit":  true
+}

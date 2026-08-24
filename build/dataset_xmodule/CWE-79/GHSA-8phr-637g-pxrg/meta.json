@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8phr-637g-pxrg",
+    "cve":  "CVE-2023-48295",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "fix_commit":  "faf66035ea1f4c1c4f34559b9d0ed40ee4a19f90",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/DeviceGroupController.php"
+                    ],
+    "evidence":  [
+                     "app/Http/Controllers/DeviceGroupController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-5rg2-6qr5-2xp8",
+    "cve":  "CVE-2021-3863",
+    "cwe":  "CWE-79",
+    "repo":  "snipe/snipe-it",
+    "sha":  "fc5efd857f61f7e45c61db567bb66612bcb53128",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Http/Controllers/Assets/AssetFilesController.php",
+                        "app/Http/Controllers/Licenses/LicenseFilesController.php",
+                        "app/Http/Controllers/Users/UserFilesController.php",
+                        "resources/views/modals/upload-file.blade.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "app/Http/Controllers/Assets/AssetFilesController.php class extends Controller",
+                     "app/Http/Controllers/Licenses/LicenseFilesController.php class extends Controller",
+                     "app/Http/Controllers/Users/UserFilesController.php class extends Controller"
+                 ],
+    "changed_all":  [
+                        "app/Http/Controllers/Assets/AssetFilesController.php",
+                        "app/Http/Controllers/Licenses/LicenseFilesController.php",
+                        "app/Http/Controllers/Users/UserFilesController.php",
+                        "package-lock.json",
+                        "public/js/build/app.js",
+                        "public/js/dist/all.js",
+                        "public/mix-manifest.json",
+                        "resources/assets/js/snipeit.js",
+                        "resources/views/modals/upload-file.blade.php"
+                    ],
+    "sink_hit":  true
+}

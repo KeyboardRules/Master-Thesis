@@ -1,0 +1,53 @@
+﻿{
+    "id":  "GHSA-v47q-jxvr-p68x",
+    "cve":  "CVE-2026-28697",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/cms",
+    "sha":  "9dc2a4a3ec8e9cd5e8c0d1129f36371437519197",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/base/ElementInterface.php",
+                        "src/base/ElementTrait.php",
+                        "src/config/twig-sandbox.php",
+                        "src/elements/Address.php",
+                        "src/elements/Asset.php",
+                        "src/elements/Entry.php",
+                        "src/elements/MatrixBlock.php",
+                        "src/elements/User.php",
+                        "src/i18n/Locale.php",
+                        "src/models/Site.php",
+                        "src/models/UserGroup.php",
+                        "src/web/twig/AllowedInSandbox.php",
+                        "src/web/twig/SecurityPolicy.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 13 php files",
+                     "src/elements/Address.php class extends Element",
+                     "src/elements/Address.php class uses trait",
+                     "src/elements/Asset.php class extends Element",
+                     "src/elements/Entry.php class extends Element",
+                     "src/elements/MatrixBlock.php class extends Element",
+                     "src/elements/User.php class extends Element",
+                     "src/elements/User.php class uses trait",
+                     "src/i18n/Locale.php class extends BaseObject",
+                     "src/models/Site.php class extends Model",
+                     "src/models/UserGroup.php class extends Model"
+                 ],
+    "changed_all":  [
+                        "src/base/ElementInterface.php",
+                        "src/base/ElementTrait.php",
+                        "src/config/twig-sandbox.php",
+                        "src/elements/Address.php",
+                        "src/elements/Asset.php",
+                        "src/elements/Entry.php",
+                        "src/elements/MatrixBlock.php",
+                        "src/elements/User.php",
+                        "src/i18n/Locale.php",
+                        "src/models/Site.php",
+                        "src/models/UserGroup.php",
+                        "src/web/twig/AllowedInSandbox.php",
+                        "src/web/twig/SecurityPolicy.php"
+                    ],
+    "sink_hit":  false
+}

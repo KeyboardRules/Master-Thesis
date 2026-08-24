@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m7gw-rffq-rxjm",
+    "cve":  "CVE-2026-22254",
+    "cwe":  "CWE-79",
+    "repo":  "wintercms/winter",
+    "sha":  "8a7f74b004fcd19721764fc63af0cdb339d9fb65",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/cms/widgets/AssetList.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "modules/cms/widgets/AssetList.php class extends WidgetBase"
+                 ],
+    "changed_all":  [
+                        "modules/cms/widgets/AssetList.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-j4rj-fgcq-wmqp",
+    "cve":  "CVE-2025-7053",
+    "cwe":  "CWE-79",
+    "repo":  "Cockpit-HQ/Cockpit",
+    "sha":  "bdcd5e3bc651c0839c7eea807f3eb6af856dbc76",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/App/layouts/app.php",
+                        "modules/App/views/dashboard/index.php",
+                        "modules/App/views/lockedResouce.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 3 php files"
+                 ],
+    "changed_all":  [
+                        "modules/App/layouts/app.php",
+                        "modules/App/views/dashboard/index.php",
+                        "modules/App/views/lockedResouce.php"
+                    ],
+    "sink_hit":  true
+}

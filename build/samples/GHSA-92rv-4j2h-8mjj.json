@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-92rv-4j2h-8mjj",
+    "cve":  "CVE-2023-41330",
+    "cwe":  "CWE-502",
+    "repo":  "KnpLabs/snappy",
+    "sha":  "d3b742d61a68bf93866032c2c0a7f1486128b67e",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Knp/Snappy/AbstractGenerator.php",
+                        "tests/Knp/Snappy/AbstractGeneratorTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Knp/Snappy/AbstractGenerator.php class uses trait",
+                     "tests/Knp/Snappy/AbstractGeneratorTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Knp/Snappy/AbstractGenerator.php",
+                        "tests/Knp/Snappy/AbstractGeneratorTest.php"
+                    ],
+    "sink_hit":  false
+}

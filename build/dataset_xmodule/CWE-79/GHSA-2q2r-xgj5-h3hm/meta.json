@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-2q2r-xgj5-h3hm",
+    "cve":  "CVE-2009-3821",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3-Solr/ext-solr",
+    "fix_commit":  "5192f489a13ff9417d7b57c63420187789beea5b",
+    "boundary_type":  "include",
+    "xmodule_tier":  "xmodule_include",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "pi_results/class.tx_solr_pi_results_formcommand.php",
+                        "pi_results/class.tx_solr_pi_results_noresultscommand.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "pi_results/class.tx_solr_pi_results_formcommand.php includes 1 project file(s)",
+                     "pi_results/class.tx_solr_pi_results_noresultscommand.php includes 1 project file(s)"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

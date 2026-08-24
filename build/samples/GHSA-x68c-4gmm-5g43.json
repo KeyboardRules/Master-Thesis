@@ -1,0 +1,27 @@
+﻿{
+    "id":  "GHSA-x68c-4gmm-5g43",
+    "cve":  "CVE-2021-3985",
+    "cwe":  "CWE-79",
+    "repo":  "kevinpapst/kimai2",
+    "sha":  "76e09447c85e762882126b49626a4fe4d93fe8b5",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Twig/Runtime/MarkdownExtension.php",
+                        "src/Utils/Markdown.php",
+                        "tests/Twig/Runtime/MarkdownExtensionTest.php",
+                        "tests/Utils/MarkdownTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/Twig/Runtime/MarkdownExtensionTest.php class extends TestCase",
+                     "tests/Utils/MarkdownTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "src/Twig/Runtime/MarkdownExtension.php",
+                        "src/Utils/Markdown.php",
+                        "tests/Twig/Runtime/MarkdownExtensionTest.php",
+                        "tests/Utils/MarkdownTest.php"
+                    ],
+    "sink_hit":  false
+}

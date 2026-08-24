@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-8wg7-wm29-2rvg",
+    "cve":  "CVE-2026-32261",
+    "cwe":  "CWE-1336",
+    "repo":  "craftcms/webhooks",
+    "fix_commit":  "88344991a68b07145567c46dfd0ae3328c521f62",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/Plugin.php"
+                    ],
+    "evidence":  [
+                     "src/Plugin.php class extends \\craft\\base\\Plugin"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

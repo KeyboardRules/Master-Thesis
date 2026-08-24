@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-7mfw-g8x4-rq2w",
+    "cve":  "CVE-2017-12156",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "a39d2976fe5e91da7a28a8512d5b94d4a27067b8",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/feedback/show_nonrespondents.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "mod/feedback/show_nonrespondents.php includes 4 project file(s)"
+                 ],
+    "changed_all":  [
+                        "mod/feedback/show_nonrespondents.php"
+                    ],
+    "sink_hit":  true
+}

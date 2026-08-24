@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-75p5-jwx4-qw9h",
+    "cve":  "CVE-2023-39524",
+    "cwe":  "CWE-89",
+    "repo":  "PrestaShop/PrestaShop",
+    "sha":  "2047d4c053043102bc46a37d383b392704bf14d7",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Adapter/Product/Repository/ProductRepository.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Adapter/Product/Repository/ProductRepository.php class extends AbstractMultiShopObjectModelRepository"
+                 ],
+    "changed_all":  [
+                        "src/Adapter/Product/Repository/ProductRepository.php"
+                    ],
+    "sink_hit":  true
+}

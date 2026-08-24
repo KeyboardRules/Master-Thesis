@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-3366-9287-7qpr",
+    "cve":  "CVE-2024-26129",
+    "cwe":  "CWE-22",
+    "repo":  "PrestaShop/PrestaShop",
+    "fix_commit":  "444bd0dea581659918fe2067541b9863cf099dd5",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "classes/controller/FrontController.php"
+                    ],
+    "evidence":  [
+                     "classes/controller/FrontController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

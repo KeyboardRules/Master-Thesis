@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-hhjm-mpmf-cxg9",
+    "cve":  "CVE-2023-1881",
+    "cwe":  "CWE-79",
+    "repo":  "microweber/microweber",
+    "sha":  "8d039de2d615956f6df8df0bb1045ff3be88f183",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/MicroweberPackages/User/helpers/helpers.php",
+                        "userfiles/modules/site_stats/src/Tracker.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "src/MicroweberPackages/User/helpers/helpers.php",
+                        "userfiles/modules/site_stats/src/Tracker.php"
+                    ],
+    "sink_hit":  false
+}

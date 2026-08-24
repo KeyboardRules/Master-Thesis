@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-xh55-2fqp-p775",
+    "cve":  "CVE-2021-37708",
+    "cwe":  "CWE-78",
+    "repo":  "shopware/platform",
+    "sha":  "82d8d1995f6ce9054323b2c3522b1b3cf04853aa",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Core/Content/Mail/Service/MailerTransportFactory.php",
+                        "src/Core/Content/Test/MailTemplate/Service/MailerTransportFactoryTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "src/Core/Content/Mail/Service/MailerTransportFactory.php class extends Transport",
+                     "src/Core/Content/Test/MailTemplate/Service/MailerTransportFactoryTest.php class extends TestCase",
+                     "src/Core/Content/Test/MailTemplate/Service/MailerTransportFactoryTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Core/Content/Mail/Service/MailerTransportFactory.php",
+                        "src/Core/Content/Test/MailTemplate/Service/MailerTransportFactoryTest.php"
+                    ],
+    "sink_hit":  true
+}

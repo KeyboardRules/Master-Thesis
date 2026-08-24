@@ -1,0 +1,127 @@
+﻿diff --git a/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php b/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
+index 6d29374d8a..597650e003 100644
+--- a/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
++++ b/bundles/AdminBundle/Controller/Admin/DataObject/ClassificationstoreController.php
+@@ -128,7 +128,7 @@ class ClassificationstoreController extends AdminController implements KernelCon
+      */
+     public function createGroupAction(Request $request): JsonResponse
+     {
+-        $name = SecurityHelper::getStringWithoutControlChars($request->get('name'));
++        $name = SecurityHelper::convertHtmlSpecialChars($request->get('name'));
+         $storeId = $request->get('storeId');
+         $config = Classificationstore\GroupConfig::getByName($name, $storeId);
+ 
+@@ -155,7 +155,7 @@ class ClassificationstoreController extends AdminController implements KernelCon
+      */
+     public function createStoreAction(Request $request): JsonResponse
+     {
+-        $name = SecurityHelper::getStringWithoutControlChars($request->get('name'));
++        $name = SecurityHelper::convertHtmlSpecialChars($request->get('name'));
+ 
+         $config = Classificationstore\StoreConfig::getByName($name);
+ 
+@@ -181,7 +181,7 @@ class ClassificationstoreController extends AdminController implements KernelCon
+      */
+     public function createCollectionAction(Request $request): JsonResponse
+     {
+-        $name = SecurityHelper::getStringWithoutControlChars($request->get('name'));
++        $name = SecurityHelper::convertHtmlSpecialChars($request->get('name'));
+         $storeId = $request->get('storeId');
+         $config = Classificationstore\CollectionConfig::getByName($name, $storeId);
+ 
+diff --git a/lib/Security/SecurityHelper.php b/lib/Security/SecurityHelper.php
+index 0bfd3a42b7..e81d04d7e0 100644
+--- a/lib/Security/SecurityHelper.php
++++ b/lib/Security/SecurityHelper.php
+@@ -17,8 +17,12 @@ namespace Pimcore\Security;
+ 
+ class SecurityHelper
+ {
+-    public static function getStringWithoutControlChars(string $text): string
++    public static function convertHtmlSpecialChars(?string $text): ?string
+     {
+-        return preg_replace('[\\\\<>"\'`!?/%$(){};,:|=]', '', $text);
++        if(is_string($text)){
++            return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
++        }
++
++        return null;
+     }
+ }
+diff --git a/models/Staticroute.php b/models/Staticroute.php
+index 983379b303..2e4dcc6552 100644
+--- a/models/Staticroute.php
++++ b/models/Staticroute.php
+@@ -17,6 +17,7 @@ namespace Pimcore\Model;
+ 
+ use Pimcore\Event\FrontendEvents;
+ use Pimcore\Model\Exception\NotFoundException;
++use Pimcore\Security\SecurityHelper;
+ use Symfony\Component\EventDispatcher\GenericEvent;
+ 
+ /**
+@@ -292,7 +293,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setPattern($pattern)
+     {
+-        $this->pattern = $pattern;
++        $this->pattern = SecurityHelper::convertHtmlSpecialChars($pattern);
+ 
+         return $this;
+     }
+@@ -304,7 +305,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setController($controller)
+     {
+-        $this->controller = $controller;
++        $this->controller = SecurityHelper::convertHtmlSpecialChars($controller);
+ 
+         return $this;
+     }
+@@ -316,7 +317,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setVariables($variables)
+     {
+-        $this->variables = $variables;
++        $this->variables = SecurityHelper::convertHtmlSpecialChars($variables);
+ 
+         return $this;
+     }
+@@ -328,7 +329,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setDefaults($defaults)
+     {
+-        $this->defaults = $defaults;
++        $this->defaults = SecurityHelper::convertHtmlSpecialChars($defaults);
+ 
+         return $this;
+     }
+@@ -360,7 +361,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setName($name)
+     {
+-        $this->name = $name;
++        $this->name = SecurityHelper::convertHtmlSpecialChars($name);
+ 
+         return $this;
+     }
+@@ -380,7 +381,7 @@ final class Staticroute extends AbstractModel
+      */
+     public function setReverse($reverse)
+     {
+-        $this->reverse = $reverse;
++        $this->reverse = SecurityHelper::convertHtmlSpecialChars($reverse);
+ 
+         return $this;
+     }
+@@ -611,7 +612,9 @@ final class Staticroute extends AbstractModel
+     {
+         if (is_string($methods)) {
+             $methods = strlen($methods) ? explode(',', $methods) : [];
+-            $methods = array_map('trim', $methods);
++            foreach($methods as $key => $method) {
++                $methods[$key] = SecurityHelper::convertHtmlSpecialChars(trim($method));
++            }
+         }
+ 
+         $this->methods = $methods;

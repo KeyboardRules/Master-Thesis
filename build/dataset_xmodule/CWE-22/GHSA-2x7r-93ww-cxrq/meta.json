@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-2x7r-93ww-cxrq",
+    "cve":  "CVE-2023-52085",
+    "cwe":  "CWE-22",
+    "repo":  "wintercms/winter",
+    "fix_commit":  "5bc9257fe2bc47d8b786a1b1bf96bafad23d8ddd",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "modules/backend/formwidgets/ColorPicker.php",
+                        "modules/backend/lang/en/lang.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "modules/backend/formwidgets/ColorPicker.php class extends FormWidgetBase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

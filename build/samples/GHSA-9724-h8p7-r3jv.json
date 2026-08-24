@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-9724-h8p7-r3jv",
+    "cve":  "CVE-2023-5546",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "aa8ab48521fe4a57c3ec923e6e82a5ac1202e9de",
+    "status":  "ok",
+    "changed_php":  [
+                        "mod/quiz/report/grading/report.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "mod/quiz/report/grading/report.php includes 1 project file(s)",
+                     "mod/quiz/report/grading/report.php class extends report_base"
+                 ],
+    "changed_all":  [
+                        "mod/quiz/report/grading/report.php"
+                    ],
+    "sink_hit":  true
+}

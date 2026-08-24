@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-9fcx-cv56-w58p",
+    "cve":  "CVE-2021-27916",
+    "cwe":  "CWE-22",
+    "repo":  "mautic/mautic",
+    "fix_commit":  "546045ff9c74dd8b3dac36c4ab3674380262c65a",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php"
+                    ],
+    "evidence":  [
+                     "plugins/GrapesJsBuilderBundle/Controller/FileManagerController.php class extends AjaxController"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

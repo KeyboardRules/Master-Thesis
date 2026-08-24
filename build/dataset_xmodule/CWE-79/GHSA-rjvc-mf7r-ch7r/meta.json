@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-rjvc-mf7r-ch7r",
+    "cve":  "CVE-2022-2885",
+    "cwe":  "CWE-79",
+    "repo":  "yetiforcecompany/yetiforcecrm",
+    "fix_commit":  "a9ad9ee089b575855b9e5e202b4990a15811e8d2",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "config/version.php",
+                        "modules/Rss/models/Record.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "modules/Rss/models/Record.php class extends Vtiger_Record_Model"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

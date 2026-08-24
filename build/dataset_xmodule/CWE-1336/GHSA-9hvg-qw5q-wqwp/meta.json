@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-9hvg-qw5q-wqwp",
+    "cve":  "CVE-2026-21450",
+    "cwe":  "CWE-1336",
+    "repo":  "bagisto/bagisto",
+    "fix_commit":  "3f294b4837595929107d9c1bbd6d5b1222ef9fea",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "packages/Webkul/Admin/src/Http/Controllers/Reporting/Controller.php",
+                        "packages/Webkul/Admin/src/Http/Controllers/Reporting/CustomerController.php",
+                        "packages/Webkul/Admin/src/Http/Controllers/Reporting/ProductController.php",
+                        "packages/Webkul/Admin/src/Http/Controllers/Reporting/SaleController.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "packages/Webkul/Admin/src/Http/Controllers/Reporting/Controller.php class extends BaseController",
+                     "packages/Webkul/Admin/src/Http/Controllers/Reporting/CustomerController.php class extends Controller",
+                     "packages/Webkul/Admin/src/Http/Controllers/Reporting/ProductController.php class extends Controller",
+                     "packages/Webkul/Admin/src/Http/Controllers/Reporting/SaleController.php class extends Controller"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

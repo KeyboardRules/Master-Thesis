@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-47m6-46mj-p235",
+    "cve":  "CVE-2022-36020",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/html-sanitizer",
+    "sha":  "60bfdc7f9b394d0236e16ee4cea8372a7defa493",
+    "status":  "ok",
+    "changed_php":  [
+                        "tests/ScenarioTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "tests/ScenarioTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "tests/ScenarioTest.php"
+                    ],
+    "sink_hit":  false
+}

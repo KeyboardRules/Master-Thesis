@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-6vfw-74wr-3chh",
+    "cve":  "CVE-2022-0372",
+    "cwe":  "CWE-79",
+    "repo":  "crater-invoice/crater",
+    "fix_commit":  "cdc913d16cf624aee852bc9163a7c6ffc8d1da9d",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "app/Http/Controllers/V1/Admin/Expense/ExpensesController.php",
+                        "app/Http/Controllers/V1/Admin/Expense/UploadReceiptController.php",
+                        "app/Http/Controllers/V1/Admin/Settings/CompanyController.php",
+                        "app/Http/Requests/ExpenseRequest.php"
+                    ],
+    "evidence":  [
+                     "fix touches 7 php files",
+                     "app/Http/Controllers/V1/Admin/Expense/ExpensesController.php class extends Controller",
+                     "app/Http/Controllers/V1/Admin/Expense/UploadReceiptController.php class extends Controller",
+                     "app/Http/Controllers/V1/Admin/Settings/CompanyController.php class extends Controller",
+                     "app/Http/Requests/ExpenseRequest.php class extends FormRequest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

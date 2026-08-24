@@ -1,0 +1,213 @@
+﻿diff --git a/src/controllers/AppController.php b/src/controllers/AppController.php
+index 34b59db..747c2ac 100644
+--- a/src/controllers/AppController.php
++++ b/src/controllers/AppController.php
+@@ -23,6 +23,7 @@ use craft\helpers\DateTimeHelper;
+ use craft\helpers\Html;
+ use craft\helpers\Json;
+ use craft\helpers\Session;
++use craft\helpers\StringHelper;
+ use craft\helpers\Update as UpdateHelper;
+ use craft\helpers\UrlHelper;
+ use craft\models\Update;
+@@ -32,6 +33,7 @@ use craft\web\Controller;
+ use craft\web\ServiceUnavailableHttpException;
+ use DateInterval;
+ use Throwable;
++use yii\base\InvalidArgumentException;
+ use yii\base\InvalidConfigException;
+ use yii\web\BadRequestHttpException;
+ use yii\web\Cookie;
+@@ -110,17 +112,23 @@ class AppController extends Controller
+     {
+         $this->requireCpRequest();
+ 
+-        if (!str_starts_with($url, Craft::$app->getAssetManager()->baseUrl)) {
++        $assetManager = Craft::$app->getAssetManager();
++        $baseUrl = StringHelper::ensureRight($assetManager->baseUrl, '/');
++        if (!str_starts_with($url, $baseUrl)) {
+             throw new BadRequestHttpException("$url does not appear to be a resource URL");
+         }
+ 
+-        // Close the PHP session in case this takes a while
+-        Session::close();
++        $resourceUri = preg_replace('/^(.*)\?.*/', '$1', substr($url, strlen($baseUrl)));
+ 
+-        $response = Craft::createGuzzleClient()->get($url);
+-        $this->response->setCacheHeaders();
+-        $this->response->getHeaders()->set('content-type', 'application/javascript');
+-        return $this->asRaw($response->getBody());
++        try {
++            $publishedPath = App::resourcePathByUri($resourceUri);
++        } catch (InvalidArgumentException $e) {
++            throw new BadRequestHttpException($e->getMessage(), previous: $e);
++        }
++
++        return $this->response->sendFile($publishedPath, null, [
++            'inline' => true,
++        ]);
+     }
+ 
+     /**
+diff --git a/src/helpers/App.php b/src/helpers/App.php
+index 9692fff..d19d5a3 100644
+--- a/src/helpers/App.php
++++ b/src/helpers/App.php
+@@ -15,6 +15,8 @@ use craft\db\Command;
+ use craft\db\Connection;
+ use craft\db\mysql\Schema as MysqlSchema;
+ use craft\db\pgsql\Schema as PgsqlSchema;
++use craft\db\Query;
++use craft\db\Table;
+ use craft\elements\User;
+ use craft\enums\LicenseKeyStatus;
+ use craft\errors\InvalidPluginException;
+@@ -41,6 +43,7 @@ use yii\base\Event;
+ use yii\base\Exception;
+ use yii\base\InvalidArgumentException;
+ use yii\base\InvalidValueException;
++use yii\db\Exception as DbException;
+ use yii\helpers\Inflector;
+ use yii\mutex\FileMutex;
+ use yii\mutex\MysqlMutex;
+@@ -1483,4 +1486,69 @@ class App
+             $object->$name = $value;
+         }
+     }
++
++    /**
++     * Returns the path for a CP resource by its URI.
++     *
++     * @param string $uri
++     * @return string|null
++     * @throws InvalidArgumentException
++     * @since 4.17.9
++     */
++    public static function resourcePathByUri(string $uri): ?string
++    {
++        if (!Path::ensurePathIsContained($uri)) {
++            throw new InvalidArgumentException("Invalid resource: $uri");
++        }
++
++        $assetManager = Craft::$app->getAssetManager();
++
++        // If the file already exists, return that
++        $path = "$assetManager->basePath/$uri";
++        if (file_exists($path)) {
++            return $path;
++        }
++
++        // Otherwise, publish it
++        $slash = strpos($uri, '/');
++        $hash = substr($uri, 0, $slash);
++        $sourcePath = self::resourceSourcePathByHash($hash, $assetManager);
++
++        if (!$sourcePath) {
++            return null;
++        }
++
++        $filePath = substr($uri, strlen($hash) + 1);
++
++        // Publish the directory
++        [$publishedDir] = $assetManager->publish(Craft::getAlias($sourcePath));
++
++        $publishedPath = $publishedDir . DIRECTORY_SEPARATOR . $filePath;
++        if (!file_exists($publishedPath)) {
++            throw new InvalidArgumentException("$filePath does not exist.");
++        }
++
++        return $publishedPath;
++    }
++
++    /**
++     * Returns the source path for a CP resource by its hash.
++     *
++     * @param string $hash
++     * @return string|false
++     * @since 4.17.9
++     */
++    private static function resourceSourcePathByHash(string $hash, AssetManager $assetManager): string|false
++    {
++        try {
++            return (new Query())
++                ->select(['path'])
++                ->from(Table::RESOURCEPATHS)
++                ->where(['hash' => $hash])
++                ->scalar();
++        } catch (DbException) {
++            // Craft isn't installed yet. See if it's cached as a fallback.
++            return Craft::$app->getCache()->get($assetManager->getCacheKeyForPathHash($hash));
++        }
++    }
+ }
+diff --git a/src/web/Application.php b/src/web/Application.php
+index 1ca4905..9c86910 100644
+--- a/src/web/Application.php
++++ b/src/web/Application.php
+@@ -9,7 +9,6 @@ namespace craft\web;
+ 
+ use Craft;
+ use craft\base\ApplicationTrait;
+-use craft\db\Query;
+ use craft\db\Table;
+ use craft\debug\DeprecatedPanel;
+ use craft\debug\DumpPanel;
+@@ -38,7 +37,6 @@ use yii\base\ExitException as YiiExitException;
+ use yii\base\InvalidArgumentException;
+ use yii\base\InvalidConfigException;
+ use yii\base\InvalidRouteException;
+-use yii\db\Exception as DbException;
+ use yii\debug\Module as YiiDebugModule;
+ use yii\debug\panels\AssetPanel;
+ use yii\debug\panels\DbPanel;
+@@ -523,25 +521,11 @@ class Application extends \yii\web\Application
+         }
+ 
+         $resourceUri = substr($requestPath, strlen($resourceBaseUri));
+-        $slash = strpos($resourceUri, '/');
+-        $hash = substr($resourceUri, 0, $slash);
+-        $sourcePath = $this->resourceSourcePathByHash($hash);
+ 
+-        if (!$sourcePath) {
+-            return;
+-        }
+-
+-        $filePath = substr($resourceUri, strlen($hash) + 1);
+-        if (!Path::ensurePathIsContained($filePath)) {
+-            throw new BadRequestHttpException('Invalid resource path: ' . $filePath);
+-        }
+-
+-        // Publish the directory
+-        [$publishedDir] = $this->getAssetManager()->publish(Craft::getAlias($sourcePath));
+-
+-        $publishedPath = $publishedDir . DIRECTORY_SEPARATOR . $filePath;
+-        if (!file_exists($publishedPath)) {
+-            throw new NotFoundHttpException("$filePath does not exist.");
++        try {
++            $publishedPath = App::resourcePathByUri($resourceUri);
++        } catch (InvalidArgumentException $e) {
++            throw new BadRequestHttpException($e->getMessage(), previous: $e);
+         }
+ 
+         $response = $this->getResponse();
+@@ -558,20 +542,6 @@ class Application extends \yii\web\Application
+         $this->end();
+     }
+ 
+-    private function resourceSourcePathByHash(string $hash): string|false
+-    {
+-        try {
+-            return (new Query())
+-                ->select(['path'])
+-                ->from(Table::RESOURCEPATHS)
+-                ->where(['hash' => $hash])
+-                ->scalar();
+-        } catch (DbException) {
+-            // Craft isn't installed yet. See if it's cached as a fallback.
+-            return Craft::$app->getCache()->get(Craft::$app->getAssetManager()->getCacheKeyForPathHash($hash));
+-        }
+-    }
+-
+     /**
+      * Processes install requests.
+      *

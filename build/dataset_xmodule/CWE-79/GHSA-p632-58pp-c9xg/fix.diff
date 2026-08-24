@@ -1,0 +1,164 @@
+﻿diff --git a/src/Laravel/src/Fields/Relationships/BelongsTo.php b/src/Laravel/src/Fields/Relationships/BelongsTo.php
+index ccdb67d..1dd7a64 100644
+--- a/src/Laravel/src/Fields/Relationships/BelongsTo.php
++++ b/src/Laravel/src/Fields/Relationships/BelongsTo.php
+@@ -18,6 +18,7 @@ use MoonShine\UI\Contracts\HasDefaultValueContract;
+ use MoonShine\UI\Traits\Fields\HasPlaceholder;
+ use MoonShine\UI\Traits\Fields\Searchable;
+ use MoonShine\UI\Traits\Fields\WithDefaultValue;
++use MoonShine\UI\Traits\Fields\WithEscapedValue;
+ use Throwable;
+ 
+ /**
+@@ -37,6 +38,7 @@ class BelongsTo extends ModelRelationField implements
+     use WithDefaultValue;
+     use HasPlaceholder;
+     use BelongsToOrManyCreatable;
++    use WithEscapedValue;
+ 
+     protected string $view = 'moonshine::fields.relationships.belongs-to';
+ 
+@@ -50,7 +52,9 @@ class BelongsTo extends ModelRelationField implements
+     protected function resolvePreview(): string
+     {
+         if (! $this->getResource()->hasAnyAction(Action::VIEW, Action::UPDATE)) {
+-            return parent::resolvePreview();
++            return $this->isUnescape()
++                ? parent::resolvePreview()
++                : $this->escapeValue((string) parent::resolvePreview());
+         }
+ 
+         if (! $this->hasLink() && $this->toValue()) {
+@@ -68,7 +72,9 @@ class BelongsTo extends ModelRelationField implements
+             );
+         }
+ 
+-        return parent::resolvePreview();
++        return $this->isUnescape()
++            ? parent::resolvePreview()
++            : $this->escapeValue((string) parent::resolvePreview());
+     }
+ 
+     protected function resolveValue(): mixed
+diff --git a/src/Laravel/src/Fields/Relationships/MorphTo.php b/src/Laravel/src/Fields/Relationships/MorphTo.php
+index 0b49089..156c4ac 100644
+--- a/src/Laravel/src/Fields/Relationships/MorphTo.php
++++ b/src/Laravel/src/Fields/Relationships/MorphTo.php
+@@ -143,11 +143,15 @@ class MorphTo extends BelongsTo
+         $column = $this->getSearchColumn($value::class);
+         $type = $item->{$this->getMorphType()};
+ 
+-        return str($this->types[$type] ?? $type)
++        $preview = str($this->types[$type] ?? $type)
+             ->append('(')
+             ->append(data_get($value, $column))
+             ->append(')')
+             ->value();
++
++        return $this->isUnescape()
++            ? $preview
++            : $this->escapeValue($preview);
+     }
+ 
+     public function getTypeValue(): string
+diff --git a/src/Support/src/DTOs/Select/Option.php b/src/Support/src/DTOs/Select/Option.php
+index b028d43..6d12261 100644
+--- a/src/Support/src/DTOs/Select/Option.php
++++ b/src/Support/src/DTOs/Select/Option.php
+@@ -18,12 +18,20 @@ final readonly class Option implements Arrayable
+ 
+     public function getLabel(): string
+     {
+-        return $this->label;
++        return htmlspecialchars(
++            $this->label,
++            ENT_QUOTES | ENT_SUBSTITUTE,
++            'UTF-8',
++        );
+     }
+ 
+     public function getValue(): string
+     {
+-        return $this->value;
++        return htmlspecialchars(
++            $this->value,
++            ENT_QUOTES | ENT_SUBSTITUTE,
++            'UTF-8',
++        );
+     }
+ 
+     public function isSelected(): bool
+diff --git a/src/UI/src/Components/Link.php b/src/UI/src/Components/Link.php
+index c4969ac..a35a578 100644
+--- a/src/UI/src/Components/Link.php
++++ b/src/UI/src/Components/Link.php
+@@ -73,7 +73,11 @@ final class Link extends MoonShineComponent implements HasIconContract, HasLabel
+     protected function prepareBeforeRender(): void
+     {
+         $this->customAttributes([
+-            'href' => value($this->href, $this),
++            'href' => htmlspecialchars(
++                value($this->href, $this),
++                ENT_QUOTES | ENT_SUBSTITUTE,
++                'UTF-8',
++            ),
+         ]);
+     }
+ 
+diff --git a/src/UI/src/Fields/Url.php b/src/UI/src/Fields/Url.php
+index a285f5c..c7403f7 100644
+--- a/src/UI/src/Fields/Url.php
++++ b/src/UI/src/Fields/Url.php
+@@ -7,7 +7,7 @@ namespace MoonShine\UI\Fields;
+ use Closure;
+ use Illuminate\Contracts\Support\Renderable;
+ use MoonShine\Support\Enums\TextWrap;
+-use MoonShine\UI\Components\Url as UrlComponent;
++use MoonShine\UI\Components\Link;
+ 
+ class Url extends Text
+ {
+@@ -36,6 +36,7 @@ class Url extends Text
+     protected function resolvePreview(): Renderable|string
+     {
+         $value = $this->toFormattedValue() ?? '';
++
+         $title = $this->isUnescape()
+             ? $value
+             : $this->escapeValue($value);
+@@ -44,12 +45,14 @@ class Url extends Text
+             return '';
+         }
+ 
+-        return UrlComponent::make(
++        return Link::make(
+             href: $value,
+-            value: \is_null($this->titleCallback)
++            label: \is_null($this->titleCallback)
+                 ? $title
+                 : (string) \call_user_func($this->titleCallback, $title, $this),
+-            blank: $this->blank
+-        )->render();
++        )->when(
++            $this->blank,
++            fn (Link $ctx): Link => $ctx->blank()
++        )->icon('link')->render();
+     }
+ }
+diff --git a/src/UI/src/Traits/Fields/WithLink.php b/src/UI/src/Traits/Fields/WithLink.php
+index 3e5a91b..63a6d44 100644
+--- a/src/UI/src/Traits/Fields/WithLink.php
++++ b/src/UI/src/Traits/Fields/WithLink.php
+@@ -27,7 +27,11 @@ trait WithLink
+ 
+     public function getLinkValue(mixed $value = null): string
+     {
+-        return value($this->linkValue, $value ?? $this->toValue(withDefault: false), $this);
++        return htmlspecialchars(
++            value($this->linkValue, $value ?? $this->toValue(withDefault: false), $this),
++            ENT_QUOTES | ENT_SUBSTITUTE,
++            'UTF-8',
++        );
+     }
+ 
+     public function getLinkName(mixed $value = null): string

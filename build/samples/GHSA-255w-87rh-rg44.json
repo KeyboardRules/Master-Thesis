@@ -1,0 +1,33 @@
+﻿{
+    "id":  "GHSA-255w-87rh-rg44",
+    "cve":  "CVE-2024-47618",
+    "cwe":  "CWE-79",
+    "repo":  "sulu/sulu",
+    "sha":  "ca72f75eebe41ea7726624d8aea7da6c425f1eb9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/FileInspectorInterface.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgFileInspector.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgSanitizerFactory.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/UnsafeFileException.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/UploadFileSubscriber.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/SvgInspector/SvgFileInspectorTest.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/SvgInspector/UploadFileSubscriberTest.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 7 php files"
+                 ],
+    "changed_all":  [
+                        "composer.json",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/FileInspectorInterface.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgFileInspector.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/SvgSanitizerFactory.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/UnsafeFileException.php",
+                        "src/Sulu/Bundle/MediaBundle/FileInspector/UploadFileSubscriber.php",
+                        "src/Sulu/Bundle/MediaBundle/Resources/config/services.xml",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/SvgInspector/SvgFileInspectorTest.php",
+                        "src/Sulu/Bundle/MediaBundle/Tests/Unit/SvgInspector/UploadFileSubscriberTest.php"
+                    ],
+    "sink_hit":  false
+}

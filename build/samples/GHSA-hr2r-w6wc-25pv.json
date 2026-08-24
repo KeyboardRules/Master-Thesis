@@ -1,0 +1,37 @@
+﻿{
+    "id":  "GHSA-hr2r-w6wc-25pv",
+    "cve":  "CVE-2024-34461",
+    "cwe":  "CWE-94",
+    "repo":  "TribalSystems/Zenario",
+    "sha":  "72afb59da34bace812bffb195d01168a357ff664",
+    "status":  "ok",
+    "changed_php":  [
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/fun/syncInlineFileContentLink.php",
+                        "zenario/autoload/phi.php",
+                        "zenario/autoload/twig.php",
+                        "zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "zenario/autoload/phi.php includes 2 project file(s)",
+                     "zenario/autoload/twig.php includes 2 project file(s)",
+                     "zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php class extends ze\\moduleBaseClass",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "package.json",
+                        "zenario/admin/db_updates/latest_revision_no.inc.php",
+                        "zenario/autoload/fun/syncInlineFileContentLink.php",
+                        "zenario/autoload/phi.php",
+                        "zenario/autoload/twig.php",
+                        "zenario/js/admin_organizer.js",
+                        "zenario/js/admin_organizer.min.js",
+                        "zenario/js/panel_type_hierarchy_with_lazy_load.js",
+                        "zenario/modules/zenario_common_features/classes/organizer/menu_nodes.php",
+                        "zenario/modules/zenario_common_features/tuix/organizer/content_items.yaml",
+                        "zenario/modules/zenario_ctype_document/tuix/organizer/content.yaml"
+                    ],
+    "sink_hit":  false
+}

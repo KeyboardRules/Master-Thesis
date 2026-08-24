@@ -1,0 +1,41 @@
+﻿{
+    "id":  "GHSA-27wp-jvhw-v4xp",
+    "cve":  "CVE-2024-42355",
+    "cwe":  "CWE-1336",
+    "repo":  "shopware/core",
+    "sha":  "a784aa1cec0624e36e0ee4d41aeebaed40e0442f",
+    "status":  "ok",
+    "changed_php":  [
+                        "Framework/Adapter/Twig/Node/FeatureCallSilentToken.php",
+                        "Framework/Context.php",
+                        "Framework/DataAbstractionLayer/DataAbstractionLayerException.php",
+                        "Framework/DataAbstractionLayer/Dbal/EntityAggregator.php",
+                        "Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php",
+                        "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php",
+                        "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php",
+                        "System/SalesChannel/Entity/SalesChannelRepository.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 8 php files",
+                     "Framework/Adapter/Twig/Node/FeatureCallSilentToken.php class extends Node",
+                     "Framework/Context.php class extends Struct",
+                     "Framework/Context.php class uses trait",
+                     "Framework/DataAbstractionLayer/DataAbstractionLayerException.php class extends HttpException",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class extends TestCase",
+                     "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php class uses trait",
+                     "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php class extends TestCase",
+                     "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "Framework/Adapter/Twig/Node/FeatureCallSilentToken.php",
+                        "Framework/Context.php",
+                        "Framework/DataAbstractionLayer/DataAbstractionLayerException.php",
+                        "Framework/DataAbstractionLayer/Dbal/EntityAggregator.php",
+                        "Framework/DataAbstractionLayer/Search/Parser/AggregationParser.php",
+                        "Framework/Test/DataAbstractionLayer/Search/EntityAggregatorTest.php",
+                        "Framework/Test/DataAbstractionLayer/Search/Parser/AggregationParserTest.php",
+                        "System/SalesChannel/Entity/SalesChannelRepository.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-2vcf-qxv3-2mgw",
+    "cve":  "CVE-2025-54417",
+    "cwe":  "CWE-94",
+    "repo":  "craftcms/cms",
+    "sha":  "a19d46be78a9ca1ea474012a10e97bed0d787f57",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/controllers/BaseUpdaterController.php",
+                        "src/controllers/UpdaterController.php",
+                        "src/translations/en/app.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/controllers/BaseUpdaterController.php class extends Controller",
+                     "src/controllers/UpdaterController.php class extends BaseUpdaterController"
+                 ],
+    "changed_all":  [
+                        "CHANGELOG.md",
+                        "src/controllers/BaseUpdaterController.php",
+                        "src/controllers/UpdaterController.php",
+                        "src/translations/en/app.php"
+                    ],
+    "sink_hit":  false
+}

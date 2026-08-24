@@ -1,0 +1,13 @@
+﻿diff --git a/src/fields/BaseOptionsField.php b/src/fields/BaseOptionsField.php
+index c11fa97..d4a0f2b 100644
+--- a/src/fields/BaseOptionsField.php
++++ b/src/fields/BaseOptionsField.php
+@@ -605,6 +605,8 @@ abstract class BaseOptionsField extends Field implements PreviewableFieldInterfa
+             $labels[] = array_pop($options)['label'];
+         }
+ 
++        $labels = array_map(fn($label) => Html::encode($label), $labels);
++
+         return implode(', ', $labels);
+     }
+ 

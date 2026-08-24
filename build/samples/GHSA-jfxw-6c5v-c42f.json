@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-jfxw-6c5v-c42f",
+    "cve":  "CVE-2023-46722",
+    "cwe":  "CWE-79",
+    "repo":  "pimcore/admin-ui-classic-bundle",
+    "sha":  "19fda2e86557c2ed4978316104de5ccdaa66d8b9",
+    "status":  "ok",
+    "changed_php":  [
+                        "src/Controller/Admin/Asset/AssetController.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "src/Controller/Admin/Asset/AssetController.php class extends ElementControllerBase",
+                     "src/Controller/Admin/Asset/AssetController.php class uses trait"
+                 ],
+    "changed_all":  [
+                        "src/Controller/Admin/Asset/AssetController.php",
+                        "templates/admin/asset/get_preview_pdf_in_progress.html.twig",
+                        "templates/admin/asset/get_preview_pdf_unsafe.html.twig",
+                        "templates/admin/asset/show_version_document.html.twig",
+                        "translations/admin.en.yaml"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-9fmw-m4qx-6cq8",
+    "cve":  "CVE-2015-3178",
+    "cwe":  "CWE-79",
+    "repo":  "moodle/moodle",
+    "sha":  "28947c1d7d9c53781989b9da7ceb2cafdd144749",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/externallib.php"
+                    ],
+    "xmodule":  "xmodule_include+inherit",
+    "evidence":  [
+                     "lib/externallib.php includes 2 project file(s)",
+                     "lib/externallib.php class extends moodle_exception",
+                     "fix diff references a superglobal source"
+                 ],
+    "changed_all":  [
+                        "lib/externallib.php"
+                    ],
+    "sink_hit":  true
+}

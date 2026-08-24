@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-265q-222x-52m6",
+    "cve":  "",
+    "cwe":  "CWE-89",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "48bd335648188df9dae72be1e5f9c808f3fe1e77",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "src/ORM/DataObjectSchema.php"
+                    ],
+    "evidence":  [
+                     "src/ORM/DataObjectSchema.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

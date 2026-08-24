@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-x86x-qhf8-f37w",
+    "cve":  "",
+    "cwe":  "CWE-22",
+    "repo":  "willdurand/BazingaJsTranslationBundle",
+    "fix_commit":  "7accee93569c3f3d2379f035a41ece66522801fc",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "Controller/Controller.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "Tests/Controller/ControllerTest.php class extends WebTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

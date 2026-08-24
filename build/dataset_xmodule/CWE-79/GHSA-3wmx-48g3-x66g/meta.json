@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-3wmx-48g3-x66g",
+    "cve":  "CVE-2024-41709",
+    "cwe":  "CWE-79",
+    "repo":  "backdrop/backdrop",
+    "fix_commit":  "c7ff0500705668e3f58263590812872e44059301",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "core/modules/field/views/field.views.inc",
+                        "core/modules/views/views.api.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "core/modules/views/views.api.php class extends views_handler_filter_in_operator"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

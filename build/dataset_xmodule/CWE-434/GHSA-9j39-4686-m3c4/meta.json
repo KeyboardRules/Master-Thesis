@@ -1,0 +1,32 @@
+﻿{
+    "id":  "GHSA-9j39-4686-m3c4",
+    "cve":  "",
+    "cwe":  "CWE-434",
+    "repo":  "ibexa/core",
+    "fix_commit":  "7e472317f7c75f45f72f74c38406952d8bea0de1",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  false,
+    "changed_php":  [
+                        "eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php",
+                        "eZ/Publish/Core/FieldType/Image/ImageStorage.php",
+                        "eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php"
+                    ],
+    "evidence":  [
+                     "fix touches 11 php files",
+                     "eZ/Publish/Core/FieldType/BinaryBase/BinaryBaseStorage.php class extends GatewayBasedStorage",
+                     "eZ/Publish/Core/FieldType/Image/ImageStorage.php class extends GatewayBasedStorage",
+                     "eZ/Publish/Core/FieldType/Tests/BinaryFileTest.php class extends BinaryBaseTest",
+                     "eZ/Publish/Core/FieldType/Tests/ImageTest.php class extends FieldTypeTest",
+                     "eZ/Publish/Core/FieldType/Tests/Integration/BinaryBase/BinaryBaseStorage/BinaryBaseStorageTest.php class extends BaseCoreFieldTypeIntegrationTest",
+                     "eZ/Publish/Core/FieldType/Tests/MediaTest.php class extends BinaryBaseTest",
+                     "eZ/Publish/Core/FieldType/Validator/FileExtensionBlackListValidator.php class extends Validator",
+                     "eZ/Publish/SPI/Tests/FieldType/BinaryFileIntegrationTest.php class extends FileBaseIntegrationTest",
+                     "eZ/Publish/SPI/Tests/FieldType/ImageIntegrationTest.php class extends FileBaseIntegrationTest",
+                     "eZ/Publish/SPI/Tests/FieldType/MediaIntegrationTest.php class extends FileBaseIntegrationTest",
+                     "tests/integration/Core/Image/ImageStorage/ImageStorageTest.php class extends BaseCoreFieldTypeIntegrationTest"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

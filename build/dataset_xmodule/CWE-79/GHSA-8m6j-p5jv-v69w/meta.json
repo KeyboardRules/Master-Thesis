@@ -1,0 +1,26 @@
+﻿{
+    "id":  "GHSA-8m6j-p5jv-v69w",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "TYPO3/typo3",
+    "fix_commit":  "20927adfb8aae0093508c904937e40114b92a90c",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "typo3/sysext/core/Classes/Resource/OnlineMedia/Helpers/VimeoHelper.php",
+                        "typo3/sysext/core/Classes/Resource/OnlineMedia/Helpers/YouTubeHelper.php",
+                        "typo3/sysext/core/Classes/Resource/Rendering/VimeoRenderer.php",
+                        "typo3/sysext/core/Classes/Resource/Rendering/YouTubeRenderer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 6 php files",
+                     "typo3/sysext/core/Classes/Resource/OnlineMedia/Helpers/VimeoHelper.php class extends AbstractOEmbedHelper",
+                     "typo3/sysext/core/Classes/Resource/OnlineMedia/Helpers/YouTubeHelper.php class extends AbstractOEmbedHelper",
+                     "typo3/sysext/core/Tests/Unit/Resource/Rendering/VimeoRendererTest.php class extends UnitTestCase",
+                     "typo3/sysext/core/Tests/Unit/Resource/Rendering/YouTubeRendererTest.php class extends UnitTestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

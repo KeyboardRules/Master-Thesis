@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-v89q-c273-3p42",
+    "cve":  "CVE-2023-36259",
+    "cwe":  "CWE-79",
+    "repo":  "sjelfull/craft-audit",
+    "fix_commit":  "c2888aa48457f24696ac0a2ba4f54f39e5c672ed",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/services/AuditService.php"
+                    ],
+    "evidence":  [
+                     "src/services/AuditService.php class extends Component"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

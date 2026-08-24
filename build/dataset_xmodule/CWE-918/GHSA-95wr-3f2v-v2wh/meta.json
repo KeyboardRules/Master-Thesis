@@ -1,0 +1,24 @@
+﻿{
+    "id":  "GHSA-95wr-3f2v-v2wh",
+    "cve":  "CVE-2026-41130",
+    "cwe":  "CWE-918",
+    "repo":  "craftcms/cms",
+    "fix_commit":  "ebe7e85f1c89700d64332f72492be2e9a594e783",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/controllers/AppController.php",
+                        "src/helpers/App.php",
+                        "src/web/Application.php"
+                    ],
+    "evidence":  [
+                     "fix touches 3 php files",
+                     "src/controllers/AppController.php class extends Controller",
+                     "src/web/Application.php class extends \\yii\\web\\Application",
+                     "src/web/Application.php class uses trait"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

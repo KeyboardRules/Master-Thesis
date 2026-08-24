@@ -1,0 +1,22 @@
+﻿{
+    "id":  "GHSA-jrgf-vfw2-hj26",
+    "cve":  "CVE-2020-15244",
+    "cwe":  "CWE-502",
+    "repo":  "OpenMage/magento-lts",
+    "fix_commit":  "26433d15b57978fcb7701b5f99efe8332ca8630b",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php",
+                        "app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "app/code/core/Mage/Catalog/Model/Product/Attribute/Api.php class extends Mage_Catalog_Model_Api_Resource",
+                     "app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php class extends Mage_Catalog_Model_Resource_Collection_Abstract"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

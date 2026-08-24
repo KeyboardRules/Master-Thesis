@@ -1,0 +1,29 @@
+﻿{
+    "id":  "GHSA-5f5v-5c3v-gw5v",
+    "cve":  "",
+    "cwe":  "CWE-79",
+    "repo":  "silverstripe/silverstripe-framework",
+    "fix_commit":  "604c32871202064a4aa12c3b3fd58140231685e5",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "view/SSTemplateParser.php",
+                        "view/SSTemplateParser.php.inc",
+                        "view/SSViewer.php"
+                    ],
+    "evidence":  [
+                     "fix touches 4 php files",
+                     "tests/view/SSViewerTest.php includes 1 project file(s)",
+                     "tests/view/SSViewerTest.php class extends SapphireTest",
+                     "view/SSTemplateParser.php includes 2 project file(s)",
+                     "view/SSTemplateParser.php class extends Exception",
+                     "view/SSTemplateParser.php.inc includes 2 project file(s)",
+                     "view/SSTemplateParser.php.inc class extends Exception",
+                     "view/SSViewer.php class extends SSViewer_Scope",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

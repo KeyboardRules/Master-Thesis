@@ -1,0 +1,23 @@
+﻿{
+    "id":  "GHSA-rc55-58f4-687g",
+    "cve":  "CVE-2026-33486",
+    "cwe":  "CWE-918",
+    "repo":  "roadiz/core-bundle-dev-app",
+    "sha":  "7904f690a51b88b1c72c02149ebdf85fa81f19f2",
+    "status":  "ok",
+    "changed_php":  [
+                        "lib/Documents/src/DownloadedFile.php",
+                        "lib/Documents/tests/DownloadedFileTest.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "lib/Documents/src/DownloadedFile.php class extends File",
+                     "lib/Documents/tests/DownloadedFileTest.php class extends TestCase"
+                 ],
+    "changed_all":  [
+                        "lib/Documents/src/DownloadedFile.php",
+                        "lib/Documents/tests/DownloadedFileTest.php"
+                    ],
+    "sink_hit":  true
+}

@@ -1,0 +1,21 @@
+﻿{
+    "id":  "GHSA-q4mm-89q2-xffg",
+    "cve":  "CVE-2011-4107",
+    "cwe":  "CWE-611",
+    "repo":  "phpmyadmin/phpmyadmin",
+    "sha":  "2fbf631384fd8cded55f4500cb87b129442f9ed2",
+    "status":  "ok",
+    "changed_php":  [
+                        "libraries/import/ods.php",
+                        "libraries/import/xml.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+                     "fix touches 2 php files"
+                 ],
+    "changed_all":  [
+                        "libraries/import/ods.php",
+                        "libraries/import/xml.php"
+                    ],
+    "sink_hit":  true
+}

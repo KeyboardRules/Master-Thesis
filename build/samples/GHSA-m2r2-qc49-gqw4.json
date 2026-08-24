@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-m2r2-qc49-gqw4",
+    "cve":  "CVE-2018-7035",
+    "cwe":  "CWE-79",
+    "repo":  "gleez/cms",
+    "sha":  "d4ad1844e9fe6e2b9b92dfb351fb7e01047f9565",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/gleez/classes/assets.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "modules/gleez/classes/assets.php"
+                    ],
+    "sink_hit":  true
+}

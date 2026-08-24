@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-q386-w6fg-gmgp",
+    "cve":  "CVE-2023-38490",
+    "cwe":  "CWE-611",
+    "repo":  "getkirby/kirby",
+    "fix_commit":  "277b05662d2b67386f0a0f18323cf68b30e86387",
+    "boundary_type":  "inherit",
+    "xmodule_tier":  "xmodule_inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "src/Toolkit/Xml.php"
+                    ],
+    "evidence":  [
+                     "fix touches 2 php files",
+                     "tests/Toolkit/XmlTest.php class extends TestCase"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-qch4-jmf8-xvp7",
+    "cve":  "CVE-2022-4067",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "8e85698aa3aa4884c2f3d6c987542477eb64f07c",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/html/pages/notifications.inc.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "includes/html/pages/notifications.inc.php"
+                    ],
+    "sink_hit":  true
+}

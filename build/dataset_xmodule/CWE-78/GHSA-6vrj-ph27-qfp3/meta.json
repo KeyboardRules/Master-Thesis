@@ -1,0 +1,30 @@
+﻿{
+    "id":  "GHSA-6vrj-ph27-qfp3",
+    "cve":  "CVE-2023-30854",
+    "cwe":  "CWE-78",
+    "repo":  "WWBN/AVideo",
+    "fix_commit":  "020415d22f36d93ed865eb61994b49caa0f7f90a",
+    "boundary_type":  "include+inherit",
+    "xmodule_tier":  "xmodule_include+inherit",
+    "label_status":  "heuristic_pending_ecpg",
+    "sink_hit":  true,
+    "changed_php":  [
+                        "objects/video.php",
+                        "objects/videos.json.php",
+                        "plugin/API/API.php",
+                        "plugin/CloneSite/cloneClient.json.php",
+                        "plugin/CloneSite/functions.php"
+                    ],
+    "evidence":  [
+                     "fix touches 5 php files",
+                     "objects/video.php includes 21 project file(s)",
+                     "objects/video.php class extends ObjectYPT",
+                     "objects/videos.json.php includes 1 project file(s)",
+                     "plugin/API/API.php includes 36 project file(s)",
+                     "plugin/API/API.php class extends PluginAbstract",
+                     "plugin/CloneSite/cloneClient.json.php includes 4 project file(s)",
+                     "fix diff references a superglobal source"
+                 ],
+    "positive":  "vuln/ (pre-fix, parent commit)",
+    "negative":  "fixed/ (post-fix)"
+}

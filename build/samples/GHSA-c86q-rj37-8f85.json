@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-c86q-rj37-8f85",
+    "cve":  "CVE-2024-49758",
+    "cwe":  "CWE-79",
+    "repo":  "librenms/librenms",
+    "sha":  "24b142d753898e273ec20b542a27dd6eb530c7d8",
+    "status":  "ok",
+    "changed_php":  [
+                        "app/Plugins/ExamplePlugin/resources/views/device-overview.blade.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "app/Plugins/ExamplePlugin/resources/views/device-overview.blade.php"
+                    ],
+    "sink_hit":  false
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id":  "GHSA-62r2-gcxr-426x",
+    "cve":  "CVE-2024-47536",
+    "cwe":  "CWE-79",
+    "repo":  "StarCitizenTools/mediawiki-skins-Citizen",
+    "sha":  "717d16af35b10dab04d434aefddbf991fc8c168c",
+    "status":  "ok",
+    "changed_php":  [
+                        "includes/Partials/Header.php"
+                    ],
+    "xmodule":  "xmodule_inherit",
+    "evidence":  [
+                     "includes/Partials/Header.php class extends Partial"
+                 ],
+    "changed_all":  [
+                        "includes/Partials/Header.php",
+                        "resources/skins.citizen.styles/components/Usermenu.less"
+                    ],
+    "sink_hit":  false
+}

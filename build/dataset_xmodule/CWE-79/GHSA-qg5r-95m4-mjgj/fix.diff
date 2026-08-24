@@ -1,0 +1,34 @@
+﻿diff --git a/framework/base/Component.php b/framework/base/Component.php
+index d612170..e1b94c8 100644
+--- a/framework/base/Component.php
++++ b/framework/base/Component.php
+@@ -188,7 +188,15 @@ class Component extends BaseObject
+         } elseif (strncmp($name, 'as ', 3) === 0) {
+             // as behavior: attach behavior
+             $name = trim(substr($name, 3));
+-            $this->attachBehavior($name, $value instanceof Behavior ? $value : Yii::createObject($value));
++            if ($value instanceof Behavior) {
++                $this->attachBehavior($name, $value);
++            } elseif (isset($value['class']) && is_subclass_of($value['class'], 'yii\base\Behavior', true)) {
++                $this->attachBehavior($name, Yii::createObject($value));
++            } elseif (is_string($value) && is_subclass_of($value, 'yii\base\Behavior', true)) {
++                $this->attachBehavior($name, Yii::createObject($value));
++            } else {
++                throw new InvalidConfigException('Class is not of type yii\base\Behavior or its subclasses');
++            }
+ 
+             return;
+         }
+diff --git a/framework/web/ErrorHandler.php b/framework/web/ErrorHandler.php
+index 3806c57..94e03f9 100644
+--- a/framework/web/ErrorHandler.php
++++ b/framework/web/ErrorHandler.php
+@@ -180,7 +180,7 @@ class ErrorHandler extends \yii\base\ErrorHandler
+      */
+     public function htmlEncode($text)
+     {
+-        return htmlspecialchars($text, ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
++        return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+     }
+ 
+     /**

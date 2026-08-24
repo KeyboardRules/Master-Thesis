@@ -1,0 +1,19 @@
+﻿{
+    "id":  "GHSA-43w4-4j3c-jx29",
+    "cve":  "CVE-2023-52084",
+    "cwe":  "CWE-79",
+    "repo":  "wintercms/winter",
+    "sha":  "517f65dfae679b57575b047de13c5af48915a5ba",
+    "status":  "ok",
+    "changed_php":  [
+                        "modules/backend/formwidgets/colorpicker/partials/_colorpicker.php"
+                    ],
+    "xmodule":  "intra",
+    "evidence":  [
+
+                 ],
+    "changed_all":  [
+                        "modules/backend/formwidgets/colorpicker/partials/_colorpicker.php"
+                    ],
+    "sink_hit":  false
+}
