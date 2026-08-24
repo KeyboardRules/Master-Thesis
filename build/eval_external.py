@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 """
-Sample-level comparison of external tools (NAVEX / TChecker / Progpilot / Psalm) against the
-cross-module dataset (Phase-3, comparison §3).
+Sample-level comparison of prior detectors against the cross-module dataset (Phase-3, §3).
+
+26-week-plan comparison targets: RealVul, VulEye, DeepTective, and PHPJoy's own static
+analysis. (NAVEX / TChecker are Phase-2 source/sink cross-check tools, not Phase-3 targets.)
+This adapter is tool-agnostic: feed each system's output as the normalized findings.jsonl
+below; `parse_progpilot` is one example converter you can adapt per tool.
 
 External tools emit *findings*, we have *labeled samples*. This aligns them at the CVE/sample
 level on the held-out test split so precision/recall/F1 are comparable to the LLM classifier.

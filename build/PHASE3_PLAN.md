@@ -45,8 +45,13 @@ extra-include transform than the intra-file baseline.
 | Group | Systems | Alignment |
 |---|---|---|
 | **Internal baselines** | no-slice, intra-file (Phase-2 variants) | identical seeds/split |
-| **Static taint tools** | NAVEX, TChecker, Progpilot / Psalm-taint | run on the same test repos@commit; compare at **CVE level** (detected/not) |
-| **LLM detectors** | RealVul, PHPVD models; vanilla Qwen zero-/few-shot (no fine-tune) | same test records |
+| **Prior detectors (26-week plan targets)** | **RealVul, VulEye, DeepTective, and PHPJoy's own static analysis** | run on the same test repos@commit; compare at **CVE level** (detected/not) |
+| **Zero-shot control** | vanilla Qwen2.5-Coder (no fine-tune) | same test records |
+
+Note: NAVEX / TChecker are NOT Phase-3 comparison targets — they are used in Phase 2 to
+cross-check the source/sink/sanitizer model (see `SOURCES_SINKS_XCHECK.md`). PHPJoy-static =
+running PHPJoy's own forward taint analysis (`tutorial/main.py` / `GlobalPDGForwardTraversalWithModel`)
+as a non-LLM baseline on the same split.
 
 Fairness notes:
 - Static tools emit **paths**, we classify **slices** → align at the **sample (CVE) level**:
