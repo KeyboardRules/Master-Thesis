@@ -56,4 +56,4 @@ class PDGStep(AbstractStep):
     def get_related_vars(self, _node_start: py2neo.Node, _node_end: py2neo.Node) -> List[str]:
 
         return [i.get(DATA_FLOW_SYMBOL) for i in
-                self.parent.neo4j_graph.relationships.match(nodes=[_node_start, _node_end], r_type=CALLS_EDGE, )]
+                self.parent.neo4j_graph.relationships.match(nodes=[_node_start, _node_end], r_type=DATA_FLOW_EDGE, )]

@@ -39,7 +39,7 @@ from typing import Dict, List, Set
 
 from apis.graph_traversal_model import GlobalPDGForwardTraversalWithModel
 from apis.const import (
-    NODE_INDEX, NODE_TYPE, NODE_FUNCID, NODE_CODE, NODE_CHILDNUM, NODE_LINENO,
+    NODE_INDEX, NODE_TYPE, NODE_FUNCID, NODE_CODE, NODE_CHILDNUM, NODE_LINENO, NODE_CLASSID,
     TYPE_PARAM, TYPE_ARG_LIST, TYPE_VAR, TYPE_ASSIGN, TYPE_METHOD,
     EXTENDS_EDGE, TRAIT_EDGE,
 )
@@ -110,7 +110,9 @@ class GlobalBackwardSliceTraversal(GlobalPDGForwardTraversalWithModel):
 
     # ------------------------------------------------------------------ helpers ----------
     def _slice_of(self, node) -> Slice:
-        return self._slices.setdefault(node['origin'], Slice(self.get_node_itself(node['origin'])))
+        return self._slices.setdefault(
+            node['origin'], Slice(self.analysis_framework.get_node_itself(node['origin']))
+        )
 
     def _rel_var(self, def_node, use_node) -> str:
         try:
@@ -125,14 +127,21 @@ class GlobalBackwardSliceTraversal(GlobalPDGForwardTraversalWithModel):
             return []
         results = []
         try:
-            includers = self.analysis_framework.find_fig_include_src(node)   # files that include this
-            included = self.analysis_framework.find_fig_include_dst(node)    # files this includes
-        except Exception:            # VERIFY on live graph
-            includers, included = [], []
-        for f in list(includers) + list(included):
-            top = self.analysis_framework.fig_step.get_toplevel_file_first_statement(f)  # VERIFY
-            if top is not None:
-                results.append(top)
+            # INCLUDE relationships connect Filesystem (`type="File"`) nodes, not the AST
+            # nodes themselves -- resolve `node`'s own Filesystem node first, then walk
+            # INCLUDE to neighboring Filesystem nodes, then FILE_OF to their AST_TOPLEVEL.
+            fs_node = self.analysis_framework.get_fig_filesystem_node(node)
+            if fs_node is None:
+                return []
+            includers = self.analysis_framework.find_fig_include_src(fs_node)   # files that include this one
+            included = self.analysis_framework.find_fig_include_dst(fs_node)    # files this one includes
+            for f in list(includers) + list(included):
+                top_ast = self.analysis_framework.fig_step.get_node_from_file_system(f)
+                top = self.analysis_framework.fig_step.get_toplevel_file_first_statement(top_ast)
+                if top is not None:
+                    results.append(top)
+        except Exception:
+            return []
         if results:
             sl = self._slice_of(node)
             sl.crosses_include = True
@@ -145,20 +154,23 @@ class GlobalBackwardSliceTraversal(GlobalPDGForwardTraversalWithModel):
         if self.intra_file_only or self.disable_inherit:   # ablation A2
             return []
         # is the enclosing function a method?
-        func = self.get_node_itself(node[NODE_FUNCID]) if node[NODE_FUNCID] is not None else None
+        func = self.analysis_framework.get_node_itself(node[NODE_FUNCID]) if node[NODE_FUNCID] is not None else None
         if func is None or func[NODE_TYPE] != TYPE_METHOD:
             return []
         results = []
         try:
-            # walk EXTENDS / TRAIT relationships out of the method's class node
-            class_node = self.analysis_framework.get_ast_root_node(func)     # VERIFY: class of method
+            # the method's own `classid` prop is the node id of its enclosing AST_CLASS node
+            # (set by Exporter.php when it descends into a class; confirmed via php2ast source)
+            class_node = self.analysis_framework.get_node_itself(func[NODE_CLASSID])
             for rel_type in (EXTENDS_EDGE, TRAIT_EDGE):
                 for rel in self.analysis_framework.match_relationship(
-                        nodes=(class_node, None), r_type=rel_type):          # VERIFY match API
-                    parent_name = rel.end_node.get(NODE_CODE) or rel.end_node.get('name')
-                    parent = self.analysis_framework.chg_step.get_class_defined_node_by_name(parent_name)
-                    if parent is not None:
-                        results.append(parent)
+                        nodes=(class_node, None), r_type=rel_type):
+                    # rel.end_node IS the resolved parent class/trait node already (confirmed
+                    # on the live graph); going through get_class_defined_node_by_name(name)
+                    # is both unnecessary and broken here since this php-ast/Exporter.php
+                    # combo leaves AST_CLASS `name`/`code` empty.
+                    if rel.end_node is not None:
+                        results.append(rel.end_node)
         except Exception:            # VERIFY on live graph
             return []
         if results:
@@ -173,7 +185,7 @@ class GlobalBackwardSliceTraversal(GlobalPDGForwardTraversalWithModel):
         if self.intra_file_only or node[NODE_TYPE] != TYPE_PARAM:
             return []
         results = []
-        decl = self.get_node_itself(node[NODE_FUNCID])                       # enclosing function decl
+        decl = self.analysis_framework.get_node_itself(node[NODE_FUNCID])    # enclosing function decl
         if decl is None:
             return []
         try:
@@ -225,8 +237,11 @@ class GlobalBackwardSliceTraversal(GlobalPDGForwardTraversalWithModel):
             result.append(d)
         # (b) inter-procedural: parameter -> caller arguments
         result.extend(self._backward_cg(node))
-        # (c) MDG include boundary
-        result.extend(self._backward_include(node))
+        # (c) MDG include boundary: only cross into an included/including file once (a) and
+        # (b) found no local/CG predecessor -- a proxy for "undefined_in_scope(var, node)"
+        # (SLICING.md sec 3(c)); avoids pulling in an include-hop on every single node.
+        if not result:
+            result.extend(self._backward_include(node))
         # (d) CHG inheritance boundary
         result.extend(self._backward_inherit(node))
         # (e) control context (ablation A5)

@@ -35,7 +35,7 @@ python3 -m venv "$ROOT/.venv"
 # shellcheck disable=SC1091
 . "$ROOT/.venv/bin/activate"
 pip install -U pip
-pip install py2neo networkx
+pip install py2neo networkx matplotlib ruamel.yaml Levenshtein coloredlogs
 echo "    (QLoRA deps are separate/GPU box: pip install 'transformers>=4.44' peft bitsandbytes datasets accelerate scikit-learn)"
 
 echo

@@ -15,6 +15,35 @@ def _normalize(x):
     return x.strip('\'').strip('\"')
 
 
+# php-ast flag names (as emitted by Exporter::format_flags, i.e. ast\get_metadata() short
+# names) for AST_BINARY_OP / AST_ASSIGN_OP / AST_UNARY_OP, mapped to their PHP source operator.
+_OP_SYMBOLS = {
+    "ADD": "+", "SUB": "-", "MUL": "*", "DIV": "/", "MOD": "%", "POW": "**",
+    "CONCAT": ".", "BITWISE_OR": "|", "BITWISE_AND": "&", "BITWISE_XOR": "^",
+    "BW_OR": "|", "BW_AND": "&", "BW_XOR": "^",
+    "SHIFT_LEFT": "<<", "SHIFT_RIGHT": ">>",
+    "BOOL_AND": "&&", "BOOL_OR": "||", "BOOL_XOR": "xor",
+    "IS_IDENTICAL": "===", "IS_NOT_IDENTICAL": "!==",
+    "IS_EQUAL": "==", "IS_NOT_EQUAL": "!=",
+    "IS_SMALLER": "<", "IS_SMALLER_OR_EQUAL": "<=",
+    "IS_GREATER": ">", "IS_GREATER_OR_EQUAL": ">=",
+    "SPACESHIP": "<=>", "COALESCE": "??",
+}
+_UNARY_OP_SYMBOLS = {
+    "UNARY_MINUS": "-", "UNARY_PLUS": "+",
+    "UNARY_BOOL_NOT": "!", "UNARY_BITWISE_NOT": "~",
+    "UNARY_SILENCE": "@",
+}
+
+
+def _binop_symbol(flag_name: str) -> str:
+    for prefix in ("BINARY_", "ASSIGN_"):
+        if flag_name.startswith(prefix):
+            flag_name = flag_name[len(prefix):]
+            break
+    return _OP_SYMBOLS.get(flag_name, flag_name)
+
+
 class CodeStep(AbstractStep):
     def __init__(self, parent):
         super(CodeStep, self).__init__(parent,"code_step")
@@ -87,6 +116,57 @@ class CodeStep(AbstractStep):
         else:
             code = eval("self.get_{}_code(node)".format(node[NODE_TYPE].lower()))
         return code
+
+    def get_ast_assign_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_ASSIGN
+        lhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))
+        rhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 1))
+        return f"{lhs} = {rhs}"
+
+    def get_ast_assign_ref_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_ASSIGN_REF
+        lhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))
+        rhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 1))
+        return f"{lhs} = &{rhs}"
+
+    def get_ast_assign_op_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_ASSIGN_OP
+        lhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))
+        rhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 1))
+        flags = node[NODE_FLAGS] or []
+        op = _binop_symbol(flags[0]) if flags else "?"
+        return f"{lhs} {op}= {rhs}"
+
+    def get_ast_binary_op_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_BINARY_OP
+        lhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))
+        rhs = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 1))
+        flags = node[NODE_FLAGS] or []
+        op = _binop_symbol(flags[0]) if flags else "?"
+        return f"{lhs} {op} {rhs}"
+
+    def get_ast_unary_op_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_UNARY_OP
+        operand = self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))
+        flags = node[NODE_FLAGS] or []
+        op = _UNARY_OP_SYMBOLS.get(flags[0], "") if flags else ""
+        return f"{op}{operand}"
+
+    def get_ast_post_inc_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_POST_INC
+        return f"{self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))}++"
+
+    def get_ast_post_dec_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_POST_DEC
+        return f"{self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))}--"
+
+    def get_ast_pre_inc_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_PRE_INC
+        return f"++{self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))}"
+
+    def get_ast_pre_dec_code(self, node: py2neo.Node) -> str:
+        assert node[NODE_TYPE] == TYPE_PRE_DEC
+        return f"--{self.parent.get_ast_node_code(self.parent.get_ast_ith_child_node(node, 0))}"
 
     def get_ast_new_code(self, node: py2neo.Node) -> str:
         assert node[NODE_TYPE] == TYPE_NEW

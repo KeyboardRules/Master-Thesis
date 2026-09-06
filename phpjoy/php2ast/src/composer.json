@@ -1,5 +1,5 @@
 {
-  "name": "phpjoern-astbuilder",
+  "name": "phpjoern/astbuilder",
   "description": "description",
   "minimum-stability": "stable",
   "license": "proprietary",

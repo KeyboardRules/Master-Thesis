@@ -19,7 +19,7 @@ import json
 import re
 from typing import Dict, List, Optional
 
-from apis.const import NODE_INDEX, NODE_CODE, NODE_LINENO, NODE_TYPE, NODE_FUNCID
+from apis.const import NODE_INDEX, NODE_CODE, NODE_LINENO, NODE_TYPE, NODE_FUNCID, NODE_CLASSID
 from apis.vuln_model import (
     POTENTIAL_SOURCE_MODEL, POTENTIAL_SINK_MODEL, BASIC_SANITIZE_FUNCTIONS,
     EXTERNAL_SANITIZE_FUNCTIONS, VULN_TYPE_ID_TO_STRING,
@@ -67,9 +67,11 @@ def _unit(af, node) -> Dict[str, str]:
             fn = None
         if fn is not None:
             func = _attr(fn, "name", None) or _attr(fn, NODE_CODE, None) or "<func>"
-            # VERIFY: resolving the declaring class of a method on the live graph
+            # the method's own `classid` prop is the node id of its enclosing AST_CLASS node
+            # (set by Exporter.php when it descends into a class; confirmed via php2ast source)
             try:
-                cnode = af.get_ast_root_node(fn)
+                classid = _attr(fn, NODE_CLASSID)
+                cnode = af.get_node_itself(classid) if classid else None
                 if cnode is not None and str(_attr(cnode, NODE_TYPE, "")).endswith("CLASS"):
                     klass = _attr(cnode, "name", None) or _attr(cnode, NODE_CODE, None)
             except Exception:
