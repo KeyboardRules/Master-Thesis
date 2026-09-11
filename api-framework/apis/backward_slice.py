@@ -298,5 +298,11 @@ def run_slicing(analysis_framework, vuln_type, intra_file_only=False, **kwargs) 
         intra_file_only=intra_file_only,
         **kwargs,
     )
+    # A codebase with no sink of this CWE anywhere is a legitimate "nothing to slice", not an
+    # error -- but BaseGraphTraversal.init_traversal() raises IndexError on an empty seed set,
+    # which previously aborted the whole sample. Return an empty slice list instead.
+    if not tr.origin:
+        logger.info("no %s sink found in this graph; nothing to slice", vuln_type)
+        return []
     tr.run()
     return tr.extract_slices()

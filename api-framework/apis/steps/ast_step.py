@@ -7,6 +7,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# Safety cap on filter_child_nodes' variable-length descendant query (see below).
+MAX_FILTER_CHILD_NODES = 20000
+
 
 class ASTStep(AbstractStep):
 
@@ -111,8 +114,12 @@ class ASTStep(AbstractStep):
             node_type_filter = [i for i in node_type_filter]
         if node_type_filter is not None:
             query += f" WHERE B.type in {node_type_filter.__str__()}"
+        # DISTINCT + LIMIT: the variable-length PARENT_OF expansion returns one row per PATH,
+        # so any duplicate/diamond path re-emits the same node many times and the query blows
+        # up on large subtrees (this was timing out whole samples). Callers only ever want the
+        # set of matching descendants, and slices are capped well below this limit anyway.
         return [b for b, in self.parent.run(
-                query + " RETURN B;"
+                query + f" RETURN DISTINCT B LIMIT {MAX_FILTER_CHILD_NODES};"
         )]
 
     def __has_cfg(self, node):

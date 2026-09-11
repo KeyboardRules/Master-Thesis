@@ -16,10 +16,12 @@ NOTE: written against the real API + the Slice class in backward_slice.py, NOT e
 (no Neo4j/Python in the authoring env). Live-graph assumptions are marked `# VERIFY`.
 """
 import json
+import os
 import re
 from typing import Dict, List, Optional
 
-from apis.const import NODE_INDEX, NODE_CODE, NODE_LINENO, NODE_TYPE, NODE_FUNCID, NODE_CLASSID
+from apis.const import (NODE_INDEX, NODE_CODE, NODE_LINENO, NODE_TYPE, NODE_FUNCID,
+                        NODE_CLASSID, NODE_ENDLINENO)
 from apis.vuln_model import (
     POTENTIAL_SOURCE_MODEL, POTENTIAL_SINK_MODEL, BASIC_SANITIZE_FUNCTIONS,
     EXTERNAL_SANITIZE_FUNCTIONS, VULN_TYPE_ID_TO_STRING,
@@ -185,14 +187,77 @@ def linearize_slice(sl, af, cwe: str, vuln_type, max_chars: int = 8000,
     return text
 
 
-def linearize_function_text(sink_node, af, cwe: str) -> str:
-    """Baseline-1 'no-slice': whole enclosing function/file text, no EDGES block."""
-    funcid = _attr(sink_node, NODE_FUNCID)
+def _source_lines(af, node, first_line, last_line) -> Optional[str]:
+    """Real source text of [first_line, last_line] for the file `node` lives in, if readable.
+
+    `fig_step.get_belong_file` yields the file's absolute path as recorded when the E-CPG was
+    built, which is still on disk while the batch analyses that checkout.
+    """
+    if not first_line:
+        return None
     try:
-        fn = af.get_node_itself(funcid) if funcid is not None else None
-        body = af.code_step.get_node_code(fn) if fn is not None else _code(af, sink_node)
+        path = af.fig_step.get_belong_file(node)
+        if not path or not os.path.isfile(path):
+            return None
+        with open(path, encoding="utf-8", errors="replace") as f:
+            lines = f.readlines()
     except Exception:
-        body = _code(af, sink_node)
+        return None
+    start = max(int(first_line) - 1, 0)
+    end = min(int(last_line or first_line), len(lines))
+    if end <= start:
+        return None
+    return "".join(lines[start:end]).rstrip()
+
+
+def _reconstruct_body(af, fn) -> Optional[str]:
+    """Fallback: rebuild the function body from its AST statements, one per source line."""
+    try:
+        kids = af.filter_ast_child_nodes(fn)
+    except Exception:
+        return None
+    by_line: Dict[int, str] = {}
+    for k in kids:
+        ln = _attr(k, NODE_LINENO)
+        if ln is None or ln in by_line:
+            continue
+        code = _code(af, k)
+        if code and not code.startswith("NOT_SUPPORT_FOR_"):
+            by_line[ln] = code
+    if not by_line:
+        return None
+    return "\n".join(f"{by_line[ln]}" for ln in sorted(by_line))
+
+
+def linearize_function_text(sink_node, af, cwe: str, max_chars: int = 8000) -> str:
+    """Baseline-1 'no-slice': whole enclosing function/file text, no EDGES block.
+
+    This baseline only means anything if it really contains the surrounding code -- the
+    comparison against the sliced variants is otherwise rigged. Prefer the true source text
+    of the enclosing function; fall back to rebuilding it from the AST, then to the sink line.
+    (`code_step.get_node_code(fn)` is NOT usable here: for AST_METHOD/AST_FUNC_DECL it returns
+    the declaration's `name` property, which this php-ast/Exporter.php combination leaves
+    empty -- it rendered every no-slice record as the literal string "None".)
+    """
+    funcid = _attr(sink_node, NODE_FUNCID)
+    fn = None
+    if funcid is not None:
+        try:
+            fn = af.get_node_itself(funcid)
+        except Exception:
+            fn = None
+
+    body = None
+    if fn is not None:
+        body = _source_lines(af, fn, _attr(fn, NODE_LINENO), _attr(fn, NODE_ENDLINENO))
+        if body is None:
+            body = _reconstruct_body(af, fn)
+    if body is None:                      # last resort: the sink statement's own line
+        body = _source_lines(af, sink_node, _attr(sink_node, NODE_LINENO),
+                             _attr(sink_node, NODE_LINENO)) or _code(af, sink_node)
+
+    if len(body) > max_chars:
+        body = body[:max_chars] + "\n[TRUNCATED]"
     return f"<META> cwe={cwe} boundary=intra variant=no-slice\n[SLICE]\n{body}\n[/SLICE]"
 
 

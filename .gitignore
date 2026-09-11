@@ -4,7 +4,11 @@ build/repos/
 build/packagist/
 build/packagist_all.zip
 build/ft_dataset.jsonl
+build/ft_dataset.dedup.jsonl
+build/ft_dataset.jsonl.bak
 build/phase2_state.json
+build/phase2_attempts.json
+build/phase2_complete.json
 build/perturbed/
 
 # any zip archives

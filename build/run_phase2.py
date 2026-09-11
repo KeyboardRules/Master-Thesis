@@ -21,6 +21,8 @@ import argparse, json, os, shutil, signal, subprocess, sys, time, tempfile
 from pathlib import Path
 
 PIPELINE_TIMEOUT_S = 600    # wall-clock budget for run_pipeline() per checkout (vuln/fixed)
+JVM_HEAP_MB = 2000          # max heap for phpast2cpg.jar (default ~950MB OOM-ed on big repos;
+                            # kept under total RAM so the OS OOM-killer doesn't fire instead)
 
 ROOT = Path(__file__).resolve().parent.parent            # phpjoy_release/
 PHPJOY = ROOT / "phpjoy"
@@ -57,7 +59,10 @@ def build_ecpg(project_dir):
     # (-m strict -p predefined.csv) to resolve built-in/CHG call mappings; it then emits
     # cpg_edges.csv/fake_nodes.csv/fake_rels.csv, which neo4j-admin-import.sh expects.
     sh(["php", "php2ast/src/Parser.php", str(project_dir)], cwd=PHPJOY)
-    sh(["java", "-jar", "phpast2cpg.jar", "-n", "nodes.csv", "-e", "rels.csv",
+    # -Xmx: the JVM default max heap is ~1/4 of RAM (~950MB on this 3.9GB box), which
+    # OOM-ed on every large repo (was the single biggest batch failure cause). Neo4j is
+    # stopped while this runs, so the headroom is available to the CPG builder.
+    sh(["java", f"-Xmx{JVM_HEAP_MB}m", "-jar", "phpast2cpg.jar", "-n", "nodes.csv", "-e", "rels.csv",
         "-m", "strict", "-p", "predefined.csv"], cwd=PHPJOY)
 
 
@@ -135,6 +140,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(ROOT / "build" / "ft_dataset.jsonl"))
     ap.add_argument("--state", default=str(ROOT / "build" / "phase2_state.json"))
+    ap.add_argument("--attempts", default=str(ROOT / "build" / "phase2_attempts.json"),
+                    help="per-sample failure counter, used to retire permanent blockers")
+    ap.add_argument("--max-attempts", type=int, default=3,
+                    help="stop retrying a sample after this many failures (0 = never retire)")
+    ap.add_argument("--done-flag", default=str(ROOT / "build" / "phase2_complete.json"),
+                    help="sentinel written when no reachable samples remain")
     ap.add_argument("--split", choices=["train", "val", "test", "all"], default="all")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--dry-run", action="store_true")
@@ -149,10 +160,20 @@ def main():
         index = [s for s in index if id2split.get(s["id"]) == args.split]
 
     done = set(json.load(open(args.state))) if os.path.exists(args.state) else set()
-    todo = [s for s in index if s["id"] not in done]
+
+    # Persistent per-sample attempt counter. Some samples can never succeed on this hardware
+    # (e.g. magento/magento2 OOMs phpast2cpg.jar every time) but every restart would re-clone
+    # and re-parse them from scratch -- one blocker burned ~20min per restart, 40 times over.
+    # Retire a sample after MAX_ATTEMPTS so the batch spends its time on reachable work.
+    attempts = json.load(open(args.attempts)) if os.path.exists(args.attempts) else {}
+    retired = ({i for i, n in attempts.items() if n >= args.max_attempts}
+               if args.max_attempts > 0 else set())
+
+    todo = [s for s in index if s["id"] not in done and s["id"] not in retired]
     if args.limit:
         todo = todo[:args.limit]
-    print(f"{len(todo)} sample(s) to process (split={args.split}, already done={len(done)})")
+    print(f"{len(todo)} sample(s) to process (split={args.split}, already done={len(done)}, "
+          f"retired after {args.max_attempts} failed attempts={len(retired)})")
 
     if args.dry_run:
         for s in todo[:20]:
@@ -168,8 +189,26 @@ def main():
                 done.add(s["id"])
                 json.dump(sorted(done), open(args.state, "w"))
             except (Exception, PipelineTimeout) as e:     # keep going; one bad repo shouldn't stop the batch
-                print(f"   !! {s['id']} failed: {e}")
-    print(f"done. ft_dataset -> {args.out}")
+                attempts[s["id"]] = attempts.get(s["id"], 0) + 1
+                json.dump(attempts, open(args.attempts, "w"), indent=0, sort_keys=True)
+                retire = " (RETIRED, will not retry)" if attempts[s["id"]] >= args.max_attempts else ""
+                print(f"   !! {s['id']} failed (attempt {attempts[s['id']]}){retire}: {e}",
+                      flush=True)
+
+    # Nothing reachable left? Drop a sentinel so the cron watchdog stops respawning us.
+    # (It must not infer this from the log: that file is append-only across every run, so a
+    # "done." line from an earlier pass would disable the watchdog forever.)
+    remaining = [s for s in index
+                 if s["id"] not in done
+                 and not (args.max_attempts > 0 and attempts.get(s["id"], 0) >= args.max_attempts)]
+    if remaining:
+        print(f"stopping with {len(remaining)} sample(s) still pending -> {args.out}", flush=True)
+    else:
+        Path(args.done_flag).write_text(
+            json.dumps({"done": len(done), "retired": len(retired | {
+                i for i, n in attempts.items()
+                if args.max_attempts > 0 and n >= args.max_attempts})}, indent=2))
+        print(f"ALL DONE. ft_dataset -> {args.out}", flush=True)
 
 
 if __name__ == "__main__":
