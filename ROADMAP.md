@@ -42,7 +42,8 @@ php_parser.py). Không phải lùi về PHPJoern.
 
 ## GĐ4 — Viết báo cáo & Công bố (Tuần 23–26) ⬜ (chưa bắt đầu)
 - Viết luận văn (Intro / Related work / Method / Evaluation / Discussion / Conclusion) + threats
-  to validity.
+  to validity → **đã có `build/THREATS_TO_VALIDITY.md`** (ghi nhận từ lần chạy thật GĐ2: giới hạn
+  sink model XSS, 19/144 mẫu mất do lỗi `phpast2cpg.jar`/RAM, dedup `ft_dataset.jsonl`).
 - Nhắm hội nghị: **ISSTA, ASE, ICSE, USENIX Security, EMNLP-Findings**.
 - Công khai để tái lập: code + đoạn slice + cách chia train/val/test.
   → Một phần đã có: repo công khai (github.com/KeyboardRules/Master-Thesis) với code + `splits.json`.
