@@ -23,6 +23,7 @@ their original order is preserved (first occurrence wins).
 import argparse
 import json
 import shutil
+import collections
 from collections import Counter
 from pathlib import Path
 
@@ -42,6 +43,9 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--in-place", action="store_true")
     ap.add_argument("--report-only", action="store_true")
+    ap.add_argument("--keep-unbalanced", action="store_true",
+                    help="keep samples that are missing a variant "
+                         "(NOT recommended: breaks the ablation's shared seed set)")
     ap.add_argument("--state", default=str(ROOT / "build" / "phase2_state.json"))
     args = ap.parse_args()
 
@@ -65,6 +69,22 @@ def main():
         seen.add(k)
         kept.append(r)
 
+    # Drop samples that are missing a variant. Rows used to be written variant-by-variant, so a
+    # sample whose run was cut short by the pipeline timeout left its cross-module rows on disk
+    # while the intra-file / no-slice rows for the very same seeds were never produced. Keeping
+    # those breaks the premise of the ablation -- the three variants must be rendered from an
+    # identical seed set, otherwise cross-module is simply scored on more data than its
+    # baselines. (build_ft_dataset now writes all variants atomically; this cleans up data
+    # produced before that change.)
+    variants_per_id = collections.defaultdict(set)
+    for r in kept:
+        variants_per_id[r["id"]].add(r["variant"])
+    wanted = {"cross-module", "intra-file", "no-slice"}
+    unbalanced = {i for i, v in variants_per_id.items() if v != wanted}
+    dropped_unbalanced = [r for r in kept if r["id"] in unbalanced]
+    if not args.keep_unbalanced:
+        kept = [r for r in kept if r["id"] not in unbalanced]
+
     # Rows whose sample never completed both checkouts are partial: the vuln side may be
     # present without its matching fixed side. Report them so the imbalance is visible.
     try:
@@ -76,7 +96,10 @@ def main():
     partial_rows = sum(ids[i] for i in partial_ids)
 
     print(f"input rows          : {len(rows)}" + (f"  (+{bad} unparseable)" if bad else ""))
-    print(f"after de-duplication: {len(kept)}   (removed {len(rows) - len(kept)})")
+    print(f"unbalanced samples  : {len(unbalanced)} ids / {len(dropped_unbalanced)} rows "
+          f"({'KEPT (--keep-unbalanced)' if args.keep_unbalanced else 'dropped'}) "
+          f"-- missing at least one variant")
+    print(f"rows after cleaning : {len(kept)}   (removed {len(rows) - len(kept)} total)")
     print(f"distinct sample ids : {len(ids)}")
     print(f"incomplete samples  : {len(partial_ids)} ids / {partial_rows} rows "
           f"(present in data but not in phase2_state.json)")

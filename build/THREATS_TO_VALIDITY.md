@@ -49,6 +49,26 @@ reproduction is important:
 > **Any `no-slice` rows generated before 2026-09-11 are invalid and must be regenerated or
 > discarded.** Do not mix them with rows produced after the fix.
 
+**A second, larger internal-validity defect was found in the same area: the variants did not
+share a seed set.** `build_ft_dataset` wrote its rows variant-by-variant (all cross-module
+first, then intra-file, then no-slice). Large samples produce thousands of slices and each one
+costs several Neo4j round-trips to linearise, so the per-checkout wall-clock budget frequently
+expired part-way through — after the cross-module rows had been flushed but before the two
+baselines' rows for those same seeds were ever produced. Measured on the partial corpus:
+**cross-module 10 828 rows vs 6 306 for each baseline — a 4 522-row surplus**, spread over 7
+samples.
+
+Left in place this would have been fatal to the central claim: the cross-module variant would
+have been trained and scored on strictly more data than the baselines it is compared against,
+so any margin it showed could be attributed to data volume rather than to the method. The
+three-variant design exists precisely to exclude that explanation.
+
+Fixed by buffering all variants and writing them in a single operation, so a sample contributes
+either all of its renderings or none. For corpora produced before that change,
+`dedupe_ft_dataset.py` drops any sample id that is missing a variant (`--keep-unbalanced`
+overrides, but should not be used for the headline numbers). **Verify parity before reporting
+results**: the per-variant counts on the cleaned file must be approximately equal.
+
 The same class of risk applies to `code_step.get_node_code` generally: it returns
 `NOT_SUPPORT_FOR_<TYPE>` placeholders for node types it does not implement. Statement-level
 types (`AST_ASSIGN`, `AST_BINARY_OP`, `AST_UNARY_OP`, the increment/decrement family) were added

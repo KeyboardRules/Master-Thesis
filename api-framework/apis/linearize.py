@@ -290,20 +290,37 @@ def build_ft_dataset(af, vuln_type, cwe: str, sample_id: str, split: str,
     dataset_xmodule/splits.json (repo-grouped) so there is no train/test leakage.
     """
     from apis.backward_slice import run_slicing        # local import to avoid cycles
-    rows = 0
     full = run_slicing(af, vuln_type) if ("cross-module" in variants or "no-slice" in variants) else []
     intra = run_slicing(af, vuln_type, intra_file_only=True) if "intra-file" in variants else []
 
+    # Buffer every variant and emit them in ONE write at the end, so a sample contributes
+    # either all of its renderings or none of them.
+    #
+    # This is not a micro-optimisation, it protects the ablation. Writing incrementally meant
+    # that when the caller's wall-clock budget expired part-way through (large samples produce
+    # thousands of slices, and linearising each one costs several Neo4j round-trips), the
+    # cross-module rows had already been flushed while the intra-file and no-slice rows for the
+    # same seeds never were. The variants then no longer shared a seed set: cross-module ended
+    # up with 4522 more rows than each baseline, so it would score better partly for having
+    # more training data -- exactly the confound the 3-variant design exists to rule out.
+    buf: List[str] = []
+
+    def emit(sl, txt, variant):
+        buf.append(json.dumps(to_chat_example(txt, sl, cwe, split, sample_id, variant)))
+
     if "cross-module" in variants:
         for sl in full:
-            txt = linearize_slice(sl, af, cwe, vuln_type, include_edges=include_edges)
-            out_fp.write(json.dumps(to_chat_example(txt, sl, cwe, split, sample_id, "cross-module")) + "\n"); rows += 1
+            emit(sl, linearize_slice(sl, af, cwe, vuln_type, include_edges=include_edges),
+                 "cross-module")
     if "intra-file" in variants:
         for sl in intra:
-            txt = linearize_slice(sl, af, cwe, vuln_type, include_edges=include_edges)
-            out_fp.write(json.dumps(to_chat_example(txt, sl, cwe, split, sample_id, "intra-file")) + "\n"); rows += 1
+            emit(sl, linearize_slice(sl, af, cwe, vuln_type, include_edges=include_edges),
+                 "intra-file")
     if "no-slice" in variants:
         for sl in full:                                # reuse full slices' sink seeds
-            txt = linearize_function_text(sl.sink, af, cwe)
-            out_fp.write(json.dumps(to_chat_example(txt, sl, cwe, split, sample_id, "no-slice")) + "\n"); rows += 1
-    return rows
+            emit(sl, linearize_function_text(sl.sink, af, cwe), "no-slice")
+
+    if buf:
+        out_fp.write("\n".join(buf) + "\n")
+        out_fp.flush()
+    return len(buf)
