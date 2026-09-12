@@ -30,6 +30,13 @@ if is_running; then
     exit 0                      # already running: stay quiet, cron runs this every 10 min
 fi
 
+# Manual pause switch. `touch build/phase2_paused` stops the watchdog from restarting the
+# batch; delete the file to resume. Without this, killing the run only pauses it for up to
+# 10 minutes until the next cron tick brings it straight back.
+if [ -f "$ROOT/build/phase2_paused" ]; then
+    exit 0
+fi
+
 # Don't respawn forever once the split is finished. This must be a real state sentinel, not
 # a log grep: the log is append-only across runs, so a "done." line from an earlier pass
 # would disable the watchdog permanently (it did).
