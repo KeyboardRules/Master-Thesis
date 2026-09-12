@@ -2,11 +2,11 @@
 
 Limitations observed while actually executing the Phase-2 pipeline (E-CPG build → backward
 slicing → hybrid linearization) over the 144-sample `test` split. Every figure below comes from
-the real run, not from estimation. Counts are a snapshot taken while the batch was still in
-progress; regenerate them with the commands in §7 before writing the final numbers into the
-thesis.
+the real run, not from estimation. The run is finished; regenerate the figures with the
+commands in §8 if the corpus is rebuilt.
 
-Snapshot: 86 samples completed, 19 permanently retired, 39 still pending.
+**Final result of the `test`-split run: 91 of 144 samples completed (63%), 53 permanently
+retired (37%).** Of the 91 completed, 73 produced slices and 18 produced none.
 
 ---
 
@@ -21,7 +21,7 @@ consequences:
 - Output through a template engine (Twig, Blade, Smarty), a framework `Response`/`View`
   object, or a helper such as `printf` / `vprintf` is **never recognised as a sink**, so no
   slice is produced no matter how the taint flows.
-- **All 13 completed samples that produced zero rows are CWE-79** — 100% of the empty results
+- **All 18 completed samples that produced zero rows are CWE-79** — 100% of the empty results
   fall in this one CWE. Direct inspection of one such graph confirmed the cause rather than
   assuming it: the whole codebase contained exactly **one** `AST_ECHO` node, and it was
   `echo "<constant string>"` with zero variable descendants, so it correctly did not qualify.
@@ -79,19 +79,27 @@ still render as placeholders and appear as such in the slice text.
 
 ## 3. External validity — which projects are representable
 
-**19 of 144 test samples (13%) could never be analysed on this hardware** and were retired
-after repeated failures. The loss is not random — it is concentrated in exactly the kind of
-large, mature codebase the method most needs to demonstrate itself on:
+**53 of 144 test samples (37%) could never be analysed on this hardware** and were retired
+after repeated failures. This is the single largest limitation of the evaluation, and the loss
+is not random — it is concentrated in exactly the kind of large, mature codebase the method
+most needs to demonstrate itself on:
 
 | Repository | Retired samples |
 |---|---|
+| yetiforcecompany/yetiforcecrm | 6 |
+| opencart/opencart | 5 |
 | YesWiki/yeswiki | 4 |
+| shopware/core | 4 |
 | magento/magento2 | 3 |
-| modxcms/revolution | 2 |
-| composer/composer | 2 |
-| joomla/joomla-cms, wikimedia/mediawiki-core, opencart/opencart, ezsystems/ezpublish-legacy, simplesamlphp/simplesamlphp, passbolt/passbolt_api, propelorm/Propel, daylightstudio/FUEL-CMS | 1 each |
+| AzuraCast/AzuraCast, torrentpier/torrentpier, roundcube/roundcubemail, composer/composer, modxcms/revolution | 2 each |
+| joomla/joomla-cms, wikimedia/mediawiki-core, ezsystems/ezpublish-legacy, simplesamlphp/simplesamlphp, passbolt/passbolt_api, propelorm/Propel, daylightstudio/FUEL-CMS and others | 1 each |
 
-By CWE: CWE-79 ×9, CWE-89 ×4, CWE-94 ×2, CWE-74 ×2, CWE-22 ×1, CWE-1336 ×1.
+By CWE: CWE-79 ×24, CWE-89 ×9, CWE-94 ×4, CWE-22 ×4, CWE-74 ×3, CWE-918 ×3, CWE-1336 ×3,
+CWE-502 ×2, CWE-434 ×1.
+
+Combined with §1, the attrition compounds for XSS specifically: of the CWE-79 samples in the
+split, 24 were retired outright and a further 18 completed with no qualifying sink — so the
+CWE-79 evidence is far thinner than the raw dataset counts suggest.
 
 Three distinct causes, all in the toolchain rather than the method:
 
@@ -145,16 +153,33 @@ repeated rows silently weight some seeds far more than others.
 Dataset labels originate from patch-based pre-fix / post-fix pairing and were published as
 `label_status: heuristic_pending_ecpg` (see `METHODOLOGY.md` §6). The E-CPG confirmation —
 comparing the slicer's `crosses_include` / `crosses_inherit` against each sample's heuristic
-`boundary_type` — is only available for samples that actually produced a slice. The 19 retired
-and 13 zero-row samples therefore **remain heuristically labelled and unconfirmed**, and should
+`boundary_type` — is only available for samples that actually produced a slice. The 53 retired
+and 18 zero-row samples therefore **remain heuristically labelled and unconfirmed**, and should
 not be counted as E-CPG-verified cross-module positives.
 
-Observed boundary distribution over produced rows: `intra` 17 831, `inherit` 2 487,
-`include` 1 807, `include+inherit` 724. Note that `intra` dominates, so when reporting the
-cross-module advantage, report it **separately for the `boundary != intra` subset**, which is
-where the method is claimed to help — an aggregate number is diluted by the intra-file majority.
+## 7. Do not subset on the `boundary` field of a row
 
-## 7. Reproducing these figures
+It is tempting to report the cross-module advantage on "the `boundary != intra` rows", since
+that is where the method is claimed to help. **That filter silently deletes the baseline.**
+The `boundary` field records what the *slice* crossed, and the intra-file variant is defined by
+forbidding cross-file steps, so every one of its rows is `boundary=intra` by construction:
+
+| variant | intra | inherit | include | include+inherit |
+|---|---|---|---|---|
+| cross-module | 4 224 | 1 178 | 596 | 359 |
+| **intra-file** | **6 306** | 0 | 0 | 0 |
+| no-slice | 4 207 | 1 178 | 589 | 332 |
+
+Filtering on it therefore yields a "comparison" in which intra-file contributes zero rows — an
+artefact that would look like a total win for the proposed method.
+
+Subset on the **sample's** ground-truth `boundary_type` from `dataset_xmodule/index.json`
+instead. In this corpus every productive sample is already a cross-module positive by dataset
+construction (73 of 73), so that subset is the whole corpus and the variants stay balanced:
+cross-module 6 357, intra-file 6 306, no-slice 6 306.
+
+## 8. Reproducing these figures
+
 
 ```bash
 python build/dedupe_ft_dataset.py --report-only        # rows, duplicates, incomplete samples
