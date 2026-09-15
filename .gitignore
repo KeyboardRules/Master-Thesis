@@ -3,12 +3,12 @@ build/pkg/
 build/repos/
 build/packagist/
 build/packagist_all.zip
+# the corpus itself is committed gzipped (build/ft_dataset.jsonl.gz, ~1.8MB vs 36MB raw)
 build/ft_dataset.jsonl
+build/ft_dataset.jsonl.old
 build/ft_dataset.dedup.jsonl
 build/ft_dataset.jsonl.bak
-build/phase2_state.json
-build/phase2_attempts.json
-build/phase2_complete.json
+build/archive_*/
 build/perturbed/
 
 # any zip archives
