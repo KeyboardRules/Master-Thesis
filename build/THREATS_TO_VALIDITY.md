@@ -3,10 +3,16 @@
 Limitations observed while actually executing the Phase-2 pipeline (E-CPG build → backward
 slicing → hybrid linearization) over the 144-sample `test` split. Every figure below comes from
 the real run, not from estimation. The run is finished; regenerate the figures with the
-commands in §8 if the corpus is rebuilt.
+commands in §9 if the corpus is rebuilt.
 
-**Final result of the `test`-split run: 91 of 144 samples completed (63%), 53 permanently
-retired (37%).** Of the 91 completed, 73 produced slices and 18 produced none.
+**Final result of the `test`-split run: 89 of 144 samples completed (62%), 55 permanently
+retired (38%).** Of the 89 completed, 71 produced slices and 18 produced none, giving
+15 786 rows -- 5 262 per variant, perfectly paired.
+
+These are the figures of the **second** run. The first run's corpus was discarded: every row it
+produced came from code carrying the two defects in §2, so its no-slice arm was empty and its
+variants were unbalanced. Both defects are fixed and verified on live output (no-slice: 5 262
+rows of real source, 0 placeholders; variants: 0 unbalanced samples, against 7 in the first run).
 
 ---
 
@@ -79,22 +85,22 @@ still render as placeholders and appear as such in the slice text.
 
 ## 3. External validity — which projects are representable
 
-**53 of 144 test samples (37%) could never be analysed on this hardware** and were retired
+**55 of 144 test samples (38%) could never be analysed on this hardware** and were retired
 after repeated failures. This is the single largest limitation of the evaluation, and the loss
 is not random — it is concentrated in exactly the kind of large, mature codebase the method
 most needs to demonstrate itself on:
 
 | Repository | Retired samples |
 |---|---|
-| yetiforcecompany/yetiforcecrm | 6 |
+| YesWiki/yeswiki | 5 |
 | opencart/opencart | 5 |
-| YesWiki/yeswiki | 4 |
+| yetiforcecompany/yetiforcecrm | 5 |
 | shopware/core | 4 |
 | magento/magento2 | 3 |
-| AzuraCast/AzuraCast, torrentpier/torrentpier, roundcube/roundcubemail, composer/composer, modxcms/revolution | 2 each |
-| joomla/joomla-cms, wikimedia/mediawiki-core, ezsystems/ezpublish-legacy, simplesamlphp/simplesamlphp, passbolt/passbolt_api, propelorm/Propel, daylightstudio/FUEL-CMS and others | 1 each |
+| roundcube/roundcubemail, AzuraCast/AzuraCast, modxcms/revolution | 2 each |
+| joomla/joomla-cms, wikimedia/mediawiki-core, composer/composer, ezsystems/ezpublish-legacy, simplesamlphp/simplesamlphp, passbolt/passbolt_api, propelorm/Propel, daylightstudio/FUEL-CMS and others | 1 each |
 
-By CWE: CWE-79 ×24, CWE-89 ×9, CWE-94 ×4, CWE-22 ×4, CWE-74 ×3, CWE-918 ×3, CWE-1336 ×3,
+By CWE: CWE-79 ×24, CWE-89 ×10, CWE-94 ×5, CWE-22 ×4, CWE-74 ×3, CWE-918 ×3, CWE-1336 ×3,
 CWE-502 ×2, CWE-434 ×1.
 
 Combined with §1, the attrition compounds for XSS specifically: of the CWE-79 samples in the
@@ -153,11 +159,50 @@ repeated rows silently weight some seeds far more than others.
 Dataset labels originate from patch-based pre-fix / post-fix pairing and were published as
 `label_status: heuristic_pending_ecpg` (see `METHODOLOGY.md` §6). The E-CPG confirmation —
 comparing the slicer's `crosses_include` / `crosses_inherit` against each sample's heuristic
-`boundary_type` — is only available for samples that actually produced a slice. The 53 retired
+`boundary_type` — is only available for samples that actually produced a slice. The 55 retired
 and 18 zero-row samples therefore **remain heuristically labelled and unconfirmed**, and should
 not be counted as E-CPG-verified cross-module positives.
 
-## 7. Do not subset on the `boundary` field of a row
+## 7. Do not de-duplicate before the three-way comparison
+
+`dedupe_ft_dataset.py` is for corpus statistics and for cleaning corpora written by the old
+variant-by-variant writer. **It must not be used to build the set the ablation is scored on**,
+because de-duplication is not variant-neutral:
+
+| | raw | after de-duplication |
+|---|---|---|
+| cross-module | 5 262 | 4 965 |
+| intra-file | 5 262 | 5 000 |
+| **no-slice** | **5 262** | **990** |
+
+The no-slice rendering is the *whole enclosing function*, so every sink that shares a function
+produces byte-identical text: 5 262 rows collapse to only 839 distinct texts. De-duplicating
+therefore destroys the one-row-per-seed pairing that makes the comparison apples-to-apples, and
+shrinks the baseline five-fold. Score the variants on the **raw** file, where all three are
+paired at 5 262 rows.
+
+That collapse is itself a property worth reporting rather than hiding: **12 distinct no-slice
+texts map to both labels**, i.e. the baseline is handed identical input for a vulnerable and a
+safe seed and cannot possibly separate them. That is irreducible error built into the
+representation, and it is precisely the limitation the sliced variants are meant to remove.
+
+Class imbalance is severe and differs by variant, so report **PR-AUC** (not accuracy) and state
+the positive rate alongside F1:
+
+| variant | VULNERABLE | SAFE | positive rate |
+|---|---|---|---|
+| cross-module | 210 | 5 052 | 4.0% |
+| intra-file | 104 | 5 158 | 2.0% |
+| no-slice | 210 | 5 052 | 4.0% |
+
+Note the intra-file arm carries **half** the positives of the other two from the same seeds:
+with cross-file steps disabled the slicer stops reaching the source, so the witness collapses
+and the verdict flips to SAFE. That is the thesis hypothesis showing up directly in the corpus,
+before any model is trained — and it also means the intra-file baseline is handicapped on
+label distribution as well as on content, which should be stated explicitly rather than left
+for a reviewer to find.
+
+## 8. Do not subset on the `boundary` field of a row
 
 It is tempting to report the cross-module advantage on "the `boundary != intra` rows", since
 that is where the method is claimed to help. **That filter silently deletes the baseline.**
@@ -178,7 +223,7 @@ instead. In this corpus every productive sample is already a cross-module positi
 construction (73 of 73), so that subset is the whole corpus and the variants stay balanced:
 cross-module 6 357, intra-file 6 306, no-slice 6 306.
 
-## 8. Reproducing these figures
+## 9. Reproducing these figures
 
 
 ```bash
