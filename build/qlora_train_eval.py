@@ -70,13 +70,22 @@ class PadCollator:
 
 
 # ------------------------------------------------------------------ model -----------------
+def amp_dtype():
+    """bf16 on Ampere+ (A100/L4/RTX30xx); fp16 on Turing/Pascal free GPUs (Colab/Kaggle T4,
+    P100) which lack bf16. Auto-selected so the same script runs on a free cloud GPU."""
+    if torch.cuda.is_available() and torch.cuda.is_bf16_supported():
+        return torch.bfloat16
+    return torch.float16
+
+
 def load_base(model_name, four_bit=True):
+    dt = amp_dtype()
     bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
-                             bnb_4bit_compute_dtype=torch.bfloat16,
+                             bnb_4bit_compute_dtype=dt,
                              bnb_4bit_use_double_quant=True) if four_bit else None
     model = AutoModelForCausalLM.from_pretrained(
         model_name, quantization_config=bnb, device_map="auto",
-        torch_dtype=torch.bfloat16, trust_remote_code=True)
+        torch_dtype=dt, trust_remote_code=True)
     return model
 
 
@@ -203,7 +212,8 @@ def main():
         targs = TrainingArguments(
             output_dir=args.output, num_train_epochs=args.epochs,
             per_device_train_batch_size=args.batch, gradient_accumulation_steps=args.grad_accum,
-            learning_rate=args.lr, bf16=True, logging_steps=10,
+            learning_rate=args.lr, bf16=(amp_dtype() == torch.bfloat16),
+            fp16=(amp_dtype() == torch.float16), logging_steps=10,
             save_strategy="epoch", eval_strategy=("epoch" if val_ds else "no"),
             warmup_ratio=0.03, lr_scheduler_type="cosine", report_to=[])
         Trainer(model=model, args=targs, train_dataset=train_ds, eval_dataset=val_ds,

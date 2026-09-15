@@ -30,10 +30,14 @@ python build/run_phase2.py --split val   --max-php-kb 30000
 Mẫu bị loại a-priori ghi ở `build/phase2_out_of_scope.json` (khác với retired-do-lỗi). Sau đó
 `build/ft_dataset.jsonl` có đủ 3 split. (Nén lại để commit: `gzip -k build/ft_dataset.jsonl`.)
 
-### Bước 2 — Train QLoRA + đánh giá (cần GPU)
+### Bước 2 — Train QLoRA + đánh giá (bước DUY NHẤT cần GPU)
+VM chỉ-CPU không train được. Bước này tự chứa (chỉ cần `ft_dataset.jsonl`) → đẩy lên **GPU đám mây
+miễn phí** (Kaggle/Colab). Xem **`build/qlora_cloud.md`** (đủ lệnh + chọn cỡ model). Tóm tắt:
 ```bash
+# trên GPU đám mây, sau khi clone repo + gunzip corpus:
 pip install "transformers>=4.44" peft bitsandbytes datasets accelerate scikit-learn
-python build/qlora_train_eval.py --data build/ft_dataset.jsonl --model Qwen/Qwen2.5-Coder-7B-Instruct
+python build/qlora_train_eval.py --data build/ft_dataset.jsonl \
+       --model Qwen/Qwen2.5-Coder-1.5B-Instruct   # 1.5B hợp corpus nhỏ; script tự chọn fp16 trên T4
 ```
 **Tuân THREATS khi báo số:** score trên file RAW (KHÔNG dedup — dedup làm no-slice sụp ~5×);
 báo **PR-AUC** + positive rate cạnh F1; giữ 3 variant paired. Mốc: cross-module > intra-file > no-slice.
