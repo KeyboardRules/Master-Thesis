@@ -21,6 +21,10 @@ quy trình là: sinh corpus trên VM → đẩy file lên GitHub (nén) → kéo
 `qlora_train_eval.py` **tự chọn fp16 trên T4/P100** (Turing/Pascal không có bf16) và bf16 trên
 Ampere+ — không cần chỉnh tay.
 
+> **Cách nhanh nhất trên Kaggle:** tải lên notebook sẵn **`build/qlora_kaggle.ipynb`** (Kaggle →
+> Create → Notebook → File → Upload), bật GPU + Internet, bấm Run All. Các ô đã lo clone, cài đặt,
+> kiểm tra split, train và in bảng F1/PR-AUC.
+
 ## Chọn cỡ model
 Corpus nhỏ (small/medium scope) → **`Qwen/Qwen2.5-Coder-1.5B-Instruct`** là hợp lý nhất: vừa T4
 16GB thoải mái, train nhanh, **ít overfit** hơn 7B trên ~vài trăm–nghìn positive. 7B vẫn chạy được
