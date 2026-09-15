@@ -118,13 +118,36 @@ def run_pipeline(cwe, sample_id, split, out_fp):
         signal.signal(signal.SIGALRM, old_handler)
 
 
-def process(sample, split, out_fp):
+class OutOfScope(Exception):
+    """Sample deliberately excluded a-priori by the small/medium-project size gate -- NOT a
+    failure. Recorded separately so 'declared out of scope (large project)' is distinct from
+    'crashed on this hardware'. See build/THREATS_TO_VALIDITY.md §3 (scope decision)."""
+    pass
+
+
+def _php_source_kb(root: Path) -> int:
+    """Total size (KB) of .php source under a checkout -- a cheap a-priori proxy for E-CPG
+    build cost, measured before the expensive parse so large repos are skipped, not OOM-ed."""
+    total = 0
+    for p in root.rglob("*.php"):
+        try:
+            total += p.stat().st_size
+        except OSError:
+            pass
+    return total // 1024
+
+
+def process(sample, split, out_fp, max_php_kb=0):
     repo, sha, cwe, sid = sample["repo"], sample["fix_commit"], sample["cwe"], sample["id"]
     for want, tag in ((f"{sha}^1", "vuln"), (sha, "fixed")):
         work = Path(tempfile.mkdtemp(prefix=f"p2_{sid}_{tag}_"))
         try:
             print(f"[{sid}] {tag}: {repo}@{want}")
             prepare_checkout(repo, sha, want, work)
+            if max_php_kb and tag == "vuln":           # small/medium scope gate (a-priori)
+                kb = _php_source_kb(work)
+                if kb > max_php_kb:
+                    raise OutOfScope(f"{kb} KB PHP > {max_php_kb} KB gate (large project)")
             build_ecpg(work)
             import_and_start()
             n = run_pipeline(cwe, sid, split, out_fp)
@@ -146,6 +169,13 @@ def main():
                     help="stop retrying a sample after this many failures (0 = never retire)")
     ap.add_argument("--done-flag", default=str(ROOT / "build" / "phase2_complete.json"),
                     help="sentinel written when no reachable samples remain")
+    ap.add_argument("--max-php-kb", type=int, default=0,
+                    help="small/medium scope gate (thesis scope = small/medium PHP projects): "
+                         "skip a sample whose checkout has more than this many KB of .php source, "
+                         "measured BEFORE the E-CPG build so large repos are excluded by design "
+                         "rather than after they OOM. 0 = no gate. Tune per hardware.")
+    ap.add_argument("--scope-file", default=str(ROOT / "build" / "phase2_out_of_scope.json"),
+                    help="records sample ids excluded a-priori by --max-php-kb")
     ap.add_argument("--split", choices=["train", "val", "test", "all"], default="all")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--dry-run", action="store_true")
@@ -169,11 +199,15 @@ def main():
     retired = ({i for i, n in attempts.items() if n >= args.max_attempts}
                if args.max_attempts > 0 else set())
 
-    todo = [s for s in index if s["id"] not in done and s["id"] not in retired]
+    out_of_scope = (set(json.load(open(args.scope_file)))
+                    if os.path.exists(args.scope_file) else set())
+    todo = [s for s in index if s["id"] not in done and s["id"] not in retired
+            and s["id"] not in out_of_scope]
     if args.limit:
         todo = todo[:args.limit]
     print(f"{len(todo)} sample(s) to process (split={args.split}, already done={len(done)}, "
-          f"retired after {args.max_attempts} failed attempts={len(retired)})")
+          f"retired after {args.max_attempts} failed attempts={len(retired)}, "
+          f"out-of-scope (>{args.max_php_kb}KB)={len(out_of_scope)})")
 
     if args.dry_run:
         for s in todo[:20]:
@@ -184,10 +218,14 @@ def main():
     with open(args.out, "a", encoding="utf-8") as out_fp:
         for s in todo:
             try:
-                process(s, id2split.get(s["id"], "train"), out_fp)
+                process(s, id2split.get(s["id"], "train"), out_fp, args.max_php_kb)
                 out_fp.flush()
                 done.add(s["id"])
                 json.dump(sorted(done), open(args.state, "w"))
+            except OutOfScope as e:                       # declared out of scope, not a failure
+                out_of_scope.add(s["id"])
+                json.dump(sorted(out_of_scope), open(args.scope_file, "w"))
+                print(f"   -- {s['id']} out of scope: {e}", flush=True)
             except (Exception, PipelineTimeout) as e:     # keep going; one bad repo shouldn't stop the batch
                 attempts[s["id"]] = attempts.get(s["id"], 0) + 1
                 json.dump(attempts, open(args.attempts, "w"), indent=0, sort_keys=True)

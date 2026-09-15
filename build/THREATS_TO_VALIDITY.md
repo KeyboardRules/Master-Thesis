@@ -85,6 +85,15 @@ still render as placeholders and appear as such in the slice text.
 
 ## 3. External validity — which projects are representable
 
+> **Scope decision (thesis, 2026-09-15).** This work is scoped to **small and medium PHP
+> projects**; large enterprise codebases are **explicitly out of scope**, not merely unhandled.
+> `run_phase2.py --max-php-kb` enforces this *a-priori*: it skips a sample **before** the E-CPG
+> build if its checkout exceeds a PHP-source-size threshold, recording it in
+> `phase2_out_of_scope.json` (distinct from failure-retirement). This converts the attrition
+> documented below from a limitation into a declared boundary. Pick the threshold from the data
+> — it should fall between the largest completed (in-scope) repo and the smallest retired one —
+> and state the value used. The list below is the empirical evidence that motivates the cutoff.
+
 **55 of 144 test samples (38%) could never be analysed on this hardware** and were retired
 after repeated failures. This is the single largest limitation of the evaluation, and the loss
 is not random — it is concentrated in exactly the kind of large, mature codebase the method

@@ -32,9 +32,10 @@ php_parser.py). Không phải lùi về PHPJoern.
 - B4 QLoRA Qwen2.5-Coder + F1/PR-AUC: `build/qlora_train_eval.py`
 
 **CÒN THIẾU để đạt mốc "thắng baseline":**
-1. **Sinh corpus train + val** (`run_phase2.py --split train`, `--split val`) — hiện `qlora_train_eval.py`
-   train trên `split=="train"` mà corpus test-only ⇒ **train = 0 dòng, chưa train được**. Cần máy
-   nhiều RAM hơn (box 3.9GB bỏ 38% mẫu test) + GPU.
+1. **Sinh corpus train + val** (`run_phase2.py --split train/--split val`) — hiện `qlora_train_eval.py`
+   train trên `split=="train"` mà corpus test-only ⇒ **train = 0 dòng, chưa train được**.
+   **Phạm vi đã chốt = small/medium PHP (b)**: dùng `--max-php-kb` loại repo lớn a-priori ⇒ chạy được
+   ngay trên box 3.9GB (không cần máy mạnh hơn). Train QLoRA vẫn cần GPU.
 2. **Train QLoRA + eval** trên GPU → F1/PR-AUC theo variant.
 - Tín hiệu đã lộ *trước khi train*: intra-file chỉ 104 positive vs cross-module 210 (một nửa) —
   đúng giả thuyết, thấy ngay trong dữ liệu.
