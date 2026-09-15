@@ -1,0 +1,63 @@
+# NEXT STEPS — trạng thái thật & việc kế tiếp (cập nhật 2026-09-15)
+
+> File này ghi trạng thái SAU khi đã chạy thật GĐ2 một phần trên Linux. Nếu mở phiên Claude Code
+> mới, đọc file này TRƯỚC `HANDOFF.md` (HANDOFF viết khi chưa chạy gì, nay đã lỗi thời).
+
+## Đang ở đâu (GĐ2 — một phần)
+- ✅ Pipeline B2 (backward_slice) + B3 (linearize) đã **sửa & chạy thật** trên E-CPG sống; các
+  bug + giới hạn ghi trong `build/THREATS_TO_VALIDITY.md`.
+- ✅ Corpus đã sinh **CHỈ cho split=test**: `build/ft_dataset.jsonl.gz` (15 786 dòng = 3 variant ×
+  5 262 seed). Provenance: `build/FT_DATASET_README.md`.
+- ❌ **CHƯA train**, và không train được ngay: `build/qlora_train_eval.py` train trên `split=="train"`,
+  mà corpus hiện test-only ⇒ train = 0 dòng (script nay báo lỗi rõ nếu chạy thiếu train).
+- 📌 Tín hiệu tiền-huấn-luyện: intra-file 104 positive vs cross-module 210 (một nửa) — đúng giả thuyết.
+
+## Việc kế tiếp (để đạt mốc GĐ2 "thắng baseline")
+
+### Bước 1 — Sinh corpus TRAIN + VAL (cần toolchain E-CPG; nên máy RAM ≥ 8–16GB)
+Box 3.9GB đã bỏ 38% mẫu test; train có 685 mẫu (nhiều repo lớn) → cần RAM nhiều hơn để giảm attrition.
+```bash
+cd phpjoy_release && . .venv/bin/activate
+# khôi phục corpus test đã có (run_phase2 ghi APPEND vào cùng file):
+gunzip -c build/ft_dataset.jsonl.gz > build/ft_dataset.jsonl
+python build/run_phase2.py --split train      # có checkpoint/resume trong phase2_state.json
+python build/run_phase2.py --split val
+```
+Sau đó `build/ft_dataset.jsonl` có đủ 3 split. (Nén lại để commit: `gzip -k build/ft_dataset.jsonl`.)
+
+### Bước 2 — Train QLoRA + đánh giá (cần GPU)
+```bash
+pip install "transformers>=4.44" peft bitsandbytes datasets accelerate scikit-learn
+python build/qlora_train_eval.py --data build/ft_dataset.jsonl --model Qwen/Qwen2.5-Coder-7B-Instruct
+```
+**Tuân THREATS khi báo số:** score trên file RAW (KHÔNG dedup — dedup làm no-slice sụp ~5×);
+báo **PR-AUC** + positive rate cạnh F1; giữ 3 variant paired. Mốc: cross-module > intra-file > no-slice.
+
+### Bước 3 — GĐ3 (ablation / robustness / so sánh)
+Theo `build/PHASE3_PLAN.md`: cờ `disable_include`/`disable_inherit` (backward_slice), `include_edges`
+(linearize), variant; `build/perturb.py`; so sánh RealVul/VulEye/DeepTective/PHPJoy-static qua `build/eval_external.py`.
+
+## Quyết định cần cân nhắc (hỏi giảng viên)
+Attrition 38% + corpus mỏng (210 positive/test) là giới hạn phần cứng thật (đã ghi ở THREATS §3).
+Hai hướng: (a) chạy train/val trên máy mạnh hơn để có đủ dữ liệu train; hoặc (b) chốt phạm vi
+"small/medium PHP projects" và nêu rõ trong luận văn. Đây là quyết định phạm vi, không thuần kỹ thuật.
+
+---
+
+## Prompt tiếp quản (dán vào Claude Code trên Linux, trong thư mục repo)
+
+```
+Đọc NEXT_STEPS.md, ROADMAP.md và build/THREATS_TO_VALIDITY.md. GĐ2 đã chạy một phần: pipeline
+đã sửa & corpus split=test đã sinh, NHƯNG chưa có corpus train/val nên chưa train được. Nhiệm vụ:
+
+1. Sinh corpus train+val: `gunzip -c build/ft_dataset.jsonl.gz > build/ft_dataset.jsonl`, rồi
+   `python build/run_phase2.py --split train` và `--split val` (có resume). Báo cáo tiến độ +
+   tỉ lệ mẫu bị retired theo repo/CWE (như THREATS §3). DỪNG cho tôi duyệt trước khi chạy toàn bộ.
+2. Sau khi có đủ 3 split: `python build/qlora_train_eval.py --data build/ft_dataset.jsonl
+   --model Qwen/Qwen2.5-Coder-7B-Instruct` (cần GPU). Báo F1/PR-AUC theo variant. Tuân THREATS:
+   score trên file RAW, KHÔNG dedup, báo PR-AUC + positive rate.
+3. Rồi mới sang GĐ3 (build/PHASE3_PLAN.md).
+
+Quy tắc: chạy từ gốc repo với `. .venv/bin/activate`; báo cáo diff mọi thay đổi code; không
+commit/push nếu tôi chưa yêu cầu.
+```

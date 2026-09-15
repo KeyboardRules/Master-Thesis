@@ -7,7 +7,7 @@ Bám theo kế hoạch gốc `26Weeks.txt`. Ký hiệu: ✅ xong · 🟡 code xo
 |---|---|---|---|---|
 | 0 | 1–2 | Khả thi + exporter MDG/CHG tối thiểu | Xuất được MDG+CHG cho ≥1 app (không thì lùi về PHPJoern) | ✅ |
 | 1 | 3–8 | Dataset xuyên mô-đun | ≥150 mẫu dương / ~3 CWE + mẫu âm | ✅ (977 mẫu / 13 CWE) |
-| 2 | 9–16 | Slicing → linearize → QLoRA | Thắng baseline no-slice / intra-file ở F1·PR-AUC | 🟡 |
+| 2 | 9–16 | Slicing → linearize → QLoRA | Thắng baseline no-slice / intra-file ở F1·PR-AUC | 🟡 **một phần** (corpus test xong; CHƯA train) |
 | 3 | 17–22 | Ablation MDG/CHG + robustness + so sánh | Bỏ MDG/CHG ⇒ **giảm đáng kể** khả năng phát hiện | 🟠 |
 | 4 | 23–26 | Viết báo cáo + công bố | Nộp hội nghị + công khai code/slice/split tái lập | ⬜ |
 
@@ -21,12 +21,23 @@ php_parser.py). Không phải lùi về PHPJoern.
 977 mẫu dương tính xuyên mô-đun / 13 CWE (mỗi mẫu kèm mẫu âm = code sau vá).
 → `build/dataset_xmodule/` · `build/METHODOLOGY.md` · `build/VERIFY.md` · `build/dataset_xmodule/STATS.md`
 
-## GĐ2 — Pipeline + huấn luyện (Tuần 9–16) 🟡 (code xong, CHƯA chạy)
-- B1 model source/sink/sanitizer (đối chiếu NAVEX+TChecker): `api-framework/apis/vuln_model.py`
-  (đã vá) · `build/SOURCES_SINKS_XCHECK.md`
+## GĐ2 — Pipeline + huấn luyện (Tuần 9–16) 🟡 MỘT PHẦN (corpus test xong; CHƯA train)
+**Đã chạy thật trên Linux:** B1/B2/B3 đã sửa & xác minh trên E-CPG sống; corpus đã sinh cho
+**riêng split=test** → `build/ft_dataset.jsonl.gz` (15 786 dòng = 3 variant × 5 262 seed;
+89/144 mẫu xong, 55 bỏ do OOM RAM). Chi tiết + giới hạn: `build/FT_DATASET_README.md`,
+`build/THREATS_TO_VALIDITY.md`.
+- B1 source/sink/sanitizer (đối chiếu NAVEX+TChecker): `api-framework/apis/vuln_model.py` · `build/SOURCES_SINKS_XCHECK.md`
 - B2 cắt lát ngược qua MDG/CHG: `api-framework/apis/backward_slice.py` · `build/SLICING.md`
 - B3 hybrid linearization: `api-framework/apis/linearize.py` · `build/LINEARIZATION.md`
 - B4 QLoRA Qwen2.5-Coder + F1/PR-AUC: `build/qlora_train_eval.py`
+
+**CÒN THIẾU để đạt mốc "thắng baseline":**
+1. **Sinh corpus train + val** (`run_phase2.py --split train`, `--split val`) — hiện `qlora_train_eval.py`
+   train trên `split=="train"` mà corpus test-only ⇒ **train = 0 dòng, chưa train được**. Cần máy
+   nhiều RAM hơn (box 3.9GB bỏ 38% mẫu test) + GPU.
+2. **Train QLoRA + eval** trên GPU → F1/PR-AUC theo variant.
+- Tín hiệu đã lộ *trước khi train*: intra-file chỉ 104 positive vs cross-module 210 (một nửa) —
+  đúng giả thuyết, thấy ngay trong dữ liệu.
 - Chạy: `build/env_setup.sh` → `build/SMOKE_TEST.md` → `build/run_phase2.py` → `qlora_train_eval.py`
 - **Cần**: toolchain E-CPG (PHP8+Java11+Neo4j 4.4.4) + GPU.
 

@@ -170,6 +170,26 @@ def main():
     te = [r for r in rows if r["split"] == "test"]
     print(f"rows: train={len(tr)} val={len(va)} test={len(te)}")
 
+    # Fail fast BEFORE loading a 7B model: training needs a train split, which a test-only
+    # corpus does not have. (As of the first Phase-2 run, only --split test was generated.)
+    if not args.eval_only and not args.adapter and len(tr) == 0:
+        raise SystemExit(
+            "No training rows (split=='train'). This corpus is test-only.\n"
+            "Generate the train (and val) corpus first:\n"
+            "  python build/run_phase2.py --split train\n"
+            "  python build/run_phase2.py --split val\n"
+            "then re-run. To only score an existing adapter use --eval_only or --adapter.")
+
+    # Data-hygiene guard (build/THREATS_TO_VALIDITY.md §2/§7): score on the RAW file and keep
+    # the three variants paired. Do NOT de-duplicate for the head-to-head (dedup collapses the
+    # no-slice arm ~5x and breaks the seed pairing).
+    from collections import Counter
+    _vc = Counter(r["variant"] for r in te)
+    if len(set(_vc.values())) > 1:
+        print(f"WARNING: test-split variant counts differ {dict(_vc)} — the ablation is only "
+              f"fair when all variants are paired at equal counts. Rebuild atomically or run "
+              f"dedupe_ft_dataset.py to drop unbalanced sample ids before reporting.")
+
     tok = build_tokenizer(args.model)
     model = load_base(args.model)
     model.resize_token_embeddings(len(tok))
